@@ -1,9 +1,9 @@
 <app-new-drawing></app-new-drawing>
-<div doc>
-  <div class="toolbar-container">
-    <app-toolbar class="toolbar-element"></app-toolbar>
-    <app-toolbar-option class="toolbar-element"></app-toolbar-option>
+
+<div class="root">
+  <app-toolbar></app-toolbar>
+
+  <div class="work-zone">
+    <app-work-zone [keyEvent]=keyEvent [key]=key></app-work-zone>
   </div>
-  <app-work-zone [keyEvent]=keyEvent [key]=key></app-work-zone>
 </div>
-<app-work-zone></app-work-zone>
