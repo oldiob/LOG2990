@@ -16,6 +16,12 @@ export class DrawAreaComponent implements OnInit {
   mouseX = 0;
   mouseY = 0;
 
+  height: number;
+  widget: number;
+  backgroundColor: number;
+
+
+
   constructor() { }
 
   ngOnInit() {
