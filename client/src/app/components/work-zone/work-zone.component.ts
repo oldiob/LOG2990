@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkZoneComponent implements OnInit {
 
+  height: number;
+  widget: number;
+  backgroundColor: number;
+
   constructor() { }
 
   ngOnInit() {
