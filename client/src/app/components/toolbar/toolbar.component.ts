@@ -12,44 +12,14 @@ export class ToolbarComponent implements OnInit {
 
   optionBarShowing: boolean;
 
-  constructor() { 
+  constructor() {
     this.optionBarShowing = false;
   }
 
   ngOnInit() {
   }
 
-
-  showOptionBar() {
-    this.optionBarShowing = !this.optionBarShowing;
+  chooseWorkingToolOption() {
+    console.log("choosing tool")
   }
-
-  // TODO: add "hideOptionBar" that's called when clicking on the same button
-
-  chooseColor() {
-    this.showOptionBar();
-  }
-
-  chooseWorkingTool() {
-    this.showOptionBar();
-  }
-
-
-  chooseShape() {
-    this.showOptionBar();
-  }
-
-
-
-
-  newDrawingOption() {
-    this.showOptionBar();
-  }
-  
-  saveImage() {
-    this.showOptionBar();
-  }
-
-
-
 }
