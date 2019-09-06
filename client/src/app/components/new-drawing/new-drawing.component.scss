@@ -1,0 +1,16 @@
+.color-palette {
+  background-color: #fce;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-gap: 1rem;
+  padding: 1rem 1rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.palette-color {
+  background-color: #f7a4db;
+  height: 5rem;
+  width: 5rem;
+}
