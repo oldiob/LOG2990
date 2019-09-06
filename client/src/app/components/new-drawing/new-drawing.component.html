@@ -1,0 +1,29 @@
+<form [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
+  <label>
+    Width:
+    <input type="text" formControlName="width" placeholder="{{defaultWidth}}">
+  </label>
+
+  <label>
+    Height:
+    <input type="text" formControlName="height" placeholder="{{defaultHeight}}">
+  </label>
+
+  <label>
+    Background Color:
+    <input type="text" formControlName="backgroundColor">
+  </label>
+  <button type="submit">Submit</button>
+
+  <p>
+    Form Value: {{ newDrawingFrom.value | json }}
+  </p>
+  <div class="color-palette">
+    <div class="palette-color"></div>
+    <div class="palette-color"></div>
+    <div class="palette-color"></div>
+    <div class="palette-color"></div>
+    <div class="palette-color"></div>
+    <div class="palette-color"></div>
+  </div>
+</form>
