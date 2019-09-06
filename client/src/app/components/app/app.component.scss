@@ -1,5 +1,11 @@
 app-toolbar {
-    height: 100%;
-    width: 300px;
-    position: fixed;
+	height: 100%;
+    position: absolute;
+    text-align: center;
+    top: 0px;
+    width: 50px;
+    z-index: 10001;
+    border-right: 2px solid rgb(48, 46, 64);
+    overflow: visible;
+	transition: none 0s ease 0s;
 }
