@@ -12,4 +12,8 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  chooseWorkingToolOption() {
+    console.log("choosing tool")
+  }
+
 }

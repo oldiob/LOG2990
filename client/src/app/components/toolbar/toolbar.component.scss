@@ -1,0 +1,23 @@
+.tools {
+	height: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.options {
+
+	height: 30%;
+
+}
+
+
+button {
+
+	margin-top: 4px;
+	width: 42px;
+	height: 42px;
+
+	border-radius: 5px;
+}
