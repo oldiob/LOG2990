@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrawAreaComponent implements OnInit {
 
+  height: number;
+  widget: number;
+  backgroundColor: number;
+
+
+
   constructor() { }
 
   ngOnInit() {
