@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-draw-area',
@@ -6,16 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./draw-area.component.scss']
 })
 export class DrawAreaComponent implements OnInit {
-
-  height: number;
-  widget: number;
-  backgroundColor: number;
-
-
+  @Input() height: number;
+  @Input() widget: number;
+  @Input() backgroundColor: number;
 
   constructor() { }
 
   ngOnInit() {
+  }
+  setParameter() {
+    let styles = {
+      'background-color': this.backgroundColor,
+      width: this.widget,
+      height: this.height,
+    };
+    return styles;
   }
 
 }
