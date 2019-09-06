@@ -12,6 +12,10 @@ export class WorkZoneComponent implements OnInit {
   widget: number;
   backgroundColor: number;
 
+  height: number;
+  widget: number;
+  backgroundColor: number;
+
   constructor() { }
 
   ngOnInit() {
