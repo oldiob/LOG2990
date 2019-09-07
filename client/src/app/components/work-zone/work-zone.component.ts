@@ -11,7 +11,6 @@ export class WorkZoneComponent implements OnInit {
   height: number;
   widget: number;
   backgroundColor: number;
-
   height: number;
   widget: number;
   backgroundColor: number;
