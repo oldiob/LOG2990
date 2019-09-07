@@ -1,10 +1,31 @@
+.toolbar-container {
+    height: 100%;
+    width: 300px;
+
+    position: fixed;
+}
+
+.toolbar-element {
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+}
+
 app-toolbar {
 	height: 100%;
-    position: absolute;
     text-align: center;
     background-color: #70341e;
-    top: 0px;
     width: 50px;
-    overflow: visible;
-	transition: none 0s ease 0s;
+    left: 0;
+}
+
+app-toolbar-option {
+    background-color: #242424;
+    width: 250px;
+    right: 0;
+}
+
+
+app-work-zone {
+
 }
