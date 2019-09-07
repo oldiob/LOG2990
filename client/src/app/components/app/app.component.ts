@@ -15,6 +15,7 @@ export class AppComponent {
 
   keyEvent: KeyboardEvent;
   key: string;
+
   message = new BehaviorSubject<string>('');
 
   constructor(private basicService: IndexService) {
