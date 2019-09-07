@@ -9,6 +9,7 @@ export class DevPanelComponent implements OnInit {
   @Input() mouseX: number;
   @Input() mouseY: number;
   @Input() keyEvent: KeyboardEvent;
+  @Input() key: string;
 
   display = true;
 
