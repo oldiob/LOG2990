@@ -15,6 +15,7 @@ export class DrawAreaComponent implements OnInit {
   mouseY = 0;
   key: string;
   @Input() keyEvent: KeyboardEvent;
+  @Input() key: string;
 
   constructor() { }
 
@@ -34,11 +35,9 @@ export class DrawAreaComponent implements OnInit {
   coordinates(event: MouseEvent): void { // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
-    console.log(this.mouseX + ' ' + this.mouseY);
   }
   onClick(event: MouseEvent): void { // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
-    console.log(this.mouseX + ' ' + this.mouseY + ' Clicked');
   }
 }
