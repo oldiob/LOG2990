@@ -21,5 +21,4 @@ export class DevPanelComponent implements OnInit {
   disableDisplay() {
     this.display = false;
   }
-
 }
