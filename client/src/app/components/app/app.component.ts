@@ -15,6 +15,7 @@ export class AppComponent {
 
   keyEvent: KeyboardEvent;
   key: string;
+  keyEvent: KeyboardEvent;
 
   message = new BehaviorSubject<string>('');
 
@@ -25,7 +26,6 @@ export class AppComponent {
       )
       .subscribe(this.message);
   }
-
   @HostListener('document:keypress', ['$event']) // need refactor
   handleKeyboardEvent(event: KeyboardEvent) {
     this.keyEvent = event;
