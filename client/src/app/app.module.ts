@@ -12,6 +12,9 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {WorkZoneComponent} from './components/work-zone/work-zone.component';
 
 
+import {KeytrackDirective} from './directive/keytrack.directive';
+import {MousetrackDirective} from './directive/mousetrack.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +26,7 @@ import {WorkZoneComponent} from './components/work-zone/work-zone.component';
     DevPanelComponent,
     ToolbarOptionComponent,
     NewDrawingComponent,
+    KeytrackDirective,
   ],
   imports: [
     BrowserModule,
