@@ -3,7 +3,7 @@ import {FormBuilder} from '@angular/forms';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
-  styleUrls: ['./new-drawing.component.scss']
+  styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
   defaultWidth = 1920;
@@ -19,6 +19,10 @@ export class NewDrawingComponent implements OnInit {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.newDrawingFrom.value);
+  }
+
+  test() {
+    console.log('hello');
   }
 
   ngOnInit() {}

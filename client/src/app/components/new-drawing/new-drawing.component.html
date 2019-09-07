@@ -1,29 +1,35 @@
-<form [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
-  <label>
-    Width:
-    <input type="text" formControlName="width" placeholder="{{defaultWidth}}">
-  </label>
+<div class="modal">
+  <form class="modal-wrapper" [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
+    <div class="title">New Drawing</div>
+    <div class="content-wrapper">
+        <label class="field-wrapper">
+          Width:
+          <input class="field" type="text" formControlName="width" value="{{defaultWidth}}">
+        </label>
 
-  <label>
-    Height:
-    <input type="text" formControlName="height" placeholder="{{defaultHeight}}">
-  </label>
+      <label>
+        Height:
+        <input class="field" type="text" formControlName="height" value="{{defaultHeight}}">
+      </label>
 
-  <label>
-    Background Color:
-    <input type="text" formControlName="backgroundColor">
-  </label>
-  <button type="submit">Submit</button>
+      <label>
+        Background Color:
+      </label>
+      <div class="color-palette">
+        <div class="palette-color" (click)="test()"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color"></div>
+        <div class="palette-color">
+          <input class="custom-color" type="color" formControlName="backgroundColor"></div>
+      </div>
+    </div>
 
-  <p>
-    Form Value: {{ newDrawingFrom.value | json }}
-  </p>
-  <div class="color-palette">
-    <div class="palette-color"></div>
-    <div class="palette-color"></div>
-    <div class="palette-color"></div>
-    <div class="palette-color"></div>
-    <div class="palette-color"></div>
-    <div class="palette-color"></div>
-  </div>
-</form>
+
+    <button class="btn-create" type="submit">Create</button>
+  </form>
+</div>
