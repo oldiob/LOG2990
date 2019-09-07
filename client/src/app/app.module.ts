@@ -5,6 +5,7 @@ import {AppComponent} from './components/app/app.component';
 import { DevPanelComponent } from './components/dev-panel/dev-panel.component';
 import { DrawAreaComponent } from './components/draw-area/draw-area.component';
 import { StrokeComponent } from './components/stroke/stroke.component';
+import { ToolbarOptionComponent } from './components/toolbar/toolbar-option/toolbar-option.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { MousetrackDirective } from './directive/mousetrack.directive';
@@ -18,6 +19,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
     StrokeComponent,
     MousetrackDirective,
     DevPanelComponent,
+    ToolbarOptionComponent,
   ],
   imports: [
     BrowserModule,
