@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-work-zone',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./work-zone.component.scss']
 })
 export class WorkZoneComponent implements OnInit {
-
+  @Input() keyEvent: KeyboardEvent;
   height: number;
   widget: number;
   backgroundColor: number;
