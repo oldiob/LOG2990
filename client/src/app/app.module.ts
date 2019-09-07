@@ -5,6 +5,7 @@ import {AppComponent} from './components/app/app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { DrawAreaComponent } from './components/draw-area/draw-area.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
+import { ToolbarOptionComponent } from './components/toolbar/toolbar-option/toolbar-option.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { WorkZoneComponent } from './components/work-zone/work-zone.component';
     ToolbarComponent,
     DrawAreaComponent,
     WorkZoneComponent,
+    ToolbarOptionComponent
   ],
   imports: [
     BrowserModule,
