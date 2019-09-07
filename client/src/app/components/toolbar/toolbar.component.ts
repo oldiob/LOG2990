@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToolbarOptionComponent } from './toolbar-option/toolbar-option.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,13 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
+  currentToolbarOption: ToolbarOptionComponent
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  chooseWorkingToolOption() {
-    console.log("choosing tool")
+  chooseWorkingTool() {
+    alert("choosing tool");
+  }
+
+  newDrawingOption() {
+    alert("create new drawing");
   }
 
 }
