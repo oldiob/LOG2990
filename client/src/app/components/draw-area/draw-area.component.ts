@@ -10,10 +10,17 @@ export class DrawAreaComponent implements OnInit {
   @Input() widget: number;
   @Input() backgroundColor: number;
 
+  event: MouseEvent;
+  mouseX = 0;
+  mouseY = 0;
+
   constructor() { }
 
   ngOnInit() {
+
+
   }
+
   setParameter() {
     let styles = {
       'background-color': this.backgroundColor,
@@ -21,6 +28,16 @@ export class DrawAreaComponent implements OnInit {
       height: this.height,
     };
     return styles;
+  }
+  coordinates(event: MouseEvent): void {
+    this.mouseX = event.clientX;
+    this.mouseY = event.clientY;
+    console.log(this.mouseX + ' ' + this.mouseY);
+}
+  onClick(event: MouseEvent): void {
+    this.mouseX = event.clientX;
+    this.mouseY = event.clientY;
+    console.log(this.mouseX + ' ' + this.mouseY + ' Clicked');
   }
 
 }
