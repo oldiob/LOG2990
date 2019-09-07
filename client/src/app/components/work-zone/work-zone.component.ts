@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WorkZoneComponent implements OnInit {
   @Input() keyEvent: KeyboardEvent;
+  @Input() key: string;
   height: number;
   widget: number;
   backgroundColor: number;
