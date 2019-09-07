@@ -13,6 +13,8 @@ export class DrawAreaComponent implements OnInit {
   event: MouseEvent;
   mouseX = 0;
   mouseY = 0;
+  key: string;
+  keyEvent: KeyboardEvent;
 
   constructor() { }
 
@@ -29,15 +31,23 @@ export class DrawAreaComponent implements OnInit {
     };
     return styles;
   }
-  coordinates(event: MouseEvent): void {
+  coordinates(event: MouseEvent): void { // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
     console.log(this.mouseX + ' ' + this.mouseY);
-}
-  onClick(event: MouseEvent): void {
+  }
+  onClick(event: MouseEvent): void { // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
     console.log(this.mouseX + ' ' + this.mouseY + ' Clicked');
+  }
+  onKeyPress(event: KeyboardEvent): void {
+    this.key = event.key;
+    alert('1');
+  }
+  onKeyEvent(event: KeyboardEvent): void {
+    alert('1');
+    this.keyEvent = event;
   }
 
 }

@@ -8,6 +8,7 @@ import { StrokeComponent } from './components/stroke/stroke.component';
 import { ToolbarOptionComponent } from './components/toolbar/toolbar-option/toolbar-option.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
+import { KeytrackDirective } from './directive/keytrack.directive';
 import { MousetrackDirective } from './directive/mousetrack.directive';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
     MousetrackDirective,
     DevPanelComponent,
     ToolbarOptionComponent,
+    KeytrackDirective,
   ],
   imports: [
     BrowserModule,
