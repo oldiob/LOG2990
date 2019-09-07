@@ -8,10 +8,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DevPanelComponent implements OnInit {
   @Input() mouseX: number;
   @Input() mouseY: number;
+  @Input() keyEvent: KeyboardEvent;
+  @Input() key: string;
+
+  display = true;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  disableDisplay() {
+    this.display = false;
   }
 
 }
