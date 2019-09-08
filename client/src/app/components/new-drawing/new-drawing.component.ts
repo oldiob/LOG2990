@@ -6,6 +6,8 @@ import {FormBuilder} from '@angular/forms';
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
+  colorSelected = false;
+
   defaultWidth = 1920;
   defaultHeight = 1080;
   newDrawingFrom = this.formBuidler.group({
@@ -21,8 +23,9 @@ export class NewDrawingComponent implements OnInit {
     console.warn(this.newDrawingFrom.value);
   }
 
-  test() {
-    console.log('hello');
+  chooseBgColor(bgColor: string) {
+    this.newDrawingFrom.controls.backgroundColor.setValue(bgColor);
+    this.colorSelected = true;
   }
 
   ngOnInit() {}
