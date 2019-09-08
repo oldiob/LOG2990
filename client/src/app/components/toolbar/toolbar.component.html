@@ -1,10 +1,15 @@
-<div class="tools">
-	<a class="button toolbar-button" (click)="chooseColor()"></a>
-	<a class="button toolbar-button" (click)="chooseWorkingTool()"></a>
-	<a class="button toolbar-button" (click)="chooseShape()"></a>
+
+<div class="toolbar-element main">
+	<div class="tools">
+		<a class="button toolbar-button" (click)="chooseColor()"></a>
+		<a class="button toolbar-button" (click)="chooseWorkingTool()"></a>
+		<a class="button toolbar-button" (click)="chooseShape()"></a>
+	</div>
+	
+	<div class="options">
+		<a class="button toolbar-button" (click)="newDrawingOption()"></a>
+		<a class="button toolbar-button" (click)="saveImage()"></a>
+	</div>
 </div>
 
-<div class="options">
-	<a class="button toolbar-button" (click)="newDrawingOption()"></a>
-	<a class="button toolbar-button" (click)="saveImage()"></a>
-</div>
+<app-toolbar-option class="toolbar-element"></app-toolbar-option>
