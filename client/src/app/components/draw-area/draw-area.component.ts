@@ -9,13 +9,12 @@ export class DrawAreaComponent implements OnInit {
   @Input() height: number;
   @Input() widget: number;
   @Input() backgroundColor: number;
+  @Input() keyEvent: KeyboardEvent;
+  @Input() key: string;
 
   event: MouseEvent;
   mouseX = 0;
   mouseY = 0;
-  key: string;
-  @Input() keyEvent: KeyboardEvent;
-  @Input() key: string;
 
   constructor() { }
 
