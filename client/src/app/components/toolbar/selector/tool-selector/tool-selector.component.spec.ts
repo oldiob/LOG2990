@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ToolbarOptionComponent } from './toolbar-option.component';
+import { ToolSelectorComponent } from './tool-selector.component';
 
-describe('ToolbarOptionComponent', () => {
-  let component: ToolbarOptionComponent;
-  let fixture: ComponentFixture<ToolbarOptionComponent>;
+describe('ToolSelectorComponent', () => {
+  let component: ToolSelectorComponent;
+  let fixture: ComponentFixture<ToolSelectorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolbarOptionComponent ]
+      declarations: [ ToolSelectorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarOptionComponent);
+    fixture = TestBed.createComponent(ToolSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
