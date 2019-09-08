@@ -2,5 +2,5 @@
  [ngStyle]="setParameter()"
   (mousemove)="coordinates($event)"
   on-click="onClick($event)">
-    <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY></app-dev-panel>
+    <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>
 </div>

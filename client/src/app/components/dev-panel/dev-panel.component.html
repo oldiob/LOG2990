@@ -1,5 +1,9 @@
-<div class='group'>
+<div *ngIf=display class='group'>
   <p>Developpement Panel</p>
   <p>mouseX {{mouseX}}</p>
   <p>mouseY {{mouseY}}</p>
+  <p>ctrl: {{keyEvent?.ctrlKey}}, shift: {{keyEvent?.shiftKey}}</p>
+  <p *ngIf=key>key: {{key}}</p>
+  <p>Type: {{keyEvent?.type}}</p>
+  <button (click)=disableDisplay()>Hide Panel</button>
 </div>
