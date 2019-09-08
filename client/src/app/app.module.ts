@@ -15,10 +15,17 @@ import {WorkZoneComponent} from './components/work-zone/work-zone.component';
 import {KeytrackDirective} from './directive/keytrack.directive';
 import {MousetrackDirective} from './directive/mousetrack.directive';
 
+// Toolbar
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SelectorComponent } from './components/toolbar/selector/selector.component';
+import { ColorSelectorComponent } from './components/toolbar/selector/color-selector/color-selector.component';
+import { ToolSelectorComponent } from './components/toolbar/selector/tool-selector/tool-selector.component';
+import { ShapeSelectorComponent } from './components/toolbar/selector/shape-selector/shape-selector.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent,
     DrawAreaComponent,
     WorkZoneComponent,
     StrokeComponent,
@@ -27,6 +34,12 @@ import {MousetrackDirective} from './directive/mousetrack.directive';
     ToolbarOptionComponent,
     NewDrawingComponent,
     KeytrackDirective,
+
+    ToolbarComponent,
+    SelectorComponent,
+    ColorSelectorComponent,
+    ToolSelectorComponent,
+    ShapeSelectorComponent,
   ],
   imports: [
     BrowserModule,
