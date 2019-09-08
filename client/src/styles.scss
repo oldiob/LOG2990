@@ -1,38 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-	margin: 0px;
-	padding: 0px;
+  margin: 0px;
+	padding: 0px;	
 }
 
-@font-face{
-	font-family: wes;
-	font-weight: normal;
-	src: url("assets/fonts/Wes-FY-Regular.ttf");
+// Wes Fy font family
+@font-face {
+  font-family: wes;
+  font-weight: bold;
+  src: url("assets/fonts/wes/Wes-FY-Bold.ttf");
 }
-@font-face{
-	font-family: wes;
-	font-weight: 100;
-	src: url("assets/fonts/Wes-FY-Thin.ttf");
+
+@font-face {
+  font-family: wes;
+  font-weight: 900;
+  src: url("assets/fonts/wes/Wes-FY-Black.ttf");
 }
-@font-face{
-	font-family: wes;
-	font-weight: 300;
-	src: url("assets/fonts/Wes-FY-Medium.ttf");
+
+// Lato font family
+@font-face {
+  font-family: lato;
+  font-weight: normal;
+  src: url("assets/fonts/lato/Lato-Regular.ttf");
 }
-@font-face{
-	font-family: wes;
-	font-weight: bold;
-	src: url("assets/fonts/Wes-FY-Bold.ttf");
+
+@font-face {
+  font-family: lato;
+  font-weight: 500;
+  src: url("assets/fonts/lato/Lato-Medium.ttf");
 }
-@font-face{
-	font-family: wes;
-	font-weight: 900;
-	src: url("assets/fonts/Wes-FY-Black.ttf");
+
+@font-face {
+  font-family: lato;
+  font-weight: 600;
+  src: url("assets/fonts/lato/Lato-Semibold.ttf");
 }
+
+@font-face {
+  font-family: lato;
+  font-weight: 700;
+  src: url("assets/fonts/lato/Lato-Bold.ttf");
+}
+
+@font-face {
+  font-family: lato;
+  font-weight: 900;
+  src: url("assets/fonts/lato/Lato-Black.ttf");
+}
+
+
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: wes;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: lato;
 }
