@@ -15,9 +15,11 @@
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.03);
 }
 
-// Fix Chrome bug that makes modal's text blurry
-.modal:not(*:root) {
+@media only screen and (max-width: 1820px) {
+  // Fix Chrome bug that makes modal's text blurry
+  .modal:not(*:root) {
     -webkit-filter: blur(0.000001px);
+  }
 }
 
 .modal-wrapper {
@@ -57,7 +59,7 @@
   margin: 0 10px;
   padding: 0;
   border: none;
-  background-color: #F1F5FA;
+  background-color: #f1f5fa;
   border-radius: 5px;
   line-height: 2rem;
 }
@@ -92,56 +94,59 @@
   cursor: pointer;
 }
 
-.color-toggler:checked~.color {
+.color-toggler:checked ~ .color {
   -webkit-box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
   transform: translate(0, -15%);
   transition: all 0.3s ease;
 }
 
 .color1 {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 
 .color2 {
-  background-color: #FF5C5C;
+  background-color: #ff5c5c;
 }
 
 .color3 {
-  background-color: #3760FF;
+  background-color: #3760ff;
 }
 
 .color4 {
-  background-color: #39E5FF;
+  background-color: #39e5ff;
 }
 
 .color5 {
-  background-color: #55E9BC;
+  background-color: #55e9bc;
 }
 
 .color6 {
-  background-color: #A3FF87;
+  background-color: #a3ff87;
 }
 
 .color7 {
-  background-color: #FFFF79;
+  background-color: #ffff79;
 }
 
 .color8 {
-  background-color: #FF9E66;
+  background-color: #ff9e66;
 }
 
 .color9 {
-  background:
-    linear-gradient(217deg, rgba(255, 0, 0, .8), rgba(255, 0, 0, 0) 70.71%),
-    linear-gradient(127deg, rgba(0, 255, 0, .8), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, .8), rgba(0, 0, 255, 0) 70.71%);
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 }
 
 .custom-color {
-  background-color: #E5E5E5;
-  border-color: #E5E5E5;
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
   height: var(--length);
   width: var(--length);
   border-radius: var(--radius);
@@ -154,7 +159,7 @@
   font-size: 1rem;
   border: none;
   background-color: #202d4a;
-  color: #E8E8E8;
+  color: #e8e8e8;
   padding: 1rem 2rem;
   border-radius: 100px;
   cursor: pointer;
