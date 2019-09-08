@@ -1,9 +1,10 @@
 .toolbar-container {
     height: 100%;
     width: 300px;
-    right: 0;
     position: fixed;
 }
+
+
 
 .toolbar-element {
     height: 100%;
@@ -11,8 +12,14 @@
     position: absolute;
 }
 
+app-toolbar-option {
+    background-color: #242424;
+    width: 250px;
+    right: 0;
+}
+
 app-toolbar {
-	height: 100%;
+    height: 100%;
     text-align: center;
     background-color: #70341e;
     width: 50px;
