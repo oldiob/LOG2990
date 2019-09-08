@@ -1,10 +1,11 @@
 <div class="header">
-    <h2 mat-dialog-title class="title">Bienvenue!</h2>
-    <div>Instruction : à faire </div>
+    <h2 mat-dialog-title class="title">Bienvenue à PolyDessin.08!</h2>
+    <div>Instructions : à faire </div>
 </div>
 <mat-divider style="padding:16px;"></mat-divider>
 
-
 <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="disabled($event)">Ignorer</button>
     <button class="mat-raised-button" (click)="close($event)">Fermer</button>
-</mat-dialog-actions>
+    <!-- <button id="closeButton" mat-raised-button routerLink="/menu">Fermer</button> -->
+</mat-dialog-actions> 

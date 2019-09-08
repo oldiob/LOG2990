@@ -22,4 +22,5 @@ describe('EntryPointComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

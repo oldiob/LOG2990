@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { FormControl } from '@angular/forms';
+import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-entry-point',
@@ -9,14 +10,23 @@ import { MatDialogRef } from '@angular/material';
 export class EntryPointComponent implements OnInit {
 
   constructor(
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<EntryPointComponent>,
+    public form: FormControl,
   ) { }
 
-  ngOnInit() {//
-    }
+  ngOnInit() { //
+  }
 
- close(event: MouseEvent): void {
+  openDialog(): void {
+    const dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(EntryPointComponent, dialogConfig);
+  }
+
+  close(event: MouseEvent): void {
     this.dialogRef.close();
-    }
+  }
 
 }
