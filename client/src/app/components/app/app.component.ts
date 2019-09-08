@@ -23,10 +23,12 @@ export class AppComponent {
       .subscribe(this.message);
   }
 
-  openDialog(): void {
+  openDialog(event: MouseEvent): void {
     const dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    this.dialog.open(EntryPointComponent, dialogConfig);
+    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: any) => {
+      console.log(result);
+    });
   }
 }

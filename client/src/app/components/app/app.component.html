@@ -18,5 +18,6 @@
   <li>
     <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
   </li>
-  <button mat-raised-button class="createButton" (click)="openDialog()">Dialog</button>
+  <button mat-raised-button class="createButton" (click)="openDialog($event)">Dialog</button>
+  <div> Le button est : {{result}}</div>
 </ul>

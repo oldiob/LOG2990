@@ -15,8 +15,8 @@ export class EntryPointComponent implements OnInit {
   ngOnInit() { //
   }
 
-  close(event: MouseEvent): void {
-    this.dialogRef.close();
+  close(): void {
+    this.dialogRef.close('Close');
   }
 
 }
