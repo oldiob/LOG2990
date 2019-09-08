@@ -1,9 +1,5 @@
 .modal {
---font-body: sans-serif;
---font-title: sans-serif;
---font-button: sans-serif;
-
-  font-family: var(--font-body);
+  background-color: #fff;
   position: fixed;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -23,7 +19,8 @@
 }
 
 .title{
-  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .content-wrapper {
@@ -32,6 +29,10 @@
   justify-content: space-between;
   height: 57%;
   width: 70%;
+}
+
+.field-label {
+  font-weight: 300;
 }
 
 .field {
@@ -133,7 +134,7 @@
 }
 
 .btn-create {
-  font-family: var(--font-button);
+  font-weight: 300;
   border: none;
   background-color: #1D263E;
   color: #E8E8E8;
