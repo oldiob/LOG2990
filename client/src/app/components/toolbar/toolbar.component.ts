@@ -15,12 +15,30 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  chooseColor() {
+    alert("choosing color");
+  }
+
   chooseWorkingTool() {
     alert("choosing tool");
   }
 
+
+  chooseShape() {
+    alert("choosing shape")
+  }
+
+
+
+
   newDrawingOption() {
     alert("create new drawing");
   }
+  
+  saveImage() {
+    alert("saving image")
+  }
+
+
 
 }
