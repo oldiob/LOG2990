@@ -8,33 +8,43 @@ import { ToolbarOptionComponent } from './toolbar-option/toolbar-option.componen
 })
 export class ToolbarComponent implements OnInit {
 
-  currentToolbarOption: ToolbarOptionComponent
+  currentToolbarOption: ToolbarOptionComponent;
 
-  constructor() { }
+  optionBarShowing: boolean;
+
+  constructor() { 
+    this.optionBarShowing = false;
+  }
 
   ngOnInit() {
   }
 
+
+  showOptionBar() {
+    this.optionBarShowing = !this.optionBarShowing;
+  }
+
+
   chooseColor() {
-    alert("choosing color");
+    this.showOptionBar();
   }
 
   chooseWorkingTool() {
-    alert("choosing tool");
+    this.showOptionBar();
   }
 
 
   chooseShape() {
-    alert("choosing shape")
+    this.showOptionBar();
   }
 
 
 
 
   newDrawingOption() {
-    alert("create new drawing");
+    this.showOptionBar();
   }
   saveImage() {
-    alert("saving image")
+    this.showOptionBar();
   }
 }
