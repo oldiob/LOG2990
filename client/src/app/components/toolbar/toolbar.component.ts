@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolbarOptionComponent } from './toolbar-option/toolbar-option.component';
+import { SelectorComponent } from './selector/selector.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,7 +8,7 @@ import { ToolbarOptionComponent } from './toolbar-option/toolbar-option.componen
 })
 export class ToolbarComponent implements OnInit {
 
-  currentToolbarOption: ToolbarOptionComponent;
+  currentToolbarOption: SelectorComponent;
 
   optionBarShowing: boolean;
 
@@ -24,6 +24,7 @@ export class ToolbarComponent implements OnInit {
     this.optionBarShowing = !this.optionBarShowing;
   }
 
+  // TODO: add "hideOptionBar" that's called when clicking on the same button
 
   chooseColor() {
     this.showOptionBar();
