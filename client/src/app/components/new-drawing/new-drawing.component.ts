@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { WorkZoneService } from './../../services/work-zone.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {WorkZoneService} from './../../services/work-zone.service';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -14,8 +14,9 @@ export class NewDrawingComponent implements OnInit {
   height: number;
   newDrawingFrom: FormGroup;
 
-  constructor(private formBuidler: FormBuilder, private workZoneService: WorkZoneService) {
-  }
+  constructor(
+      private formBuidler: FormBuilder,
+      private workZoneService: WorkZoneService) {}
 
   createForm() {
     // Form to create new work zone to draw
@@ -31,6 +32,11 @@ export class NewDrawingComponent implements OnInit {
     console.warn(this.newDrawingFrom.controls.width.value);
     console.warn(this.newDrawingFrom.controls.height.value);
     console.warn(this.newDrawingFrom.controls.backgroundColor.value);
+
+    const width = this.newDrawingFrom.controls.width.value;
+    const height = this.newDrawingFrom.controls.height.value;
+    const bgColor = this.newDrawingFrom.controls.backgroundColor.value;
+    this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
   }
 
   chooseBgColor(bgColor: string) {
@@ -39,21 +45,19 @@ export class NewDrawingComponent implements OnInit {
 
   // Fetches default dimensions
   fetchDefaults() {
-    this.workZoneService.currentMaxWidth
-      .subscribe((maxWidth) => {
-        // Updates width form control
-        this.newDrawingFrom.controls.width.setValue(maxWidth);
-        // Updates width view form
-        this.defaultWidth = maxWidth;
-      });
+    this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
+      // Updates width form control
+      this.newDrawingFrom.controls.width.setValue(maxWidth);
+      // Updates width view form
+      this.defaultWidth = maxWidth;
+    });
 
-    this.workZoneService.currentMaxHeight
-      .subscribe((maxHeight) => {
-        // Updates width form control
-        this.newDrawingFrom.controls.height.setValue(maxHeight);
-        // Updates height view form
-        this.defaultHeight = maxHeight;
-      });
+    this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
+      // Updates width form control
+      this.newDrawingFrom.controls.height.setValue(maxHeight);
+      // Updates height view form
+      this.defaultHeight = maxHeight;
+    });
   }
 
   ngOnInit() {
