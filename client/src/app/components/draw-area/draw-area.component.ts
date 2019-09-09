@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-draw-area',
   templateUrl: './draw-area.component.html',
-  styleUrls: ['./draw-area.component.scss']
+  styleUrls: ['./draw-area.component.scss'],
 })
 export class DrawAreaComponent implements OnInit {
   @Input() height: number;
-  @Input() widget: number;
+  @Input() width: number;
   @Input() backgroundColor: number;
   @Input() keyEvent: KeyboardEvent;
   @Input() key: string;
@@ -16,26 +16,23 @@ export class DrawAreaComponent implements OnInit {
   mouseX = 0;
   mouseY = 0;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-
-
-  }
+  ngOnInit() {}
 
   setParameter() {
-    let styles = {
+    const styles = {
       'background-color': this.backgroundColor,
-      width: this.widget,
+      width: this.width,
       height: this.height,
     };
     return styles;
   }
-  coordinates(event: MouseEvent): void { // will convert this into service
+  coordinates(event: MouseEvent): void {  // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   }
-  onClick(event: MouseEvent): void { // will convert this into service
+  onClick(event: MouseEvent): void {  // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   }

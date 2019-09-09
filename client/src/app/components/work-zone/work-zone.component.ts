@@ -22,11 +22,6 @@ export class WorkZoneComponent implements OnInit, AfterViewInit {
 
   constructor(private workZoneService: WorkZoneService) { }
 
-  updateSize(width: number, height: number) {
-    this.width = width;
-    this.height = height;
-  }
-
   // Assigning size values from 'work-zone' referenced element
   updateMaxSize() {
     this.maxWidth = this.workZone.nativeElement.offsetWidth;
