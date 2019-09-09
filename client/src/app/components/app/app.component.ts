@@ -17,21 +17,4 @@ export class AppComponent {
   key: string;
   keyEvent: KeyboardEvent;
   message = new BehaviorSubject<string>('');
-
-  constructor(private basicService: IndexService) {
-    this.basicService.basicGet()
-      .pipe(
-        map((message: Message) => `${message.title} ${message.body}`),
-      )
-      .subscribe(this.message);
-  }
-  @HostListener('document:keypress', ['$event']) // need refactor
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.keyEvent = event;
-    this.key = this.keyEvent.key;
-  }
-  @HostListener('document:keydown', ['$event']) // need refactor
-  handleKeyboardEventDown(event: KeyboardEvent) {
-    this.keyEvent = event;
-  }
 }
