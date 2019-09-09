@@ -9,7 +9,5 @@ export class KeytrackDirective {
   @HostListener('document:keypress', ['$event']) // need refactor
   handleKeyboardEvent(event: KeyboardEvent) {
     this.key = event.key;
-    alert(1);
-
   }
 }

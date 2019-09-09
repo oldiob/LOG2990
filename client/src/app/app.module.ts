@@ -31,8 +31,11 @@ import { ShapeSelectorComponent } from './components/toolbar/selector/shape-sele
     StrokeComponent,
     MousetrackDirective,
     DevPanelComponent,
+<<<<<<< HEAD
     ToolbarOptionComponent,
     NewDrawingComponent,
+=======
+>>>>>>> d2a9dc2348f07d3c8c9526e1e7b8d3f30725f158
     KeytrackDirective,
 
     ToolbarComponent,

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { WorkZoneService } from './../../services/work-zone.service';
+=======
+import { Component, OnInit, Input } from '@angular/core';
+>>>>>>> d2a9dc2348f07d3c8c9526e1e7b8d3f30725f158
 
 @Component({
   selector: 'app-work-zone',
