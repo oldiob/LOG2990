@@ -15,6 +15,7 @@ import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {WorkZoneComponent} from './components/work-zone/work-zone.component';
 import {KeytrackDirective} from './directive/keytrack.directive';
 import {MousetrackDirective} from './directive/mousetrack.directive';
+import {PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {MousetrackDirective} from './directive/mousetrack.directive';
     ColorSelectorComponent,
     ToolSelectorComponent,
     ShapeSelectorComponent,
+    PolyDessinComponent,
   ],
   imports: [
     BrowserModule,
