@@ -8,14 +8,21 @@ import { MatDialogRef } from '@angular/material';
 })
 export class EntryPointComponent implements OnInit {
 
+  enableButton: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>,
   ) { }
 
   ngOnInit() { //
+    this.enableButton = false;
   }
 
-  close(): void {
+  checkButton(event: MouseEvent): void {
+    this.enableButton = true;
+  }
+
+  close(event: MouseEvent): void {
     this.dialogRef.close('Close');
   }
 

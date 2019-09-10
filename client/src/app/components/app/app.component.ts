@@ -11,7 +11,9 @@ import { EntryPointComponent } from '../entry-point/entry-point.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
 export class AppComponent {
+  checkoutBox: boolean;
   readonly title: string = 'LOG2990';
   message = new BehaviorSubject<string>('');
 
@@ -27,8 +29,8 @@ export class AppComponent {
     const dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: any) => {
-      console.log(result);
+    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
+      this.checkoutBox = result;
     });
   }
 }

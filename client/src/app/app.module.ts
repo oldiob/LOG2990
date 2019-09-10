@@ -1,6 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import { MatCardModule, MatDialogModule, MatDividerModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule,
+         MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppComponent} from './components/app/app.component';
@@ -20,14 +21,24 @@ import { WorkZoneComponent } from './components/work-zone/work-zone.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatDialogModule,
-    MatCardModule,
+    MatTableModule,
     MatDividerModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    MatButtonModule,
   ],
   exports: [
     MatDividerModule,
   ],
-  providers: [],
+  providers: [
+    {provide: MatDialogRef, useValue: {}},
+    {provide: MAT_DIALOG_DATA, useValue: [] },
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     EntryPointComponent,
