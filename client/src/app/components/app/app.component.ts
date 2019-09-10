@@ -1,9 +1,5 @@
-import {Component} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import {BehaviorSubject} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Message} from '../../../../../common/communication/message';
-import {IndexService} from '../../services/index/index.service';
+import {Component, OnInit} from '@angular/core';
+import { MatDialog, MatDialogConfig, /*MatDialogConfig*/ } from '@angular/material';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 
 @Component({
@@ -12,25 +8,21 @@ import { EntryPointComponent } from '../entry-point/entry-point.component';
   styleUrls: ['./app.component.scss'],
 })
 
-export class AppComponent {
-  checkoutBox: boolean;
-  readonly title: string = 'LOG2990';
-  message = new BehaviorSubject<string>('');
+export class AppComponent implements OnInit {
 
-  constructor(private basicService: IndexService, public dialog: MatDialog) {
-    this.basicService.basicGet()
-      .pipe(
-        map((message: Message) => `${message.title} ${message.body}`),
-      )
-      .subscribe(this.message);
+  constructor(public dialog: MatDialog) {
   }
-
-  openDialog(event: MouseEvent): void {
-    const dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
-      this.checkoutBox = result;
-    });
-  }
+  // À mettre dans la vue dessin
+  ngOnInit(): void {
+    if (!sessionStorage.getItem('result') || sessionStorage.getItem('result') === 'false' ) {
+    this.openDialog();
+    }
+}
+openDialog(): void {
+  const dialogConfig: MatDialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
+    sessionStorage.setItem('result', JSON.stringify(result));
+  });
+}
 }

@@ -1,7 +1,7 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule,
-         MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+         MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AppComponent} from './components/app/app.component';
@@ -36,6 +36,7 @@ import { WorkZoneComponent } from './components/work-zone/work-zone.component';
     MatDividerModule,
   ],
   providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {provide: MatDialogRef, useValue: {}},
     {provide: MAT_DIALOG_DATA, useValue: [] },
   ],
