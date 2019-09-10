@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {WorkZoneService} from './../../services/work-zone.service';
 
 @Component({
   selector: 'app-draw-area',
@@ -6,9 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./draw-area.component.scss'],
 })
 export class DrawAreaComponent implements OnInit {
-  @Input() height: number;
-  @Input() width: number;
-  @Input() backgroundColor: number;
+  height: number;
+  width: number;
+  backgroundColor: string;
   @Input() keyEvent: KeyboardEvent;
   @Input() key: string;
 
@@ -16,18 +17,20 @@ export class DrawAreaComponent implements OnInit {
   mouseX = 0;
   mouseY = 0;
 
-  constructor() {}
+  constructor(private workZoneService: WorkZoneService) {
+    this.workZoneService.getCurrentHeight().subscribe((currHeight: number) => {
+      this.height = currHeight;
+    });
+    this.workZoneService.currentWidth.subscribe((currWidth: number) => {
+      this.width = currWidth;
+    });
+    this.workZoneService.currentBackgroundColor.subscribe((currBackgroundColor: string) => {
+      this.backgroundColor = currBackgroundColor; //not working, tried multiple solutions...
+    });
+  }
 
   ngOnInit() {}
 
-  setParameter() {
-    const styles = {
-      'background-color': this.backgroundColor,
-      width: this.width,
-      height: this.height,
-    };
-    return styles;
-  }
   coordinates(event: MouseEvent): void {  // will convert this into service
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
