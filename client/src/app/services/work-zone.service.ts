@@ -1,27 +1,36 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkZoneService {
-  private width = new BehaviorSubject<number>(0);
-  currentWidth = this.width.asObservable();
+  private width: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  currentWidth: Observable<number> = this.width.asObservable();
 
-  private height = new BehaviorSubject<number>(0);
-  currentHeight = this.height.asObservable();
+  private height: BehaviorSubject<number>  = new BehaviorSubject<number>(0);
+  currentHeight: Observable<number> = this.height.asObservable();
 
-  private backgroundColor = new BehaviorSubject<string>('#ffffff');
+  private backgroundColor: BehaviorSubject<string> = new BehaviorSubject<string>('#ffffff');
   currentBackgroundColor = this.backgroundColor.asObservable();
 
   // Work-area's maximum dimensions
-  private maxWidth = new BehaviorSubject<number>(0);
+  private maxWidth: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   currentMaxWidth = this.maxWidth.asObservable();
 
-  private maxHeight = new BehaviorSubject<number>(0);
+  private maxHeight: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   currentMaxHeight = this.maxHeight.asObservable();
 
-  constructor() { }
+  constructor() {
+
+  }
+
+  getCurrentWidth(): Observable<number> {
+    return this.width.asObservable();
+  }
+  getCurrentHeight(): Observable<number> {
+    return this.height.asObservable();
+  }
 
   updateDrawAreaDimensions(width?: number, height?: number, bgColor?: string) {
     if (width) {

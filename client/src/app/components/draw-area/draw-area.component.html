@@ -1,5 +1,7 @@
 <div mousetrack class="draw-area"
- [ngStyle]="setParameter()"
+ [style.height.px]="height"
+ [style.width.px]="width"
+ [style.background-color]="backgroundColor"
   (mousemove)="coordinates($event)"
   on-click="onClick($event)">
     <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>
