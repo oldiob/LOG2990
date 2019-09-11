@@ -1,7 +1,7 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: 'div[doc]'
+  selector: 'div[doc]',
 })
 export class KeytrackDirective {
   key: string;

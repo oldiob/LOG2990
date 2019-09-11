@@ -1,0 +1,177 @@
+.modal {
+  // -webkit-filter: blur(0.000001px);
+  // -webkit-font-smoothing: antialiased;
+  background-color: #fff;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border: solid 1px #ececec;
+  border-radius: 10px;
+  height: 570px;
+  width: 310px;
+  -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.03);
+}
+
+@media only screen and (max-width: 1820px) {
+  // Fix Chrome bug that makes modal's text blurry
+  .modal:not(*:root) {
+    -webkit-filter: blur(0.000001px);
+  }
+}
+  
+.modal-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.title {
+  font-family: wes, sans-serif;
+  color: #202d4a;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 57%;
+  width: 70%;
+}
+
+.field-label {
+  color: #202d4a;
+  font-weight: 500;
+}
+
+.field {
+  color: #202d4a;
+
+  font-size: 1rem;
+  width: 60px;
+  text-align: center;
+  margin: 0 10px;
+  padding: 0;
+  border: none;
+  background-color: #f1f5fa;
+  border-radius: 5px;
+  line-height: 2rem;
+}
+
+.field:focus {
+  outline: none;
+}
+
+.color-palette {
+  --length: 40px;
+  --radius: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(42px, 1fr));
+  grid-gap: 10px;
+  justify-items: center;
+  align-items: center;
+}
+
+.color {
+  height: var(--length);
+  width: var(--length);
+  border-radius: var(--radius);
+}
+
+.color-toggler {
+  position: absolute;
+  height: var(--length);
+  width: var(--length);
+  transform: translate(-5px, -3px);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.color-toggler:checked ~ .color {
+  -webkit-box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  transform: translate(0, -15%);
+  transition: all 0.3s ease;
+}
+
+.color1 {
+  background-color: #f9f9f9;
+}
+
+.color2 {
+  background-color: #ff5c5c;
+}
+
+.color3 {
+  background-color: #3760ff;
+}
+
+.color4 {
+  background-color: #39e5ff;
+}
+
+.color5 {
+  background-color: #55e9bc;
+}
+
+.color6 {
+  background-color: #a3ff87;
+}
+
+.color7 {
+  background-color: #ffff79;
+}
+
+.color8 {
+  background-color: #ff9e66;
+}
+
+.color9 {
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+}
+
+.custom-color {
+  background-color: #e5e5e5;
+  border-color: #e5e5e5;
+  height: var(--length);
+  width: var(--length);
+  border-radius: var(--radius);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.btn-create {
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  background-color: #202d4a;
+  color: #e8e8e8;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  cursor: pointer;
+  -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.15);
+}
+
+.btn-create:hover {
+  background-color: lighten(#202d4a, 5%);
+}
+
+.btn-create:focus {
+  outline: none;
+}
