@@ -7,14 +7,14 @@ import { MatDialog, /*MatDialogConfig*/ MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-
-  enableButton: boolean;
-  checkoutBox: boolean;
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog,
   ) { }
 
-  ngOnInit() { //
+  enableButton: boolean;
+  checkoutBox: boolean;
+
+  ngOnInit() {
     this.enableButton = false;
   }
   checkButton(event: MouseEvent): void {
@@ -24,5 +24,4 @@ export class EntryPointComponent implements OnInit {
   close(event: MouseEvent): void {
     this.dialogRef.close(this.enableButton);
   }
-
 }
