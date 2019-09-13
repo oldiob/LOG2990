@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { SelectorComponent } from './selector.component';
 
@@ -11,7 +11,7 @@ describe('SelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectorComponent ]
+      declarations: [ SelectorComponent ],
     })
     .compileComponents();
   }));

@@ -8,7 +8,7 @@ describe('StrokeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StrokeComponent ]
+      declarations: [ StrokeComponent ],
     })
     .compileComponents();
   }));

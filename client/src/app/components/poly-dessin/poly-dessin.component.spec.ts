@@ -8,7 +8,7 @@ describe('PolyDessinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PolyDessinComponent ]
+      declarations: [ PolyDessinComponent ],
     })
     .compileComponents();
   }));
