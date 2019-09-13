@@ -25,8 +25,8 @@ export class NewDrawingComponent implements OnInit {
   createForm() {
     // Form to create new work zone to draw
     this.newDrawingFrom = this.formBuidler.group({
-      height: [this.defaultHeight, Validators.min(0)],
-      width: [this.defaultWidth, Validators.min(0)],
+      height: [this.defaultHeight, [Validators.min(0), Validators.required ]],
+      width: [this.defaultWidth,[Validators.min(0), Validators.required ]],
       backgroundColor: ['#ffffff'],
     });
   }
