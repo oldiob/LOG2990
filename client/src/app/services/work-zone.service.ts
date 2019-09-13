@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +21,7 @@ export class WorkZoneService {
   private maxHeight = new BehaviorSubject<number>(20);
   currentMaxHeight = this.maxHeight.asObservable();
 
-  constructor() {
-
-  }
+  constructor() {}
 
   getCurrentWidth(): Observable<number> {
     return this.width.asObservable();
