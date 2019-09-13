@@ -3,16 +3,16 @@ import { ITool } from './tool-options/i-tool';
 import { NavigationHand } from './tool-options/navigation-hand';
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root',
 })
 export class CurrentToolService {
 
-	currentTool: ITool;
+    currentTool: ITool;
 
-	constructor() { 
+    constructor() {
 
-		// no tool selected, so just navigate around
-		this.currentTool = new NavigationHand();
-	}
+        // no tool selected, so just navigate around
+        this.currentTool = new NavigationHand();
+    }
 
 }

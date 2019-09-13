@@ -1,12 +1,12 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 import { CurrentToolService } from './selected-tool.service';
 
 describe('Service: CurrentTool', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CurrentToolService]
+      providers: [CurrentToolService],
     });
   });
 

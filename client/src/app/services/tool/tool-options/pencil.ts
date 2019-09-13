@@ -2,13 +2,13 @@ import { ITool } from './i-tool';
 
 export class CurrentToolService implements ITool {
 
-	constructor() { }
+    constructor() { }
 
-	leftClick() {
-		throw new Error("Method not implemented.");
-	}
-	leftRelease() {
-		throw new Error("Method not implemented.");
-	}
+    leftClick() {
+        throw new Error('Method not implemented.');
+    }
+    leftRelease() {
+        throw new Error('Method not implemented.');
+    }
 
 }

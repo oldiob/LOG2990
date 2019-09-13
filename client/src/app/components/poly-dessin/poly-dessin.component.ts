@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, ViewChild } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Message} from '../../../../../common/communication/message';
