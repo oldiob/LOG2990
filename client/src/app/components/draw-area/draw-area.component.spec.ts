@@ -8,7 +8,7 @@ describe('DrawAreaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DrawAreaComponent ]
+	declarations: [ DrawAreaComponent ],
     })
     .compileComponents();
   }));

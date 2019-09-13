@@ -1,9 +1,4 @@
-import {Component, HostListener} from '@angular/core';
-
-import {BehaviorSubject} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Message} from '../../../../../common/communication/message';
-import {IndexService} from '../../services/index/index.service';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +6,5 @@ import {IndexService} from '../../services/index/index.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  readonly title: string = 'LOG2990';
 
-  keyEvent: KeyboardEvent;
-  key: string;
-  keyEvent: KeyboardEvent;
-  message = new BehaviorSubject<string>('');
 }

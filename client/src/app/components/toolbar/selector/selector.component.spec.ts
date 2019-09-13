@@ -11,7 +11,7 @@ describe('SelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectorComponent ]
+	declarations: [ SelectorComponent ],
     })
     .compileComponents();
   }));
