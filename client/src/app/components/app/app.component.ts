@@ -1,6 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, /*MatDialogConfig*/ } from '@angular/material';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-root',

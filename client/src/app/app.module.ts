@@ -55,8 +55,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         MatTableModule,
         ReactiveFormsModule,
     ],
-    providers: [],
-    bootstrap: [AppComponent],
     exports: [
         MatDividerModule,
     ],
