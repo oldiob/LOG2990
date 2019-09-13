@@ -1,0 +1,13 @@
+
+<div class="header">
+    <h2 mat-dialog-title class="title">Bienvenue à PolyDessin.08!</h2>
+    <mat-divider style="padding:16px;"></mat-divider>
+    <div class="mat-dialog-title">Instructions : à faire </div>
+</div>
+<mat-divider style="padding:16px;"></mat-divider>
+
+<mat-checkbox class="mat-checkbox" (change)="checkButton($event)">Ignorer ce message</mat-checkbox>
+
+<mat-dialog-actions align="end">
+    <button  class="mat-raised-button" (click)="close($event)">Fermer</button>
+</mat-dialog-actions> 
