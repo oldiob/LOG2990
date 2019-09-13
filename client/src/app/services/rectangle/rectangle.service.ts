@@ -1,4 +1,4 @@
-import {palette.services.ts} from '../palette';
+//import {palette.services.ts} from '../palette';
 
 
 enum DashArrayType{
