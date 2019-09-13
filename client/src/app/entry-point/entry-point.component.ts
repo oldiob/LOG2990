@@ -7,17 +7,10 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-<<<<<<< HEAD
-  pressHide: boolean;
-  constructor(
-    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
-    }
-=======
   KEYDOWN = 'keydown';
   KEYPRESS = 'keypress';
   enableButton: boolean;
   checkoutBox: boolean;
->>>>>>> Add Missing EntryPoint
 
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
@@ -35,16 +28,9 @@ export class EntryPointComponent implements OnInit {
   @HostListener('window: keydown', ['$event'])
   @HostListener('window: keypress', ['$event'])
   disableKeyboard(event: KeyboardEvent) {
-<<<<<<< HEAD
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-=======
     if (event.type === this.KEYDOWN || event.type === this.KEYPRESS) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
->>>>>>> Add Missing EntryPoint
 }

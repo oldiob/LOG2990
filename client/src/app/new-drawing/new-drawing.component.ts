@@ -13,6 +13,7 @@ export class NewDrawingComponent implements OnInit {
   FALSE = 'false';
   RESULT = 'result';
   DEFAULTBACKGROUND = '#ffffff';
+<<<<<<< HEAD:client/src/app/new-drawing/new-drawing.component.ts
 
   defaultBGColor = '#F9F9F9';
   defaultWidth: number;
@@ -22,13 +23,18 @@ export class NewDrawingComponent implements OnInit {
   defaultWidth: number;
   defaultHeight: number;
 
+=======
+>>>>>>> Write the start code of the Rectangle Feature:client/src/app/components/new-drawing/new-drawing.component.ts
 
   defaultWidth: number;
   defaultHeight: number;
   width: number;
   height: number;
   backgroundColor = '#F9F9F9';
+<<<<<<< HEAD:client/src/app/new-drawing/new-drawing.component.ts
 
+=======
+>>>>>>> Write the start code of the Rectangle Feature:client/src/app/components/new-drawing/new-drawing.component.ts
   eventKeyboard: KeyboardEvent;
 
   newDrawingFrom: FormGroup;
