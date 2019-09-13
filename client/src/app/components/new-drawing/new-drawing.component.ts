@@ -12,6 +12,8 @@ export class NewDrawingComponent implements OnInit {
 
   width: number;
   height: number;
+  backgroundColor = '#F9F9F9';
+
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing = true;
@@ -46,7 +48,7 @@ export class NewDrawingComponent implements OnInit {
 
   chooseBgColor(bgColor: string) {
     this.newDrawingFrom.controls.backgroundColor.setValue(bgColor);
-    console.log(bgColor);
+    this.backgroundColor = bgColor;
   }
 
   // Fetches default dimensions
