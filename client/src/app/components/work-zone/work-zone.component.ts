@@ -37,16 +37,6 @@ export class WorkZoneComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.updateMaxSize();
-
-    // Subscribes to WorkZoneService observables
-    this.workZoneService.currentHeight
-      .subscribe((width) => this.width = width);
-    this.workZoneService.currentHeight
-      .subscribe((height) => this.height = height);
-    this.workZoneService.currentHeight
-      .subscribe((backgroundColor) => this.backgroundColor = backgroundColor);
   }
-
   ngAfterViewInit(): void { }
-
 }

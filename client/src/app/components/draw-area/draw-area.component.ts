@@ -16,20 +16,28 @@ export class DrawAreaComponent implements OnInit {
   event: MouseEvent;
   mouseX = 0;
   mouseY = 0;
+  currentStyles: {height: number; width: number; 'backgroud-color': string;};
 
-  constructor(private workZoneService: WorkZoneService) {
-    this.workZoneService.getCurrentHeight().subscribe((currHeight: number) => {
-      this.height = currHeight;
-    });
-    this.workZoneService.currentWidth.subscribe((currWidth: number) => {
-      this.width = currWidth;
-    });
-    this.workZoneService.currentBackgroundColor.subscribe((currBackgroundColor: string) => {
-      this.backgroundColor = currBackgroundColor; //not working, tried multiple solutions...
-    });
+  constructor(private workZoneService: WorkZoneService) {}
+
+  ngOnInit() {
+    // Subscribes to WorkZoneService observables
+    this.workZoneService.currentWidth.subscribe(
+        (width: number) => this.width = width);
+    this.workZoneService.currentHeight.subscribe(
+        (height): number => this.height = height);
+    this.workZoneService.currentBackgroundColor.subscribe(
+        (backgroundColor: string) => this.backgroundColor = backgroundColor);
+    console.log(this.backgroundColor);
   }
 
-  ngOnInit() {}
+  setCurrentStyles() {
+    return {
+      height: this.height ? this.height + 'px' : '0px',
+      width: this.width ? this.width + 'px' : '0px',
+      'background-color': this.backgroundColor ? this.backgroundColor : '#ffffff',
+    };
+  }
 
   coordinates(event: MouseEvent): void {  // will convert this into service
     this.mouseX = event.clientX;

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {WorkZoneService} from './../../services/work-zone.service';
 @Component({
@@ -38,6 +38,7 @@ export class NewDrawingComponent implements OnInit {
     const width = this.newDrawingFrom.controls.width.value;
     const height = this.newDrawingFrom.controls.height.value;
     const bgColor = this.newDrawingFrom.controls.backgroundColor.value;
+
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
     this.displayNewDrawing = false;
     this.displayChange.emit(this.displayNewDrawing);
@@ -45,6 +46,7 @@ export class NewDrawingComponent implements OnInit {
 
   chooseBgColor(bgColor: string) {
     this.newDrawingFrom.controls.backgroundColor.setValue(bgColor);
+    console.log(bgColor);
   }
 
   // Fetches default dimensions
