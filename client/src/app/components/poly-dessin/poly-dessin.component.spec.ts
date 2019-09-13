@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndexService } from 'src/app/services/index/index.service';
-import { WorkZoneService } from 'src/app/services/work-zone.service';
 import { PolyDessinComponent } from './poly-dessin.component';
-import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('PolyDessinComponent', () => {
   let component: PolyDessinComponent;
