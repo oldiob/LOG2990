@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
 //     event.returnValue = false;
 //  }
 
-  // Test avec une touche
+  // Test avec une touche quelconque
   @HostListener('window: keydown', ['$event'])
   keyboardEvent(eventKeyboard: KeyboardEvent) {
     if (this.preventKeyboard) {
