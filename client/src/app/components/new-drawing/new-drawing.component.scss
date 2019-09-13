@@ -9,7 +9,7 @@
   border: solid 1px #ececec;
   border-radius: 10px;
   height: 570px;
-  width: 310px;
+  width: 330px;
   -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.03);
@@ -42,7 +42,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 57%;
-  width: 70%;
+  width: 72%;
 }
 
 .field-label {
@@ -66,6 +66,10 @@
 
 .field:focus {
   outline: none;
+}
+
+.bg-input{
+  width: 80px;
 }
 
 .color-palette {

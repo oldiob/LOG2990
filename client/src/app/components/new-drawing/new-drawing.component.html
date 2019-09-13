@@ -4,19 +4,19 @@
     <div class="content-wrapper">
       <label class="field-wrapper">
         <span class="field-label">Width:</span>
-        <input class="field" type="text" formControlName="width" 
-        value="{{defaultWidth}}" autofocus>
+        <input class="field" type="number" formControlName="width" value="{{defaultWidth}}" autofocus>
+        <span>px</span>
       </label>
 
       <label>
         <span class="field-label">Height:</span>
-        <input class="field" type="text" formControlName="height" 
-        value="{{defaultHeight}}">
+        <input class="field" type="number" formControlName="height" value="{{defaultHeight}}">
+        <span>px</span>
       </label>
 
       <label>
-
         <span class="field-label">Background Color:</span>
+        <input class="field bg-input" type="text" formControlName="backgroundColor" value="{{backgroundColor}}">
       </label>
       <div class="color-palette">
 
