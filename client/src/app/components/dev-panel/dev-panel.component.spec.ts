@@ -18,6 +18,11 @@ describe('DevPanelComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  it('#disableDisplay() should set #display to false', () => {
+    expect(component.display).toBe(true, 'display is true at first');
+    component.disableDisplay();
+    expect(component.display).toBe(false, 'display is false after click');
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -14,8 +14,6 @@ import {ShapeSelectorComponent} from './components/toolbar/selector/shape-select
 import {ToolSelectorComponent} from './components/toolbar/selector/tool-selector/tool-selector.component';
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {WorkZoneComponent} from './components/work-zone/work-zone.component';
-import {KeytrackDirective} from './directive/keytrack.directive';
-import {MousetrackDirective} from './directive/mousetrack.directive';
 
 @NgModule({
   declarations: [
@@ -23,10 +21,8 @@ import {MousetrackDirective} from './directive/mousetrack.directive';
     DrawAreaComponent,
     WorkZoneComponent,
     StrokeComponent,
-    MousetrackDirective,
     DevPanelComponent,
     NewDrawingComponent,
-    KeytrackDirective,
 
     ToolbarComponent,
     SelectorComponent,

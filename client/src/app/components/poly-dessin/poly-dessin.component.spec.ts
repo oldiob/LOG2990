@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { IndexService } from 'src/app/services/index/index.service';
+import { WorkZoneService } from 'src/app/services/work-zone.service';
 import { PolyDessinComponent } from './poly-dessin.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('PolyDessinComponent', () => {
   let component: PolyDessinComponent;
@@ -9,6 +12,7 @@ describe('PolyDessinComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PolyDessinComponent ],
+      providers: [IndexService],
     })
     .compileComponents();
   }));
@@ -17,6 +21,13 @@ describe('PolyDessinComponent', () => {
     fixture = TestBed.createComponent(PolyDessinComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('#changeDisplay(display) should change #displayNewDrawing', () => {
+    component.changeDisplay(true);
+    expect(component.displayNewDrawing).toBe(true, 'true when set to true');
+    component.changeDisplay(false);
+    expect(component.displayNewDrawing).toBe(true, 'false when set to false');
   });
 
   it('should create', () => {
