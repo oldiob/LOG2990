@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { HostListener } from '@angular/core';
 import { Rectangle } from '../../../../../common/communication/rectangle';
 export class RectangleService {
@@ -64,8 +64,11 @@ export class RectangleService {
         this.rectangles.push(this.rectangle);
     }
 }
-=======
+
 import {palette.services.ts} from '../palette';
+
+//import {palette.services.ts} from '../palette';
+
 
 
 enum DashArrayType{
@@ -266,4 +269,4 @@ export class Rectangle{
 
 
 }
->>>>>>> Write the start code of the Rectangle Feature
+
