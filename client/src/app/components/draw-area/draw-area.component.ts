@@ -11,7 +11,7 @@ export class DrawAreaComponent implements OnInit {
   @Input() key: string;
 
   height: number;
-  widht: number;
+  width: number;
   backgroundColor: string;
   event: MouseEvent;
   mouseX = 0;
@@ -29,7 +29,7 @@ export class DrawAreaComponent implements OnInit {
 	    (height): number => this.height = height
 	);
 	this.workZoneService.currentBackgroundColor.subscribe(
-	    (backgroundColor: string) => this.backgroundColor = backgroundColor;
+	    (backgroundColor: string) => this.backgroundColor = backgroundColor
 	);
 	console.log(this.backgroundColor);
     }
