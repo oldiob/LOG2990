@@ -16,6 +16,7 @@
 }
 
 @media only screen and (max-width: 1820px) {
+
   // Fix Chrome bug that makes modal's text blurry
   .modal:not(*:root) {
     -webkit-filter: blur(0.000001px);
@@ -68,7 +69,7 @@
   outline: none;
 }
 
-.bg-input{
+.bg-input {
   width: 80px;
 }
 
@@ -176,4 +177,14 @@
 
 .btn-create:focus {
   outline: none;
+}
+
+.btn-create:disabled {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0);
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0);
+  cursor: default;
+  transform: translateY(5%);
 }

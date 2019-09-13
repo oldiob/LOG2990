@@ -5,9 +5,9 @@
       <label class="field-wrapper">
         <span class="field-label">Width:</span>
         <input class="field" type="number" formControlName="width" value="{{defaultWidth}}" autofocus>
+        
         <span>px</span>
       </label>
-
       <label>
         <span class="field-label">Height:</span>
         <input class="field" type="number" formControlName="height" value="{{defaultHeight}}">
@@ -67,14 +67,10 @@
             <input class="custom-color" type="color" formControlName="backgroundColor">
           </div>
         </div>
-
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
       </div>
     </div>
 
 
-    <button class="btn-create" type="submit">Create</button>
+    <button class="btn-create" type="submit" [disabled]="!newDrawingFrom.valid">Create</button>
   </form>
 </div>

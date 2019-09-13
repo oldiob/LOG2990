@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {WorkZoneService} from './../../services/work-zone.service';
 @Component({
   selector: 'app-new-drawing',
@@ -25,8 +25,8 @@ export class NewDrawingComponent implements OnInit {
   createForm() {
     // Form to create new work zone to draw
     this.newDrawingFrom = this.formBuidler.group({
-      height: [this.defaultHeight],
-      width: [this.defaultWidth],
+      height: [this.defaultHeight, Validators.min(0)],
+      width: [this.defaultWidth, Validators.min(0)],
       backgroundColor: ['#ffffff'],
     });
   }
