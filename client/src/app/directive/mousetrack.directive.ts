@@ -1,7 +1,7 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-  selector: 'div[mousetrack]'
+  selector: 'div[mousetrack]',
 })
 export class MousetrackDirective {
   @HostListener('mouseenter') onMouseEnter() {

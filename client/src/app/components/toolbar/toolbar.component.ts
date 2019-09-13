@@ -4,7 +4,7 @@ import { SelectorComponent } from './selector/selector.component';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
 
@@ -12,13 +12,12 @@ export class ToolbarComponent implements OnInit {
 
   optionBarShowing: boolean;
 
-  constructor() { 
+  constructor() {
     this.optionBarShowing = false;
   }
 
   ngOnInit() {
   }
-
 
   showOptionBar() {
     this.optionBarShowing = !this.optionBarShowing;
@@ -34,22 +33,16 @@ export class ToolbarComponent implements OnInit {
     this.showOptionBar();
   }
 
-
   chooseShape() {
     this.showOptionBar();
   }
 
-
-
-
   newDrawingOption() {
     this.showOptionBar();
   }
-  
+
   saveImage() {
     this.showOptionBar();
   }
-
-
 
 }

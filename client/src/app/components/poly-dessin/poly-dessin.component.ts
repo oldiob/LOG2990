@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, HostListener, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, ViewChild } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Message} from '../../../../../common/communication/message';
@@ -9,7 +9,7 @@ import {WorkZoneService} from './../../services/work-zone.service';
 @Component({
   selector: 'app-poly-dessin',
   templateUrl: './poly-dessin.component.html',
-  styleUrls: ['./poly-dessin.component.scss']
+  styleUrls: ['./poly-dessin.component.scss'],
 })
 export class PolyDessinComponent implements AfterViewInit {
 

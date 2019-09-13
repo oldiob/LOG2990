@@ -7,12 +7,12 @@ import {WorkZoneService} from './../../services/work-zone.service';
   styleUrls: ['./draw-area.component.scss'],
 })
 export class DrawAreaComponent implements OnInit {
-  height: number;
-  width: number;
-  backgroundColor: string;
   @Input() keyEvent: KeyboardEvent;
   @Input() key: string;
 
+  height: number;
+  width: number;
+  backgroundColor: string;
   event: MouseEvent;
   mouseX = 0;
   mouseY = 0;
@@ -39,11 +39,11 @@ export class DrawAreaComponent implements OnInit {
     };
   }
 
-  coordinates(event: MouseEvent): void {  // will convert this into service
+  coordinates(event: MouseEvent): void {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   }
-  onClick(event: MouseEvent): void {  // will convert this into service
+  onClick(event: MouseEvent): void {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   }
