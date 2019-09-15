@@ -4,7 +4,6 @@ import {map} from 'rxjs/operators';
 import {Message} from '../../../../../common/communication/message';
 import {IndexService} from '../../services/index/index.service';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
-import {WorkZoneService} from './../../services/work-zone.service';
 
 @Component({
   selector: 'app-poly-dessin',
@@ -13,16 +12,12 @@ import {WorkZoneService} from './../../services/work-zone.service';
 })
 export class PolyDessinComponent implements AfterViewInit {
 
-  constructor(private basicService: IndexService, private workZoneService: WorkZoneService) {
+  constructor(private basicService: IndexService) {
     this.basicService.basicGet()
       .pipe(
         map((message: Message) => `${message.title} ${message.body}`),
       )
       .subscribe(this.message);
-
-    this.workZoneService.getCurrentWidth().subscribe((currHeight: number) => {
-      console.log(currHeight);
-    });
   }
   readonly title: string = 'LOG2990';
   keyEvent: KeyboardEvent;

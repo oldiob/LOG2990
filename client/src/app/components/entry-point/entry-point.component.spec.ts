@@ -4,7 +4,7 @@ import { MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule } fr
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EntryPointComponent } from './entry-point.component';
 
-fdescribe('EntryPointComponent', () => {
+describe('EntryPointComponent', () => {
   let component: EntryPointComponent;
   let fixture: ComponentFixture<EntryPointComponent>;
   const mockDialogRefSpy: {close: jasmine.Spy} = {
