@@ -12,8 +12,8 @@
 </div>
 
 
-<div *ngIf="currentOption !== 0" [ngSwitch]="currentOption" class="toolbar-element toolbar-option">
-	<app-color-option *ngSwitchCase="1" class=""></app-color-option>
-	<app-tool-option *ngSwitchCase="2" class=""></app-tool-option>
-	<app-shape-option *ngSwitchCase="3" class=""></app-shape-option>
+<div *ngIf="optionDisplayed" [ngSwitch]="currentOption" class="toolbar-element toolbar-option">
+	<app-color-option *ngSwitchCase="0" class="selected-option"></app-color-option>
+	<app-tool-option *ngSwitchCase="1" class="selected-option"></app-tool-option>
+	<app-shape-option *ngSwitchCase="2" class="selected-option"></app-shape-option>
 </div>
