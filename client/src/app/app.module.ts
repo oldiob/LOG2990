@@ -13,7 +13,6 @@ import { DrawAreaComponent } from './components/draw-area/draw-area.component';
 import { EntryPointComponent } from './components/entry-point/entry-point.component';
 import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
-import { ColorSelectorComponent } from './components/toolbar/selector/color-selector/color-selector.component';
 import { SelectorComponent } from './components/toolbar/selector/selector.component';
 import { ShapeSelectorComponent } from './components/toolbar/selector/shape-selector/shape-selector.component';
 import { ToolSelectorComponent } from './components/toolbar/selector/tool-selector/tool-selector.component';
@@ -25,7 +24,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
 @NgModule({
     declarations: [
         AppComponent,
-        ColorSelectorComponent,
         DevPanelComponent,
         DrawAreaComponent,
         EntryPointComponent,
