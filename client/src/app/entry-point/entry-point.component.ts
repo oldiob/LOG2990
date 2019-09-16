@@ -16,12 +16,26 @@ export class EntryPointComponent implements OnInit {
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
 
+  constructor(
+    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
+   }
+
   ngOnInit() {
     this.pressHide = false;
   }
 
   close(event: MouseEvent): void {
     this.dialogRef.close(this.pressHide);
+  }
+
+  // prevent keyboard event
+  @HostListener('window: keydown', ['$event'])
+  @HostListener('window: keypress', ['$event'])
+  disableKeyboard(event: KeyboardEvent) {
+    if (event.type === this.KEYDOWN || event.type === this.KEYPRESS) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 
   // prevent keyboard event
