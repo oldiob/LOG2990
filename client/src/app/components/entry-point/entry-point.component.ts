@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, /*MatDialogConfig*/ MatDialogRef } from '@angular/material';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-entry-point',
@@ -7,12 +7,14 @@ import { MatDialog, /*MatDialogConfig*/ MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog,
-  ) { }
-
+  KEYDOWN = 'keydown';
+  KEYPRESS = 'keypress';
   enableButton: boolean;
   checkoutBox: boolean;
+
+  constructor(
+    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
+   }
 
   ngOnInit() {
     this.enableButton = false;
@@ -23,5 +25,15 @@ export class EntryPointComponent implements OnInit {
 
   close(event: MouseEvent): void {
     this.dialogRef.close(this.enableButton);
+  }
+
+  // prevent keyboard event
+  @HostListener('window: keydown', ['$event'])
+  @HostListener('window: keypress', ['$event'])
+  disableKeyboard(event: KeyboardEvent) {
+    if (event.type === this.KEYDOWN || event.type === this.KEYPRESS) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }
