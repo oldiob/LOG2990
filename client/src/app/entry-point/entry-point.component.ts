@@ -16,6 +16,10 @@ export class EntryPointComponent implements OnInit {
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
 
+  constructor(
+    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
+   }
+
   ngOnInit() {
     this.pressHide = false;
   }
@@ -31,5 +35,19 @@ export class EntryPointComponent implements OnInit {
       event.preventDefault();
       event.stopPropagation();
     }
+<<<<<<< HEAD:client/src/app/entry-point/entry-point.component.ts
 
+=======
+  }
+
+  // prevent keyboard event
+  @HostListener('window: keydown', ['$event'])
+  @HostListener('window: keypress', ['$event'])
+  disableKeyboard(event: KeyboardEvent) {
+    if (event.type === this.KEYDOWN || event.type === this.KEYPRESS) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+>>>>>>> Add Missing EntryPoint:client/src/app/components/entry-point/entry-point.component.ts
 }
