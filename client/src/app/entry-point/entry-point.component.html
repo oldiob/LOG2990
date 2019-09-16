@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="header">
  <h2 mat-dialog-title class="title">Welcome to DrawRebase!</h2>
  <mat-divider style="padding:16px;"></mat-divider>
@@ -11,5 +12,16 @@
  <mat-checkbox class="mat-checkbox" [(ngModel)]="pressHide">Hide message</mat-checkbox>
  <mat-dialog-actions align="end">
     <button class="mat-raised-button" (click)="close($event)">Close</button>
+=======
+
+<div class="header" (keydown)="disableKeyboard($event)">
+ <h2 mat-dialog-title class="title">Welcome to PolyDessin.08!</h2>
+ <mat-divider style="padding:16px;"></mat-divider>
+ <div class="mat-dialog-title">Instructions : à faire </div>
+ <mat-divider style="padding:16px;"></mat-divider>
+ <mat-checkbox class="mat-checkbox" (change)="checkButton($event)">Hide message</mat-checkbox>
+ <mat-dialog-actions align="end">
+    <button  class="mat-raised-button" (click)="close($event)">Close</button>
+>>>>>>> Add Missing EntryPoint
  </mat-dialog-actions> 
 </div>

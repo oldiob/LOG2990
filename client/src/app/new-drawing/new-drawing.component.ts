@@ -13,9 +13,24 @@ export class NewDrawingComponent implements OnInit {
   FALSE = 'false';
   RESULT = 'result';
   DEFAULTBACKGROUND = '#ffffff';
+
   defaultBGColor = '#F9F9F9';
   defaultWidth: number;
   defaultHeight: number;
+
+
+  defaultWidth: number;
+  defaultHeight: number;
+
+
+  defaultWidth: number;
+  defaultHeight: number;
+  width: number;
+  height: number;
+  backgroundColor = '#F9F9F9';
+
+  eventKeyboard: KeyboardEvent;
+
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing: boolean;
