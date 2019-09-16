@@ -4,6 +4,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import {WorkZoneService} from 'src/services/work-zone.service';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EntryPointComponent } from '../entry-point/entry-point.component';
+import {WorkZoneService} from './../../services/work-zone.service';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -16,19 +19,19 @@ export class NewDrawingComponent implements OnInit {
 
   defaultWidth: number;
   defaultHeight: number;
-  //width: number;
-  //height: number;
-  //backgroundColor = '#F9F9F9';
+  width: number;
+  height: number;
+  backgroundColor = '#F9F9F9';
   eventKeyboard: KeyboardEvent;
-
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing: boolean;
 
   constructor(
     public dialog: MatDialog,
-    private formBuilder: FormBuilder,
+    private formBuidler: FormBuilder,
     private workZoneService: WorkZoneService) {
+      this.eventKeyboard = new KeyboardEvent('keydown');
     }
 
   private createForm() {
