@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { SelectorComponent } from './selector/selector.component';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+
+export enum OptionType {
+  NONE = 0,
+  COLOR = 1,
+  TOOL = 2,
+  SHAPE = 3,
+};
+
 
 @Component({
   selector: 'app-toolbar',
@@ -8,39 +15,36 @@ import { SelectorComponent } from './selector/selector.component';
 })
 export class ToolbarComponent implements OnInit {
 
-  currentToolbarOption: SelectorComponent;
-
-  optionBarShowing: boolean;
+  currentOption: OptionType;
 
   constructor() {
-    this.optionBarShowing = false;
+    this.currentOption = OptionType.NONE;
   }
 
   ngOnInit() {
   }
 
-  showOptionBar() {
-    this.optionBarShowing = !this.optionBarShowing;
-  }
 
-  // TODO: add "hideOptionBar" that's called when clicking on the same button
 
   chooseColor() {
-    this.showOptionBar();
+    this.currentOption = OptionType.COLOR;
   }
 
   chooseWorkingTool() {
-    this.showOptionBar();
+    this.currentOption = OptionType.TOOL;
   }
 
   chooseShape() {
-    this.showOptionBar();
+    this.currentOption = OptionType.SHAPE;
   }
 
+
+
+
   newDrawingOption() {
-    this.showOptionBar();
+
   }
   saveImage() {
-    this.showOptionBar();
+
   }
 }

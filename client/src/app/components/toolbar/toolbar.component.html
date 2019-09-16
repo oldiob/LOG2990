@@ -11,4 +11,9 @@
 	</div>
 </div>
 
-<app-selector *ngIf="optionBarShowing" class="toolbar-element"></app-selector>
+
+<div *ngIf="currentOption !== 0" [ngSwitch]="currentOption" class="toolbar-element toolbar-option">
+	<app-color-option *ngSwitchCase="1" class=""></app-color-option>
+	<app-tool-option *ngSwitchCase="2" class=""></app-tool-option>
+	<app-shape-option *ngSwitchCase="3" class=""></app-shape-option>
+</div>

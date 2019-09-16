@@ -14,9 +14,9 @@ import { DrawAreaComponent } from './components/draw-area/draw-area.component';
 import { EntryPointComponent } from './components/entry-point/entry-point.component';
 import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
-import { SelectorComponent } from './components/toolbar/selector/selector.component';
-import { ShapeSelectorComponent } from './components/toolbar/selector/shape-selector/shape-selector.component';
-import { ToolSelectorComponent } from './components/toolbar/selector/tool-selector/tool-selector.component';
+import { ColorOptionComponent } from './components/toolbar/color-option/color-option.component';
+import { ShapeOptionComponent } from './components/toolbar/shape-option/shape-option.component';
+import { ToolOptionComponent } from './components/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
@@ -25,7 +25,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
 @NgModule({
     declarations: [
         AppComponent,
-        PaletteComponent,
+        ColorOptionComponent,
         DevPanelComponent,
         DrawAreaComponent,
         EntryPointComponent,
@@ -33,9 +33,8 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         MousetrackDirective,
         NewDrawingComponent,
         PolyDessinComponent,
-        SelectorComponent,
-        ShapeSelectorComponent,
-        ToolSelectorComponent,
+        ShapeOptionComponent,
+        ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
     ],
