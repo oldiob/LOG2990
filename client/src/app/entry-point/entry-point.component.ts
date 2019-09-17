@@ -16,10 +16,6 @@ export class EntryPointComponent implements OnInit {
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
 
-  constructor(
-    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
-   }
-
   ngOnInit() {
     this.pressHide = false;
   }

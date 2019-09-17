@@ -44,7 +44,7 @@
  <mat-divider style="padding:16px;"></mat-divider>
  <div class="mat-dialog-title">Instructions : à faire </div>
  <mat-divider style="padding:16px;"></mat-divider>
- <mat-checkbox class="mat-checkbox" (change)="checkButton($event)">Hide message</mat-checkbox>
+ <mat-checkbox class="mat-checkbox" [(ngModel)]="pressHide">Hide message</mat-checkbox>
  <mat-dialog-actions align="end">
     <button  class="mat-raised-button" (click)="close($event)">Close</button>
 
