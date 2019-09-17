@@ -10,21 +10,18 @@ export class EntryPointComponent implements OnInit {
   KEYDOWN = 'keydown';
   KEYPRESS = 'keypress';
   enableButton: boolean;
-  checkoutBox: boolean;
+  pressHide: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
-   }
+    }
 
   ngOnInit() {
-    this.enableButton = false;
-  }
-  checkButton(event: MouseEvent): void {
-    this.enableButton = true;
+    this.pressHide = false;
   }
 
   close(event: MouseEvent): void {
-    this.dialogRef.close(this.enableButton);
+    this.dialogRef.close(this.pressHide);
   }
 
   // prevent keyboard event
