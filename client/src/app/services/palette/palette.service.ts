@@ -1,4 +1,6 @@
-import { RingBuffer } from '../../utils/ring_buffer';
+import { Injectable } from '@angular/core';
+
+import { RingBuffer } from '../../utils/ring-buffer';
 
 export class ColorPalette {
 

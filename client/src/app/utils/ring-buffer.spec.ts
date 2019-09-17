@@ -1,4 +1,4 @@
-import { RingBuffer } from './ring_buffer';
+import { RingBuffer } from './ring-buffer';
 
 describe('Utility-RingBuffer', () => {
     const len = 64;
@@ -28,4 +28,10 @@ describe('Utility-RingBuffer', () => {
             expect(mock.arr[i]).toEqual(len - i - 1);
         }
     });
+
+    it('should memset to the correct value', () => {
+        const setTo = Math.random();
+        mock.memSet(setTo);
+        mock.arr.forEach((value: number) => expect(value).toEqual(setTo));
+    })
 });
