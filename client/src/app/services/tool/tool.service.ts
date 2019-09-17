@@ -33,13 +33,24 @@ export class ToolService {
         this.toolCategoryIndex = 0;
     }
 
+
     getToolCategoryIndex(): number {
         return this.toolCategoryIndex;
     }
 
+    setToolCategoryIndex(toolCategoryIndex: number): void {
+        this.toolCategoryIndex = toolCategoryIndex;
+    }
+
+
     getCurrentToolIndex(): number {
         return this.toolCategories[this.toolCategoryIndex].getToolIndex();
     }
+
+    setCurrentToolIndex(currentToolIndex: number): void {
+        this.toolCategories[this.toolCategoryIndex].selectTool(currentToolIndex);
+    }
+    
 
     getCurrentTool(): ITool {
         return this.toolCategories[this.toolCategoryIndex].getCurrentTool();

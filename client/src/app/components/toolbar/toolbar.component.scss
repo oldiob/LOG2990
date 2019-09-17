@@ -14,7 +14,6 @@
 }
 
 .toolbar-element {
-    height: 100%;
     display: inline-table;
     position: relative;
     float: left;
@@ -37,11 +36,8 @@
 
 
 .button {
-	float: left;
-}
-
-.toolbar-button:hover {
-    background-color: yellow;
+    float: left;
+    cursor: pointer;
 }
 
 .toolbar-button {
@@ -49,4 +45,8 @@
     border: 1px solid black;
 	width: 48px;
 	height: 48px;
+}
+
+.selected-toolbar-button {
+    background-color: aliceblue;
 }

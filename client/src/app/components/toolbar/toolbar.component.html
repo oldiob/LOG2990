@@ -1,8 +1,8 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
 		<a class="button toolbar-button" (click)="chooseColor()"></a>
-		<a class="button toolbar-button" (click)="chooseWorkingTool()"></a>
-		<a class="button toolbar-button" (click)="chooseShape()"></a>
+		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0"></a>
+		<a class="button toolbar-button" (click)="chooseShape()" [class.selected-toolbar-button]="getToolCategory() === 1"></a>
 	</div>
 
 	<div class="options">
@@ -12,7 +12,7 @@
 </div>
 
 
-<div *ngIf="optionDisplayed" [ngSwitch]="currentOption" class="toolbar-element toolbar-option">
+<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option">
 	<app-color-option *ngSwitchCase="0" class="selected-option"></app-color-option>
 	<app-tool-option *ngSwitchCase="1" class="selected-option"></app-tool-option>
 	<app-shape-option *ngSwitchCase="2" class="selected-option"></app-shape-option>
