@@ -62,21 +62,4 @@ describe('EntryPointComponent', () => {
     expect(component.pressHide).toEqual(true);
   });
 
-  it('should return false if the keyboard is not pressed', () => {
-    const event = new KeyboardEvent('keypress', {
-      key: '',
-      cancelable: true,
-    });
-    expect(event.defaultPrevented).toEqual(false);
-  });
-
-  it('should return true if the keyboard is pressed', () => {
-    const event = new KeyboardEvent('keypress', {
-      key: 'd',
-      cancelable: true,
-    });
-    component.disableKeyboard(event);
-    expect(event.defaultPrevented).toEqual(true);
-  });
-
 });
