@@ -23,15 +23,10 @@ export class DrawAreaComponent implements OnInit {
     currentX = 0;
     currentStyles: { height: number; width: number; 'background-color': string; };
     constructor(private workZoneService: WorkZoneService) {
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         this.rectangleService = new RectangleService();
         this.rectangleService.click = false;
->>>>>>> Add Rectangle Interface And Rectangle Service
-=======
->>>>>>> Add Draw Rectangle With MouseEvent
-=======
->>>>>>> Fix rectangle-service.ts in order for rectangles to be draw in any directions
+
     }
 
     ngOnInit() {
@@ -58,20 +53,19 @@ export class DrawAreaComponent implements OnInit {
         this.mouseY = event.offsetY;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
     mouseLeftX:number;
     mouseRightX:number;
     mouseUpY:number;
     mouseLowerY:number;
     // @HostListener('window: mousedown', ['$event'])
-=======
->>>>>>> Add Rectangle Interface And Rectangle Service
-=======
->>>>>>> Fix rectangle-service.ts in order for rectangles to be draw in any directions
+
     onClick(event: MouseEvent): void {
-        this.mouseX = event.offsetX;
-        this.mouseY = event.offsetY;
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+        this.rectangleHeight = this.mouseY;
+        this.rectangleWidth = this.mouseX;
+        this.rectangleActivate = true;
     }
 }

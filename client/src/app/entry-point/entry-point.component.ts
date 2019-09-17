@@ -32,16 +32,9 @@ export class EntryPointComponent implements OnInit {
   @HostListener('window: keydown', ['$event'])
   @HostListener('window: keypress', ['$event'])
   disableKeyboard(event: KeyboardEvent) {
-<<<<<<< HEAD
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-=======
     if (event.type === this.KEYDOWN || event.type === this.KEYPRESS) {
       event.preventDefault();
       event.stopPropagation();
     }
   }
->>>>>>> Add Missing EntryPoint
 }
