@@ -5,7 +5,7 @@ import { WorkZoneService } from './work-zone.service';
 describe('WorkZoneService', () => {
   const WIDTH = 10;
   const HEIGHT = 10;
-  const BG_COLOR = '#000000';
+  const BACKGROUND_COLOR = '#000000';
 
   let service: WorkZoneService;
 
@@ -22,7 +22,7 @@ describe('WorkZoneService', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({});
       service = TestBed.get(WorkZoneService);
-      service.updateDrawAreaDimensions(WIDTH, HEIGHT, BG_COLOR);
+      service.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
     });
 
     it('should update draw area width', () => {
@@ -39,7 +39,7 @@ describe('WorkZoneService', () => {
 
     it('should update draw area background color', () => {
       service.currentBackgroundColor.subscribe(
-        (currentBgColor) => expect(currentBgColor).toBe(BG_COLOR),
+        (currentBgColor) => expect(currentBgColor).toBe(BACKGROUND_COLOR),
       );
     });
   });
@@ -68,7 +68,7 @@ describe('WorkZoneService', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({});
       service = TestBed.get(WorkZoneService);
-      service.updateDrawAreaDimensions(WIDTH, HEIGHT, BG_COLOR);
+      service.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
     });
 
     it('should give access to DrawArea current width', () => {
@@ -85,7 +85,7 @@ describe('WorkZoneService', () => {
 
     it('should give access to DrawArea current background color', () => {
       service.currentBackgroundColor.subscribe(
-        (currentBgColor) => expect(currentBgColor).toBe(BG_COLOR),
+        (currentBgColor) => expect(currentBgColor).toBe(BACKGROUND_COLOR),
       );
     });
   });
