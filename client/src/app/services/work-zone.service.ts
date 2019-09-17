@@ -5,52 +5,42 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WorkZoneService {
-  private width: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  currentWidth: Observable<number> = this.width.asObservable();
-
-  private height: BehaviorSubject<number>  = new BehaviorSubject<number>(0);
-  currentHeight: Observable<number> = this.height.asObservable();
-
-  private backgroundColor: BehaviorSubject<string> = new BehaviorSubject<string>('#ffffff');
-  currentBackgroundColor = this.backgroundColor.asObservable();
+  // Work-area's dimensions
+  private width = new BehaviorSubject<number>(0);
+  private height = new BehaviorSubject<number>(0);
+  private backgroundColor = new BehaviorSubject<string>('#ffffff');
 
   // Work-area's maximum dimensions
-  private maxWidth: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  currentMaxWidth = this.maxWidth.asObservable();
+  private maxWidth = new BehaviorSubject<number>(0);
+  private maxHeight = new BehaviorSubject<number>(0);
 
-  private maxHeight: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  currentMaxHeight = this.maxHeight.asObservable();
+  constructor() { }
 
-  constructor() {
-
-  }
-
-  getCurrentWidth(): Observable<number> {
+  get currentWidth(): Observable<number> {
     return this.width.asObservable();
   }
-  getCurrentHeight(): Observable<number> {
+  get currentHeight(): Observable<number> {
     return this.height.asObservable();
   }
+  get currentBackgroundColor(): Observable<string> {
+    return this.backgroundColor.asObservable();
+  }
+  get currentMaxWidth(): Observable<number> {
+    return this.maxWidth.asObservable();
+  }
+  get currentMaxHeight(): Observable<number> {
+    return this.maxHeight.asObservable();
+  }
 
-  updateDrawAreaDimensions(width?: number, height?: number, bgColor?: string) {
-    if (width) {
-      this.width.next(width);
-    }
-    if (height) {
-      this.height.next(height);
-    }
-    if (bgColor) {
-      this.backgroundColor.next(bgColor);
-    }
+  updateDrawAreaDimensions(width: number, height: number, bgColor: string) {
+    this.width.next(width);
+    this.height.next(height);
+    this.backgroundColor.next(bgColor);
   }
 
   // Updates Work Zone initial dimensions values
-  updateInitialDimensions(maxWidth?: number, maxHeight?: number): void {
-    if (maxWidth) {
-      this.maxWidth.next(maxWidth);
-    }
-    if (maxHeight) {
-      this.maxHeight.next(maxHeight);
-    }
+  updateInitialDimensions(maxWidth: number, maxHeight: number): void {
+    this.maxWidth.next(maxWidth);
+    this.maxHeight.next(maxHeight);
   }
 }
