@@ -61,27 +61,10 @@ export class DrawAreaComponent implements OnInit {
     mouseLowerY:number;
     // @HostListener('window: mousedown', ['$event'])
     onClick(event: MouseEvent): void {
-<<<<<<< HEAD
-        this.rectangle.initialX=event.clientX;
-        this.rectangle.initialY=event.clientY;
-        while(this.eventMouse){
-        this.rectangle.mouseX=event.clientX;
-        this.rectangle.mouseY=event.clientY;
-        this.rectangle.drawRectangle();
-        this.mouseLeftX=this.rectangle.LeftX;
-        this.mouseUpY=this.rectangle.upperY;
-        //this.mouseX = event.clientX;
-        //this.mouseY = event.clientY;
-        this.rectangleHeight = this.rectangle.heightRectangle;
-        this.rectangleWidth = this.rectangle.widthRectangle;
-        this.rectangleActivate = true;
-        }
-=======
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
         this.rectangleHeight = this.mouseY;
         this.rectangleWidth = this.mouseX;
         this.rectangleActivate = true;
->>>>>>> Add Svg Rectangle Width And Height
     }
 }
