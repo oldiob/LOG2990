@@ -1,18 +1,32 @@
 import { Injectable } from '@angular/core';
-import { ITool } from './tool-options/i-tool';
-import { NavigationHand } from './tool-options/navigation-hand';
+import { ToolCategory } from './tool-category';
+import { Pencil } from './tool-options/pencil';
+import { Brush } from './tool-options/brush';
+import { Rectangle } from './tool-options/rectangle';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CurrentToolService {
 
-    currentTool: ITool;
+    toolCategories: ToolCategory[];
 
     constructor() {
 
-        // no tool selected, so just navigate around
-        this.currentTool = new NavigationHand();
+        let pencil: Pencil = new Pencil();
+        let brush: Brush = new Brush();
+        let drawingTools: ToolCategory = new ToolCategory([
+            pencil,
+            brush,
+        ]);
+
+
+        let rectangle: Rectangle = new Rectangle();
+        let shapeTools: ToolCategory = new ToolCategory([
+            rectangle,
+        ]);
+
+        this.toolCategories = [drawingTools, shapeTools];
     }
 
 }
