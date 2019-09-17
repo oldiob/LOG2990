@@ -30,6 +30,10 @@ export class ToolbarComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	getOptionTopMargin(): number {
+		return this.currentDisplayedOption * 48;
+	}
+
 
 	getToolCategory(): number {
 		return this.toolService.getToolCategoryIndex();
