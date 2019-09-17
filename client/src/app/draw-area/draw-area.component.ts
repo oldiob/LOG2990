@@ -38,4 +38,19 @@ export class DrawAreaComponent implements OnInit {
             'background-color': `${this.backgroundColor}`,
         };
     }
+<<<<<<< HEAD:client/src/app/draw-area/draw-area.component.ts
+=======
+    coordinates(event: MouseEvent): void {
+        this.mouseX = event.offsetX;
+        this.mouseY = event.offsetY;
+    }
+
+    onClick(event: MouseEvent): void {
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+        this.rectangleHeight = this.mouseY;
+        this.rectangleWidth = this.mouseX;
+        this.rectangleActivate = true;
+    }
+>>>>>>> Add Svg Rectangle Width And Height:client/src/app/components/draw-area/draw-area.component.ts
 }
