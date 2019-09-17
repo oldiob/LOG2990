@@ -13,4 +13,5 @@ export class ColorPaletteComponent implements OnInit {
 
     ngOnInit() {
     }
+    swap() { this.palette.swap() }
 }
