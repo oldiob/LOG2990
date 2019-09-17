@@ -43,20 +43,20 @@ describe('EntryPointComponent', () => {
 
   it('should return false when the dialog is closed', () => {
     component.close(eventClick);
-    expect(component.enableButton).toEqual(false);
+    expect(component.pressHide).toEqual(false);
   });
 
   it('should return true when the disable button is clicked', () => {
-    component.checkButton(eventClick);
+    component.pressHide = true;
     component.close(eventClick);
-    expect(component.enableButton).toEqual(true);
+    expect(component.pressHide).toEqual(true);
   });
 
   it('should return true when the disable button is clicked and when the page is refreshed', () => {
-    component.checkButton(eventClick);
+    component.pressHide = true;
     component.close(eventClick);
     windowSpy.reload();
-    expect(component.enableButton).toEqual(true);
+    expect(component.pressHide).toEqual(true);
   });
 
 });
