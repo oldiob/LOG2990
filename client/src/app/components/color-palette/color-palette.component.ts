@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ColorPalette } from '../../services/palette/palette.service';
+import { PaletteService } from '../../services/palette/palette.service';
 
 @Component({
     selector: 'app-color-palette',
@@ -9,7 +9,7 @@ import { ColorPalette } from '../../services/palette/palette.service';
 })
 export class ColorPaletteComponent implements OnInit {
 
-    constructor(private palette: ColorPalette) { }
+    constructor(private palette: PaletteService) { }
 
     ngOnInit() {
     }

@@ -9,7 +9,7 @@ enum Base {
 @Injectable({
     providedIn: 'root',
 })
-export class ColorPalette {
+export class PaletteService {
 
     static readonly DEFAULT_PRIMARY = 0x0000000;
     static readonly DEFAULT_SECONDARY = 0xFFFFFFFF;
@@ -21,10 +21,10 @@ export class ColorPalette {
     previous: RingBuffer<number>;
 
     constructor() {
-        this.primary = ColorPalette.DEFAULT_PRIMARY;
-        this.secondary = ColorPalette.DEFAULT_SECONDARY;
-        this.previous = new RingBuffer<number>(ColorPalette.MAX_HISTORY);
-        this.previous.memSet(ColorPalette.DEFAULT_MEMSET);
+        this.primary = PaletteService.DEFAULT_PRIMARY;
+        this.secondary = PaletteService.DEFAULT_SECONDARY;
+        this.previous = new RingBuffer<number>(PaletteService.MAX_HISTORY);
+        this.previous.memSet(PaletteService.DEFAULT_MEMSET);
     }
 
     swap() {
@@ -46,16 +46,16 @@ export class ColorPalette {
     }
 
     getPrimary(): string {
-        return ColorPalette.formatColor(this.primary, Base.hex);
+        return PaletteService.formatColor(this.primary, Base.hex);
     }
 
     getSecondary(): string {
-        return ColorPalette.formatColor(this.secondary, Base.hex);
+        return PaletteService.formatColor(this.secondary, Base.hex);
     }
 
     getHistory(): string[] {
         return this.previous.arr.map((value: number) => {
-            return ColorPalette.formatColor(value, Base.hex);
+            return PaletteService.formatColor(value, Base.hex);
         });
     }
 
