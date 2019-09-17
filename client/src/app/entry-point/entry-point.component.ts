@@ -7,15 +7,11 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-<<<<<<< HEAD:client/src/app/entry-point/entry-point.component.ts
-  pressHide: boolean;
-=======
   KEYDOWN = 'keydown';
   KEYPRESS = 'keypress';
   enableButton: boolean;
   pressHide: boolean;
 
->>>>>>> Refactor Hide Buttons:client/src/app/components/entry-point/entry-point.component.ts
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
