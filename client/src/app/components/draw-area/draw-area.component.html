@@ -1,4 +1,8 @@
 <div mousetrack class="draw-area" (mousemove)="coordinates($event)" on-click="onClick($event)" [ngStyle]="setCurrentStyles()">
-
   <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>
+  <div *ngIf="this.rectangleActivate">
+  <svg width="1000" height="1000">
+    <rect x="0" y="0" [attr.width]="this.rectangleWidth" [attr.height]="this.rectangleHeight" />
+  </svg>
+</div>
 </div>

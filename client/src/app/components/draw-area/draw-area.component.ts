@@ -12,6 +12,9 @@ export class DrawAreaComponent implements OnInit {
 
     height: number;
     width: number;
+    rectangleWidth: number;
+    rectangleHeight: number;
+    rectangleActivate = false;
     backgroundColor: string;
     event: MouseEvent;
     mouseX = 0;
@@ -47,5 +50,8 @@ export class DrawAreaComponent implements OnInit {
     onClick(event: MouseEvent): void {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
+        this.rectangleHeight = this.mouseY;
+        this.rectangleWidth = this.mouseX;
+        this.rectangleActivate = true;
     }
 }
