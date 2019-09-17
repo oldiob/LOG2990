@@ -2,21 +2,21 @@ import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ColorPaletteComponent } from './color-palette.component';
+import { PaletteComponent } from './palette.component';
 
-describe('ColorPaletteComponent', () => {
-    let component: ColorPaletteComponent;
-    let fixture: ComponentFixture<ColorPaletteComponent>;
+describe('PaletteComponent', () => {
+    let component: PaletteComponent;
+    let fixture: ComponentFixture<PaletteComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ColorPaletteComponent],
+            declarations: [PaletteComponent],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ColorPaletteComponent);
+        fixture = TestBed.createComponent(PaletteComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -7,7 +7,7 @@ import { PaletteService } from '../../services/palette/palette.service';
     templateUrl: './color-palette.component.html',
     styleUrls: ['./color-palette.component.scss'],
 })
-export class ColorPaletteComponent implements OnInit {
+export class PaletteComponent implements OnInit {
 
     constructor(private palette: PaletteService) { }
 
