@@ -2,9 +2,8 @@ import { ITool } from './tool-options/i-tool';
 
 export class ToolCategory {
 
-    toolIndex: number;
-
-    tools: ITool[];
+    private toolIndex: number;
+    private tools: ITool[];
 
     constructor(tools: ITool[]) {
         if (tools.length === 0) {

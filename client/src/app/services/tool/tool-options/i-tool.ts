@@ -1,7 +1,7 @@
 
 export interface ITool {
 
-    leftClick(): any;
+    leftClick(): void;
 
-    leftRelease(): any;
+    leftRelease(): void;
 }

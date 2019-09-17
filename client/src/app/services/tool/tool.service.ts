@@ -3,13 +3,15 @@ import { ToolCategory } from './tool-category';
 import { Pencil } from './tool-options/pencil';
 import { Brush } from './tool-options/brush';
 import { Rectangle } from './tool-options/rectangle';
+import { ITool } from './tool-options/i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class CurrentToolService {
+export class ToolService {
 
-    toolCategories: ToolCategory[];
+    private toolCategories: ToolCategory[];
+    private toolCategoryIndex: number;
 
     constructor() {
 
@@ -27,6 +29,20 @@ export class CurrentToolService {
         ]);
 
         this.toolCategories = [drawingTools, shapeTools];
+
+        this.toolCategoryIndex = 0;
+    }
+
+    getToolCategoryIndex(): number {
+        return this.toolCategoryIndex;
+    }
+
+    getCurrentToolIndex(): number {
+        return this.toolCategories[this.toolCategoryIndex].getToolIndex();
+    }
+
+    getCurrentTool(): ITool {
+        return this.toolCategories[this.toolCategoryIndex].getCurrentTool();
     }
 
 }

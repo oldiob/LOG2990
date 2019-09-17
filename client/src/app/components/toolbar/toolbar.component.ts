@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+=======
+import { Component, OnInit } from '@angular/core';
+import { ToolService } from 'src/app/services/tool/tool.service';
+>>>>>>> aae1d58... Adding access methods to ToolService + creating a ToolService instance in ToolbarComponent
 
 export enum OptionType {
   NONE = 0,
@@ -15,10 +20,16 @@ export enum OptionType {
 })
 export class ToolbarComponent implements OnInit {
 
-  currentOption: OptionType;
+  private toolService: ToolService;
+
+  currentDisplayedOption: OptionType;
+  optionDisplayed: boolean;
 
   constructor() {
-    this.currentOption = OptionType.NONE;
+    this.toolService = new ToolService();
+
+    this.currentDisplayedOption = OptionType.TOOL;
+    this.optionDisplayed = false;
   }
 
   ngOnInit() {
@@ -27,15 +38,18 @@ export class ToolbarComponent implements OnInit {
 
 
   chooseColor() {
-    this.currentOption = OptionType.COLOR;
+    this.currentDisplayedOption = OptionType.COLOR;
+    this.optionDisplayed = true;
   }
 
   chooseWorkingTool() {
-    this.currentOption = OptionType.TOOL;
+    this.currentDisplayedOption = OptionType.TOOL;
+    this.optionDisplayed = true;
   }
 
   chooseShape() {
-    this.currentOption = OptionType.SHAPE;
+    this.currentDisplayedOption = OptionType.SHAPE;
+    this.optionDisplayed = true;
   }
 
 
