@@ -1,14 +1,14 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { ToolService } from './tool.service';
+import { CurrentToolService } from './selected-tool.service';
 
 describe('Service: CurrentTool', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ToolService],
+      providers: [CurrentToolService],
     });
   });
 
-  it('should ...', inject([ToolService], (service: ToolService) => {
+  it('should ...', inject([CurrentToolService], (service: CurrentToolService) => {
     expect(service).toBeTruthy();
   }));
 });
