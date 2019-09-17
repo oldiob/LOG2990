@@ -53,7 +53,10 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onClick(event: MouseEvent): void {
-        this.mouseX = event.offsetX;
-        this.mouseY = event.offsetY;
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+        this.rectangleHeight = this.mouseY;
+        this.rectangleWidth = this.mouseX;
+        this.rectangleActivate = true;
     }
 }
