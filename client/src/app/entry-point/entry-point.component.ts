@@ -16,7 +16,7 @@ export class EntryPointComponent implements OnInit {
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
 
-  ngOnInit() {
+    ngOnInit() {
     this.pressHide = false;
   }
 
@@ -31,11 +31,7 @@ export class EntryPointComponent implements OnInit {
       event.preventDefault();
       event.stopPropagation();
     }
-<<<<<<< HEAD:client/src/app/entry-point/entry-point.component.ts
-
-=======
   }
-<<<<<<< HEAD:client/src/app/entry-point/entry-point.component.ts
 
   // prevent keyboard event
   @HostListener('window: keydown', ['$event'])
@@ -46,7 +42,4 @@ export class EntryPointComponent implements OnInit {
       event.stopPropagation();
     }
   }
->>>>>>> Add Missing EntryPoint:client/src/app/components/entry-point/entry-point.component.ts
-=======
->>>>>>> Refactor Hide Buttons:client/src/app/components/entry-point/entry-point.component.ts
 }
