@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WorkZoneService } from 'src/services/work-zone.service';
+import { WorkZoneService } from './../../services/work-zone.service';
+import { RectangleService } from '../../services/rectangle/rectangle.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -9,14 +10,24 @@ import { WorkZoneService } from 'src/services/work-zone.service';
 export class DrawAreaComponent implements OnInit {
     @Input() keyEvent: KeyboardEvent;
     @Input() key: string;
-    height: number = 0;
-    width: number = 0;
+    eventMouse: MouseEvent;
+    height: number;
+    width: number;
     rectangleWidth: number;
     rectangleHeight: number;
     rectangleActivate = false;
-    backgroundColor: string = "#ffffffff";
+    backgroundColor: string;
+    event: MouseEvent;
+    mouseX = 0;
+    mouseY = 0;
+    rectangle: RectangleService;
     currentStyles: { height: number; width: number; 'background-color': string; };
-    constructor(private workZoneService: WorkZoneService) {
+    
+    constructor(private workZoneService: WorkZoneService) { 
+        this.eventMouse = new MouseEvent('mousedown');
+        this.rectangle.initialX = 0;
+        this.rectangle.initialY = 0;
+        this.rectangle = new RectangleService(1, 1);
     }
 
     ngOnInit() {
@@ -38,19 +49,31 @@ export class DrawAreaComponent implements OnInit {
             'background-color': `${this.backgroundColor}`,
         };
     }
-<<<<<<< HEAD:client/src/app/draw-area/draw-area.component.ts
-=======
     coordinates(event: MouseEvent): void {
         this.mouseX = event.offsetX;
         this.mouseY = event.offsetY;
     }
 
+
+    mouseLeftX:number;
+    mouseRightX:number;
+    mouseUpY:number;
+    mouseLowerY:number;
+    // @HostListener('window: mousedown', ['$event'])
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-        this.rectangleHeight = this.mouseY;
-        this.rectangleWidth = this.mouseX;
+        this.rectangle.initialX=event.clientX;
+        this.rectangle.initialY=event.clientY;
+        while(this.eventMouse){
+        this.rectangle.mouseX=event.clientX;
+        this.rectangle.mouseY=event.clientY;
+        this.rectangle.drawRectangle();
+        this.mouseLeftX=this.rectangle.LeftX;
+        this.mouseUpY=this.rectangle.upperY;
+        //this.mouseX = event.clientX;
+        //this.mouseY = event.clientY;
+        this.rectangleHeight = this.rectangle.heightRectangle;
+        this.rectangleWidth = this.rectangle.widthRectangle;
         this.rectangleActivate = true;
+        }
     }
->>>>>>> Add Svg Rectangle Width And Height:client/src/app/components/draw-area/draw-area.component.ts
 }
