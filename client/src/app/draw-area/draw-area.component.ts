@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WorkZoneService } from './../../services/work-zone.service';
+import { RectangleService } from '../../services/rectangle/rectangle.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -19,13 +20,14 @@ export class DrawAreaComponent implements OnInit {
     event: MouseEvent;
     mouseX = 0;
     mouseY = 0;
-    currentY = 0;
-    currentX = 0;
+    rectangle: RectangleService;
     currentStyles: { height: number; width: number; 'background-color': string; };
-    constructor(private workZoneService: WorkZoneService) {
-
-        //this.rectangleService = new RectangleService();
-        //this.rectangleService.click = false;
+    
+    constructor(private workZoneService: WorkZoneService) { 
+        this.eventMouse = new MouseEvent('mousedown');
+        this.rectangle.initialX = 0;
+        this.rectangle.initialY = 0;
+        this.rectangle = new RectangleService(1, 1);
     }
 
     ngOnInit() {
@@ -52,11 +54,26 @@ export class DrawAreaComponent implements OnInit {
         this.mouseY = event.offsetY;
     }
 
+
+    mouseLeftX:number;
+    mouseRightX:number;
+    mouseUpY:number;
+    mouseLowerY:number;
+    // @HostListener('window: mousedown', ['$event'])
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-        this.rectangleHeight = this.mouseY;
-        this.rectangleWidth = this.mouseX;
+        this.rectangle.initialX=event.clientX;
+        this.rectangle.initialY=event.clientY;
+        while(this.eventMouse){
+        this.rectangle.mouseX=event.clientX;
+        this.rectangle.mouseY=event.clientY;
+        this.rectangle.drawRectangle();
+        this.mouseLeftX=this.rectangle.LeftX;
+        this.mouseUpY=this.rectangle.upperY;
+        //this.mouseX = event.clientX;
+        //this.mouseY = event.clientY;
+        this.rectangleHeight = this.rectangle.heightRectangle;
+        this.rectangleWidth = this.rectangle.widthRectangle;
         this.rectangleActivate = true;
+        }
     }
 }

@@ -21,7 +21,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
 import { MousetrackDirective } from './directive/mousetrack.directive';
-//import { RectangleService } from './services/rectangle/rectangle.service';
+import { RectangleService } from './services/rectangle/rectangle.service';
 
 @NgModule({
     declarations: [
@@ -38,8 +38,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
-        RectangleComponent,
-
+        RectangleService,
     ],
     imports: [
         BrowserModule,
