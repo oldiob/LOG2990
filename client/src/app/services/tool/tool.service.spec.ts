@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CurrentToolService } from './selected-tool.service';
+import { ToolService } from './tool.service';
 
 describe('Service: CurrentTool', () => {
   beforeEach(() => {
