@@ -20,8 +20,8 @@ export class ToolbarComponent implements OnInit {
 	currentDisplayedOption: OptionType;
 	optionDisplayed: boolean;
 
-	constructor() {
-		this.toolService = new ToolService();
+	constructor(toolService: ToolService) {
+		this.toolService = toolService;
 
 		this.currentDisplayedOption = OptionType.TOOL;
 		this.optionDisplayed = false;
