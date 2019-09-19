@@ -1,4 +1,4 @@
-<div mousetrack  class="draw-area" (mousemove)="coordinates($event)" on-click="onClick($event)" [ngStyle]="setCurrentStyles()">
+<div mousetrack  class="draw-area" (mousemove)="coordinates($event)" on-click="onClick($event)" (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (drag)="onDrag($event)" [ngStyle]="setCurrentStyles()">
   <template #svgContainer></template>
 
   <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>

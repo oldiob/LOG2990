@@ -1,7 +1,7 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
    Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { WorkZoneService } from './../../services/work-zone.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
+import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -56,6 +56,15 @@ export class DrawAreaComponent implements OnInit {
         this.mouseY = event.clientY;
         this.createComponent('danger');
     }
+    onMouseDown(event: MouseEvent): void {
+
+    }
+    onMouseUp(event: MouseEvent): void {
+
+    }
+    onDrag(event: MouseEvent): void {
+
+    }
 
     createComponent(type: any) {
       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(GenericStrokeComponent);
@@ -63,10 +72,6 @@ export class DrawAreaComponent implements OnInit {
       this.componentRef = this.entry.createComponent(factory);
 
       this.componentRef.instance.type = type;
-
-      this.componentRef.instance.backgroundColor = 'black';
-      this.componentRef.instance.style.left = this.mouseX + 'px';
-
 
       //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
 
