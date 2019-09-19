@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
@@ -6,39 +6,29 @@ import { WorkZoneService } from './../../services/work-zone.service';
   templateUrl: './work-zone.component.html',
   styleUrls: ['./work-zone.component.scss'],
 })
-export class WorkZoneComponent implements OnInit, AfterViewInit {
+export class WorkZoneComponent implements OnInit {
 
   @ViewChild('workZone', { static: true }) workZone: ElementRef;
 
   @Input() keyEvent: KeyboardEvent;
   @Input() key: string;
 
-  width: number;
-  height: number;
-  backgroundColor: number;
-
-  maxWidth: number;
-  maxHeight: number;
-
   constructor(private workZoneService: WorkZoneService) { }
 
-  // Assigning size values from 'work-zone' referenced element
-  updateMaxSize() {
-    this.maxWidth = this.workZone.nativeElement.offsetWidth;
-    this.maxHeight = this.workZone.nativeElement.offsetHeight;
-    this.workZoneService.updateInitialDimensions(this.maxWidth, this.maxHeight);
+  // Update dimension values from ElementRef workZone in workZoneService
+  updateMaxDimensions() {
+    const maxWidth = this.workZone.nativeElement.offsetWidth;
+    const maxHeight = this.workZone.nativeElement.offsetHeight;
+    this.workZoneService.updateInitialDimensions(maxWidth, maxHeight);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    // Update  work-area size values when resizing window
-    this.updateMaxSize();
+    this.updateMaxDimensions();
   }
 
   ngOnInit() {
-    this.updateMaxSize();
+    this.updateMaxDimensions();
   }
-
-  ngAfterViewInit(): void { }
 
 }
