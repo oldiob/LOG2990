@@ -10,10 +10,7 @@ import {WorkZoneService} from './../../services/work-zone.service';
 export class NewDrawingComponent implements OnInit {
   defaultWidth: number;
   defaultHeight: number;
-
-  width: number;
-  height: number;
-  backgroundColor = '#F9F9F9';
+  defaultBackgroundColor = '#F9F9F9';
 
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
@@ -32,12 +29,7 @@ export class NewDrawingComponent implements OnInit {
     });
   }
 
-  // for testing
   onSubmit() {
-    console.warn(this.newDrawingFrom.controls.width.value);
-    console.warn(this.newDrawingFrom.controls.height.value);
-    console.warn(this.newDrawingFrom.controls.backgroundColor.value);
-
     const width = this.newDrawingFrom.controls.width.value;
     const height = this.newDrawingFrom.controls.height.value;
     const bgColor = this.newDrawingFrom.controls.backgroundColor.value;
@@ -48,7 +40,6 @@ export class NewDrawingComponent implements OnInit {
 
   chooseBgColor(bgColor: string) {
     this.newDrawingFrom.controls.backgroundColor.setValue(bgColor);
-    this.backgroundColor = bgColor;
   }
 
   // Fetches default dimensions
