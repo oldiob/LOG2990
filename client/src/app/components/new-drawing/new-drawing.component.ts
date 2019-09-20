@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {WorkZoneService} from './../../services/work-zone.service';
+import { WorkZoneService } from './../../services/work-zone.service';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -11,28 +11,43 @@ export class NewDrawingComponent implements OnInit {
   defaultWidth: number;
   defaultHeight: number;
   defaultBackgroundColor = '#F9F9F9';
-
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
-  displayNewDrawing = true;
+  displayNewDrawing: boolean;
 
   constructor(
-      private formBuidler: FormBuilder,
-      private workZoneService: WorkZoneService) {}
+    private formBuilder: FormBuilder,
+    private workZoneService: WorkZoneService) {
+    this.defaultWidth = 0;
+    this.defaultWidth = 0;
+    this.defaultBackgroundColor = '#F9F9F9';
+    this.displayNewDrawing = true;
+    this.createForm();
+  }
 
-  createForm() {
+  private createForm() {
     // Form to create new work zone to draw
-    this.newDrawingFrom = this.formBuidler.group({
+    this.newDrawingFrom = this.formBuilder.group({
       height: [this.defaultHeight, Validators.min(0)],
       width: [this.defaultWidth, Validators.min(0)],
       backgroundColor: ['#ffffff'],
     });
   }
 
+  get width() {
+    return this.newDrawingFrom.controls.width.value;
+  }
+  get height() {
+    return this.newDrawingFrom.controls.height.value;
+  }
+  get backgroundColor() {
+    return this.newDrawingFrom.controls.backgroundColor.value;
+  }
+
   onSubmit() {
-    const width = this.newDrawingFrom.controls.width.value;
-    const height = this.newDrawingFrom.controls.height.value;
-    const bgColor = this.newDrawingFrom.controls.backgroundColor.value;
+    const width = this.width;
+    const height = this.height;
+    const bgColor = this.backgroundColor;
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
     this.displayNewDrawing = false;
     this.displayChange.emit(this.displayNewDrawing);
@@ -43,7 +58,7 @@ export class NewDrawingComponent implements OnInit {
   }
 
   // Fetches default dimensions
-  fetchDefaults() {
+  private fetchDefaults() {
     this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
       // Updates width form control
       this.newDrawingFrom.controls.width.setValue(maxWidth);
@@ -60,7 +75,6 @@ export class NewDrawingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm();
     this.fetchDefaults();
   }
 }
