@@ -1,17 +1,4 @@
 <div mousetrack class="draw-area" (mousemove)="coordinates($event)" (click)="onClick($event)" [ngStyle]="setCurrentStyles()">
   <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>
-  <div *ngFor="let this.rectangleService.rectangle of this.rectangleService.rectangles">
-    {{this.rectangleService.rectangle}}
-  </div>
-  <svg width="1000" height="1000" *ngIf="this.rectangleService.click"
-    (mousedown)="this.rectangleService.startDrawRect($event)" 
-    (mousemove)="this.rectangleService.drawRect($event)" 
-    (mouseup)="this.rectangleService.endDragMouse($event)"
-    (mouveleave)="this.rectangleService.endDragMouse($event)">
-   
-    <rect [attr.x]="this.rectangleService.currentX" 
-          [attr.y]="this.rectangleService.currentY" 
-          [attr.width]="this.rectangleService.width"
-          [attr.height]="this.rectangleService.height" />
-  </svg>
+  <app-rectangle></app-rectangle>
 </div>

@@ -7,6 +7,7 @@ export class RectangleService {
     mouseY = 0;
     width = 0;
     height = 0;
+    i = 0;
     click: boolean;
     rectangles: Rectangle[];
     rectangle: Rectangle;
@@ -25,17 +26,17 @@ export class RectangleService {
     }
     @HostListener('mousemove', ['$event'])
     drawRect(event: MouseEvent): void {
+        if (this.click) {
         this.width = (Math.abs(this.currentX - event.offsetX));
         this.height = (Math.abs(this.currentY - event.offsetY));
+        }
 }
 
     @HostListener('window: mouseleave', ['$event'])
     @HostListener('window: mouseup', ['$event'])
     endDragMouse(event: MouseEvent): void {
-        if (!this.click) {
             this.addRectangle();
             this.click = false;
-        }
     }
 
     @HostListener('window: keydown', ['$event'])
@@ -54,6 +55,9 @@ export class RectangleService {
             height: this.height,
         };
         this.rectangles.push(this.rectangle);
-        console.log(this.rectangles);
-    }
+        // tslint:disable-next-line:forin
+        for (const rect in this.rectangles) {
+            console.log('RECT', this.rectangles[rect]);
+            }
+        }
 }
