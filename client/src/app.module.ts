@@ -39,6 +39,10 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         ToolbarComponent,
         WorkZoneComponent,
         RectangleComponent,
+<<<<<<< HEAD:client/src/app.module.ts
+=======
+
+>>>>>>> Delete merge conflict texts:client/src/app/app.module.ts
     ],
     imports: [
         BrowserModule,
