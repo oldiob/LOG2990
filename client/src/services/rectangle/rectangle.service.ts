@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> Fixing Dead Code In EntryPointComponent
 import { HostListener } from '@angular/core';
 import { Rectangle } from '../../../../../common/communication/rectangle';
 export class RectangleService {

@@ -39,10 +39,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         ToolbarComponent,
         WorkZoneComponent,
         RectangleComponent,
-<<<<<<< HEAD
 
-=======
->>>>>>> Add Draw Rectangle With MouseEvent
     ],
     imports: [
         BrowserModule,
