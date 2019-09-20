@@ -19,6 +19,7 @@ export class GenericStrokeComponent implements OnInit {
   }
   addPoints(posX: number, posY: number) {
     this.points += ' ' + (posX) + ',' + posY;
+    //this.setColor(this.getRandomColor()); //uncomment for fun
   }
   iniPoints(posX: number, posY: number) {
     this.points = ' ' + posX + ',' + posY;
@@ -32,5 +33,8 @@ export class GenericStrokeComponent implements OnInit {
   }
   setStrokeWidth(targetWidth: number) {
     this.strokeWidth = targetWidth;
+  }
+  getRandomColor(): string {
+    return '#' + Math.floor(Math.random() * Math.floor(999999));
   }
 }
