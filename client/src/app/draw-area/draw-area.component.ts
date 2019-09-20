@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WorkZoneService } from './../../services/work-zone.service';
-import { RectangleService } from '../../services/rectangle/rectangle.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -20,26 +19,19 @@ export class DrawAreaComponent implements OnInit {
     event: MouseEvent;
     mouseX = 0;
     mouseY = 0;
-<<<<<<< HEAD
-    rectangle: RectangleService;
-    currentStyles: { height: number; width: number; 'background-color': string; };
-    
-    constructor(private workZoneService: WorkZoneService) { 
-        this.eventMouse = new MouseEvent('mousedown');
-        this.rectangle.initialX = 0;
-        this.rectangle.initialY = 0;
-        this.rectangle = new RectangleService(1, 1);
-=======
     currentY = 0;
     currentX = 0;
     currentStyles: { height: number; width: number; 'background-color': string; };
     constructor(private workZoneService: WorkZoneService) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         this.rectangleService = new RectangleService();
         this.rectangleService.click = false;
 >>>>>>> Add Rectangle Interface And Rectangle Service
 =======
 >>>>>>> Add Draw Rectangle With MouseEvent
+=======
+>>>>>>> Fix rectangle-service.ts in order for rectangles to be draw in any directions
     }
 
     ngOnInit() {
@@ -67,6 +59,7 @@ export class DrawAreaComponent implements OnInit {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     mouseLeftX:number;
     mouseRightX:number;
@@ -75,6 +68,8 @@ export class DrawAreaComponent implements OnInit {
     // @HostListener('window: mousedown', ['$event'])
 =======
 >>>>>>> Add Rectangle Interface And Rectangle Service
+=======
+>>>>>>> Fix rectangle-service.ts in order for rectangles to be draw in any directions
     onClick(event: MouseEvent): void {
         this.mouseX = event.offsetX;
         this.mouseY = event.offsetY;
