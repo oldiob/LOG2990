@@ -2,8 +2,8 @@
 	<div class="tools"> <a class="button toolbar-button" (click)="chooseColor()" [ngStyle]="{'background-color': this.primaryColor}">
 			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': this.secondaryColor}"></div>
 		</a>
-		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="this.toolCategory === 0"></a>
-		<a class="button toolbar-button" (click)="chooseShape()" [class.selected-toolbar-button]="this.toolCategory === 1"></a>
+		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0"></a>
+		<a class="button toolbar-button" (click)="chooseShape()" [class.selected-toolbar-button]="getToolCategory() === 1"></a>
 	</div>
 
 	<div class="options">
@@ -13,7 +13,7 @@
 </div>
 
 
-<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': this.optionTopMargin}">
+<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': getOptionTopMargin()}">
 	<app-color-option *ngSwitchCase="0" class="selected-option"></app-color-option>
 	<app-tool-option *ngSwitchCase="1" class="selected-option"></app-tool-option>
 	<app-shape-option *ngSwitchCase="2" class="selected-option"></app-shape-option>
