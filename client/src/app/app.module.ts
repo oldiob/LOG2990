@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
@@ -17,6 +17,7 @@ import { ColorOptionComponent } from './components/toolbar/color-option/color-op
 import { ShapeOptionComponent } from './components/toolbar/shape-option/shape-option.component';
 import { SVGComponent } from './components/svg/svg.component';
 import { ToolOptionComponent } from './components/toolbar/tool-option/tool-option.component';
+import { RectangleComponent } from './components/rectangle/rectangle.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
@@ -38,6 +39,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
+        RectangleComponent,
     ],
     imports: [
         BrowserModule,
@@ -64,6 +66,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
     bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     entryComponents: [
         EntryPointComponent,
     ],

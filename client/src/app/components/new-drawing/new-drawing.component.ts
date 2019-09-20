@@ -1,36 +1,38 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EntryPointComponent } from '../entry-point/entry-point.component';
+import {WorkZoneService} from './../../services/work-zone.service';
 
-import { WorkZoneService } from './../../services/work-zone.service';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
+  FALSE = 'false';
+  RESULT = 'result';
+  DEFAULTBACKGROUND = '#ffffff';
   defaultWidth: number;
   defaultHeight: number;
-  defaultBackgroundColor = '#F9F9F9';
+  eventKeyboard: KeyboardEvent;
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing: boolean;
 
   constructor(
-    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private formBuidler: FormBuilder,
     private workZoneService: WorkZoneService) {
-    this.defaultWidth = 0;
-    this.defaultWidth = 0;
-    this.defaultBackgroundColor = '#F9F9F9';
-    this.displayNewDrawing = true;
-    this.createForm();
-  }
+      this.eventKeyboard = new KeyboardEvent('keydown');
+    }
 
   private createForm() {
     // Form to create new work zone to draw
     this.newDrawingFrom = this.formBuilder.group({
       height: [this.defaultHeight, Validators.min(0)],
       width: [this.defaultWidth, Validators.min(0)],
-      backgroundColor: ['#ffffff'],
+      backgroundColor: [this.DEFAULTBACKGROUND],
     });
   }
 
@@ -74,7 +76,20 @@ export class NewDrawingComponent implements OnInit {
     });
   }
 
+  // open entry point dialog
+  openEntryDialog(): void {
+    const dialogConfig: MatDialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
+      sessionStorage.setItem(this.RESULT, JSON.stringify(result));
+    });
+  }
+
   ngOnInit() {
+    if (!sessionStorage.getItem(this.RESULT) || sessionStorage.getItem(this.RESULT) === this.FALSE ) {
+      this.openEntryDialog();
+    }
+    this.createForm();
     this.fetchDefaults();
   }
 }
