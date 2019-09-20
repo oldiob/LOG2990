@@ -7,18 +7,19 @@ import {
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app/app.component';
-import { DrawAreaComponent } from './app/draw-area/draw-area.component';
-import { EntryPointComponent } from './app/entry-point/entry-point.component';
-import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
-import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
-import { RectangleComponent } from './app/rectangle/rectangle.component';
-import { SVGComponent } from './app/svg/svg.component';
-import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
-import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
-import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
-import { ToolbarComponent } from './app/toolbar/toolbar.component';
-import { WorkZoneComponent } from './app/work-zone/work-zone.component';
+import { AppComponent } from './components/app/app.component';
+import { DevPanelComponent } from './components/dev-panel/dev-panel.component';
+import { DrawAreaComponent } from './components/draw-area/draw-area.component';
+import { EntryPointComponent } from './components/entry-point/entry-point.component';
+import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
+import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
+import { RectangleComponent } from './components/rectangle/rectangle.component';
+import { ColorSelectorComponent } from './components/toolbar/selector/color-selector/color-selector.component';
+import { SelectorComponent } from './components/toolbar/selector/selector.component';
+import { ShapeSelectorComponent } from './components/toolbar/selector/shape-selector/shape-selector.component';
+import { ToolSelectorComponent } from './components/toolbar/selector/tool-selector/tool-selector.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
 import { MousetrackDirective } from './directive/mousetrack.directive';
 import { RectangleService } from './services/rectangle/rectangle.service';
@@ -38,7 +39,7 @@ import { RectangleService } from './services/rectangle/rectangle.service';
         ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
-        RectangleService,
+        RectangleComponent,
     ],
     imports: [
         BrowserModule,
