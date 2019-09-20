@@ -3,6 +3,7 @@ app-toolbar {
   display: inline-flex;
   position: fixed;
   overflow: none;
+  z-index: 10;
 }
 
 app-work-zone{

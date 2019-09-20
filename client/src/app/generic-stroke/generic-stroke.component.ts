@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class GenericStrokeComponent implements OnInit {
   @Input() points: string;
   viewBoxSetting: string;
-  color = 'black';
-  strokeWidth = 2;
+  color = 'black'; // default value
+  strokeWidth = 2; // default value
   constructor() {
     //
    }
@@ -22,10 +22,9 @@ export class GenericStrokeComponent implements OnInit {
   }
   iniPoints(posX: number, posY: number) {
     this.points = ' ' + posX + ',' + posY;
-    this.points += ' ' + (posX+1) + ',' + (posY+1);
+    this.points += ' ' + (posX + 1) + ',' + (posY + 1);
   }
   setViewBoxSetting() {
-    //this.viewBoxSetting = '0 0 ' + screen.width + ' ' + screen.height;
     this.viewBoxSetting = '0 0 ' + window.innerWidth + ' ' + window.innerHeight;
   }
   setColor(targetColor: string) {

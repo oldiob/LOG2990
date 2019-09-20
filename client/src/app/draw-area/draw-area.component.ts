@@ -91,6 +91,7 @@ export class DrawAreaComponent implements OnInit {
       if (this.mouseX < this.width + this.OFFSET && this.mouseX >= this.OFFSET && this.mouseY >= 0 && this.mouseY < this.height) {
         return true;
       } else {
+        this.isMouseDown = false;
         return false;
       }
     }
