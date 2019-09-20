@@ -1,40 +1,59 @@
-// import { HostListener } from '@angular/core';
+import { HostListener } from '@angular/core';
+import { Rectangle } from '../../../../../common/communication/rectangle';
+export class RectangleService {
+    currentX = 0;
+    currentY = 0;
+    mouseX = 0;
+    mouseY = 0;
+    width = 0;
+    height = 0;
+    click: boolean;
+    rectangles: Rectangle[];
+    rectangle: Rectangle;
+    constructor() {
+        this.click = false;
+        this.rectangles = [];
+    }
 
-// export class RectangleService {
-//     selectRect: EventTarget;
-//     currentX: number;
-//     currentY: number;
+    @HostListener('window: mousedown', ['$event'])
+    startDrawRect(event: MouseEvent): void {
+        this.mouseX = event.offsetX;
+        this.mouseY = event.offsetY;
+        this.currentX = this.mouseX;
+        this.currentY = this.mouseY;
+        this.click = true;
+    }
+    @HostListener('mousemove', ['$event'])
+    drawRect(event: MouseEvent): void {
+        this.width = (Math.abs(this.currentX - event.offsetX));
+        this.height = (Math.abs(this.currentY - event.offsetY));
+}
 
-//     constructor() {
-//         this.selectRect = new EventTarget();
-//     }
+    @HostListener('window: mouseleave', ['$event'])
+    @HostListener('window: mouseup', ['$event'])
+    endDragMouse(event: MouseEvent): void {
+        if (!this.click) {
+            this.addRectangle();
+            this.click = false;
+        }
+    }
 
-//     @HostListener('window: mousedown', ['$event'])
-//     startDragMouse(event: MouseEvent): void {
-//         if(event.target.)
-//         this.currentX = event.clientX;
-//         this.currentY = event.clientY;
-//         this.selectRect = event.target;
-//         event.preventDefault();
-//     }
+    @HostListener('window: keydown', ['$event'])
+    squareShift(event: KeyboardEvent): void {
+        if (event.shiftKey) {
+            this.width = this.height;
+            this.height = this.width;
+        }
+    }
 
-//     @HostListener('window: mousemove', ['$event'])
-//     dragMouse(event: MouseEvent): void {
-//         if (this.selectRect) {
-//             const x: number = this.selectRect.getAttribute('x') + event.clientX - this.currentX;
-//             const y: number = this.selectRect.getAttribute('y') + event.clientY - this.currentY;
-//             this.currentX = event.clientX;
-//             this.currentY = event.clientY;
-//         }
-//     }
-//     @HostListener('window: mouseleave', ['$event'])
-//     endDragMouse(event: MouseEvent): void {
-//         this.selectRect = null;
-//     }
-
-//     squareCtrl(event: KeyboardEvent): void {
-//         if (event.ctrlKey) {
-
-//         }
-//     }
-// }
+    addRectangle(): void {
+        this.rectangle = {
+            pointX: this.currentX,
+            pointY: this.currentY,
+            width: this.width,
+            height: this.height,
+        };
+        this.rectangles.push(this.rectangle);
+        console.log(this.rectangles);
+    }
+}
