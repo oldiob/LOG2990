@@ -19,9 +19,9 @@ export class NewDrawingComponent implements OnInit {
 
   defaultWidth: number;
   defaultHeight: number;
-  width: number;
-  height: number;
-  backgroundColor = '#F9F9F9';
+  //width: number;
+  //height: number;
+  //backgroundColor = '#F9F9F9';
   eventKeyboard: KeyboardEvent;
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
@@ -36,7 +36,7 @@ export class NewDrawingComponent implements OnInit {
 
   private createForm() {
     // Form to create new work zone to draw
-    this.newDrawingFrom = this.formBuilder.group({
+    this.newDrawingFrom = this.formBuidler.group({
       height: [this.defaultHeight, Validators.min(0)],
       width: [this.defaultWidth, Validators.min(0)],
       backgroundColor: [this.DEFAULTBACKGROUND],

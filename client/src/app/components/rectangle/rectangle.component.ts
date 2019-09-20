@@ -12,5 +12,7 @@ import { PaletteService} from 'src/app/services/palette/palette.service';
     rectangleService: RectangleService;
     constructor() {
         this.rectangleService = new RectangleService();
+        this.paletteService.selectPrimary(0xff0000ff);
+        this.paletteService.selectSecondary(0x00ff00ff);
     }
   }

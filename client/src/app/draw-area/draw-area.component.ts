@@ -23,6 +23,9 @@ export class DrawAreaComponent implements OnInit {
     currentX = 0;
     currentStyles: { height: number; width: number; 'background-color': string; };
     constructor(private workZoneService: WorkZoneService) {
+
+        //this.rectangleService = new RectangleService();
+        //this.rectangleService.click = false;
     }
 
     ngOnInit() {
