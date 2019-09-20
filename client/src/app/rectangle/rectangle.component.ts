@@ -2,12 +2,17 @@ import { Component } from '@angular/core';
 import { PaletteService} from 'src/app/services/palette/palette.service';
 import { RectangleService } from 'src/app/services/rectangle/rectangle.service';
 
-      styleUrls: ['./rectangle.component.scss'],
-  })
+@Component({
+  selector: 'app-rectangle',
+  templateUrl: './rectangle.component.html',
+  styleUrls: ['./rectangle.component.scss'],
+})
+
   export class RectangleComponent {
 
+
     rectangleService: RectangleService;
-    constructor() {
+    constructor(private paletteService: PaletteService) {
         this.rectangleService = new RectangleService();
         this.paletteService.selectPrimary(0xfffaa8ff);
         this.paletteService.selectSecondary(0xff00ffff);
