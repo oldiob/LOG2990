@@ -16,6 +16,5 @@
 
 <div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': getOptionTopMargin()}">
 	<app-color-option *ngSwitchCase="0" class="selected-option"></app-color-option>
-	<app-tool-option *ngSwitchCase="1" class="selected-option"></app-tool-option>
-	<app-shape-option *ngSwitchCase="2" class="selected-option"></app-shape-option>
+	<app-tool-option *ngSwitchCase="2" class="selected-option"></app-tool-option>
 </div>

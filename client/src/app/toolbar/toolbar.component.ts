@@ -4,9 +4,10 @@ import { ToolService } from 'src/services/tool/tool.service';
 
 export enum OptionType {
 	COLOR = 0,
-	TOOL = 1,
-	SHAPE = 2,
-}
+	HAND = 1,
+	TOOL = 2,
+};
+
 
 @Component({
 	selector: 'app-toolbar',
@@ -35,6 +36,12 @@ export class ToolbarComponent implements OnInit {
 		return this.paletteService.getSecondary();
 	}
 
+	private displayOption(optionType: OptionType): void {
+		this.optionDisplayed = this.optionDisplayed == true ? this.currentDisplayedOption != optionType : true;
+		this.currentDisplayedOption = optionType;
+	} 
+
+
 	getOptionTopMargin(): number {
 		return this.currentDisplayedOption * 48;
 	}
@@ -43,22 +50,25 @@ export class ToolbarComponent implements OnInit {
 		return this.toolService.getToolCategoryIndex();
 	}
 
+
+
 	chooseColor() {
-		this.currentDisplayedOption = OptionType.COLOR;
-		this.optionDisplayed = true;
+		this.displayOption(OptionType.COLOR);
+	}
+
+	chooseHand() {
+		this.displayOption(OptionType.HAND);
+
+		this.toolService.setToolCategoryIndex(1);
 	}
 
 	chooseWorkingTool() {
-		this.currentDisplayedOption = OptionType.TOOL;
-		this.optionDisplayed = true;
+		this.displayOption(OptionType.TOOL);
+
 		this.toolService.setToolCategoryIndex(0);
 	}
 
-	chooseShape() {
-		this.currentDisplayedOption = OptionType.SHAPE;
-		this.optionDisplayed = true;
-		this.toolService.setToolCategoryIndex(1);
-	}
+
 
 	newDrawingOption() {
 		//
