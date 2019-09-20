@@ -8,5 +8,16 @@
   <rect [attr.x]="this.rectangleService.currentX" 
   [attr.y]="this.rectangleService.currentY" 
   [attr.width]="this.rectangleService.width"
-  [attr.height]="this.rectangleService.height" />
+  [attr.height]="this.rectangleService.height" 
+
+
+  [attr.fill]="this.rectangleService.color.primary"
+  [attr.stroke]="this.rectangleService.color.secondary"
+  [attr.stroke-width]="3"
+  [attr.stroke-dasharray]=" 10 5"
+  [attr.stroke.opacity]="1"
+  [attr.fill-opacity]= "0.5"
+ 
+  
+  />
 </svg>

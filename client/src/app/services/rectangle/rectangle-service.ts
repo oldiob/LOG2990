@@ -1,5 +1,7 @@
 import { HostListener } from '@angular/core';
 import { Rectangle } from '../../../../../common/communication/rectangle';
+
+
 export class RectangleService {
     currentX = 0;
     currentY = 0;
