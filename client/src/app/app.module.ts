@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
@@ -64,6 +64,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
     bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     entryComponents: [
         EntryPointComponent,
     ],

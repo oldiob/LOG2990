@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, ViewChild } from '@angular/core';
+import { OnInit, Component, HostListener, ViewChild } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Message} from '../../../../../common/communication/message';
@@ -10,7 +10,7 @@ import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
   templateUrl: './poly-dessin.component.html',
     styleUrls: ['./poly-dessin.component.scss'],
 })
-export class PolyDessinComponent implements AfterViewInit {
+export class PolyDessinComponent implements OnInit {
 
   constructor(private basicService: IndexService) {
     this.basicService.basicGet()
@@ -28,8 +28,8 @@ export class PolyDessinComponent implements AfterViewInit {
   @ViewChild(NewDrawingComponent, {static: false})
   newDrawingComponent: NewDrawingComponent;
 
-  ngAfterViewInit() {
-    this.displayNewDrawing = this.newDrawingComponent.displayNewDrawing;
+  ngOnInit() {
+   // this.displayNewDrawing = this.newDrawingComponent.displayNewDrawing;
   }
   @HostListener('document:keypress', ['$event']) // need refactor
   handleKeyboardEvent(event: KeyboardEvent) {
