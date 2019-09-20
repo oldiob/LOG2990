@@ -5,7 +5,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkZoneService } from 'src/app/services/work-zone.service';
 import { NewDrawingComponent } from './new-drawing.component';
 
-fdescribe('NewDrawingComponent', () => {
+describe('NewDrawingComponent', () => {
   let newDrawingComponent: NewDrawingComponent;
   let workZoneService: WorkZoneService;
 
