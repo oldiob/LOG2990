@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/app/services/tool/tool.service';
+import { PaletteService } from 'src/app/services/palette/palette.service';
 
 export enum OptionType {
 	COLOR = 0,
@@ -16,12 +17,14 @@ export enum OptionType {
 export class ToolbarComponent implements OnInit {
 
 	private toolService: ToolService;
+	private paletteService: PaletteService;
 
 	currentDisplayedOption: OptionType;
 	optionDisplayed: boolean;
 
-	constructor(toolService: ToolService) {
+	constructor(toolService: ToolService, paletteService: PaletteService) {
 		this.toolService = toolService;
+		this.paletteService = paletteService;
 
 		this.currentDisplayedOption = OptionType.TOOL;
 		this.optionDisplayed = false;
@@ -29,6 +32,17 @@ export class ToolbarComponent implements OnInit {
 
 	ngOnInit() {
 	}
+
+
+	getPrimaryColor(): string {
+		return this.paletteService.getPrimary();
+	}
+
+	getSecondaryColor(): string {
+		return this.paletteService.getSecondary();
+	}
+	
+
 
 	getOptionTopMargin(): number {
 		return this.currentDisplayedOption * 48;

@@ -1,6 +1,8 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
-		<a class="button toolbar-button" (click)="chooseColor()"></a>
+		<a class="button toolbar-button" (click)="chooseColor()" [ngStyle]="{'background-color': getPrimaryColor()}">
+			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': getSecondaryColor()}"></div>
+		</a>
 		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0"></a>
 		<a class="button toolbar-button" (click)="chooseShape()" [class.selected-toolbar-button]="getToolCategory() === 1"></a>
 	</div>
