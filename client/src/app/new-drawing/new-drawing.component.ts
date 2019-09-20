@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import {WorkZoneService} from 'src/services/work-zone.service';
@@ -20,6 +20,7 @@ export class NewDrawingComponent implements OnInit {
   defaultHeight: number;
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
+  @Input() isShowEntry: boolean;
   displayNewDrawing: boolean;
 
   widthSubscription: Subscription;
@@ -101,7 +102,7 @@ export class NewDrawingComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!sessionStorage.getItem(this.RESULT) || sessionStorage.getItem(this.RESULT) === this.FALSE ) {
+    if (!sessionStorage.getItem(this.RESULT) || sessionStorage.getItem(this.RESULT) === this.FALSE && this.isShowEntry) {
       this.openEntryDialog();
     }
     this.createForm();
