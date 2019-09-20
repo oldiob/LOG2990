@@ -12,13 +12,18 @@ export class DrawAreaComponent implements OnInit {
 
     height: number;
     width: number;
+    rectangleWidth: number;
+    rectangleHeight: number;
+    rectangleActivate = false;
     backgroundColor: string;
     event: MouseEvent;
     mouseX = 0;
     mouseY = 0;
+    currentY = 0;
+    currentX = 0;
     currentStyles: { height: number; width: number; 'background-color': string; };
-
-    constructor(private workZoneService: WorkZoneService) { }
+    constructor(private workZoneService: WorkZoneService) {
+    }
 
     ngOnInit() {
         // Subscribes to WorkZoneService observables
@@ -41,11 +46,12 @@ export class DrawAreaComponent implements OnInit {
         };
     }
     coordinates(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
+        this.mouseX = event.offsetX;
+        this.mouseY = event.offsetY;
     }
+
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
+        this.mouseX = event.offsetX;
+        this.mouseY = event.offsetY;
     }
 }
