@@ -16,9 +16,9 @@ export class NewDrawingComponent implements OnInit {
 
   defaultWidth: number;
   defaultHeight: number;
-  width: number;
-  height: number;
-  backgroundColor = '#F9F9F9';
+  //width: number;
+  //height: number;
+  //backgroundColor = '#F9F9F9';
   eventKeyboard: KeyboardEvent;
 
   newDrawingFrom: FormGroup;
