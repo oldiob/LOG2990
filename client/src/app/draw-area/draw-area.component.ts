@@ -1,7 +1,9 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
    Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { PencilService } from 'src/app/services/pencil.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
 import { WorkZoneService } from './../../services/work-zone.service';
+
 
 @Component({
     selector: 'app-draw-area',
@@ -24,8 +26,11 @@ export class DrawAreaComponent implements OnInit {
     rectangleActivate = false;
     backgroundColor: string = "#ffffffff";
     currentStyles: { height: number; width: number; 'background-color': string; };
+    isMouseDown = false;
+    isOnceWhileDown = true;
 
-    constructor(private workZoneService: WorkZoneService, private resolver: ComponentFactoryResolver) { }
+    constructor(private workZoneService: WorkZoneService, private resolver: ComponentFactoryResolver,
+                private pencilService: PencilService) { }
 
     ngOnInit() {
         // Subscribes to WorkZoneService observables
@@ -47,20 +52,28 @@ export class DrawAreaComponent implements OnInit {
         };
     }
     coordinates(event: MouseEvent): void {
-        this.mouseX = event.offsetX;
-        this.mouseY = event.offsetY;
+        this.mouseX = event.clientX;
+        this.mouseY = event.clientY;
+        if (this.isMouseDown) {
+          this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
+        }
     }
 
     onClick(event: MouseEvent): void {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
-        this.createComponent('danger');
+
     }
     onMouseDown(event: MouseEvent): void {
-
+      if (this.isOnceWhileDown) {
+        this.createComponent('danger');
+        this.isOnceWhileDown = false;
+      }
+      this.isMouseDown = true;
     }
     onMouseUp(event: MouseEvent): void {
-
+      this.isMouseDown = false;
+      this.isOnceWhileDown = true;
     }
     onDrag(event: MouseEvent): void {
 
@@ -72,6 +85,8 @@ export class DrawAreaComponent implements OnInit {
       this.componentRef = this.entry.createComponent(factory);
 
       this.componentRef.instance.type = type;
+      //this.componentRef.instance.alert();
+      this.componentRef.instance.id = this.pencilService.assignID();
 
       //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
 

@@ -5,5 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class PencilService {
 
-  constructor() { }
+  componentID = 0;
+
+  constructor() {
+    //
+   }
+   assignID(): number {
+    this.componentID++;
+    const uniqueID = this.componentID;
+    return uniqueID;
+   }
+   getComponentID() : number {
+    return this.componentID;
+   }
 }

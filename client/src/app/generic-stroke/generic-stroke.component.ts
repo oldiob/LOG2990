@@ -15,5 +15,15 @@ export class GenericStrokeComponent implements OnInit {
   ngOnInit() {
     //
   }
+  alert() {
+    alert('yeet');
+  }
+  addPoints(posX: number, posY: number) {
+    console.log(posX+" and "+posY+" added");
+    this.points += ' ' + posX + ',' + posY;
+  }
+  changePoints() {
+    this.points = '100,100 150,25 150,75 200,0';
+  }
 
 }
