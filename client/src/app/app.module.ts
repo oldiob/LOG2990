@@ -35,6 +35,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         PolyDessinComponent,
         ShapeOptionComponent,
         ToolOptionComponent,
+        PaletteComponent,
         ToolbarComponent,
         WorkZoneComponent,
     ],
