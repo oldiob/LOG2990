@@ -1,20 +1,21 @@
+/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShapeSelectorComponent } from './shape-selector.component';
+import { ShapeOptionComponent } from './shape-option.component';
 
-describe('ShapeSelectorComponent', () => {
-  let component: ShapeSelectorComponent;
-  let fixture: ComponentFixture<ShapeSelectorComponent>;
+describe('ShapeOptionComponent', () => {
+  let component: ShapeOptionComponent;
+  let fixture: ComponentFixture<ShapeOptionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShapeSelectorComponent ],
+      declarations: [ ShapeOptionComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShapeSelectorComponent);
+    fixture = TestBed.createComponent(ShapeOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

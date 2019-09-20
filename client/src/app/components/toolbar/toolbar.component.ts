@@ -1,46 +1,84 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectorComponent } from './selector/selector.component';
+import { ToolService } from 'src/app/services/tool/tool.service';
+import { PaletteService } from 'src/app/services/palette/palette.service';
+
+export enum OptionType {
+	COLOR = 0,
+	TOOL = 1,
+	SHAPE = 2,
+};
+
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+	selector: 'app-toolbar',
+	templateUrl: './toolbar.component.html',
+	styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
 
-  currentToolbarOption: SelectorComponent;
+	private toolService: ToolService;
+	private paletteService: PaletteService;
 
-  optionBarShowing: boolean;
+	currentDisplayedOption: OptionType;
+	optionDisplayed: boolean;
 
-  constructor() {
-    this.optionBarShowing = false;
-  }
+	constructor(toolService: ToolService, paletteService: PaletteService) {
+		this.toolService = toolService;
+		this.paletteService = paletteService;
 
-  ngOnInit() {
-  }
+		this.currentDisplayedOption = OptionType.TOOL;
+		this.optionDisplayed = false;
+	}
 
-  showOptionBar() {
-    this.optionBarShowing = !this.optionBarShowing;
-  }
+	ngOnInit() {
+	}
 
-  // TODO: add "hideOptionBar" that's called when clicking on the same button
 
-  chooseColor() {
-    this.showOptionBar();
-  }
+	getPrimaryColor(): string {
+		return this.paletteService.getPrimary();
+	}
 
-  chooseWorkingTool() {
-    this.showOptionBar();
-  }
+	getSecondaryColor(): string {
+		return this.paletteService.getSecondary();
+	}
+	
 
-  chooseShape() {
-    this.showOptionBar();
-  }
 
-  newDrawingOption() {
-    this.showOptionBar();
-  }
-  saveImage() {
-    this.showOptionBar();
-  }
+	getOptionTopMargin(): number {
+		return this.currentDisplayedOption * 48;
+	}
+
+
+	getToolCategory(): number {
+		return this.toolService.getToolCategoryIndex();
+	}
+
+	chooseColor() {
+		this.currentDisplayedOption = OptionType.COLOR;
+		this.optionDisplayed = true;
+	}
+
+	chooseWorkingTool() {
+		this.currentDisplayedOption = OptionType.TOOL;
+		this.optionDisplayed = true;
+
+		this.toolService.setToolCategoryIndex(0);
+	}
+
+	chooseShape() {
+		this.currentDisplayedOption = OptionType.SHAPE;
+		this.optionDisplayed = true;
+
+		this.toolService.setToolCategoryIndex(1);
+	}
+
+
+
+
+	newDrawingOption() {
+
+	}
+	saveImage() {
+
+	}
 }

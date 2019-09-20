@@ -1,6 +1,6 @@
 import { ITool } from './i-tool';
 
-export class Pencil implements ITool {
+export class Rectangle implements ITool {
 
     constructor() { }
 

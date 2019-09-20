@@ -1,0 +1,17 @@
+.separation {
+    height: 80px;
+    width: 100%;
+    background-color: darkblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px black solid;
+
+    color: beige;
+}
+
+
+.big-separation {
+    border-bottom: 3px black solid;
+}

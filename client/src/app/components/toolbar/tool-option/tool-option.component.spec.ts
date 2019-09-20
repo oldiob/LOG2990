@@ -1,20 +1,20 @@
+/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ToolOptionComponent } from './tool-option.component';
 
-import { ToolSelectorComponent } from './tool-selector.component';
-
-describe('ToolSelectorComponent', () => {
-  let component: ToolSelectorComponent;
-  let fixture: ComponentFixture<ToolSelectorComponent>;
+describe('ToolOptionComponent', () => {
+  let component: ToolOptionComponent;
+  let fixture: ComponentFixture<ToolOptionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToolSelectorComponent ],
+      declarations: [ ToolOptionComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolSelectorComponent);
+    fixture = TestBed.createComponent(ToolOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
