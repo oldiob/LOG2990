@@ -9,7 +9,10 @@ import { RectangleService } from 'src/app/services/rectangle/rectangle.service';
     rectangleService: RectangleService;
     constructor() {
         this.rectangleService = new RectangleService();
-        this.paletteService.selectPrimary(0xff0000ff);
-        this.paletteService.selectSecondary(0x00ff00ff);
+        this.paletteService.selectPrimary(0xfffaa8ff);
+        this.paletteService.selectSecondary(0xff00ffff);
+        this.rectangleService.SelectPointSize(30);
+        this.rectangleService.SelectFillOpacity(1);
+        this.rectangleService.SelectStrokeOpacity(1);
     }
   }
