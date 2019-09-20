@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 
 import { HostListener } from '@angular/core';
 import { Rectangle } from '../../../../../common/communication/rectangle';
 
 
+=======
+import { HostListener } from '@angular/core';
+import { Rectangle } from '../../../../../common/communication/rectangle';
+>>>>>>> Fixing Dead Code In EntryPointComponent
 export class RectangleService {
     currentX = 0;
     currentY = 0;
@@ -19,6 +24,13 @@ export class RectangleService {
         this.rectangles = [];
     }
 
+<<<<<<< HEAD
+=======
+    activeRectangle(): void {
+        // 
+    }
+
+>>>>>>> Fixing Dead Code In EntryPointComponent
     @HostListener('window: mousedown', ['$event'])
     startDrawRect(event: MouseEvent): void {
         this.mouseX = event.offsetX;
@@ -30,6 +42,7 @@ export class RectangleService {
     @HostListener('mousemove', ['$event'])
     drawRect(event: MouseEvent): void {
         if (this.click) {
+<<<<<<< HEAD
         this.width = this.mouseX - event.offsetX;
         this.height = this.mouseY - event.offsetY;
         
@@ -53,6 +66,10 @@ export class RectangleService {
                 this.height = (Math.abs(this.mouseY - event.offsetY));
             }       
              
+=======
+        this.width = (Math.abs(this.currentX - event.offsetX));
+        this.height = (Math.abs(this.currentY - event.offsetY));
+>>>>>>> Fixing Dead Code In EntryPointComponent
         }
 }
 
@@ -85,9 +102,3 @@ export class RectangleService {
             }
         }
 }
-
-
-
-
-
-
