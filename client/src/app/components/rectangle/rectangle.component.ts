@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RectangleService } from 'src/app/services/rectangle/rectangle-service';
+import { RectangleService } from 'src/app/services/rectangle/rectangle.service';
+import { PaletteService} from 'src/app/services/palette/palette.service';
 
 @Component({
     selector: 'app-rectangle',
@@ -9,7 +10,7 @@ import { RectangleService } from 'src/app/services/rectangle/rectangle-service';
   export class RectangleComponent {
 
     rectangleService: RectangleService;
-    constructor() {
+    constructor(private paletteService: PaletteService) {
         this.rectangleService = new RectangleService();
     }
   }

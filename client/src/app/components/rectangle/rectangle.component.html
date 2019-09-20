@@ -11,8 +11,8 @@
   [attr.height]="this.rectangleService.height" 
 
 
-  [attr.fill]="this.rectangleService.color.primary"
-  [attr.stroke]="this.rectangleService.color.secondary"
+  [attr.fill]="this.paletteService.getPrimary()"
+  [attr.stroke]="this.paletteService.getSecondary()"
   [attr.stroke-width]="3"
   [attr.stroke-dasharray]=" 10 5"
   [attr.stroke.opacity]="1"
