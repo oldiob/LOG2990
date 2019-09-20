@@ -103,6 +103,7 @@ export class DrawAreaComponent implements OnInit {
       this.componentRef.instance.id = this.pencilService.assignID();
       this.componentRef.instance.setViewBoxSetting();
       this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
+      //this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
       //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
     }
     ngOnDestroy() {
