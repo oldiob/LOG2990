@@ -1,0 +1,6 @@
+<svg [attr.width]="this.svgService.width"
+     [attr.height]="this.svgService.height"
+     (mousedown)="this.onPressed($event)"
+     (mouseup)="this.onReleased($event)"
+     (mouseover)="this.onMotion($event)">
+</svg>
