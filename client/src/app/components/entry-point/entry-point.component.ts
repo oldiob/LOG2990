@@ -7,11 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-  KEYDOWN = 'keydown';
-  KEYPRESS = 'keypress';
-  enableButton: boolean;
   pressHide: boolean;
-
   constructor(
     public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
     }
