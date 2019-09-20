@@ -54,14 +54,16 @@ export class DrawAreaComponent implements OnInit {
     coordinates(event: MouseEvent): void {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
+
         if (this.isMouseDown) {
+          //this.componentRef.instance.addPoints(event.offsetX, event.offsetY);
           this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
         }
     }
 
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
+      this.mouseX = event.clientX;
+      this.mouseY = event.clientY;
 
     }
     onMouseDown(event: MouseEvent): void {
@@ -85,8 +87,8 @@ export class DrawAreaComponent implements OnInit {
       this.componentRef = this.entry.createComponent(factory);
 
       this.componentRef.instance.type = type;
-      //this.componentRef.instance.alert();
       this.componentRef.instance.id = this.pencilService.assignID();
+      this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
 
       //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
 
