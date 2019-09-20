@@ -3,6 +3,7 @@
 <div mousetrack class="draw-area" (mousemove)="coordinates($event)" (click)="onClick($event)" [ngStyle]="setCurrentStyles()">
   <app-dev-panel [mouseX]=mouseX [mouseY]=mouseY [keyEvent]=keyEvent [key]=key></app-dev-panel>
   <app-rectangle></app-rectangle>
+<<<<<<< HEAD
 =======
 <div mousetrack class="draw-area" (mousemove)="coordinates($event)" on-click="onClick($event)" [ngStyle]="setCurrentStyles()">
 =======
@@ -23,6 +24,8 @@
           [attr.width]="this.rectangleService.width"
           [attr.height]="this.rectangleService.height" />
   </svg>
+=======
+>>>>>>> Add Draw Rectangle With MouseEvent
 </div>
 <<<<<<< HEAD
 >>>>>>> Add Svg Rectangle Width And Height
