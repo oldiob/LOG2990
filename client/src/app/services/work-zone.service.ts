@@ -14,8 +14,6 @@ export class WorkZoneService {
   private maxWidth = new BehaviorSubject<number>(0);
   private maxHeight = new BehaviorSubject<number>(0);
 
-  constructor() { }
-
   get currentWidth(): Observable<number> {
     return this.width.asObservable();
   }
