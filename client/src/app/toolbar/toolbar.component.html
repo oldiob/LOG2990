@@ -3,13 +3,21 @@
 		<a class="button toolbar-button" (click)="chooseColor()" style="filter: brightness(100%);"[ngStyle]="{'background-color': getPrimaryColor()}">
 			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': getSecondaryColor()}"></div>
 		</a>
-		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0"></a>
-		<a class="button toolbar-button" (click)="chooseShape()" [class.selected-toolbar-button]="getToolCategory() === 1"></a>
+		<a class="button toolbar-button" (click)="chooseHand()" [class.selected-toolbar-button]="getToolCategory() === 1">
+			<img src="../../../assets/images/hand.png" style="width: 48px; height: 48px;">
+		</a>
+		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
+			<img src="../../../assets/images/pencil.png" style="width: 48px; height: 48px;">
+		</a>
 	</div>
 
 	<div class="options">
-		<a class="button toolbar-button" (click)="newDrawingOption()"></a>
-		<a class="button toolbar-button" (click)="saveImage()"></a>
+		<a class="button toolbar-button" (click)="newDrawingOption()">
+			<img src="../../../assets/images/new.png" style="width: 48px; height: 48px;">
+		</a>
+		<a class="button toolbar-button" (click)="saveImage()">
+			<img src="../../../assets/images/save.png" style="width: 48px; height: 48px;">
+		</a>
 	</div>
 </div>
 
