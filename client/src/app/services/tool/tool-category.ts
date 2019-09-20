@@ -23,6 +23,16 @@ export class ToolCategory {
     }
 
     selectTool(toolIndex: number): void {
+        if (!Number.isInteger(toolIndex)) {
+            throw new Error("Tool index is not an Integer.");
+        }
+        if (toolIndex >= this.tools.length) {
+            throw new Error("Tool index is greater that the number of tools.")
+        }
+        if (toolIndex < 0) {
+            throw new Error("Tool index is negative.")
+        }
+
         this.toolIndex = toolIndex;
     }
 
