@@ -9,9 +9,9 @@ import { PaletteService } from '../../services/palette/palette.service';
 })
 export class PaletteComponent implements OnInit {
 
-    constructor(private palette: PaletteService) { }
+    constructor(private paletteService: PaletteService) { }
 
     ngOnInit() {
     }
-    swap() { this.palette.swap() }
+    swap() { this.paletteService.swap() }
 }
