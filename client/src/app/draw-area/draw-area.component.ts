@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RectangleService } from 'src/app/services/rectangle/rectangle-service';
 import { WorkZoneService } from './../../services/work-zone.service';
 import { RectangleService } from '../../services/rectangle/rectangle.service';
 
@@ -20,6 +21,7 @@ export class DrawAreaComponent implements OnInit {
     event: MouseEvent;
     mouseX = 0;
     mouseY = 0;
+<<<<<<< HEAD
     rectangle: RectangleService;
     currentStyles: { height: number; width: number; 'background-color': string; };
     
@@ -28,6 +30,15 @@ export class DrawAreaComponent implements OnInit {
         this.rectangle.initialX = 0;
         this.rectangle.initialY = 0;
         this.rectangle = new RectangleService(1, 1);
+=======
+    currentY = 0;
+    currentX = 0;
+    currentStyles: { height: number; width: number; 'background-color': string; };
+    rectangleService: RectangleService;
+    constructor(private workZoneService: WorkZoneService) {
+        this.rectangleService = new RectangleService();
+        this.rectangleService.click = false;
+>>>>>>> Add Rectangle Interface And Rectangle Service
     }
 
     ngOnInit() {
@@ -54,17 +65,28 @@ export class DrawAreaComponent implements OnInit {
         this.mouseY = event.offsetY;
     }
 
+<<<<<<< HEAD
 
     mouseLeftX:number;
     mouseRightX:number;
     mouseUpY:number;
     mouseLowerY:number;
     // @HostListener('window: mousedown', ['$event'])
+=======
+>>>>>>> Add Rectangle Interface And Rectangle Service
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-        this.rectangleHeight = this.mouseY;
-        this.rectangleWidth = this.mouseX;
-        this.rectangleActivate = true;
+        this.rectangleService.click = true;
+        // this.rectangleService.drawRect(event);
+        // this.rectangleService.startDrawRect(event);
+        // this.rectangleService.endDragMouse(event);
+        // this.mouseX = event.offsetX;
+        // this.mouseY = event.offsetY;
+        // this.currentY = this.mouseY;
+        // this.currentX = this.mouseX;
+        // this.rectangleActivate = true;
+        console.log('X', this.rectangleService.currentX);
+        console.log('Y', this.rectangleService.currentY);
+        console.log('height', this.rectangleService.height);
+        console.log('width', this.rectangleService.width);
     }
 }
