@@ -11,6 +11,9 @@ export class RectangleService {
     mouseY = 0;
     width = 0;
     height = 0;
+    pointSize = 1;
+    strokeOpacity = 1;
+    fillOpacity = 1;
     i = 0;
     click: boolean;
     rectangles: Rectangle[];
@@ -20,8 +23,29 @@ export class RectangleService {
         this.rectangles = [];
     }
 
-    activeRectangle(): void {
-        // 
+
+    SelectPointSize(pointSize:number){
+        this.pointSize=pointSize;
+    }
+
+    GetPointSize(): string{
+        return this.pointSize.toString();
+    }
+
+    SelectStrokeOpacity(strokeOpacity:number){
+        this.strokeOpacity=strokeOpacity;
+    }
+
+    GetStrokeOpacity(): string{
+        return this.strokeOpacity.toString();
+    }
+
+    SelectFillOpacity(fillOpacity:number){
+        this.fillOpacity=fillOpacity;
+    }
+
+    GetFillOpacity(): string{
+        return this.fillOpacity.toString();
     }
 
     @HostListener('window: mousedown', ['$event'])
