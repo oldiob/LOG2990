@@ -1,27 +1,35 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { WorkZoneService } from 'src/app/services/work-zone.service';
 import { WorkZoneComponent } from './work-zone.component';
+
+export class MockWorkService extends WorkZoneService {
+}
 
 describe('WorkZoneComponent', () => {
   let component: WorkZoneComponent;
   let workZoneService: WorkZoneService;
   let fixture: ComponentFixture<WorkZoneComponent>;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WorkZoneComponent],
       providers: [
-        { provide: WorkZoneService },
+        { provide: WorkZoneService, useClass: MockWorkService },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    });
+    })
+      .compileComponents();
+  }));
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(WorkZoneComponent);
     component = fixture.componentInstance;
-    workZoneService = TestBed.get(WorkZoneService);
+    workZoneService = new WorkZoneService();
+    component.ngOnInit();
+    fixture.detectChanges();
   });
 
   it('should create the WorkZoneComponent', () => {
@@ -32,41 +40,25 @@ describe('WorkZoneComponent', () => {
     expect(workZoneService).toBeDefined();
   });
 
-  describe('ngOnOnit() method', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(WorkZoneComponent);
-      component = fixture.componentInstance;
-      workZoneService = TestBed.get(WorkZoneService);
-    });
-
-    it('should update width when component is created', () => {
-      const width = component.workZone.nativeElement.offsetWidth;
-      expect(workZoneService.currentWidth).toBe(width);
-    });
-
-    it('should update height when component is created', () => {
-      const height = component.workZone.nativeElement.offsetHeight;
-      expect(workZoneService.currentHeight).toBe(height);
-    });
+  it('should update width and height when component is created', () => {
+    updateDimensions(component, workZoneService);
   });
 
-  describe('onResize() method', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(WorkZoneComponent);
-      component = fixture.componentInstance;
-      component.onResize();
-      workZoneService = TestBed.get(WorkZoneService);
-    });
-
-    it('should update width when component is created', () => {
-      const width = component.workZone.nativeElement.offsetWidth;
-      expect(workZoneService.currentWidth).toBe(width);
-    });
-
-    it('should update height when component is created', () => {
-      const height = component.workZone.nativeElement.offsetHeight;
-      expect(workZoneService.currentHeight).toBe(height);
-    });
+  it('#onResize() should update width and height when component is created', () => {
+    component.onResize();
+    updateDimensions(component, workZoneService);
   });
 
 });
+
+const updateDimensions = (component: WorkZoneComponent, workZoneService: WorkZoneService) => {
+  const width = component.workZone.nativeElement.offsetWidth;
+  const height = component.workZone.nativeElement.offsetHeight;
+  workZoneService.updateInitialDimensions(width, height);
+  workZoneService.currentMaxWidth.subscribe((currentWidth) => {
+    expect(currentWidth).toBe(width);
+  });
+  workZoneService.currentMaxHeight.subscribe((currentHeight) => {
+    expect(currentHeight).toBe(height);
+  });
+};
