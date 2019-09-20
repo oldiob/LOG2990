@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WorkZoneService } from './../../services/work-zone.service';
-import { RectangleService } from '../../services/rectangle/rectangle.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -25,10 +24,14 @@ export class DrawAreaComponent implements OnInit {
     currentStyles: { height: number; width: number; 'background-color': string; };
     constructor(private workZoneService: WorkZoneService) {
 
+
         this.rectangleService = new RectangleService();
         this.rectangleService.click = false;
 
-    }
+
+        this.rectangleService = new RectangleService();
+        this.rectangleService.click = false;
+     }
 
     ngOnInit() {
         // Subscribes to WorkZoneService observables
@@ -53,6 +56,14 @@ export class DrawAreaComponent implements OnInit {
         this.mouseX = event.offsetX;
         this.mouseY = event.offsetY;
     }
+
+
+
+    mouseLeftX:number;
+    mouseRightX:number;
+    mouseUpY:number;
+    mouseLowerY:number;
+    // @HostListener('window: mousedown', ['$event'])
 
     onClick(event: MouseEvent): void {
         this.mouseX = event.offsetX;

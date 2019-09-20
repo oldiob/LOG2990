@@ -27,8 +27,29 @@ export class RectangleService {
     @HostListener('mousemove', ['$event'])
     drawRect(event: MouseEvent): void {
         if (this.click) {
-        this.width = (Math.abs(this.currentX - event.offsetX));
-        this.height = (Math.abs(this.currentY - event.offsetY));
+        this.width = this.mouseX - event.offsetX;
+        this.height = this.mouseY - event.offsetY;
+        
+      
+
+            if (this.width>=0) { 
+                this.currentX= event.offsetX;
+                this.width = (Math.abs(this.mouseX - event.offsetX));
+            } 
+            else if (this.width<0) {
+                this.currentX=this.mouseX;
+                this.width = (Math.abs(this.mouseX - event.offsetX));
+            }     
+  
+            if(this.height>=0){
+                this.currentY=event.offsetY;
+                this.height = (Math.abs(this.mouseY - event.offsetY));
+            }
+            else if(this.height<0){
+                this.currentY=this.mouseY;
+                this.height = (Math.abs(this.mouseY - event.offsetY));
+            }       
+             
         }
 }
 
