@@ -2,14 +2,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import SpyObj = jasmine.SpyObj;
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
-         MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+import {
+    MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
+    MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { KeytrackDirective } from 'src/app/directive/keytrack.directive';
 import { MousetrackDirective } from 'src/app/directive/mousetrack.directive';
-import { IndexService } from '../../services/index/index.service';
 import { DevPanelComponent } from '../dev-panel/dev-panel.component';
 import { DrawAreaComponent } from '../draw-area/draw-area.component';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
@@ -22,6 +23,7 @@ import { ToolOptionComponent } from '../toolbar/tool-option/tool-option.componen
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { WorkZoneComponent } from '../work-zone/work-zone.component';
 import { AppComponent } from './app.component';
+import { IndexService } from './services/index/index.service';
 
 describe('AppComponent', () => {
     let indexServiceSpy: SpyObj<IndexService>;
