@@ -13,4 +13,9 @@ export class RingBuffer<T> {
             this.index = 0;
         }
     }
+    memSet(x: T) {
+        for (let i = 0; i < this.len; ++i) {
+            this.arr[i] = x;
+        }
+    }
 }
