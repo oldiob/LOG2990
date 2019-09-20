@@ -2,15 +2,16 @@
   <form class="modal-wrapper" [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
     <div class="title">New Drawing</div>
     <div class="content-wrapper">
+
       <label class="field-wrapper">
         <span class="field-label">Width:</span>
-        <input class="field" type="number" formControlName="width" value="{{defaultWidth}}" autofocus>
-
+        <input class="field" (change)="onWidthChange()" type="number" formControlName="width" autofocus>
         <span>px</span>
       </label>
+
       <label>
         <span class="field-label">Height:</span>
-        <input class="field" type="number" formControlName="height" value="{{defaultHeight}}">
+        <input class="field" (change)="onHeightChange()" type="number" formControlName="height">
         <span>px</span>
       </label>
 

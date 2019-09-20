@@ -4,6 +4,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import {WorkZoneService} from 'src/services/work-zone.service';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -19,6 +21,9 @@ export class NewDrawingComponent implements OnInit {
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing: boolean;
+
+  widthSubscription: Subscription;
+  heightSubscription: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -44,6 +49,17 @@ export class NewDrawingComponent implements OnInit {
   get backgroundColor() {
     return this.newDrawingFrom.controls.backgroundColor.value;
   }
+  onWidthChange() {
+    if (this.newDrawingFrom.controls.width.dirty) {
+      this.widthSubscription.unsubscribe();
+    }
+  }
+
+  onHeightChange() {
+    if (this.newDrawingFrom.controls.height.dirty) {
+      this.heightSubscription.unsubscribe();
+    }
+  }
 
   onSubmit() {
     const width = this.width;
@@ -59,15 +75,15 @@ export class NewDrawingComponent implements OnInit {
   }
 
   // Fetches default dimensions
-  private fetchDefaults() {
-    this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
+  fetchDefaults() {
+    this.widthSubscription = this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
       // Updates width form control
       this.newDrawingFrom.controls.width.setValue(maxWidth);
       // Updates width view form
       this.defaultWidth = maxWidth;
     });
 
-    this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
+    this.heightSubscription = this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
       // Updates width form control
       this.newDrawingFrom.controls.height.setValue(maxHeight);
       // Updates height view form
