@@ -78,9 +78,6 @@ export class RectangleService {
             height: this.height,
         };
         this.rectangles.push(this.rectangle);
-        // tslint:disable-next-line:forin
-        for (const rect in this.rectangles) {
-            console.log('RECT', this.rectangles[rect]);
-            }
-        }
+        console.log(this.rectangles);
+    }
 }

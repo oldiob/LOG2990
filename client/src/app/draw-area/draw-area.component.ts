@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RectangleService } from 'src/app/services/rectangle/rectangle-service';
 import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
@@ -22,11 +23,10 @@ export class DrawAreaComponent implements OnInit {
     currentY = 0;
     currentX = 0;
     currentStyles: { height: number; width: number; 'background-color': string; };
+    rectangleService: RectangleService;
     constructor(private workZoneService: WorkZoneService) {
-
         this.rectangleService = new RectangleService();
         this.rectangleService.click = false;
-
     }
 
     ngOnInit() {
@@ -53,19 +53,19 @@ export class DrawAreaComponent implements OnInit {
         this.mouseY = event.offsetY;
     }
 
-
-
-    mouseLeftX:number;
-    mouseRightX:number;
-    mouseUpY:number;
-    mouseLowerY:number;
-    // @HostListener('window: mousedown', ['$event'])
-
     onClick(event: MouseEvent): void {
-        this.mouseX = event.clientX;
-        this.mouseY = event.clientY;
-        this.rectangleHeight = this.mouseY;
-        this.rectangleWidth = this.mouseX;
-        this.rectangleActivate = true;
+        this.rectangleService.click = true;
+        // this.rectangleService.drawRect(event);
+        // this.rectangleService.startDrawRect(event);
+        // this.rectangleService.endDragMouse(event);
+        // this.mouseX = event.offsetX;
+        // this.mouseY = event.offsetY;
+        // this.currentY = this.mouseY;
+        // this.currentX = this.mouseX;
+        // this.rectangleActivate = true;
+        console.log('X', this.rectangleService.currentX);
+        console.log('Y', this.rectangleService.currentY);
+        console.log('height', this.rectangleService.height);
+        console.log('width', this.rectangleService.width);
     }
 }
