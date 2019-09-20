@@ -6,8 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./generic-stroke.component.scss'],
 })
 export class GenericStrokeComponent implements OnInit {
-  @Input() points: string = '0,0';
-
+  @Input() points: string;
+  viewBoxSetting: string;
   constructor() {
     //
    }
@@ -15,15 +15,13 @@ export class GenericStrokeComponent implements OnInit {
   ngOnInit() {
     //
   }
-  alert() {
-    alert('yeet');
-  }
   addPoints(posX: number, posY: number) {
-    console.log(posX+" and "+posY+" added");
-    this.points += ' ' + posX + ',' + posY;
+    this.points += ' ' + (posX) + ',' + posY;
   }
-  changePoints() {
-    this.points = '100,100 150,25 150,75 200,0';
+  iniPoints(posX: number, posY: number) {
+    this.points = ' ' + posX + ',' + posY;
   }
-
+  setViewBoxSetting() {
+    this.viewBoxSetting = '0 0 ' + screen.width + ' ' + screen.height;
+  }
 }

@@ -18,6 +18,7 @@ export class DrawAreaComponent implements OnInit {
     mouseX: number;
     mouseY: number;
 
+    OFFSET = 50;
     componentRef: ComponentRef<any>;
     height: number;
     width: number;
@@ -54,9 +55,9 @@ export class DrawAreaComponent implements OnInit {
     coordinates(event: MouseEvent): void {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
-
-        if (this.isMouseDown) {
-          //this.componentRef.instance.addPoints(event.offsetX, event.offsetY);
+        console.log('isMouseInArea ' + this.isMouseInArea);
+        if (this.isMouseDown && this.isMouseInArea()) {
+          console.log('add points');
           this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
         }
     }
@@ -67,7 +68,7 @@ export class DrawAreaComponent implements OnInit {
 
     }
     onMouseDown(event: MouseEvent): void {
-      if (this.isOnceWhileDown) {
+      if (this.isOnceWhileDown && this.isMouseInArea()) {
         this.createComponent('danger');
         this.isOnceWhileDown = false;
       }
@@ -77,21 +78,32 @@ export class DrawAreaComponent implements OnInit {
       this.isMouseDown = false;
       this.isOnceWhileDown = true;
     }
+    onMouseEnter(event: MouseEvent): void {
+      //
+    }
+    onMouseLeave(event: MouseEvent): void {
+      //
+    }
     onDrag(event: MouseEvent): void {
-
+      //
+    }
+    isMouseInArea(): boolean {
+      if (this.mouseX < this.width + this.OFFSET && this.mouseX >= this.OFFSET && this.mouseY >= 0 && this.mouseY < this.height) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     createComponent(type: any) {
       const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(GenericStrokeComponent);
 
       this.componentRef = this.entry.createComponent(factory);
-
       this.componentRef.instance.type = type;
       this.componentRef.instance.id = this.pencilService.assignID();
-      this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
-
+      this.componentRef.instance.setViewBoxSetting();
+      this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
       //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
-
     }
     ngOnDestroy() {
       this.componentRef.destroy();
