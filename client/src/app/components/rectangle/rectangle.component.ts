@@ -10,7 +10,7 @@ import { PaletteService} from 'src/app/services/palette/palette.service';
   export class RectangleComponent {
 
     rectangleService: RectangleService;
-    constructor(private paletteService: PaletteService) {
+    constructor() {
         this.rectangleService = new RectangleService();
     }
   }
