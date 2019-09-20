@@ -27,19 +27,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: true,
-    browsers: ['Chrome', 'ChromeHeadlessNoSandbox', 'Firefox', 'FirefoxHeadless'],
-    customLaunchers: {
-      FirefoxHeadless: {
-        base: 'Firefox',
-        flags: [
-          '-headless'
-        ]
-      },
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
+    singleRun: false,
+    browsers: ['Chrome', 'Firefox'],
   });
 };
