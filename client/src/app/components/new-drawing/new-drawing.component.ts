@@ -13,6 +13,7 @@ export class NewDrawingComponent implements OnInit {
   FALSE = 'false';
   RESULT = 'result';
   DEFAULTBACKGROUND = '#ffffff';
+  defaultBGColor = '#F9F9F9';
   defaultWidth: number;
   defaultHeight: number;
   eventKeyboard: KeyboardEvent;
