@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
@@ -13,10 +13,10 @@ import { DrawAreaComponent } from './components/draw-area/draw-area.component';
 import { EntryPointComponent } from './components/entry-point/entry-point.component';
 import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
+import { RectangleComponent } from './components/rectangle/rectangle.component';
 import { ColorOptionComponent } from './components/toolbar/color-option/color-option.component';
 import { ShapeOptionComponent } from './components/toolbar/shape-option/shape-option.component';
 import { ToolOptionComponent } from './components/toolbar/tool-option/tool-option.component';
-import { RectangleComponent } from './components/rectangle/rectangle.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';

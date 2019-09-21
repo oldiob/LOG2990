@@ -1,10 +1,26 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import SpyObj = jasmine.SpyObj;
-import { MatDialogModule, MatDialogRef } from '@angular/material';
-import { RouterTestingModule } from '@angular/router/testing';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
+         MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
+import { KeytrackDirective } from 'src/app/directive/keytrack.directive';
+import { MousetrackDirective } from 'src/app/directive/mousetrack.directive';
 import { IndexService } from '../../services/index/index.service';
+import { DevPanelComponent } from '../dev-panel/dev-panel.component';
+import { DrawAreaComponent } from '../draw-area/draw-area.component';
+import { EntryPointComponent } from '../entry-point/entry-point.component';
+import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { PolyDessinComponent } from '../poly-dessin/poly-dessin.component';
+import { RectangleComponent } from '../rectangle/rectangle.component';
+import { ColorOptionComponent } from '../toolbar/color-option/color-option.component';
+import { ShapeOptionComponent } from '../toolbar/shape-option/shape-option.component';
+import { ToolOptionComponent } from '../toolbar/tool-option/tool-option.component';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { WorkZoneComponent } from '../work-zone/work-zone.component';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -19,18 +35,42 @@ describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                RouterTestingModule,
+                BrowserModule,
+                BrowserAnimationsModule,
+                FormsModule,
                 HttpClientModule,
+                MatButtonModule,
+                MatCardModule,
+                MatCheckboxModule,
                 MatDialogModule,
+                MatDividerModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatSelectModule,
+                MatTableModule,
+                ReactiveFormsModule,
             ],
             declarations: [
                 AppComponent,
+                ColorOptionComponent,
+                DevPanelComponent,
+                DrawAreaComponent,
+                EntryPointComponent,
+                KeytrackDirective,
+                MousetrackDirective,
+                NewDrawingComponent,
+                PolyDessinComponent,
+                ShapeOptionComponent,
+                ToolOptionComponent,
+                ToolbarComponent,
+                WorkZoneComponent,
+                RectangleComponent,
             ],
             providers: [
                 { provide: IndexService, useValue: indexServiceSpy },
                 { provide: MatDialogRef, useValue: matDialogRefSpy },
             ],
-        });
+        }).compileComponents();
     }));
 
     it('should create the app', () => {
