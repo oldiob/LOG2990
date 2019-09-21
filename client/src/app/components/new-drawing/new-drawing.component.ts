@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 import {WorkZoneService} from './../../services/work-zone.service';
+
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -29,7 +29,7 @@ export class NewDrawingComponent implements OnInit {
 
   private createForm() {
     // Form to create new work zone to draw
-    this.newDrawingFrom = this.formBuidler.group({
+    this.newDrawingFrom = this.formBuilder.group({
       height: [this.defaultHeight, Validators.min(0)],
       width: [this.defaultWidth, Validators.min(0)],
       backgroundColor: [this.DEFAULTBACKGROUND],
