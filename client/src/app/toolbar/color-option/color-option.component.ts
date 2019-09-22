@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PaletteService } from 'src/app/services/palette/palette.service';
+import { PaletteService } from 'src/services/palette/palette.service';
 
 @Component({
   selector: 'app-color-option',

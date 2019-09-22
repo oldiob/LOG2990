@@ -9,21 +9,21 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { KeytrackDirective } from 'src/app/directive/keytrack.directive';
-import { MousetrackDirective } from 'src/app/directive/mousetrack.directive';
+import { KeytrackDirective } from 'src/directive/keytrack.directive';
+import { MousetrackDirective } from 'src/directive/mousetrack.directive';
 import { AppComponent } from './app.component';
-import { DevPanelComponent } from './components/dev-panel/dev-panel.component';
-import { DrawAreaComponent } from './components/draw-area/draw-area.component';
-import { EntryPointComponent } from './components/entry-point/entry-point.component';
-import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
-import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
-import { RectangleComponent } from './components/rectangle/rectangle.component';
-import { ColorOptionComponent } from './components/toolbar/color-option/color-option.component';
-import { ShapeOptionComponent } from './components/toolbar/shape-option/shape-option.component';
-import { ToolOptionComponent } from './components/toolbar/tool-option/tool-option.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { WorkZoneComponent } from './components/work-zone/work-zone.component';
-import { IndexService } from './services/index/index.service';
+import { DevPanelComponent } from './dev-panel/dev-panel.component';
+import { DrawAreaComponent } from './draw-area/draw-area.component';
+import { EntryPointComponent } from './entry-point/entry-point.component';
+import { NewDrawingComponent } from './new-drawing/new-drawing.component';
+import { PolyDessinComponent } from './poly-dessin/poly-dessin.component';
+import { RectangleComponent } from './rectangle/rectangle.component';
+import { ColorOptionComponent } from './toolbar/color-option/color-option.component';
+import { ShapeOptionComponent } from './toolbar/shape-option/shape-option.component';
+import { ToolOptionComponent } from './toolbar/tool-option/tool-option.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { WorkZoneComponent } from './work-zone/work-zone.component';
+import { IndexService } from 'src/services/index/index.service';
 
 describe('AppComponent', () => {
     let indexServiceSpy: SpyObj<IndexService>;

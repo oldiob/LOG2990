@@ -1,4 +1,4 @@
-import { SVGInterface } from 'src/app/services/svg/svg.interface';
+import { SVGInterface } from 'src/services/svg/svg.interface';
 
 export class SVGRect implements SVGInterface {
     private x1: number;

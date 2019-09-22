@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WorkZoneService } from './../../services/work-zone.service';
+import { WorkZoneService } from 'src/services/work-zone.service';
 
 @Component({
     selector: 'app-draw-area',

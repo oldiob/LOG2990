@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SVGInterface } from 'src/app/services/svg/svg.interface';
-import { SVGService } from 'src/app/services/svg/svg.service';
+import { SVGInterface } from 'src/services/svg/svg.interface';
+import { SVGService } from 'src/services/svg/svg.service';
 
 @Component({
     selector: 'app-svg',

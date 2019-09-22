@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { SVGInterface } from 'src/app/services/svg/svg.interface'
-import { ToolService } from 'src/app/services/tool/tool.service';
+import { SVGInterface } from 'src/services/svg/svg.interface'
+import { ToolService } from 'src/services/tool/tool.service';
 
 @Injectable({
     providedIn: 'root',

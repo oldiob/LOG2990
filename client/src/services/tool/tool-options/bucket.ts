@@ -1,6 +1,6 @@
-import { PaletteService } from 'src/app/services/palette/palette.service';
-import { SVGInterface } from 'src/app/services/svg/svg.interface';
-import { SVGService } from 'src/app/services/svg/svg.service';
+import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGInterface } from 'src/services/svg/svg.interface';
+import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
 
 export class Bucket implements ITool {

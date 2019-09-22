@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { WorkZoneService } from './../../services/work-zone.service';
+import { WorkZoneService } from 'src/services/work-zone.service';
 
 @Component({
   selector: 'app-work-zone',

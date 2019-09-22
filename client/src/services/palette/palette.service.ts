@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { RingBuffer } from '../../utils/ring-buffer';
+import { RingBuffer } from 'src/utils/ring-buffer';
 
 enum Base {
     hex = 16,

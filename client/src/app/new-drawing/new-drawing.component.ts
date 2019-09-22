@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
-import {WorkZoneService} from './../../services/work-zone.service';
+import {WorkZoneService} from 'src/services/work-zone.service';
 
 @Component({
   selector: 'app-new-drawing',

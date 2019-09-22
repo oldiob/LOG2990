@@ -4,6 +4,15 @@ import {ITool} from './tool-options/i-tool';
 describe('Class: ToolCategory', () => {
 
 	class TestTool implements ITool {
+		onPressed(event: MouseEvent): import("../svg/svg.interface").SVGInterface | null {
+			throw new Error("Method not implemented.");
+		}
+		onMotion(event: MouseEvent): void {
+			throw new Error("Method not implemented.");
+		}
+		onReleased(event: MouseEvent): void {
+			throw new Error("Method not implemented.");
+		}
 		leftClick(): void {
 		}		
 		leftRelease(): void {

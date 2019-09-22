@@ -1,4 +1,4 @@
-import { Rectangle } from '../../../../../common/communication/rectangle';
+import { Rectangle } from '../../../../common/communication/rectangle';
 export class RectangleService {
     currentX = 0;
     currentY = 0;

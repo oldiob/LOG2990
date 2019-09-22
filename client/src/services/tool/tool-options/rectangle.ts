@@ -1,4 +1,4 @@
-import { SVGRect } from 'src/app/services/svg/svg.rect';
+import { SVGRect } from 'src/services/svg/svg.rect';
 import { SVGInterface } from '../../svg/svg.interface';
 import { ITool } from './i-tool';
 
