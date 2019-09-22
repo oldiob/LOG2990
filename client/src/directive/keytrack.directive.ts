@@ -5,7 +5,8 @@ import { Directive, HostListener } from '@angular/core';
 })
 export class KeytrackDirective {
   key: string;
-  constructor() { }
+  constructor() { //
+  }
   @HostListener('document:keypress', ['$event']) // need refactor
   handleKeyboardEvent(event: KeyboardEvent) {
     this.key = event.key;

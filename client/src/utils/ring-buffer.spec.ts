@@ -33,5 +33,5 @@ describe('Utility-RingBuffer', () => {
         const setTo = Math.random();
         mock.memSet(setTo);
         mock.arr.forEach((value: number) => expect(value).toEqual(setTo));
-    })
+    });
 });

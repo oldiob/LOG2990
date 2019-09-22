@@ -11,7 +11,8 @@ export class Pencil implements ITool {
     throw new Error('Method not implemented.');
   }
 
-    constructor() { }
+    constructor() { //
+    }
 
     leftClick() {
         throw new Error('Method not implemented.');

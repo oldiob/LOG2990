@@ -1,8 +1,8 @@
-import { OnInit, Component, HostListener, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Message} from '../../../../common/communication/message';
 import {IndexService} from 'src/services/index/index.service';
+import {Message} from '../../../../common/communication/message';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 
 @Component({

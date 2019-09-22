@@ -4,12 +4,19 @@ import { RingBuffer } from 'src/utils/ring-buffer';
 
 enum Base {
     hex = 16,
-};
+}
 
 @Injectable({
     providedIn: 'root',
 })
 export class PaletteService {
+
+    constructor() {
+        this.primary = PaletteService.DEFAULT_PRIMARY;
+        this.secondary = PaletteService.DEFAULT_SECONDARY;
+        this.previous = new RingBuffer<number>(PaletteService.MAX_HISTORY);
+        this.previous.memSet(PaletteService.DEFAULT_MEMSET);
+    }
 
     static readonly DEFAULT_PRIMARY = 0x0000000;
     static readonly DEFAULT_SECONDARY = 0xFFFFFFFF;
@@ -20,11 +27,8 @@ export class PaletteService {
     secondary: number;
     previous: RingBuffer<number>;
 
-    constructor() {
-        this.primary = PaletteService.DEFAULT_PRIMARY;
-        this.secondary = PaletteService.DEFAULT_SECONDARY;
-        this.previous = new RingBuffer<number>(PaletteService.MAX_HISTORY);
-        this.previous.memSet(PaletteService.DEFAULT_MEMSET);
+    private static formatColor(color: number, base: number): string {
+        return `#${color.toString(base)}`;
     }
 
     swap() {
@@ -57,9 +61,5 @@ export class PaletteService {
         return this.previous.arr.map((value: number) => {
             return PaletteService.formatColor(value, Base.hex);
         });
-    }
-
-    private static formatColor(color: number, base: number): string {
-        return `#${color.toString(base)}`
     }
 }

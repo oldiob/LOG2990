@@ -13,9 +13,12 @@ export class DevPanelComponent implements OnInit {
 
     display = true;
 
-    constructor() { }
+    constructor() {
+        //
+     }
 
     ngOnInit() {
+        //
     }
 
     disableDisplay() {
