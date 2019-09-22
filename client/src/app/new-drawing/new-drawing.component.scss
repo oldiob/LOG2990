@@ -1,30 +1,13 @@
 .modal {
-  // -webkit-filter: blur(0.000001px);
-  // -webkit-font-smoothing: antialiased;
   background-color: #fff;
-  position: fixed;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  border: solid 1px #ececec;
   border-radius: 10px;
-  height: 570px;
-  width: 330px;
-  -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
-  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.03);
-}
-
-@media only screen and (max-width: 1820px) {
-
-  // Fix Chrome bug that makes modal's text blurry
-  .modal:not(*:root) {
-    -webkit-filter: blur(0.000001px);
-  }
+  height: 100%;
+  width: 100%;
 }
 
 .modal-wrapper {
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -156,26 +139,11 @@
   cursor: pointer;
 }
 
-.btn-create {
-  font-weight: 600;
-  font-size: 1rem;
-  border: none;
-  background-color: #202d4a;
-  color: #e8e8e8;
-  padding: 1rem 2rem;
-  border-radius: 100px;
-  cursor: pointer;
-  -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.25);
-  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.15);
-}
-
-.btn-create:hover {
-  background-color: lighten(#202d4a, 5%);
-}
-
-.btn-create:focus {
-  outline: none;
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .btn-create:disabled {
@@ -186,4 +154,14 @@
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0);
   cursor: default;
   transform: translateY(5%);
+}
+
+.background {
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 52.6%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }

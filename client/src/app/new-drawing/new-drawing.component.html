@@ -69,8 +69,12 @@
         </div>
       </div>
     </div>
-
-
-    <button class="btn-create" type="submit" [disabled]="!newDrawingFrom.valid">Create</button>
+    <div class="button-wrapper">
+      <button color="secondary" mat-raised-button mat-dialog-close >Cancel</button>
+      <button color="primary" mat-raised-button mat-dialog-close type="submit"
+        [disabled]="!newDrawingFrom.valid">Create</button>
+    </div>
   </form>
+</div>
+<div class="background">
 </div>

@@ -63,5 +63,9 @@ body {
   box-sizing: border-box;
   font-family: lato;
 }
+
+.trend-dialog .mat-dialog-container{
+  overflow-y: hidden !important;
+}
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
