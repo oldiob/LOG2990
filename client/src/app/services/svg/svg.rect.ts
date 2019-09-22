@@ -1,7 +1,10 @@
 import { SVGInterface } from 'src/app/services/svg/svg.interface';
 
 export class SVGRect implements SVGInterface {
-    private x1, y1, x2, y2: number;
+    private x1: number;
+    private y1: number;
+    private x2: number;
+    private y2: number;
 
     constructor(x: number, y: number) {
         this.x1 = this.x2 = x;
@@ -35,12 +38,15 @@ export class SVGRect implements SVGInterface {
     setSecondary(color: number): void {
         // TODO - Implement me
     }
-    getPrimary(color: number): number {
+    getPrimary(): number {
         // TODO - Implement me
         return 0;
     }
-    getSecondary(color: number): number {
+    getSecondary(): number {
         // TODO - Implement me
         return 0;
+    }
+    setP2(x: number, y: number) {
+      // TODO - Implement this
     }
 }
