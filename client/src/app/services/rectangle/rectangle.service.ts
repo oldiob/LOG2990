@@ -16,10 +16,6 @@ export class RectangleService {
         this.rectangles = [];
     }
 
-    activeRectangle(): void {
-        // 
-    }
-
     @HostListener('window: mousedown', ['$event'])
     startDrawRect(event: MouseEvent): void {
         this.mouseX = event.offsetX;
@@ -28,11 +24,15 @@ export class RectangleService {
         this.currentY = this.mouseY;
         this.click = true;
     }
+    @HostListener('window: keyup.shift', ['$event'])
     @HostListener('mousemove', ['$event'])
     drawRect(event: MouseEvent): void {
         if (this.click) {
         this.width = (Math.abs(this.currentX - event.offsetX));
         this.height = (Math.abs(this.currentY - event.offsetY));
+        }
+        if (this.click && event.shiftKey) {
+        this.pressShift();
         }
 }
 
@@ -43,12 +43,13 @@ export class RectangleService {
             this.click = false;
     }
 
-    @HostListener('window: keydown', ['$event'])
-    squareShift(event: KeyboardEvent): void {
-        if (event.shiftKey) {
-            this.width = this.height;
+    @HostListener('window: keydown.shift', ['$event'])
+    pressShift(): void {
+            if (this. width >= this.height) {
+                this.width = this.height;
+            } else {
             this.height = this.width;
-        }
+            }
     }
 
     addRectangle(): void {

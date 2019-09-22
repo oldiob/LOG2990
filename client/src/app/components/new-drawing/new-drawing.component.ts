@@ -16,7 +16,6 @@ export class NewDrawingComponent implements OnInit {
   defaultBGColor = '#F9F9F9';
   defaultWidth: number;
   defaultHeight: number;
-  eventKeyboard: KeyboardEvent;
   newDrawingFrom: FormGroup;
   @Output() displayChange = new EventEmitter<boolean>();
   displayNewDrawing: boolean;
@@ -25,7 +24,6 @@ export class NewDrawingComponent implements OnInit {
     public dialog: MatDialog,
     private formBuidler: FormBuilder,
     private workZoneService: WorkZoneService) {
-      this.eventKeyboard = new KeyboardEvent('keydown');
     }
 
   private createForm() {

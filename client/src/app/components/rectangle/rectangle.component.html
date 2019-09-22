@@ -2,7 +2,9 @@
   (mousedown)="this.rectangleService.startDrawRect($event)" 
   (mousemove)="this.rectangleService.drawRect($event)" 
   (mouseup)="this.rectangleService.endDragMouse($event)"
-  (mouveleave)="this.rectangleService.endDragMouse($event)">
+  (mouveleave)="this.rectangleService.endDragMouse($event)"
+  (keydown.shift) ="this.rectangleService.pressShift($event)"
+  (keyup.shift)="this.rectangleService.drawRect($event)">
   <!-- *ngFor="let rectangle of rectangles"
   {{rectangle}} -->
   <rect [attr.x]="this.rectangleService.currentX" 
