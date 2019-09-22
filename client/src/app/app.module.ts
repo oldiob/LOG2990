@@ -14,9 +14,9 @@ import { EntryPointComponent } from './components/entry-point/entry-point.compon
 import { NewDrawingComponent } from './components/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './components/poly-dessin/poly-dessin.component';
 import { RectangleComponent } from './components/rectangle/rectangle.component';
+import { SVGComponent } from './components/svg/svg.component';
 import { ColorOptionComponent } from './components/toolbar/color-option/color-option.component';
 import { ShapeOptionComponent } from './components/toolbar/shape-option/shape-option.component';
-import { SVGComponent } from './components/svg/svg.component';
 import { ToolOptionComponent } from './components/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkZoneComponent } from './components/work-zone/work-zone.component';
