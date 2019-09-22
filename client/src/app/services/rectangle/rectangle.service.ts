@@ -1,4 +1,3 @@
-import { HostListener } from '@angular/core';
 import { Rectangle } from '../../../../../common/communication/rectangle';
 export class RectangleService {
     currentX = 0;
@@ -7,7 +6,6 @@ export class RectangleService {
     mouseY = 0;
     width = 0;
     height = 0;
-    i = 0;
     click: boolean;
     rectangles: Rectangle[];
     rectangle: Rectangle;
@@ -16,7 +14,6 @@ export class RectangleService {
         this.rectangles = [];
     }
 
-    @HostListener('window: mousedown', ['$event'])
     startDrawRect(event: MouseEvent): void {
         this.mouseX = event.offsetX;
         this.mouseY = event.offsetY;
@@ -24,8 +21,7 @@ export class RectangleService {
         this.currentY = this.mouseY;
         this.click = true;
     }
-    @HostListener('window: keyup.shift', ['$event'])
-    @HostListener('mousemove', ['$event'])
+
     drawRect(event: MouseEvent): void {
         if (this.click) {
         this.width = (Math.abs(this.currentX - event.offsetX));
@@ -34,22 +30,19 @@ export class RectangleService {
         if (this.click && event.shiftKey) {
         this.pressShift();
         }
-}
+    }
 
-    @HostListener('window: mouseleave', ['$event'])
-    @HostListener('window: mouseup', ['$event'])
-    endDragMouse(event: MouseEvent): void {
+    endDragMouse(): void {
             this.addRectangle();
             this.click = false;
     }
 
-    @HostListener('window: keydown.shift', ['$event'])
     pressShift(): void {
-            if (this. width >= this.height) {
-                this.width = this.height;
-            } else {
-            this.height = this.width;
-            }
+        if (this. width >= this.height) {
+            this.width = this.height;
+        } else {
+        this.height = this.width;
+        }
     }
 
     addRectangle(): void {
@@ -60,9 +53,5 @@ export class RectangleService {
             height: this.height,
         };
         this.rectangles.push(this.rectangle);
-        // tslint:disable-next-line:forin
-        for (const rect in this.rectangles) {
-            console.log('RECT', this.rectangles[rect]);
-            }
-        }
+    }
 }

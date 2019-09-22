@@ -1,8 +1,8 @@
 <svg width="1000" height="1000" ([click])="this.rectangleService.click"
   (mousedown)="this.rectangleService.startDrawRect($event)" 
   (mousemove)="this.rectangleService.drawRect($event)" 
-  (mouseup)="this.rectangleService.endDragMouse($event)"
-  (mouveleave)="this.rectangleService.endDragMouse($event)"
+  (mouseup)="this.rectangleService.endDragMouse()"
+  (mouveleave)="this.rectangleService.endDragMouse()"
   (keydown.shift) ="this.rectangleService.pressShift($event)"
   (keyup.shift)="this.rectangleService.drawRect($event)">
   <!-- *ngFor="let rectangle of rectangles"
