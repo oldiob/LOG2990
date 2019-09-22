@@ -22,7 +22,7 @@ export class NewDrawingComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private formBuidler: FormBuilder,
+    private formBuilder: FormBuilder,
     private workZoneService: WorkZoneService) {
     }
 

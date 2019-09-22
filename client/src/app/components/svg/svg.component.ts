@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SVGInterface } from 'src/app/services/svg/svg.interface';
 import { SVGService } from 'src/app/services/svg/svg.service';
-import { SVGInterace } from 'src/app/services/svg/svg.interface';
-
 
 @Component({
     selector: 'app-svg',
@@ -15,7 +14,7 @@ export class SVGComponent implements OnInit {
     ngOnInit() {
     }
     onPressed(event: MouseEvent) {
-        let obj: SVGInterface | null = this.svgService.onPressed(event);
+        const obj: SVGInterface | null = this.svgService.onPressed(event);
         if (obj != null) {
             this.svgService.addObj(obj);
         }
