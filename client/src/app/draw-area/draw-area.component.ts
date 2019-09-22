@@ -4,7 +4,6 @@ import { PencilService } from 'src/app/services/pencil.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
 import { WorkZoneService } from './../../services/work-zone.service';
 
-
 @Component({
     selector: 'app-draw-area',
     templateUrl: './draw-area.component.html',
@@ -104,8 +103,7 @@ export class DrawAreaComponent implements OnInit {
       this.componentRef.instance.id = this.pencilService.assignID();
       this.componentRef.instance.setViewBoxSetting();
       this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
-      //this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
-      //this.componentRef.instance.output.subscribe((event: any) => console.log(event));
+      // this.componentRef.instance.output.subscribe((event: any) => console.log(event));
     }
     ngOnDestroy() {
       this.componentRef.destroy();
