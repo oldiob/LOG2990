@@ -4,9 +4,10 @@ import { ITool } from './i-tool';
 
 export class Rectangle implements ITool {
 
-    constructor() { }
+  private currentRect: SVGRect | null = null;
 
-    private currentRect: SVGRect | null = null;
+  constructor() { }
+
   onReleased(event: MouseEvent): void {
     throw new Error('Method not implemented.');
   }
