@@ -11,8 +11,8 @@ import { NewDrawingComponent } from './new-drawing.component';
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
-    const mockDialogRefSpy: {open: jasmine.Spy} = {
-      open: jasmine.createSpy('open'),
+    const mockDialogRefSpy: {close: jasmine.Spy} = {
+      close: jasmine.createSpy('close'),
     };
     let workZoneService: WorkZoneService;
     beforeEach(async(() => {
@@ -26,6 +26,7 @@ describe('NewDrawingComponent', () => {
         MatDialogModule, FormsModule, ReactiveFormsModule],
         declarations: [ NewDrawingComponent, EntryPointComponent],
         providers: [{provide: MatDialogRef, useValue: mockDialogRefSpy},
+                    {provide: EntryPointComponent},
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
@@ -105,4 +106,23 @@ describe('NewDrawingComponent', () => {
     });
   });
 
+    it('should open entry point dialog', () => {
+      component.openEntryDialog();
+      expect(component.dialog.open).toBeTruthy();
+    });
+
+    it('should return false if the result is false in the session storage', () => {
+      sessionStorage.setItem('false', JSON.stringify(false));
+      expect(sessionStorage.getItem('false')).toBe('false');
+    });
+
+    it('should return true if the result is true in the session storage', () => {
+      sessionStorage.setItem('true', JSON.stringify(true));
+      expect(sessionStorage.getItem('true')).toBe('true');
+    });
+
+    it('should return false in the session storage if the dialog is closed', () => {
+      component.dialog.closeAll();
+      expect(sessionStorage.getItem('false')).toBe('false');
+    });
 });
