@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolOptionComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    //
+  }
 
   ngOnInit() {
+    //
   }
 
 }

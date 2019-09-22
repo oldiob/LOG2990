@@ -12,6 +12,7 @@ export class SVGComponent implements OnInit {
     constructor(private svgService: SVGService) {
     }
     ngOnInit() {
+        //
     }
     onPressed(event: MouseEvent) {
         const obj: SVGInterface | null = this.svgService.onPressed(event);

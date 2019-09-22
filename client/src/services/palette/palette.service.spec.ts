@@ -1,11 +1,11 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
 import { PaletteService } from './palette.service';
 
 describe('PaletteService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [PaletteService]
+            providers: [PaletteService],
         });
     });
 
@@ -42,11 +42,11 @@ describe('PaletteService', () => {
 
     it('should format the colors correctly', inject([PaletteService], (service: PaletteService) => {
         expect(service.getPrimary())
-            .toEqual(`#${PaletteService.DEFAULT_PRIMARY.toString(16)}`)
+            .toEqual(`#${PaletteService.DEFAULT_PRIMARY.toString(16)}`);
         expect(service.getSecondary())
             .toEqual(`#${PaletteService.DEFAULT_SECONDARY.toString(16)}`);
         const history: string[] = service.getHistory();
         history.forEach((value: string) => expect(value)
-            .toEqual(`#${PaletteService.DEFAULT_MEMSET.toString(16)}`))
+            .toEqual(`#${PaletteService.DEFAULT_MEMSET.toString(16)}`));
     }));
 });

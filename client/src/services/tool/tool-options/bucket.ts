@@ -17,9 +17,9 @@ export class Bucket implements ITool {
         const y: number = event.clientY;
         const obj: SVGInterface | null = this.svgService.findAt(x, y);
         if (obj != null) {
-            if (event.button == 0) {
+            if (event.button === 0) {
                 obj.setPrimary(+this.paletteService.getPrimary());
-            } else if (event.button == 2) {
+            } else if (event.button === 2) {
                 obj.setSecondary(+this.paletteService.getSecondary());
             }
         }

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { SVGInterface } from 'src/services/svg/svg.interface'
 import { ToolService } from 'src/services/tool/tool.service';
 
@@ -48,4 +47,3 @@ export class SVGService {
       // TODO - Implement this
     }
 }
-

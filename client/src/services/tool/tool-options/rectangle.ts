@@ -6,7 +6,8 @@ export class Rectangle implements ITool {
 
   private currentRect: SVGRect | null = null;
 
-  constructor() { }
+  constructor() {//
+ }
 
   onReleased(event: MouseEvent): void {
     throw new Error('Method not implemented.');

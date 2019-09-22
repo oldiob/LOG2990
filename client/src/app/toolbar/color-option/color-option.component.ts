@@ -10,7 +10,7 @@ export class ColorOptionComponent implements OnInit {
 
   private paletteService: PaletteService;
 
-  constructor(paletteService: PaletteService) { 
+  constructor(paletteService: PaletteService) {
     this.paletteService = paletteService;
 
     this.paletteService.selectPrimary(3213);
@@ -18,6 +18,7 @@ export class ColorOptionComponent implements OnInit {
   }
 
   ngOnInit() {
+    //
   }
 
   getPrimary(): string {

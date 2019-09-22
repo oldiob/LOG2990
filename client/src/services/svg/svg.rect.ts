@@ -17,12 +17,12 @@ export class SVGRect implements SVGInterface {
         let minY: number = this.y1;
         let maxY: number = this.y2;
         if (minX > maxX) {
-            let tmp: number = minX;
+            const tmp: number = minX;
             minX = maxX;
             maxX = tmp;
         }
         if (minY > maxY) {
-            let tmp: number = minY;
+            const tmp: number = minY;
             minY = maxY;
             maxY = tmp;
         }
