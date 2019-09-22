@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Rectangle } from '../../../../../common/communication/rectangle';
+import { Rectangle } from '../../../../common/communication/rectangle';
 import { RectangleService } from './rectangle.service';
 
 describe('RectangleService', () => {
