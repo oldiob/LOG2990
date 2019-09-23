@@ -3,9 +3,6 @@
 		<a class="button" (click)="chooseColor()" style="filter: brightness(100%);"[ngStyle]="{'background-color': getPrimaryColor()}">
 			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': getSecondaryColor()}"></div>
 		</a>
-		<a class="button" (click)="chooseHand()" [class.selected-toolbar-button]="getToolCategory() === 1">
-			<img class="toolbar-icon" [src]="getButtonFilesource(1)">
-		</a>
 		<a class="button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
 			<img class="toolbar-icon" [src]="getButtonFilesource(0)">
 		</a>
@@ -24,5 +21,5 @@
 
 <div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': getOptionTopMargin()}">
 	<app-color-option *ngSwitchCase="0" class="selected-option"></app-color-option>
-	<app-tool-option *ngSwitchCase="2" class="selected-option"></app-tool-option>
+	<app-tool-option *ngSwitchCase="1" class="selected-option"></app-tool-option>
 </div>

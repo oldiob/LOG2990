@@ -4,8 +4,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 
 export enum OptionType {
 	COLOR = 0,
-	HAND = 1,
-	TOOL = 2,
+	TOOL = 1,
 };
 
 
@@ -60,12 +59,6 @@ export class ToolbarComponent implements OnInit {
 
 	chooseColor() {
 		this.displayOption(OptionType.COLOR);
-	}
-
-	chooseHand() {
-		this.displayOption(OptionType.HAND);
-
-		this.toolService.setToolCategoryIndex(1);
 	}
 
 	chooseWorkingTool() {
