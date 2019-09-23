@@ -1,8 +1,8 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { EntryPointComponent } from 'src/app/components/entry-point/entry-point.component';
-import { NewDrawingComponent } from 'src/app/components/new-drawing/new-drawing.component';
+import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
+import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { WorkZoneService } from 'src/services/work-zone.service';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { WorkZoneComponent } from './work-zone.component';
 
 export class MockWorkService extends WorkZoneService {

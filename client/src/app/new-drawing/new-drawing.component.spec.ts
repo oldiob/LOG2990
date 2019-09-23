@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WorkZoneService } from 'src/services/work-zone.service';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 import { NewDrawingComponent } from './new-drawing.component';
 

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { DialogService } from 'src/app/services/dialog/dialog.service';
-import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
+import { DialogService } from 'src/services/dialog/dialog.service';
 
 @Component({
   selector: 'app-poly-dessin',
