@@ -15,6 +15,7 @@ export enum OptionType {
 	styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
+	private FILE_LOCATION: string = "../../../assets/images/";
 
 	currentDisplayedOption: OptionType;
 	optionDisplayed: boolean;
@@ -40,6 +41,11 @@ export class ToolbarComponent implements OnInit {
 		this.optionDisplayed = this.optionDisplayed == true ? this.currentDisplayedOption != optionType : true;
 		this.currentDisplayedOption = optionType;
 	} 
+
+
+	getButtonFilesource(category: number): string {
+		return this.FILE_LOCATION + this.toolService.getToolCategoryFilename(category);
+	}
 
 
 	getOptionTopMargin(): number {

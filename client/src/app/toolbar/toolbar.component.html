@@ -4,10 +4,10 @@
 			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': getSecondaryColor()}"></div>
 		</a>
 		<a class="button" (click)="chooseHand()" [class.selected-toolbar-button]="getToolCategory() === 1">
-			<img class="toolbar-icon" src="../../../assets/images/hand.png">
+			<img class="toolbar-icon" [src]="getButtonFilesource(1)">
 		</a>
 		<a class="button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
-			<img class="toolbar-icon" src="../../../assets/images/pencil.png">
+			<img class="toolbar-icon" [src]="getButtonFilesource(0)">
 		</a>
 	</div>
 

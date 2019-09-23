@@ -34,6 +34,15 @@ export class ToolService {
         this.toolCategoryIndex = 0;
     }
 
+    getToolCategoryFilename(categoryIndex: number): string {
+        let currentIndex: number = this.toolCategoryIndex;
+        this.setToolCategoryIndex(categoryIndex);
+        let filename: string = this.getCurrentTool().FILENAME;
+        this.toolCategoryIndex = currentIndex;
+
+        return filename;
+    }
+
     getToolCategoryIndex(): number {
         return this.toolCategoryIndex;
     }
