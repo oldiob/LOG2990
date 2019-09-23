@@ -17,8 +17,27 @@
 
       <label>
         <span class="field-label">Background Color:</span>
-        <input class="field bg-input" type="text" formControlName="backgroundColor" value="{{DEFAULT_BACKGROUND}}">
+        <input class="field bg-input" type="text" formControlName="backgroundColor" (change)="onColorHEXChange()"
+          value="{{DEFAULT_BACKGROUND_HEX}}">
       </label>
+
+      <label>
+        <span class="field-label">RGBA:</span>
+        <input class="field bg-input" type="number" formControlName="red" (change)="onColorRGBAChange()"
+          value="{{DEFAULT_RED}}">
+        <input class="field bg-input" type="number" formControlName="green" (change)="onColorRGBAChange()"
+          value="{{DEFAULT_GREEN}}">
+        <input class="field bg-input" type="number" formControlName="blue" (change)="onColorRGBAChange()"
+          value="{{DEFAULT_BLUE}}">
+        <input class="field bg-input" type="number" formControlName="opacity" (change)="onColorRGBAChange()"
+          value="{{DEFAULT_OPACITY}}">
+      </label>
+      <div class="color-palette">
+        <div class="color-wrapper">
+          <div class="color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
+        </div>
+      </div>
+
       <div class="color-palette">
 
         <div class="color-wrapper">
@@ -63,7 +82,6 @@
 
         <div class="color-wrapper">
           <input class="color-toggler" type="radio" name="radio">
-
           <div class="color color9">
             <input class="custom-color" type="color" formControlName="backgroundColor"></div>
         </div>
