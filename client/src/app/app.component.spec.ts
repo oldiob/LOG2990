@@ -14,7 +14,6 @@ import { KeytrackDirective } from 'src/directive/keytrack.directive';
 import { MousetrackDirective } from 'src/directive/mousetrack.directive';
 import { IndexService } from 'src/services/index/index.service';
 import { AppComponent } from './app.component';
-import { DevPanelComponent } from './dev-panel/dev-panel.component';
 import { DrawAreaComponent } from './draw-area/draw-area.component';
 import { EntryPointComponent } from './entry-point/entry-point.component';
 import { NewDrawingComponent } from './new-drawing/new-drawing.component';
@@ -56,7 +55,6 @@ describe('AppComponent', () => {
             declarations: [
                 AppComponent,
                 ColorOptionComponent,
-                DevPanelComponent,
                 DrawAreaComponent,
                 EntryPointComponent,
                 KeytrackDirective,

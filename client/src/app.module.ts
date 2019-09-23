@@ -8,7 +8,6 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app/app.component';
-import { DevPanelComponent } from './app/dev-panel/dev-panel.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
@@ -27,7 +26,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
     declarations: [
         AppComponent,
         ColorOptionComponent,
-        DevPanelComponent,
         DrawAreaComponent,
         EntryPointComponent,
         KeytrackDirective,
