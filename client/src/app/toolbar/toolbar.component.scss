@@ -33,12 +33,15 @@
 
 
 .toolbar-button {
-    background-color: red;
-    border: 1px solid black;
-	width: 48px;
-	height: 48px;
+	width: 50px;
+	height: 50px;
+}
+
+.toolbar-icon {
+    height: 32px;
+    width: 32px;
 }
 
 .selected-toolbar-button {
-    background-color: aliceblue;
+    filter: brightness(70%);
 }
