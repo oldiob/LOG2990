@@ -38,7 +38,7 @@ describe('PolyDessinComponent', () => {
     it('should register keypress events', () => {
         for (const k of keys) {
             const event = new KeyboardEvent('keypress', { key: k });
-            component.handleKeyboardEvent(event);
+            component.onKeyPressed(event);
             expect(component.keyEvent).toBe(event);
             expect(component.key).toEqual(event.key);
         }
@@ -47,7 +47,7 @@ describe('PolyDessinComponent', () => {
     it('should register keydown events', () => {
         for (const k of keys) {
             const event = new KeyboardEvent('keydown', { key: k });
-            component.handleKeyboardEventDown(event);
+            component.onKeyDown(event);
             expect(component.keyEvent).toBe(event);
             expect(component.key).toEqual('');
         }

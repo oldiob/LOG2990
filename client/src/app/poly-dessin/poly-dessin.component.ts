@@ -32,12 +32,12 @@ export class PolyDessinComponent implements OnInit {
         // this.displayNewDrawing = this.newDrawingComponent.displayNewDrawing;
     }
     @HostListener('document:keypress', ['$event']) // need refactor
-    handleKeyboardEvent(event: KeyboardEvent) {
+    onKeyPressed(event: KeyboardEvent) {
         this.keyEvent = event;
         this.key = this.keyEvent.key;
     }
     @HostListener('document:keydown', ['$event']) // need refactor
-    handleKeyboardEventDown(event: KeyboardEvent) {
+    onKeyDown(event: KeyboardEvent) {
         this.keyEvent = event;
         this.key = '';
     }
