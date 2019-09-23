@@ -49,12 +49,14 @@ export class ToolbarComponent implements OnInit {
     }
 
     chooseWorkingTool() {
+        // TODO - Coverage me
         this.currentDisplayedOption = OptionType.TOOL;
         this.optionDisplayed = true;
         this.toolService.setToolCategoryIndex(0);
     }
 
     chooseShape() {
+        // TODO - Coverage me
         this.currentDisplayedOption = OptionType.SHAPE;
         this.optionDisplayed = true;
         this.toolService.setToolCategoryIndex(1);
