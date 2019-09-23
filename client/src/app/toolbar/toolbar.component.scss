@@ -1,5 +1,5 @@
 .toolbar-option {
-    background-color: #242424;
+    background-color: #151b33;
     width: 250px;
     text-align: center;
     display: inline-block;
@@ -8,7 +8,7 @@
 .toolbar {
     height: 100%;
     text-align: center;
-    background-color: #70341e;
+    background-color: #212749;
     width: 50px;
 }
 
@@ -32,13 +32,23 @@
 }
 
 
-.toolbar-button {
-    background-color: red;
-    border: 1px solid black;
-	width: 48px;
-	height: 48px;
+a {
+	width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+a:hover {
+    background-color: #0b0e1a;
+}
+
+.toolbar-icon {
+    height: 32px;
+    width: 32px;
 }
 
 .selected-toolbar-button {
-    background-color: aliceblue;
+    background-color: #344380;
 }

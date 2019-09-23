@@ -4,6 +4,8 @@ import { ITool } from './i-tool';
  * Tool used to move the work-zone around
  */
 export class NavigationHand implements ITool {
+  FILENAME: string = "hand.png";
+
   onPressed(event: MouseEvent): import('../../svg/svg.interface').SVGInterface | null {
     throw new Error('Method not implemented.');
   }

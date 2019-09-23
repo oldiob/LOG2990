@@ -3,15 +3,16 @@ import { SVGInterface } from '../../svg/svg.interface';
 import { ITool } from './i-tool';
 
 export class Rectangle implements ITool {
+    FILENAME: string = "rectangle.png";
 
-  private currentRect: SVGRect | null = null;
+    private currentRect: SVGRect | null = null;
 
-  constructor() {//
- }
+    constructor() {//
+    }
 
-  onReleased(event: MouseEvent): void {
-    throw new Error('Method not implemented.');
-  }
+    onReleased(event: MouseEvent): void {
+        throw new Error('Method not implemented.');
+    }
 
     onPressed(event: MouseEvent): SVGInterface {
         const x: number = event.clientX;

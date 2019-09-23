@@ -1,6 +1,11 @@
 import { ITool } from './i-tool';
 
 export class Pencil implements ITool {
+  FILENAME: string = "pencil.png";
+  
+  constructor() { //
+  }
+
   onPressed(event: MouseEvent): import('../../svg/svg.interface').SVGInterface | null {
     throw new Error('Method not implemented.');
   }
@@ -11,14 +16,11 @@ export class Pencil implements ITool {
     throw new Error('Method not implemented.');
   }
 
-    constructor() { //
-    }
-
-    leftClick() {
-        throw new Error('Method not implemented.');
-    }
-    leftRelease() {
-        throw new Error('Method not implemented.');
-    }
+  leftClick() {
+    throw new Error('Method not implemented.');
+  }
+  leftRelease() {
+    throw new Error('Method not implemented.');
+  }
 
 }

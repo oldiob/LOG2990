@@ -1,0 +1,20 @@
+a {
+	width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+a:hover {
+    background-color: #0b0e1a;
+}
+
+.selected-tool {
+    background-color: #344380;
+}
+
+.tool-icon {
+    height: 28px;
+    width: 28px;
+}
