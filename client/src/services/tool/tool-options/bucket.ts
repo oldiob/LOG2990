@@ -6,8 +6,9 @@ import { ITool } from './i-tool';
 export class Bucket implements ITool {
     FILENAME: string = "bucket.png";
 
-    constructor(private svgService: SVGService,
-        private paletteService: PaletteService) {
+    //TODO: TEMPORARY
+    constructor(/*private svgService: SVGService,
+        private paletteService: PaletteService*/) {
     }
 
     onReleased(event: MouseEvent): void {
@@ -17,14 +18,15 @@ export class Bucket implements ITool {
     onPressed(event: MouseEvent): null {
         const x: number = event.clientX;
         const y: number = event.clientY;
-        const obj: SVGInterface | null = this.svgService.findAt(x, y);
+        //TODO: TEMPORARY
+        /*const obj: SVGInterface | null = this.svgService.findAt(x, y);
         if (obj != null) {
             if (event.button === 0) {
                 obj.setPrimary(+this.paletteService.getPrimary());
             } else if (event.button === 2) {
                 obj.setSecondary(+this.paletteService.getSecondary());
             }
-        }
+        }*/
         return null;
     }
     onRelease(event: MouseEvent) {

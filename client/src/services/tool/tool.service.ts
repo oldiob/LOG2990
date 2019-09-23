@@ -5,6 +5,7 @@ import { ITool } from './tool-options/i-tool';
 import { NavigationHand } from './tool-options/navigation-hand';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
+import { Bucket } from './tool-options/bucket';
 
 @Injectable({
     providedIn: 'root',
@@ -19,9 +20,11 @@ export class ToolService {
         const pencil: Pencil = new Pencil();
         const brush: Brush = new Brush();
         const rectangle: Rectangle = new Rectangle();
+        const bucket: Bucket = new Bucket();
         const drawingTools: ToolCategory = new ToolCategory([
             pencil,
             brush,
+            bucket,
             rectangle,
         ]);
 
@@ -42,6 +45,11 @@ export class ToolService {
 
         return filename;
     }
+
+    getToolFilename(toolIndex: number): string {
+        return this.toolCategories[this.toolCategoryIndex].getFilename(toolIndex);
+    }
+
 
     getToolCategoryIndex(): number {
         return this.toolCategoryIndex;

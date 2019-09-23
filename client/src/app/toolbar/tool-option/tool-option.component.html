@@ -1,3 +1,20 @@
-<p>
-  tool-selector works!
-</p>
+<div class="big-separation">
+  <h1 class="separation title">Tools</h1>
+</div>
+
+<div class="big-separation">
+  <div class="separation">
+    <a class="button" (click)="selectNthTool(0)" [class.selected-tool]="currentlySelectedIndex === 0">
+      <img class="tool-icon" [src]="getNthFilesource(0)">
+    </a>
+    <a class="button" (click)="selectNthTool(1)" [class.selected-tool]="currentlySelectedIndex === 1">
+      <img class="tool-icon" [src]="getNthFilesource(1)">
+    </a>
+    <a class="button" (click)="selectNthTool(2)" [class.selected-tool]="currentlySelectedIndex === 2">
+      <img class="tool-icon" [src]="getNthFilesource(2)">
+    </a>
+    <a class="button" (click)="selectNthTool(3)" [class.selected-tool]="currentlySelectedIndex === 3">
+      <img class="tool-icon" [src]="getNthFilesource(3)">
+    </a>
+  </div>
+</div>
