@@ -15,15 +15,10 @@ export enum OptionType {
 })
 export class ToolbarComponent implements OnInit {
 
-    private toolService: ToolService;
-    private paletteService: PaletteService;
-
     currentDisplayedOption: OptionType;
     optionDisplayed: boolean;
 
-    constructor(toolService: ToolService, paletteService: PaletteService) {
-        this.toolService = toolService;
-        this.paletteService = paletteService;
+    constructor(private toolService: ToolService, private paletteService: PaletteService) {
         this.currentDisplayedOption = OptionType.TOOL;
         this.optionDisplayed = false;
     }
