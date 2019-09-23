@@ -9,12 +9,12 @@ import { WorkZoneService } from 'src/services/work-zone.service';
 export class DrawAreaComponent implements OnInit {
     @Input() keyEvent: KeyboardEvent;
     @Input() key: string;
-    height: number;
-    width: number;
+    height: number = 0;
+    width: number = 0;
     rectangleWidth: number;
     rectangleHeight: number;
     rectangleActivate = false;
-    backgroundColor: string;
+    backgroundColor: string = "#ffffffff";
     currentStyles: { height: number; width: number; 'background-color': string; };
     constructor(private workZoneService: WorkZoneService) {
     }
@@ -22,20 +22,20 @@ export class DrawAreaComponent implements OnInit {
     ngOnInit() {
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
-            (width: number) => this.width = width,
+            (width: number) => this.width = width
         );
         this.workZoneService.currentHeight.subscribe(
-            (height): number => this.height = height,
+            (height): number => this.height = height
         );
         this.workZoneService.currentBackgroundColor.subscribe(
-            (backgroundColor: string) => this.backgroundColor = backgroundColor,
+            (backgroundColor: string) => this.backgroundColor = backgroundColor
         );
     }
     setCurrentStyles() {
         return {
-            height: this.height ? this.height + 'px' : '0px',
-            width: this.width ? this.width + 'px' : '0px',
-            'background-color': this.backgroundColor ? this.backgroundColor : '#ffffff',
+            height: `${this.height}px`,
+            width: `${this.width}px`,
+            'background-color': `${this.backgroundColor}`,
         };
     }
 }
