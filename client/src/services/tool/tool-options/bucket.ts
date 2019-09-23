@@ -1,6 +1,3 @@
-import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGInterface } from 'src/services/svg/svg.interface';
-import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
 
 export class Bucket implements ITool {
@@ -16,10 +13,11 @@ export class Bucket implements ITool {
     }
 
     onPressed(event: MouseEvent): null {
-        const x: number = event.clientX;
-        const y: number = event.clientY;
         //TODO: TEMPORARY
-        /*const obj: SVGInterface | null = this.svgService.findAt(x, y);
+        /*const x: number = event.clientX;
+        const y: number = event.clientY;
+       
+        const obj: SVGInterface | null = this.svgService.findAt(x, y);
         if (obj != null) {
             if (event.button === 0) {
                 obj.setPrimary(+this.paletteService.getPrimary());
