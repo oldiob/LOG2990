@@ -27,19 +27,19 @@ export class ToolbarComponent implements OnInit {
         //
     }
 
-    getPrimaryColor(): string {
+    get primaryColor(): string {
         return this.paletteService.getPrimary();
     }
 
-    getSecondaryColor(): string {
+    get secondaryColor(): string {
         return this.paletteService.getSecondary();
     }
 
-    getOptionTopMargin(): number {
+    get optionTopMargin(): number {
         return this.currentDisplayedOption * 48;
     }
 
-    getToolCategory(): number {
+    get toolCategory(): number {
         return this.toolService.getToolCategoryIndex();
     }
 
