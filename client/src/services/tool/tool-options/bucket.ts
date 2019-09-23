@@ -4,14 +4,16 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
 
 export class Bucket implements ITool {
-  onReleased(event: MouseEvent): void {
-    //
-  }
+    FILENAME: string = "bucket.png";
 
     constructor(private svgService: SVGService,
-                private paletteService: PaletteService) {
-
+        private paletteService: PaletteService) {
     }
+
+    onReleased(event: MouseEvent): void {
+        //
+    }
+
     onPressed(event: MouseEvent): null {
         const x: number = event.clientX;
         const y: number = event.clientY;

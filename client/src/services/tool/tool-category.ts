@@ -14,6 +14,10 @@ export class ToolCategory {
         this.toolIndex = 0;
     }
 
+    getCurrentFilename(): string {
+        return this.tools[this.toolIndex].FILENAME;
+    }
+
     getToolIndex(): number {
         return this.toolIndex;
     }
