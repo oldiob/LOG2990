@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
@@ -10,19 +11,18 @@ import { WorkZoneService } from '../../services/work-zone/work-zone.service';
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
-  isHiddenWelcome = 'false';
+  readonly IS_HIDDEN_WELCOME = 'false';
   readonly WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
   readonly DEFAULT_BACKGROUND = '#FFFFFF';
   defaultWidth: number;
   defaultHeight: number;
   newDrawingFrom: FormGroup;
 
-  @Input() isHiddenEntry: boolean;
-
   private widthSubscription: Subscription;
   private heightSubscription: Subscription;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private isOpenEntryDialog: boolean,
     public dialogService: DialogService,
     private formBuilder: FormBuilder,
     private workZoneService: WorkZoneService) { }
@@ -85,8 +85,8 @@ export class NewDrawingComponent implements OnInit {
 
   ngOnInit() {
     const IS_SHOW_WELCOME: boolean =
-      !sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) ===
-      this.isHiddenWelcome && !this.isHiddenEntry;
+      (!sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) ===
+        this.IS_HIDDEN_WELCOME) && this.isOpenEntryDialog;
 
     if (IS_SHOW_WELCOME) {
       this.dialogService.openEntryPoint(this.WELCOME_DIALOG_COOKIE);

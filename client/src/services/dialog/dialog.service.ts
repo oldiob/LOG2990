@@ -11,10 +11,11 @@ export class DialogService {
 
   constructor(private dialog: MatDialog) { }
 
-  openNewDrawing(newDrawingComponent: ComponentType<NewDrawingComponent>) {
+  openNewDrawing(newDrawingComponent: ComponentType<NewDrawingComponent>, isOpenEntryDialog: boolean) {
     this.dialog.open(newDrawingComponent, {
       height: '670px',
       width: '400px',
+      data: isOpenEntryDialog,
     });
   }
 

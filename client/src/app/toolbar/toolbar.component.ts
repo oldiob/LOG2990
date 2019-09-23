@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ToolService } from 'src/services/tool/tool.service';
+import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 
 export enum OptionType {
 	COLOR = 0,
@@ -69,10 +71,80 @@ export class ToolbarComponent implements OnInit {
 
 
 
+<<<<<<< HEAD
 	newDrawingOption() {
 		//
 	}
 	saveImage() {
 		//
 	}
+=======
+currentDisplayedOption: OptionType;
+optionDisplayed: boolean;
+
+constructor(
+  private toolService: ToolService,
+  private paletteService: PaletteService,
+  private dialogService: DialogService) {
+ this.currentDisplayedOption = OptionType.TOOL;
+ this.optionDisplayed = false;
+}
+
+ngOnInit() {
+//
+}
+
+    get primaryColor(): string {
+        return this.paletteService.getPrimary();
+    }
+
+    get secondaryColor(): string {
+        return this.paletteService.getSecondary();
+    }
+
+    get optionTopMargin(): number {
+        return this.currentDisplayedOption * 48;
+    }
+
+    get toolCategory(): number {
+        return this.toolService.getToolCategoryIndex();
+    }
+
+    chooseColor() {
+        this.currentDisplayedOption = OptionType.COLOR;
+        this.optionDisplayed = true;
+    }
+
+    chooseWorkingTool() {
+        // TODO - Coverage me
+        this.currentDisplayedOption = OptionType.TOOL;
+        this.optionDisplayed = true;
+        this.toolService.setToolCategoryIndex(0);
+    }
+
+    chooseShape() {
+        // TODO - Coverage me
+        this.currentDisplayedOption = OptionType.SHAPE;
+        this.optionDisplayed = true;
+        this.toolService.setToolCategoryIndex(1);
+    }
+
+<<<<<<< HEAD
+    newDrawingOption() {
+        //
+    }
+    saveImage() {
+        //
+    }
+=======
+newDrawingOption() {
+  // Avoid welcome entry dialog pop up
+  const IS_OPEN_ENTRY_DIALOG = false;
+  this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG);
+}
+saveImage() {
+//
+}
+>>>>>>> Fix NewDrawing modal pop up from toolbar
+>>>>>>> Fix NewDrawing modal pop up from toolbar
 }
