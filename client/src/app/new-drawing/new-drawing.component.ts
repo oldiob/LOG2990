@@ -1,10 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import {WorkZoneService} from 'src/services/work-zone.service';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
-
 import { Subscription } from 'rxjs';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
   selector: 'app-new-drawing',
@@ -12,32 +10,29 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
-  FALSE = 'false';
-  RESULT = 'result';
-  DEFAULTBACKGROUND = '#ffffff';
-  defaultBGColor = '#F9F9F9';
+  isShowWelcome = 'false';
+  readonly WELCOME_DIALOG_COOKIE = 'ShowWelcomeDialog';
+  readonly DEFAULT_BACKGROUND = '#FFFFFF';
   defaultWidth: number;
   defaultHeight: number;
   newDrawingFrom: FormGroup;
-  @Output() displayChange = new EventEmitter<boolean>();
-  @Input() isShowEntry: boolean;
-  displayNewDrawing: boolean;
 
-  widthSubscription: Subscription;
-  heightSubscription: Subscription;
+  @Input() isShowEntry: boolean;
+
+  private widthSubscription: Subscription;
+  private heightSubscription: Subscription;
 
   constructor(
-    public dialog: MatDialog,
+    public dialogService: DialogService,
     private formBuilder: FormBuilder,
-    private workZoneService: WorkZoneService) {
-    }
+    private workZoneService: WorkZoneService) { }
 
   private createForm() {
     // Form to create new work zone to draw
     this.newDrawingFrom = this.formBuilder.group({
       height: [this.defaultHeight, Validators.min(0)],
       width: [this.defaultWidth, Validators.min(0)],
-      backgroundColor: [this.DEFAULTBACKGROUND],
+      backgroundColor: [this.DEFAULT_BACKGROUND],
     });
   }
 
@@ -67,8 +62,6 @@ export class NewDrawingComponent implements OnInit {
     const height = this.height;
     const bgColor = this.backgroundColor;
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
-    this.displayNewDrawing = false;
-    this.displayChange.emit(this.displayNewDrawing);
   }
 
   chooseBgColor(bgColor: string) {
@@ -80,30 +73,23 @@ export class NewDrawingComponent implements OnInit {
     this.widthSubscription = this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
       // Updates width form control
       this.newDrawingFrom.controls.width.setValue(maxWidth);
-      // Updates width view form
       this.defaultWidth = maxWidth;
     });
 
     this.heightSubscription = this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
       // Updates width form control
       this.newDrawingFrom.controls.height.setValue(maxHeight);
-      // Updates height view form
       this.defaultHeight = maxHeight;
     });
   }
 
-  // open entry point dialog
-  openEntryDialog(): void {
-    const dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
-      sessionStorage.setItem(this.RESULT, JSON.stringify(result));
-    });
-  }
-
   ngOnInit() {
-    if (!sessionStorage.getItem(this.RESULT) || sessionStorage.getItem(this.RESULT) === this.FALSE && this.isShowEntry) {
-      this.openEntryDialog();
+    const IS_SHOW_WELCOME: boolean =
+      !sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) ===
+      this.isShowWelcome && this.isShowEntry;
+
+    if (IS_SHOW_WELCOME) {
+      this.dialogService.openEntryPoint(this.WELCOME_DIALOG_COOKIE);
     }
     this.createForm();
     this.fetchDefaults();

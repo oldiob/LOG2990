@@ -1,9 +1,5 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Message } from '../../../../common/communication/message';
-import { IndexService } from '../../services/index/index.service';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 
 @Component({
@@ -13,33 +9,13 @@ import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 })
 export class PolyDessinComponent implements OnInit {
 
-  constructor(private basicService: IndexService,
-              private dialog: MatDialog,
-  ) {
-    this.basicService.basicGet()
-      .pipe(
-        map((message: Message) => `${message.title} ${message.body}`),
-      )
-      .subscribe(this.message);
+  constructor(private dialogService: DialogService) {
   }
-  readonly title: string = 'LOG2990';
   keyEvent: KeyboardEvent;
   key: string;
 
-  message = new BehaviorSubject<string>('');
-  displayNewDrawing = true;
-  @ViewChild(NewDrawingComponent, { static: false })
-  newDrawingComponent: NewDrawingComponent;
-
   ngOnInit() {
-    this.openModal();
-  }
-
-  openModal() {
-    this.dialog.open(NewDrawingComponent, {
-      height: '670px',
-      width: '400px',
-    });
+    this.dialogService.openNewDrawing(NewDrawingComponent);
   }
 
   @HostListener('document:keypress', ['$event']) // need refactor
@@ -52,8 +28,4 @@ export class PolyDessinComponent implements OnInit {
     this.keyEvent = event;
     this.key = '';
   }
-  changeDisplay(display: boolean) {
-    this.displayNewDrawing = display;
-  }
-
 }

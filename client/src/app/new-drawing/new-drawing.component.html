@@ -17,12 +17,12 @@
 
       <label>
         <span class="field-label">Background Color:</span>
-        <input class="field bg-input" type="text" formControlName="backgroundColor" value="{{defaultBGColor}}">
+        <input class="field bg-input" type="text" formControlName="backgroundColor" value="{{DEFAULT_BACKGROUND}}">
       </label>
       <div class="color-palette">
 
         <div class="color-wrapper">
-          <input class="color-toggler" type="radio" name="radio" checked="true" (click)="chooseBgColor('#F9F9F9')">
+          <input class="color-toggler" type="radio" name="radio" checked="true" (click)="chooseBgColor('#FFFFFF')">
           <div class="color color1"></div>
         </div>
 
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="button-wrapper">
-      <button color="secondary" mat-raised-button mat-dialog-close >Cancel</button>
+      <button color="secondary" mat-raised-button mat-dialog-close>Cancel</button>
       <button color="primary" mat-raised-button mat-dialog-close type="submit"
         [disabled]="!newDrawingFrom.valid">Create</button>
     </div>
