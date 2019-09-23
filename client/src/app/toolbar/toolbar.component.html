@@ -1,21 +1,21 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
-		<a class="button toolbar-button" (click)="chooseColor()" style="filter: brightness(100%);"[ngStyle]="{'background-color': getPrimaryColor()}">
+		<a class="button" (click)="chooseColor()" style="filter: brightness(100%);"[ngStyle]="{'background-color': getPrimaryColor()}">
 			<div style="width: 50%; height: 50%;" [ngStyle]="{'background-color': getSecondaryColor()}"></div>
 		</a>
-		<a class="button toolbar-button" (click)="chooseHand()" [class.selected-toolbar-button]="getToolCategory() === 1">
+		<a class="button" (click)="chooseHand()" [class.selected-toolbar-button]="getToolCategory() === 1">
 			<img class="toolbar-icon" src="../../../assets/images/hand.png">
 		</a>
-		<a class="button toolbar-button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
+		<a class="button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
 			<img class="toolbar-icon" src="../../../assets/images/pencil.png">
 		</a>
 	</div>
 
 	<div class="options">
-		<a class="button toolbar-button" (click)="newDrawingOption()">
+		<a class="button" (click)="newDrawingOption()">
 			<img class="toolbar-icon" src="../../../assets/images/new.png">
 		</a>
-		<a class="button toolbar-button" (click)="saveImage()">
+		<a class="button" (click)="saveImage()">
 			<img class="toolbar-icon" src="../../../assets/images/save.png">
 		</a>
 	</div>

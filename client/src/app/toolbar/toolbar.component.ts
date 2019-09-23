@@ -43,7 +43,7 @@ export class ToolbarComponent implements OnInit {
 
 
 	getOptionTopMargin(): number {
-		return this.currentDisplayedOption * 48;
+		return this.currentDisplayedOption * 50;
 	}
 
 	getToolCategory(): number {

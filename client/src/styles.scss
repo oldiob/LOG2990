@@ -7,12 +7,7 @@ body {
 .button {
   float: left;
   cursor: pointer;
-  //filter: brightness(70%);
-  border-radius: 7px;
-}
-
-.button:hover {
-  //filter: brightness(100%);
+  transition-duration: 0.2s;
 }
 
 // Wes Fy font family
