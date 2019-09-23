@@ -36,7 +36,6 @@ export class DrawAreaComponent implements OnInit {
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: string) => this.backgroundColor = backgroundColor,
         );
-        console.log(this.backgroundColor);
     }
     setCurrentStyles() {
         return {
