@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ToolService } from 'src/services/tool/tool.service';
+import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 
 export enum OptionType {
   COLOR = 0,
@@ -18,7 +20,10 @@ export class ToolbarComponent implements OnInit {
   currentDisplayedOption: OptionType;
   optionDisplayed: boolean;
 
-  constructor(private toolService: ToolService, private paletteService: PaletteService) {
+  constructor(
+    private toolService: ToolService,
+    private paletteService: PaletteService,
+    private dialogService: DialogService) {
     this.currentDisplayedOption = OptionType.TOOL;
     this.optionDisplayed = false;
   }
@@ -63,7 +68,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   newDrawingOption() {
-    //
+    const IS_OPEN_ENTRY_DIALOG = false;
+    this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG);
   }
   saveImage() {
     //

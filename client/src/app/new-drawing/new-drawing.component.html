@@ -17,7 +17,7 @@
 
       <label>
         <span class="field-label">Background Color:</span>
-        <input class="field bg-input" type="text" formControlName="backgroundColor" (change)="onColorHEXChange()"
+        <input class="field bg-input" type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
           value="{{DEFAULT_BACKGROUND_HEX}}">
       </label>
 
@@ -83,7 +83,8 @@
         <div class="color-wrapper">
           <input class="color-toggler" type="radio" name="radio">
           <div class="color color9">
-            <input class="custom-color" type="color" formControlName="backgroundColor"></div>
+            <input class="color-toggler" type="radio" name="radio" (click)="chooseBgColor('#000000')">
+          </div>
         </div>
       </div>
     </div>
