@@ -58,12 +58,15 @@ fdescribe('RectangleService', () => {
     });
 
     it('should select the point size',()=>{
-        rectService.SelectFillOpacity(1);
+        rectService.SelectPointSize(1);
         expect(rectService.pointSize).toEqual(1);
 
-        rectService.SelectFillOpacity(-4);
+        rectService.SelectPointSize(-4);
         expect(rectService.pointSize).toEqual(1);
     });
 
-    
+    it('should give a string version of pointSize', ()=>{
+        rectService.SelectPointSize(1);
+        expect(rectService.pointSize.toString()).toEqual(rectService.GetPointSize());
+    });
 });
