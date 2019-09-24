@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/svg.interface';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 
@@ -18,16 +18,16 @@ export class SVGComponent implements OnInit {
     ngOnInit() { }
 
     onPressed(event: MouseEvent) {
-        const obj: SVGInterface | null = this.toolService.tool.onPressed(event);
+        const obj: SVGInterface | null = this.toolService.getCurrentTool().onPressed(event);
         if (obj != null) {
             this.svgService.addObj(obj);
         }
     }
     onReleased(event: MouseEvent) {
-        this.toolService.tool.onReleased(event);
+        this.toolService.getCurrentTool().onReleased(event);
     }
     onMotion(event: MouseEvent) {
-        this.toolService.tool.onMotion(event);
+        this.toolService.getCurrentTool().onMotion(event);
     }
 
     get width(): string {

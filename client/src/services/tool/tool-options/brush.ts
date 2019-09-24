@@ -1,5 +1,5 @@
 import { ITool } from './i-tool';
-import { SVGInterface } from 'src/services/svg/svg.interface'
+import { SVGInterface } from 'src/services/svg/element/svg.interface'
 
 export class Brush implements ITool {
   FILENAME: string = "brush.png";

@@ -1,5 +1,5 @@
-import { SVGRect } from 'src/services/svg/svg.rect';
-import { SVGInterface } from '../../svg/svg.interface';
+import { SVGRect } from 'src/services/svg/element/svg.rect';
+import { SVGInterface } from '../../svg/element/svg.interface';
 import { ITool } from './i-tool';
 
 export class Rectangle implements ITool {
@@ -10,20 +10,20 @@ export class Rectangle implements ITool {
     constructor() {//
     }
 
-    onReleased(event: MouseEvent): void {
+    onReleased(event: MouseEvent): void  {
         throw new Error('Method not implemented.');
     }
 
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): SVGInterface | null {
         const x: number = event.clientX;
         const y: number = event.clientY;
         this.currentRect = new SVGRect(x, y);
-        return this.currentRect;
+        return null;//this.currentRect;
     }
-    onRelease(event: MouseEvent) {
+    onRelease(event: MouseEvent): void {
         this.currentRect = null;
     }
-    onMotion(event: MouseEvent) {
+    onMotion(event: MouseEvent): void  {
         if (this.currentRect == null) {
             return;
         }

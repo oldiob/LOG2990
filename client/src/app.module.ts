@@ -19,7 +19,6 @@ import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.compo
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
-import { GenericStrokeComponent } from './app/generic-stroke/generic-stroke.component';
 import { MousetrackDirective } from './directive/mousetrack.directive';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         ToolbarComponent,
         WorkZoneComponent,
         RectangleComponent,
-        GenericStrokeComponent,
     ],
     imports: [
         BrowserModule,
@@ -67,7 +65,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     entryComponents: [
         EntryPointComponent,
-        GenericStrokeComponent,
         NewDrawingComponent,
     ],
 })

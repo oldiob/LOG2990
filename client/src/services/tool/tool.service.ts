@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { ToolCategory } from './tool-category';
 import { Brush } from './tool-options/brush';
 import { ITool } from './tool-options/i-tool';
-import { NavigationHand } from './tool-options/navigation-hand';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
-import { BucketService } from './tool-options/bucket'
+import { Bucket } from './tool-options/bucket'
+import { SVGService } from '../svg/svg.service';
 
+/**
+ * ToolService is used to access the current tool and to change tools ONLY.
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -14,30 +17,20 @@ export class ToolService {
 
     private toolCategories: ToolCategory[];
     private toolCategoryIndex: number;
-    private currentTool: ITool;
 
-    constructor(private bucketService: BucketService) {
-
-        // TODO - Bucket is the default tool, this is probably not
-        // what we want.
-        this.currentTool = this.bucketService;
-
-        const pencil: Pencil = new Pencil();
-        const brush: Brush = new Brush();
-        const rectangle: Rectangle = new Rectangle();
-        const drawingTools: ToolCategory = new ToolCategory([
+    constructor(svgService: SVGService) {
+        let pencil: Pencil = new Pencil();
+        let brush: Brush = new Brush();
+        let bucket: Bucket = new Bucket(svgService);
+        let rectangle: Rectangle = new Rectangle();
+        let drawingTools: ToolCategory = new ToolCategory([
             pencil,
             brush,
+            bucket,
             rectangle,
         ]);
 
-        const navigationHand: NavigationHand = new NavigationHand();
-        const navigationHandCategory: ToolCategory = new ToolCategory([
-            navigationHand,
-        ]);
-
-        this.toolCategories = [drawingTools, navigationHandCategory];
-        this.toolCategoryIndex = 0;
+        this.toolCategories = [drawingTools];
     }
 
     getToolCategoryFilename(categoryIndex: number): string {
@@ -83,7 +76,4 @@ export class ToolService {
     getCurrentTool(): ITool {
         return this.toolCategories[this.toolCategoryIndex].getCurrentTool();
     }
-
-    get tool(): ITool { return this.currentTool; }
-    set tool(tool: ITool) { this.currentTool = tool; }
 }

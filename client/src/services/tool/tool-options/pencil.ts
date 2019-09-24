@@ -1,4 +1,5 @@
 import { ITool } from './i-tool';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 export class Pencil implements ITool {
   FILENAME: string = "pencil.png";
@@ -6,7 +7,7 @@ export class Pencil implements ITool {
   constructor() { //
   }
 
-  onPressed(event: MouseEvent): import('../../svg/svg.interface').SVGInterface | null {
+  onPressed(event: MouseEvent): SVGInterface | null {
     throw new Error('Method not implemented.');
   }
   onMotion(event: MouseEvent): void {
