@@ -91,4 +91,8 @@ fdescribe('RectangleService', () => {
         expect(rectService.fillOpacity).toEqual(1);
     });
     
+    it('should give a string version of fillOpacity', ()=>{
+        rectService.SelectFillOpacity(1);
+        expect(rectService.fillOpacity.toString()).toEqual(rectService.GetFillOpacity());
+    });
 });
