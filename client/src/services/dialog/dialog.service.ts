@@ -13,8 +13,8 @@ export class DialogService {
 
   openNewDrawing(newDrawingComponent: ComponentType<NewDrawingComponent>, isOpenEntryDialog: boolean) {
     this.dialog.open(newDrawingComponent, {
-      height: '580px',
-      width: '400px',
+      height: '700px',
+      width: '500px',
       data: isOpenEntryDialog,
     });
   }

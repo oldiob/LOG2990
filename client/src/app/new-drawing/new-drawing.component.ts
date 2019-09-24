@@ -188,8 +188,9 @@ export class NewDrawingComponent implements OnInit {
     return parseInt(hex, 16);
   }
 
-  chooseBgColor(bgColor: string) {
-    this.backgroundColor = bgColor;
+  chooseBgColor(bgColorHEX: string) {
+    this.backgroundColor = bgColorHEX;
+    this.backgroundColorHEX = bgColorHEX;
     this.updateColorRGBA();
   }
 
