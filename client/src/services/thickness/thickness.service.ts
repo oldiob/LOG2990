@@ -14,7 +14,6 @@ export class ThicknessService {
     if (thickness <= 0 || thickness > 20) {
       throw new Error("Invalid thickness " + thickness + ". Must be ]0, 20].")
     }
-
     this.thickness = thickness;
   }
 
