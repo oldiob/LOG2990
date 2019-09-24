@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/svg.interface';
-import { ToolService } from 'src/services/tool/tool.service';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SVGService {
 
-    private objects: SVGInterface[];
-
-    width: number;
-    height: number;
-
-    constructor(public toolService: ToolService) {
-    }
+    private objects: SVGInterface[] = [];
+    private currentTool: ITool;
+    constructor() { }
 
     findAt(x: number, y: number): SVGInterface | null {
         for (let i = this.objects.length - 1; i > 0; --i) {
@@ -37,13 +33,7 @@ export class SVGService {
     rmObj() {
         this.objects.pop();
     }
-    onPressed(event: MouseEvent): SVGInterface | null {
-        return this.toolService.getCurrentTool().onPressed(event);
-    }
-    onMotion(event: MouseEvent) {
-      // TODO - Implement this
-    }
-    onReleased(event: MouseEvent) {
-      // TODO - Implement this
-    }
+
+    get tool(): ITool { return this.currentTool; }
+    set tool(tool: ITool) { this.currentTool = tool; }
 }
