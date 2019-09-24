@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Rectangle } from '../../../../common/communication/rectangle';
 import { RectangleService } from './rectangle.service';
 
-describe('RectangleService', () => {
+fdescribe('RectangleService', () => {
 
     let rectService: RectangleService;
     let mouseEvent: MouseEvent;
@@ -56,4 +56,14 @@ describe('RectangleService', () => {
         rectService.addRectangle();
         expect(rectangle).toEqual(rectangles[0]);
     });
+
+    it('should select the point size',()=>{
+        rectService.SelectFillOpacity(1);
+        expect(rectService.pointSize).toEqual(1);
+
+        rectService.SelectFillOpacity(-4);
+        expect(rectService.pointSize).toEqual(1);
+    });
+
+    
 });
