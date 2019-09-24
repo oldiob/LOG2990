@@ -77,4 +77,10 @@ fdescribe('RectangleService', () => {
         rectService.SelectStrokeOpacity(-4);
         expect(rectService.strokeOpacity).toEqual(1);
     });
+
+    it('should give a string version of strokeOpacity', ()=>{
+        rectService.SelectStrokeOpacity(1);
+        expect(rectService.strokeOpacity.toString()).toEqual(rectService.GetStrokeOpacity());
+    });
+    
 });
