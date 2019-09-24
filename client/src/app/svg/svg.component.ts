@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
+import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
     selector: 'app-svg',
@@ -12,21 +13,21 @@ export class SVGComponent implements OnInit {
     @Input() _width: number;
     @Input() _height: number;
 
-    constructor(private svgService: SVGService) { }
+    constructor(private svgService: SVGService, private toolService: ToolService) { }
 
     ngOnInit() { }
 
     onPressed(event: MouseEvent) {
-        const obj: SVGInterface | null = this.svgService.tool.onPressed(event);
+        const obj: SVGInterface | null = this.toolService.tool.onPressed(event);
         if (obj != null) {
             this.svgService.addObj(obj);
         }
     }
     onReleased(event: MouseEvent) {
-        this.svgService.tool.onReleased(event);
+        this.toolService.tool.onReleased(event);
     }
     onMotion(event: MouseEvent) {
-        this.svgService.tool.onMotion(event);
+        this.toolService.tool.onMotion(event);
     }
 
     get width(): string {

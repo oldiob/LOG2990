@@ -6,7 +6,6 @@ import { NavigationHand } from './tool-options/navigation-hand';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
 import { BucketService } from './tool-options/bucket'
-import { SVGService } from 'src/services/svg/svg.service';
 
 @Injectable({
     providedIn: 'root',
@@ -15,13 +14,13 @@ export class ToolService {
 
     private toolCategories: ToolCategory[];
     private toolCategoryIndex: number;
+    private currentTool: ITool;
 
-    constructor(private bucketService: BucketService,
-        private svgService: SVGService) {
+    constructor(private bucketService: BucketService) {
 
         // TODO - Bucket is the default tool, this is probably not
         // what we want.
-        this.svgService.tool = this.bucketService;
+        this.currentTool = this.bucketService;
 
         const pencil: Pencil = new Pencil();
         const brush: Brush = new Brush();
@@ -85,4 +84,6 @@ export class ToolService {
         return this.toolCategories[this.toolCategoryIndex].getCurrentTool();
     }
 
+    get tool(): ITool { return this.currentTool; }
+    set tool(tool: ITool) { this.currentTool = tool; }
 }
