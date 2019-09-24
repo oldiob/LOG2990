@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
@@ -12,8 +12,6 @@ import { DrawAreaService } from './../../services/draw-area/draw-area.service';
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
-  readonly IS_HIDDEN_WELCOME = 'false';
-  readonly WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
   readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
 
   readonly DEFAULT_RED = 255;
@@ -42,13 +40,6 @@ export class NewDrawingComponent implements OnInit {
   }
 
   ngOnInit() {
-    const IS_SHOW_WELCOME: boolean =
-      (!sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) ===
-        this.IS_HIDDEN_WELCOME) && this.dialgoInfo.entryPoint;
-
-    if (IS_SHOW_WELCOME) {
-      this.dialogService.openEntryPoint(this.WELCOME_DIALOG_COOKIE);
-    }
     this.isSaveDrawing = this.dialgoInfo.saveStatus;
     this.createForm();
     this.fetchDefaults();
@@ -231,5 +222,13 @@ export class NewDrawingComponent implements OnInit {
 
   private formatToRGBA(rgba: RGBA): string {
     return 'rgba(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ',' + rgba.opacity + ')';
+  }
+
+  // prevent keyboard event
+  @HostListener('window: keydown', ['$event'])
+  @HostListener('window: keypress', ['$event'])
+  disableKeyboard(event: KeyboardEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

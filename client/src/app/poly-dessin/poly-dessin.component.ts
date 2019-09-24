@@ -8,16 +8,27 @@ import { DialogService } from 'src/services/dialog/dialog.service';
   styleUrls: ['./poly-dessin.component.scss'],
 })
 export class PolyDessinComponent implements OnInit {
-
-  constructor(private dialogService: DialogService) {
+  constructor(
+    private dialogService: DialogService) {
   }
   keyEvent: KeyboardEvent;
   key: string;
 
   ngOnInit() {
-    const IS_OPEN_ENTRY_DIALOG = true;
-    const IS_NEW_DRAWING = true;
-    this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG, IS_NEW_DRAWING);
+    const IS_HIDDEN_WELCOME = 'false';
+    const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
+    const IS_SHOW_WELCOME: boolean =
+      (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_HIDDEN_WELCOME);
+    if (IS_SHOW_WELCOME) {
+      this.dialogService.openEntryPoint(WELCOME_DIALOG_COOKIE);
+    }
+
+    const IS_DRAWING_SAVE = true;
+    this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
+      if (isClosedWelcome) {
+        this.dialogService.openNewDrawing(NewDrawingComponent, IS_DRAWING_SAVE);
+      }
+    });
   }
 
   @HostListener('document:keypress', ['$event']) // need refactor

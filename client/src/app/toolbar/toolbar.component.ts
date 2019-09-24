@@ -70,8 +70,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   newDrawingOption() {
-    const IS_OPEN_ENTRY_DIALOG = false;
-    this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG, this.drawAreaService.isSaveDrawing);
+    this.dialogService.openNewDrawing(NewDrawingComponent, this.drawAreaService.isSaveDrawing);
   }
   saveImage() {
     this.drawAreaService.save();
