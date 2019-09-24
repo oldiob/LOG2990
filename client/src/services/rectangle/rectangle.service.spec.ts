@@ -82,5 +82,13 @@ fdescribe('RectangleService', () => {
         rectService.SelectStrokeOpacity(1);
         expect(rectService.strokeOpacity.toString()).toEqual(rectService.GetStrokeOpacity());
     });
+
+    it('should select the fill opacity',()=>{
+        rectService.SelectFillOpacity(0);
+        expect(rectService.fillOpacity).toEqual(0);
+
+        rectService.SelectFillOpacity(-4);
+        expect(rectService.fillOpacity).toEqual(1);
+    });
     
 });
