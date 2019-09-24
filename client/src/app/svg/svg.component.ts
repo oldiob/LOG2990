@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
@@ -14,6 +14,8 @@ export class SVGComponent implements OnInit {
     ngOnInit() {
         //
     }
+    @Input() _width: number;
+    @Input() _height: number;
     onPressed(event: MouseEvent) {
         const obj: SVGInterface | null = this.svgService.onPressed(event);
         if (obj != null) {
@@ -25,5 +27,12 @@ export class SVGComponent implements OnInit {
     }
     onMotion(event: MouseEvent) {
         this.svgService.onMotion(event);
+    }
+
+    get width(): string {
+        return `${this._width}px`;
+    }
+    get height(): string {
+        return `${this._height}px`;
     }
 }
