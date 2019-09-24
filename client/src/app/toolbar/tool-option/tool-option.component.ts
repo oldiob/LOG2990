@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
+import { ThicknessService } from 'src/services/thickness/thickness.service';
 
 @Component({
   selector: 'app-tool-option',
@@ -9,10 +10,13 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class ToolOptionComponent implements OnInit {
   private FILE_LOCATION: string = "../../../../assets/images/";
 
+  thickness: number;
   currentlySelectedIndex: number;
 
-  constructor(private toolService: ToolService) { 
+  constructor(private toolService: ToolService, private thicknessService: ThicknessService) { 
     this.currentlySelectedIndex = toolService.getCurrentToolIndex();
+    this.thickness = 20;
+    this.thicknessService.setThickness(1);
   }
 
   ngOnInit() {
@@ -26,6 +30,10 @@ export class ToolOptionComponent implements OnInit {
 
   getNthFilesource(toolIndex: number): string {
     return this.FILE_LOCATION + this.toolService.getToolFilename(toolIndex);
+  }
+
+  setThickness() {
+    this.thicknessService.setThickness(this.thickness);
   }
 
 }
