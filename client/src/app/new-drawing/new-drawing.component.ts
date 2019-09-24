@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 
 @Component({
   selector: 'app-new-drawing',
@@ -20,6 +21,9 @@ export class NewDrawingComponent implements OnInit {
   readonly DEFAULT_BLUE = 255;
   readonly DEFAULT_OPACITY = 1;
 
+  isSaveDrawing: boolean;
+  displaySaveError: boolean;
+
   defaultWidth: number;
   defaultHeight: number;
   rgba: RGBA;
@@ -29,19 +33,23 @@ export class NewDrawingComponent implements OnInit {
   private heightSubscription: Subscription;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private isOpenEntryDialog: boolean,
+    @Inject(MAT_DIALOG_DATA) private dialgoInfo: { entryPoint: boolean; saveStatus: boolean; },
     public dialogService: DialogService,
     private formBuilder: FormBuilder,
-    private workZoneService: WorkZoneService) { }
+    private workZoneService: WorkZoneService,
+    private drawAreaService: DrawAreaService) {
+    this.displaySaveError = false;
+  }
 
   ngOnInit() {
     const IS_SHOW_WELCOME: boolean =
       (!sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(this.WELCOME_DIALOG_COOKIE) ===
-        this.IS_HIDDEN_WELCOME) && this.isOpenEntryDialog;
+        this.IS_HIDDEN_WELCOME) && this.dialgoInfo.entryPoint;
 
     if (IS_SHOW_WELCOME) {
       this.dialogService.openEntryPoint(this.WELCOME_DIALOG_COOKIE);
     }
+    this.isSaveDrawing = this.dialgoInfo.saveStatus;
     this.createForm();
     this.fetchDefaults();
     this.updateColorRGBA();
@@ -58,10 +66,11 @@ export class NewDrawingComponent implements OnInit {
 
     // Form to create new work zone to draw
     const rgbaValidators = [Validators.min(0), Validators.max(255)];
+    const dimentionsValidators = [Validators.min(0), Validators.required];
 
     this.newDrawingFrom = this.formBuilder.group({
-      height: [this.defaultHeight, Validators.min(0)],
-      width: [this.defaultWidth, Validators.min(0)],
+      height: [this.defaultHeight, dimentionsValidators],
+      width: [this.defaultWidth, dimentionsValidators],
 
       backgroundColor: [DEFAULT_BACKGROUND_RGBA],
       backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX],
@@ -70,7 +79,13 @@ export class NewDrawingComponent implements OnInit {
       green: [this.DEFAULT_GREEN, rgbaValidators],
       blue: [this.DEFAULT_BLUE, rgbaValidators],
       opacity: [this.DEFAULT_OPACITY, rgbaValidators],
+
+      isOverrideOldDrawing: [this.isSaveDrawing, Validators.requiredTrue],
     });
+
+    console.log(this.isSaveDrawing);
+    console.log(this.isOverrideOldDrawing);
+
   }
 
   // Fetches default dimensions
@@ -118,6 +133,9 @@ export class NewDrawingComponent implements OnInit {
   get opacity() {
     return this.newDrawingFrom.controls.opacity.value;
   }
+  get isOverrideOldDrawing() {
+    return this.newDrawingFrom.controls.isOverrideOldDrawing.value;
+  }
 
   onWidthChange() {
     if (this.newDrawingFrom.controls.width.dirty) {
@@ -131,11 +149,16 @@ export class NewDrawingComponent implements OnInit {
     }
   }
 
+  onCreateClick() {
+    this.displaySaveError = true;
+  }
+
   onSubmit() {
     const width = this.width;
     const height = this.height;
     const bgColor = this.backgroundColor;
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
+    this.drawAreaService.dirty();
   }
 
   onColorRGBAChange() {
@@ -192,6 +215,18 @@ export class NewDrawingComponent implements OnInit {
     this.backgroundColor = bgColorHEX;
     this.backgroundColorHEX = bgColorHEX;
     this.updateColorRGBA();
+  }
+
+  getWidthErrorMessage() {
+    return this.newDrawingFrom.controls.width.hasError('required') ? 'You must enter a width' : '';
+  }
+
+  getHeightErrorMessage() {
+    return this.newDrawingFrom.controls.height.hasError('required') ? 'You must enter a height' : '';
+  }
+
+  getSaveErrorMessage() {
+    return 'Are you sure want to abandon your unsaved work?';
   }
 
   private formatToRGBA(rgba: RGBA): string {

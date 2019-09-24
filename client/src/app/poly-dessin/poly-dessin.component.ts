@@ -16,7 +16,8 @@ export class PolyDessinComponent implements OnInit {
 
   ngOnInit() {
     const IS_OPEN_ENTRY_DIALOG = true;
-    this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG);
+    const IS_NEW_DRAWING = true;
+    this.dialogService.openNewDrawing(NewDrawingComponent, IS_OPEN_ENTRY_DIALOG, IS_NEW_DRAWING);
   }
 
   @HostListener('document:keypress', ['$event']) // need refactor

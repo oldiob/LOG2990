@@ -40,13 +40,17 @@
 
 .field {
   font-size: 1rem;
-  width: 60px;
+  width: 80px;
   border-radius: 5px;
   margin: 0 15px;
 }
 
 .field:focus {
   outline: none;
+}
+
+.mat-error{
+  font-size: 0.8rem;
 }
 
 .bgc-field-wrapper {
@@ -185,4 +189,12 @@
 
 .mat-form-field-infix{
   padding: 0;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.override-drawing {
+  margin-left: 15px;
 }

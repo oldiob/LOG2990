@@ -7,17 +7,21 @@
         <span class="field-label">Width:</span>
         <mat-form-field class="field">
           <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus>
+          <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
+          <span matSuffix>px</span>
         </mat-form-field>
-        <span>px</span>
       </label>
+
 
       <label>
         <span class="field-label">Height:</span>
         <mat-form-field class="field">
           <input matInput (change)="onHeightChange()" type="number" formControlName="height">
+          <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
+          <span matSuffix>px</span>
         </mat-form-field>
-        <span>px</span>
       </label>
+
 
       <label>
         <div class="bgc-field-wrapper">
@@ -105,10 +109,27 @@
         </div>
       </div>
     </div>
+
+    <mat-error *ngIf="!isSaveDrawing">{{getSaveErrorMessage()}}
+      <mat-checkbox class="override-drawing" formControlName="isOverrideOldDrawing">Yes</mat-checkbox>
+
+    </mat-error>
+
+
     <div class="button-wrapper">
       <button color="secondary" mat-raised-button mat-dialog-close>Cancel</button>
-      <button color="primary" mat-raised-button mat-dialog-close type="submit"
-        [disabled]="!newDrawingFrom.valid">Create</button>
+      <ng-container *ngIf="isOverrideOldDrawing; then closeDialog; else doNotCloseDialog"></ng-container>
+      <ng-template #closeDialog>
+        <button color="primary" mat-raised-button mat-dialog-close type="submit"
+          [disabled]="!newDrawingFrom.valid">Create</button>
+      </ng-template>
+      <ng-template #doNotCloseDialog>
+        <button color="primary" mat-raised-button type="submit"
+          [disabled]="!newDrawingFrom.valid" (click)="onCreateClick()">Create</button>
+      </ng-template>
+
+
+
     </div>
   </form>
 </div>
