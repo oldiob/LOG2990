@@ -32,21 +32,21 @@ export class SVGRect implements SVGInterface {
         // TODO - Implement me
         return true;
     }
-    setPrimary(color: number): void {
+    setPrimary(color: string): void {
         // TODO - Implement me
     }
-    setSecondary(color: number): void {
+    setSecondary(color: string): void {
         // TODO - Implement me
     }
-    getPrimary(): number {
+    getPrimary(): string {
         // TODO - Implement me
-        return 0;
+        return '#000';
     }
-    getSecondary(): number {
+    getSecondary(): string {
         // TODO - Implement me
-        return 0;
+        return '#000';
     }
     setP2(x: number, y: number) {
-      // TODO - Implement this
+        // TODO - Implement this
     }
 }
