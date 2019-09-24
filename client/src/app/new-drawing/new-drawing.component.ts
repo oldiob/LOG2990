@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit, HostListener } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
+import { RGBA } from '../../utils/rgba';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
-
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
@@ -222,13 +222,5 @@ export class NewDrawingComponent implements OnInit {
 
   private formatToRGBA(rgba: RGBA): string {
     return 'rgba(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ',' + rgba.opacity + ')';
-  }
-
-  // prevent keyboard event
-  @HostListener('window: keydown', ['$event'])
-  @HostListener('window: keypress', ['$event'])
-  disableKeyboard(event: KeyboardEvent) {
-    event.preventDefault();
-    event.stopPropagation();
   }
 }
