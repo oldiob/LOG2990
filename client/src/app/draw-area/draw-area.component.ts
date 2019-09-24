@@ -1,6 +1,6 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
    Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { PencilService } from 'src/app/services/pencil.service';
+import { PencilService } from 'src/services/pencil/pencil.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
 import { WorkZoneService } from './../../services/work-zone.service';
 
