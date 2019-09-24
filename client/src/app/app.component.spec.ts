@@ -20,7 +20,6 @@ import { NewDrawingComponent } from './new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './poly-dessin/poly-dessin.component';
 import { RectangleComponent } from './rectangle/rectangle.component';
 import { ColorOptionComponent } from './toolbar/color-option/color-option.component';
-import { ShapeOptionComponent } from './toolbar/shape-option/shape-option.component';
 import { ToolOptionComponent } from './toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { WorkZoneComponent } from './work-zone/work-zone.component';
@@ -61,7 +60,6 @@ describe('AppComponent', () => {
                 MousetrackDirective,
                 NewDrawingComponent,
                 PolyDessinComponent,
-                ShapeOptionComponent,
                 ToolOptionComponent,
                 ToolbarComponent,
                 WorkZoneComponent,
