@@ -17,5 +17,6 @@ import { PaletteService } from 'src/services/palette/palette.service';
         this.rectangleService.SelectFillOpacity(1);
         this.rectangleService.SelectStrokeOpacity(1);
         this.rectangleService.SelectPointSize(1);
+        this.rectangleService.SelectTraceType(1);
     }
   }
