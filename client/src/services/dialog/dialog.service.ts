@@ -1,4 +1,3 @@
-import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -17,18 +16,14 @@ export class DialogService {
     return this.isClosedWelcome.asObservable();
   }
 
-  openNewDrawing(newDrawingComponent: ComponentType<NewDrawingComponent>, isSaveDrawing: boolean) {
-    this.dialog.open(newDrawingComponent, {
+  openNewDrawing(): void {
+    this.dialog.open(NewDrawingComponent, {
       height: '700px',
       width: '500px',
-      data: {
-        saveStatus: isSaveDrawing,
-      },
     });
   }
 
-  // open entry point dialog
-  openEntryPoint(cookie: string): boolean {
+  openEntryPoint(cookie: string): void {
     let isClosed = false;
     const dialogConfig: MatDialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -40,6 +35,5 @@ export class DialogService {
         this.isClosedWelcome.next(isClosed);
       }
     });
-    return isClosed;
   }
 }

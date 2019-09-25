@@ -1,9 +1,8 @@
-import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ToolService } from 'src/services/tool/tool.service';
-import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 
 export enum OptionType {
   COLOR = 0,
@@ -70,10 +69,9 @@ export class ToolbarComponent implements OnInit {
   }
 
   newDrawingOption() {
-    this.dialogService.openNewDrawing(NewDrawingComponent, this.drawAreaService.isSaveDrawing);
+    this.dialogService.openNewDrawing();
   }
   saveImage() {
     this.drawAreaService.save();
-    alert('saved');
   }
 }

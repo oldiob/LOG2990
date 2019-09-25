@@ -1,8 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
 import { Subscription } from 'rxjs';
-import { DialogService } from 'src/services/dialog/dialog.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
 import { RGBA } from '../../utils/rgba';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
@@ -19,7 +17,7 @@ export class NewDrawingComponent implements OnInit {
   readonly DEFAULT_BLUE = 255;
   readonly DEFAULT_OPACITY = 1;
 
-  isSaveDrawing: boolean;
+  isSavedDrawing: boolean;
   displaySaveError: boolean;
 
   defaultWidth: number;
@@ -31,8 +29,6 @@ export class NewDrawingComponent implements OnInit {
   private heightSubscription: Subscription;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private dialgoInfo: { entryPoint: boolean; saveStatus: boolean; },
-    public dialogService: DialogService,
     private formBuilder: FormBuilder,
     private workZoneService: WorkZoneService,
     private drawAreaService: DrawAreaService) {
@@ -40,7 +36,7 @@ export class NewDrawingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isSaveDrawing = this.dialgoInfo.saveStatus;
+    this.isSavedDrawing = this.drawAreaService.isSavedDrawing;
     this.createForm();
     this.fetchDefaults();
     this.updateColorRGBA();
@@ -71,12 +67,8 @@ export class NewDrawingComponent implements OnInit {
       blue: [this.DEFAULT_BLUE, rgbaValidators],
       opacity: [this.DEFAULT_OPACITY, rgbaValidators],
 
-      isOverrideOldDrawing: [this.isSaveDrawing, Validators.requiredTrue],
+      isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
     });
-
-    console.log(this.isSaveDrawing);
-    console.log(this.isOverrideOldDrawing);
-
   }
 
   // Fetches default dimensions

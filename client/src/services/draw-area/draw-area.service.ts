@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class DrawAreaService {
 
-  isSaveDrawing: boolean;
+  isSavedDrawing: boolean;
   constructor() {
-    this.isSaveDrawing = false;
+    this.isSavedDrawing = true;
   }
 
   save() {
-    this.isSaveDrawing = true;
+    this.isSavedDrawing = true;
   }
 
   dirty() {
-    this.isSaveDrawing = false;
+    this.isSavedDrawing = false;
   }
 }

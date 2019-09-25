@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 
 @Component({
@@ -17,18 +16,20 @@ export class PolyDessinComponent implements OnInit {
   ngOnInit() {
     const IS_HIDDEN_WELCOME = 'false';
     const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
+
     const IS_SHOW_WELCOME: boolean =
       (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_HIDDEN_WELCOME);
     if (IS_SHOW_WELCOME) {
       this.dialogService.openEntryPoint(WELCOME_DIALOG_COOKIE);
-    }
 
-    const IS_DRAWING_SAVE = true;
-    this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
-      if (isClosedWelcome) {
-        this.dialogService.openNewDrawing(NewDrawingComponent, IS_DRAWING_SAVE);
-      }
-    });
+      this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
+        if (isClosedWelcome) {
+          this.dialogService.openNewDrawing();
+        }
+      });
+    } else {
+      this.dialogService.openNewDrawing();
+    }
   }
 
   @HostListener('document:keypress', ['$event']) // need refactor

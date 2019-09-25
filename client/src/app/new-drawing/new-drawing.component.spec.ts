@@ -8,7 +8,7 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { EntryPointComponent } from '../entry-point/entry-point.component';
 import { NewDrawingComponent } from './new-drawing.component';
 
-fdescribe('NewDrawingComponent', () => {
+describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
     // const mockDialogRefSpy: {close: jasmine.Spy} = {
