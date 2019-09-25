@@ -1,33 +1,23 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule, MatDialogModule, MatDividerModule, MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatCheckboxModule, MatDialogModule, MatDividerModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
 import { NewDrawingComponent } from './new-drawing.component';
 
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
-    // const mockDialogRefSpy: {close: jasmine.Spy} = {
-    //   close: jasmine.createSpy('close'),
-    // };
     let workZoneService: WorkZoneService;
     beforeEach(async(() => {
-        // TestBed.overrideModule(BrowserDynamicTestingModule, {
-        //     set: {
-        //             entryComponents: [EntryPointComponent],
-        //     },
-        // });
         TestBed.configureTestingModule({
         imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
-        MatDialogModule, FormsModule, ReactiveFormsModule, MAT_DIALOG_DATA],
-        declarations: [ NewDrawingComponent, EntryPointComponent],
-        // providers: [{provide: MatDialogRef, useValue: mockDialogRefSpy},
-        //             {provide: EntryPointComponent},
-        // ],
+        MatDialogModule, FormsModule, ReactiveFormsModule],
+        declarations: [ NewDrawingComponent],
+        providers: [{ provide: MAT_DIALOG_DATA, useValue: [] },
+        ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
       .compileComponents();
@@ -64,7 +54,7 @@ describe('NewDrawingComponent', () => {
     it('#onSubmit should update draw area height, width and background color', () => {
     const WIDTH = component.width;
     const HEIGHT = component.height;
-    const BACKGROUND_COLOR = component.backgroundColor;
+    const BACKGROUND_COLOR = component.backgroundColorHEX;
 
     component.onSubmit();
 
@@ -75,7 +65,7 @@ describe('NewDrawingComponent', () => {
       (currentHeight) => expect(currentHeight).toBe(HEIGHT),
     );
     workZoneService.currentBackgroundColor.subscribe(
-      (currentBackgroundColor) => expect(currentBackgroundColor).toBe(BACKGROUND_COLOR),
+      (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
     );
   });
 
