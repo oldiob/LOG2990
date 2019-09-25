@@ -95,4 +95,35 @@ fdescribe('RectangleService', () => {
         rectService.SelectFillOpacity(1);
         expect(rectService.fillOpacity.toString()).toEqual(rectService.GetFillOpacity());
     });
+
+    it('should select Trace type', ()=>{
+        rectService.SelectStrokeOpacity(1);
+        rectService.SelectFillOpacity(1);
+        rectService.SelectTraceType(0);
+        expect(rectService.strokeOpacity).toEqual(1);
+        expect(rectService.fillOpacity).toEqual(0);
+        expect(rectService.traceType).toEqual(0);
+
+        rectService.SelectStrokeOpacity(1);
+        rectService.SelectFillOpacity(1);
+        rectService.SelectTraceType(1);
+        expect(rectService.strokeOpacity).toEqual(0);
+        expect(rectService.fillOpacity).toEqual(1);
+        expect(rectService.traceType).toEqual(1);
+
+        rectService.SelectStrokeOpacity(1);
+        rectService.SelectFillOpacity(1);
+        rectService.SelectTraceType(2);
+        expect(rectService.strokeOpacity).toEqual(1);
+        expect(rectService.fillOpacity).toEqual(1);
+        expect(rectService.traceType).toEqual(2);
+
+        rectService.SelectStrokeOpacity(1);
+        rectService.SelectFillOpacity(1);
+        rectService.SelectTraceType(4);
+        expect(rectService.strokeOpacity).toEqual(1);
+        expect(rectService.fillOpacity).toEqual(0);
+        expect(rectService.traceType).toEqual(0);
+
+    })
 });

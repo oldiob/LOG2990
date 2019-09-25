@@ -60,13 +60,16 @@ export class RectangleService {
     SelectTraceType(traceType:number){
         if (traceType==0){
             this.traceType=0;
-            this.SelectStrokeOpacity(0);
-        } else if (traceType==1){
             this.SelectFillOpacity(0);
-        }else if(traceType==2){
-            
-        } else 
+        } else if (traceType==1){
+            this.traceType=1;
             this.SelectStrokeOpacity(0);
+        }else if(traceType==2){
+            this.traceType=2;
+        } else {
+            this.traceType=0;
+            this.SelectFillOpacity(0);
+        }
     }
 
 
