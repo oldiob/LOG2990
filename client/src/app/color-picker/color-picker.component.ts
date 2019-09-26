@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { fromEvent, Observable } from 'rxjs';
-import { mergeMap, takeUntil, skipUntil } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { mergeMap, takeUntil } from 'rxjs/operators';
+import { RGBA } from 'src/utils/rgba';
 
 @Component({
   selector: 'color-picker',
@@ -9,13 +10,14 @@ import { mergeMap, takeUntil, skipUntil } from 'rxjs/operators';
 })
 export class ColorPickerComponent implements OnInit {
 
+  @Output() color = new EventEmitter<RGBA>();
   @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   private canvasElement: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private mouseX: number;
   private mouseY: number;
-  pickedColor: string;
   private picker: any;
+  pickedColor: string;
 
   // to be removed
   debug: string;
@@ -114,9 +116,18 @@ export class ColorPickerComponent implements OnInit {
 
   private getColor() {
     const pixel = this.context.getImageData(this.mouseX, this.mouseY, 1, 1);
+
     this.pickedColor = 'rgba(' + pixel.data[0] + ', ' + pixel.data[1] +
       ', ' + pixel.data[2] + ', ' + (pixel.data[3] / 255) + ')';
 
+    const rgba = {
+      red: pixel.data[0],
+      green: pixel.data[1],
+      blue: pixel.data[2],
+      opacity: (pixel.data[3] / 255),
+    };
+
+    this.color.emit(rgba);
     this.debug = this.pickedColor;
   }
 }

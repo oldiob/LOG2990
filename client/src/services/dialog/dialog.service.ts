@@ -18,8 +18,8 @@ export class DialogService {
 
   openNewDrawing(): void {
     this.dialog.open(NewDrawingComponent, {
-      height: '700px',
-      width: '500px',
+      height: '600px',
+      width: '400px',
     });
   }
 

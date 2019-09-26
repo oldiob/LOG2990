@@ -136,6 +136,15 @@ export class NewDrawingComponent implements OnInit {
     this.displaySaveError = true;
   }
 
+  onColorPick(rgba: RGBA) {
+    this.backgroundColor = this.formatToRGBA(rgba);
+    this.newDrawingFrom.controls.red.setValue(rgba.red);
+    this.newDrawingFrom.controls.green.setValue(rgba.green);
+    this.newDrawingFrom.controls.blue.setValue(rgba.blue);
+    this.newDrawingFrom.controls.opacity.setValue(rgba.opacity);
+    this.updateColorHEX();
+  }
+
   onSubmit() {
     const width = this.width;
     const height = this.height;
