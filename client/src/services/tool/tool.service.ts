@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
+import { SVGService } from '../svg/svg.service';
 import { ToolCategory } from './tool-category';
 import { Brush } from './tool-options/brush';
+import { BucketService } from './tool-options/bucket'
 import { ITool } from './tool-options/i-tool';
 import { NavigationHand } from './tool-options/navigation-hand';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
-import { BucketService } from './tool-options/bucket'
 
 @Injectable({
     providedIn: 'root',
@@ -16,13 +17,12 @@ export class ToolService {
     private toolCategoryIndex: number;
     private currentTool: ITool;
 
-    constructor(private bucketService: BucketService) {
+    constructor(private bucketService: BucketService, private resolver: ComponentFactoryResolver, private svgservice: SVGService) {
 
         // TODO - Bucket is the default tool, this is probably not
         // what we want.
         this.currentTool = this.bucketService;
-
-        const pencil: Pencil = new Pencil();
+        const pencil: Pencil = new Pencil(resolver, svgservice);
         const brush: Brush = new Brush();
         const rectangle: Rectangle = new Rectangle();
         const drawingTools: ToolCategory = new ToolCategory([

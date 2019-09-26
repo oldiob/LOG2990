@@ -1,7 +1,6 @@
-import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
-   Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { PencilService } from 'src/services/pencil/pencil.service';
-import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { SVGService } from 'src/services/svg/svg.service';
+import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class DrawAreaComponent implements OnInit {
     mouseY: number;
 
     OFFSET = 50;
-    componentRef: ComponentRef<any>;
     height: number;
     width: number;
     rectangleWidth: number;
@@ -29,10 +27,14 @@ export class DrawAreaComponent implements OnInit {
     isMouseDown = false;
     isOnceWhileDown = true;
 
-    constructor(private workZoneService: WorkZoneService, private resolver: ComponentFactoryResolver,
-                private pencilService: PencilService) { }
+    constructor(private workZoneService: WorkZoneService, private svgservice: SVGService, private toolService: ToolService) {
+                  //
+                 }
+
+
 
     ngOnInit() {
+        this.svgservice.entry = this.entry;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => this.width = width
@@ -54,10 +56,8 @@ export class DrawAreaComponent implements OnInit {
     coordinates(event: MouseEvent): void {
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
-        console.log('isMouseInArea ' + this.isMouseInArea);
         if (this.isMouseDown && this.isMouseInArea()) {
-          console.log('add points');
-          this.componentRef.instance.addPoints(this.mouseX, this.mouseY);
+          this.toolService.getCurrentTool().onMotion(event);
         }
     }
 
@@ -68,22 +68,22 @@ export class DrawAreaComponent implements OnInit {
     }
     onMouseDown(event: MouseEvent): void {
       if (this.isOnceWhileDown && this.isMouseInArea()) {
-        this.createComponent('danger');
+        this.toolService.getCurrentTool().onPressed(event);
         this.isOnceWhileDown = false;
       }
       this.isMouseDown = true;
     }
-    onMouseUp(event: MouseEvent): void {
+    onMouseUp(): void {
       this.isMouseDown = false;
       this.isOnceWhileDown = true;
     }
-    onMouseEnter(event: MouseEvent): void {
+    onMouseEnter(): void {
       //
     }
-    onMouseLeave(event: MouseEvent): void {
+    onMouseLeave(): void {
       //
     }
-    onDrag(event: MouseEvent): void {
+    onDrag(): void {
       //
     }
     isMouseInArea(): boolean {
@@ -94,18 +94,7 @@ export class DrawAreaComponent implements OnInit {
         return false;
       }
     }
-
-    createComponent(type: any) {
-      const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(GenericStrokeComponent);
-
-      this.componentRef = this.entry.createComponent(factory);
-      this.componentRef.instance.type = type;
-      this.componentRef.instance.id = this.pencilService.assignID();
-      this.componentRef.instance.setViewBoxSetting();
-      this.componentRef.instance.iniPoints(this.mouseX, this.mouseY);
-      // this.componentRef.instance.output.subscribe((event: any) => console.log(event));
-    }
     ngOnDestroy() {
-      this.componentRef.destroy();
+      this.svgservice.componentRef.destroy();
     }
 }

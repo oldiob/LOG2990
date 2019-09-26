@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/svg.interface';
 
 @Injectable({
@@ -6,6 +6,8 @@ import { SVGInterface } from 'src/services/svg/svg.interface';
 })
 export class SVGService {
 
+    entry: ViewContainerRef;
+    componentRef: ComponentRef<any>;
     private objects: SVGInterface[] = [];
     constructor() { }
 
