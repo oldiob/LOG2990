@@ -68,6 +68,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
     entryComponents: [
         EntryPointComponent,
         GenericStrokeComponent,
+        NewDrawingComponent,
     ],
 })
 

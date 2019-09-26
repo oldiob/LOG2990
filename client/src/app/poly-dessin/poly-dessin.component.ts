@@ -1,48 +1,45 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { IndexService } from 'src/services/index/index.service';
-import { Message } from '../../../../common/communication/message';
-import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { DialogService } from 'src/services/dialog/dialog.service';
 
 @Component({
-    selector: 'app-poly-dessin',
-    templateUrl: './poly-dessin.component.html',
-    styleUrls: ['./poly-dessin.component.scss'],
+  selector: 'app-poly-dessin',
+  templateUrl: './poly-dessin.component.html',
+  styleUrls: ['./poly-dessin.component.scss'],
 })
 export class PolyDessinComponent implements OnInit {
+  constructor(
+    private dialogService: DialogService) {
+  }
+  keyEvent: KeyboardEvent;
+  key: string;
 
-    constructor(private basicService: IndexService) {
-        this.basicService.basicGet()
-            .pipe(
-                map((message: Message) => `${message.title} ${message.body}`),
-            )
-            .subscribe(this.message);
-    }
-    readonly title: string = 'LOG2990';
-    keyEvent: KeyboardEvent;
-    key: string;
+  ngOnInit() {
+    const IS_HIDDEN_WELCOME = 'false';
+    const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
 
-    message = new BehaviorSubject<string>('');
-    displayNewDrawing = true;
-    @ViewChild(NewDrawingComponent, { static: false })
-    newDrawingComponent: NewDrawingComponent;
+    const IS_SHOW_WELCOME: boolean =
+      (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_HIDDEN_WELCOME);
+    if (IS_SHOW_WELCOME) {
+      this.dialogService.openEntryPoint(WELCOME_DIALOG_COOKIE);
 
-    ngOnInit() {
-        // this.displayNewDrawing = this.newDrawingComponent.displayNewDrawing;
+      this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
+        if (isClosedWelcome) {
+          this.dialogService.openNewDrawing();
+        }
+      });
+    } else {
+      this.dialogService.openNewDrawing();
     }
-    @HostListener('document:keypress', ['$event']) // need refactor
-    onKeyPressed(event: KeyboardEvent) {
-        this.keyEvent = event;
-        this.key = this.keyEvent.key;
-    }
-    @HostListener('document:keydown', ['$event']) // need refactor
-    onKeyDown(event: KeyboardEvent) {
-        this.keyEvent = event;
-        this.key = '';
-    }
-    changeDisplay(display: boolean) {
-        this.displayNewDrawing = display;
-    }
+  }
 
+  @HostListener('document:keypress', ['$event']) // need refactor
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.keyEvent = event;
+    this.key = this.keyEvent.key;
+  }
+  @HostListener('document:keydown', ['$event']) // need refactor
+  handleKeyboardEventDown(event: KeyboardEvent) {
+    this.keyEvent = event;
+    this.key = '';
+  }
 }
