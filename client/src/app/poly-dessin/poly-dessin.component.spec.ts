@@ -42,14 +42,6 @@ describe('PolyDessinComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('should register state of changing display', () => {
-    //     const displays: boolean[] = [true, false];
-    //     displays.forEach((display: boolean) => {
-    //         component.changeDisplay(display);
-    //         expect(component.displayNewDrawing).toEqual(display);
-    //     });
-    // });
-
     it('should register keypress events', () => {
         for (const k of keys) {
             const event = new KeyboardEvent('keypress', { key: k });
