@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
-import { takeUntil, skipUntil, mergeMap } from 'rxjs/operators';
+import { mergeMap, takeUntil, skipUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'color-picker',
@@ -10,44 +10,68 @@ import { takeUntil, skipUntil, mergeMap } from 'rxjs/operators';
 export class ColorPickerComponent implements OnInit {
 
   @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
-  canvasElement: HTMLCanvasElement;
-  context: CanvasRenderingContext2D;
-  mouseX: number;
-  mouseY: number;
+  private canvasElement: HTMLCanvasElement;
+  private context: CanvasRenderingContext2D;
+  private mouseX: number;
+  private mouseY: number;
   pickedColor: string;
-
-  mouseUp: Observable<Event>;
-  mouseDown: Observable<Event>;
+  private picker: any;
 
   // to be removed
   debug: string;
 
-  constructor() {
-    //
-  }
+  constructor(private renderer: Renderer2, private element: ElementRef) { }
 
   ngOnInit() {
     this.canvasElement = this.canvas.nativeElement as HTMLCanvasElement;
     this.context = this.canvasElement.getContext('2d') as CanvasRenderingContext2D;
 
     this.makeColorPallette();
+    this.createPickerIcon();
     this.listenToColor();
   }
 
-  private listenToColor() {
-    this.mouseUp = fromEvent(this.canvasElement, 'mouseup');
-    this.mouseDown = fromEvent(this.canvasElement, 'mousedown');
+  createPickerIcon() {
+    this.picker = this.renderer.createElement('div');
+    this.renderer.appendChild(this.element.nativeElement, this.picker);
+    this.renderer.setStyle(this.picker, 'position', 'absolute');
+    this.renderer.setStyle(this.picker, 'width', '20px');
+    this.renderer.setStyle(this.picker, 'height', '20px');
+    this.renderer.setStyle(this.picker, 'border', '2px solid white');
+    this.renderer.setStyle(this.picker, 'border-radius', '100%');
+  }
 
-    this.mouseDown.pipe(
-      mergeMap(() => {
-        const mouseMove = fromEvent(this.canvasElement, 'mousemove');
-        return mouseMove.pipe(takeUntil(this.mouseUp));
+  private listenToColor() {
+    const mouseUp = fromEvent(this.canvasElement, 'mouseup');
+    const mouseDown = fromEvent(this.canvasElement, 'mousedown');
+    const mouseMove = fromEvent(this.canvasElement, 'mousemove');
+
+    mouseDown.pipe(
+      mergeMap((event: MouseEvent) => {
+        this.pickColor(event);
+        return mouseMove.pipe(takeUntil(mouseUp));
       }))
       .subscribe((event: MouseEvent) => {
-        this.mouseX = event.offsetX;
-        this.mouseY = event.offsetY;
-        this.getColor();
+        this.pickColor(event);
       });
+  }
+
+  private pickColor(event: MouseEvent) {
+    this.updateMousePosition(event);
+    this.getColor();
+    this.updatePickerStyle(event);
+  }
+
+  private updateMousePosition(event: MouseEvent) {
+    this.mouseX = event.offsetX;
+    this.mouseY = event.offsetY;
+  }
+
+  private updatePickerStyle(event: MouseEvent) {
+    this.renderer.setStyle(this.picker, 'pointer-events', 'none');
+    this.renderer.setStyle(this.picker, 'left', event.clientX - 10 + 'px');
+    this.renderer.setStyle(this.picker, 'top', event.clientY - 10 + 'px');
+    this.renderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
   }
 
   private makeColorPallette() {
@@ -58,8 +82,7 @@ export class ColorPickerComponent implements OnInit {
   private applyHorizontalGradient() {
     const gradient = this.context.createLinearGradient(0, 0, this.canvasElement.width, 0);
 
-    // offsets to be tested
-    const offsets = [0, 0.15, 0.33, 0.49, 0.67, 0.84, 1];
+    const offsets = [0, 0.17, 0.33, 0.50, 0.67, 0.83, 1];
     const colors = ['red', 'magenta', 'blue', 'cyan', 'green', 'yellow', 'red'];
 
     for (let index = 0; index < offsets.length; index++) {
@@ -73,7 +96,6 @@ export class ColorPickerComponent implements OnInit {
   private applyVerticalGradient() {
     const gradient = this.context.createLinearGradient(0, 0, 0, this.canvasElement.height);
 
-    // offsets to be tested
     const offsets = [0, 0.5, 0.5, 1];
     const transparencies = [
       'rgba(255, 255, 255, 1)',
