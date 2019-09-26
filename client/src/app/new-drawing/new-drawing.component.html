@@ -1,68 +1,65 @@
 <div class="modal">
   <form class="modal-wrapper" [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
     <div class="content-wrapper">
-      <div class="title">New Drawing</div>
+      <div class="title">New</div>
 
-      <!-- <div class="inputs-wrapper"> -->
-        <div class="dimensions-wrapper">
+      <div class="dimensions-wrapper">
 
-          <label class="field-wrapper">
-            <span class="field-label">Width:</span>
-            <mat-form-field class="field">
-              <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus
-                autocomplete=off>
-              <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
-              <span matSuffix>px</span>
-            </mat-form-field>
-          </label>
-
-          <label>
-            <span class="field-label">Height:</span>
-            <mat-form-field class="field">
-              <input matInput (change)="onHeightChange()" type="number" formControlName="height" autocomplete=off>
-              <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
-              <span matSuffix>px</span>
-            </mat-form-field>
-          </label>
-
-        </div>
+        <label class="field-wrapper">
+          <span class="field-label">Width</span>
+          <mat-form-field class="field">
+            <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus autocomplete=off>
+            <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
+            <span matSuffix>px</span>
+          </mat-form-field>
+        </label>
 
         <label>
-          <span class="field-label">Background Color:</span>
+          <span class="field-label">Height</span>
           <mat-form-field class="field">
-            <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
-              value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
-          </mat-form-field>
-          <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
-        </label>
-
-        <label class="rgba-wrapper">
-          <span class="field-label">RGBA : </span>
-  
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}">
-          </mat-form-field>
-  
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
-              value="{{DEFAULT_GREEN}}">
-          </mat-form-field>
-  
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
-          </mat-form-field>
-  
-          <mat-form-field class="rgba-field rgba-opacity">
-            <input matInput type="number" formControlName="opacity" (change)="onColorRGBAChange()"
-              value="{{DEFAULT_OPACITY}}">
+            <input matInput (change)="onHeightChange()" type="number" formControlName="height" autocomplete=off>
+            <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
+            <span matSuffix>px</span>
           </mat-form-field>
         </label>
-      <!-- </div> -->
+
+      </div>
+
+      <label>
+        <span class="field-label">Background Color</span>
+        <mat-form-field class="field">
+          <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
+            value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
+        </mat-form-field>
+        <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
+      </label>
+
+      <label class="rgba-wrapper">
+        <span class="field-label">RGBA </span>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
+            class="rgba-field">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
+            value="{{DEFAULT_GREEN}}">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field rgba-opacity">
+          <input matInput type="number" formControlName="opacity" (change)="onColorRGBAChange()"
+            value="{{DEFAULT_OPACITY}}">
+        </mat-form-field>
+      </label>
 
 
+      <color-picker *ngIf="isShowColorPicker" (color)="onColorPick($event)"></color-picker>
 
-
-      <color-picker (color)="onColorPick($event)"></color-picker>
 
       <div class="color-palette">
 
@@ -109,7 +106,7 @@
         <div class="color-wrapper">
           <input class="color-toggler" type="radio" name="radio">
           <div class="color color9">
-            <input class="color-toggler" type="radio" name="radio" (click)="chooseBgColor('#000000')">
+            <input class="color-toggler" type="radio" name="radio" (click)="showColorPicker()">
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ export class NewDrawingComponent implements OnInit {
 
   isSavedDrawing: boolean;
   displaySaveError: boolean;
+  isShowColorPicker: boolean;
 
   defaultWidth: number;
   defaultHeight: number;
@@ -33,6 +34,7 @@ export class NewDrawingComponent implements OnInit {
     private workZoneService: WorkZoneService,
     private drawAreaService: DrawAreaService) {
     this.displaySaveError = false;
+    this.isShowColorPicker = false;
   }
 
   ngOnInit() {
@@ -219,6 +221,10 @@ export class NewDrawingComponent implements OnInit {
 
   getSaveErrorMessage() {
     return 'Are you sure want to abandon your unsaved work?';
+  }
+
+  showColorPicker() {
+    this.isShowColorPicker = !this.isShowColorPicker;
   }
 
   private formatToRGBA(rgba: RGBA): string {

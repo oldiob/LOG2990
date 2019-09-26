@@ -17,10 +17,7 @@ export class DialogService {
   }
 
   openNewDrawing(): void {
-    this.dialog.open(NewDrawingComponent, {
-      height: '600px',
-      width: '400px',
-    });
+    this.dialog.open(NewDrawingComponent);
   }
 
   openEntryPoint(cookie: string): void {

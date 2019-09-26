@@ -1,46 +1,47 @@
 .header {
-    margin: 24px;
-    height: 480px;
-    width: 450px;
-    line-height: 2rem;
-    padding: 20px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+  padding: 15px;
+  height: 400px;
+  width: 490px;
+  line-height: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  width: 100%;
 }
 
 .content {
-    font-size: 19px;
-    text-align: justify;
-    line-height: 2rem;
+  font-size: 1.1rem;
+  text-align: justify;
+  line-height: 2rem;
 }
 
 a {
-    outline: none;
+  outline: none;
 }
 
 .info {
-    font-size: 1rem;
-    margin: 50px 0 0;
-    text-align: left;
+  font-size: 1rem;
+  margin: 50px 0 0;
+  text-align: left;
 }
 
 .checkbox {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
 .mat-dialog-actions {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .button-close {
-    font-size: 1rem;
-    font-weight: 500;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1rem;
+  transform: translate(0, -17px);
 }
