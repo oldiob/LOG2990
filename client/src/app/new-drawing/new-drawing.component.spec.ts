@@ -86,4 +86,46 @@ describe('NewDrawingComponent', () => {
         expect(component.height).toBe(maxHeight);
     });
   });
+
+    it('should return true if the create button is clicked', () => {
+      component.onCreateClick();
+      expect(component.displaySaveError).toBe(true);
+    });
+
+    it('should return false if the create button is not clicked', () => {
+      expect(component.displaySaveError).toBe(false);
+    });
+
+    it('should update HEX to RGBA', () => {
+      const BACKGROUND_COLOR_HEX = '#FFFFFF';
+      const BACKGROUND_COLOR_RGBA = 'rgba(255,255,255,1)';
+      component.chooseBgColor(BACKGROUND_COLOR_HEX);
+      component.onColorRGBAChange();
+      component.onColorHEXChange();
+      expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR_RGBA);
+    });
+
+    it('should not get width error message', () => {
+      expect(component.getWidthErrorMessage()).toBe('');
+    });
+
+    it('should not get height error message', () => {
+      component.getHeightErrorMessage();
+      expect(component.getHeightErrorMessage()).toBe('');
+    });
+
+    it('should get width error message', () => {
+      component.newDrawingFrom.controls.width.setValue('');
+      expect(component.getWidthErrorMessage()).toBe('You must enter a width');
+    });
+
+    it('should get height error message', () => {
+        component.newDrawingFrom.controls.height.setValue('');
+        expect(component.getHeightErrorMessage()).toBe('You must enter a height');
+    });
+
+    it('should get save error message', () => {
+      component.getSaveErrorMessage();
+      expect(component.getSaveErrorMessage()).toBe('Are you sure want to abandon your unsaved work?');
+    });
 });

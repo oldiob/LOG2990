@@ -81,4 +81,8 @@ describe('DialogService', () => {
     sessionStorage.setItem('hideWelcome', JSON.stringify(false));
     expect(sessionStorage.getItem('hideWelcome')).toBe('false');
   });
+
+  it('#openEntryPoint should get null if nothing is set in session storage', () => {
+  expect(sessionStorage.getItem('hideWelcome')).toBe(null);
+  });
 });
