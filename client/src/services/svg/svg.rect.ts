@@ -6,6 +6,17 @@ export class SVGRect implements SVGInterface {
     private x2: number;
     private y2: number;
 
+    private width: number;
+    private height: number;
+
+    private primary: number;
+    private secondary: number;
+
+    private pointSize: number;
+    private strokeOpacity: number;
+    private fillOpacity: number;
+    private traceType: number;
+
     constructor(x: number, y: number) {
         this.x1 = this.x2 = x;
         this.y1 = this.y2 = y;
@@ -49,4 +60,6 @@ export class SVGRect implements SVGInterface {
     setP2(x: number, y: number) {
         // TODO - Implement this
     }
+
+    
 }

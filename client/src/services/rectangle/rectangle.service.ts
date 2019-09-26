@@ -1,10 +1,5 @@
 import { Rectangle } from '../../../../common/communication/rectangle';
 
-enum TraceType{
-    strokeOnly=0,
-    fillOnly,
-    strokeAndFill,
-}
 export class RectangleService {
     currentX = 0;
     currentY = 0;
@@ -15,7 +10,7 @@ export class RectangleService {
     pointSize = 1;
     strokeOpacity = 1;
     fillOpacity = 1;
-    traceType: TraceType;
+    traceType =0;
     click: boolean;
     rectangles: Rectangle[];
     rectangle: Rectangle;
