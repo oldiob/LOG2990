@@ -60,6 +60,7 @@ export class ToolbarComponent implements OnInit {
   }
   saveImage() {
     this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
+    this.paletteService.selectSecondary(Math.floor(Math.random() * 4294967296));
     this.drawAreaService.save();
   }
 }

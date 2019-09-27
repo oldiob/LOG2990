@@ -12,7 +12,6 @@ import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
-import { RectangleComponent } from './app/rectangle/rectangle.component';
 import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
@@ -34,7 +33,6 @@ import { ColorPickerComponent } from './app/color-picker/color-picker.component'
         ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
-        RectangleComponent,
         ColorPickerComponent,
     ],
     imports: [
