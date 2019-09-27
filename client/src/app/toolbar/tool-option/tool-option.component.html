@@ -17,8 +17,8 @@
       <img class="tool-icon" [src]="getNthFilesource(3)">
     </a>
   </div>
-  <div class="separation">
-    <p>Current thickness : {{thickness}}</p>
-    <input type="range" min="0.1" max="20" [(ngModel)]="thickness" step="0.1" class="slider" (input)="setThickness()">
+  <div *ngIf="this.toolService.currentTool.width !== undefined" class="separation">
+    <p>Current width : {{this.toolService.currentTool.width}}</p>
+    <input type="range" min="0.1" max="20" [(ngModel)]="this.toolService.currentTool.width" step="0.1" class="slider" (input)="this.toolService.currentTool.width">
   </div>
 </div>

@@ -1,6 +1,9 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 export class SVGRect implements SVGInterface {
+    setWidth(width: number): void {
+        throw new Error("Method not implemented.");
+    }
     addPoint(x: number, y: number): void {
         throw new Error("Method not implemented.");
     }

@@ -28,8 +28,8 @@ export class SVGPencil implements SVGInterface {
         // No secondary for the pencil
     }
 
-    setThickness(width: string): void {
-        this.renderer.setAttribute(this.element, 'stroke-width', width);
+    setWidth(width: number): void {
+        this.renderer.setAttribute(this.element, 'stroke-width', width.toString());
     }
 
     addPoint(x: number, y: number): void {

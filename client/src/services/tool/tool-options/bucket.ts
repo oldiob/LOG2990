@@ -7,6 +7,7 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class Bucket implements ITool {
+    width: number;
     readonly FILENAME = 'bucket.png';
     element: SVGInterface | null;
 
