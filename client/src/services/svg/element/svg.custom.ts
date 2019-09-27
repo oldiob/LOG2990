@@ -113,6 +113,15 @@ export class SVGCustom implements SVGInterface {
       this.renderer.appendChild(this.element, circle);
     }
 
+    paintBrushRect(x: number, y: number): void {
+      const rec = this.renderer.createElement('rect', 'svg');
+      this.renderer.setAttribute(rec, 'x', x.toString());
+      this.renderer.setAttribute(rec, 'y', y.toString());
+      this.renderer.setAttribute(rec, 'width', this.lineWidth.toString());
+      this.renderer.setAttribute(rec, 'height', this.lineWidth.toString());
+      this.renderer.appendChild(this.element, rec);
+    }
+
     paintBrushII(x: number, y: number): void {
       const radius = this.lineWidth;
       if (Math.abs(x - this.previousX) >= radius || Math.abs(y - this.previousY) >=  radius) {
