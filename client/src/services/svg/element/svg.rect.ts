@@ -68,11 +68,11 @@ export class SVGRect implements SVGInterface {
         }     
       
         if(this.tempHeight>=0){
-            this.setx(this.initialy);
+            this.sety(this.initialy);
             this.setHeight((Math.abs(this.initialy - y)));
         }
         else if(this.tempHeight<0){
-            this.setx(y);
+            this.sety(y);
             this.setHeight((Math.abs(this.initialy - y)));
         }  
 
