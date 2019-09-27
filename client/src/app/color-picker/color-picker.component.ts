@@ -11,7 +11,12 @@ import { RGBA } from 'src/utils/rgba';
 export class ColorPickerComponent implements OnInit {
 
   @Output() color = new EventEmitter<RGBA>();
-  @ViewChild('canvas', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
+
+  @ViewChild('canvas', { static: true })
+  canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('wrapper', { static: true })
+  wrapper: ElementRef<HTMLCanvasElement>;
+
   private canvasElement: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private mouseX: number;
@@ -27,6 +32,9 @@ export class ColorPickerComponent implements OnInit {
   ngOnInit() {
     this.canvasElement = this.canvas.nativeElement as HTMLCanvasElement;
     this.context = this.canvasElement.getContext('2d') as CanvasRenderingContext2D;
+
+    this.canvasElement.width = this.wrapper.nativeElement.clientWidth;
+    this.canvasElement.height = this.wrapper.nativeElement.clientHeight;
 
     this.makeColorPallette();
     this.createPickerIcon();
@@ -92,7 +100,7 @@ export class ColorPickerComponent implements OnInit {
     }
 
     this.context.fillStyle = gradient;
-    this.context.fillRect(0, 0, this.canvasElement.width, this.canvas.nativeElement.height);
+    this.context.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
   }
 
   private applyVerticalGradient() {
@@ -111,7 +119,7 @@ export class ColorPickerComponent implements OnInit {
     }
 
     this.context.fillStyle = gradient;
-    this.context.fillRect(0, 0, this.canvasElement.width, this.canvas.nativeElement.height);
+    this.context.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
   }
 
   private getColor() {
