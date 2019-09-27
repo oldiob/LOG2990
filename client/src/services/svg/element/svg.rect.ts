@@ -1,81 +1,52 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { Renderer2 } from '@angular/core';
 
 export class SVGRect implements SVGInterface {
-    setWidth(width: number): void {
-        throw new Error("Method not implemented.");
-    }
-    addPoint(x: number, y: number): void {
-        throw new Error("Method not implemented.");
-    }
-
     element: any;
 
-    setThickness(thickness: string): void {
-        throw new Error("Method not implemented.");
-    }
-    toString(): string {
-        throw new Error("Method not implemented.");
-    }
+    private x: number;
+    private y: number;
 
-    private x1: number;
-    private y1: number;
-    private x2: number;
-    private y2: number;
-
-    /*
     private width: number;
     private height: number;
 
-    private primary: number;
-    private secondary: number;
-
-    private pointSize: number;
-    private strokeOpacity: number;
-    private fillOpacity: number;
-    private traceType: number;
-    */
-
-    constructor(x: number, y: number) {
-        this.x1 = this.x2 = x;
-        this.y1 = this.y2 = y;
+    constructor(x: number, y: number, private renderer: Renderer2) {
+        // element that contains the rect
+        this.element = this.renderer.createElement('rect', 'svg');
+        this.x = x;
+        this.y = y;
     }
 
     isAt(x: number, y: number): boolean {
-        let minX: number = this.x1;
-        let maxX: number = this.x2;
-        let minY: number = this.y1;
-        let maxY: number = this.y2;
-        if (minX > maxX) {
-            const tmp: number = minX;
-            minX = maxX;
-            maxX = tmp;
-        }
-        if (minY > maxY) {
-            const tmp: number = minY;
-            minY = maxY;
-            maxY = tmp;
-        }
-        return (minX <= x && x <= maxX && minY <= y && y <= maxY);
+        // find out if x/y is clicked on the rectangle
+        return false;
     }
+
     isIn(x: number, y: number): boolean {
-        // TODO - Implement me
-        return true;
+        // TODO: idk wtf this should do, leave it as it is
+        return false;
     }
+
     setPrimary(color: string): void {
-        // TODO - Implement me
+        // TODO : set the primary color attribute here with Rendere2
     }
     setSecondary(color: string): void {
-        // TODO - Implement me
+        // TODO: set the secondary color attribute here with Rendere2
     }
-    getPrimary(): string {
-        // TODO - Implement me
-        return '#000';
+
+    addPoint(x: number, y: number): void {
+        // do the logic of recalculating the width/height and the new x/y if
+        // mouse have moved too much on the left/top
+
+        // also, set the attributes for element
     }
-    getSecondary(): string {
-        // TODO - Implement me
-        return '#000';
+
+    setWidth(width: number): void {
+        // set the line thiccness element attribute here
     }
-    setP2(x: number, y: number) {
-        // TODO - Implement this
+
+    toString(): string {
+        // leave it as it is
+        return '';
     }
 }

@@ -26,7 +26,7 @@ export class ToolService {
         const pencil: Pencil = new Pencil(renderer);
         const brush: Brush = new Brush(renderer);
         const bucket: Bucket = new Bucket(svgService);
-        const rectangle: Rectangle = new Rectangle();
+        const rectangle: Rectangle = new Rectangle(renderer);
         const drawingTools: ToolCategory = new ToolCategory([
             pencil,
             brush,
