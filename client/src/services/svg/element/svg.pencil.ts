@@ -23,9 +23,14 @@ export class SVGPencil implements SVGInterface {
             return false;
         }
 
-        const halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0 ;
+        let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0 ;
 
-        const point0: number[] = this.points[0];
+        // width min 4
+        if (halfWidthSquared < 16.0) {
+            halfWidthSquared = 16.0;
+        }
+
+        let point0: number[] = this.points[0];
         for (let i = 1; i < this.points.length; i++) {
             const point1 = this.points[i];
             const directionVector = [point1[0] - point0[0], point1[1] - point0[1]];
@@ -39,11 +44,15 @@ export class SVGPencil implements SVGInterface {
             if (perpendicularDistanceSquared <= halfWidthSquared) {
                 const lenRatio: number = parallel[0] / directionVector[0];
                 if (lenRatio <= 1.0 && lenRatio >= 0.0) {
+                    console.log("IS AT");
                     return true;
                 }
             }
+
+            point0 = point1;
         }
 
+        console.log("IS NOT AT");
         return false;
     }
     isIn(x: number, y: number, r: number): boolean {
