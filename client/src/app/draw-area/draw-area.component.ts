@@ -2,7 +2,6 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-
 @Component({
     selector: 'app-draw-area',
     templateUrl: './draw-area.component.html',
@@ -34,7 +33,6 @@ export class DrawAreaComponent implements OnInit {
     currentStyles: { height: number; width: number; 'background-color': string; };
     isMouseDown = false;
     isOnceWhileDown = true;
-
     constructor(
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
@@ -120,7 +118,7 @@ export class DrawAreaComponent implements OnInit {
                     break;
                 // rectangle
                 case '1' :
-                    console.log('1');
+                    this.toolService.setCurrentToolIndex(3);
                     break;
                 // new draw
                 // case event.ctrlKey :
