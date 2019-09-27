@@ -52,16 +52,19 @@ export class SVGRect implements SVGInterface {
         this.renderer.setAttribute(this.element, 'stroke', color);
 
     }
-
     addPoint(x: number, y: number): void {
         // do the logic of recalculating the width/height and the new x/y if
         // mouse have moved too much on the left/top
-
         // also, set the attributes for element
-
+        this.renderer.listen('window', 'keydown.shift', (event: KeyboardEvent) => {
+            if (this.tempWidth >= this.tempHeight) {
+                this.setWidth(this.height);
+            } else {
+                this.setHeight(this.width);
+            }
+        });
         this.tempWidth = x - this.initialx;
         this.tempHeight = y - this.initialy;
-
         if (this.tempWidth >= 0) {
             this.setx(this.initialx);
             this.setWidth((Math.abs(this.initialx - x)));

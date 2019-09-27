@@ -104,26 +104,31 @@ export class DrawAreaComponent implements OnInit {
             return false;
         }
     }
+    @HostListener('window: keypress', ['$event'])
     @HostListener('window: keydown', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
         if (this.isNewDrawCreate) {
             switch (event.key) {
                 // crayon
                 case 'c' :
-                    console.log('c');
+                    this.toolService.setCurrentToolIndex(0);
                     break;
                 // pinceau
                 case 'w' :
-                    console.log('w');
+                    this.toolService.setCurrentToolIndex(1);
+                    break;
+                // seau de couleur
+                case 'b' :
+                    this.toolService.setCurrentToolIndex(2);
                     break;
                 // rectangle
                 case '1' :
                     this.toolService.setCurrentToolIndex(3);
                     break;
                 // new draw
-                // case event.ctrlKey :
-                //     console.log('ctrl + o');
-                //     break;
+                case 'event.ctrl && c' :
+                    console.log('ctrl + c');
+                    break;
                 // save
                 // case 'ctrlkey' :
                 //     console.log('ctrl + s');
