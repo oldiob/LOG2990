@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
@@ -26,11 +26,11 @@ export class DrawAreaComponent implements OnInit {
     OFFSET = 50;
     height: number;
     width: number;
-
+    isNewDrawCreate: boolean;
     rectangleWidth: number;
     rectangleHeight: number;
     rectangleActivate = false;
-    backgroundColor: string = '#ffffffff';
+    backgroundColor = '#ffffffff';
     currentStyles: { height: number; width: number; 'background-color': string; };
     isMouseDown = false;
     isOnceWhileDown = true;
@@ -39,20 +39,20 @@ export class DrawAreaComponent implements OnInit {
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private toolService: ToolService) {
-        //
+        this.isNewDrawCreate = false;
     }
 
     ngOnInit() {
         this.svgService.entry = this.entry;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
-            (width: number) => this.width = width
+            (width: number) => this.width = width,
         );
         this.workZoneService.currentHeight.subscribe(
-            (height): number => this.height = height
+            (height): number => this.height = height,
         );
         this.workZoneService.currentBackgroundColor.subscribe(
-            (backgroundColor: string) => this.backgroundColor = backgroundColor
+            (backgroundColor: string) => this.backgroundColor = backgroundColor,
         );
     }
     setCurrentStyles() {
@@ -90,7 +90,7 @@ export class DrawAreaComponent implements OnInit {
         this.isOnceWhileDown = true;
     }
     onMouseEnter(): void {
-        //
+        this.isNewDrawCreate = true;
     }
     onMouseLeave(): void {
         //
@@ -104,6 +104,35 @@ export class DrawAreaComponent implements OnInit {
         } else {
             this.isMouseDown = false;
             return false;
+        }
+    }
+    @HostListener('window: keydown', ['$event'])
+    pressKeyboard(event: KeyboardEvent): void {
+        if (this.isNewDrawCreate) {
+            switch (event.key) {
+                // crayon
+                case 'c' :
+                    console.log('c');
+                    break;
+                // pinceau
+                case 'w' :
+                    console.log('w');
+                    break;
+                // rectangle
+                case '1' :
+                    console.log('1');
+                    break;
+                // new draw
+                // case event.ctrlKey :
+                //     console.log('ctrl + o');
+                //     break;
+                // save
+                // case 'ctrlkey' :
+                //     console.log('ctrl + s');
+                //     break;
+                default:
+                    break;
+            }
         }
     }
 }
