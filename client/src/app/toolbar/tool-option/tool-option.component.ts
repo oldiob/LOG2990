@@ -1,37 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { Pencil } from 'src/services/tool/tool-options/pencil';
+import { Brush } from 'src/services/tool/tool-options/brush';
+import { Bucket } from 'src/services/tool/tool-options/bucket';
+import { SVGService } from 'src/services/svg/svg.service';
 
 @Component({
-  selector: 'app-tool-option',
-  templateUrl: './tool-option.component.html',
-  styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
+    selector: 'app-tool-option',
+    templateUrl: './tool-option.component.html',
+    styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
 })
 export class ToolOptionComponent implements OnInit {
-  private readonly FILE_LOCATION = '../../../../assets/images/';
+    private readonly FILE_LOCATION = '../../../../assets/images/';
 
-  thickness: number;
-  currentlySelectedIndex: number;
+    thickness: number;
+    currentlySelectedIndex: number;
 
-  constructor(private toolService: ToolService) {
-    this.currentlySelectedIndex = toolService.getCurrentToolIndex();
-    this.thickness = 20;
-  }
+    tools: ITool[];
+    currentTool: ITool;
 
-  ngOnInit() {
-    //
-  }
+    constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService) {
+        const pencil: Pencil = new Pencil(rendererProvider.renderer);
+        const brush: Brush = new Brush(rendererProvider.renderer);
+        const bucket: Bucket = new Bucket(svgService);
 
-  selectNthTool(toolIndex: number): void {
-    this.toolService.setCurrentToolIndex(toolIndex);
-    this.currentlySelectedIndex = this.toolService.getCurrentToolIndex();
-  }
+        this.tools = [pencil, brush, bucket];
+        this.selectTool(pencil);
+    }
 
-  getNthFilesource(toolIndex: number): string {
-    return this.FILE_LOCATION + this.toolService.getToolFilename(toolIndex);
-  }
+    ngOnInit() {
+        //
+    }
 
-  setThickness() {
-    //
-  }
+    selectTool(tool: ITool): void {
+        this.currentTool = tool;
+        this.toolService.currentTool = tool;
+    }
 
+    getFilesource(tool: ITool): string {
+        return this.FILE_LOCATION + tool.FILENAME;
+    }
 }

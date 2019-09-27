@@ -1,8 +1,6 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
-		<a class="button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
-			<img class="toolbar-icon" [src]="getButtonFilesource(0)">
-		</a>
+		<a class="button" (click)="displayOption(0)"></a>
 	</div>
 
 	<div class="options">
@@ -18,6 +16,6 @@
 </div>
 
 
-<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': getOptionTopMargin()}">
+<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option">
 	<app-tool-option *ngSwitchCase="0" class="selected-option"></app-tool-option>
 </div>
