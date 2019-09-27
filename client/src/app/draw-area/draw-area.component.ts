@@ -1,10 +1,7 @@
-import { Component,
-   Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { PencilService } from 'src/services/pencil/pencil.service';
+import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { SVGService } from 'src/services/svg/svg.service';
+import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
-
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Component({
     selector: 'app-draw-area',
@@ -23,7 +20,6 @@ export class DrawAreaComponent implements OnInit {
     mouseY: number;
 
     OFFSET = 50;
-
     height: number;
     width: number;
 
@@ -35,11 +31,14 @@ export class DrawAreaComponent implements OnInit {
     isMouseDown = false;
     isOnceWhileDown = true;
 
-    constructor(private workZoneService: WorkZoneService, private renderer: Renderer2) { 
-      this.svgElements = [];
-    }
+    constructor(private workZoneService: WorkZoneService, private svgservice: SVGService, private toolService: ToolService) {
+                  //
+                 }
+
+
 
     ngOnInit() {
+        this.svgservice.entry = this.entry;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => this.width = width
@@ -61,9 +60,8 @@ export class DrawAreaComponent implements OnInit {
     coordinates(event: MouseEvent): void {
         this.mouseX = event.clientX - this.OFFSET;
         this.mouseY = event.clientY;
-
-        if (this.currentSVG != null && this.isMouseDown && this.isMouseInArea()) {
-          this.currentSVG.addPoint(this.mouseX, this.mouseY);
+        if (this.isMouseDown && this.isMouseInArea()) {
+          this.toolService.getCurrentTool().onMotion(event);
         }
     }
 
@@ -73,27 +71,24 @@ export class DrawAreaComponent implements OnInit {
     }
     onMouseDown(event: MouseEvent): void {
       if (this.isOnceWhileDown && this.isMouseInArea()) {
+        this.toolService.getCurrentTool().onPressed(event);
         this.isOnceWhileDown = false;
         this.currentSVG = new SVGPencil(this.renderer);
         this.currentSVG.addPoint(this.mouseX, this.mouseX);
       }
       this.isMouseDown = true;
     }
-    onMouseUp(event: MouseEvent): void {
-      if (this.currentSVG != null) {
-        this.svgElements.push(this.currentSVG.toString());
-        this.currentSVG = null;
-      }
+    onMouseUp(): void {
       this.isMouseDown = false;
       this.isOnceWhileDown = true;
     }
-    onMouseEnter(event: MouseEvent): void {
+    onMouseEnter(): void {
       //
     }
-    onMouseLeave(event: MouseEvent): void {
+    onMouseLeave(): void {
       //
     }
-    onDrag(event: MouseEvent): void {
+    onDrag(): void {
       //
     }
     isMouseInArea(): boolean {
@@ -104,5 +99,7 @@ export class DrawAreaComponent implements OnInit {
         return false;
       }
     }
-
+    ngOnDestroy() {
+      this.svgservice.componentRef.destroy();
+    }
 }

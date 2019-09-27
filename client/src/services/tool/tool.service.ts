@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { SVGService } from '../svg/svg.service';
 import { ToolCategory } from './tool-category';
 import { Brush } from './tool-options/brush';
 import { ITool } from './tool-options/i-tool';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
 import { Bucket } from './tool-options/bucket'
-import { SVGService } from '../svg/svg.service';
+import { SVGService } from 'src/services/svg/svg.service';
 
 /**
  * ToolService is used to access the current tool and to change tools ONLY.
@@ -19,7 +20,7 @@ export class ToolService {
     private toolCategoryIndex: number;
 
     constructor(svgService: SVGService) {
-        let pencil: Pencil = new Pencil();
+        let pencil: Pencil = new Pencil(svgservice);
         let brush: Brush = new Brush();
         let bucket: Bucket = new Bucket(svgService);
         let rectangle: Rectangle = new Rectangle();
