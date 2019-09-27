@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { DialogService } from "src/services/dialog/dialog.service"
+import { PaletteService } from 'src/services/palette/palette.service';
 
 export enum OptionType {
   TOOL = 0,
@@ -19,6 +20,7 @@ export class ToolbarComponent implements OnInit {
   optionDisplayed: boolean;
 
   constructor(
+    private paletteService: PaletteService, 
     private toolService: ToolService,
     private dialogService: DialogService,
     private drawAreaService: DrawAreaService) {
@@ -57,6 +59,7 @@ export class ToolbarComponent implements OnInit {
     this.dialogService.openNewDrawing();
   }
   saveImage() {
+    this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
     this.drawAreaService.save();
   }
 }
