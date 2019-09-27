@@ -16,8 +16,9 @@ export class Pencil implements ITool {
 
     onPressed(x: number, y: number): void {
         this.element = new SVGPencil(this.renderer);
-        this.element.addPoint(x, y);
         this.element.setWidth(this.width);
+        this.element.addPoint(x, y);
+        this.element.addPoint(x + 1, y + 1);
     }
     onMotion(x: number, y: number): void {
         if (this.element != null) {
