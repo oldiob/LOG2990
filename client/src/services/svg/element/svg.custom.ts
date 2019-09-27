@@ -2,33 +2,30 @@ import { Renderer2 } from '@angular/core';
 import { SVGService } from '../svg.service';
 import { SVGInterface } from './svg.interface';
 
-export class SVGBrush implements SVGInterface {
+export class SVGCustom implements SVGInterface {
     element: any;
+
+    previousX = 0;
+    previousY = 0;
 
     isFilterIni = false;
 
     filterBlur: any;
     filterBlurContent: any;
+    parent: any;
 
     points: number[][];
 
     lineWidth: number;
 
-    constructor(private renderer: Renderer2) {
+    constructor(private svgService: SVGService, private renderer: Renderer2) {
         if (!this.isFilterIni) {
           this.isFilterIni = true;
           this.iniFilters();
         }
         this.points = [];
-        this.element = this.renderer.createElement('polyline', 'svg');
+        this.element = this.renderer.createElement('g', 'svg');
 
-        this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
-        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
-
-        //this.renderer.setAttribute(this.element, 'stroke-dasharray', '10');
-
-        //this.renderer.setAttribute(this.element, 'filter', 'url(#blur)');
     }
     iniFilters() {
         this.filterBlur = this.renderer.createElement('filter', 'svg');
@@ -36,8 +33,8 @@ export class SVGBrush implements SVGInterface {
         this.filterBlurContent = this.renderer.createElement('feGaussianBlur', 'svg');
         this.renderer.setAttribute(this.filterBlurContent, 'stdDeviation', '2');
         this.renderer.appendChild(this.filterBlur, this.filterBlurContent);
-
-        this.renderer.setAttribute(this.element, 'filter', 'url(#blur)');
+        this.parent = this.svgService.entry.nativeElement;
+        this.renderer.appendChild(this.parent, this.filterBlur);
     }
 
     isAt(x: number, y: number): boolean {
@@ -103,8 +100,35 @@ export class SVGBrush implements SVGInterface {
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
 
+        this.paintBrushII(x, y);
+
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
+
+    paintBrush(x: number, y: number): void {
+      const radius = this.lineWidth;
+      const circle = this.renderer.createElement('circle', 'svg');
+      this.renderer.setAttribute(circle, 'cx', x.toString());
+      this.renderer.setAttribute(circle, 'cy', y.toString());
+      this.renderer.setAttribute(circle, 'r', radius.toString());
+      this.renderer.setAttribute(circle, 'fill', 'none');
+      this.renderer.setAttribute(circle, 'stroke', 'black');
+      this.renderer.appendChild(this.element, circle);
+    }
+
+    paintBrushII(x: number, y: number): void {
+      const radius = this.lineWidth;
+      if (x - this.previousX >= radius || y - this.previousY >=  radius) {
+        this.previousX = x;
+        this.previousY = y;
+        this.paintBrush(x, y);
+        this.paintBrush(x - radius*2, y);
+        this.paintBrush(x + radius*2, y);
+        this.paintBrush(x, y - radius*2);
+        this.paintBrush(x, y + radius*2);
+      }
+    }
+
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
     private pointsAttribute(): string {
