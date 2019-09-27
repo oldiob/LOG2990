@@ -3,11 +3,14 @@ import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { ITool } from './i-tool';
 
 export class Pencil implements ITool {
-    readonly FILENAME = 'pencil.png';
+    FILENAME = 'pencil.png';
     element: SVGPencil | null;
     width: number;
 
-    constructor(private renderer: Renderer2) { //
+    protected renderer: Renderer2;
+
+    constructor(renderer: Renderer2) {
+        this.renderer = renderer;
         this.width = 1;
     }
 

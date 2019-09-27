@@ -1,30 +1,18 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface'
-import { ITool } from './i-tool';
+import { SVGBrush } from '../../svg/element/svg.brush';
+import { Pencil } from './pencil';
+import { Renderer2 } from '@angular/core';
 
-export class Brush implements ITool {
-  width: number;
-  element: SVGInterface | null;
-  readonly FILENAME = 'brush.png';
+export class Brush extends Pencil {
+    element: SVGBrush | null;
+    FILENAME = 'brush.png';
 
-  constructor() {
-    this.width = 1;
-  }
+    constructor(renderer: Renderer2) {
+        super(renderer);
+    }
 
-  onPressed(x: number, y: number): void {
-    throw new Error('Method not implemented.');
-  }
-  onMotion(x: number, y: number): void {
-    throw new Error('Method not implemented.');
-  }
-  onReleased(x: number, y: number): void {
-    throw new Error('Method not implemented.');
-  }
-
-  leftClick() {
-    throw new Error('Method not implemented.');
-  }
-  leftRelease() {
-    throw new Error('Method not implemented.');
-  }
-
+    onPressed(x: number, y: number): void {
+        this.element = new SVGBrush(this.renderer);
+        this.element.addPoint(x, y);
+        this.element.setWidth(this.width);
+    }
 }
