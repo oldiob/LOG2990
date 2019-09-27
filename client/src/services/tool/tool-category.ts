@@ -13,7 +13,7 @@ export class ToolCategory {
         }
 
         this.tools = tools;
-        this.toolIndex = 0;
+        this.selectTool(0);
     }
 
     getFilename(toolIndex: number): string {

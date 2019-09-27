@@ -12,18 +12,15 @@ export class Bucket implements ITool {
 
     constructor(private svgService: SVGService) { }
 
-    onPressed(event: MouseEvent): void {
-        const x: number = event.clientX;
-        const y: number = event.clientY;
-
+    onPressed(x: number, y: number): void {
         this.element = this.svgService.findAt(x, y);
     }
 
-    onReleased(event: MouseEvent): void {
+    onReleased(x: number, y: number): void {
         return;
     }
 
-    onMotion(event: MouseEvent): void {
+    onMotion(x: number, y: number): void {
         return;
     }
 }

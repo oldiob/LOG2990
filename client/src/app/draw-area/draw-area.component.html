@@ -1,6 +1,6 @@
 <div mousetrack class="draw-area" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)"
   (mousemove)="coordinates($event)" on-click="onClick($event)" (mousedown)="onMouseDown($event)"
   (mouseup)="onMouseUp($event)" (drag)="onDrag($event)" [ngStyle]="setCurrentStyles()">
-  <svg height="180" width="500" style="height: 100%; width: 100%;">
+  <svg #svgContainer height="180" width="500" style="height: 100%; width: 100%;">
   </svg>
 </div>

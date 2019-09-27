@@ -9,13 +9,13 @@ export class Brush implements ITool {
     //
   }
 
-  onPressed(event: MouseEvent): SVGInterface | null {
+  onPressed(x: number, y: number): void {
     throw new Error('Method not implemented.');
   }
-  onMotion(event: MouseEvent): void {
+  onMotion(x: number, y: number): void {
     throw new Error('Method not implemented.');
   }
-  onReleased(event: MouseEvent): void {
+  onReleased(x: number, y: number): void {
     throw new Error('Method not implemented.');
   }
 

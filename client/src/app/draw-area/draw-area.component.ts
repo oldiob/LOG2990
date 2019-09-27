@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
@@ -9,9 +9,14 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
     styleUrls: ['./draw-area.component.scss'],
 })
 export class DrawAreaComponent implements OnInit {
-    @ViewChild('svgContainer', { static: true, read: ViewContainerRef }) entry: ViewContainerRef;
-    @Input() keyEvent: KeyboardEvent;
-    @Input() key: string;
+    @ViewChild('svgContainer', { static: true })
+    entry: ElementRef;
+
+    @Input()
+    keyEvent: KeyboardEvent;
+
+    @Input()
+    key: string;
 
     svgElements: string[];
 
@@ -61,7 +66,7 @@ export class DrawAreaComponent implements OnInit {
         this.mouseX = event.clientX - this.OFFSET;
         this.mouseY = event.clientY;
         if (this.isMouseDown && this.isMouseInArea()) {
-            this.toolService.getCurrentTool().onMotion(event);
+            this.toolService.currentTool.onMotion(this.mouseX, this.mouseY);
         }
     }
 
@@ -70,8 +75,11 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseDown(event: MouseEvent): void {
+        const x = event.clientX;
+        const y = event.clientY;
+
         if (this.isOnceWhileDown && this.isMouseInArea()) {
-            this.toolService.currentTool.onPressed(event);
+            this.toolService.currentTool.onPressed(x, y);
             this.svgService.addObject(this.toolService.currentTool.element);
             this.isOnceWhileDown = false;
         }

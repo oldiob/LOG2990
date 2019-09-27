@@ -4,9 +4,8 @@ export class SVGRect implements SVGInterface {
     addPoint(x: number, y: number): void {
         throw new Error("Method not implemented.");
     }
-    TYPE: string;
-    attributes: Object;
 
+    element: any;
 
     setThickness(thickness: string): void {
         throw new Error("Method not implemented.");
@@ -76,6 +75,4 @@ export class SVGRect implements SVGInterface {
     setP2(x: number, y: number) {
         // TODO - Implement this
     }
-
-    
 }

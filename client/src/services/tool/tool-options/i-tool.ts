@@ -8,7 +8,7 @@ export interface ITool {
     readonly FILENAME: string;
     element: SVGInterface | null;
 
-    onPressed(event: MouseEvent): void;
-    onMotion(event: MouseEvent): void;
-    onReleased(event: MouseEvent): void;
+    onPressed(x: number, y: number): void;
+    onMotion(x: number, y: number): void;
+    onReleased(x: number, y: number): void;
 }

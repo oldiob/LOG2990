@@ -7,6 +7,7 @@ export class SVGPencil implements SVGInterface {
     points: number[][];
 
     constructor(private renderer: Renderer2) {
+        this.points = [];
         this.element = this.renderer.createElement('polyline');
 
         this.renderer.setAttribute(this.element, 'fill', 'none');

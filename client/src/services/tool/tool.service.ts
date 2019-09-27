@@ -35,6 +35,7 @@ export class ToolService {
         ]);
 
         this.toolCategories = [drawingTools];
+        this.setToolCategoryIndex(0);
     }
 
     getToolCategoryFilename(categoryIndex: number): string {

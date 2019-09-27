@@ -9,16 +9,16 @@ export class Pencil implements ITool {
     constructor(private renderer: Renderer2) { //
     }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(x: number, y: number): void {
         this.element = new SVGPencil(this.renderer);
-        this.element.addPoint(event.clientX, event.clientY);
+        this.element.addPoint(x, y);
     }
-    onMotion(event: MouseEvent): void {
+    onMotion(x: number, y: number): void {
         if (this.element != null) {
-            this.element.addPoint(event.clientX, event.clientY);
+            this.element.addPoint(x, y);
         }
     }
-    onReleased(event: MouseEvent): void {
+    onReleased(x: number, y: number): void {
         throw new Error('Method not implemented.');
     }
 

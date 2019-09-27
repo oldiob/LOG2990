@@ -1,4 +1,4 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { PaletteService } from '../palette/palette.service';
 import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
@@ -7,7 +7,7 @@ import { RendererProviderService } from '../renderer-provider/renderer-provider.
     providedIn: 'root',
 })
 export class SVGService {
-    entry: ViewContainerRef;
+    entry: ElementRef;
 
     private objects: SVGInterface[] = [];
     constructor(private rendererProvider: RendererProviderService, private paletteService: PaletteService) {
@@ -41,11 +41,13 @@ export class SVGService {
         obj.setSecondary(this.paletteService.getSecondary());
 
         this.objects.push(obj);
-        this.rendererProvider.renderer.appendChild(this.entry, obj);
+        this.rendererProvider.renderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
     removeObject() {
         const removedObject: SVGInterface | undefined = this.objects.pop();
-        this.rendererProvider.renderer.removeChild(this.entry, removedObject);
+        if (removedObject !== undefined) {
+            this.rendererProvider.renderer.removeChild(this.entry.nativeElement, removedObject.element);
+        }
     }
 }
