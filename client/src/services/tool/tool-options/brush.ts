@@ -7,7 +7,7 @@ import { ITool } from './i-tool';
 
 export class Brush implements ITool {
     FILENAME = 'brush.png';
-    element: SVGBrush | null;
+    element: SVGInterface | null;
 
     width: number;
 
@@ -17,6 +17,7 @@ export class Brush implements ITool {
 
     onPressed(x: number, y: number): void {
         this.element = new SVGBrush(this.renderer);
+        this.element = new SVGCustom(this.renderer);
         this.element.addPoint(x, y);
         this.element.setWidth(this.width);
     }

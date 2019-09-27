@@ -1,5 +1,4 @@
 import { Renderer2 } from '@angular/core';
-import { SVGService } from '../svg.service';
 import { SVGInterface } from './svg.interface';
 
 export class SVGCustom implements SVGInterface {
@@ -18,7 +17,7 @@ export class SVGCustom implements SVGInterface {
 
     lineWidth: number;
 
-    constructor(private svgService: SVGService, private renderer: Renderer2) {
+    constructor(private renderer: Renderer2) {
         if (!this.isFilterIni) {
           this.isFilterIni = true;
           this.iniFilters();
@@ -33,8 +32,6 @@ export class SVGCustom implements SVGInterface {
         this.filterBlurContent = this.renderer.createElement('feGaussianBlur', 'svg');
         this.renderer.setAttribute(this.filterBlurContent, 'stdDeviation', '2');
         this.renderer.appendChild(this.filterBlur, this.filterBlurContent);
-        this.parent = this.svgService.entry.nativeElement;
-        this.renderer.appendChild(this.parent, this.filterBlur);
     }
 
     isAt(x: number, y: number): boolean {
@@ -118,7 +115,7 @@ export class SVGCustom implements SVGInterface {
 
     paintBrushII(x: number, y: number): void {
       const radius = this.lineWidth;
-      if (x - this.previousX >= radius || y - this.previousY >=  radius) {
+      if (Math.abs(x - this.previousX) >= radius || Math.abs(y - this.previousY) >=  radius) {
         this.previousX = x;
         this.previousY = y;
         this.paintBrush(x, y);
