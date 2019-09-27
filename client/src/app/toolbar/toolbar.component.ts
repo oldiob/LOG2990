@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
+import { DialogService } from "src/services/dialog/dialog.service"
 
 export enum OptionType {
   TOOL = 0,
@@ -19,7 +20,6 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private toolService: ToolService,
-    private paletteService: PaletteService,
     private dialogService: DialogService,
     private drawAreaService: DrawAreaService) {
     this.currentDisplayedOption = OptionType.TOOL;

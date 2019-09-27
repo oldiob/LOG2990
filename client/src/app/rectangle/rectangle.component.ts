@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RectangleService } from 'src/services/rectangle/rectangle.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 
 @Component({
     selector: 'app-rectangle',
@@ -10,8 +9,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 export class RectangleComponent {
 
 
-    constructor(private paletteService: PaletteService,
-        private rectangleService: RectangleService) {
+    constructor(private rectangleService: RectangleService) {
 
         this.rectangleService.SelectFillOpacity(1);
         this.rectangleService.SelectStrokeOpacity(1);
