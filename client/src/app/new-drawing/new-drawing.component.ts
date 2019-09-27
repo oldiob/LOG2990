@@ -1,37 +1,88 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-import {WorkZoneService} from 'src/services/work-zone.service';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
-
+import { Subscription } from 'rxjs';
+import { WorkZoneService } from '../../services/work-zone/work-zone.service';
+import { RGBA } from '../../utils/rgba';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 @Component({
   selector: 'app-new-drawing',
   templateUrl: './new-drawing.component.html',
   styleUrls: ['./new-drawing.component.scss'],
 })
 export class NewDrawingComponent implements OnInit {
-  FALSE = 'false';
-  RESULT = 'result';
-  DEFAULTBACKGROUND = '#ffffff';
-  defaultBGColor = '#F9F9F9';
+  readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
+
+  readonly DEFAULT_RED = 255;
+  readonly DEFAULT_GREEN = 255;
+  readonly DEFAULT_BLUE = 255;
+  readonly DEFAULT_OPACITY = 1;
+
+  isSavedDrawing: boolean;
+  displaySaveError: boolean;
+
   defaultWidth: number;
   defaultHeight: number;
+  rgba: RGBA;
   newDrawingFrom: FormGroup;
-  @Output() displayChange = new EventEmitter<boolean>();
-  displayNewDrawing: boolean;
+
+  private widthSubscription: Subscription;
+  private heightSubscription: Subscription;
 
   constructor(
-    public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private workZoneService: WorkZoneService) {
-    }
+    private workZoneService: WorkZoneService,
+    private drawAreaService: DrawAreaService) {
+    this.displaySaveError = false;
+  }
+
+  ngOnInit() {
+    this.isSavedDrawing = this.drawAreaService.isSavedDrawing;
+    this.createForm();
+    this.fetchDefaults();
+    this.updateColorRGBA();
+  }
 
   private createForm() {
+    const DEFAULT_BACKGROUND_RGBA =
+      this.formatToRGBA({
+        red: this.DEFAULT_RED,
+        green: this.DEFAULT_GREEN,
+        blue: this.DEFAULT_BLUE,
+        opacity: this.DEFAULT_OPACITY,
+      });
+
     // Form to create new work zone to draw
+    const rgbaValidators = [Validators.min(0), Validators.max(255)];
+    const dimentionsValidators = [Validators.min(0), Validators.required];
+
     this.newDrawingFrom = this.formBuilder.group({
-      height: [this.defaultHeight, Validators.min(0)],
-      width: [this.defaultWidth, Validators.min(0)],
-      backgroundColor: [this.DEFAULTBACKGROUND],
+      height: [this.defaultHeight, dimentionsValidators],
+      width: [this.defaultWidth, dimentionsValidators],
+
+      backgroundColor: [DEFAULT_BACKGROUND_RGBA],
+      backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX],
+
+      red: [this.DEFAULT_RED, rgbaValidators],
+      green: [this.DEFAULT_GREEN, rgbaValidators],
+      blue: [this.DEFAULT_BLUE, rgbaValidators],
+      opacity: [this.DEFAULT_OPACITY, rgbaValidators],
+
+      isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
+    });
+  }
+
+  // Fetches default dimensions
+  private fetchDefaults() {
+    this.widthSubscription = this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
+      // Updates width form control
+      this.newDrawingFrom.controls.width.setValue(maxWidth);
+      this.defaultWidth = maxWidth;
+    });
+
+    this.heightSubscription = this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
+      // Updates width form control
+      this.newDrawingFrom.controls.height.setValue(maxHeight);
+      this.defaultHeight = maxHeight;
     });
   }
 
@@ -44,51 +95,124 @@ export class NewDrawingComponent implements OnInit {
   get backgroundColor() {
     return this.newDrawingFrom.controls.backgroundColor.value;
   }
+  set backgroundColor(color: string) {
+    this.newDrawingFrom.controls.backgroundColor.setValue(color);
+  }
+  get backgroundColorHEX() {
+    return this.newDrawingFrom.controls.backgroundColorHEX.value;
+  }
+  set backgroundColorHEX(color: string) {
+    this.newDrawingFrom.controls.backgroundColorHEX.setValue(color);
+  }
+  get red() {
+    return this.newDrawingFrom.controls.red.value;
+  }
+  get green() {
+    return this.newDrawingFrom.controls.green.value;
+  }
+  get blue() {
+    return this.newDrawingFrom.controls.blue.value;
+  }
+  get opacity() {
+    return this.newDrawingFrom.controls.opacity.value;
+  }
+  get isOverrideOldDrawing() {
+    return this.newDrawingFrom.controls.isOverrideOldDrawing.value;
+  }
+
+  onWidthChange() {
+    if (this.newDrawingFrom.controls.width.dirty) {
+      this.widthSubscription.unsubscribe();
+    }
+  }
+
+  onHeightChange() {
+    if (this.newDrawingFrom.controls.height.dirty) {
+      this.heightSubscription.unsubscribe();
+    }
+  }
+
+  onCreateClick() {
+    this.displaySaveError = true;
+  }
 
   onSubmit() {
     const width = this.width;
     const height = this.height;
     const bgColor = this.backgroundColor;
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
-    this.displayNewDrawing = false;
-    this.displayChange.emit(this.displayNewDrawing);
+    this.drawAreaService.dirty();
   }
 
-  chooseBgColor(bgColor: string) {
-    this.newDrawingFrom.controls.backgroundColor.setValue(bgColor);
+  onColorRGBAChange() {
+    this.updateColorHEX();
+    this.updateBackgroudColor();
   }
 
-  // Fetches default dimensions
-  private fetchDefaults() {
-    this.workZoneService.currentMaxWidth.subscribe((maxWidth) => {
-      // Updates width form control
-      this.newDrawingFrom.controls.width.setValue(maxWidth);
-      // Updates width view form
-      this.defaultWidth = maxWidth;
-    });
-
-    this.workZoneService.currentMaxHeight.subscribe((maxHeight) => {
-      // Updates width form control
-      this.newDrawingFrom.controls.height.setValue(maxHeight);
-      // Updates height view form
-      this.defaultHeight = maxHeight;
-    });
+  private updateColorHEX() {
+    this.backgroundColorHEX =
+      '#' + `${this.convertToHEX(this.red)}` + `${this.convertToHEX(this.green)}` + `${this.convertToHEX(this.blue)}`;
   }
 
-  // open entry point dialog
-  openEntryDialog(): void {
-    const dialogConfig: MatDialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
-      sessionStorage.setItem(this.RESULT, JSON.stringify(result));
-    });
-  }
-
-  ngOnInit() {
-    if (!sessionStorage.getItem(this.RESULT) || sessionStorage.getItem(this.RESULT) === this.FALSE ) {
-      this.openEntryDialog();
+  private convertToHEX(rgb: number): string {
+    let hexString = rgb.toString(16).toUpperCase();
+    if (hexString.length < 2) {
+      hexString = '0' + hexString;
     }
-    this.createForm();
-    this.fetchDefaults();
+    return hexString;
+  }
+
+  private updateBackgroudColor() {
+    this.backgroundColor =
+      this.formatToRGBA({
+        red: this.red,
+        green: this.green,
+        blue: this.blue,
+        opacity: this.opacity,
+      });
+  }
+
+  onColorHEXChange() {
+    this.updateColorRGBA();
+    this.updateBackgroudColor();
+  }
+
+  private updateColorRGBA() {
+    const RED
+      = this.convertToDecimal(this.backgroundColorHEX.substring(1, 3));
+    const GREEN
+      = this.convertToDecimal(this.backgroundColorHEX.substring(3, 5));
+    const BLUE
+      = this.convertToDecimal(this.backgroundColorHEX.substring(5, 7));
+
+    this.newDrawingFrom.controls.red.setValue(RED);
+    this.newDrawingFrom.controls.green.setValue(GREEN);
+    this.newDrawingFrom.controls.blue.setValue(BLUE);
+  }
+
+  private convertToDecimal(hex: string): number {
+    return parseInt(hex, 16);
+  }
+
+  chooseBgColor(bgColorHEX: string) {
+    this.backgroundColor = bgColorHEX;
+    this.backgroundColorHEX = bgColorHEX;
+    this.updateColorRGBA();
+  }
+
+  getWidthErrorMessage() {
+    return this.newDrawingFrom.controls.width.hasError('required') ? 'You must enter a width' : '';
+  }
+
+  getHeightErrorMessage() {
+    return this.newDrawingFrom.controls.height.hasError('required') ? 'You must enter a height' : '';
+  }
+
+  getSaveErrorMessage() {
+    return 'Are you sure want to abandon your unsaved work?';
+  }
+
+  private formatToRGBA(rgba: RGBA): string {
+    return 'rgba(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ',' + rgba.opacity + ')';
   }
 }

@@ -1,8 +1,8 @@
 import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef,
    Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { PencilService } from 'src/services/pencil/pencil.service';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
-import { WorkZoneService } from './../../services/work-zone.service';
 
 @Component({
     selector: 'app-draw-area',

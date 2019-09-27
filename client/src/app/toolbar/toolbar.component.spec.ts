@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MatDialogRef } from '@angular/material';
 import { ToolbarComponent } from './toolbar.component';
 
 describe('ToolbarComponent', () => {
@@ -8,7 +9,9 @@ describe('ToolbarComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [MatDialogModule],
             declarations: [ToolbarComponent],
+            providers: [{ provide: MatDialogRef, useValue: {} }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
@@ -23,7 +26,5 @@ describe('ToolbarComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-
 
 });

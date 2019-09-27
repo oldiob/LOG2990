@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInterface } from 'src/services/svg/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
-import { WorkZoneService } from 'src/services/work-zone.service';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { ITool } from './i-tool';
 
 @Injectable({

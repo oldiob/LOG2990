@@ -1,62 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 
 export enum OptionType {
-    TOOL = 0
-};
-
+  TOOL = 0,
+}
 
 @Component({
-    selector: 'app-toolbar',
-    templateUrl: './toolbar.component.html',
-    styleUrls: ['./toolbar.component.scss'],
+  selector: 'app-toolbar',
+  templateUrl: './toolbar.component.html',
+  styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-    private FILE_LOCATION: string = "../../../assets/images/";
+  private FILE_LOCATION = '../../../assets/images/';
 
-    currentDisplayedOption: OptionType;
-    optionDisplayed: boolean;
+  currentDisplayedOption: OptionType;
+  optionDisplayed: boolean;
 
-    constructor(private toolService: ToolService) {
-        this.currentDisplayedOption = OptionType.TOOL;
-        this.optionDisplayed = false;
-    }
+  constructor(
+    private toolService: ToolService,
+    private paletteService: PaletteService,
+    private dialogService: DialogService,
+    private drawAreaService: DrawAreaService) {
+    this.currentDisplayedOption = OptionType.TOOL;
+    this.optionDisplayed = false;
+  }
 
-    ngOnInit() {
-        //
-    }
+  ngOnInit() {
+    //
+  }
 
-    private displayOption(optionType: OptionType): void {
-        this.optionDisplayed = this.optionDisplayed == true ? this.currentDisplayedOption != optionType : true;
-        this.currentDisplayedOption = optionType;
-    }
+  private displayOption(optionType: OptionType): void {
+    this.optionDisplayed = this.optionDisplayed === true ? this.currentDisplayedOption !== optionType : true;
+    this.currentDisplayedOption = optionType;
+  }
 
+  getButtonFilesource(category: number): string {
+    return this.FILE_LOCATION + this.toolService.getToolCategoryFilename(category);
+  }
 
-    getButtonFilesource(category: number): string {
-        return this.FILE_LOCATION + this.toolService.getToolCategoryFilename(category);
-    }
+  getOptionTopMargin(): number {
+    return this.currentDisplayedOption * 50;
+  }
 
+  getToolCategory(): number {
+    return this.toolService.getToolCategoryIndex();
+  }
 
-    getOptionTopMargin(): number {
-        return this.currentDisplayedOption * 50;
-    }
+  chooseWorkingTool() {
+    this.displayOption(OptionType.TOOL);
 
-    getToolCategory(): number {
-        return this.toolService.getToolCategoryIndex();
-    }
+    this.toolService.setToolCategoryIndex(0);
+  }
 
-    chooseWorkingTool() {
-        this.displayOption(OptionType.TOOL);
-
-        this.toolService.setToolCategoryIndex(0);
-    }
-
-
-
-    newDrawingOption() {
-        //
-    }
-    saveImage() {
-        //
-    }
+  newDrawingOption() {
+    this.dialogService.openNewDrawing();
+  }
+  saveImage() {
+    this.drawAreaService.save();
+  }
 }

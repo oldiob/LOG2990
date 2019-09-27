@@ -1,32 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatCheckboxModule, MatDialogModule, MatDividerModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { WorkZoneService } from 'src/services/work-zone.service';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { NewDrawingComponent } from './new-drawing.component';
 
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
-    const mockDialogRefSpy: {close: jasmine.Spy} = {
-      close: jasmine.createSpy('close'),
-    };
     let workZoneService: WorkZoneService;
     beforeEach(async(() => {
-        TestBed.overrideModule(BrowserDynamicTestingModule, {
-            set: {
-                    entryComponents: [EntryPointComponent],
-            },
-        });
         TestBed.configureTestingModule({
         imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
         MatDialogModule, FormsModule, ReactiveFormsModule],
-        declarations: [ NewDrawingComponent, EntryPointComponent],
-        providers: [{provide: MatDialogRef, useValue: mockDialogRefSpy},
-                    {provide: EntryPointComponent},
+        declarations: [ NewDrawingComponent],
+        providers: [{ provide: MAT_DIALOG_DATA, useValue: [] },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
@@ -64,7 +54,7 @@ describe('NewDrawingComponent', () => {
     it('#onSubmit should update draw area height, width and background color', () => {
     const WIDTH = component.width;
     const HEIGHT = component.height;
-    const BACKGROUND_COLOR = component.backgroundColor;
+    const BACKGROUND_COLOR = component.backgroundColorHEX;
 
     component.onSubmit();
 
@@ -75,17 +65,8 @@ describe('NewDrawingComponent', () => {
       (currentHeight) => expect(currentHeight).toBe(HEIGHT),
     );
     workZoneService.currentBackgroundColor.subscribe(
-      (currentBackgroundColor) => expect(currentBackgroundColor).toBe(BACKGROUND_COLOR),
+      (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
     );
-  });
-
-    it('#onSubmit should raise displayChange event', () => {
-    let isShowNewDrawing = true;
-    component.displayChange.subscribe(
-      (isShow: boolean) => isShowNewDrawing = isShow,
-    );
-    component.onSubmit();
-    expect(isShowNewDrawing).toBeFalsy();
   });
 
     it('should change background color form control', () => {
@@ -106,23 +87,45 @@ describe('NewDrawingComponent', () => {
     });
   });
 
-    it('should open entry point dialog', () => {
-      component.openEntryDialog();
-      expect(component.dialog.open).toBeTruthy();
+    it('should return true if the create button is clicked', () => {
+      component.onCreateClick();
+      expect(component.displaySaveError).toBe(true);
     });
 
-    it('should return false if the result is false in the session storage', () => {
-      sessionStorage.setItem('false', JSON.stringify(false));
-      expect(sessionStorage.getItem('false')).toBe('false');
+    it('should return false if the create button is not clicked', () => {
+      expect(component.displaySaveError).toBe(false);
     });
 
-    it('should return true if the result is true in the session storage', () => {
-      sessionStorage.setItem('true', JSON.stringify(true));
-      expect(sessionStorage.getItem('true')).toBe('true');
+    it('should update HEX to RGBA', () => {
+      const BACKGROUND_COLOR_HEX = '#FFFFFF';
+      const BACKGROUND_COLOR_RGBA = 'rgba(255,255,255,1)';
+      component.chooseBgColor(BACKGROUND_COLOR_HEX);
+      component.onColorRGBAChange();
+      component.onColorHEXChange();
+      expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR_RGBA);
     });
 
-    it('should return false in the session storage if the dialog is closed', () => {
-      component.dialog.closeAll();
-      expect(sessionStorage.getItem('false')).toBe('false');
+    it('should not get width error message', () => {
+      expect(component.getWidthErrorMessage()).toBe('');
+    });
+
+    it('should not get height error message', () => {
+      component.getHeightErrorMessage();
+      expect(component.getHeightErrorMessage()).toBe('');
+    });
+
+    it('should get width error message', () => {
+      component.newDrawingFrom.controls.width.setValue('');
+      expect(component.getWidthErrorMessage()).toBe('You must enter a width');
+    });
+
+    it('should get height error message', () => {
+        component.newDrawingFrom.controls.height.setValue('');
+        expect(component.getHeightErrorMessage()).toBe('You must enter a height');
+    });
+
+    it('should get save error message', () => {
+      component.getSaveErrorMessage();
+      expect(component.getSaveErrorMessage()).toBe('Are you sure want to abandon your unsaved work?');
     });
 });
