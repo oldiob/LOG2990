@@ -15,7 +15,6 @@ export class Rectangle implements ITool {
     onPressed(x: number, y: number): void {
         this.element = new SVGRect(x, y, this.renderer);
         this.element.addPoint(x, y);
-        this.element.setWidth(this.width);
     }
     onReleased(x: number, y: number): void {
         this.element = null;
