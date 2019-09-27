@@ -1,63 +1,65 @@
 <div class="modal">
   <form class="modal-wrapper" [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
-    <div class="title">New Drawing</div>
     <div class="content-wrapper">
+      <div class="title">New</div>
 
-      <label class="field-wrapper">
-        <span class="field-label">Width:</span>
+      <div class="dimensions-wrapper">
+
+        <label class="field-wrapper">
+          <span class="field-label">Width</span>
+          <mat-form-field class="field">
+            <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus autocomplete=off>
+            <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
+            <span matSuffix>px</span>
+          </mat-form-field>
+        </label>
+
+        <label>
+          <span class="field-label">Height</span>
+          <mat-form-field class="field">
+            <input matInput (change)="onHeightChange()" type="number" formControlName="height" autocomplete=off>
+            <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
+            <span matSuffix>px</span>
+          </mat-form-field>
+        </label>
+
+      </div>
+
+      <label>
+        <span class="field-label">Background Color</span>
         <mat-form-field class="field">
-          <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus>
-          <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
-          <span matSuffix>px</span>
+          <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
+            value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
+        </mat-form-field>
+        <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
+      </label>
+
+      <label class="rgba-wrapper">
+        <span class="field-label">RGBA </span>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
+            class="rgba-field">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
+            value="{{DEFAULT_GREEN}}">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+        </mat-form-field>
+
+        <mat-form-field class="rgba-field rgba-opacity">
+          <input matInput type="number" formControlName="opacity" (change)="onColorRGBAChange()"
+            value="{{DEFAULT_OPACITY}}">
         </mat-form-field>
       </label>
 
 
-      <label>
-        <span class="field-label">Height:</span>
-        <mat-form-field class="field">
-          <input matInput (change)="onHeightChange()" type="number" formControlName="height">
-          <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
-          <span matSuffix>px</span>
-        </mat-form-field>
-      </label>
+      <color-picker *ngIf="isShowColorPicker" (color)="onColorPick($event)"></color-picker>
 
-
-      <label>
-        <div class="bgc-field-wrapper">
-          <span class="field-label">Background Color:</span>
-          <mat-form-field class="bg-input">
-            <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
-              value="{{DEFAULT_BACKGROUND_HEX}}">
-          </mat-form-field>
-          <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
-        </div>
-      </label>
-
-      <label>
-        <div class="rgba-wrapper">
-          <span class="field-label">RGBA : </span>
-
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}">
-          </mat-form-field>
-
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
-              value="{{DEFAULT_GREEN}}">
-          </mat-form-field>
-
-          <mat-form-field class="rgba-field">
-            <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()"
-              value="{{DEFAULT_BLUE}}">
-          </mat-form-field>
-
-          <mat-form-field class="rgba-field rgba-opacity">
-            <input matInput type="number" formControlName="opacity" (change)="onColorRGBAChange()"
-              value="{{DEFAULT_OPACITY}}">
-          </mat-form-field>
-        </div>
-      </label>
 
       <div class="color-palette">
 
@@ -104,32 +106,29 @@
         <div class="color-wrapper">
           <input class="color-toggler" type="radio" name="radio">
           <div class="color color9">
-            <input class="color-toggler" type="radio" name="radio" (click)="chooseBgColor('#000000')">
+            <input class="color-toggler" type="radio" name="radio" (click)="showColorPicker()">
           </div>
         </div>
       </div>
-    </div>
+      <mat-error *ngIf="!isSavedDrawing">{{getSaveErrorMessage()}}
+        <mat-checkbox class="override-drawing" formControlName="isOverrideOldDrawing">Yes</mat-checkbox>
 
-    <mat-error *ngIf="!isSavedDrawing">{{getSaveErrorMessage()}}
-      <mat-checkbox class="override-drawing" formControlName="isOverrideOldDrawing">Yes</mat-checkbox>
-
-    </mat-error>
+      </mat-error>
 
 
-    <div class="button-wrapper">
-      <button color="secondary" mat-raised-button mat-dialog-close>Cancel</button>
-      <ng-container *ngIf="isOverrideOldDrawing; then closeDialog; else doNotCloseDialog"></ng-container>
-      <ng-template #closeDialog>
-        <button color="primary" mat-raised-button mat-dialog-close type="submit"
-          [disabled]="!newDrawingFrom.valid">Create</button>
-      </ng-template>
-      <ng-template #doNotCloseDialog>
-        <button color="primary" mat-raised-button type="submit"
-          [disabled]="!newDrawingFrom.valid" (click)="onCreateClick()">Create</button>
-      </ng-template>
+      <div class="button-wrapper">
+        <button color="secondary" mat-raised-button mat-dialog-close>Cancel</button>
 
-
-
+        <ng-container *ngIf="isOverrideOldDrawing; then closeDialog; else doNotCloseDialog"></ng-container>
+        <ng-template #closeDialog>
+          <button color="primary" mat-raised-button mat-dialog-close type="submit"
+            [disabled]="!newDrawingFrom.valid">Create</button>
+        </ng-template>
+        <ng-template #doNotCloseDialog>
+          <button color="primary" mat-raised-button type="submit" [disabled]="!newDrawingFrom.valid"
+            (click)="onCreateClick()">Create</button>
+        </ng-template>
+      </div>
     </div>
   </form>
 </div>

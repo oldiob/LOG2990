@@ -21,6 +21,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
 import { GenericStrokeComponent } from './app/generic-stroke/generic-stroke.component';
 import { MousetrackDirective } from './directive/mousetrack.directive';
+import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         WorkZoneComponent,
         RectangleComponent,
         GenericStrokeComponent,
+        ColorPickerComponent,
     ],
     imports: [
         BrowserModule,

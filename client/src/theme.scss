@@ -1,0 +1,49 @@
+@import "~@angular/material/_theming";
+
+// Lato font family
+@font-face {
+  font-family: lato;
+  font-weight: normal;
+  src: url("assets/fonts/lato/Lato-Regular.ttf");
+}
+
+@font-face {
+  font-family: lato;
+  font-weight: medium;
+  src: url("assets/fonts/lato/Lato-Medium.ttf");
+}
+
+@font-face {
+  font-family: lato;
+  font-weight: 600;
+  src: url("assets/fonts/lato/Lato-Semibold.ttf");
+}
+
+@font-face {
+  font-family: lato;
+  font-weight: bold;
+  src: url("assets/fonts/lato/Lato-Bold.ttf");
+}
+
+@font-face {
+  font-family: lato;
+  font-weight: 900;
+  src: url("assets/fonts/lato/Lato-Black.ttf");
+}
+
+
+@include mat-core();
+
+$app-primary: mat-palette($mat-indigo);
+$app-accent: mat-palette($mat-pink, A200, A100, A400);
+$app-warn: mat-palette($mat-red, 700);
+
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+@include angular-material-theme($app-theme);
+
+$customn-typography: mat-typography-config(
+  $font-family: '"lato", "Helvetica Neue", sans-serif'
+);
+
+@include angular-material-typography($customn-typography)
