@@ -18,7 +18,7 @@ export class PaletteService {
         this.previous.memSet(PaletteService.DEFAULT_MEMSET);
     }
 
-    static readonly DEFAULT_PRIMARY = 0x0000000;
+    static readonly DEFAULT_PRIMARY = 0x000000FF;
     static readonly DEFAULT_SECONDARY = 0xFFFFFFFF;
     static readonly DEFAULT_MEMSET = 0;
     static readonly MAX_HISTORY = 10;
