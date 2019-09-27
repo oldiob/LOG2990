@@ -6,6 +6,7 @@ import { Rectangle } from './tool-options/rectangle';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolCategory } from './tool-category';
 import { ITool } from './tool-options/i-tool';
+import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
 
 /**
  * ToolService is used to access the current tool and to change tools ONLY.
@@ -19,7 +20,9 @@ export class ToolService {
     private toolCategoryIndex: number;
     currentTool: ITool;
 
-    constructor(renderer: Renderer2, svgService: SVGService) {
+    constructor(rendererProvider: RendererProviderService, svgService: SVGService) {
+        const renderer: Renderer2 = rendererProvider.renderer;
+
         const pencil: Pencil = new Pencil(renderer);
         const brush: Brush = new Brush();
         const bucket: Bucket = new Bucket(svgService);

@@ -7,12 +7,12 @@ import { ToolService } from 'src/services/tool/tool.service';
   styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
 })
 export class ToolOptionComponent implements OnInit {
-  private FILE_LOCATION: string = "../../../../assets/images/";
+  private readonly FILE_LOCATION = '../../../../assets/images/';
 
   thickness: number;
   currentlySelectedIndex: number;
 
-  constructor(private toolService: ToolService) { 
+  constructor(private toolService: ToolService) {
     this.currentlySelectedIndex = toolService.getCurrentToolIndex();
     this.thickness = 20;
   }
@@ -31,6 +31,7 @@ export class ToolOptionComponent implements OnInit {
   }
 
   setThickness() {
+    //
   }
 
 }
