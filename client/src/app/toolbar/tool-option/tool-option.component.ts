@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
-import { ThicknessService } from 'src/services/thickness/thickness.service';
 
 @Component({
   selector: 'app-tool-option',
@@ -13,10 +12,9 @@ export class ToolOptionComponent implements OnInit {
   thickness: number;
   currentlySelectedIndex: number;
 
-  constructor(private toolService: ToolService, private thicknessService: ThicknessService) { 
+  constructor(private toolService: ToolService) { 
     this.currentlySelectedIndex = toolService.getCurrentToolIndex();
     this.thickness = 20;
-    this.thicknessService.setThickness(1);
   }
 
   ngOnInit() {
@@ -33,7 +31,6 @@ export class ToolOptionComponent implements OnInit {
   }
 
   setThickness() {
-    this.thicknessService.setThickness(this.thickness);
   }
 
 }

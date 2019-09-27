@@ -1,39 +1,31 @@
-import { ComponentFactory, ComponentFactoryResolver } from '@angular/core';
-import { SVGService } from 'src/services/svg/svg.service';
+import { Renderer2 } from '@angular/core';
+import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { ITool } from './i-tool';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 export class Pencil implements ITool {
-  FILENAME: string = "pencil.png";
+    readonly FILENAME = 'pencil.png';
+    element: SVGPencil | null;
 
-  constructor(private resolver: ComponentFactoryResolver, private svgservice: SVGService) { //
-  }
+    constructor(private renderer: Renderer2) { //
+    }
 
-  onPressed(event: MouseEvent): import('../../svg/element/svg.interface').SVGInterface | null {
-    this.createComponent('test', event.clientX, event.clientY);
-    return null;
-  }
-  onMotion(event: MouseEvent): void {
-    this.svgservice.componentRef.instance.addPoints(event.clientX, event.clientY);
-  }
-  onReleased(event: MouseEvent): void {
-    throw new Error('Method not implemented.');
-  }
+    onPressed(event: MouseEvent): void {
+        this.element = new SVGPencil(this.renderer);
+        this.element.addPoint(event.clientX, event.clientY);
+    }
+    onMotion(event: MouseEvent): void {
+        if (this.element != null) {
+            this.element.addPoint(event.clientX, event.clientY);
+        }
+    }
+    onReleased(event: MouseEvent): void {
+        throw new Error('Method not implemented.');
+    }
 
-  leftClick() {
-    throw new Error('Method not implemented.');
-  }
-  leftRelease() {
-    throw new Error('Method not implemented.');
-  }
-
-  createComponent(type: any, mouseX: number, mouseY: number) {
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(GenericStrokeComponent);
-
-    this.svgservice.componentRef = this.svgservice.entry.createComponent(factory);
-    this.svgservice.componentRef.instance.type = type;
-    this.svgservice.componentRef.instance.setViewBoxSetting();
-    this.svgservice.componentRef.instance.iniPoints(mouseX, mouseY);
-  }
-
+    leftClick() {
+        throw new Error('Method not implemented.');
+    }
+    leftRelease() {
+        throw new Error('Method not implemented.');
+    }
 }

@@ -13,7 +13,6 @@ export class DrawAreaComponent implements OnInit {
     @Input() keyEvent: KeyboardEvent;
     @Input() key: string;
 
-    currentSVG: SVGInterface | null;
     svgElements: string[];
 
     mouseX: number;
@@ -26,19 +25,20 @@ export class DrawAreaComponent implements OnInit {
     rectangleWidth: number;
     rectangleHeight: number;
     rectangleActivate = false;
-    backgroundColor: string = "#ffffffff";
+    backgroundColor: string = '#ffffffff';
     currentStyles: { height: number; width: number; 'background-color': string; };
     isMouseDown = false;
     isOnceWhileDown = true;
 
-    constructor(private workZoneService: WorkZoneService, private svgservice: SVGService, private toolService: ToolService) {
-                  //
-                 }
-
-
+    constructor(
+        private workZoneService: WorkZoneService,
+        private svgService: SVGService,
+        private toolService: ToolService) {
+        //
+    }
 
     ngOnInit() {
-        this.svgservice.entry = this.entry;
+        this.svgService.entry = this.entry;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => this.width = width
@@ -61,45 +61,41 @@ export class DrawAreaComponent implements OnInit {
         this.mouseX = event.clientX - this.OFFSET;
         this.mouseY = event.clientY;
         if (this.isMouseDown && this.isMouseInArea()) {
-          this.toolService.getCurrentTool().onMotion(event);
+            this.toolService.getCurrentTool().onMotion(event);
         }
     }
 
     onClick(event: MouseEvent): void {
-     
-
+        //
     }
+
     onMouseDown(event: MouseEvent): void {
-      if (this.isOnceWhileDown && this.isMouseInArea()) {
-        this.toolService.getCurrentTool().onPressed(event);
-        this.isOnceWhileDown = false;
-        this.currentSVG = new SVGPencil(this.renderer);
-        this.currentSVG.addPoint(this.mouseX, this.mouseX);
-      }
-      this.isMouseDown = true;
+        if (this.isOnceWhileDown && this.isMouseInArea()) {
+            this.toolService.currentTool.onPressed(event);
+            this.svgService.addObject(this.toolService.currentTool.element);
+            this.isOnceWhileDown = false;
+        }
+        this.isMouseDown = true;
     }
     onMouseUp(): void {
-      this.isMouseDown = false;
-      this.isOnceWhileDown = true;
+        this.isMouseDown = false;
+        this.isOnceWhileDown = true;
     }
     onMouseEnter(): void {
-      //
+        //
     }
     onMouseLeave(): void {
-      //
+        //
     }
     onDrag(): void {
-      //
+        //
     }
     isMouseInArea(): boolean {
-      if (this.mouseX < this.width + this.OFFSET && this.mouseX >= this.OFFSET && this.mouseY >= 0 && this.mouseY < this.height) {
-        return true;
-      } else {
-        this.isMouseDown = false;
-        return false;
-      }
-    }
-    ngOnDestroy() {
-      this.svgservice.componentRef.destroy();
+        if (this.mouseX < this.width + this.OFFSET && this.mouseX >= this.OFFSET && this.mouseY >= 0 && this.mouseY < this.height) {
+            return true;
+        } else {
+            this.isMouseDown = false;
+            return false;
+        }
     }
 }

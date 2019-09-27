@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { SVGService } from '../svg/svg.service';
-import { ToolCategory } from './tool-category';
+import { Injectable, Renderer2 } from '@angular/core';
 import { Brush } from './tool-options/brush';
-import { ITool } from './tool-options/i-tool';
+import { Bucket } from './tool-options/bucket';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
-import { Bucket } from './tool-options/bucket'
 import { SVGService } from 'src/services/svg/svg.service';
+import { ToolCategory } from './tool-category';
+import { ITool } from './tool-options/i-tool';
 
 /**
  * ToolService is used to access the current tool and to change tools ONLY.
@@ -18,13 +17,14 @@ export class ToolService {
 
     private toolCategories: ToolCategory[];
     private toolCategoryIndex: number;
+    currentTool: ITool;
 
-    constructor(svgService: SVGService) {
-        let pencil: Pencil = new Pencil(svgservice);
-        let brush: Brush = new Brush();
-        let bucket: Bucket = new Bucket(svgService);
-        let rectangle: Rectangle = new Rectangle();
-        let drawingTools: ToolCategory = new ToolCategory([
+    constructor(renderer: Renderer2, svgService: SVGService) {
+        const pencil: Pencil = new Pencil(renderer);
+        const brush: Brush = new Brush();
+        const bucket: Bucket = new Bucket(svgService);
+        const rectangle: Rectangle = new Rectangle();
+        const drawingTools: ToolCategory = new ToolCategory([
             pencil,
             brush,
             bucket,
@@ -35,9 +35,9 @@ export class ToolService {
     }
 
     getToolCategoryFilename(categoryIndex: number): string {
-        let currentIndex: number = this.toolCategoryIndex;
+        const currentIndex: number = this.toolCategoryIndex;
         this.setToolCategoryIndex(categoryIndex);
-        let filename: string = this.getCurrentTool().FILENAME;
+        const filename: string = this.getCurrentTool().FILENAME;
         this.toolCategoryIndex = currentIndex;
 
         return filename;
@@ -46,7 +46,6 @@ export class ToolService {
     getToolFilename(toolIndex: number): string {
         return this.toolCategories[this.toolCategoryIndex].getFilename(toolIndex);
     }
-
 
     getToolCategoryIndex(): number {
         return this.toolCategoryIndex;
@@ -64,6 +63,7 @@ export class ToolService {
         }
 
         this.toolCategoryIndex = toolCategoryIndex;
+        this.currentTool = this.toolCategories[this.toolCategoryIndex].currentTool;
     }
 
     getCurrentToolIndex(): number {

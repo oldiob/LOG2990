@@ -1,5 +1,5 @@
-import { SVGInterface } from './svg.interface';
 import { Renderer2 } from '@angular/core';
+import { SVGInterface } from './svg.interface';
 
 export class SVGPencil implements SVGInterface {
     element: any;
@@ -10,10 +10,9 @@ export class SVGPencil implements SVGInterface {
         this.element = this.renderer.createElement('polyline');
 
         this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');     
-        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');        
+        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
+        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
     }
-
 
     isAt(x: number, y: number): boolean {
         return false;
@@ -22,14 +21,14 @@ export class SVGPencil implements SVGInterface {
         return false;
     }
     setPrimary(color: string): void {
-        this.renderer.setAttribute(this.element, 'stroke', color);        
+        this.renderer.setAttribute(this.element, 'stroke', color);
     }
     setSecondary(color: string): void {
-        return;
+        // No secondary for the pencil
     }
 
-    setThickness(thickness: string): void {
-        this.renderer.setAttribute(this.element, 'stroke-width', thickness);
+    setThickness(width: string): void {
+        this.renderer.setAttribute(this.element, 'stroke-width', width);
     }
 
     addPoint(x: number, y: number): void {
@@ -40,6 +39,6 @@ export class SVGPencil implements SVGInterface {
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
     private pointsAttribute(): string {
-        return this.points.map(e => e.join(',')).join(' ');
+        return this.points.map((e) => e.join(',')).join(' ');
     }
 }

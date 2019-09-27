@@ -14,11 +14,13 @@ export class SVGRect implements SVGInterface {
     toString(): string {
         throw new Error("Method not implemented.");
     }
+
     private x1: number;
     private y1: number;
     private x2: number;
     private y2: number;
 
+    /*
     private width: number;
     private height: number;
 
@@ -29,6 +31,7 @@ export class SVGRect implements SVGInterface {
     private strokeOpacity: number;
     private fillOpacity: number;
     private traceType: number;
+    */
 
     constructor(x: number, y: number) {
         this.x1 = this.x2 = x;

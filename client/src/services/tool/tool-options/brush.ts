@@ -1,10 +1,12 @@
-import { ITool } from './i-tool';
 import { SVGInterface } from 'src/services/svg/element/svg.interface'
+import { ITool } from './i-tool';
 
 export class Brush implements ITool {
-  FILENAME: string = "brush.png";
+  element: SVGInterface | null;
+  readonly FILENAME = 'brush.png';
 
   constructor() {
+    //
   }
 
   onPressed(event: MouseEvent): SVGInterface | null {
@@ -16,8 +18,6 @@ export class Brush implements ITool {
   onReleased(event: MouseEvent): void {
     throw new Error('Method not implemented.');
   }
-
-
 
   leftClick() {
     throw new Error('Method not implemented.');

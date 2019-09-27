@@ -1,33 +1,22 @@
 import { Injectable } from '@angular/core';
-
-/*import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGInterface } from 'src/services/svg/svg.interface';
-import { SVGService } from 'src/services/svg/svg.service';
-import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-*/
-import { ITool } from './i-tool';
-import { SVGService } from 'src/services/svg/svg.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGService } from 'src/services/svg/svg.service';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
 export class Bucket implements ITool {
-    FILENAME: string = "bucket.png";
+    readonly FILENAME = 'bucket.png';
+    element: SVGInterface | null;
 
-    // No need to use any Color logic in this class, just return the SVGInterface implementations
     constructor(private svgService: SVGService) { }
 
-    onPressed(event: MouseEvent): SVGInterface | null {
+    onPressed(event: MouseEvent): void {
         const x: number = event.clientX;
         const y: number = event.clientY;
 
-        const obj: SVGInterface | null = this.svgService.findAt(x, y);
-        if (obj != null) {
-            return obj;
-        }
-
-        return null;
+        this.element = this.svgService.findAt(x, y);
     }
 
     onReleased(event: MouseEvent): void {

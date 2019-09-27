@@ -13,7 +13,6 @@ import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { RectangleComponent } from './app/rectangle/rectangle.component';
-import { SVGComponent } from './app/svg/svg.component';
 import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
@@ -31,7 +30,6 @@ import { MousetrackDirective } from './directive/mousetrack.directive';
         MousetrackDirective,
         NewDrawingComponent,
         PolyDessinComponent,
-        SVGComponent,
         ToolOptionComponent,
         ToolbarComponent,
         WorkZoneComponent,
