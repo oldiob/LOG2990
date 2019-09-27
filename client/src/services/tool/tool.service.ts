@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
-import { ToolCategory } from './tool-category';
+import { Injectable, Renderer2 } from '@angular/core';
 import { Brush } from './tool-options/brush';
-import { ITool } from './tool-options/i-tool';
-import { NavigationHand } from './tool-options/navigation-hand';
+import { Bucket } from './tool-options/bucket';
 import { Pencil } from './tool-options/pencil';
 import { Rectangle } from './tool-options/rectangle';
-import { BucketService } from './tool-options/bucket'
+import { SVGService } from 'src/services/svg/svg.service';
+import { ToolCategory } from './tool-category';
+import { ITool } from './tool-options/i-tool';
+import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
 
+/**
+ * ToolService is used to access the current tool and to change tools ONLY.
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -14,36 +18,30 @@ export class ToolService {
 
     private toolCategories: ToolCategory[];
     private toolCategoryIndex: number;
-    private currentTool: ITool;
+    currentTool: ITool;
 
-    constructor(private bucketService: BucketService) {
+    constructor(rendererProvider: RendererProviderService, svgService: SVGService) {
+        const renderer: Renderer2 = rendererProvider.renderer;
 
-        // TODO - Bucket is the default tool, this is probably not
-        // what we want.
-        this.currentTool = this.bucketService;
-
-        const pencil: Pencil = new Pencil();
+        const pencil: Pencil = new Pencil(renderer);
         const brush: Brush = new Brush();
+        const bucket: Bucket = new Bucket(svgService);
         const rectangle: Rectangle = new Rectangle();
         const drawingTools: ToolCategory = new ToolCategory([
             pencil,
             brush,
+            bucket,
             rectangle,
         ]);
 
-        const navigationHand: NavigationHand = new NavigationHand();
-        const navigationHandCategory: ToolCategory = new ToolCategory([
-            navigationHand,
-        ]);
-
-        this.toolCategories = [drawingTools, navigationHandCategory];
-        this.toolCategoryIndex = 0;
+        this.toolCategories = [drawingTools];
+        this.setToolCategoryIndex(0);
     }
 
     getToolCategoryFilename(categoryIndex: number): string {
-        let currentIndex: number = this.toolCategoryIndex;
+        const currentIndex: number = this.toolCategoryIndex;
         this.setToolCategoryIndex(categoryIndex);
-        let filename: string = this.getCurrentTool().FILENAME;
+        const filename: string = this.getCurrentTool().FILENAME;
         this.toolCategoryIndex = currentIndex;
 
         return filename;
@@ -52,7 +50,6 @@ export class ToolService {
     getToolFilename(toolIndex: number): string {
         return this.toolCategories[this.toolCategoryIndex].getFilename(toolIndex);
     }
-
 
     getToolCategoryIndex(): number {
         return this.toolCategoryIndex;
@@ -70,6 +67,7 @@ export class ToolService {
         }
 
         this.toolCategoryIndex = toolCategoryIndex;
+        this.currentTool = this.toolCategories[this.toolCategoryIndex].currentTool;
     }
 
     getCurrentToolIndex(): number {
@@ -83,7 +81,4 @@ export class ToolService {
     getCurrentTool(): ITool {
         return this.toolCategories[this.toolCategoryIndex].getCurrentTool();
     }
-
-    get tool(): ITool { return this.currentTool; }
-    set tool(tool: ITool) { this.currentTool = tool; }
 }

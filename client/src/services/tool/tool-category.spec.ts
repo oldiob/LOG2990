@@ -6,7 +6,7 @@ describe('Class: ToolCategory', () => {
     class TestTool implements ITool {
         FILENAME: string = "test.png";
 
-        onPressed(event: MouseEvent): import('../svg/svg.interface').SVGInterface | null {
+        onPressed(event: MouseEvent): import('../svg/element/svg.interface').SVGInterface | null {
             throw new Error('Method not implemented.');
         }
         onMotion(event: MouseEvent): void {

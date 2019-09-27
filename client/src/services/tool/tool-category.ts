@@ -5,19 +5,21 @@ export class ToolCategory {
     private toolIndex: number;
     private tools: ITool[];
 
+    currentTool: ITool;
+
     constructor(tools: ITool[]) {
         if (tools.length === 0) {
             throw new Error('Number of tools can not be 0 in a ToolCategory.');
         }
 
         this.tools = tools;
-        this.toolIndex = 0;
+        this.selectTool(0);
     }
 
     getFilename(toolIndex: number): string {
-        let currentIndex: number = this.toolIndex;
+        const currentIndex: number = this.toolIndex;
         this.selectTool(toolIndex);
-        let filename: string = this.getCurrentTool().FILENAME;
+        const filename: string = this.getCurrentTool().FILENAME;
         this.selectTool(currentIndex);
 
         return filename;
@@ -47,6 +49,7 @@ export class ToolCategory {
         }
 
         this.toolIndex = toolIndex;
+        this.currentTool = this.tools[this.toolIndex];
     }
 
 }

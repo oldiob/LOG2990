@@ -1,43 +1,27 @@
 import { Injectable } from '@angular/core';
-
-import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGInterface } from 'src/services/svg/svg.interface';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
-import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class BucketService implements ITool {
+export class Bucket implements ITool {
+    width: number;
+    readonly FILENAME = 'bucket.png';
+    element: SVGInterface | null;
 
-    FILENAME: string = "bucket.png";
+    constructor(private svgService: SVGService) { }
 
-    constructor(private svgService: SVGService,
-        private paletteService: PaletteService,
-        private workZoneService: WorkZoneService) { }
-
-    onPressed(event: MouseEvent): null {
-        const x: number = event.clientX;
-        const y: number = event.clientY;
-
-        const obj: SVGInterface | null = this.svgService.findAt(x, y);
-        if (obj != null) {
-            if (event.button === 0) {
-                obj.setPrimary(this.paletteService.getPrimary());
-            } else if (event.button === 2) {
-                obj.setSecondary(this.paletteService.getSecondary());
-            }
-        }
-        else if (event.button === 0) {
-            this.workZoneService.updateBackgroundColor(this.paletteService.getPrimary());
-        }
-        return null;
+    onPressed(x: number, y: number): void {
+        this.element = this.svgService.findAt(x, y);
     }
-    onReleased(event: MouseEvent) {
+
+    onReleased(x: number, y: number): void {
         return;
     }
-    onMotion(event: MouseEvent) {
+
+    onMotion(x: number, y: number): void {
         return;
     }
 }

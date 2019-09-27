@@ -1,34 +1,27 @@
-import { SVGRect } from 'src/services/svg/svg.rect';
-import { SVGInterface } from '../../svg/svg.interface';
+import { SVGRect } from 'src/services/svg/element/svg.rect';
 import { ITool } from './i-tool';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 export class Rectangle implements ITool {
-    FILENAME: string = "rectangle.png";
+    width: number;
+    FILENAME = 'rectangle.png';
+    element: SVGInterface | null;
 
-    private currentRect: SVGRect | null = null;
-
-    constructor() {//
+    constructor() {
+        this.width = 1;
     }
 
-    onReleased(event: MouseEvent): void {
-        throw new Error('Method not implemented.');
+    onPressed(x: number, y: number): void {
+        this.element = new SVGRect(x, y);
     }
-
-    onPressed(event: MouseEvent): SVGInterface {
-        const x: number = event.clientX;
-        const y: number = event.clientY;
-        this.currentRect = new SVGRect(x, y);
-        return this.currentRect;
+    onReleased(x: number, y: number): void {
+        this.element = null;
     }
-    onRelease(event: MouseEvent) {
-        this.currentRect = null;
-    }
-    onMotion(event: MouseEvent) {
-        if (this.currentRect == null) {
+    onMotion(x: number, y: number): void  {
+        if (this.element == null) {
             return;
         }
-        const x: number = event.clientX;
-        const y: number = event.clientY;
-        this.currentRect.setP2(x, y);
+
+        this.element.addPoint(x, y);
     }
 }

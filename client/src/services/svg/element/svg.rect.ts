@@ -1,10 +1,39 @@
-import { SVGInterface } from 'src/services/svg/svg.interface';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 export class SVGRect implements SVGInterface {
+    setWidth(width: number): void {
+        throw new Error("Method not implemented.");
+    }
+    addPoint(x: number, y: number): void {
+        throw new Error("Method not implemented.");
+    }
+
+    element: any;
+
+    setThickness(thickness: string): void {
+        throw new Error("Method not implemented.");
+    }
+    toString(): string {
+        throw new Error("Method not implemented.");
+    }
+
     private x1: number;
     private y1: number;
     private x2: number;
     private y2: number;
+
+    /*
+    private width: number;
+    private height: number;
+
+    private primary: number;
+    private secondary: number;
+
+    private pointSize: number;
+    private strokeOpacity: number;
+    private fillOpacity: number;
+    private traceType: number;
+    */
 
     constructor(x: number, y: number) {
         this.x1 = this.x2 = x;

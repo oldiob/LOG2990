@@ -1,10 +1,5 @@
 import { Rectangle } from '../../../../common/communication/rectangle';
 
-enum TraceType{
-    strokeOnly=0,
-    fillOnly,
-    strokeAndFill,
-}
 export class RectangleService {
     currentX = 0;
     currentY = 0;
@@ -15,7 +10,7 @@ export class RectangleService {
     pointSize = 1;
     strokeOpacity = 1;
     fillOpacity = 1;
-    traceType: TraceType;
+    traceType =0;
     click: boolean;
     rectangles: Rectangle[];
     rectangle: Rectangle;
@@ -60,13 +55,16 @@ export class RectangleService {
     SelectTraceType(traceType:number){
         if (traceType==0){
             this.traceType=0;
-            this.SelectStrokeOpacity(0);
-        } else if (traceType==1){
             this.SelectFillOpacity(0);
-        }else if(traceType==2){
-            
-        } else 
+        } else if (traceType==1){
+            this.traceType=1;
             this.SelectStrokeOpacity(0);
+        }else if(traceType==2){
+            this.traceType=2;
+        } else {
+            this.traceType=0;
+            this.SelectFillOpacity(0);
+        }
     }
 
 
