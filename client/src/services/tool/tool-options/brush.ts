@@ -1,5 +1,6 @@
 import { Renderer2 } from '@angular/core';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
+import { SVGCustom } from 'src/services/svg/element/svg.custom';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
 
