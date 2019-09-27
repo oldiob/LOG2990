@@ -36,6 +36,13 @@ export class SVGPencil implements SVGInterface {
             const directionVector = [point1[0] - point0[0], point1[1] - point0[1]];
 
             const toCoordVector = [x - point0[0], y - point0[1]];
+            const toCoordDistanceSquared = toCoordVector[0] * toCoordVector[0] + toCoordVector[1] * toCoordVector[1];
+
+            // Check is coords are close enough to a cordner
+            if (toCoordDistanceSquared <= halfWidthSquared) {
+                console.log("IS AT");
+                return true;
+            }
 
             const parallel = this.project(toCoordVector, directionVector);
             const perpendicular = [toCoordVector[0] - parallel[0], toCoordVector[1] - parallel[1]];

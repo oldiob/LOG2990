@@ -75,7 +75,7 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseDown(event: MouseEvent): void {
-        const x = event.clientX;
+        const x = event.clientX - this.OFFSET;
         const y = event.clientY;
 
         if (this.isOnceWhileDown && this.isMouseInArea()) {
