@@ -23,8 +23,10 @@ export class PencilService implements ITool {
         const x = event.svgX;
         const y = event.svgY;
         this.element = new SVGPencil(this.renderer);
-        this.element.addPoint(x, y);
         this.element.setWidth(this.width);
+        this.element.addPoint(x, y);
+        this.element.addPoint(x + 1, y + 1);
+
         return this.element;
     }
     onMotion(event: MouseEvent): void {
