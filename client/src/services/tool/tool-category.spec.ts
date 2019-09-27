@@ -1,18 +1,20 @@
+import { SVGInterface } from '../svg/element/svg.interface';
 import { ToolCategory } from './tool-category';
 import { ITool } from './tool-options/i-tool';
 
 describe('Class: ToolCategory', () => {
 
     class TestTool implements ITool {
-        FILENAME: string = "test.png";
-
-        onPressed(event: MouseEvent): import('../svg/element/svg.interface').SVGInterface | null {
+        FILENAME = 'test.png';
+        element: SVGInterface | null;
+        width: number;
+        onPressed(x: number, y: number): import('../svg/element/svg.interface').SVGInterface | null {
             throw new Error('Method not implemented.');
         }
-        onMotion(event: MouseEvent): void {
+        onMotion(x: number, y: number): void {
             throw new Error('Method not implemented.');
         }
-        onReleased(event: MouseEvent): void {
+        onReleased(x: number, y: number): void {
             throw new Error('Method not implemented.');
         }
         leftClick(): void {

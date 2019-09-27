@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Rectangle } from '../../../../common/communication/rectangle';
 import { RectangleService } from './rectangle.service';
 
-fdescribe('RectangleService', () => {
+describe('RectangleService', () => {
 
     let rectService: RectangleService;
     let mouseEvent: MouseEvent;
