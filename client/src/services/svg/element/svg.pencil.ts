@@ -1,20 +1,17 @@
 import { SVGInterface } from './svg.interface';
+import { Renderer2 } from '@angular/core';
 
 export class SVGPencil implements SVGInterface {
-    TYPE: string = 'polyline';
-    attributes: any;
+    element: any;
 
-    readonly SVG_STRING: string = "<polyline fill='${fill} s'/>"
-    fill: string = 'none';
-    constructor() {
-        this.attributes = {
-            fill: 'none',
-            stroke-linecap: 'round',
-            stroke-linejoin: 'round',
-            points: [],
-            stroke: 'black',
-            stroke-width: 1,
-        }
+    points: number[][];
+
+    constructor(private renderer: Renderer2) {
+        this.element = this.renderer.createElement('polyline');
+
+        this.renderer.setAttribute(this.element, 'fill', 'none');
+        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');     
+        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');        
     }
 
 
@@ -25,46 +22,24 @@ export class SVGPencil implements SVGInterface {
         return false;
     }
     setPrimary(color: string): void {
-        //
+        this.renderer.setAttribute(this.element, 'stroke', color);        
     }
     setSecondary(color: string): void {
-        //
-    }
-    getPrimary(): string {
-        return this.attributes['stroke'].toString();
-    }
-    getSecondary(): string {
-        return '0';
+        return;
     }
 
     setThickness(thickness: string): void {
-        throw new Error('Method not implemented.');
+        this.renderer.setAttribute(this.element, 'stroke-width', thickness);
     }
 
     addPoint(x: number, y: number): void {
-        this.attributes['points'].push(x + ',' + y);
+        this.points.push([x, y]);
+
+        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
 
-    toString(): string {
-    
-        let sb = '<' + this.TYPE;
-
-        let keys = Object.keys(this.attributes);
-        for (let i = 0; i < keys.length; i++) {
-            let key: string = keys[i];
-            sb += ' ' + key + '=\'';
-            if (key != 'points') {
-                sb += this.attributes[key];
-            }
-            else {
-                let points = this.attributes[key];
-                for (let j = 0; j < points.length; j++) {
-                    sb += points[j] + ' ';
-                }
-            }
-            sb += '\'';
-        }
-
-        return sb + '/>';
+    // [[1, 2], [3, 4]] -> 1,2 3,4
+    private pointsAttribute(): string {
+        return this.points.map(e => e.join(',')).join(' ');
     }
 }

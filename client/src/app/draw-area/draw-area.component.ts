@@ -3,6 +3,7 @@ import { Component,
 import { PencilService } from 'src/services/pencil/pencil.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { GenericStrokeComponent } from '../generic-stroke/generic-stroke.component';
+
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Component({
@@ -34,7 +35,7 @@ export class DrawAreaComponent implements OnInit {
     isMouseDown = false;
     isOnceWhileDown = true;
 
-    constructor(private workZoneService: WorkZoneService, private sanitizer: DomSanitizer) { 
+    constructor(private workZoneService: WorkZoneService, private renderer: Renderer2) { 
       this.svgElements = [];
     }
 
@@ -73,7 +74,7 @@ export class DrawAreaComponent implements OnInit {
     onMouseDown(event: MouseEvent): void {
       if (this.isOnceWhileDown && this.isMouseInArea()) {
         this.isOnceWhileDown = false;
-        this.currentSVG = new SVGPencil();
+        this.currentSVG = new SVGPencil(this.renderer);
         this.currentSVG.addPoint(this.mouseX, this.mouseX);
       }
       this.isMouseDown = true;
@@ -104,18 +105,4 @@ export class DrawAreaComponent implements OnInit {
       }
     }
 
-
-    getSVG(): SafeHtml {
-      let res: string = "";
-      
-      for (let i = 0; i < this.svgElements.length; i++) {
-        res += this.svgElements[i];
-      }
-
-      if (this.currentSVG != null) {
-        res += this.currentSVG.toString();
-      }
-
-      return this.sanitizer.bypassSecurityTrustHtml(res);
-    }
 }
