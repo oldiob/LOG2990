@@ -59,15 +59,15 @@ export class SVGRect implements SVGInterface {
 
         // also, set the attributes for element
 
-        this.tempWidth = this.initialx - x;
-        this.tempHeight = this.initialy - y;
+        this.tempWidth = x - this.initialx;
+        this.tempHeight = y - this.initialy;
 
         if (this.tempWidth >= 0) {
             this.setx(this.initialx);
-            this.setHeight((Math.abs(this.initialx - x)));
+            this.setWidth((Math.abs(this.initialx - x)));
         } else if (this.tempWidth < 0) {
             this.setx(x);
-            this.setHeight((Math.abs(this.initialx - x)));
+            this.setWidth((Math.abs(this.initialx - x)));
         }
 
         if (this.tempHeight >= 0) {
@@ -82,30 +82,30 @@ export class SVGRect implements SVGInterface {
 
     setx(x: number): void {
         this.x = x;
-        this.renderer.setAttribute(this.element, 'attr.x', this.x.toString());
+        this.renderer.setAttribute(this.element, 'x', this.x.toString());
     }
 
     sety(y: number): void {
         this.y = y;
-        this.renderer.setAttribute(this.element, 'attr.y', this.y.toString());
+        this.renderer.setAttribute(this.element, 'y', this.y.toString());
     }
 
     setWidth(width: number): void {
         // set the width of the rectangle here
         this.width = width;
-        this.renderer.setAttribute(this.element, 'attr.width', this.width.toString());
+        this.renderer.setAttribute(this.element, 'width', this.width.toString());
     }
 
     setHeight(height: number): void {
         // set the height of the rectangle here
         this.height = height;
-        this.renderer.setAttribute(this.element, 'attr.height', this.height.toString());
+        this.renderer.setAttribute(this.element, 'height', this.height.toString());
     }
 
     setPointSize(pointSize: number): void {
         // set the point size of the rectangle here
         this.pointSize = pointSize;
-        this.renderer.setAttribute(this.element, 'attr.stroke-width', this.pointSize.toString());
+        this.renderer.setAttribute(this.element, 'stroke-width', this.pointSize.toString());
     }
 
     setFillOpacity(fillOpacity: number): void {
@@ -121,19 +121,19 @@ export class SVGRect implements SVGInterface {
     setTraceType(traceType: number): void {
         if (traceType === 0) {
             this.setFillOpacity(0);
-            this.renderer.setAttribute(this.element, 'attr.fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'attr.stroke-opacity', this.strokeOpacity.toString());
+            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
+            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         } else if (traceType === 1) {
             this.setStrokeOpacity(0);
-            this.renderer.setAttribute(this.element, 'attr.fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'attr.stroke-opacity', this.strokeOpacity.toString());
+            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
+            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         } else if (traceType === 2) {
-            this.renderer.setAttribute(this.element, 'attr.fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'attr.stroke-opacity', this.strokeOpacity.toString());
+            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
+            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         } else {
             this.setFillOpacity(0);
-            this.renderer.setAttribute(this.element, 'attr.fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'attr.stroke-opacity', this.strokeOpacity.toString());
+            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
+            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         }
     }
 
