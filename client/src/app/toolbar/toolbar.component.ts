@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'src/services/dialog/dialog.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 
 export enum OptionType {
-  COLOR = 0,
-  TOOL = 1,
+  TOOL = 0,
 }
 
 @Component({
@@ -33,14 +30,6 @@ export class ToolbarComponent implements OnInit {
     //
   }
 
-  getPrimaryColor(): string {
-    return this.paletteService.getPrimary();
-  }
-
-  getSecondaryColor(): string {
-    return this.paletteService.getSecondary();
-  }
-
   private displayOption(optionType: OptionType): void {
     this.optionDisplayed = this.optionDisplayed === true ? this.currentDisplayedOption !== optionType : true;
     this.currentDisplayedOption = optionType;
@@ -56,10 +45,6 @@ export class ToolbarComponent implements OnInit {
 
   getToolCategory(): number {
     return this.toolService.getToolCategoryIndex();
-  }
-
-  chooseColor() {
-    this.displayOption(OptionType.COLOR);
   }
 
   chooseWorkingTool() {

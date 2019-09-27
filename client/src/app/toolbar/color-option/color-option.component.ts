@@ -17,4 +17,14 @@ export class ColorOptionComponent implements OnInit {
     get secondary(): string { return this.paletteService.getSecondary(); }
 
     swap(): void { this.paletteService.swap(); }
+
+    selectPrimary(): void {
+        // TODO - Implement me
+        this.paletteService.selectPrimary(Math.trunc(Math.random() * 0xFFFFFFFF));
+    }
+
+    selectSecondary(): void {
+        // TODO - Implement me
+        this.paletteService.selectSecondary(Math.trunc(Math.random() * 0xFFFFFFFF));
+    }
 }
