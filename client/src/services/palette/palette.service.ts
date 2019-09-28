@@ -38,7 +38,7 @@ export class PaletteService {
 
     selectSecondary(r: number, g: number, b: number, a: number) {
         const previous: Color = this.secondary;
-        this.secondary = new Color(r, g, b, a);;
+        this.secondary = new Color(r, g, b, a);
         this.previous.add(previous);
     }
 
