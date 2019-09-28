@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { Pencil } from 'src/services/tool/tool-options/pencil';
-import { Brush } from 'src/services/tool/tool-options/brush';
-import { Bucket } from 'src/services/tool/tool-options/bucket';
+import { PencilService } from 'src/services/tool/tool-options/pencil';
+import { BrushService } from 'src/services/tool/tool-options/brush';
+import { BucketService } from 'src/services/tool/tool-options/bucket';
 import { SVGService } from 'src/services/svg/svg.service';
 
 @Component({
@@ -20,13 +20,13 @@ export class ToolOptionComponent implements OnInit {
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService) {
-        const pencil: Pencil = new Pencil(rendererProvider.renderer);
-        const brush: Brush = new Brush(rendererProvider.renderer);
-        const bucket: Bucket = new Bucket(svgService);
+    constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService,
+        private pencilService: PencilService,
+        private brushService: BrushService,
+        private bucketService: BucketService) {
 
-        this.tools = [pencil, brush, bucket];
-        this.selectTool(pencil);
+        this.tools = [this.pencilService, this.brushService, this.bucketService];
+        this.selectTool(this.tools[0]);
     }
 
     ngOnInit() {

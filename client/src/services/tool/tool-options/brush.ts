@@ -1,18 +1,22 @@
-import { SVGBrush } from '../../svg/element/svg.brush';
-import { Pencil } from './pencil';
-import { Renderer2 } from '@angular/core';
+import { Injectable, RendererFactory2 } from '@angular/core';
+import { PencilService } from './pencil';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGBrush } from 'src/services/svg/element/svg.brush';
 
-export class Brush extends Pencil {
+@Injectable({
+    providedIn: 'root',
+})
+export class BrushService extends PencilService {
     element: SVGBrush | null;
-    FILENAME = 'brush.png';
+    readonly FILENAME: string = 'brush.png';
 
-    constructor(renderer: Renderer2) {
-        super(renderer);
+    constructor(factory: RendererFactory2) {
+        super(factory);
     }
-
-    onPressed(x: number, y: number): void {
+    onPressed(event: MouseEvent): SVGInterface {
         this.element = new SVGBrush(this.renderer);
-        this.element.addPoint(x, y);
+        this.element.addPoint(event.svgX, event.svgY);
         this.element.setWidth(this.width);
+        return this.element
     }
 }
