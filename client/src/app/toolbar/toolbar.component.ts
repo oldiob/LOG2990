@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { DialogService } from "src/services/dialog/dialog.service"
 import { PaletteService } from 'src/services/palette/palette.service';
+import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { ShapeOptionComponent } from './shape-option/shape-option.component';
 
 export enum OptionType {
     TOOL = 0,
@@ -16,24 +18,35 @@ export enum OptionType {
 export class ToolbarComponent implements OnInit {
     private FILE_LOCATION = '../../../assets/images/';
 
-    currentDisplayedOption: OptionType;
+    @ViewChild(ToolOptionComponent, {static: true})
+    toolOption: ToolOptionComponent;
+
+    @ViewChild(ShapeOptionComponent, {static: true})
+    shapeOption: ShapeOptionComponent;
+
+    options: any[];
+
+    currentOption: any;
     optionDisplayed: boolean;
 
     constructor(
         private paletteService: PaletteService,
         private dialogService: DialogService,
         private drawAreaService: DrawAreaService) {
-        this.currentDisplayedOption = OptionType.TOOL;
-        this.optionDisplayed = false;
+
     }
 
     ngOnInit() {
-        //
+        this.options = [ this.toolOption, this.shapeOption ];
+
+        this.currentOption = this.toolOption;
+        this.optionDisplayed = false;
     }
 
-    private displayOption(optionType: OptionType): void {
-        this.optionDisplayed = this.optionDisplayed === true ? this.currentDisplayedOption !== optionType : true;
-        this.currentDisplayedOption = optionType;
+    selectOption(option: any): void {
+        this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
+        this.currentOption = option;
+        this.currentOption.selectTool(this.currentOption.currentTool);
     }
 
     newDrawingOption() {
@@ -43,5 +56,9 @@ export class ToolbarComponent implements OnInit {
         this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
         this.paletteService.selectSecondary(Math.floor(Math.random() * 4294967296));
         this.drawAreaService.save();
+    }
+
+    getImage(option: any) {
+        return this.FILE_LOCATION + option.currentTool.FILENAME;
     }
 }

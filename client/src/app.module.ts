@@ -19,6 +19,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { KeytrackDirective } from './directive/keytrack.directive';
 import { MousetrackDirective } from './directive/mousetrack.directive';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
+import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { ColorPickerComponent } from './app/color-picker/color-picker.component'
         ToolbarComponent,
         WorkZoneComponent,
         ColorPickerComponent,
+        ShapeOptionComponent,
     ],
     imports: [
         BrowserModule,
