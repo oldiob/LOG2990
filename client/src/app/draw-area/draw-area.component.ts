@@ -107,7 +107,7 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window: keypress', ['$event'])
     @HostListener('window: keydown', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
-        if (this.isNewDrawCreate) {
+        /*if (this.isNewDrawCreate) {
             switch (event.key) {
                 // crayon
                 case 'c' :
@@ -136,6 +136,6 @@ export class DrawAreaComponent implements OnInit {
                 default:
                     break;
             }
-        }
+        }*/
     }
 }
