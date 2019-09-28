@@ -86,7 +86,7 @@ export class SVGCustom implements SVGInterface {
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
     useBrush(x: number, y: number): void {
-        this.paintBrushIII(x, y);
+        this.paintBrush(x, y);
     }
 
     paintBrush(x: number, y: number): void {
@@ -133,7 +133,7 @@ export class SVGCustom implements SVGInterface {
     }
     interpolate(x: number, y: number): void {
         console.log('called');
-        if (Math.abs(this.previousX - x) >= this.lineWidth && Math.abs(y - this.previousY) >= this.lineWidth) {
+        if (Math.abs(this.previousX - x) >= this.lineWidth / 100 || Math.abs(y - this.previousY) >= this.lineWidth / 100) {
             if (this.previousX === 0) {
                 this.previousX = x;
             }
@@ -150,7 +150,6 @@ export class SVGCustom implements SVGInterface {
     getRandomInt(max: number): number {
         return Math.floor(Math.random() * Math.floor(max) - (max / 2));
     }
-
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
     private pointsAttribute(): string {
