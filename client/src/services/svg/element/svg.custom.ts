@@ -2,6 +2,14 @@ import { Renderer2 } from '@angular/core';
 import { SVGInterface } from './svg.interface';
 
 export class SVGCustom implements SVGInterface {
+    readonly BRUSH_RECT_FACTOR = 2;
+    readonly BRUSH_OBJECT_NUMBER = 8;
+    readonly BRUSH_CERCLE_DISTANCE_FACTOR = 2;
+    readonly BRUSH_RANDOM_WIDTH_FACTOR = 2;
+    readonly INTERPOLATION_DIS_FACTOR = 2;
+    readonly INTERPOLATION_RATE_FACTOR = 100;
+    readonly GET_RANDOM_NEG_FACTOR = 2;
+
     element: any;
 
     previousX = 0;
@@ -80,9 +88,7 @@ export class SVGCustom implements SVGInterface {
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
         this.interpolate(x, y);
-
         this.useBrush(x, y);
-
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
     useBrush(x: number, y: number): void {
@@ -109,8 +115,9 @@ export class SVGCustom implements SVGInterface {
     }
 
     paintBrushRectII(x: number, y: number): void {
-        for (let i = 0; i < 8; i++) {
-            this.paintBrushRect(x + this.getRandomInt(this.lineWidth * 2), y + this.getRandomInt(this.lineWidth * 2));
+        for (let i = 0; i < this.BRUSH_OBJECT_NUMBER; i++) {
+            this.paintBrushRect(x + this.getRandomInt(this.lineWidth * this.BRUSH_RECT_FACTOR),
+             y + this.getRandomInt(this.lineWidth * this.BRUSH_RECT_FACTOR));
         }
     }
 
@@ -120,20 +127,21 @@ export class SVGCustom implements SVGInterface {
         this.previousX = x;
         this.previousY = y;
         this.paintBrush(x, y);
-        this.paintBrush(x - radius * 2, y);
-        this.paintBrush(x + radius * 2, y);
-        this.paintBrush(x, y - radius * 2);
-        this.paintBrush(x, y + radius * 2);
+        this.paintBrush(x - radius * this.BRUSH_CERCLE_DISTANCE_FACTOR, y);
+        this.paintBrush(x + radius * this.BRUSH_CERCLE_DISTANCE_FACTOR, y);
+        this.paintBrush(x, y - radius * this.BRUSH_CERCLE_DISTANCE_FACTOR);
+        this.paintBrush(x, y + radius * this.BRUSH_CERCLE_DISTANCE_FACTOR);
       }
     }
     paintBrushIII(x: number, y: number): void {
-        for (let i = 0; i < 8; i++) {
-            this.paintBrush(x + this.getRandomInt(this.lineWidth * 2), y + this.getRandomInt(this.lineWidth * 2));
+        for (let i = 0; i < this.BRUSH_OBJECT_NUMBER; i++) {
+            this.paintBrush(x + this.getRandomInt(this.lineWidth * this.BRUSH_RANDOM_WIDTH_FACTOR),
+             y + this.getRandomInt(this.lineWidth * this.BRUSH_RANDOM_WIDTH_FACTOR));
         }
     }
     interpolate(x: number, y: number): void {
-        console.log('called');
-        if (Math.abs(this.previousX - x) >= this.lineWidth / 100 || Math.abs(y - this.previousY) >= this.lineWidth / 100) {
+        if (Math.abs(this.previousX - x) >= this.lineWidth / this.INTERPOLATION_RATE_FACTOR
+         || Math.abs(y - this.previousY) >= this.lineWidth / this.INTERPOLATION_RATE_FACTOR) {
             if (this.previousX === 0) {
                 this.previousX = x;
             }
@@ -144,11 +152,11 @@ export class SVGCustom implements SVGInterface {
             const localPreviousY = this.previousY;
             this.previousX = x;
             this.previousY = y;
-            this.addPoint((x + localPreviousX) / 2, (y + localPreviousY) / 2);
+            this.addPoint((x + localPreviousX) / this.INTERPOLATION_DIS_FACTOR, (y + localPreviousY) / this.INTERPOLATION_DIS_FACTOR);
         }
     }
     getRandomInt(max: number): number {
-        return Math.floor(Math.random() * Math.floor(max) - (max / 2));
+        return Math.floor(Math.random() * Math.floor(max) - (max / this.GET_RANDOM_NEG_FACTOR));
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4

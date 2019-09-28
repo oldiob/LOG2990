@@ -17,9 +17,13 @@ export class Brush implements ITool {
 
     onPressed(x: number, y: number): void {
         this.element = new SVGBrush(this.renderer);
-        this.element = new SVGCustom(this.renderer);
-        this.element.addPoint(x, y);
         this.element.setWidth(this.width);
+        this.element.addPoint(x, y);
+
+        this.element = new SVGCustom(this.renderer);
+        this.element.setWidth(this.width);
+
+        this.element.addPoint(x, y);
     }
 
     onMotion(x: number, y: number): void {

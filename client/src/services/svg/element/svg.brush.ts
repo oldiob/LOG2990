@@ -15,10 +15,6 @@ export class SVGBrush implements SVGInterface {
     lineWidth: number;
 
     constructor(private renderer: Renderer2) {
-        if (!this.isFilterIni) {
-          this.isFilterIni = true;
-          this.iniFilters();
-        }
         this.points = [];
         this.element = this.renderer.createElement('polyline', 'svg');
 
@@ -26,6 +22,10 @@ export class SVGBrush implements SVGInterface {
         this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
         this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
 
+        if (!this.isFilterIni) {
+            this.isFilterIni = true;
+            this.iniFilters();
+        }
         //this.renderer.setAttribute(this.element, 'stroke-dasharray', '10');
 
         //this.renderer.setAttribute(this.element, 'filter', 'url(#blur)');
@@ -46,7 +46,7 @@ export class SVGBrush implements SVGInterface {
             return false;
         }
 
-        let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0 ;
+        let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0;
 
         // width min 4
         if (halfWidthSquared < 16.0) {
