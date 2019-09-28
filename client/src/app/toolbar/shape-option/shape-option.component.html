@@ -1,1 +1,12 @@
-<p>shape-option works!</p>
+<div class="big-separation">
+    <h1 class="separation title">Shapes</h1>
+</div>
+
+<div class="big-separation">
+    <div class="separation">
+        <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
+            [class.selected-tool]="tool === currentTool">
+            <img class="tool-icon" [src]="getFilesource(tool)">
+        </a>
+    </div>
+</div>

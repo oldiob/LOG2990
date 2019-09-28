@@ -8,7 +8,7 @@ import { Rectangle } from 'src/services/tool/tool-options/rectangle';
 @Component({
     selector: 'app-shape-option',
     templateUrl: './shape-option.component.html',
-    styleUrls: ['./shape-option.component.scss']
+    styleUrls: ['./shape-option.component.scss', '../toolbar-option.scss']
 })
 export class ShapeOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
