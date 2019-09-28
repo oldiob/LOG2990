@@ -1,6 +1,7 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
-		<a *ngFor="let option of options" class="button" (click)="selectOption(option)" [class.selected-toolbar-button]="option === currentOption">
+		<a *ngFor="let option of options" class="button" (click)="selectOption(option)"
+			[class.selected-toolbar-button]="option === currentOption">
 			<img class="toolbar-icon" [src]="getImage(option)">
 		</a>
 	</div>
@@ -16,5 +17,9 @@
 </div>
 
 
-<app-tool-option [class.disappear]="optionDisplayed" class="toolbar-element toolbar-option selected-option "></app-tool-option>
-<app-shape-option [class.disappear]="optionDisplayed" class="toolbar-element toolbar-option selected-option"></app-shape-option>
+<app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
+	[class.appear]="optionDisplayed && currentOption === toolOption"
+	class="toolbar-element toolbar-option selected-option "></app-tool-option>
+<app-shape-option [class.disappear]="optionDisplayed || currentOption !== shapeOption"
+	[class.appear]="optionDisplayed && currentOption === shapeOption"
+	class="toolbar-element toolbar-option selected-option"></app-shape-option>

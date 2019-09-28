@@ -17,13 +17,18 @@
 
 .toolbar-element {
     display: inline-table;
-    position: relative;
+    position: absolute;
     float: left;
 }
 
 
 .disappear {
     transform: translate(-150%,0 );
+    transition: all 0.4s;
+}
+
+.appear {
+    transform: translate(50%,0 );
     transition: all 0.4s;
 }
 
