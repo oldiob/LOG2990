@@ -1,7 +1,8 @@
 <div class="toolbar-element toolbar">
 	<div class="tools">
-		<a class="button" (click)="chooseWorkingTool()" [class.selected-toolbar-button]="getToolCategory() === 0">
-			<img class="toolbar-icon" [src]="getButtonFilesource(0)">
+		<a *ngFor="let option of options" class="button" (click)="selectOption(option)"
+			[class.selected-toolbar-button]="option === currentOption">
+			<img class="toolbar-icon" [src]="getImage(option)">
 		</a>
 	</div>
 
@@ -11,13 +12,14 @@
 		</a>
 		<a class="button" (click)="saveImage()">
 			<img class="toolbar-icon" src="../../../assets/images/save.png">
-			RANDOM COLOR BABY
 		</a>
 	</div>
-	<app-color-option></app-color-option>
 </div>
 
 
-<div *ngIf="optionDisplayed" [ngSwitch]="currentDisplayedOption" class="toolbar-element toolbar-option" [ngStyle]="{'margin-top.px': getOptionTopMargin()}">
-	<app-tool-option *ngSwitchCase="0" class="selected-option"></app-tool-option>
-</div>
+<app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
+	[class.appear]="optionDisplayed && currentOption === toolOption"
+	class="toolbar-element toolbar-option selected-option "></app-tool-option>
+<app-shape-option [class.disappear]="optionDisplayed || currentOption !== shapeOption"
+	[class.appear]="optionDisplayed && currentOption === shapeOption"
+	class="toolbar-element toolbar-option selected-option"></app-shape-option>

@@ -1,66 +1,64 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { DialogService } from "src/services/dialog/dialog.service"
 import { PaletteService } from 'src/services/palette/palette.service';
+import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { ShapeOptionComponent } from './shape-option/shape-option.component';
 
 export enum OptionType {
-  TOOL = 0,
+    TOOL = 0,
 }
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-  private FILE_LOCATION = '../../../assets/images/';
+    private FILE_LOCATION = '../../../assets/images/';
 
-  currentDisplayedOption: OptionType;
-  optionDisplayed: boolean;
+    @ViewChild(ToolOptionComponent, {static: true})
+    toolOption: ToolOptionComponent;
 
-  constructor(
-    private paletteService: PaletteService, 
-    private toolService: ToolService,
-    private dialogService: DialogService,
-    private drawAreaService: DrawAreaService) {
-    this.currentDisplayedOption = OptionType.TOOL;
-    this.optionDisplayed = false;
-  }
+    @ViewChild(ShapeOptionComponent, {static: true})
+    shapeOption: ShapeOptionComponent;
 
-  ngOnInit() {
-    //
-  }
+    options: any[];
 
-  private displayOption(optionType: OptionType): void {
-    this.optionDisplayed = this.optionDisplayed === true ? this.currentDisplayedOption !== optionType : true;
-    this.currentDisplayedOption = optionType;
-  }
+    currentOption: any;
+    optionDisplayed: boolean;
 
-  getButtonFilesource(category: number): string {
-    return this.FILE_LOCATION + this.toolService.getToolCategoryFilename(category);
-  }
+    constructor(
+        private paletteService: PaletteService,
+        private dialogService: DialogService,
+        private drawAreaService: DrawAreaService) {
 
-  getOptionTopMargin(): number {
-    return this.currentDisplayedOption * 50;
-  }
+    }
 
-  getToolCategory(): number {
-    return this.toolService.getToolCategoryIndex();
-  }
+    ngOnInit() {
+        this.options = [ this.toolOption, this.shapeOption ];
 
-  chooseWorkingTool() {
-    this.displayOption(OptionType.TOOL);
+        this.currentOption = this.toolOption;
+        this.optionDisplayed = false;
+    }
 
-    this.toolService.setToolCategoryIndex(0);
-  }
+    selectOption(option: any): void {
+        this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
+        this.currentOption = option;
+        this.currentOption.selectTool(this.currentOption.currentTool);
+    }
 
-  newDrawingOption() {
-    this.dialogService.openNewDrawing();
-  }
-  saveImage() {
-    this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
-    this.paletteService.selectSecondary(Math.floor(Math.random() * 4294967296));
-    this.drawAreaService.save();
-  }
+    newDrawingOption() {
+        this.dialogService.openNewDrawing();
+    }
+    saveImage() {
+        this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
+        this.paletteService.selectSecondary(Math.floor(Math.random() * 4294967296));
+        this.drawAreaService.save();
+    }
+
+    getImage(option: any) {
+        return this.FILE_LOCATION + option.currentTool.FILENAME;
+    }
 }

@@ -40,7 +40,6 @@ export class SVGPencil implements SVGInterface {
 
             // Check is coords are close enough to a cordner
             if (toCoordDistanceSquared <= halfWidthSquared) {
-                console.log("IS AT");
                 return true;
             }
 
@@ -51,7 +50,6 @@ export class SVGPencil implements SVGInterface {
             if (perpendicularDistanceSquared <= halfWidthSquared) {
                 const lenRatio: number = parallel[0] / directionVector[0];
                 if (lenRatio <= 1.0 && lenRatio >= 0.0) {
-                    console.log("IS AT");
                     return true;
                 }
             }
@@ -59,7 +57,6 @@ export class SVGPencil implements SVGInterface {
             point0 = point1;
         }
 
-        console.log("IS NOT AT");
         return false;
     }
     isIn(x: number, y: number, r: number): boolean {

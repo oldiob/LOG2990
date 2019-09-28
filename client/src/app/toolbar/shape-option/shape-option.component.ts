@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolService } from 'src/services/tool/tool.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { ToolService } from 'src/services/tool/tool.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { Pencil } from 'src/services/tool/tool-options/pencil';
-import { Brush } from 'src/services/tool/tool-options/brush';
-import { Bucket } from 'src/services/tool/tool-options/bucket';
 import { SVGService } from 'src/services/svg/svg.service';
+import { Rectangle } from 'src/services/tool/tool-options/rectangle';
 
 @Component({
-    selector: 'app-tool-option',
-    templateUrl: './tool-option.component.html',
-    styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
+    selector: 'app-shape-option',
+    templateUrl: './shape-option.component.html',
+    styleUrls: ['./shape-option.component.scss', '../toolbar-option.scss']
 })
-export class ToolOptionComponent implements OnInit {
+export class ShapeOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
     thickness: number;
@@ -21,12 +19,10 @@ export class ToolOptionComponent implements OnInit {
     currentTool: ITool;
 
     constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService) {
-        const pencil: Pencil = new Pencil(rendererProvider.renderer);
-        const brush: Brush = new Brush(rendererProvider.renderer);
-        const bucket: Bucket = new Bucket(svgService);
+        const rectangle: Rectangle = new Rectangle(rendererProvider.renderer);
 
-        this.tools = [pencil, brush, bucket];
-        this.selectTool(pencil);
+        this.tools = [rectangle];
+        this.selectTool(rectangle);
     }
 
     ngOnInit() {
@@ -41,4 +37,5 @@ export class ToolOptionComponent implements OnInit {
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + tool.FILENAME;
     }
+
 }
