@@ -16,7 +16,6 @@ export class ToolOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
     thickness: number;
-    currentlySelectedIndex: number;
 
     tools: ITool[];
     currentTool: ITool;
