@@ -7,31 +7,14 @@ export class SVGCustom implements SVGInterface {
     previousX = 0;
     previousY = 0;
 
-    isFilterIni = false;
-
-    filterBlur: any;
-    filterBlurContent: any;
-    parent: any;
-
     points: number[][];
 
     lineWidth: number;
 
     constructor(private renderer: Renderer2) {
-        if (!this.isFilterIni) {
-          this.isFilterIni = true;
-          this.iniFilters();
-        }
         this.points = [];
         this.element = this.renderer.createElement('g', 'svg');
 
-    }
-    iniFilters() {
-        this.filterBlur = this.renderer.createElement('filter', 'svg');
-        this.renderer.setAttribute(this.filterBlur, 'id', 'blur');
-        this.filterBlurContent = this.renderer.createElement('feGaussianBlur', 'svg');
-        this.renderer.setAttribute(this.filterBlurContent, 'stdDeviation', '2');
-        this.renderer.appendChild(this.filterBlur, this.filterBlurContent);
     }
 
     isAt(x: number, y: number): boolean {
@@ -96,10 +79,14 @@ export class SVGCustom implements SVGInterface {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
+        this.interpolate(x, y);
 
-        this.paintBrushII(x, y);
+        this.useBrush(x, y);
 
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
+    }
+    useBrush(x: number, y: number): void {
+        this.paintBrushIII(x, y);
     }
 
     paintBrush(x: number, y: number): void {
@@ -109,7 +96,6 @@ export class SVGCustom implements SVGInterface {
       this.renderer.setAttribute(circle, 'cy', y.toString());
       this.renderer.setAttribute(circle, 'r', radius.toString());
       this.renderer.setAttribute(circle, 'fill', 'none');
-      this.renderer.setAttribute(circle, 'stroke', 'black');
       this.renderer.appendChild(this.element, circle);
     }
 
@@ -122,17 +108,47 @@ export class SVGCustom implements SVGInterface {
       this.renderer.appendChild(this.element, rec);
     }
 
+    paintBrushRectII(x: number, y: number): void {
+        for (let i = 0; i < 8; i++) {
+            this.paintBrushRect(x + this.getRandomInt(this.lineWidth * 2), y + this.getRandomInt(this.lineWidth * 2));
+        }
+    }
+
     paintBrushII(x: number, y: number): void {
       const radius = this.lineWidth;
       if (Math.abs(x - this.previousX) >= radius || Math.abs(y - this.previousY) >=  radius) {
         this.previousX = x;
         this.previousY = y;
         this.paintBrush(x, y);
-        this.paintBrush(x - radius*2, y);
-        this.paintBrush(x + radius*2, y);
-        this.paintBrush(x, y - radius*2);
-        this.paintBrush(x, y + radius*2);
+        this.paintBrush(x - radius * 2, y);
+        this.paintBrush(x + radius * 2, y);
+        this.paintBrush(x, y - radius * 2);
+        this.paintBrush(x, y + radius * 2);
       }
+    }
+    paintBrushIII(x: number, y: number): void {
+        for (let i = 0; i < 8; i++) {
+            this.paintBrush(x + this.getRandomInt(this.lineWidth * 2), y + this.getRandomInt(this.lineWidth * 2));
+        }
+    }
+    interpolate(x: number, y: number): void {
+        console.log('called');
+        if (Math.abs(this.previousX - x) >= this.lineWidth && Math.abs(y - this.previousY) >= this.lineWidth) {
+            if (this.previousX === 0) {
+                this.previousX = x;
+            }
+            if (this.previousY === 0) {
+                this.previousY = y;
+            }
+            const localPreviousX = this.previousX;
+            const localPreviousY = this.previousY;
+            this.previousX = x;
+            this.previousY = y;
+            this.addPoint((x + localPreviousX) / 2, (y + localPreviousY) / 2);
+        }
+    }
+    getRandomInt(max: number): number {
+        return Math.floor(Math.random() * Math.floor(max) - (max / 2));
     }
 
 
