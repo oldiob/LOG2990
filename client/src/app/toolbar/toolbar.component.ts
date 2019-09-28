@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { DialogService } from "src/services/dialog/dialog.service"
 import { PaletteService } from 'src/services/palette/palette.service';
