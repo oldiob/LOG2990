@@ -20,11 +20,15 @@ export class ColorOptionComponent implements OnInit {
 
     selectPrimary(): void {
         // TODO - Implement me
-        this.paletteService.selectPrimary(Math.trunc(Math.random() * 0xFFFFFFFF));
+        this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
     }
 
     selectSecondary(): void {
         // TODO - Implement me
-        this.paletteService.selectSecondary(Math.trunc(Math.random() * 0xFFFFFFFF));
+        this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
+    }
+
+    private rn(): number {
+        return Math.trunc(Math.random() * 255);
     }
 }

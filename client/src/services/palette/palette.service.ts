@@ -15,7 +15,7 @@ export class PaletteService {
         this.previous.memSet(PaletteService.DEFAULT_MEMSET);
     }
 
-    static readonly DEFAULT_PRIMARY: Color = new Color(255, 255, 255, 255);
+    static readonly DEFAULT_PRIMARY: Color = new Color(0, 0, 0, 255);
     static readonly DEFAULT_SECONDARY: Color = new Color(0, 0, 0, 255);
     static readonly DEFAULT_MEMSET: Color = new Color(0, 0, 0, 0);
     static readonly MAX_HISTORY = 10;
@@ -40,6 +40,14 @@ export class PaletteService {
         const previous: Color = this.secondary;
         this.secondary = new Color(r, g, b, a);
         this.previous.add(previous);
+    }
+
+    getPrimary(): string {
+        return this.primary.toString();
+    }
+
+    getSecondary(): string {
+        return this.secondary.toString();
     }
 
     getHistory(): Color[] {

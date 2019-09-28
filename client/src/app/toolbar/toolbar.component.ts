@@ -52,12 +52,16 @@ export class ToolbarComponent implements OnInit {
         this.dialogService.openNewDrawing();
     }
     saveImage() {
-        this.paletteService.selectPrimary(Math.floor(Math.random() * 4294967296));
-        this.paletteService.selectSecondary(Math.floor(Math.random() * 4294967296));
+        this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
+        this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
         this.drawAreaService.save();
     }
 
     getImage(option: any) {
         return this.FILE_LOCATION + option.currentTool.FILENAME;
+    }
+
+    private rn(): number {
+        return Math.trunc(Math.random() * 255);
     }
 }

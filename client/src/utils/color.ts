@@ -12,6 +12,6 @@ export class Color {
     }
 
     toString(): string {
-        return 'rgba(${this.red}, ${this.alpha}, ${this.blue}, ${this.alpha})';
+        return `rgba(${this.red}, ${this.alpha}, ${this.blue}, ${this.alpha})`;
     }
 }
