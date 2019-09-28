@@ -15,10 +15,13 @@ export class Brush implements ITool {
     }
     onPressed(event: MouseEvent): SVGInterface {
         this.element = new SVGBrush(this.renderer);
-        this.element.addPoint(event.svgX, event.svgY);
-        this.element = new SVGCustom(this.renderer);
-        this.element.addPoint(event.svgX, event.svgY);
         this.element.setWidth(this.width);
+        this.element.addPoint(event.svgX, event.svgY);
+
+        this.element = new SVGCustom(this.renderer);
+        this.element.setWidth(this.width);
+
+        this.element.addPoint(event.svgX, event.svgY);
         return this.element;
     }
 
