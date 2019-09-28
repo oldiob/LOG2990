@@ -125,6 +125,11 @@ export class ColorPickerComponent implements OnInit {
   private getColor() {
     const pixel = this.context.getImageData(this.mouseX, this.mouseY, 1, 1);
 
+    console.log(pixel.data[0],
+      pixel.data[1],
+      pixel.data[2],
+      pixel.data[3]);
+
     const color: Color = new Color(
       pixel.data[0],
       pixel.data[1],

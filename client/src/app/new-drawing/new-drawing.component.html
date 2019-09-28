@@ -51,9 +51,9 @@
           <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
         </mat-form-field>
 
-        <mat-form-field class="rgba-field rgba-opacity">
-          <input matInput type="number" formControlName="opacity" (change)="onColorRGBAChange()"
-            value="{{DEFAULT_OPACITY}}">
+        <mat-form-field class="rgba-field">
+          <input matInput type="number" formControlName="alpha" (change)="onColorRGBAChange()"
+            value="{{DEFAULT_ALPHA}}">
         </mat-form-field>
       </label>
 

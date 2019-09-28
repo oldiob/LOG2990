@@ -114,7 +114,7 @@ export class NewDrawingComponent implements OnInit {
     return this.newDrawingFrom.controls.blue.value;
   }
   get alpha() {
-    return this.newDrawingFrom.controls.opacity.value;
+    return this.newDrawingFrom.controls.alpha.value;
   }
   get isOverrideOldDrawing() {
     return this.newDrawingFrom.controls.isOverrideOldDrawing.value;
@@ -141,7 +141,7 @@ export class NewDrawingComponent implements OnInit {
     this.newDrawingFrom.controls.red.setValue(color.red);
     this.newDrawingFrom.controls.green.setValue(color.green);
     this.newDrawingFrom.controls.blue.setValue(color.blue);
-    this.newDrawingFrom.controls.opacity.setValue(color.alpha);
+    this.newDrawingFrom.controls.alpha.setValue(color.alpha);
     this.updateColorHEX();
   }
 
