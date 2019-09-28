@@ -16,8 +16,6 @@ import { ColorOptionComponent } from './app/toolbar/color-option/color-option.co
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
-import { KeytrackDirective } from './directive/keytrack.directive';
-import { MousetrackDirective } from './directive/mousetrack.directive';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 
@@ -27,8 +25,6 @@ import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.co
         ColorOptionComponent,
         DrawAreaComponent,
         EntryPointComponent,
-        KeytrackDirective,
-        MousetrackDirective,
         NewDrawingComponent,
         PolyDessinComponent,
         ToolOptionComponent,
