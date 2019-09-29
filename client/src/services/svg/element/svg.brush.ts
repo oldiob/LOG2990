@@ -1,5 +1,4 @@
 import { Renderer2 } from '@angular/core';
-import { SVGService } from '../svg.service';
 import { SVGInterface } from './svg.interface';
 
 export class SVGBrush implements SVGInterface {

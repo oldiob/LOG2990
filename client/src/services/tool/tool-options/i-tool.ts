@@ -7,8 +7,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 export interface ITool {
     readonly FILENAME: string;
 
-
-    onPressed(event: MouseEvent): SVGInterface | null;
+    onPressed(event: MouseEvent): void;
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;
 }

@@ -1,10 +1,13 @@
-import { Renderer2 } from '@angular/core';
+import { Renderer2, Injectable } from '@angular/core';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
 import { SVGCustom } from 'src/services/svg/element/svg.custom';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
 
-export class Brush implements ITool {
+@Injectable({
+    providedIn: 'root',
+})
+export class BrushTool implements ITool {
     FILENAME = 'brush.png';
     element: SVGInterface | null;
 
@@ -13,24 +16,24 @@ export class Brush implements ITool {
     constructor(private renderer: Renderer2) {
         this.width = 1;
     }
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): void {
         this.element = new SVGBrush(this.renderer);
-        this.element.setWidth(this.width);
+        /*this.element.setWidth(this.width);
         this.element.addPoint(event.svgX, event.svgY);
 
         this.element = new SVGCustom(this.renderer);
         this.element.setWidth(this.width);
 
         this.element.addPoint(event.svgX, event.svgY);
-        return this.element;
+        return this.element;*/
     }
 
-    onMotion(x: number, y: number): void {
+    onMotion(event: MouseEvent): void {
         if (this.element != null) {
-            this.element.addPoint(x, y);
+            //this.element.addPoint(x, y);
         }
     }
-    onReleased(x: number, y: number): void {
+    onReleased(event: MouseEvent): void {
         throw new Error('Method not implemented.');
     }
 

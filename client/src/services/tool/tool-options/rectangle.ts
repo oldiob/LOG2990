@@ -2,11 +2,13 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
+import { SVGService } from 'src/services/svg/svg.service';
+import { PaletteService } from 'src/services/palette/palette.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RectangleService implements ITool {
+export class RectangleTool implements ITool {
 
     width: number;
     readonly FILENAME: string = 'rectangle.png';
@@ -14,14 +16,18 @@ export class RectangleService implements ITool {
 
     protected renderer: Renderer2;
 
-    constructor(factory: RendererFactory2) {
+    constructor(factory: RendererFactory2, private svgService: SVGService, private paletteService: PaletteService) {
         this.renderer = factory.createRenderer(null, null);
         this.width = 1;
     }
 
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): void {
         this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
-        return this.element;
+
+        this.element.setPrimary(this.paletteService.getPrimary());
+        this.element.setSecondary(this.paletteService.getSecondary());
+
+        this.svgService.addObject(this.element);
     }
     onReleased(event: MouseEvent): void {
         this.element = null;
