@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
 import { RGBA } from '../../utils/rgba';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
@@ -30,6 +31,7 @@ export class NewDrawingComponent implements OnInit {
   private heightSubscription: Subscription;
 
   constructor(
+    private svgService: SVGService,
     private formBuilder: FormBuilder,
     private workZoneService: WorkZoneService,
     private drawAreaService: DrawAreaService) {
@@ -153,6 +155,7 @@ export class NewDrawingComponent implements OnInit {
     const bgColor = this.backgroundColor;
     this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
     this.drawAreaService.dirty();
+    this.svgService.clearDrawArea();
   }
 
   onColorRGBAChange() {
