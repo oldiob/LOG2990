@@ -46,9 +46,9 @@ describe('PaletteService', () => {
         const SECONDARY = PaletteService.DEFAULT_SECONDARY;
 
         expect(service.getPrimary())
-            .toEqual(`rgba(${PRIMARY.red}, ${PRIMARY.green}, ${PRIMARY.blue}, ${PRIMARY.alpha})`);
+            .toEqual(PRIMARY.toString());
         expect(service.getSecondary())
-            .toEqual(`rgba(${SECONDARY.red}, ${SECONDARY.green}, ${SECONDARY.blue}, ${SECONDARY.alpha})`);
+            .toEqual(SECONDARY.toString());
         const history: Color[] = service.getHistory();
 
         history.forEach((value: Color) => expect(value)
