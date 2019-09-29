@@ -10,7 +10,9 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class BrushTool implements ITool {
-    FILENAME = 'brush.png';
+    readonly BUTTON_FILENAME = 'brush.png';
+    readonly CURSOR_FILENAME: string = 'brush-cursor.svg';
+
     element: SVGBrush;
 
     width: number;

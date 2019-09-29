@@ -9,7 +9,8 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class PencilTool implements ITool {
-    readonly FILENAME: string = 'pencil.png';
+    readonly BUTTON_FILENAME: string = 'pencil.png';
+    readonly CURSOR_FILENAME: string = 'pencil-cursor.svg';
 
     element: SVGPencil | null;
     width: number;

@@ -16,7 +16,7 @@ export class NewDrawingComponent implements OnInit {
   readonly DEFAULT_RED = 255;
   readonly DEFAULT_GREEN = 255;
   readonly DEFAULT_BLUE = 255;
-  readonly DEFAULT_ALPHA = 255;
+  readonly DEFAULT_ALPHA = 1;
 
   isSavedDrawing: boolean;
   displaySaveError: boolean;
@@ -67,7 +67,7 @@ export class NewDrawingComponent implements OnInit {
       red: [this.DEFAULT_RED, rgbaValidators],
       green: [this.DEFAULT_GREEN, rgbaValidators],
       blue: [this.DEFAULT_BLUE, rgbaValidators],
-      alpha: [this.DEFAULT_ALPHA, rgbaValidators],
+      alpha: [this.DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
 
       isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
     });

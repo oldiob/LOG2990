@@ -1,25 +1,29 @@
 <div class="toolbar-element toolbar">
-	<div class="tools">
-		<a *ngFor="let option of options" class="button" (click)="selectOption(option)"
-			[class.selected-toolbar-button]="option === currentOption">
-			<img class="toolbar-icon" [src]="getImage(option)">
-		</a>
-	</div>
+  <div class="tools">
+    <a *ngFor="let option of options" class="button" (click)="selectOption(option)"
+      [class.selected-toolbar-button]="option === currentOption">
+      <img class="toolbar-icon" [src]="getImage(option)">
+    </a>
+  </div>
 
-	<div class="options">
-		<a class="button" (click)="newDrawingOption()">
-			<img class="toolbar-icon" src="../../../assets/images/new.png">
-		</a>
-		<a class="button" (click)="saveImage()">
-			<img class="toolbar-icon" src="../../../assets/images/save.png">
-		</a>
-	</div>
+  <div class="options">
+    <a class="button" (click)="newDrawingOption()">
+      <img class="toolbar-icon" src="../../../assets/images/new.png">
+    </a>
+    <a class="button" (click)="saveImage()">
+      <img class="toolbar-icon" src="../../../assets/images/save.png">
+    </a>
+  </div>
 </div>
 
+<app-tool-option 
+  [class.disappear]="!optionDisplayed || currentOption !== toolOption"
+  [class.appear]="optionDisplayed && currentOption === toolOption"
+  class="toolbar-element toolbar-option selected-option disappear"></app-tool-option>
 
-<app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
-	[class.appear]="optionDisplayed && currentOption === toolOption"
-	class="toolbar-element toolbar-option selected-option "></app-tool-option>
-<app-shape-option [class.disappear]="optionDisplayed || currentOption !== shapeOption"
-	[class.appear]="optionDisplayed && currentOption === shapeOption"
-	class="toolbar-element toolbar-option selected-option"></app-shape-option>
+<app-shape-option 
+  [class.disappear]="!optionDisplayed || currentOption !== shapeOption"
+  [class.appear]="optionDisplayed && currentOption === shapeOption"
+  class="toolbar-element toolbar-option selected-option disappear"></app-shape-option>
+
+  <app-bucket-option></app-bucket-option>

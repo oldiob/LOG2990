@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DrawAreaService } from './../../services/draw-area/draw-area.service';
-import { DialogService } from "src/services/dialog/dialog.service"
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
+import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 
 export enum OptionType {
     TOOL = 0,
@@ -19,6 +20,9 @@ export class ToolbarComponent implements OnInit {
 
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
+
+    @ViewChild(BucketOptionComponent, { static: true })
+    bucketOption: BucketOptionComponent;
 
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
@@ -36,7 +40,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption];
+        this.options = [this.toolOption,this.shapeOption, this.bucketOption];
 
         this.currentOption = this.toolOption;
         this.optionDisplayed = false;
@@ -58,7 +62,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     getImage(option: any) {
-        return this.FILE_LOCATION + option.currentTool.FILENAME;
+        return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
     }
 
     private rn(): number {

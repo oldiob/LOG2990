@@ -1,13 +1,13 @@
+<div class="title">New</div>
 <div class="modal">
   <form class="modal-wrapper" [formGroup]="newDrawingFrom" (ngSubmit)="onSubmit()">
     <div class="content-wrapper">
-      <div class="title">New</div>
 
       <div class="dimensions-wrapper">
 
         <label class="field-wrapper">
           <span class="field-label">Width</span>
-          <mat-form-field class="field">
+          <mat-form-field color="accent" class="field">
             <input matInput (change)="onWidthChange()" type="number" formControlName="width" autofocus autocomplete=off>
             <mat-error *ngIf="newDrawingFrom.invalid">{{getWidthErrorMessage()}}</mat-error>
             <span matSuffix>px</span>
@@ -16,7 +16,7 @@
 
         <label>
           <span class="field-label">Height</span>
-          <mat-form-field class="field">
+          <mat-form-field color="accent" class="field">
             <input matInput (change)="onHeightChange()" type="number" formControlName="height" autocomplete=off>
             <mat-error *ngIf="newDrawingFrom.invalid">{{getHeightErrorMessage()}}</mat-error>
             <span matSuffix>px</span>
@@ -27,7 +27,7 @@
 
       <label>
         <span class="field-label">Background Color</span>
-        <mat-form-field class="field">
+        <mat-form-field color="accent" class="field">
           <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
             value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
         </mat-form-field>
@@ -37,21 +37,21 @@
       <label class="rgba-wrapper">
         <span class="field-label">RGBA </span>
 
-        <mat-form-field class="rgba-field">
+        <mat-form-field color="accent" class="rgba-field">
           <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
             class="rgba-field">
         </mat-form-field>
 
-        <mat-form-field class="rgba-field">
+        <mat-form-field color="accent" class="rgba-field">
           <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
             value="{{DEFAULT_GREEN}}">
         </mat-form-field>
 
-        <mat-form-field class="rgba-field">
+        <mat-form-field color="accent" class="rgba-field">
           <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
         </mat-form-field>
 
-        <mat-form-field class="rgba-field">
+        <mat-form-field color="accent" class="rgba-field rgba-alpha">
           <input matInput type="number" formControlName="alpha" (change)="onColorRGBAChange()"
             value="{{DEFAULT_ALPHA}}">
         </mat-form-field>

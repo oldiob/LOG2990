@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 import { ITool } from './i-tool';
@@ -10,7 +10,8 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class BucketTool implements ITool {
-    readonly FILENAME: string = 'bucket.png';
+    readonly BUTTON_FILENAME: string = 'bucket.png';
+    readonly CURSOR_FILENAME: string = 'bucket-cursor.svg';
 
     constructor(private svgService: SVGService,
                 private paletteService: PaletteService,

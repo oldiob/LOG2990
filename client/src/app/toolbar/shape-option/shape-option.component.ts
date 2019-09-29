@@ -32,7 +32,7 @@ export class ShapeOptionComponent implements OnInit {
     }
 
     getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + tool.FILENAME;
+        return this.FILE_LOCATION + tool.BUTTON_FILENAME;
     }
 
 }

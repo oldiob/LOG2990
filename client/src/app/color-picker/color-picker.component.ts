@@ -49,6 +49,7 @@ export class ColorPickerComponent implements OnInit {
     this.renderer.setStyle(this.picker, 'height', '20px');
     this.renderer.setStyle(this.picker, 'border', '2px solid white');
     this.renderer.setStyle(this.picker, 'border-radius', '100%');
+    this.renderer.setStyle(this.picker, 'opacity', '0');
   }
 
   private listenToColor() {
@@ -78,6 +79,7 @@ export class ColorPickerComponent implements OnInit {
   }
 
   private updatePickerStyle(event: MouseEvent) {
+    this.renderer.setStyle(this.picker, 'opacity', '1');
     this.renderer.setStyle(this.picker, 'pointer-events', 'none');
     this.renderer.setStyle(this.picker, 'left', event.clientX - 10 + 'px');
     this.renderer.setStyle(this.picker, 'top', event.clientY - 10 + 'px');
@@ -125,16 +127,11 @@ export class ColorPickerComponent implements OnInit {
   private getColor() {
     const pixel = this.context.getImageData(this.mouseX, this.mouseY, 1, 1);
 
-    console.log(pixel.data[0],
-      pixel.data[1],
-      pixel.data[2],
-      pixel.data[3]);
-
     const color: Color = new Color(
       pixel.data[0],
       pixel.data[1],
       pixel.data[2],
-      pixel.data[3]);
+      (pixel.data[3] / 255));
 
     this.pickedColor = color.toString();
     this.color.emit(color);
