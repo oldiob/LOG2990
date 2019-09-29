@@ -1,37 +1,41 @@
-import { Renderer2 } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
 
-export class Pencil implements ITool {
-    FILENAME = 'pencil.png';
+@Injectable({
+    providedIn: 'root',
+})
+export class PencilService implements ITool {
+
+    readonly FILENAME: string = "pencil.png";
     element: SVGPencil | null;
     width: number;
 
     protected renderer: Renderer2;
 
-    constructor(renderer: Renderer2) {
-        this.renderer = renderer;
+    constructor(factory: RendererFactory2) {
+        this.renderer = factory.createRenderer(null, null);
         this.width = 1;
     }
 
-    onPressed(x: number, y: number): void {
+    onPressed(event: MouseEvent): SVGInterface {
+        const x = event.svgX;
+        const y = event.svgY;
         this.element = new SVGPencil(this.renderer);
         this.element.addPoint(x, y);
         this.element.setWidth(this.width);
+        return this.element;
     }
-    onMotion(x: number, y: number): void {
+    onMotion(event: MouseEvent): void {
+        const x = event.svgX;
+        const y = event.svgY;
         if (this.element != null) {
             this.element.addPoint(x, y);
         }
     }
-    onReleased(x: number, y: number): void {
-        throw new Error('Method not implemented.');
+    onReleased(event: MouseEvent): void {
+        this.element = null;
     }
 
-    leftClick() {
-        throw new Error('Method not implemented.');
-    }
-    leftRelease() {
-        throw new Error('Method not implemented.');
-    }
 }

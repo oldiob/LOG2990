@@ -3,7 +3,7 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGService } from 'src/services/svg/svg.service';
-import { Rectangle } from 'src/services/tool/tool-options/rectangle';
+import { RectangleService } from 'src/services/tool/tool-options/rectangle';
 
 @Component({
     selector: 'app-shape-option',
@@ -18,11 +18,11 @@ export class ShapeOptionComponent implements OnInit {
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService) {
-        const rectangle: Rectangle = new Rectangle(rendererProvider.renderer);
+    constructor(private toolService: ToolService, rendererProvider: RendererProviderService, svgService: SVGService,
+        rectangleService: RectangleService) {
 
-        this.tools = [rectangle];
-        this.selectTool(rectangle);
+        this.tools = [rectangleService];
+        this.selectTool(this.tools[0]);
     }
 
     ngOnInit() {

@@ -23,7 +23,7 @@ export class SVGPencil implements SVGInterface {
             return false;
         }
 
-        let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0 ;
+        let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0;
 
         // width min 4
         if (halfWidthSquared < 16.0) {
@@ -82,7 +82,7 @@ export class SVGPencil implements SVGInterface {
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
     private pointsAttribute(): string {
-        return this.points.map((e) => e.join(',')).join(' ');
+        return this.points.map((e) => `${e[0]},${e[1]}`).join(' ');
     }
 
     /**

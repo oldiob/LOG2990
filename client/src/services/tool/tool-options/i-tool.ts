@@ -6,10 +6,13 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
  */
 export interface ITool {
     readonly FILENAME: string;
-    element: SVGInterface | null;
-    width: number;
 
-    onPressed(x: number, y: number): void;
-    onMotion(x: number, y: number): void;
-    onReleased(x: number, y: number): void;
+
+    onPressed(event: MouseEvent): SVGInterface | null;
+    onMotion(event: MouseEvent): void;
+    onReleased(event: MouseEvent): void;
+}
+
+declare global {
+    interface MouseEvent { svgX: number; svgY: number; }
 }

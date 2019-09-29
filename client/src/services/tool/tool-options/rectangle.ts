@@ -1,27 +1,34 @@
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
-import { ITool } from './i-tool';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { Renderer2 } from '@angular/core';
+import { ITool } from './i-tool';
 
-export class Rectangle implements ITool {
+@Injectable({
+    providedIn: 'root',
+})
+export class RectangleService implements ITool {
+
     width: number;
-    FILENAME = 'rectangle.png';
-    element: SVGInterface | null;
+    readonly FILENAME: string = 'rectangle.png';
+    element: SVGRect | null;
 
-    constructor(private renderer: Renderer2) {
+    protected renderer: Renderer2;
+
+    constructor(factory: RendererFactory2) {
+        this.renderer = factory.createRenderer(null, null);
         this.width = 1;
     }
 
-    onPressed(x: number, y: number): void {
-        this.element = new SVGRect(x, y, this.renderer);
-        this.element.addPoint(x, y);
+    onPressed(event: MouseEvent): SVGInterface {
+        this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
+        return this.element;
     }
-    onReleased(x: number, y: number): void {
+    onReleased(event: MouseEvent): void {
         this.element = null;
     }
-    onMotion(x: number, y: number): void  {
+    onMotion(event: MouseEvent): void {
         if (this.element != null) {
-            this.element.addPoint(x, y);
+            this.element.setCursor(event.svgX, event.svgY);
         }
     }
 }
