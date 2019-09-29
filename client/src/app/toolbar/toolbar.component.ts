@@ -27,6 +27,7 @@ export class ToolbarComponent implements OnInit {
 
     currentOption: any;
     optionDisplayed: boolean;
+    isLoaded: boolean;
 
     constructor(
         private paletteService: PaletteService,
@@ -40,6 +41,7 @@ export class ToolbarComponent implements OnInit {
 
         this.currentOption = this.toolOption;
         this.optionDisplayed = false;
+        this.isLoaded = false;
     }
 
     selectOption(option: any): void {

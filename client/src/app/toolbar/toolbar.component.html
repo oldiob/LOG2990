@@ -17,9 +17,11 @@
 </div>
 
 
-<app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
+<app-tool-option 
+	[class.disappear]="!optionDisplayed || currentOption !== toolOption"
 	[class.appear]="optionDisplayed && currentOption === toolOption"
-	class="toolbar-element toolbar-option selected-option "></app-tool-option>
-<app-shape-option [class.disappear]="optionDisplayed || currentOption !== shapeOption"
+	class="toolbar-element toolbar-option selected-option disappear"></app-tool-option>
+<app-shape-option 
+	[class.disappear]="!optionDisplayed || currentOption !== shapeOption"
 	[class.appear]="optionDisplayed && currentOption === shapeOption"
-	class="toolbar-element toolbar-option selected-option"></app-shape-option>
+	class="toolbar-element toolbar-option selected-option disappear"></app-shape-option>
