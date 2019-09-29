@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ToolService } from 'src/services/tool/tool.service';
+import { BlurTexture } from 'src/services/svg/element/texture/blur';
+import { CircleTexture } from 'src/services/svg/element/texture/circle';
+import { ITexture } from 'src/services/svg/element/texture/i-texture';
+import { RectTexture } from 'src/services/svg/element/texture/rect';
+import { BrushTool } from 'src/services/tool/tool-options/brush';
+import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
-import { BrushTool } from 'src/services/tool/tool-options/brush';
-import { BlurTexture } from 'src/services/svg/element/texture/blur';
-import { ITexture } from 'src/services/svg/element/texture/i-texture';
-import { CircleTexture } from 'src/services/svg/element/texture/circle';
-import { RectTexture } from 'src/services/svg/element/texture/rect';
+import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
     selector: 'app-tool-option',
@@ -42,6 +42,6 @@ export class ToolOptionComponent implements OnInit {
     }
 
     getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + tool.FILENAME;
+        return this.FILE_LOCATION + tool.BUTTON_FILENAME;
     }
 }

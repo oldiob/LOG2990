@@ -1,16 +1,18 @@
-import { Renderer2, Injectable } from '@angular/core';
-import { SVGBrush } from 'src/services/svg/element/svg.brush';
-import { ITool } from './i-tool';
-import { ITexture } from 'src/services/svg/element/texture/i-texture';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { SVGService } from 'src/services/svg/svg.service';
+import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { SVGBrush } from 'src/services/svg/element/svg.brush';
+import { ITexture } from 'src/services/svg/element/texture/i-texture';
+import { SVGService } from 'src/services/svg/svg.service';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
 export class BrushTool implements ITool {
-    FILENAME = 'brush.png';
+    readonly BUTTON_FILENAME = 'brush.png';
+    readonly CURSOR_FILENAME: string = 'brush-cursor.svg';
+
     element: SVGBrush;
 
     width: number;
