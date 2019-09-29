@@ -4,7 +4,6 @@ import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
 import { RectTexture } from 'src/services/svg/element/texture/rect';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -23,12 +22,12 @@ export class ToolOptionComponent implements OnInit {
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, pencil: PencilTool, brush: BrushTool, bucket: BucketTool) {
+    constructor(private toolService: ToolService, pencil: PencilTool, brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture()];
 
         brush.texture = this.textures[2];
 
-        this.tools = [ pencil, brush, bucket];
+        this.tools = [ pencil, brush];
         this.selectTool(this.tools[0]);
     }
 
