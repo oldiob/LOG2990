@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DrawAreaService } from './../../services/draw-area/draw-area.service';
-import { DialogService } from "src/services/dialog/dialog.service"
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
+import { ToolOptionComponent } from './tool-option/tool-option.component';
 
 export enum OptionType {
     TOOL = 0,
@@ -27,7 +27,6 @@ export class ToolbarComponent implements OnInit {
 
     currentOption: any;
     optionDisplayed: boolean;
-    isLoaded: boolean;
 
     constructor(
         private paletteService: PaletteService,
@@ -41,7 +40,6 @@ export class ToolbarComponent implements OnInit {
 
         this.currentOption = this.toolOption;
         this.optionDisplayed = false;
-        this.isLoaded = false;
     }
 
     selectOption(option: any): void {
