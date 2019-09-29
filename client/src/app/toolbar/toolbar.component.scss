@@ -1,6 +1,7 @@
 .toolbar-option {
     background-color: #151b33;
     width: 250px;
+    height: 100%;
     text-align: center;
     display: inline-block;
     z-index: -1;
@@ -64,14 +65,11 @@ a:hover {
     background-color: #0b0e1a;
 }
 
-.icon-wrapper{
-    padding: 10px;
-}
-
 .toolbar-icon {
+    --length: 29px;
     display: block;
-    height: 32px;
-    width: 32px;
+    height: var(--length);
+    width: var(--length);
 }
 
 .selected-toolbar-button {

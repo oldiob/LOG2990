@@ -1,40 +1,33 @@
-.separation {
-    height: 80px;
-    width: 100%;
-
-    display: flex;
-    border-bottom: 1px black solid;
-
-    color: beige;
-}
-
-
-.big-separation {
-    border-bottom: 3px black solid;
-}
-
 .title {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  padding: 35px;
+  display: flex;
+  color: beige;
+  background-color: darken(#344380, 15%);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+}
+
+.button {
+  padding: 13px;
+  border-radius: 25%;
 }
 
 .tool-icon {
-    height: 28px;
-    width: 28px;
+  height: 28px;
+  width: 28px;
 }
 
 .selected-tool {
-    background-color: #344380;
-}
-
-a {
-	width: 40px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+  background-color: #344380;
 }
 
 a:hover {
-    background-color: #0b0e1a;
+  background-color: #0b0e1a;
 }
