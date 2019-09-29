@@ -1,2 +1,6 @@
-<input type="range" [(ngModel)]="width" min="0.5" max="25" step="0.1" class="slider">
-<h1>Current width : {{ this.width }}</h1>
+<div class="container">
+    <div class="text2 text">Width : </div>
+    <input class="text2 input-text" [value]="width" [(ngModel)]="width" autocomplete=off>
+</div>
+
+<input type="range" [(ngModel)]="width" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">

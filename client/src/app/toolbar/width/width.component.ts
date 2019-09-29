@@ -3,16 +3,18 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
     selector: 'app-width',
     templateUrl: './width.component.html',
-    styleUrls: ['./width.component.scss',],
+    styleUrls: ['./width.component.scss', '../toolbar-option.scss'],
 })
 export class WidthComponent implements OnInit {
+    readonly MAX_WIDTH: number = 25.0;
+    readonly MIN_WIDTH: number = 0.5;
 
     @Output()
     widthEmmiter: EventEmitter<number> = new EventEmitter<number>();
     private mWidth: number;
 
     constructor() {
-        this.mWidth = 1.0;
+        //
     }
 
     ngOnInit() {
