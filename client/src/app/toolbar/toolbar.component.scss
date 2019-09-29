@@ -4,6 +4,7 @@
     text-align: center;
     display: inline-block;
     z-index: -1;
+    box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar {
@@ -11,8 +12,8 @@
     text-align: center;
     background-color: #212749;
     position: absolute;
-    width: 50px;
     z-index: 0;
+    box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
 }
 
 .toolbar-element {
@@ -24,19 +25,26 @@
 
 .disappear {
     transform: translate(-100%,0 );
-    transition: all 0.4s;
+    transition: all 0.4s ease 0.1s;
 }
 
 .appear {
-    transform: translate(20%,0 );
-    transition: all 0.4s;
+    transform: translate(30%,0 );
+    transition: all 0.4s ease;
 }
 
 .tools {
-	height: 70%;
+    height: 70%;
+    display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+.button {
+    margin: 10px;
+    padding: 28px;
+    border-radius: 25%;
 }
 
 .options {
@@ -56,7 +64,12 @@ a:hover {
     background-color: #0b0e1a;
 }
 
+.icon-wrapper{
+    padding: 10px;
+}
+
 .toolbar-icon {
+    display: block;
     height: 32px;
     width: 32px;
 }
