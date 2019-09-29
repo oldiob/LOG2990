@@ -1,5 +1,3 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-
 /**
  * Implementations of this interface should return raw SVGInterface with
  * position elements without color, thickness or texture.
@@ -7,8 +5,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 export interface ITool {
     readonly FILENAME: string;
 
-
-    onPressed(event: MouseEvent): SVGInterface | null;
+    onPressed(event: MouseEvent): void;
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;
 }

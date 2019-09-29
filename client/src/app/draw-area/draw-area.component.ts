@@ -3,7 +3,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
-declare type callback = () => void;
+//declare type callback = () => void;
 
 @Component({
     selector: 'app-draw-area',
@@ -78,7 +78,7 @@ export class DrawAreaComponent implements OnInit {
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
         if (this.isOnceWhileDown) {
-            this.svgService.addObject(this.toolService.currentTool.onPressed(event));
+            this.toolService.currentTool.onPressed(event);
             this.isOnceWhileDown = false;
         }
         this.isMouseDown = true;
@@ -101,7 +101,11 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window: keypress', ['$event'])
     @HostListener('window: keydown', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
-        const kbd: { [id: string]: callback } = {
+        /*const kbd: { [id: string]: callback } = {
+            'c': () => { this.toolService.setCurrentToolIndex(0) },
+            'w': () => { this.toolService.setCurrentToolIndex(1) },
+            'b': () => { this.toolService.setCurrentToolIndex(2) },
+            '1': () => { this.toolService.setCurrentToolIndex(3) },
             'C-s': () => { console.log("TODO - Remove me"); }
         };
         let keys: string = "";
@@ -112,6 +116,6 @@ export class DrawAreaComponent implements OnInit {
         if (kbd[keys]) {
             let func: callback = kbd[keys];
             func();
-        }
+        }*/
     }
 }
