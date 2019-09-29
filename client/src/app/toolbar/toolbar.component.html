@@ -2,9 +2,7 @@
   <div class="tools">
     <a *ngFor="let option of options" class="button" (click)="selectOption(option)"
       [class.selected-toolbar-button]="option === currentOption">
-      <div class="icon-wrapper">
 				<img class="toolbar-icon" [src]="getImage(option)">
-			</div>
     </a>
   </div>
 
