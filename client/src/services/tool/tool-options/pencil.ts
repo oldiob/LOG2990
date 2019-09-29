@@ -32,6 +32,7 @@ export class PencilTool implements ITool {
         this.element = new SVGPencil(this.renderer);
         this.element.setWidth(this.width);
         this.element.addPoint(x, y);
+        this.element.addPoint(x, y);
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
