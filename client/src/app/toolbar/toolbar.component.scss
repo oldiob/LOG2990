@@ -23,12 +23,12 @@
 
 
 .disappear {
-    transform: translate(-150%,0 );
+    transform: translate(-100%,0 );
     transition: all 0.4s;
 }
 
 .appear {
-    transform: translate(50%,0 );
+    transform: translate(20%,0 );
     transition: all 0.4s;
 }
 
@@ -64,3 +64,11 @@ a:hover {
 .selected-toolbar-button {
     background-color: #344380;
 }
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
