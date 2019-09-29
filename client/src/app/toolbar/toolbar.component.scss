@@ -5,6 +5,8 @@
     text-align: center;
     display: inline-block;
     z-index: -1;
+    -webkit-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -14,6 +16,8 @@
     background-color: #212749;
     position: absolute;
     z-index: 0;
+    -webkit-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
 }
 

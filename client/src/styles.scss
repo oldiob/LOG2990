@@ -20,5 +20,11 @@ body {
 }
 
 .trend-dialog .mat-dialog-container{
-  overflow-y: hidden !important;
+  overflow: hidden !important;
+}
+
+.mat-dialog-container  {
+  background-color: lighten(#212749, 8%);
+  padding: 0 !important;
+  margin: 0;
 }
