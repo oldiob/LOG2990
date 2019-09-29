@@ -115,13 +115,17 @@ export class SVGRect implements SVGInterface {
         if (shift) {
             const diffX = x - this.x1;
             const diffY = y - this.y1;
-            if (Math.abs(diffX) < Math.abs(diffY))
+            if (Math.abs(diffX) < Math.abs(diffY)) {
                 y = this.y1 + Math.abs(diffX) * Math.sign(diffY);
-            else
+            } else {
                 x = this.x1 + Math.abs(diffY) * Math.sign(diffX);
+            }
         }
         this.x2 = x;
         this.y2 = y;
-        this.renderer.setAttribute(this.element, 'points', `${this.x1},${this.y1} ${this.x2},${this.y1} ${this.x2},${this.y2} ${this.x1},${this.y2}`);
+        this.renderer.setAttribute(this.element, 'points', `${this.x1},${this.y1}
+                                                            ${this.x2},${this.y1}
+                                                            ${this.x2},${this.y2}
+                                                            ${this.x1},${this.y2}`);
     }
 }
