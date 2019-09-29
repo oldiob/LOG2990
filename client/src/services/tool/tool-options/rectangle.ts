@@ -1,9 +1,9 @@
 import { Injectable, Renderer2 } from '@angular/core';
-import { SVGRect } from 'src/services/svg/element/svg.rect';
-import { ITool } from './i-tool';
-import { SVGService } from 'src/services/svg/svg.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { SVGRect } from 'src/services/svg/element/svg.rect';
+import { SVGService } from 'src/services/svg/svg.service';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
@@ -11,7 +11,9 @@ import { RendererProviderService } from 'src/services/renderer-provider/renderer
 export class RectangleTool implements ITool {
 
     width: number;
-    readonly FILENAME: string = 'rectangle.png';
+    readonly BUTTON_FILENAME: string = 'rectangle.png';
+    readonly CURSOR_FILENAME: string = 'rectangle-cursor.svg';
+
     element: SVGRect | null;
 
     protected renderer: Renderer2;

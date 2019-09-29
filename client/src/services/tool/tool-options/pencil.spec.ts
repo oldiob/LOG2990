@@ -1,10 +1,10 @@
-import { PencilService } from './pencil';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { PencilService } from './pencil';
 
 describe('PencilService', () => {
 
     const elementSpy = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
-    let factory = jasmine.createSpyObj('RendererFactory2', ['createRenderer']);
+    const factory = jasmine.createSpyObj('RendererFactory2', ['createRenderer']);
     let service: PencilService;
     let event: MouseEvent;
 
