@@ -4,6 +4,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
+import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 
 @Injectable({
     providedIn: 'root',
@@ -16,8 +17,12 @@ export class PencilTool implements ITool {
 
     protected renderer: Renderer2;
 
-    constructor(factory: RendererFactory2, private svgService: SVGService, private paletteService: PaletteService) {
-        this.renderer = factory.createRenderer(null, null);
+    constructor(
+            rendererProvider: RendererProviderService,
+            private svgService: SVGService,
+            private paletteService: PaletteService) {
+
+        this.renderer = rendererProvider.renderer;
         this.width = 1;
     }
 

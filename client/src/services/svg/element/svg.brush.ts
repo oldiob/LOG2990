@@ -1,42 +1,25 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from './svg.interface';
+import { ITexture } from './texture/i-texture';
 
 export class SVGBrush implements SVGInterface {
     element: any;
 
-    isFilterIni = false;
-
-    filterBlur: any;
-    filterBlurContent: any;
+    previousX = 0;
+    previousY = 0;
 
     points: number[][];
 
     lineWidth: number;
 
-    constructor(private renderer: Renderer2) {
+    texture: ITexture;
+
+    constructor(public renderer: Renderer2, width: number, texture: ITexture) {
         this.points = [];
-        this.element = this.renderer.createElement('polyline', 'svg');
+        this.lineWidth = width;
+        this.texture = texture;
 
-        this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
-        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
-
-        if (!this.isFilterIni) {
-            this.isFilterIni = true;
-            this.iniFilters();
-        }
-        //this.renderer.setAttribute(this.element, 'stroke-dasharray', '10');
-
-        //this.renderer.setAttribute(this.element, 'filter', 'url(#blur)');
-    }
-    iniFilters() {
-        this.filterBlur = this.renderer.createElement('filter', 'svg');
-        this.renderer.setAttribute(this.filterBlur, 'id', 'blur');
-        this.filterBlurContent = this.renderer.createElement('feGaussianBlur', 'svg');
-        this.renderer.setAttribute(this.filterBlurContent, 'stdDeviation', '2');
-        this.renderer.appendChild(this.filterBlur, this.filterBlurContent);
-
-        this.renderer.setAttribute(this.element, 'filter', 'url(#blur)');
+        this.texture.create(this);
     }
 
     isAt(x: number, y: number): boolean {
@@ -91,7 +74,7 @@ export class SVGBrush implements SVGInterface {
         this.renderer.setAttribute(this.element, 'stroke', color);
     }
     setSecondary(color: string): void {
-        // No secondary for the pencil
+        // No secondary for brush
     }
 
     setWidth(width: number): void {
@@ -102,11 +85,11 @@ export class SVGBrush implements SVGInterface {
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
 
-        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
+        this.texture.addPoint(this, x, y);
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
-    private pointsAttribute(): string {
+    pointsAttribute(): string {
         return this.points.map((e) => e.join(',')).join(' ');
     }
 

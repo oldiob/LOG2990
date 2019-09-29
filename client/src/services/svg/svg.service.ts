@@ -37,9 +37,6 @@ export class SVGService {
             return;
         }
 
-        obj.setPrimary(this.paletteService.getPrimary());
-        obj.setSecondary(this.paletteService.getSecondary());
-
         this.objects.push(obj);
         this.rendererProvider.renderer.appendChild(this.entry.nativeElement, obj.element);
     }
