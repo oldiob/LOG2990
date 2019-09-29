@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
-import { RGBA } from '../../utils/rgba';
+import { Color } from 'src/utils/color';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 @Component({
   selector: 'app-new-drawing',
@@ -16,7 +16,7 @@ export class NewDrawingComponent implements OnInit {
   readonly DEFAULT_RED = 255;
   readonly DEFAULT_GREEN = 255;
   readonly DEFAULT_BLUE = 255;
-  readonly DEFAULT_OPACITY = 1;
+  readonly DEFAULT_ALPHA = 255;
 
   isSavedDrawing: boolean;
   displaySaveError: boolean;
@@ -24,7 +24,7 @@ export class NewDrawingComponent implements OnInit {
 
   defaultWidth: number;
   defaultHeight: number;
-  rgba: RGBA;
+  color: Color;
   newDrawingFrom: FormGroup;
 
   private widthSubscription: Subscription;
@@ -47,13 +47,11 @@ export class NewDrawingComponent implements OnInit {
   }
 
   private createForm() {
-    const DEFAULT_BACKGROUND_RGBA =
-      this.formatToRGBA({
-        red: this.DEFAULT_RED,
-        green: this.DEFAULT_GREEN,
-        blue: this.DEFAULT_BLUE,
-        opacity: this.DEFAULT_OPACITY,
-      });
+    const DEFAULT_BACKGROUND_RGBA: Color = new Color(
+      this.DEFAULT_RED,
+      this.DEFAULT_GREEN,
+      this.DEFAULT_BLUE,
+      this.DEFAULT_ALPHA);
 
     // Form to create new work zone to draw
     const rgbaValidators = [Validators.min(0), Validators.max(255)];
@@ -69,7 +67,7 @@ export class NewDrawingComponent implements OnInit {
       red: [this.DEFAULT_RED, rgbaValidators],
       green: [this.DEFAULT_GREEN, rgbaValidators],
       blue: [this.DEFAULT_BLUE, rgbaValidators],
-      opacity: [this.DEFAULT_OPACITY, rgbaValidators],
+      alpha: [this.DEFAULT_ALPHA, rgbaValidators],
 
       isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
     });
@@ -117,8 +115,8 @@ export class NewDrawingComponent implements OnInit {
   get blue() {
     return this.newDrawingFrom.controls.blue.value;
   }
-  get opacity() {
-    return this.newDrawingFrom.controls.opacity.value;
+  get alpha() {
+    return this.newDrawingFrom.controls.alpha.value;
   }
   get isOverrideOldDrawing() {
     return this.newDrawingFrom.controls.isOverrideOldDrawing.value;
@@ -140,12 +138,12 @@ export class NewDrawingComponent implements OnInit {
     this.displaySaveError = true;
   }
 
-  onColorPick(rgba: RGBA) {
-    this.backgroundColor = this.formatToRGBA(rgba);
-    this.newDrawingFrom.controls.red.setValue(rgba.red);
-    this.newDrawingFrom.controls.green.setValue(rgba.green);
-    this.newDrawingFrom.controls.blue.setValue(rgba.blue);
-    this.newDrawingFrom.controls.opacity.setValue(rgba.opacity);
+  onColorPick(color: Color) {
+    this.backgroundColor = color.toString();
+    this.newDrawingFrom.controls.red.setValue(color.red);
+    this.newDrawingFrom.controls.green.setValue(color.green);
+    this.newDrawingFrom.controls.blue.setValue(color.blue);
+    this.newDrawingFrom.controls.alpha.setValue(color.alpha);
     this.updateColorHEX();
   }
 
@@ -177,13 +175,8 @@ export class NewDrawingComponent implements OnInit {
   }
 
   private updateBackgroudColor() {
-    this.backgroundColor =
-      this.formatToRGBA({
-        red: this.red,
-        green: this.green,
-        blue: this.blue,
-        opacity: this.opacity,
-      });
+    const color: Color = new Color(this.red, this.blue, this.green, this.alpha);
+    this.backgroundColor = color.toString();
   }
 
   onColorHEXChange() {
@@ -228,9 +221,5 @@ export class NewDrawingComponent implements OnInit {
 
   showColorPicker() {
     this.isShowColorPicker = !this.isShowColorPicker;
-  }
-
-  private formatToRGBA(rgba: RGBA): string {
-    return 'rgba(' + rgba.red + ',' + rgba.green + ',' + rgba.blue + ',' + rgba.opacity + ')';
   }
 }
