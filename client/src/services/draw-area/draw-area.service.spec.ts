@@ -3,10 +3,25 @@ import { TestBed } from '@angular/core/testing';
 import { DrawAreaService } from './draw-area.service';
 
 describe('DrawAreaService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: DrawAreaService = TestBed.get(DrawAreaService);
-    expect(service).toBeTruthy();
-  });
+    let service: DrawAreaService;
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({});
+        service = TestBed.get(DrawAreaService);
+    });
+
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
+
+    it('should save the drawing', () => {
+        service.save();
+        expect(service.isSavedDrawing).toBeTruthy();
+    });
+
+    it('should mark the drawing as dirty', () => {
+        service.dirty();
+        expect(service.isSavedDrawing).toBeFalsy();
+    });
 });

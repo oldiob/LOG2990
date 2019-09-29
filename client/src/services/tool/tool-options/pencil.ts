@@ -28,11 +28,12 @@ export class PencilService implements ITool {
         return this.element;
     }
     onMotion(event: MouseEvent): void {
+        if (this.element == null) {
+            throw new Error("Motion event on null element");
+        }
         const x = event.svgX;
         const y = event.svgY;
-        if (this.element != null) {
-            this.element.addPoint(x, y);
-        }
+        this.element.addPoint(x, y);
     }
     onReleased(event: MouseEvent): void {
         this.element = null;
