@@ -45,6 +45,7 @@ export class BrushTool implements ITool {
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
         this.svgService.addObject(this.element);
+        this.element.addPoint(event.svgX, event.svgY);
     }
 
     onMotion(event: MouseEvent): void {
