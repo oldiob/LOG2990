@@ -1,5 +1,3 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-
 /**
  * Implementations of this interface should return raw SVGInterface with
  * position elements without color, thickness or texture.

@@ -1,6 +1,5 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { PaletteService } from '../palette/palette.service';
 import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
 
 @Injectable({
@@ -10,7 +9,7 @@ export class SVGService {
     entry: ElementRef;
 
     private objects: SVGInterface[] = [];
-    constructor(private rendererProvider: RendererProviderService, private paletteService: PaletteService) {
+    constructor(private rendererProvider: RendererProviderService) {
 
     }
 

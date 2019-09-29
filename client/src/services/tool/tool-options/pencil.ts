@@ -1,6 +1,5 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { ITool } from './i-tool';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';

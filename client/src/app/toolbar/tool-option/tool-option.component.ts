@@ -23,7 +23,7 @@ export class ToolOptionComponent implements OnInit {
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, pencil: PencilTool, private brush: BrushTool, bucket: BucketTool) {
+    constructor(private toolService: ToolService, pencil: PencilTool, brush: BrushTool, bucket: BucketTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture()];
 
         brush.texture = this.textures[2];
