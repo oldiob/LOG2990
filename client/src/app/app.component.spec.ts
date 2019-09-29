@@ -10,15 +10,12 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { KeytrackDirective } from 'src/directive/keytrack.directive';
-import { MousetrackDirective } from 'src/directive/mousetrack.directive';
 import { IndexService } from 'src/services/index/index.service';
 import { AppComponent } from './app.component';
 import { DrawAreaComponent } from './draw-area/draw-area.component';
 import { EntryPointComponent } from './entry-point/entry-point.component';
 import { NewDrawingComponent } from './new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './poly-dessin/poly-dessin.component';
-import { RectangleComponent } from './rectangle/rectangle.component';
 import { ColorOptionComponent } from './toolbar/color-option/color-option.component';
 import { ToolOptionComponent } from './toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -56,14 +53,11 @@ describe('AppComponent', () => {
                 ColorOptionComponent,
                 DrawAreaComponent,
                 EntryPointComponent,
-                KeytrackDirective,
-                MousetrackDirective,
                 NewDrawingComponent,
                 PolyDessinComponent,
                 ToolOptionComponent,
                 ToolbarComponent,
                 WorkZoneComponent,
-                RectangleComponent,
             ],
             providers: [
                 { provide: IndexService, useValue: indexServiceSpy },

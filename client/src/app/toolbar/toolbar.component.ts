@@ -17,10 +17,10 @@ export enum OptionType {
 export class ToolbarComponent implements OnInit {
     private FILE_LOCATION = '../../../assets/images/';
 
-    @ViewChild(ToolOptionComponent, {static: true})
+    @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
 
-    @ViewChild(ShapeOptionComponent, {static: true})
+    @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
 
     options: any[];
@@ -36,7 +36,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.options = [ this.toolOption, this.shapeOption ];
+        this.options = [this.toolOption, this.shapeOption];
 
         this.currentOption = this.toolOption;
         this.optionDisplayed = false;

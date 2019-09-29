@@ -102,10 +102,6 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window: keydown', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
         const kbd: { [id: string]: callback } = {
-            'c': () => { this.toolService.setCurrentToolIndex(0) },
-            'w': () => { this.toolService.setCurrentToolIndex(1) },
-            'b': () => { this.toolService.setCurrentToolIndex(2) },
-            '1': () => { this.toolService.setCurrentToolIndex(3) },
             'C-s': () => { console.log("TODO - Remove me"); }
         };
         let keys: string = "";
