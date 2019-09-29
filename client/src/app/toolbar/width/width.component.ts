@@ -9,9 +9,10 @@ export class WidthComponent implements OnInit {
     readonly MAX_WIDTH: number = 25.0;
     readonly MIN_WIDTH: number = 0.5;
 
+    private mWidth: number;
+
     @Output()
     widthEmmiter: EventEmitter<number> = new EventEmitter<number>();
-    private mWidth: number;
 
     constructor() {
         //
@@ -27,8 +28,9 @@ export class WidthComponent implements OnInit {
 
     @Input()
     set width(width: number) {
-        this.mWidth = width;
-        this.widthEmmiter.emit(width);
+        if (width <= this.MAX_WIDTH && width >= this.MIN_WIDTH ) {
+            this.mWidth = width;
+        }
+        this.widthEmmiter.emit(this.width);
     }
-
 }
