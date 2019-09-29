@@ -50,4 +50,11 @@ export class SVGService {
             this.rendererProvider.renderer.removeChild(this.entry.nativeElement, removedObject.element);
         }
     }
+
+    clearDrawArea() {
+      const ref = this.entry.nativeElement;
+      while (ref.hasChildNodes()) {
+        ref.removeChild(ref.firstChild);
+     }
+    }
 }
