@@ -28,10 +28,21 @@ export class SVGRect implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
+        const hasNoBorder =
+            this.fillOpacity === 1 && this.strokeOpacity === 0;
+        const hasNoFill =
+            this.fillOpacity === 0 && this.strokeOpacity === 1;
+        const hasFillAndBorder =
+            this.fillOpacity === 1 && this.strokeOpacity === 1;
+
+        // Find maximum and minimum values
         let minX: number = this.x1;
         let maxX: number = this.x2;
         let minY: number = this.y1;
         let maxY: number = this.y2;
+        const width = this.pointSize;
+        let isAt: boolean;
+
         if (minX > maxX) {
             const tmp: number = minX;
             minX = maxX;
@@ -42,8 +53,23 @@ export class SVGRect implements SVGInterface {
             minY = maxY;
             maxY = tmp;
         }
-        return (minX <= x && x <= maxX && minY <= y && y <= maxY);
+        if (hasNoBorder) {
+            isAt = (minX <= x && x <= maxX && minY <= y && y <= maxY);
+        } else if (hasNoFill) {
+            const isInsideLeftBounds = (minX - width) <= x && x <= minX;
+            const isInsideRightBounds = maxX <= x && x <= (maxX + width);
+            const isInsideUpperBounds = (maxY + width) >= y && y >= maxY;
+            const isInsideBottomBounds = minY >= y && y >= (minY - width);
+
+            isAt = (isInsideLeftBounds || isInsideRightBounds || isInsideUpperBounds || isInsideBottomBounds);
+        } else if (hasFillAndBorder) {
+            isAt = (minX - width <= x && x <= maxX + width && minY - width <= y && y <= maxY + width);
+        } else {
+            isAt = false;
+        }
+        return isAt;
     }
+
     isIn(x: number, y: number, r: number): boolean {
         return true;
     }
