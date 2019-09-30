@@ -14,7 +14,7 @@ import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
-import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
+import { ColorDialog, ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
@@ -25,6 +25,7 @@ import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
 @NgModule({
     declarations: [
         AppComponent,
+        ColorDialog,
         ColorOptionComponent,
         DrawAreaComponent,
         EntryPointComponent,
@@ -66,6 +67,7 @@ import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     entryComponents: [
+        ColorDialog,
         EntryPointComponent,
         NewDrawingComponent,
     ],

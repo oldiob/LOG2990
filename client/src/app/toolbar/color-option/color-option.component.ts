@@ -1,5 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { Color } from 'src/utils/color';
+
+class DialogData {
+    apply: boolean;
+    current: Color;
+    history: Color[];
+}
+
+declare type dialogCallback = (result: DialogData) => void;
 
 @Component({
     selector: 'app-color-option',
@@ -8,7 +19,8 @@ import { PaletteService } from 'src/services/palette/palette.service';
 })
 export class ColorOptionComponent implements OnInit {
 
-    constructor(private paletteService: PaletteService) { }
+    constructor(private paletteService: PaletteService,
+        private dialog: MatDialog) { }
 
     ngOnInit() { }
 
@@ -19,16 +31,65 @@ export class ColorOptionComponent implements OnInit {
     swap(): void { this.paletteService.swap(); }
 
     selectPrimary(): void {
-        // TODO - Implement me
-        this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
+        this.openDialog(this.paletteService.primary, (result: DialogData) => {
+            if (result.apply) {
+                this.paletteService.selectPrimary(
+                    result.current.red,
+                    result.current.green,
+                    result.current.blue,
+                    result.current.alpha,
+                );
+            }
+        });
     }
 
     selectSecondary(): void {
-        // TODO - Implement me
-        this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
+        this.openDialog(this.paletteService.secondary, (result: DialogData) => {
+            if (result.apply)
+                this.paletteService.selectSecondary(
+                    result.current.red,
+                    result.current.green,
+                    result.current.blue,
+                    result.current.alpha,
+                )
+        });
     }
 
-    private rn(): number {
-        return Math.trunc(Math.random() * 255);
+    private openDialog(current: Color, callback: DialogCallback) {
+        const history = this.paletteService.getHistory();
+        const dialogRef = this.dialog.open(ColorDialog, {
+            data: {
+                current: current, history: history
+            },
+            width: '50%',
+            height: '420px',
+        });
+        dialogRef.afterClosed().subscribe(callback);
+    }
+}
+
+@Component({
+    selector: 'color-dialog',
+    templateUrl: './color-dialog.html',
+})
+export class ColorDialog {
+    private newCurrent: Color;
+    constructor(public dialogRef: MatDialogRef<ColorDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        this.newCurrent = data.current;
+    }
+
+    close() {
+        this.data.apply = false;
+        this.dialogRef.close(this.data);
+    }
+    save() {
+        this.data.apply = true;
+        this.data.current = this.newCurrent;
+        this.dialogRef.close(this.data);
+    }
+
+    selectCurrent(color: Color) {
+        this.newCurrent = color;
     }
 }

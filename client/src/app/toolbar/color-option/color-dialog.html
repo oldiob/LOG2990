@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Color Selection</h1>
+<div mat-dialog-content>
+  <div>
+    <h2>Current</h2>
+    <div [ngStyle]="{'background':data.current.toString(), 'width':'50px', 'height':'50px'}"></div>
+  </div>
+  <div>
+    <h2>Preview</h2>
+    <div [ngStyle]="{'background':newCurrent.toString(), 'width':'50px', 'height':'50px'}"></div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div *ngFor="let color of data.history;">
+    <div [ngStyle]="{'background':color.toString(), 'width':'50px', 'height':'50px', 'border-radius':'25px'}"
+	 (click)="selectCurrent(color)"></div>
+  </div>
+  <color-picker (color)="selectCurrent($event)"></color-picker>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button (click)="save()">OK</button>
+</div>
+

@@ -16,8 +16,8 @@ export class PaletteService {
     }
 
     static readonly DEFAULT_PRIMARY: Color = new Color(0, 0, 0, 255);
-    static readonly DEFAULT_SECONDARY: Color = new Color(0, 0, 0, 255);
-    static readonly DEFAULT_MEMSET: Color = new Color(0, 0, 0, 0);
+    static readonly DEFAULT_SECONDARY: Color = new Color(255, 255, 255, 255);
+    static readonly DEFAULT_MEMSET: Color = new Color(255, 255, 255, 255);
     static readonly MAX_HISTORY = 10;
 
     primary: Color;

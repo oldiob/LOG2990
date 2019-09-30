@@ -1,4 +1,5 @@
 <div class="toolbar-element toolbar">
+  <app-color-option></app-color-option>
   <div class="tools">
     <a *ngFor="let option of options" class="button" (click)="selectOption(option)"
       [class.selected-toolbar-button]="option === currentOption">
