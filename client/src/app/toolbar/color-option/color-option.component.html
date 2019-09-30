@@ -1,5 +1,30 @@
-<svg width="100%" height="30px">
-  <rect (click)="this.selectSecondary()" x="33.33%" y="33.33%" width="66.66%" height="66.66%" [attr.fill]="this.secondary" />
-    <rect (click)="this.selectPrimary()" x="0" y="0" width="66.66%" height="66.66%" [attr.fill]="this.primary" />
-    <text (click)="this.swap()" x="67%" y="9" height="33.33%" fill="gray">&#x21c4;</text>
-</svg>
+<div class="title">Shapes</div>
+<div class="separation">
+  <div class="tools">
+    <color-picker (color)="onColorPick($event)"></color-picker>
+  </div>
+</div>
+
+<form class="form" [formGroup]="colorsForm" (ngSubmit)="onSubmit()">
+
+  <label class="rgba-wrapper">
+    <span class="field-label">RGBA </span>
+
+    <mat-form-field color="accent" class="rgba-field">
+      <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
+        class="rgba-field">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="rgba-field">
+      <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="rgba-field">
+      <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+    </mat-form-field>
+
+    <mat-form-field color="accent" class="rgba-field rgba-alpha">
+      <input matInput type="number" formControlName="alpha" (change)="onColorRGBAChange()" value="{{DEFAULT_ALPHA}}">
+    </mat-form-field>
+  </label>
+</form>

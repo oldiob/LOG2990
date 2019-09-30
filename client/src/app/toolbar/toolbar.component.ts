@@ -19,6 +19,9 @@ export enum OptionType {
 export class ToolbarComponent implements OnInit {
     private FILE_LOCATION = '../../../assets/images/';
 
+    @ViewChild(ColorOptionComponent, { static: true })
+    colorOption: ColorOptionComponent;
+
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
 
@@ -36,9 +39,7 @@ export class ToolbarComponent implements OnInit {
     constructor(
         private paletteService: PaletteService,
         private dialogService: DialogService,
-        private drawAreaService: DrawAreaService) {
-
-    }
+        private drawAreaService: DrawAreaService) { }
 
     ngOnInit() {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption];
@@ -48,12 +49,15 @@ export class ToolbarComponent implements OnInit {
     selectOption(option: any): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
-        this.currentOption.selectTool(this.currentOption.currentTool);
+        if (option !== this.colorOption) {
+            this.currentOption.selectTool(this.currentOption.currentTool);
+        }
     }
 
     newDrawingOption() {
         this.dialogService.openNewDrawing();
     }
+
     saveImage() {
         this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
         this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
@@ -61,7 +65,11 @@ export class ToolbarComponent implements OnInit {
     }
 
     getImage(option: any) {
-        return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
+        let imageLocation = '';
+        if (option !== this.colorOption) {
+            imageLocation = this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
+        }
+        return imageLocation;
     }
 
     private rn(): number {

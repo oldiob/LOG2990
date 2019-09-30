@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
 
 @Component({
     selector: 'app-color-option',
@@ -8,27 +10,37 @@ import { PaletteService } from 'src/services/palette/palette.service';
 })
 export class ColorOptionComponent implements OnInit {
 
-    constructor(private paletteService: PaletteService) { }
+    currentTool: ITool;
+    colorsForm: FormGroup;
 
-    ngOnInit() { }
+    constructor(
+        private paletteService: PaletteService,
+        private formBuilder: FormBuilder) {}
 
-    get primary(): string { return this.paletteService.getPrimary(); }
-
-    get secondary(): string { return this.paletteService.getSecondary(); }
-
-    swap(): void { this.paletteService.swap(); }
-
-    selectPrimary(): void {
-        // TODO - Implement me
-        this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
+    ngOnInit() {
+        this.createForm();
     }
 
-    selectSecondary(): void {
-        // TODO - Implement me
-        this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
+    private createForm() {
+        const DEFAULT_RED = 255;
+        const DEFAULT_GREEN = 255;
+        const DEFAULT_BLUE = 255;
+        const DEFAULT_ALPHA = 1;
+        const rgbaValidators = [Validators.min(0), Validators.max(255)];
+
+        this.colorsForm = this.formBuilder.group({
+            red: [DEFAULT_RED, rgbaValidators],
+            green: [DEFAULT_GREEN, rgbaValidators],
+            blue: [DEFAULT_BLUE, rgbaValidators],
+            alpha: [DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
+        });
     }
 
-    private rn(): number {
-        return Math.trunc(Math.random() * 255);
+    onWidthChange() {
+        this.currentTool.width = this.colorsForm.controls.width.value;
+    }
+
+    onTraceTypeChange() {
+        this.currentTool.traceType = this.colorsForm.controls.traceType.value;
     }
 }

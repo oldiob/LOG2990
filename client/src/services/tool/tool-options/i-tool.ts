@@ -5,6 +5,8 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
  * position elements without color, thickness or texture.
  */
 export interface ITool {
+    width: any;
+    traceType: any;
     readonly BUTTON_FILENAME: string;
     readonly CURSOR_FILENAME: string;
 
