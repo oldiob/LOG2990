@@ -30,7 +30,7 @@ export class ToolOptionComponent implements OnInit {
         brush.texture = this.textures[2];
 
         this.tools = [ pencil, brush];
-        this.selectTool(this.tools[0]);
+        this.currentTool = this.tools[0];
     }
 
     ngOnInit() {

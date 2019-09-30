@@ -26,7 +26,7 @@ export class ShapeOptionComponent implements OnInit {
 
     ngOnInit() {
         this.tools = [this.rectangleTool];
-        this.selectTool(this.tools[0]);
+        this.currentTool = this.tools[0];
         this.createForm();
     }
 
