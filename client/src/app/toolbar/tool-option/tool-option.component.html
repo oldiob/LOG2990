@@ -6,5 +6,16 @@
       <img class="tool-icon" [src]="getFilesource(tool)">
     </a>
   </div>
-  <app-width class="separation" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+</div>
+<div class="separation">
+  <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+</div>
+<div *ngIf="currentTool === brush" class="separation">
+  <div class="text">Textures</div>
+  <div class="tools">
+    <a *ngFor="let texture of textures" class="button" (click)="selectTexture(texture)"
+      [class.selected-tool]="texture === currentTexture">
+      <p>t</p>
+    </a>
+  </div>
 </div>

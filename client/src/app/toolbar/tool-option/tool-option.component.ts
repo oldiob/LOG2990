@@ -23,13 +23,14 @@ export class ToolOptionComponent implements OnInit {
     widthComponent: WidthComponent;
 
     textures: ITexture[];
+    currentTexture: ITexture;
+
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, pencil: PencilTool, brush: BrushTool) {
+    constructor(private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new Circle2Texture(), new Rect2Texture()];
-
-        brush.texture = this.textures[0];
+        this.selectTexture(this.textures[0]);
 
         this.tools = [ pencil, brush];
         this.currentTool = this.tools[0];
@@ -42,6 +43,11 @@ export class ToolOptionComponent implements OnInit {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+    }
+
+    selectTexture(texture: ITexture): void {
+        this.currentTexture = texture;
+        this.brush.texture = this.currentTexture;
     }
 
     setWidth(width: number) {
