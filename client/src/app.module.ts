@@ -19,6 +19,8 @@ import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.co
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
+import { WidthComponent } from './app/toolbar/width/width.component';
+import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +36,8 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
         ColorPickerComponent,
         ShapeOptionComponent,
         BucketOptionComponent,
+        WidthComponent,
+        ShowcaseComponent,
     ],
     imports: [
         BrowserModule,

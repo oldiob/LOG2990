@@ -1,5 +1,6 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 
 export class SVGRect implements SVGInterface {
     element: any;
@@ -27,10 +28,21 @@ export class SVGRect implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
+        const hasNoBorder =
+            this.fillOpacity === 1 && this.strokeOpacity === 0;
+        const hasNoFill =
+            this.fillOpacity === 0 && this.strokeOpacity === 1;
+        const hasFillAndBorder =
+            this.fillOpacity === 1 && this.strokeOpacity === 1;
+
+        // Find maximum and minimum values
         let minX: number = this.x1;
         let maxX: number = this.x2;
         let minY: number = this.y1;
         let maxY: number = this.y2;
+        const width = this.pointSize;
+        let isAt: boolean;
+
         if (minX > maxX) {
             const tmp: number = minX;
             minX = maxX;
@@ -41,8 +53,23 @@ export class SVGRect implements SVGInterface {
             minY = maxY;
             maxY = tmp;
         }
-        return (minX <= x && x <= maxX && minY <= y && y <= maxY);
+        if (hasNoBorder) {
+            isAt = (minX <= x && x <= maxX && minY <= y && y <= maxY);
+        } else if (hasNoFill) {
+            const isInsideLeftBounds = (minX - width) <= x && x <= minX;
+            const isInsideRightBounds = maxX <= x && x <= (maxX + width);
+            const isInsideUpperBounds = (maxY + width) >= y && y >= maxY;
+            const isInsideBottomBounds = minY >= y && y >= (minY - width);
+
+            isAt = (isInsideLeftBounds || isInsideRightBounds || isInsideUpperBounds || isInsideBottomBounds);
+        } else if (hasFillAndBorder) {
+            isAt = (minX - width <= x && x <= maxX + width && minY - width <= y && y <= maxY + width);
+        } else {
+            isAt = false;
+        }
+        return isAt;
     }
+
     isIn(x: number, y: number, r: number): boolean {
         return true;
     }
@@ -63,20 +90,23 @@ export class SVGRect implements SVGInterface {
     setStrokeOpacity(strokeOpacity: number): void {
         this.strokeOpacity = strokeOpacity;
     }
-    setTraceType(traceType: number): void {
-        if (traceType === 0) {
+    setTraceType(traceType: TraceType): void {
+        if (traceType === TraceType.BorderOnly) {
             this.setFillOpacity(0);
+            this.setStrokeOpacity(1);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else if (traceType === 1) {
+        } else if (traceType === TraceType.FillOnly) {
+            this.setFillOpacity(1);
             this.setStrokeOpacity(0);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else if (traceType === 2) {
-            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else {
-            this.setFillOpacity(0);
+        } else if (traceType === TraceType.FillAndBorder) {
+            this.setFillOpacity(1);
+            this.setStrokeOpacity(1);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         }

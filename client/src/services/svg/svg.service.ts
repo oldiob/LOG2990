@@ -48,9 +48,22 @@ export class SVGService {
     }
 
     clearDrawArea() {
-      const ref = this.entry.nativeElement;
-      while (ref.hasChildNodes()) {
-        ref.removeChild(ref.firstChild);
-     }
+        const ref = this.entry.nativeElement;
+        while (ref.hasChildNodes()) {
+            ref.removeChild(ref.firstChild);
+        }
+
+        this.rendererProvider.renderer.appendChild(this.entry.nativeElement, this.createFilters());
+    }
+
+    private createFilters() {
+        const renderer = this.rendererProvider.renderer;
+        const filterBlur = renderer.createElement('filter', 'svg');
+        renderer.setAttribute(filterBlur, 'id', 'blur');
+        const filterBlurContent = renderer.createElement('feGaussianBlur', 'svg');
+        renderer.setAttribute(filterBlurContent, 'stdDeviation', '2');
+        renderer.appendChild(filterBlur, filterBlurContent);
+
+        return filterBlur;
     }
 }

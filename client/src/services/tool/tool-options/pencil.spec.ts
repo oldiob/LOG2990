@@ -1,43 +1,45 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { PencilService } from './pencil';
+import { PencilTool } from './pencil';
 
 describe('PencilService', () => {
 
-    const elementSpy = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
-    const factory = jasmine.createSpyObj('RendererFactory2', ['createRenderer']);
-    let service: PencilService;
+    const element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
+    const rendererProvider = jasmine.createSpyObj('RendererProviderService', ['renderer']);
+    const svgService = jasmine.createSpyObj('SVGService', ['addObject']);
+    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+
+    let pencil: PencilTool;
     let event: MouseEvent;
 
     beforeEach(() => {
-        service = new PencilService(factory);
+        pencil = new PencilTool(rendererProvider, svgService, paletteService);
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
         event.svgY = Math.floor(Math.random() * 1000);
     });
 
     it('should exists', () => {
-        expect(service).toBeTruthy();
-        expect(factory.createRenderer).toHaveBeenCalledWith(null, null);
+        expect(pencil).toBeTruthy();
     });
 
     it('should keep track of a newly created SVGPencil and return it', () => {
-        const element: SVGInterface = service.onPressed(event);
-        expect(element).toBeTruthy();
+        pencil.onPressed(event);
+        expect(pencil.element).toBeTruthy();
+        expect(pencil.element).toHaveBeenCalledWith(event.svgX, event.svgY);
     });
 
     it('should add a point to the newly created element', () => {
-        service.element = elementSpy;
-        service.onMotion(event);
-        expect(elementSpy.addPoint).toHaveBeenCalledWith(event.svgX, event.svgY);
+        pencil.element = element;
+        pencil.onMotion(event);
+        expect(element.addPoint).toHaveBeenCalledWith(event.svgX, event.svgY);
     });
 
     it('should do nothing on motion if no element is selected', () => {
-        service.element = null;
-        expect(() => { service.onMotion(event); }).toThrow();
+        pencil.element = null;
+        expect(() => { pencil.onMotion(event); }).toThrow();
     });
 
     it('should loose reference to the newly created element when released', () => {
-        service.onReleased(event);
-        expect(service.element).toBe(null);
+        pencil.onReleased(event);
+        expect(pencil.element).toBe(null);
     });
 });

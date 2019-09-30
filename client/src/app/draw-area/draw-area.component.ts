@@ -54,6 +54,8 @@ export class DrawAreaComponent implements OnInit {
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: string) => this.backgroundColor = backgroundColor,
         );
+
+        this.svgService.clearDrawArea();
     }
     setCurrentStyles() {
         return {
@@ -79,7 +81,7 @@ export class DrawAreaComponent implements OnInit {
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
         if (this.isOnceWhileDown) {
-            this.toolService.currentTool.onPressed(event);
+            this.svgService.addObject(this.toolService.currentTool.onPressed(event));
             this.isOnceWhileDown = false;
         }
         this.isMouseDown = true;

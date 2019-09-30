@@ -1,9 +1,22 @@
 <div class="title">Tools</div>
+<app-showcase></app-showcase>
 <div class="separation">
   <div class="tools">
     <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
       [class.selected-tool]="tool === currentTool">
       <img class="tool-icon" [src]="getFilesource(tool)">
+    </a>
+  </div>
+</div>
+<div class="separation">
+  <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+</div>
+<div *ngIf="currentTool === brush" class="separation">
+  <div class="text">Textures</div>
+  <div class="tools">
+    <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="button texture-number" (click)="selectTexture(texture)"
+      [class.selected-tool]="texture === currentTexture">
+      {{i + 1}}
     </a>
   </div>
 </div>

@@ -1,4 +1,5 @@
 <div class="title">Shapes</div>
+<app-showcase></app-showcase>
 <div class="separation">
   <div class="tools">
     <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
@@ -7,3 +8,22 @@
     </a>
   </div>
 </div>
+
+<form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
+  <app-width class="separation" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+
+  <mat-form-field color="accent">
+    <mat-label class="trace-label">Trace Type</mat-label>
+    <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="traceType" >
+      <mat-option [value]="TraceType.BorderOnly">
+        Border only
+      </mat-option>
+      <mat-option [value]="TraceType.FillOnly">
+        Fill only
+      </mat-option>
+      <mat-option [value]="TraceType.FillAndBorder">
+        Fill and Border
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
