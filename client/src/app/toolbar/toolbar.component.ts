@@ -77,19 +77,11 @@ export class ToolbarComponent implements OnInit {
             b: () => {this.bucketOption.selectTool(this.bucketOption.currentTool); },
             1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]);  },
         };
-        const ctrl: { [id: string]: callback } = {
-                o: () => {this.newDrawingOption(); },
-                s: () => {this.saveImage();  },
-            };
         let keys = '';
-        keys += event.key;
         if (event.ctrlKey) {
-            event.preventDefault();
-            if (ctrl[keys]) {
-                const ctrlFunc: callback = ctrl[keys];
-                ctrlFunc();
-            }
+            keys += 'C-';
         }
+        keys += event.key;
         if (kbd[keys]) {
             const func: callback = kbd[keys];
             func();
