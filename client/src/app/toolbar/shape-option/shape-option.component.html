@@ -7,3 +7,24 @@
     </a>
   </div>
 </div>
+
+<form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
+  <label class="width-range"> <span class="width-label">{{rectangleTool.width}} px</span> 
+    <input class="width" name="Width" min="0" max="50" (change)="onWidthChange()" type="range" formControlName="width">
+  </label>
+
+  <mat-form-field color="accent">
+    <mat-label class="trace-label">Trace Type</mat-label>
+    <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="traceType" >
+      <mat-option [value]="TraceType.BorderOnly">
+        Border only
+      </mat-option>
+      <mat-option [value]="TraceType.FillOnly">
+        Fill only
+      </mat-option>
+      <mat-option [value]="TraceType.FillAndBorder">
+        Fill and Border
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

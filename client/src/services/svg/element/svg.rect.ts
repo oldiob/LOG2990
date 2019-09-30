@@ -1,5 +1,6 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 
 export class SVGRect implements SVGInterface {
     element: any;
@@ -63,20 +64,23 @@ export class SVGRect implements SVGInterface {
     setStrokeOpacity(strokeOpacity: number): void {
         this.strokeOpacity = strokeOpacity;
     }
-    setTraceType(traceType: number): void {
-        if (traceType === 0) {
+    setTraceType(traceType: TraceType): void {
+        if (traceType === TraceType.BorderOnly) {
             this.setFillOpacity(0);
+            this.setStrokeOpacity(1);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else if (traceType === 1) {
+        } else if (traceType === TraceType.FillOnly) {
+            this.setFillOpacity(1);
             this.setStrokeOpacity(0);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else if (traceType === 2) {
-            this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
-            this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
-        } else {
-            this.setFillOpacity(0);
+        } else if (traceType === TraceType.FillAndBorder) {
+            this.setFillOpacity(1);
+            this.setStrokeOpacity(1);
+
             this.renderer.setAttribute(this.element, 'fill-opacity', this.fillOpacity.toString());
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         }

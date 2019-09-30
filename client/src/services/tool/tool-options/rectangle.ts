@@ -3,14 +3,16 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
 import { SVGService } from 'src/services/svg/svg.service';
-import { ITool } from './i-tool';
+import { IShapeTool, TraceType } from './i-shape-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RectangleTool implements ITool {
+export class RectangleTool implements IShapeTool {
 
     width: number;
+    traceType: TraceType;
+
     readonly BUTTON_FILENAME: string = 'rectangle.png';
     readonly CURSOR_FILENAME: string = 'rectangle-cursor.svg';
 
@@ -21,6 +23,7 @@ export class RectangleTool implements ITool {
     constructor(rendererProvider: RendererProviderService, private svgService: SVGService, private paletteService: PaletteService) {
         this.renderer = rendererProvider.renderer;
         this.width = 1;
+        this.traceType = TraceType.FillAndBorder;
     }
 
     onPressed(event: MouseEvent): void {
@@ -28,7 +31,8 @@ export class RectangleTool implements ITool {
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
-
+        this.element.setPointSize(this.width);
+        this.element.setTraceType(this.traceType);
         this.svgService.addObject(this.element);
     }
     onReleased(event: MouseEvent): void {
