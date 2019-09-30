@@ -1,6 +1,6 @@
 import { BlurTexture } from './blur';
 
-describe('BlurTexture', () => {
+fdescribe('CircleTexture', () => {
 
     let blur: BlurTexture;
     let brush: any;
