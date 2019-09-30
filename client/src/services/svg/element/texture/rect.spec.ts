@@ -1,36 +1,36 @@
-import { BlurTexture } from './blur';
+import { RectTexture } from './rect';
 
-fdescribe('BlurTexture', () => {
+fdescribe('RectTexture', () => {
 
-    let blur: BlurTexture;
+    let rect: RectTexture;
     let brush: any;
     let renderer: any;
     let element: any;
 
     beforeEach(() => {
         brush = jasmine.createSpyObj('SVGBrush', ['renderer', 'lineWidth', 'pointsAttribute']);
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         element = jasmine.createSpyObj('any', ['']);
 
         brush.renderer = renderer;
-        blur = new BlurTexture();
+        rect = new RectTexture();
     });
 
     it('should exists', () => {
-        expect(blur).toBeTruthy();
+        expect(rect).toBeTruthy();
     });
 
     it('should create blur element', () => {
         renderer.createElement = jasmine.createSpy().and.returnValue(element);
-        blur.create(brush);
+        rect.create(brush);
         expect(brush.element).toEqual(element);
         expect(renderer.createElement).toHaveBeenCalled();
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(5);
     });
 
     it('should add point to a blur element', () => {
-        blur.addPoint(brush, 0, 0);
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(1);
-        expect(brush.pointsAttribute).toHaveBeenCalled();
+        rect.addPoint(brush, 0, 0);
+        expect(renderer.createElement).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(4);
+        expect(renderer.appendChild).toHaveBeenCalled();
     });
 });

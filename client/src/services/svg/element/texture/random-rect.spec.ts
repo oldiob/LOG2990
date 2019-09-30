@@ -1,6 +1,6 @@
 import { BlurTexture } from './blur';
 
-fdescribe('BlurTexture', () => {
+describe('Rect2Texture', () => {
 
     let blur: BlurTexture;
     let brush: any;
@@ -24,7 +24,6 @@ fdescribe('BlurTexture', () => {
         renderer.createElement = jasmine.createSpy().and.returnValue(element);
         blur.create(brush);
         expect(brush.element).toEqual(element);
-        expect(renderer.createElement).toHaveBeenCalled();
         expect(renderer.setAttribute).toHaveBeenCalledTimes(5);
     });
 

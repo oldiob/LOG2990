@@ -8,9 +8,9 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WidthComponent } from '../width/width.component';
-import { Rect2Texture } from 'src/services/svg/element/texture/rect2';
+import { RandomRectTecture } from 'src/services/svg/element/texture/random-rect';
 import { ShowcaseComponent } from '../showcase/showcase.component';
-import { Circle3Texture } from 'src/services/svg/element/texture/circle3';
+import { RandomCircleTexture } from 'src/services/svg/element/texture/random-circle';
 
 @Component({
     selector: 'app-tool-option',
@@ -33,7 +33,7 @@ export class ToolOptionComponent implements OnInit {
     currentTool: ITool;
 
     constructor(private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
-        this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new Circle3Texture(), new Rect2Texture()];
+        this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTecture()];
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 

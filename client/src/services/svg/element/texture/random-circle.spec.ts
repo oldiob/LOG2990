@@ -1,8 +1,8 @@
-import { CircleTexture } from './circle';
+import { RandomCircleTexture } from './random-circle';
 
-fdescribe('CircleTexture', () => {
+fdescribe('RandomCircleTexture', () => {
 
-    let circle: CircleTexture;
+    let circle: RandomCircleTexture;
     let brush: any;
     let renderer: any;
     let element: any;
@@ -13,7 +13,7 @@ fdescribe('CircleTexture', () => {
         element = jasmine.createSpyObj('any', ['']);
 
         brush.renderer = renderer;
-        circle = new CircleTexture();
+        circle = new RandomCircleTexture();
     });
 
     it('should exists', () => {
@@ -29,8 +29,8 @@ fdescribe('CircleTexture', () => {
 
     it('should add point to a blur element', () => {
         circle.addPoint(brush, 0, 0);
-        expect(renderer.createElement).toHaveBeenCalled();
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(4);
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(4 * RandomCircleTexture.BRUSH_OBJECT_NUMBER);
+        expect(brush.pointsAttribute).toHaveBeenCalledTimes(RandomCircleTexture.BRUSH_OBJECT_NUMBER);
         expect(renderer.appendChild).toHaveBeenCalled();
     });
 });
