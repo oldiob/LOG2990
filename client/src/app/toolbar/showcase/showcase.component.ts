@@ -38,6 +38,10 @@ export class ShowcaseComponent implements OnInit {
     }
 
     display(tool: ITool) {
+        if (this.service === undefined) {
+            return;
+        }
+
         this.service.clearDrawArea();
         for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
             if (i === this.MIN) {
