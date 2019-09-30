@@ -9,9 +9,7 @@
 </div>
 
 <form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
-  <label class="width-range"> <span class="width-label">{{rectangleTool.width}} px</span> 
-    <input class="width" name="Width" min="0" max="50" (change)="onWidthChange()" type="range" formControlName="width">
-  </label>
+  <app-width class="separation" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 
   <mat-form-field color="accent">
     <mat-label class="trace-label">Trace Type</mat-label>
