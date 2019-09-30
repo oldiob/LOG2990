@@ -10,6 +10,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { WidthComponent } from '../width/width.component';
 import { Circle2Texture } from 'src/services/svg/element/texture/circle2';
 import { Rect2Texture } from 'src/services/svg/element/texture/rect2';
+import { ShowcaseComponent } from '../showcase/showcase.component';
 
 @Component({
     selector: 'app-tool-option',
@@ -18,6 +19,9 @@ import { Rect2Texture } from 'src/services/svg/element/texture/rect2';
 })
 export class ToolOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
+
+    @ViewChild(ShowcaseComponent, {static: true})
+    showcase: ShowcaseComponent;
 
     @ViewChild(WidthComponent, {static: true})
     widthComponent: WidthComponent;
@@ -30,29 +34,34 @@ export class ToolOptionComponent implements OnInit {
 
     constructor(private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new Circle2Texture(), new Rect2Texture()];
-        this.selectTexture(this.textures[0]);
+        this.currentTexture = this.textures[0];
+        this.brush.texture = this.currentTexture;
 
         this.tools = [ pencil, brush];
         this.currentTool = this.tools[0];
     }
 
     ngOnInit() {
-        //
+        this.showcase.display(this.currentTool);
     }
 
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+        this.showcase.display(this.currentTool);
     }
 
     selectTexture(texture: ITexture): void {
         this.currentTexture = texture;
         this.brush.texture = this.currentTexture;
+
+        this.showcase.display(this.currentTool);
     }
 
     setWidth(width: number) {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
+            this.showcase.display(this.currentTool);
         }
     }
 
