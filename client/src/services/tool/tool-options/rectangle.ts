@@ -2,7 +2,6 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
-import { SVGService } from 'src/services/svg/svg.service';
 import { IShapeTool, TraceType } from './i-shape-tool';
 
 @Injectable({
@@ -19,20 +18,20 @@ export class RectangleTool implements IShapeTool {
 
     protected renderer: Renderer2;
 
-    constructor(rendererProvider: RendererProviderService, private svgService: SVGService, private paletteService: PaletteService) {
+    constructor(rendererProvider: RendererProviderService, private paletteService: PaletteService) {
         this.renderer = rendererProvider.renderer;
         this.width = 1;
         this.traceType = TraceType.FillAndBorder;
     }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): SVGRect {
         this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
         this.element.setPointSize(this.width);
         this.element.setTraceType(this.traceType);
-        this.svgService.addObject(this.element);
+        return this.element;
     }
     onReleased(event: MouseEvent): void {
         this.element = null;
