@@ -2,9 +2,7 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
-import { SVGService } from 'src/services/svg/svg.service';
 import { IShapeTool, TraceType } from './i-shape-tool';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +24,7 @@ export class RectangleTool implements IShapeTool {
         this.traceType = TraceType.FillAndBorder;
     }
 
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): SVGRect {
         this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());

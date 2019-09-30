@@ -2,9 +2,7 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
-import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +24,7 @@ export class PencilTool implements ITool {
         this.width = 1;
     }
 
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): SVGPencil {
         const x = event.svgX;
         const y = event.svgY;
         this.element = new SVGPencil(this.renderer);

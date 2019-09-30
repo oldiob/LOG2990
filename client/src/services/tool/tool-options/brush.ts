@@ -3,9 +3,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
-import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -30,7 +28,7 @@ export class BrushTool implements ITool {
         this.width = 1;
     }
 
-    onPressed(event: MouseEvent): SVGInterface {
+    onPressed(event: MouseEvent): SVGBrush {
         this.element = new SVGBrush(this.renderer, this.width, this.texture);
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());

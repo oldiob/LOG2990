@@ -14,9 +14,9 @@
 <div *ngIf="currentTool === brush" class="separation">
   <div class="text">Textures</div>
   <div class="tools">
-    <a *ngFor="let texture of textures" class="button" (click)="selectTexture(texture)"
+    <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="button texture-number" (click)="selectTexture(texture)"
       [class.selected-tool]="texture === currentTexture">
-      <p>t</p>
+      {{i + 1}}
     </a>
   </div>
 </div>

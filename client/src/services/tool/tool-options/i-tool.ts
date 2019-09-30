@@ -1,4 +1,3 @@
-import { SVGService } from 'src/services/svg/svg.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 /**
