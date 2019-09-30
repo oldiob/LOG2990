@@ -1,18 +1,44 @@
 <div class="title">Shapes</div>
 <div class="separation">
-  <div class="tools">
+  <div class="color-picker-wrapper">
     <color-picker (color)="onColorPick($event)"></color-picker>
+  </div>
+</div>
+<div class="colors-wrapper">
+  <div class="color-wrapper" (click)="onPrimaryColor()" [class.color-selected]="isSelectedPrimary">
+    <div class="primary" [ngStyle]="setPrimaryColor()"></div>
+    <div class="primary-label"> Color 1</div>
+  </div>
+
+  <div class="swap" (click)="onSwap()">
+    <img src="../../../assets/images/swap.svg" alt="swap">
+  </div>
+
+  <div class="color-wrapper" (click)="onSecondaryColor()" [class.color-selected]="isSelectedSecondary">
+    <div class="secondary" [ngStyle]="setSecondaryColor()"></div>
+    <div class="secondary-label">Color 2</div>
   </div>
 </div>
 
 <form class="form" [formGroup]="colorsForm" (ngSubmit)="onSubmit()">
+  <label for="alpha">Alpha</label>
+  <input name="alpha" type="range" formControlName="alpha" [min]="0" [max]="1" step="0.01" class="slider"
+    (change)=onAlphaChange()>
+
+  <div class="hex-wrapper">
+    <span class="field-label">HEX</span>
+    <mat-form-field color="accent" class="field">
+      <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
+        value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
+    </mat-form-field>
+  </div>
 
   <label class="rgba-wrapper">
     <span class="field-label">RGBA </span>
 
     <mat-form-field color="accent" class="rgba-field">
-      <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
-        class="rgba-field">
+      <input (selectionChange)=validate($event); matInput type="number" formControlName="red"
+        (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}" class="rgba-field">
     </mat-form-field>
 
     <mat-form-field color="accent" class="rgba-field">

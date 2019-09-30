@@ -43,7 +43,7 @@ export class ColorPickerComponent implements OnInit {
 
   createPickerIcon() {
     this.picker = this.renderer.createElement('div');
-    this.renderer.appendChild(this.element.nativeElement, this.picker);
+    this.renderer.appendChild(this.wrapper.nativeElement, this.picker);
     this.renderer.setStyle(this.picker, 'position', 'absolute');
     this.renderer.setStyle(this.picker, 'width', '20px');
     this.renderer.setStyle(this.picker, 'height', '20px');
@@ -79,10 +79,14 @@ export class ColorPickerComponent implements OnInit {
   }
 
   private updatePickerStyle(event: MouseEvent) {
+    const rect = this.canvasElement.getBoundingClientRect();
+    const dotX = event.clientX - rect.left;
+    const dotY = event.clientY - rect.top;
+
     this.renderer.setStyle(this.picker, 'opacity', '1');
     this.renderer.setStyle(this.picker, 'pointer-events', 'none');
-    this.renderer.setStyle(this.picker, 'left', event.clientX - 10 + 'px');
-    this.renderer.setStyle(this.picker, 'top', event.clientY - 10 + 'px');
+    this.renderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
+    this.renderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
     this.renderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
   }
 
