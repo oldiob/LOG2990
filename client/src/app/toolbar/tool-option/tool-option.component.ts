@@ -8,6 +8,8 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WidthComponent } from '../width/width.component';
+import { Circle2Texture } from 'src/services/svg/element/texture/circle2';
+import { Rect2Texture } from 'src/services/svg/element/texture/rect2';
 
 @Component({
     selector: 'app-tool-option',
@@ -21,16 +23,17 @@ export class ToolOptionComponent implements OnInit {
     widthComponent: WidthComponent;
 
     textures: ITexture[];
+    currentTexture: ITexture;
+
     tools: ITool[];
     currentTool: ITool;
 
-    constructor(private toolService: ToolService, pencil: PencilTool, brush: BrushTool) {
-        this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture()];
-
-        brush.texture = this.textures[2];
+    constructor(private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
+        this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new Circle2Texture(), new Rect2Texture()];
+        this.selectTexture(this.textures[0]);
 
         this.tools = [ pencil, brush];
-        this.selectTool(this.tools[0]);
+        this.currentTool = this.tools[0];
     }
 
     ngOnInit() {
@@ -40,6 +43,11 @@ export class ToolOptionComponent implements OnInit {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+    }
+
+    selectTexture(texture: ITexture): void {
+        this.currentTexture = texture;
+        this.brush.texture = this.currentTexture;
     }
 
     setWidth(width: number) {

@@ -10,6 +10,7 @@ export class BlurTexture implements ITexture {
         brush.renderer.setAttribute(brush.element, 'stroke-linecap', 'round');
         brush.renderer.setAttribute(brush.element, 'stroke-linejoin', 'round');
 
+        brush.renderer.setAttribute(brush.element, 'stroke-width', brush.lineWidth.toString());
         brush.renderer.setAttribute(brush.element, 'filter', 'url(#blur)');
     }
     addPoint(brush: SVGBrush, x: number, y: number): void {

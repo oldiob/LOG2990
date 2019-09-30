@@ -14,7 +14,7 @@ export class BucketOptionComponent implements OnInit {
   currentTool: ITool;
 
   constructor(private toolService: ToolService, private bucket: BucketTool) {
-    this.selectTool(this.bucket);
+    this.currentTool = this.bucket;
   }
 
   ngOnInit() {

@@ -40,10 +40,8 @@ export class ToolbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.options = [this.toolOption,this.shapeOption, this.bucketOption];
-
-        this.currentOption = this.toolOption;
-        this.optionDisplayed = false;
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption];
+        this.selectOption(this.toolOption);
     }
 
     selectOption(option: any): void {
