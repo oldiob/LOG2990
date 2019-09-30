@@ -4,6 +4,7 @@ import { RendererProviderService } from 'src/services/renderer-provider/renderer
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -19,14 +20,13 @@ export class PencilTool implements ITool {
 
     constructor(
             rendererProvider: RendererProviderService,
-            private svgService: SVGService,
             private paletteService: PaletteService) {
 
         this.renderer = rendererProvider.renderer;
         this.width = 1;
     }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): SVGInterface {
         const x = event.svgX;
         const y = event.svgY;
         this.element = new SVGPencil(this.renderer);
@@ -37,7 +37,7 @@ export class PencilTool implements ITool {
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
 
-        this.svgService.addObject(this.element);
+        return this.element;
     }
     onMotion(event: MouseEvent): void {
         if (this.element == null) {
