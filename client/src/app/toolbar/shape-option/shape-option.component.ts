@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
+import { ShowcaseComponent } from '../showcase/showcase.component';
 
 @Component({
     selector: 'app-shape-option',
@@ -13,6 +14,9 @@ export class ShapeOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
     traces: TraceType;
+
+    @ViewChild(ShowcaseComponent, {static: true})
+    showcase: ShowcaseComponent;
 
     tools: IShapeTool[];
     currentTool: IShapeTool;
@@ -28,11 +32,15 @@ export class ShapeOptionComponent implements OnInit {
         this.tools = [this.rectangleTool];
         this.currentTool = this.tools[0];
         this.createForm();
+
+        this.showcase.display(this.currentTool);
     }
 
     selectTool(tool: IShapeTool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+
+        this.showcase.display(this.currentTool);
     }
 
     getFilesource(tool: IShapeTool): string {
@@ -51,10 +59,13 @@ export class ShapeOptionComponent implements OnInit {
     setWidth(width: number) {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
+            this.showcase.display(this.currentTool);
         }
     }
 
     onTraceTypeChange() {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
+
+        this.showcase.display(this.currentTool);
     }
 }
