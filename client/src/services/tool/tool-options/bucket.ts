@@ -19,7 +19,7 @@ export class BucketTool implements ITool {
                 private paletteService: PaletteService,
                 private workZoneService: WorkZoneService) { }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): null {
         const x: number = event.svgX;
         const y: number = event.svgY;
 
@@ -33,6 +33,8 @@ export class BucketTool implements ITool {
         } else if (event.button === 0) {
             this.workZoneService.updateBackgroundColor(this.paletteService.getPrimary());
         }
+
+        return null;
     }
 
     onReleased(event: MouseEvent): void {

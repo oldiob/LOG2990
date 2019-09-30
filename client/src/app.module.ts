@@ -20,6 +20,7 @@ import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.compo
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
+import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { WidthComponent } from './app/toolbar/width/width.component';
         ShapeOptionComponent,
         BucketOptionComponent,
         WidthComponent,
+        ShowcaseComponent,
     ],
     imports: [
         BrowserModule,
