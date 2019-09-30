@@ -13,6 +13,8 @@ export class BucketTool implements ITool {
     readonly BUTTON_FILENAME: string = 'bucket.png';
     readonly CURSOR_FILENAME: string = 'bucket-cursor.svg';
 
+    width: null;
+
     constructor(private svgService: SVGService,
                 private paletteService: PaletteService,
                 private workZoneService: WorkZoneService) { }

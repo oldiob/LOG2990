@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
@@ -7,6 +7,7 @@ import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
+import { WidthComponent } from '../width/width.component';
 
 @Component({
     selector: 'app-tool-option',
@@ -16,7 +17,8 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class ToolOptionComponent implements OnInit {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    thickness: number;
+    @ViewChild(WidthComponent, {static: true})
+    widthComponent: WidthComponent;
 
     textures: ITexture[];
     tools: ITool[];
@@ -38,6 +40,12 @@ export class ToolOptionComponent implements OnInit {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+    }
+
+    setWidth(width: number) {
+        if (this.currentTool.width !== null) {
+            this.currentTool.width = width;
+        }
     }
 
     getFilesource(tool: ITool): string {

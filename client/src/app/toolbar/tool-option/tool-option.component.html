@@ -6,4 +6,5 @@
       <img class="tool-icon" [src]="getFilesource(tool)">
     </a>
   </div>
+  <app-width class="separation" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 </div>

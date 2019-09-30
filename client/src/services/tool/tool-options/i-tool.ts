@@ -6,6 +6,8 @@ export interface ITool {
     readonly BUTTON_FILENAME: string;
     readonly CURSOR_FILENAME: string;
 
+    width: number | null;
+
     onPressed(event: MouseEvent): void;
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;

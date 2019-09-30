@@ -40,25 +40,21 @@ export class ShapeOptionComponent implements OnInit {
     }
 
     private createForm() {
-        const DEFAULT_WIDTH = 1;
         const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
         const validators = [Validators.min(0), Validators.required];
 
         this.shapeForm = this.formBuilder.group({
-            width: [DEFAULT_WIDTH, validators],
             traceType: [DEFAULT_TRACE_TYPE, validators],
         });
     }
 
-    onWidthChange() {
-        this.currentTool.width = this.shapeForm.controls.width.value;
+    setWidth(width: number) {
+        if (this.currentTool.width !== null) {
+            this.currentTool.width = width;
+        }
     }
 
     onTraceTypeChange() {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
-    }
-
-    getWidthErrorMessage() {
-        return this.shapeForm.controls.width.hasError('required') ? 'You must enter a width' : '';
     }
 }
