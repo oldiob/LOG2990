@@ -10,7 +10,7 @@ class DialogData {
     history: Color[];
 }
 
-declare type dialogCallback = (result: DialogData) => void;
+declare type DialogCallback = (result: DialogData) => void;
 
 @Component({
     selector: 'app-color-option',
