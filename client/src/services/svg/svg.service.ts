@@ -64,8 +64,12 @@ export class SVGService {
         const renderer = this.renderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
+        renderer.setAttribute(filterBlur, 'x', '-20');
+        renderer.setAttribute(filterBlur, 'width', '200');
+        renderer.setAttribute(filterBlur, 'y', '-20');
+        renderer.setAttribute(filterBlur, 'height', '200');
         const filterBlurContent = renderer.createElement('feGaussianBlur', 'svg');
-        renderer.setAttribute(filterBlurContent, 'stdDeviation', '2');
+        renderer.setAttribute(filterBlurContent, 'stdDeviation', '4');
         renderer.appendChild(filterBlur, filterBlurContent);
 
         return filterBlur;
