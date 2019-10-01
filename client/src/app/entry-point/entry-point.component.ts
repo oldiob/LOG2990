@@ -7,7 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-  pressHide: boolean = false;
+  pressHide = false;
   constructor(public dialogRef: MatDialogRef<EntryPointComponent>,
               public dialog: MatDialog) { }
 

@@ -2,8 +2,8 @@ import { BucketTool } from './bucket';
 
 describe('BucketTool', () => {
 
-    const PRIMARY = "#000";
-    const SECONDARY = "#fff";
+    const PRIMARY = '#000';
+    const SECONDARY = '#fff';
 
     const svgInterface = jasmine.createSpyObj('SVGInterface',
         ['setPrimary', 'setSecondary']);
@@ -11,19 +11,19 @@ describe('BucketTool', () => {
     const svgService = jasmine.createSpyObj('SVGService', ['findAt']);
     svgService.findAt.and.returnValue(svgInterface);
 
-    const svgService2 = jasmine.createSpyObj('SVGService', ['findAt'])
+    const svgService2 = jasmine.createSpyObj('SVGService', ['findAt']);
     svgService2.findAt.and.returnValue(null);
 
-    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary'])
-    paletteService.getPrimary.and.returnValue(PRIMARY)
+    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+    paletteService.getPrimary.and.returnValue(PRIMARY);
     paletteService.getSecondary.and.returnValue(SECONDARY);
 
-    const workzoneService = jasmine.createSpyObj('WorkZoneService', ['updateBackgroundColor'])
+    const workzoneService = jasmine.createSpyObj('WorkZoneService', ['updateBackgroundColor']);
 
     let bucket: BucketTool;
     let bucket2: BucketTool;
-    let left: MouseEvent = new MouseEvent('mousedown', { "button": 0 });
-    let right: MouseEvent = new MouseEvent('mousedown', { "button": 2 });
+    const left: MouseEvent = new MouseEvent('mousedown', { button: 0 });
+    const right: MouseEvent = new MouseEvent('mousedown', { button: 2 });
 
     beforeEach(() => {
         bucket = new BucketTool(svgService, paletteService, workzoneService);

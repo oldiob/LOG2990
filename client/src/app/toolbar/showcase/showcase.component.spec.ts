@@ -11,7 +11,7 @@ describe('ShowcaseComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ShowcaseComponent]
+            declarations: [ShowcaseComponent],
         })
         .compileComponents();
     }));
@@ -35,7 +35,7 @@ describe('ShowcaseComponent', () => {
     });
 
     it('should create the SVG object', () => {
-        let tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
+        const tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
         component.display(tool);
 
         expect(tool.onPressed).toHaveBeenCalledTimes(1);
@@ -45,7 +45,7 @@ describe('ShowcaseComponent', () => {
     });
 
     it('should return if service is undefined', () => {
-        let tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
+        const tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
 
         component.service = null;
         component.display(tool);

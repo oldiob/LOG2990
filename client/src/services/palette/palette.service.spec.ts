@@ -1,5 +1,5 @@
-import { PaletteService } from './palette.service';
 import { Color } from 'src/utils/color';
+import { PaletteService } from './palette.service';
 
 describe('PaletteService', () => {
 
@@ -31,7 +31,7 @@ describe('PaletteService', () => {
                 (A.green == B.green) &&
                 (A.blue == B.blue) &&
                 (A.alpha == B.alpha));
-        }
+        };
         const NEW_PRIMARY = new Color(242, 123, 32, 0);
         const NEW_SECONDARY = new Color(21, 13, 212, 123);
 
@@ -39,7 +39,6 @@ describe('PaletteService', () => {
         service.selectPrimary(NEW_PRIMARY.red, NEW_PRIMARY.green, NEW_PRIMARY.blue, NEW_PRIMARY.alpha);
         expect(colorEqual(service.primary, NEW_PRIMARY)).toBeTruthy();
         expect(colorEqual(service.secondary, PaletteService.DEFAULT_SECONDARY)).toBeTruthy();
-
 
         // Expect no side effect on primary
         service.selectSecondary(NEW_SECONDARY.red, NEW_SECONDARY.green, NEW_SECONDARY.blue, NEW_SECONDARY.alpha);

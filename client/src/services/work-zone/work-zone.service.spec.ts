@@ -110,7 +110,7 @@ describe('WorkZoneService', () => {
         });
 
         it('should update the background color correctly', () => {
-            const color: string = `#${Math.floor(Math.random() * 0xFFFFFFFF).toString(16)}`;
+            const color = `#${Math.floor(Math.random() * 0xFFFFFFFF).toString(16)}`;
             service.updateBackgroundColor(color);
             service.currentBackgroundColor.subscribe(
                 (currentBgColor) => expect(currentBgColor).toEqual(color),
