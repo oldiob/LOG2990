@@ -2,19 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
-import { Circle2Texture } from 'src/services/svg/element/texture/circle2';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
+import { RandomCircleTexture } from 'src/services/svg/element/texture/random-circle';
+import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { RectTexture } from 'src/services/svg/element/texture/rect';
-import { Rect2Texture } from 'src/services/svg/element/texture/rect2';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
-import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
-import { ShowcaseComponent } from '../showcase/showcase.component';
-import { RandomCircleTexture } from 'src/services/svg/element/texture/random-circle';
 
 @Component({
     selector: 'app-tool-option',
@@ -35,9 +32,10 @@ export class ToolOptionComponent implements OnInit {
 
     tools: ITool[];
     currentTool: ITool;
+    isShowPrimary: boolean;
+    isShowSecondary: boolean;
 
-        private paletteService: PaletteService,
-    constructor(private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
+    constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;

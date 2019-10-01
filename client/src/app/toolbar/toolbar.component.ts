@@ -1,6 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
@@ -34,7 +33,6 @@ export class ToolbarComponent implements OnInit {
     optionDisplayed: boolean;
 
     constructor(
-        private paletteService: PaletteService,
         private dialogService: DialogService,
         private drawAreaService: DrawAreaService) { }
 
@@ -65,12 +63,12 @@ export class ToolbarComponent implements OnInit {
     @HostListener('window: keydown', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
         const kbd: { [id: string]: callback } = {
-            c: () => {this.toolOption.selectTool(this.toolOption.tools[0]); },
+            c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
             w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
-            b: () => {this.bucketOption.selectTool(this.bucketOption.currentTool); },
-            1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]);  },
-            'C-o': () => {this.newDrawingOption(); },
-            'C-s': () => {this.saveImage();  },
+            b: () => { this.bucketOption.selectTool(this.bucketOption.currentTool); },
+            1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
+            'C-o': () => { this.newDrawingOption(); },
+            'C-s': () => { this.saveImage(); },
         };
         let keys = '';
         if (event.ctrlKey) {
