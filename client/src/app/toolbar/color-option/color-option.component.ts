@@ -25,7 +25,7 @@ export class ColorOptionComponent implements OnInit {
     readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
 
     @Output() color = new EventEmitter<Color>();
-    @Input() isPrimary: string;
+    @Input() isPrimary: boolean;
 
     constructor(
         private paletteService: PaletteService,
