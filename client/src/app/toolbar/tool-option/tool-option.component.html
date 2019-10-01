@@ -1,5 +1,30 @@
 <div class="title">Tools</div>
+<div class="buttons-wrapper">
+  <div class="btn-color-wrapper">
+    <button mat-raised-button class="btn btn-primary" (click)="togglePrimaryColorPicker()"
+      [ngStyle]="setPrimaryColor()">
+      <span class="color-text">Color 1</span>
+    </button>
+    <div class="color1-picker" *ngIf="isShowPrimary">
+      <app-color-option [isPrimary]="isShowPrimary" (mouseup)="hideColorPicker()"  (color)="onColorPick()"></app-color-option>
+    </div>
+  </div>
+
+  <div class="swap" (click)="onSwap()">
+    <img src="../../../assets/images/swap.svg" alt="swap">
+  </div>
+
+  <div class="btn-color-wrapper">
+    <button mat-raised-button (click)="toggleSecondaryColorPicker()" [ngStyle]="setSecondary()">Color
+      2</button>
+    <div class="color2-picker" *ngIf="isShowSecondary">
+      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick()"></app-color-option>
+    </div>
+  </div>
+</div>
+
 <app-showcase></app-showcase>
+
 <div class="separation">
   <div class="tools">
     <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
@@ -14,8 +39,8 @@
 <div *ngIf="currentTool === brush" class="separation">
   <div class="text">Textures</div>
   <div class="tools">
-    <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="button texture-number" (click)="selectTexture(texture)"
-      [class.selected-tool]="texture === currentTexture">
+    <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="button texture-number"
+      (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
       {{i + 1}}
     </a>
   </div>

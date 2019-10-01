@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -22,7 +23,13 @@ export class ShapeOptionComponent implements OnInit {
     currentTool: IShapeTool;
     shapeForm: FormGroup;
 
+    isShowPrimary: boolean;
+    isShowSecondary: boolean;
+    primaryColor: string;
+    secondaryColor: string;
+
     constructor(
+        private paletteService: PaletteService,
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private formBuilder: FormBuilder) {
@@ -34,6 +41,9 @@ export class ShapeOptionComponent implements OnInit {
         this.createForm();
 
         this.showcase.display(this.currentTool);
+
+        this.isShowPrimary = false;
+        this.isShowSecondary = false;
     }
 
     selectTool(tool: IShapeTool): void {
@@ -67,5 +77,43 @@ export class ShapeOptionComponent implements OnInit {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
 
         this.showcase.display(this.currentTool);
+    }
+
+    togglePrimaryColorPicker() {
+        this.isShowSecondary = false;
+        this.isShowPrimary = !this.isShowPrimary;
+    }
+
+    toggleSecondaryColorPicker() {
+        this.isShowPrimary = false;
+        this.isShowSecondary = !this.isShowSecondary;
+    }
+
+    onSwap() {
+        this.paletteService.swap();
+        this.setPrimaryColor();
+        this.setSecondary();
+    }
+
+    onColorPick() {
+        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
+        this.hideColorPicker();
+    }
+
+    hideColorPicker() {
+        this.isShowPrimary ? this.isShowPrimary = false
+            : this.isShowSecondary = false;
+    }
+
+    private setPrimaryColor() {
+        return {
+            'background-color': this.paletteService.getPrimary(),
+        };
+    }
+
+    private setSecondary() {
+        return {
+            'background-color': this.paletteService.getSecondary(),
+        };
     }
 }
