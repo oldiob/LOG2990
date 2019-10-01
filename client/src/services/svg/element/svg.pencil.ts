@@ -6,7 +6,7 @@ export class SVGPencil implements SVGInterface {
 
     points: number[][] = [];
 
-    lineWidth: number = 1;
+    lineWidth = 1;
 
     constructor(private renderer: Renderer2) {
         this.element = this.renderer.createElement('polyline', 'svg');
@@ -17,7 +17,6 @@ export class SVGPencil implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-
 
         let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0;
 

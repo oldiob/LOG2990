@@ -9,7 +9,7 @@ describe('SVGBrush', () => {
     let C: string;
     let width: number;
     let texture: any;
-    texture = jasmine.createSpyObj('ITexture', ['create','addPoint']);
+    texture = jasmine.createSpyObj('ITexture', ['create', 'addPoint']);
 
     beforeEach(() => {
         X = Math.random() * 1000;
@@ -23,7 +23,7 @@ describe('SVGBrush', () => {
 
     it('should exits', () => {
         expect(brush).toBeTruthy();
-        expect(texture.create).toHaveBeenCalled()
+        expect(texture.create).toHaveBeenCalled();
     });
 
     it('should return false if (x,y) is nowhere the pencil drew', () => {

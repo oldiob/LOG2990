@@ -1,5 +1,5 @@
-import { SVGService } from './svg.service';
 import { SVGInterface } from './element/svg.interface';
+import { SVGService } from './svg.service';
 
 class MockProvider {
     _renderer: any;
@@ -13,23 +13,23 @@ class MockProvider {
 
 describe('SVGService', () => {
 
-    let X = Math.random() * 1000;
-    let Y = Math.random() * 1000;
-    let R = Math.random() * 1000;
+    const X = Math.random() * 1000;
+    const Y = Math.random() * 1000;
+    const R = Math.random() * 1000;
 
-    let obj = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+    const obj = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
     obj.isAt.and.returnValue(false);
     obj.isIn.and.returnValue(false);
-    let objAt = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+    const objAt = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
     objAt.isAt.and.returnValue(true);
     objAt.isIn.and.returnValue(false);
-    let objIn = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+    const objIn = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
     objIn.isAt.and.returnValue(false);
     objIn.isIn.and.returnValue(true);
 
-    let renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild']);
-    let provider = new MockProvider(renderer);
-    let entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+    const renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild']);
+    const provider = new MockProvider(renderer);
+    const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
 
     let service: SVGService;
 

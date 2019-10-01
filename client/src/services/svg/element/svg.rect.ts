@@ -11,9 +11,9 @@ export class SVGRect implements SVGInterface {
     x2: number;
     y2: number;
 
-    pointSize: number = 1;
-    stroke: boolean = true;
-    fill: boolean = true;
+    pointSize = 1;
+    stroke = true;
+    fill = true;
 
     constructor(x: number, y: number, private renderer: Renderer2) {
         this.element = this.renderer.createElement('polygon', 'svg');
@@ -26,10 +26,10 @@ export class SVGRect implements SVGInterface {
 
     isAt(x: number, y: number): boolean {
         // Find maximum and minimum values
-        let minX: number = Math.min(this.x1, this.x2);
-        let maxX: number = Math.max(this.x1, this.x2);
-        let minY: number = Math.min(this.y1, this.y2);
-        let maxY: number = Math.max(this.y1, this.y2);
+        const minX: number = Math.min(this.x1, this.x2);
+        const maxX: number = Math.max(this.x1, this.x2);
+        const minY: number = Math.min(this.y1, this.y2);
+        const maxY: number = Math.max(this.y1, this.y2);
         return (minX <= x && x <= maxX && minY <= y && y <= maxY);
     }
 
@@ -37,13 +37,15 @@ export class SVGRect implements SVGInterface {
         return true;
     }
     setPrimary(color: string): void {
-        if (this.fill)
+        if (this.fill) {
             this.renderer.setAttribute(this.element, 'fill', color);
+        }
 
     }
     setSecondary(color: string): void {
-        if (this.stroke)
+        if (this.stroke) {
             this.renderer.setAttribute(this.element, 'stroke', color);
+        }
     }
     setPointSize(pointSize: number): void {
         this.pointSize = pointSize;

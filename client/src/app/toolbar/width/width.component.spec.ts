@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WidthComponent } from './width.component';
 import { FormsModule } from '@angular/forms';
+import { WidthComponent } from './width.component';
 
 describe('WidthComponent', () => {
     let component: WidthComponent;
