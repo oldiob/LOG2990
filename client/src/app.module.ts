@@ -38,7 +38,6 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
         BucketOptionComponent,
         WidthComponent,
         ShowcaseComponent,
-        ColorsComponent,
     ],
     imports: [
         BrowserModule,
