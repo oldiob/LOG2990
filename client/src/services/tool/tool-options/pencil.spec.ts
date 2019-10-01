@@ -1,17 +1,18 @@
 import { PencilTool } from './pencil';
 
-describe('PencilService', () => {
+describe('PencilTool', () => {
 
     const element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
-    const rendererProvider = jasmine.createSpyObj('RendererProviderService', ['renderer']);
-    const svgService = jasmine.createSpyObj('SVGService', ['addObject']);
+    const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+    const rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
     const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
 
     let pencil: PencilTool;
     let event: MouseEvent;
 
     beforeEach(() => {
-        pencil = new PencilTool(rendererProvider, svgService, paletteService);
+        rendererProvider.renderer = renderer;
+        pencil = new PencilTool(rendererProvider, paletteService);
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
         event.svgY = Math.floor(Math.random() * 1000);
@@ -21,10 +22,11 @@ describe('PencilService', () => {
         expect(pencil).toBeTruthy();
     });
 
-    it('should keep track of a newly created SVGPencil and return it', () => {
-        pencil.onPressed(event);
+    it('should keep track of a newly created SVGPencil', () => {
+        pencil.element = element;
+        const returnElement = pencil.onPressed(event);
         expect(pencil.element).toBeTruthy();
-        expect(pencil.element).toHaveBeenCalledWith(event.svgX, event.svgY);
+        expect(returnElement).toBeTruthy();
     });
 
     it('should add a point to the newly created element', () => {
