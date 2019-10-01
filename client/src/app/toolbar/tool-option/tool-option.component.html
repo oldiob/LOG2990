@@ -2,21 +2,23 @@
 <div class="buttons-wrapper">
   <div class="btn-color-wrapper">
     <button mat-raised-button class="btn btn-primary" (click)="togglePrimaryColorPicker()"
-      [ngStyle]="setPrimaryColor()"> <span class="color-text" >Color 1</span></button>
+      [ngStyle]="setPrimaryColor()">
+      <span class="color-text">Color 1</span>
+    </button>
     <div class="color1-picker" *ngIf="isShowPrimary">
-      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick()"></app-color-option>
+      <app-color-option [isPrimary]="isShowPrimary" (mouseup)="hideColorPicker()"  (color)="onColorPick()"></app-color-option>
     </div>
   </div>
-  
+
   <div class="swap" (click)="onSwap()">
     <img src="../../../assets/images/swap.svg" alt="swap">
   </div>
-  
+
   <div class="btn-color-wrapper">
     <button mat-raised-button (click)="toggleSecondaryColorPicker()" [ngStyle]="setSecondary()">Color
       2</button>
     <div class="color2-picker" *ngIf="isShowSecondary">
-      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick($event)"></app-color-option>
+      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick()"></app-color-option>
     </div>
   </div>
 </div>

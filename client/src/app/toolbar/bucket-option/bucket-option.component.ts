@@ -57,14 +57,14 @@ export class BucketOptionComponent implements OnInit {
   }
 
   onColorPick() {
-    if (this.isShowPrimary) {
-      this.setPrimaryColor();
-      this.isShowPrimary = false;
-    } else {
-      this.setSecondary();
-      this.isShowSecondary = false;
-    }
-  }
+    this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
+    this.hideColorPicker();
+}
+
+hideColorPicker() {
+    this.isShowPrimary ? this.isShowPrimary = false
+        : this.isShowSecondary = false;
+}
 
   private setPrimaryColor() {
     return {

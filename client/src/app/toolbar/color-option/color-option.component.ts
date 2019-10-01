@@ -16,6 +16,8 @@ export class ColorOptionComponent implements OnInit {
     currentTool: ITool;
     colorsForm: FormGroup;
 
+    colorsHistory: Color[];
+
     readonly DEFAULT_RED = 255;
     readonly DEFAULT_GREEN = 255;
     readonly DEFAULT_BLUE = 255;
@@ -32,11 +34,11 @@ export class ColorOptionComponent implements OnInit {
 
     ngOnInit() {
         this.createForm();
+        this.colorsHistory = this.paletteService.getHistory();
     }
 
     private createForm() {
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
-
         this.colorsForm = this.formBuilder.group({
             red: [this.DEFAULT_RED, rgbaValidators],
             green: [this.DEFAULT_GREEN, rgbaValidators],

@@ -50,8 +50,6 @@ export class ToolOptionComponent implements OnInit {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
 
-        this.primaryColor = '#222222';
-        this.secondaryColor = '#aaaaaa';
         this.showcase.display(this.currentTool);
     }
 
@@ -96,13 +94,13 @@ export class ToolOptionComponent implements OnInit {
     }
 
     onColorPick() {
-        if (this.isShowPrimary) {
-            this.setPrimaryColor();
-            this.isShowPrimary = false;
-        } else {
-            this.setSecondary();
-            this.isShowSecondary = false;
-        }
+        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
+        this.hideColorPicker();
+    }
+
+    hideColorPicker() {
+        this.isShowPrimary ? this.isShowPrimary = false
+            : this.isShowSecondary = false;
     }
 
     private setPrimaryColor() {
