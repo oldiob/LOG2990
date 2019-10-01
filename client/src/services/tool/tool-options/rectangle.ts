@@ -38,7 +38,7 @@ export class RectangleTool implements IShapeTool {
     }
     onMotion(event: MouseEvent): void {
         if (this.element != null) {
-            this.element.setCursor(event.svgX, event.svgY);
+            this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
     }
 }

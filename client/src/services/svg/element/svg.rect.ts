@@ -16,7 +16,7 @@ export class SVGRect implements SVGInterface {
     private fillOpacity: number;
 
     constructor(x: number, y: number, private renderer: Renderer2) {
-        this.element = this.renderer.createElement('rect', 'svg');
+        this.element = this.renderer.createElement('polygon', 'svg');
         this.x1 = this.x2 = x;
         this.y1 = this.y2 = y;
         this.pointSize = 1;
@@ -111,26 +111,21 @@ export class SVGRect implements SVGInterface {
             this.renderer.setAttribute(this.element, 'stroke-opacity', this.strokeOpacity.toString());
         }
     }
-    setCursor(x: number, y: number) {
+    setCursor(x: number, y: number, shift: boolean) {
+        if (shift) {
+            const diffX = x - this.x1;
+            const diffY = y - this.y1;
+            if (Math.abs(diffX) < Math.abs(diffY)) {
+                y = this.y1 + Math.abs(diffX) * Math.sign(diffY);
+            } else {
+                x = this.x1 + Math.abs(diffY) * Math.sign(diffX);
+            }
+        }
         this.x2 = x;
         this.y2 = y;
-        let minX: number = this.x1;
-        let maxX: number = this.x2;
-        let minY: number = this.y1;
-        let maxY: number = this.y2;
-        if (minX > maxX) {
-            const tmp: number = minX;
-            minX = maxX;
-            maxX = tmp;
-        }
-        if (minY > maxY) {
-            const tmp: number = minY;
-            minY = maxY;
-            maxY = tmp;
-        }
-        this.renderer.setAttribute(this.element, 'x', `${minX}`);
-        this.renderer.setAttribute(this.element, 'y', `${minY}`);
-        this.renderer.setAttribute(this.element, 'width', `${maxX - minX}`);
-        this.renderer.setAttribute(this.element, 'height', `${maxY - minY}`);
+        this.renderer.setAttribute(this.element, 'points', `${this.x1},${this.y1}
+                                                            ${this.x2},${this.y1}
+                                                            ${this.x2},${this.y2}
+                                                            ${this.x1},${this.y2}`);
     }
 }

@@ -1,9 +1,7 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-
-//declare type callback = () => void;
 
 @Component({
     selector: 'app-draw-area',
@@ -27,10 +25,6 @@ export class DrawAreaComponent implements OnInit {
 
     height: number;
     width: number;
-    isNewDrawCreate: boolean;
-    rectangleWidth: number;
-    rectangleHeight: number;
-    rectangleActivate = false;
     backgroundColor = '#ffffffff';
     currentStyles: { height: number; width: number; 'background-color': string; };
     isMouseDown = false;
@@ -39,7 +33,6 @@ export class DrawAreaComponent implements OnInit {
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private toolService: ToolService) {
-        this.isNewDrawCreate = false;
     }
 
     ngOnInit() {
@@ -92,33 +85,12 @@ export class DrawAreaComponent implements OnInit {
         this.toolService.currentTool.onReleased(event);
     }
     onMouseEnter(): void {
-        this.isNewDrawCreate = true;
+        //
     }
     onMouseLeave(): void {
         //
     }
     onDrag(): void {
         //
-    }
-
-    @HostListener('window: keypress', ['$event'])
-    @HostListener('window: keydown', ['$event'])
-    pressKeyboard(event: KeyboardEvent): void {
-        /*const kbd: { [id: string]: callback } = {
-            'c': () => { this.toolService.setCurrentToolIndex(0) },
-            'w': () => { this.toolService.setCurrentToolIndex(1) },
-            'b': () => { this.toolService.setCurrentToolIndex(2) },
-            '1': () => { this.toolService.setCurrentToolIndex(3) },
-            'C-s': () => { console.log("TODO - Remove me"); }
-        };
-        let keys: string = "";
-        if (event.ctrlKey) {
-            keys += "C-";
-        }
-        keys += event.key;
-        if (kbd[keys]) {
-            let func: callback = kbd[keys];
-            func();
-        }*/
     }
 }
