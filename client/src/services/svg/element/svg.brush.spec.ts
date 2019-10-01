@@ -1,6 +1,6 @@
 import { SVGBrush } from './svg.brush';
 
-fdescribe('SVGBrush', () => {
+describe('SVGBrush', () => {
 
     let renderer: any;
     let brush: SVGBrush;
