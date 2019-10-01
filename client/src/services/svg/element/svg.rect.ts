@@ -25,7 +25,6 @@ export class SVGRect implements SVGInterface {
         this.renderer.setAttribute(this.element, 'fill', 'none');
         this.renderer.setAttribute(this.element, 'x', `${this.x1}`);
         this.renderer.setAttribute(this.element, 'y', `${this.y1}`);
-        this.renderer.setAttribute(this.element, 'id', `${Math.floor(Math.random() * 1000)}`);
     }
 
     isAt(x: number, y: number): boolean {
