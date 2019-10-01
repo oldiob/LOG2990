@@ -8,6 +8,7 @@ export class Point {
     }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class Rect {
     x1: number;
     y1: number;

@@ -1,30 +1,34 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaComponent } from './draw-area.component';
 
 describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
     let fixture: ComponentFixture<DrawAreaComponent>;
-    // let mockToolService: ToolService;
+    let toolService: ToolService;
     // const rectCursor = `url(./../assets/images/${'rectangle-cursor.svg'}), crosshair`;
-    // let mockTool: ITool;
+    let tool: ITool;
+    let entry: ElementRef;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [DrawAreaComponent],
-            providers: [ToolService],
             schemas: [NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        // mockTool = jasmine.createSpyObj('ITool', ['onReleased', 'onMotion', 'onPressed', 'CURSOR_FILENAME']);
+        tool = jasmine.createSpyObj('ITool', ['onReleased', 'onMotion', 'onPressed', 'CURSOR_FILENAME']);
         fixture = TestBed.createComponent(DrawAreaComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        component.ngOnInit();
+        entry = jasmine.createSpyObj('ElementRef', ['']);
+        component.entry = entry;
+        toolService = TestBed.get(ToolService);
+        // component.ngOnInit();
+        toolService.currentTool = tool;
     });
 
     it('should create', () => {

@@ -1,12 +1,12 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { SVGService } from 'src/services/svg/svg.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 
 @Component({
     selector: 'app-showcase',
     templateUrl: './showcase.component.html',
-    styleUrls: ['./showcase.component.scss']
+    styleUrls: ['./showcase.component.scss'],
 })
 export class ShowcaseComponent implements OnInit {
     readonly STRETCH_V_CONST = 32.0;
