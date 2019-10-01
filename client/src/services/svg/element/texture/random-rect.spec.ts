@@ -1,8 +1,8 @@
-import { BlurTexture } from './blur';
+import { RandomRectTexture } from './random-rect';
 
-describe('Rect2Texture', () => {
+describe('RandomRectTecture', () => {
 
-    let blur: BlurTexture;
+    let rect: RandomRectTexture;
     let brush: any;
     let renderer: any;
     let element: any;
@@ -13,7 +13,7 @@ describe('Rect2Texture', () => {
         element = jasmine.createSpyObj('any', ['']);
 
         brush.renderer = renderer;
-        blur = new BlurTexture();
+        rect = new RandomRectTexture();
     });
 
     it('should exists', () => {
@@ -22,14 +22,15 @@ describe('Rect2Texture', () => {
 
     it('should create blur element', () => {
         renderer.createElement = jasmine.createSpy().and.returnValue(element);
-        blur.create(brush);
+        rect.create(brush);
         expect(brush.element).toEqual(element);
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(5);
+        expect(renderer.createElement).toHaveBeenCalled();
     });
 
     it('should add point to a blur element', () => {
-        blur.addPoint(brush, 0, 0);
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(1);
-        expect(brush.pointsAttribute).toHaveBeenCalled();
+        rect.addPoint(brush, 0, 0);
+        expect(renderer.createElement).toHaveBeenCalledTimes(RandomRectTexture.BRUSH_OBJECT_NUMBER);
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(4 * RandomRectTexture.BRUSH_OBJECT_NUMBER);
+        expect(renderer.appendChild).toHaveBeenCalledTimes(RandomRectTexture.BRUSH_OBJECT_NUMBER);
     });
 });

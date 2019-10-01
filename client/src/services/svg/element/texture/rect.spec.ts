@@ -1,6 +1,6 @@
 import { RectTexture } from './rect';
 
-fdescribe('RectTexture', () => {
+describe('RectTexture', () => {
 
     let rect: RectTexture;
     let brush: any;

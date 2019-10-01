@@ -1,6 +1,6 @@
 import { CircleTexture } from './circle';
 
-fdescribe('CircleTexture', () => {
+describe('CircleTexture', () => {
 
     let circle: CircleTexture;
     let brush: any;

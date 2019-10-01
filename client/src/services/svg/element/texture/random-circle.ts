@@ -6,7 +6,7 @@ export class RandomCircleTexture extends CircleTexture {
     static readonly BRUSH_RECT_FACTOR: number = 2;
 
     create(brush: SVGBrush): void {
-        brush.element = brush.renderer.createElement('g', 'svg');
+        super.create(brush);
     }
     addPoint(brush: SVGBrush, x: number, y: number): void {
         for (let i = 0; i < RandomCircleTexture.BRUSH_OBJECT_NUMBER; i++) {

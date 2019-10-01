@@ -1,6 +1,6 @@
 import { RandomCircleTexture } from './random-circle';
 
-fdescribe('RandomCircleTexture', () => {
+describe('RandomCircleTexture', () => {
 
     let circle: RandomCircleTexture;
     let brush: any;
@@ -29,8 +29,8 @@ fdescribe('RandomCircleTexture', () => {
 
     it('should add point to a blur element', () => {
         circle.addPoint(brush, 0, 0);
+        expect(renderer.createElement).toHaveBeenCalledTimes(RandomCircleTexture.BRUSH_OBJECT_NUMBER);
         expect(renderer.setAttribute).toHaveBeenCalledTimes(4 * RandomCircleTexture.BRUSH_OBJECT_NUMBER);
-        expect(brush.pointsAttribute).toHaveBeenCalledTimes(RandomCircleTexture.BRUSH_OBJECT_NUMBER);
-        expect(renderer.appendChild).toHaveBeenCalled();
+        expect(renderer.appendChild).toHaveBeenCalledTimes(RandomCircleTexture.BRUSH_OBJECT_NUMBER);
     });
 });
