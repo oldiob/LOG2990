@@ -26,7 +26,9 @@ export class DrawAreaComponent implements OnInit {
     height: number;
     width: number;
     backgroundColor = '#ffffffff';
-    currentStyles: { height: number; width: number; 'background-color': string; };
+    currentStyles: { height: string; width: string;
+                    'background-color': string;
+                    cursor: string };
     isMouseDown = false;
     isOnceWhileDown = true;
     constructor(
@@ -67,7 +69,7 @@ export class DrawAreaComponent implements OnInit {
         }
     }
 
-    onClick(event: MouseEvent): void { }
+    // onClick(event: MouseEvent): void { }
 
     onMouseDown(event: MouseEvent): void {
         const rect = this.entry.nativeElement.getBoundingClientRect();
@@ -84,13 +86,13 @@ export class DrawAreaComponent implements OnInit {
         this.isOnceWhileDown = true;
         this.toolService.currentTool.onReleased(event);
     }
-    onMouseEnter(): void {
-        //
-    }
-    onMouseLeave(): void {
-        //
-    }
-    onDrag(): void {
-        //
-    }
+    // onMouseEnter(): void {
+    //     //
+    // }
+    // onMouseLeave(): void {
+    //     //
+    // }
+    // onDrag(): void {
+    //     //
+    // }
 }
