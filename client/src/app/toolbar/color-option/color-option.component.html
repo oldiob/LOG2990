@@ -15,7 +15,7 @@
   <div class="hex-wrapper">
     <span class="field-label">HEX</span>
     <mat-form-field color="accent" class="field">
-      <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
+      <input maxlength="7" matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
         value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
     </mat-form-field>
   </div>
@@ -24,16 +24,16 @@
     <span class="field-label">RGBA </span>
 
     <mat-form-field color="accent" class="rgba-field">
-      <input (selectionChange)=validate($event); matInput type="number" formControlName="red"
+      <input min="0" max="255" (selectionChange)=validate($event); matInput type="number" formControlName="red"
         (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}" class="rgba-field">
     </mat-form-field>
 
     <mat-form-field color="accent" class="rgba-field">
-      <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
+      <input min="0" max="255" matInput type="number" formControlName="green" (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
     </mat-form-field>
 
     <mat-form-field color="accent" class="rgba-field">
-      <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+      <input min="0" max="255" matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
     </mat-form-field>
   </label>
   <div class="old-colors">

@@ -44,7 +44,7 @@ export class ColorOptionComponent implements OnInit {
             green: [this.DEFAULT_GREEN, rgbaValidators],
             blue: [this.DEFAULT_BLUE, rgbaValidators],
             alpha: [this.DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
-            backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX],
+            backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX, [Validators.min(0), Validators.maxLength(7)]],
         });
     }
 

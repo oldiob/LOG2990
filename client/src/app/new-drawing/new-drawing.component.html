@@ -28,7 +28,7 @@
       <label>
         <span class="field-label">Background Color</span>
         <mat-form-field color="accent" class="field">
-          <input matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
+          <input maxlength="7" matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
             value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
         </mat-form-field>
         <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor}"></div>
@@ -38,21 +38,21 @@
         <span class="field-label">RGBA </span>
 
         <mat-form-field color="accent" class="rgba-field">
-          <input matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
+          <input min="0" max="255" matInput type="number" formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}"
             class="rgba-field">
         </mat-form-field>
 
         <mat-form-field color="accent" class="rgba-field">
-          <input matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
+          <input min="0" max="255" matInput type="number" formControlName="green" (change)="onColorRGBAChange()"
             value="{{DEFAULT_GREEN}}">
         </mat-form-field>
 
         <mat-form-field color="accent" class="rgba-field">
-          <input matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+          <input min="0" max="255" matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
         </mat-form-field>
 
         <mat-form-field color="accent" class="rgba-field rgba-alpha">
-          <input matInput type="number" formControlName="alpha" (change)="onColorRGBAChange()"
+          <input min="0" max="1" step="0.1" matInput type="number" formControlName="alpha" (change)="onColorRGBAChange()"
             value="{{DEFAULT_ALPHA}}">
         </mat-form-field>
       </label>
