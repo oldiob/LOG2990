@@ -40,7 +40,8 @@ export class SVGRect implements SVGInterface {
         let maxX: number = this.x2;
         let minY: number = this.y1;
         let maxY: number = this.y2;
-        const width = this.pointSize;
+        const width = this.pointSize / 2 < 8 ? 8 : this.pointSize / 2;
+
         let isAt: boolean;
 
         if (minX > maxX) {
@@ -56,10 +57,10 @@ export class SVGRect implements SVGInterface {
         if (hasNoBorder) {
             isAt = (minX <= x && x <= maxX && minY <= y && y <= maxY);
         } else if (hasNoFill) {
-            const isInsideLeftBounds = (minX - width) <= x && x <= minX;
-            const isInsideRightBounds = maxX <= x && x <= (maxX + width);
-            const isInsideUpperBounds = (maxY + width) >= y && y >= maxY;
-            const isInsideBottomBounds = minY >= y && y >= (minY - width);
+            const isInsideLeftBounds = (minX - width) <= x && x <= (minX + width) && y >= minY - width && y <= maxY + width;
+            const isInsideRightBounds = (maxX - width) <= x && x <= (maxX + width) && y >= minY - width && y <= maxY + width;
+            const isInsideUpperBounds = (maxY + width) >= y && y >= (maxY - width) && x >= minX - width && x <= maxX + width;
+            const isInsideBottomBounds = (minY + width) >= y && y >= (minY - width) && x >= minX - width && x <= maxX + width;
 
             isAt = (isInsideLeftBounds || isInsideRightBounds || isInsideUpperBounds || isInsideBottomBounds);
         } else if (hasFillAndBorder) {
