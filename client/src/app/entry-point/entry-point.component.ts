@@ -7,14 +7,11 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./entry-point.component.scss'],
 })
 export class EntryPointComponent implements OnInit {
-  pressHide: boolean;
-  constructor(
-    public dialogRef: MatDialogRef<EntryPointComponent>, public dialog: MatDialog) {
-    }
+  pressHide: boolean = false;
+  constructor(public dialogRef: MatDialogRef<EntryPointComponent>,
+              public dialog: MatDialog) { }
 
-  ngOnInit() {
-    this.pressHide = false;
-  }
+  ngOnInit() { }
 
   close(event: MouseEvent): void {
     this.dialogRef.close(this.pressHide);
