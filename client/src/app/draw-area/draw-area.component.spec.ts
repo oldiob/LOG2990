@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaComponent } from './draw-area.component';
 
-fdescribe('DrawAreaComponent', () => {
+describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
     let fixture: ComponentFixture<DrawAreaComponent>;
     // let mockToolService: ToolService;

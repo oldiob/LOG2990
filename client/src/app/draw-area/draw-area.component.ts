@@ -69,7 +69,9 @@ export class DrawAreaComponent implements OnInit {
         }
     }
 
-    // onClick(event: MouseEvent): void { }
+    onClick(event: MouseEvent): void {
+        //
+    }
 
     onMouseDown(event: MouseEvent): void {
         const rect = this.entry.nativeElement.getBoundingClientRect();
@@ -86,13 +88,13 @@ export class DrawAreaComponent implements OnInit {
         this.isOnceWhileDown = true;
         this.toolService.currentTool.onReleased(event);
     }
-    // onMouseEnter(): void {
-    //     //
-    // }
-    // onMouseLeave(): void {
-    //     //
-    // }
-    // onDrag(): void {
-    //     //
-    // }
+    onMouseEnter(): void {
+        //
+    }
+    onMouseLeave(): void {
+        //
+    }
+    onDrag(): void {
+        //
+    }
 }
