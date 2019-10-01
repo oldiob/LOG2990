@@ -1,11 +1,10 @@
 import { PencilTool } from './pencil';
 
-fdescribe('PencilTool', () => {
+describe('PencilTool', () => {
 
     const element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
     const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
     const rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
-    //const svgService = jasmine.createSpyObj('SVGService', ['addObject']);
     const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
 
     let pencil: PencilTool;
