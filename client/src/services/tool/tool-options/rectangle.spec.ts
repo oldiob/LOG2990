@@ -31,12 +31,19 @@ describe('RectangleTool', () => {
     });
 
     it('should set element to null when OnRelased', () => {
-      rectangle.onReleased(event);
-      expect(rectangle.element).toBeNull();
+        rectangle.onReleased(event);
+        expect(rectangle.element).toBeNull();
     });
 
     it('should set cursor with proper parameter when OnMotion', () => {
-      rectangle.onMotion(event);
-      expect(element.setCursor).toHaveBeenCalled();
+        rectangle.element = element;
+        rectangle.onMotion(event);
+        expect(element.setCursor).toHaveBeenCalled();
+    });
+
+    it('should do nothing if no element is been manipulated', () => {
+        rectangle.element = null;
+        rectangle.onMotion(event);
+        expect(element.setCursor).not.toHaveBeenCalled();
     });
 });
