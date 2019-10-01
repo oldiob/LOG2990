@@ -4,12 +4,11 @@ import { SVGInterface } from './svg.interface';
 export class SVGPencil implements SVGInterface {
     element: any;
 
-    points: number[][];
+    points: number[][] = [];
 
-    lineWidth: number;
+    lineWidth: number = 1;
 
     constructor(private renderer: Renderer2) {
-        this.points = [];
         this.element = this.renderer.createElement('polyline', 'svg');
 
         this.renderer.setAttribute(this.element, 'fill', 'none');
@@ -18,17 +17,12 @@ export class SVGPencil implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-        if (this.points.length === 0) {
-            // should never happen, but to avoid mistakes
-            return false;
-        }
+
 
         let halfWidthSquared: number = (this.lineWidth * this.lineWidth) / 4.0;
 
-        // width min 4
-        if (halfWidthSquared < 16.0) {
-            halfWidthSquared = 16.0;
-        }
+        // min width is 4
+        halfWidthSquared = Math.max(16.0, halfWidthSquared);
 
         let point0: number[] = this.points[0];
         for (let i = 1; i < this.points.length; i++) {
@@ -76,7 +70,6 @@ export class SVGPencil implements SVGInterface {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
 
