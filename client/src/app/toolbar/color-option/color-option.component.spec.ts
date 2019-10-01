@@ -22,12 +22,4 @@ describe('ColorOptionComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    it('should swap color correctly', () => {
-        const primary: string = component.primary;
-        const secondary: string = component.secondary;
-        component.swap();
-        expect(component.primary).toEqual(secondary);
-        expect(component.secondary).toEqual(primary);
-    });
 });

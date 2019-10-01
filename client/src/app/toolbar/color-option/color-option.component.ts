@@ -76,13 +76,12 @@ export class ColorOptionComponent implements OnInit {
             = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(3, 5));
         const BLUE
             = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(5, 7));
-        const ALPHA
-            = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(7, 9)) / 255;
 
         this.colorsForm.controls.red.setValue(RED);
         this.colorsForm.controls.green.setValue(GREEN);
         this.colorsForm.controls.blue.setValue(BLUE);
-        this.updatePalette({ red: RED, green: GREEN, blue: BLUE, alpha: ALPHA });
+        const FULL_ALPHA = 1;
+        this.updatePalette({ red: RED, green: GREEN, blue: BLUE, alpha: FULL_ALPHA });
     }
 
     private convertToDecimal(hex: string): number {
@@ -102,8 +101,7 @@ export class ColorOptionComponent implements OnInit {
             '#' +
             `${this.convertToHEX(RED)}` +
             `${this.convertToHEX(GREEN)}` +
-            `${this.convertToHEX(BLUE)}` +
-            `${this.convertToHEX(ALPHA)}`;
+            `${this.convertToHEX(BLUE)}`;
         this.colorsForm.controls.backgroundColorHEX.setValue(backgroundColorHEX);
         this.updatePalette({ red: RED, green: GREEN, blue: BLUE, alpha: ALPHA });
     }
@@ -136,9 +134,5 @@ export class ColorOptionComponent implements OnInit {
         return {
             'background-color': `${this.paletteService.getSecondary()}`,
         };
-    }
-
-    validate(event: Event) {
-        console.log(event);
     }
 }

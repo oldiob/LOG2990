@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { RingBuffer } from 'src/utils/ring-buffer';
 import { Color } from 'src/utils/color';
+import { RingBuffer } from 'src/utils/ring-buffer';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +16,7 @@ export class PaletteService {
     }
 
     static readonly DEFAULT_PRIMARY: Color = new Color(30, 30, 30, 1);
-    static readonly DEFAULT_SECONDARY: Color = new Color(220, 220, 220, 1);
+    static readonly DEFAULT_SECONDARY: Color = new Color(170, 170, 170, 1);
     static readonly DEFAULT_MEMSET: Color = new Color(255, 255, 255, 1);
     static readonly MAX_HISTORY = 10;
 
