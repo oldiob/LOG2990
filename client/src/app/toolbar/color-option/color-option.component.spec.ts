@@ -6,7 +6,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { ColorOptionComponent } from './color-option.component';
 
-fdescribe('ColorOptionComponent', () => {
+describe('ColorOptionComponent', () => {
     let component: ColorOptionComponent;
     let fixture: ComponentFixture<ColorOptionComponent>;
     let service: PaletteService;
