@@ -57,7 +57,7 @@ export class ShapeOptionComponent implements OnInit {
         return this.FILE_LOCATION + tool.BUTTON_FILENAME;
     }
 
-    private createForm() {
+    private createForm(): void {
         const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
         const validators = [Validators.min(0), Validators.required];
 
@@ -66,30 +66,30 @@ export class ShapeOptionComponent implements OnInit {
         });
     }
 
-    setWidth(width: number) {
+    setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
             this.showcase.display(this.currentTool);
         }
     }
 
-    onTraceTypeChange() {
+    onTraceTypeChange(): void {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
 
         this.showcase.display(this.currentTool);
     }
 
-    togglePrimaryColorPicker() {
+    togglePrimaryColorPicker(): void {
         this.isShowSecondary = false;
         this.isShowPrimary = !this.isShowPrimary;
     }
 
-    toggleSecondaryColorPicker() {
+    toggleSecondaryColorPicker(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = !this.isShowSecondary;
     }
 
-    onSwap() {
+    onSwap(): void {
         this.paletteService.swap();
         this.setPrimaryColor();
         this.setSecondary();

@@ -1,45 +1,108 @@
-import { CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule,
+        MatFormFieldModule, MatOptionModule, MatSelectModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { ShapeOptionComponent } from './shape-option.component';
 
 describe('ShapeOptionComponent', () => {
-  let component: ShapeOptionComponent;
-  let fixture: ComponentFixture<ShapeOptionComponent>;
-  let showcase: ShowcaseComponent;
-  let entry: ElementRef;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ShapeOptionComponent ],
-      imports: [FormsModule, ReactiveFormsModule, BrowserAnimationsModule,
-                BrowserDynamicTestingModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
-  }));
+    let component: ShapeOptionComponent;
+    let fixture: ComponentFixture<ShapeOptionComponent>;
+    let showcase: ShowcaseComponent;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ShapeOptionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ ShapeOptionComponent, ShowcaseComponent ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+            imports: [MatSelectModule, MatDialogModule, FormsModule,
+                    BrowserAnimationsModule, BrowserDynamicTestingModule,
+                    ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
+                    MatOptionModule, MatFormFieldModule],
+            providers: [PaletteService],
+        }).compileComponents();
+    }));
 
-    showcase = jasmine.createSpyObj('ShowcaseComponent', ['display']);
-    entry = jasmine.createSpyObj('ElementRef', ['']);
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ShapeOptionComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
-    component.showcase = showcase;
-    component.showcase.entry = entry;
+        showcase = jasmine.createSpyObj('ShowcaseComponent', ['showcase', 'display']);
 
-    component.ngOnInit();
-  });
+        component.showcase = showcase;
+        component.ngOnInit();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
-  it('should rectangle be the current tool', () => {
-    expect(component.currentTool).toBe(component.tools[0]);
-  });
-});
+    it('should rectangle be the current tool', () => {
+      expect(component.currentTool).toBe(component.tools[0]);
+    });
+
+    it('should not show primary and secondary be the current tool', () => {
+        expect(component.isShowPrimary).toBeFalsy();
+        expect(component.isShowSecondary).toBeFalsy();
+    });
+
+    it('should select rectangle tool and expect showcase to display', () => {
+        component.selectTool(component.currentTool);
+        component.currentTool = component.tools[0];
+        component.showcase.display(component.currentTool);
+        expect(showcase.display).toHaveBeenCalled();
+      });
+
+    it('should set width of the current tool on display', () => {
+        const width = 100;
+        component.setWidth(width);
+        expect(component.currentTool.width).toEqual(width);
+        expect(showcase.display).toHaveBeenCalled();
+    });
+
+    it('should trace type change on display', () => {
+        component.onTraceTypeChange();
+        expect(component.currentTool.traceType).toEqual(component.shapeForm.controls.traceType.value);
+        expect(showcase.display).toHaveBeenCalled();
+    });
+
+    it('should show primary color', () => {
+        component.togglePrimaryColorPicker();
+        expect(component.isShowSecondary).toBeFalsy();
+        expect(component.isShowPrimary).toBeTruthy();
+    });
+
+    it('should show secondary color', () => {
+        component.toggleSecondaryColorPicker();
+        expect(component.isShowSecondary).toBeTruthy();
+        expect(component.isShowPrimary).toBeFalsy();
+    });
+
+    it('should swap primary and secondary color', () => {
+        component.onSwap();
+        expect(component.onSwap).toBeTruthy();
+    });
+
+    it('should pick color and call hideColorPicker', () => {
+        component.isShowPrimary = true;
+        component.onColorPick();
+        expect(component.hideColorPicker).toBeTruthy();
+    });
+
+    it('should hide primary color', () => {
+        component.isShowPrimary = true;
+        component.hideColorPicker();
+        expect(component.isShowPrimary).toBeFalsy();
+    });
+
+    it('should hide secondary color', () => {
+        component.isShowPrimary = false;
+        component.hideColorPicker();
+        expect(component.isShowSecondary).toBeFalsy();
+    });
+
+    });
