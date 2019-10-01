@@ -54,17 +54,11 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage() {
-        this.paletteService.selectPrimary(this.rn(), this.rn(), this.rn(), this.rn());
-        this.paletteService.selectSecondary(this.rn(), this.rn(), this.rn(), this.rn());
         this.drawAreaService.save();
     }
 
     getImage(option: any) {
         return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
-    }
-
-    private rn(): number {
-        return Math.trunc(Math.random() * 255);
     }
 
     @HostListener('window: keypress', ['$event'])
