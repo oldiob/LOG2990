@@ -23,11 +23,12 @@ export class ShowcaseComponent implements OnInit {
     @ViewChild('svgContainer', {static: true})
     entry: ElementRef;
 
-    private service: SVGService;
-    private mouseEvent: MouseEvent;
+    service: SVGService | null;
+    mouseEvent: MouseEvent;
 
     constructor(private rendererProvider: RendererProviderService) {
         this.mouseEvent = new MouseEvent('', undefined);
+        this.service = null;
     }
 
     ngOnInit() {
@@ -38,7 +39,7 @@ export class ShowcaseComponent implements OnInit {
     }
 
     display(tool: ITool) {
-        if (this.service === undefined) {
+        if (this.service == null) {
             return;
         }
 
@@ -52,7 +53,7 @@ export class ShowcaseComponent implements OnInit {
         tool.onReleased(this.mouseEvent);
     }
 
-    private click(x: number, y: number): MouseEvent {
+    click(x: number, y: number): MouseEvent {
         this.mouseEvent.svgX = x;
         this.mouseEvent.svgY = y;
         return this.mouseEvent;
