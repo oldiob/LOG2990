@@ -32,12 +32,12 @@ export class ColorOptionComponent implements OnInit {
         private formBuilder: FormBuilder) {
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.createForm();
         this.colorsHistory = this.paletteService.getHistory();
     }
 
-    private createForm() {
+    private createForm(): void {
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
         this.colorsForm = this.formBuilder.group({
             red: [this.DEFAULT_RED, rgbaValidators],
@@ -48,7 +48,7 @@ export class ColorOptionComponent implements OnInit {
         });
     }
 
-    onColorPick(color: Color) {
+    onColorPick(color: Color): void {
         this.colorsForm.controls.red.setValue(color.red);
         this.colorsForm.controls.green.setValue(color.green);
         this.colorsForm.controls.blue.setValue(color.blue);
@@ -57,7 +57,7 @@ export class ColorOptionComponent implements OnInit {
         this.updatePalette(color);
     }
 
-    private updatePalette(color: Color) {
+    private updatePalette(color: Color): void {
         if (this.isPrimary) {
             this.paletteService.selectPrimary(color.red, color.green, color.blue, color.alpha);
         } else {
@@ -65,7 +65,7 @@ export class ColorOptionComponent implements OnInit {
         }
     }
 
-    onColorHEXChange() {
+    onColorHEXChange(): void {
         this.updateColorRGBA();
     }
 
@@ -88,11 +88,11 @@ export class ColorOptionComponent implements OnInit {
         return parseInt(hex, 16);
     }
 
-    onColorRGBAChange() {
+    onColorRGBAChange(): void {
         this.updateColorHEX();
     }
 
-    private updateColorHEX() {
+    private updateColorHEX(): void {
         const RED = this.colorsForm.controls.red.value;
         const GREEN = this.colorsForm.controls.green.value;
         const BLUE = this.colorsForm.controls.blue.value;
@@ -114,7 +114,7 @@ export class ColorOptionComponent implements OnInit {
         return hexString;
     }
 
-    onAlphaChange() {
+    onAlphaChange(): void {
         this.colorsForm.controls.alpha.setValue(this.colorsForm.controls.alpha.value);
         const color = {
             red: this.colorsForm.controls.red.value,
@@ -125,7 +125,7 @@ export class ColorOptionComponent implements OnInit {
         this.updatePalette(color);
     }
 
-    setPrimaryColor() {
+    setPrimaryColor(): object {
         return {
             'background-color': `${this.paletteService.getPrimary()}`,
         };
