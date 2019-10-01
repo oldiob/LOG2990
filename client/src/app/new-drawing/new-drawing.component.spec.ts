@@ -10,7 +10,7 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { NewDrawingComponent } from './new-drawing.component';
 
-fdescribe('NewDrawingComponent', () => {
+describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
     let workZoneService: WorkZoneService;

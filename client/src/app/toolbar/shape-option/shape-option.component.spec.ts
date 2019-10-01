@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { ShapeOptionComponent } from './shape-option.component';
 
-fdescribe('ShapeOptionComponent', () => {
+describe('ShapeOptionComponent', () => {
   let component: ShapeOptionComponent;
   let fixture: ComponentFixture<ShapeOptionComponent>;
   let showcase: ShowcaseComponent;
