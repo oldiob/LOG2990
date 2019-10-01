@@ -9,7 +9,7 @@ import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 })
 export class DialogService {
     private isClosedWelcome = new BehaviorSubject<boolean>(false);
-
+    UNDEFINED = 'undefined';
     constructor(private dialog: MatDialog) { }
 
     get isClosedWelcomeObservable(): Observable<boolean> {
@@ -27,7 +27,7 @@ export class DialogService {
 
         this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
             sessionStorage.setItem(cookie, JSON.stringify(result));
-            if (typeof result !== 'undefined') {
+            if (typeof result !== this.UNDEFINED) {
                 isClosed = true;
                 this.isClosedWelcome.next(isClosed);
             }

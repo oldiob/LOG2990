@@ -13,6 +13,22 @@ import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 export class NewDrawingComponent implements OnInit {
     readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
 
+    UNSAVED = 'Are you sure want to abandon your unsaved work?';
+    REQUIRED = 'required';
+    ENTER_WIDTH = 'You must enter a width';
+    ENTER_HEIGHT = 'You must enter a height';
+    NOTHING = '';
+    ZERO = '0';
+    ONE = 1;
+    TWO = 2;
+    THREE = 3;
+    FIVE = 5;
+    SEVEN = 7;
+    SIXTEEN = 16;
+    RGB_MIN = 0;
+    RGB_MAX = 255;
+    ALPHA_MIN = 0;
+    ALPHA_MAX = 1;
     readonly DEFAULT_RED = 255;
     readonly DEFAULT_GREEN = 255;
     readonly DEFAULT_BLUE = 255;
@@ -54,8 +70,8 @@ export class NewDrawingComponent implements OnInit {
             this.DEFAULT_ALPHA);
 
         // Form to create new work zone to draw
-        const rgbaValidators = [Validators.min(0), Validators.max(255)];
-        const dimentionsValidators = [Validators.min(0), Validators.required];
+        const rgbaValidators = [Validators.min(this.RGB_MIN), Validators.max(this.RGB_MAX)];
+        const dimentionsValidators = [Validators.min(this.RGB_MIN), Validators.required];
 
         this.newDrawingFrom = this.formBuilder.group({
             height: [this.defaultHeight, dimentionsValidators],
@@ -67,7 +83,7 @@ export class NewDrawingComponent implements OnInit {
             red: [this.DEFAULT_RED, rgbaValidators],
             green: [this.DEFAULT_GREEN, rgbaValidators],
             blue: [this.DEFAULT_BLUE, rgbaValidators],
-            alpha: [this.DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
+            alpha: [this.DEFAULT_ALPHA, [Validators.min(this.ALPHA_MIN), Validators.max(this.ALPHA_MAX)]],
 
             isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
         });
@@ -167,9 +183,9 @@ export class NewDrawingComponent implements OnInit {
     }
 
     private convertToHEX(rgb: number): string {
-        let hexString = rgb.toString(16).toUpperCase();
-        if (hexString.length < 2) {
-            hexString = '0' + hexString;
+        let hexString = rgb.toString(this.SIXTEEN).toUpperCase();
+        if (hexString.length < this.TWO) {
+            hexString = this.ZERO + hexString;
         }
         return hexString;
     }
@@ -186,11 +202,11 @@ export class NewDrawingComponent implements OnInit {
 
     private updateColorRGBA() {
         const RED
-            = this.convertToDecimal(this.backgroundColorHEX.substring(1, 3));
+            = this.convertToDecimal(this.backgroundColorHEX.substring(this.ONE, this.THREE));
         const GREEN
-            = this.convertToDecimal(this.backgroundColorHEX.substring(3, 5));
+            = this.convertToDecimal(this.backgroundColorHEX.substring(this.THREE, this.FIVE));
         const BLUE
-            = this.convertToDecimal(this.backgroundColorHEX.substring(5, 7));
+            = this.convertToDecimal(this.backgroundColorHEX.substring(this.FIVE, this.SEVEN));
 
         this.newDrawingFrom.controls.red.setValue(RED);
         this.newDrawingFrom.controls.green.setValue(GREEN);
@@ -198,7 +214,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     private convertToDecimal(hex: string): number {
-        return parseInt(hex, 16);
+        return parseInt(hex, this.SIXTEEN);
     }
 
     chooseBgColor(bgColorHEX: string) {
@@ -208,15 +224,15 @@ export class NewDrawingComponent implements OnInit {
     }
 
     getWidthErrorMessage() {
-        return this.newDrawingFrom.controls.width.hasError('required') ? 'You must enter a width' : '';
+        return this.newDrawingFrom.controls.width.hasError(this.REQUIRED) ? this.ENTER_WIDTH : this.NOTHING;
     }
 
     getHeightErrorMessage() {
-        return this.newDrawingFrom.controls.height.hasError('required') ? 'You must enter a height' : '';
+        return this.newDrawingFrom.controls.height.hasError(this.REQUIRED) ? this.ENTER_HEIGHT : this.NOTHING;
     }
 
     getSaveErrorMessage() {
-        return 'Are you sure want to abandon your unsaved work?';
+        return this.UNSAVED;
     }
 
     showColorPicker() {
