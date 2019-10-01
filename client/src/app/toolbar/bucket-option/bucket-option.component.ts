@@ -39,7 +39,6 @@ export class BucketOptionComponent implements OnInit {
     return this.FILE_LOCATION + tool.BUTTON_FILENAME;
   }
 
-
   togglePrimaryColorPicker() {
     this.isShowSecondary = false;
     this.isShowPrimary = !this.isShowPrimary;
