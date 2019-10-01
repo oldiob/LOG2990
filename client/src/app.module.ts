@@ -15,7 +15,6 @@ import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
 import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
-import { ColorsComponent } from './app/toolbar/color-option/colors/colors.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
