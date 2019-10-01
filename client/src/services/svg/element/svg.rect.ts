@@ -54,14 +54,20 @@ export class SVGRect implements SVGInterface {
             case TraceType.BorderOnly:
                 this.fill = false;
                 this.stroke = true;
+                this.renderer.setAttribute(this.element, 'fill-opacity', '0');
+                this.renderer.setAttribute(this.element, 'stroke-opacity', '1');
                 break;
             case TraceType.FillOnly:
                 this.fill = true;
                 this.stroke = false;
+                this.renderer.setAttribute(this.element, 'fill-opacity', '1');
+                this.renderer.setAttribute(this.element, 'stroke-opacity', '0');
                 break;
             case TraceType.FillAndBorder:
                 this.fill = true;
                 this.stroke = true;
+                this.renderer.setAttribute(this.element, 'fill-opacity', '1');
+                this.renderer.setAttribute(this.element, 'stroke-opacity', '1');
                 break;
         }
     }
