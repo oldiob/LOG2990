@@ -21,12 +21,16 @@ export class DialogService {
     }
 
     openEntryPoint(cookie: string): void {
+        let isClosed = false;
         const dialogConfig: MatDialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
 
         this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
             sessionStorage.setItem(cookie, JSON.stringify(result));
-            this.isClosedWelcome.next(result);
+            if (typeof result !== 'undefined') {
+                isClosed = true;
+                this.isClosedWelcome.next(isClosed);
+            }
         });
     }
 }
