@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
 
@@ -8,9 +8,11 @@ import { RendererProviderService } from '../renderer-provider/renderer-provider.
 export class SVGService {
     entry: ElementRef;
 
-    private objects: SVGInterface[] = [];
-    constructor(private rendererProvider: RendererProviderService) {
+    objects: SVGInterface[] = [];
+    renderer: Renderer2;
 
+    constructor(rendererProvider: RendererProviderService) {
+        this.renderer = rendererProvider.renderer;
     }
 
     findAt(x: number, y: number): SVGInterface | null {
@@ -37,14 +39,16 @@ export class SVGService {
         }
 
         this.objects.push(obj);
-        this.rendererProvider.renderer.appendChild(this.entry.nativeElement, obj.element);
+        this.renderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
-    removeObject() {
+    removeObject(): SVGInterface | null {
         const removedObject: SVGInterface | undefined = this.objects.pop();
         if (removedObject !== undefined) {
-            this.rendererProvider.renderer.removeChild(this.entry.nativeElement, removedObject.element);
+            this.renderer.removeChild(this.entry.nativeElement, removedObject.element);
+            return removedObject;
         }
+        return null;
     }
 
     clearDrawArea() {
@@ -53,11 +57,11 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
-        this.rendererProvider.renderer.appendChild(this.entry.nativeElement, this.createFilters());
+        this.renderer.appendChild(this.entry.nativeElement, this.createFilters());
     }
 
     private createFilters() {
-        const renderer = this.rendererProvider.renderer;
+        const renderer = this.renderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
         const filterBlurContent = renderer.createElement('feGaussianBlur', 'svg');
