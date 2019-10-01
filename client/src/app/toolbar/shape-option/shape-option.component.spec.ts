@@ -45,7 +45,7 @@ describe('ShapeOptionComponent', () => {
       expect(component.currentTool).toBe(component.tools[0]);
     });
 
-    it('should not show primary and secondary be the current tool', () => {
+    it('should not show primary and secondary', () => {
         expect(component.isShowPrimary).toBeFalsy();
         expect(component.isShowSecondary).toBeFalsy();
     });

@@ -44,7 +44,7 @@ export class ToolOptionComponent implements OnInit {
         this.currentTool = this.tools[0];
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
 
@@ -64,7 +64,7 @@ export class ToolOptionComponent implements OnInit {
         this.showcase.display(this.currentTool);
     }
 
-    setWidth(width: number) {
+    setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
             this.showcase.display(this.currentTool);
@@ -75,28 +75,28 @@ export class ToolOptionComponent implements OnInit {
         return this.FILE_LOCATION + tool.BUTTON_FILENAME;
     }
 
-    togglePrimaryColorPicker() {
+    togglePrimaryColorPicker(): void {
         this.isShowSecondary = false;
         this.isShowPrimary = !this.isShowPrimary;
     }
 
-    toggleSecondaryColorPicker() {
+    toggleSecondaryColorPicker(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = !this.isShowSecondary;
     }
 
-    onSwap() {
+    onSwap(): void {
         this.paletteService.swap();
         this.setPrimaryColor();
         this.setSecondary();
     }
 
-    onColorPick() {
+    onColorPick(): void {
         this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
         this.hideColorPicker();
     }
 
-    hideColorPicker() {
+    hideColorPicker(): void {
         this.isShowPrimary ? this.isShowPrimary = false
             : this.isShowSecondary = false;
     }
