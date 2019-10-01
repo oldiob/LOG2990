@@ -47,15 +47,15 @@ export class ToolbarComponent implements OnInit {
         this.currentOption.selectTool(this.currentOption.currentTool);
     }
 
-    newDrawingOption() {
+    newDrawingOption(): void {
         this.dialogService.openNewDrawing();
     }
 
-    saveImage() {
+    saveImage(): void {
         this.drawAreaService.save();
     }
 
-    getImage(option: any) {
+    getImage(option: any): string {
         return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
     }
 
