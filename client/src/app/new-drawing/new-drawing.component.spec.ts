@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatCheckboxModule, MatDialogModule, MatDividerModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
@@ -13,13 +14,17 @@ fdescribe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
     let workZoneService: WorkZoneService;
+    let mockSvgService: SVGService;
     let svgService: SVGService;
+    let drawAreaService: DrawAreaService;
+    const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
         imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
         MatDialogModule, FormsModule, ReactiveFormsModule],
         declarations: [ NewDrawingComponent],
-        providers: [{ provide: MAT_DIALOG_DATA, useValue: [] },
+        providers: [SVGService, DrawAreaService,
+                   { provide: MAT_DIALOG_DATA, useValue: [] },
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
       })
@@ -30,10 +35,11 @@ fdescribe('NewDrawingComponent', () => {
       fixture = TestBed.createComponent(NewDrawingComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-
-      svgService = jasmine.createSpyObj('SVGService', ['clearDrawArea']);
-
+      svgService = TestBed.get(SVGService);
+      drawAreaService = new DrawAreaService();
       workZoneService = new WorkZoneService();
+      svgService.entry = entry;
+      mockSvgService = jasmine.createSpyObj('SVGService', ['entry', 'clearDrawArea']);
       component.ngOnInit();
     });
 
@@ -58,22 +64,22 @@ fdescribe('NewDrawingComponent', () => {
   });
 
     it('#onSubmit should update draw area height, width and background color', () => {
-    const WIDTH = component.width;
-    const HEIGHT = component.height;
-    const BACKGROUND_COLOR = component.backgroundColorHEX;
-    svgService.clearDrawArea();
-    component.onSubmit();
-
-    workZoneService.currentWidth.subscribe(
-      (currentHeight) => expect(currentHeight).toBe(WIDTH),
+      const WIDTH = component.width;
+      const HEIGHT = component.height;
+      const BACKGROUND_COLOR = component.backgroundColorHEX;
+      workZoneService.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
+      drawAreaService.dirty();
+      mockSvgService.clearDrawArea();
+      component.onSubmit();
+      workZoneService.currentWidth.subscribe(
+        (currentHeight) => expect(currentHeight).toBe(WIDTH),
+      );
+      workZoneService.currentHeight.subscribe(
+        (currentHeight) => expect(currentHeight).toBe(HEIGHT),
+      );
+      workZoneService.currentBackgroundColor.subscribe(
+        (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
     );
-    workZoneService.currentHeight.subscribe(
-      (currentHeight) => expect(currentHeight).toBe(HEIGHT),
-    );
-    workZoneService.currentBackgroundColor.subscribe(
-      (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
-    );
-    
   });
 
     it('should change background color form control', () => {
