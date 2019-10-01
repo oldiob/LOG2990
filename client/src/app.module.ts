@@ -7,7 +7,6 @@ import {
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app/app.component';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
@@ -24,7 +23,6 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 
 @NgModule({
     declarations: [
-        AppComponent,
         ColorOptionComponent,
         DrawAreaComponent,
         EntryPointComponent,
@@ -63,7 +61,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [PolyDessinComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     entryComponents: [
         EntryPointComponent,
