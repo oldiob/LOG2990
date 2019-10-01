@@ -27,7 +27,7 @@ export class ColorPickerComponent implements OnInit {
   // to be removed
   debug: string;
 
-  constructor(private renderer: Renderer2, private element: ElementRef) { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     this.canvasElement = this.canvas.nativeElement as HTMLCanvasElement;

@@ -15,9 +15,9 @@ export class PaletteService {
         this.previous.memSet(PaletteService.DEFAULT_MEMSET);
     }
 
-    static readonly DEFAULT_PRIMARY: Color = new Color(0, 0, 0, 255);
-    static readonly DEFAULT_SECONDARY: Color = new Color(0, 0, 0, 255);
-    static readonly DEFAULT_MEMSET: Color = new Color(0, 0, 0, 0);
+    static readonly DEFAULT_PRIMARY: Color = new Color(30, 30, 30, 1);
+    static readonly DEFAULT_SECONDARY: Color = new Color(220, 220, 220, 1);
+    static readonly DEFAULT_MEMSET: Color = new Color(255, 255, 255, 1);
     static readonly MAX_HISTORY = 10;
 
     primary: Color;

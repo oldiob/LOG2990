@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -13,12 +14,20 @@ export class BucketOptionComponent implements OnInit {
 
   currentTool: ITool;
 
-  constructor(private toolService: ToolService, private bucket: BucketTool) {
-    this.currentTool = this.bucket;
-  }
+  isShowPrimary: boolean;
+  isShowSecondary: boolean;
+  primaryColor: string;
+  secondaryColor: string;
+
+  constructor(
+    private paletteService: PaletteService,
+    private toolService: ToolService,
+    private bucket: BucketTool) {}
 
   ngOnInit() {
-    //
+    this.currentTool = this.bucket;
+    this.isShowPrimary = false;
+    this.isShowSecondary = false;
   }
 
   selectTool(tool: ITool): void {
@@ -28,6 +37,45 @@ export class BucketOptionComponent implements OnInit {
 
   getFilesource(tool: ITool): string {
     return this.FILE_LOCATION + tool.BUTTON_FILENAME;
+  }
+
+
+  togglePrimaryColorPicker() {
+    this.isShowSecondary = false;
+    this.isShowPrimary = !this.isShowPrimary;
+  }
+
+  toggleSecondaryColorPicker() {
+    this.isShowPrimary = false;
+    this.isShowSecondary = !this.isShowSecondary;
+  }
+
+  onSwap() {
+    this.paletteService.swap();
+    this.setPrimaryColor();
+    this.setSecondary();
+  }
+
+  onColorPick() {
+    if (this.isShowPrimary) {
+      this.setPrimaryColor();
+      this.isShowPrimary = false;
+    } else {
+      this.setSecondary();
+      this.isShowSecondary = false;
+    }
+  }
+
+  private setPrimaryColor() {
+    return {
+      'background-color': this.paletteService.getPrimary(),
+    };
+  }
+
+  private setSecondary() {
+    return {
+      'background-color': this.paletteService.getSecondary(),
+    };
   }
 
 }

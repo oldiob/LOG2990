@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
@@ -12,8 +12,6 @@ import { Color } from 'src/utils/color';
 export class ColorOptionComponent implements OnInit {
 
     alpha: number;
-    isSelectedPrimary: boolean;
-    isSelectedSecondary: boolean;
 
     currentTool: ITool;
     colorsForm: FormGroup;
@@ -22,13 +20,14 @@ export class ColorOptionComponent implements OnInit {
     readonly DEFAULT_GREEN = 255;
     readonly DEFAULT_BLUE = 255;
     readonly DEFAULT_ALPHA = 1;
-    readonly DEFAULT_BACKGROUND_HEX = '#FFFFFFFF';
+    readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
+
+    @Output() color = new EventEmitter<Color>();
+    @Input() isPrimary: string;
 
     constructor(
         private paletteService: PaletteService,
         private formBuilder: FormBuilder) {
-        this.isSelectedPrimary = true;
-        this.isSelectedSecondary = false;
     }
 
     ngOnInit() {
@@ -52,30 +51,16 @@ export class ColorOptionComponent implements OnInit {
         this.colorsForm.controls.green.setValue(color.green);
         this.colorsForm.controls.blue.setValue(color.blue);
         this.colorsForm.controls.alpha.setValue(color.alpha);
-
+        this.color.emit(color);
         this.updatePalette(color);
     }
 
     private updatePalette(color: Color) {
-        if (this.isSelectedPrimary) {
+        if (this.isPrimary) {
             this.paletteService.selectPrimary(color.red, color.green, color.blue, color.alpha);
         } else {
             this.paletteService.selectSecondary(color.red, color.green, color.blue, color.alpha);
         }
-    }
-
-    onPrimaryColor() {
-        this.isSelectedPrimary = true;
-        this.isSelectedSecondary = !this.isSelectedPrimary;
-    }
-
-    onSecondaryColor() {
-        this.isSelectedSecondary = true;
-        this.isSelectedPrimary = !this.isSelectedSecondary;
-    }
-
-    onSwap() {
-        this.paletteService.swap();
     }
 
     onColorHEXChange() {

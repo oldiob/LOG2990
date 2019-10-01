@@ -26,4 +26,6 @@
   class="toolbar-element toolbar-option selected-option disappear">
 </app-shape-option>
 
-<app-bucket-option></app-bucket-option>
+<app-bucket-option [class.disappear]="!optionDisplayed || currentOption !== bucketOption"
+  [class.appear]="optionDisplayed && currentOption === bucketOption"
+  class="toolbar-element toolbar-option selected-option disappear"></app-bucket-option>

@@ -19,9 +19,6 @@ export enum OptionType {
 export class ToolbarComponent implements OnInit {
     private FILE_LOCATION = '../../../assets/images/';
 
-    @ViewChild(ColorOptionComponent, { static: true })
-    colorOption: ColorOptionComponent;
-
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
 
@@ -49,9 +46,7 @@ export class ToolbarComponent implements OnInit {
     selectOption(option: any): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
-        if (option !== this.colorOption) {
-            this.currentOption.selectTool(this.currentOption.currentTool);
-        }
+        this.currentOption.selectTool(this.currentOption.currentTool);
     }
 
     newDrawingOption() {
@@ -65,11 +60,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     getImage(option: any) {
-        let imageLocation = '';
-        if (option !== this.colorOption) {
-            imageLocation = this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
-        }
-        return imageLocation;
+        return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
     }
 
     private rn(): number {
