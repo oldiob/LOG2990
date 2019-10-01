@@ -6,7 +6,7 @@
       <span class="color-text">Color 1</span>
     </button>
     <div class="color1-picker" *ngIf="isShowPrimary">
-      <app-color-option [isPrimary]="isShowPrimary" (mouseup)="hideColorPicker()"  (color)="onColorPick()"></app-color-option>
+      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick()"></app-color-option>
     </div>
   </div>
 
