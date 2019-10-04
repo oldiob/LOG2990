@@ -1,34 +1,49 @@
 
-const atLine = (point: number[], line: number[][], width: number): boolean => {
-    const halfWidthSquared = (width / 2.0) * (width / 2.0);
+export function atLine(point: number[], line: number[][], width: number): boolean {
+    const halfWidth = width / 2.0;
 
-    const directionVector = minus(line[1], line[0]);
-    const toPoint = minus(point, line[0]);
+    const directionVector = vMinus(line[1], line[0]);
+    const toPoint = vMinus(point, line[0]);
 
-    const parallel = project(toPoint, directionVector);
-    const perpendicular = minus(toPoint, parallel);
+    const parallel = vProject(toPoint, directionVector);
+    const perpendicular = vMinus(toPoint, parallel);
 
-    if (halfWidthSquared > moduleSquared(perpendicular)) {
+    const perpendicularModule = vModule(perpendicular);
+    if (halfWidth < perpendicularModule) {
         return false;
     }
 
-    const ratio = parallel[0] / directionVector[0];
-    return ratio <= 1 && ratio >= 0;
-};
+    // direction size + size of 2 widthss
+    const directionModule = vModule(directionVector);
+    const behindLength = halfWidth;
+    const forwardLength = directionModule + halfWidth;
 
-const project = (vector: number[], onto: number[]): number[] => {
-    const dot: number = vector[0] * onto[0] + vector[1] * vector[1];
+    const parallelModule = vModule(parallel);
+
+    // if parallel pointing behind direction vector
+    if (vDot(directionVector, parallel) < 0) {
+        return parallelModule <= behindLength;
+    }
+
+    return parallelModule <= forwardLength;
+}
+
+const vProject = (vector: number[], onto: number[]): number[] => {
     const moduleSquare: number = onto[0] * onto[0] + onto[1] * onto[1];
 
-    const ratio = dot / moduleSquare;
+    const ratio = vDot(vector, onto) / moduleSquare;
 
     return [ratio * onto[0], ratio * onto[1]];
 };
 
-const minus = (v0: number[], v1: number[]): number[] => {
+const vMinus = (v0: number[], v1: number[]): number[] => {
     return [v0[0] - v1[0], v0[1] - v1[1]];
 };
 
-const moduleSquared = (vector: number[]): number => {
-    return vector[0] * vector[0] + vector[1] * vector[1];
-}
+const vModule = (vector: number[]): number => {
+    return Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
+};
+
+const vDot = (v0: number[], v1: number[]): number => {
+    return v0[0] * v1[0] + v0[1] * v1[1];
+};
