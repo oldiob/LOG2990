@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
@@ -11,6 +12,7 @@ import { LineTool } from 'src/services/tool/tool-options/line';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
+import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
@@ -40,20 +42,36 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     tools: ITool[];
     currentTool: ITool;
+
+    stamps: IStamp[];
+    currentStamp: IStamp;
+
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
+<<<<<<< HEAD
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
         private pencil: PencilTool,
         private brush: BrushTool,
         private line: LineTool) {
+=======
+    constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool,
+                public brush: BrushTool, public stamp: StampTool) {
+>>>>>>> Add Stamp Svg In Tool Options
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
+        // this.stamps = [];
+        // this.currentStamp = this.stamps[0];
+        // this.stamp.stampTexture = this.currentStamp;
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
+<<<<<<< HEAD
         this.tools = [this.pencil, this.brush, this.line];
+=======
+        this.tools = [pencil, brush, stamp];
+>>>>>>> Add Stamp Svg In Tool Options
         this.currentTool = this.tools[0];
     }
 
