@@ -18,7 +18,6 @@ export class SVGPencil implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-
         const invisibleBorder = 10.0;
         const width: number = this.lineWidth + invisibleBorder;
 
