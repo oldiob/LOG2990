@@ -20,7 +20,7 @@ export class RectangleTool implements IShapeTool {
 
     constructor(rendererProvider: RendererProviderService, private paletteService: PaletteService) {
         this.renderer = rendererProvider.renderer;
-        this.width = 1;
+        this.width = 5;
         this.traceType = TraceType.FillAndBorder;
     }
 
