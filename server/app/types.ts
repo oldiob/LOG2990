@@ -5,4 +5,5 @@ export default {
     DateController: Symbol('DateController'),
     IndexService: Symbol('IndexService'),
     DateService: Symbol('DateService'),
+    DataBaseService: Symbol('DataBaseService'),
 };
