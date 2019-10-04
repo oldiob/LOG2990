@@ -1,6 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { atLine } from 'src/utils/math';
 
 export class SVGRect implements SVGInterface {
     element: any;
@@ -15,6 +16,8 @@ export class SVGRect implements SVGInterface {
     stroke = true;
     fill = true;
 
+    traceType: TraceType;
+
     constructor(x: number, y: number, private renderer: Renderer2) {
         this.element = this.renderer.createElement('polygon', 'svg');
         this.x1 = this.x2 = x;
@@ -25,7 +28,41 @@ export class SVGRect implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-        // Find maximum and minimum values
+        switch (this.traceType) {
+            case TraceType.BorderOnly:
+                return this.isAtBorder(x, y);
+                break;
+            case TraceType.FillOnly:
+                return this.isInside(x, y);
+                break;
+            case TraceType.FillAndBorder:
+                return this.isInside(x, y) || this.isAtBorder(x, y);
+                break;
+        }
+
+        return false;
+    }
+
+    private isAtBorder(x: number, y: number) {
+        const additionnalWidth = 10.0;
+        const width = this.pointSize + additionnalWidth;
+        const points = [
+            [this.x1, this.y1],
+            [this.x2, this.y1],
+            [this.x2, this.y2],
+            [this.x1, this.y2],
+            [this.x1, this.y1]];
+
+        for (let i = 0; i < 4; i++) {
+            if (atLine([x, y], [points[i], points[i + 1]], width)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private isInside(x: number, y: number) {
         const minX: number = Math.min(this.x1, this.x2);
         const maxX: number = Math.max(this.x1, this.x2);
         const minY: number = Math.min(this.y1, this.y2);
@@ -72,6 +109,8 @@ export class SVGRect implements SVGInterface {
                 this.renderer.setAttribute(this.element, 'stroke-opacity', '1');
                 break;
         }
+
+        this.traceType = traceType;
     }
     setCursor(x: number, y: number, shift: boolean) {
         if (shift) {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
-import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 import { ITool } from './i-tool';
 
@@ -16,8 +15,7 @@ export class BucketTool implements ITool {
     width: null;
 
     constructor(private svgService: SVGService,
-                private paletteService: PaletteService,
-                private workZoneService: WorkZoneService) { }
+                private paletteService: PaletteService) { }
 
     onPressed(event: MouseEvent): null {
         const x: number = event.svgX;
@@ -30,8 +28,6 @@ export class BucketTool implements ITool {
             } else if (event.button === 2) {
                 obj.setSecondary(this.paletteService.getSecondary());
             }
-        } else if (event.button === 0) {
-            this.workZoneService.updateBackgroundColor(this.paletteService.getPrimary());
         }
 
         return null;

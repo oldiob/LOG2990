@@ -26,8 +26,8 @@ describe('BucketTool', () => {
     const right: MouseEvent = new MouseEvent('mousedown', { button: 2 });
 
     beforeEach(() => {
-        bucket = new BucketTool(svgService, paletteService, workzoneService);
-        bucket2 = new BucketTool(svgService2, paletteService, workzoneService);
+        bucket = new BucketTool(svgService, paletteService);
+        bucket2 = new BucketTool(svgService2, paletteService);
         left.svgX = Math.floor(Math.random() * 1000);
         left.svgY = Math.floor(Math.random() * 1000);
         right.svgX = Math.floor(Math.random() * 1000);
