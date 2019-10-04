@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response, Router} from 'express';
 import {inject, injectable} from 'inversify';
 import {Message} from '../../../common/communication/message';
-import { DataBaseService } from '../services/database.service';
+// import { DataBaseService } from '../services/database.service';
 import {DateService} from '../services/date.service';
 import Types from '../types';
 
@@ -11,8 +11,8 @@ export class DateController {
     router: Router;
 
     constructor(
-        @inject(Types.DateService) private dateService: DateService,
-        @inject(Types.DataBaseService) private database: DataBaseService) {
+        @inject(Types.DateService) private dateService: DateService) {
+      //  @inject(Types.DataBaseService) private database: DataBaseService) {
         this.configureRouter();
     }
 

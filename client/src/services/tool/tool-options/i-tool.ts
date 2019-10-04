@@ -1,4 +1,4 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGInterface } from '../../svg/element/svg.interface';
 
 /**
  * Implementations of this interface should return raw SVGInterface with
