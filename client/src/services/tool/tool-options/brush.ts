@@ -25,7 +25,7 @@ export class BrushTool implements ITool {
             private paletteService: PaletteService) {
 
         this.renderer = rendererProvider.renderer;
-        this.width = 1;
+        this.width = 5;
     }
 
     onPressed(event: MouseEvent): SVGBrush {

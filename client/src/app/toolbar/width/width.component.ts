@@ -15,7 +15,7 @@ export class WidthComponent implements OnInit {
     widthEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
     constructor() {
-        this.mWidth = 1.0;
+        this.mWidth = 5.0;
     }
 
     ngOnInit() {
