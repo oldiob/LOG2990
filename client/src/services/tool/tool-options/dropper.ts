@@ -29,7 +29,11 @@ export class DropperTool implements ITool {
         const canvas = this.renderer.createElement('canvas');
         this.canvasContext = canvas.getContext('2d');
 
-        this.canvasContext.drawImage(this.svgService.entry.nativeElement, 2, 2);
+        const svg = this.svgService.entry.nativeElement;
+
+        const svgInner: string = svg.innerHTML;
+        console.log(svg);
+        this.canvasContext.drawImage(svg, 2, 2);
         return null;
     }
 
