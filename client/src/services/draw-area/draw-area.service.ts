@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Drawing } from './i-drawing';
+import { Message } from '../../../../common/communication/message';
+import { IndexService } from '../index/index.service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DrawAreaService {
-    isSavedDrawing: boolean;
 
     drawings: BehaviorSubject<Drawing[]>;
 
-    constructor() {
+    message = new BehaviorSubject<string>('');
+    isSavedDrawing: boolean;
+    constructor(private basicService: IndexService) {
+        this.isSavedDrawing = true;
         const INITIAL_DRAWINGS: Drawing[] = [];
         this.drawings = new BehaviorSubject(INITIAL_DRAWINGS);
-
-        this.isSavedDrawing = true;
     }
 
     save(drawing: Drawing): void {

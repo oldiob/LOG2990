@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Message} from '../../../../common/communication/message';
+import { SVGService } from '../svg/svg.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,17 @@ export class IndexService {
 
   private readonly BASE_URL: string = 'http://localhost:3000/api/index';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private svgService: SVGService ) {
   }
 
   basicGet(): Observable<Message> {
+
+    return this.http.get<Message>(this.BASE_URL).pipe(
+      catchError(this.handleError<Message>('basicGet')),
+    );
+  }
+
+  getSVGObjects(): Observable<Message> {
 
     return this.http.get<Message>(this.BASE_URL).pipe(
       catchError(this.handleError<Message>('basicGet')),
