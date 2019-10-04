@@ -28,7 +28,6 @@ export class SVGRect implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-        console.log(this.traceType);
         switch (this.traceType) {
             case TraceType.BorderOnly:
                 return this.isAtBorder(x, y);
@@ -45,8 +44,8 @@ export class SVGRect implements SVGInterface {
     }
 
     private isAtBorder(x: number, y: number) {
-        const invisibleBorder = 10.0;
-        const width = this.pointSize + invisibleBorder;
+        const additionnalWidth = 10.0;
+        const width = this.pointSize + additionnalWidth;
         const points = [
             [this.x1, this.y1],
             [this.x2, this.y1],

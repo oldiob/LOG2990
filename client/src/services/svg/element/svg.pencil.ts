@@ -18,18 +18,12 @@ export class SVGPencil implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-        const invisibleBorder = 10.0;
-        const width: number = this.lineWidth + invisibleBorder;
-
-        let point0: number[] = this.points[0];
-        for (let i = 1; i < this.points.length; i++) {
-            const point1 = this.points[i];
-
-            if (atLine([x, y], [point0, point1], width)) {
+        const additionnalWidth = 10.0;
+        const width: number = this.lineWidth + additionnalWidth;
+        for (let i = 0; i < this.points.length - 1; i++) {
+            if (atLine([x, y], [this.points[i], this.points[i + 1]], width)) {
                 return true;
             }
-
-            point0 = point1;
         }
 
         return false;
