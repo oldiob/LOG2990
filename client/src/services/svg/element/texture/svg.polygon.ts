@@ -3,10 +3,12 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { PolygonType, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 
 const THIRTY_DEGREES = (Math.PI) / 6;
+const FORTY_DEGREES = ((Math.PI) * 2) / 9;
 const FORTY_FIVE_DEGREES = (Math.PI) / 4;
 const FIFTY_ONE_DEGREES = ((Math.PI) * 2) / 7;
 const SIXTY_DEGREES = (Math.PI) / 3;
 const SEVENTY_TWO_DEGREES = ((Math.PI) * 2) / 5;
+const EIGHTY_DEGREES = (Math.PI) / 9;
 const NINETY_DEGREES = (Math.PI) / 2;
 const ONE_HUNDRED_THREE_DEGREES = ((Math.PI) * 4) / 7;
 const ONE_HUNDRED_FIFTY_FOUR_DEGREES = ((Math.PI) * 6) / 7;
@@ -151,10 +153,10 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -166,13 +168,13 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + NINETY_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + NINETY_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + NINETY_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
 
                 this.point4X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
-                this.point4Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -185,16 +187,16 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + SEVENTY_TWO_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + SEVENTY_TWO_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + SEVENTY_TWO_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_FORTY_FOUR_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_FORTY_FOUR_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_FORTY_FOUR_DEGREES);
 
                 this.point4X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SIXTEEN_DEGREES);
-                this.point4Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SIXTEEN_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_SIXTEEN_DEGREES);
 
                 this.point5X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_EIGHTY_EIGHT_DEGREES);
-                this.point5Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_EIGHTY_EIGHT_DEGREES);
+                this.point5Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_EIGHTY_EIGHT_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -208,19 +210,19 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + SIXTY_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + SIXTY_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + SIXTY_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_TWENTY_DEGREES);
 
                 this.point4X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
-                this.point4Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
 
                 this.point5X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
-                this.point5Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
+                this.point5Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_FORTY_DEGREES);
 
                 this.point6X = this.x2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_DEGREES);
-                this.point6Y = this.y2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_DEGREES);
+                this.point6Y = this.y2 + radius * Math.sin(angleAdvancement + THREE_HUNDRED_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -235,22 +237,22 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + FIFTY_ONE_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + FIFTY_ONE_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + FIFTY_ONE_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_THREE_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_THREE_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_THREE_DEGREES);
 
                 this.point4X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_FIFTY_FOUR_DEGREES);
-                this.point4Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_FIFTY_FOUR_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_FIFTY_FOUR_DEGREES);
 
                 this.point5X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SIX_DEGREES);
-                this.point5Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SIX_DEGREES);
+                this.point5Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_SIX_DEGREES);
 
                 this.point6X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FIFTY_SEVEN_DEGREES);
-                this.point6Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_FIFTY_SEVEN_DEGREES);
+                this.point6Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_FIFTY_SEVEN_DEGREES);
 
                 this.point7X = this.x2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_EIGHT_DEGREES);
-                this.point7Y = this.y2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_EIGHT_DEGREES);
+                this.point7Y = this.y2 + radius * Math.sin(angleAdvancement + THREE_HUNDRED_EIGHT_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -266,25 +268,25 @@ export class SVGPolygon implements SVGInterface {
                 this.point1Y = this.y2;
 
                 this.point2X = this.x2 + radius * Math.cos(angleAdvancement + FORTY_FIVE_DEGREES);
-                this.point2Y = this.y2 + radius * Math.cos(angleAdvancement + FORTY_FIVE_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + FORTY_FIVE_DEGREES);
 
                 this.point3X = this.x2 + radius * Math.cos(angleAdvancement + NINETY_DEGREES);
-                this.point3Y = this.y2 + radius * Math.cos(angleAdvancement + NINETY_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + NINETY_DEGREES);
 
                 this.point4X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_THIRTY_FIVE_DEGREES);
-                this.point4Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_THIRTY_FIVE_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_THIRTY_FIVE_DEGREES);
 
                 this.point5X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
-                this.point5Y = this.y2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
+                this.point5Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
 
                 this.point6X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_TWENTY_FIVE_DEGREES);
-                this.point6Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_TWENTY_FIVE_DEGREES);
+                this.point6Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_TWENTY_FIVE_DEGREES);
 
                 this.point7X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
-                this.point7Y = this.y2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
+                this.point7Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
 
                 this.point8X = this.x2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
-                this.point8Y = this.y2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
+                this.point8Y = this.y2 + radius * Math.sin(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
 
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
@@ -297,6 +299,33 @@ export class SVGPolygon implements SVGInterface {
                 break;
             case PolygonType.Nonagon:
                 //
+                this.point1X = this.x2;
+                this.point1Y = this.y2;
+
+                this.point2X = this.x2 + radius * Math.cos(angleAdvancement + FORTY_FIVE_DEGREES);
+                this.point2Y = this.y2 + radius * Math.sin(angleAdvancement + FORTY_FIVE_DEGREES);
+
+                this.point3X = this.x2 + radius * Math.cos(angleAdvancement + NINETY_DEGREES);
+                this.point3Y = this.y2 + radius * Math.sin(angleAdvancement + NINETY_DEGREES);
+
+                this.point4X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_THIRTY_FIVE_DEGREES);
+                this.point4Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_THIRTY_FIVE_DEGREES);
+
+                this.point5X = this.x2 + radius * Math.cos(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
+                this.point5Y = this.y2 + radius * Math.sin(angleAdvancement + ONE_HUNDRED_EIGHTY_DEGREES);
+
+                this.point6X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_TWENTY_FIVE_DEGREES);
+                this.point6Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_TWENTY_FIVE_DEGREES);
+
+                this.point7X = this.x2 + radius * Math.cos(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
+                this.point7Y = this.y2 + radius * Math.sin(angleAdvancement + TWO_HUNDRED_SEVENTY_DEGREES);
+
+                this.point8X = this.x2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
+                this.point8Y = this.y2 + radius * Math.sin(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
+
+                this.point9X = this.x2 + radius * Math.cos(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
+                this.point9Y = this.y2 + radius * Math.sin(angleAdvancement + THREE_HUNDRED_FIFTEEN_DEGREES);
+
                 this.renderer.setAttribute(this.element, 'points', `${this.point1X},${this.point1Y}
                                                             ${this.point2X},${this.point2Y}
                                                             ${this.point3X},${this.point3Y}
