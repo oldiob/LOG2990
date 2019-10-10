@@ -23,7 +23,7 @@ export class PolygonTool implements IShapeTool {
         this.renderer = rendererProvider.renderer;
         this.width = 1;
         this.traceType = TraceType.FillAndBorder;
-        this.polygonType = PolygonType.Triangle;
+        this.polygonType = PolygonType.Dodecagon;
     }
 
     onPressed(event: MouseEvent): SVGPolygon {

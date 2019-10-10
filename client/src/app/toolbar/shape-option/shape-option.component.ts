@@ -4,6 +4,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { TraceType, AbsShapeTool } from 'src/services/tool/tool-options/abs-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
@@ -40,11 +41,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
+        private polygonTool: PolygonTool,
         private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.tools = [this.rectangleTool, this.ellipseTool];
+        this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
         this.currentTool = this.tools[0];
         this.createForm();
 
