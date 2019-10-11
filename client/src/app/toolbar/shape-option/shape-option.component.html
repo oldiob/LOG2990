@@ -51,4 +51,43 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field *ngIf="isPolygon" color="accent">
+  <mat-label class="trace-label">Polygon Type</mat-label>
+    <mat-select (selectionChange)="onPolygonTypeChange()" panelClass="trace-panel" formControlName="polygonType" >
+      <mat-option [value]="PolygonType.Triangle">
+        Triangle
+      </mat-option>
+      <mat-option [value]="PolygonType.Square">
+        Square
+      </mat-option>
+      <mat-option [value]="PolygonType.Pentagon">
+        Pentagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Hexagon">
+        Hexagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Heptagon">
+        Heptagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Octagon">
+        Octagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Nonagon">
+        Nonagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Decagon">
+        Decagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Hendecagon">
+        Hendecagon
+      </mat-option>
+      <mat-option [value]="PolygonType.Dodecagon">
+        Dodecagon
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 </form>
+
+

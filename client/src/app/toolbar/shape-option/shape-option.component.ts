@@ -2,13 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { TraceType, AbsShapeTool } from 'src/services/tool/tool-options/abs-shape-tool';
+import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
+import { PolygonType } from 'src/services/svg/element/svg.polygon';
 
 @Component({
     selector: 'app-shape-option',
@@ -18,6 +19,8 @@ import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
+
+    polygonType = PolygonType;
 
     images = new Map<ITool, string>([
         [this.rectangleTool, 'rectangle.png'],
@@ -33,6 +36,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
     isShowPrimary: boolean;
     isShowSecondary: boolean;
+    isPolygon: boolean;
     primaryColor: string;
     secondaryColor: string;
 
@@ -67,7 +71,11 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: AbsShapeTool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-
+        if (this.currentTool instanceof PolygonTool) {
+            this.isPolygon = true;
+        } else {
+            this.isPolygon = false;
+        }
         this.showcase.display(this.currentTool);
     }
 
@@ -77,10 +85,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
     private createForm(): void {
         const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
+        const DEFAULT_POLYGON_TYPE = PolygonType.Triangle;
         const validators = [Validators.min(0), Validators.required];
 
         this.shapeForm = this.formBuilder.group({
             traceType: [DEFAULT_TRACE_TYPE, validators],
+            polygonType: [DEFAULT_POLYGON_TYPE, validators],
         });
     }
 
@@ -95,6 +105,13 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
 
         this.showcase.display(this.currentTool);
+    }
+
+    onPolygonTypeChange(): void {
+        if (this.currentTool instanceof PolygonTool) {
+            this.currentTool.polygonType = this.shapeForm.controls.polygonType.value;
+            this.showcase.display(this.currentTool);
+        }
     }
 
     togglePrimaryColorPicker(): void {

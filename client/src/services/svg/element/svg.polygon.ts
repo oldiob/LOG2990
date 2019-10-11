@@ -1,6 +1,19 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { PolygonType, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+
+export enum PolygonType {
+    Triangle = 0,
+    Square = 1,
+    Pentagon = 2,
+    Hexagon = 3,
+    Heptagon = 4,
+    Octagon = 5,
+    Nonagon = 6,
+    Decagon = 7,
+    Hendecagon = 8,
+    Dodecagon = 9,
+}
 
 const THIRTY_DEGREES = (Math.PI) / 6;
 const THIRTY_THREE_DEGREES = ((Math.PI) * 2) / 11;
