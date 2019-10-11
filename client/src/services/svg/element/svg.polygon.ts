@@ -164,18 +164,6 @@ export class SVGPolygon implements SVGInterface {
         angleAdvancement = Math.PI / 2;
         let radius: number;
         radius = Math.min((Math.abs(this.x2 - this.x1) / 2) , (Math.abs(this.y2 - this.y1) / 2));
-        // const radius = Math.sqrt(Math.pow(this.x2 - this.x1, 2) + Math.pow(this.y2 - this.y1, 2));
-        // if (this.x1 === this.x2 && this.y1 < this.y2) {
-        //     angleAdvancement = (Math.PI) / 2;
-        // } else if (this.x1 === this.x2 && this.y1 > this.y2) {
-        //     angleAdvancement = ((Math.PI) * 3) / 2;
-        // } else if (this.y1 === this.y2 && this.x1 < this.x2) {
-        //     angleAdvancement = (Math.PI);
-        // } else if (this.y1 === this.y2 && this.x1 > this.x2) {
-        //     angleAdvancement = 0;
-        // } else {
-        //     angleAdvancement = (Math.acos(Math.abs((this.x2 - this.x1)) / radius) * Math.PI) / 180;
-        // }
 
         switch (polygonType) {
             case PolygonType.Triangle:
