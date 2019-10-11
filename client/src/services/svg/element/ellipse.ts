@@ -40,7 +40,17 @@ export class SVGEllipse implements SVGInterface {
     }
 
     private isAtBorder(x: number, y: number) {
-        return false;
+        const originalRadii = this.radii;
+        const widthDelta = [this.pointSize / 2.0, this.pointSize / 2.0];
+
+        this.radii = vPlus(originalRadii, widthDelta);
+        const insideBiggerElipse = this.isInside(x, y);
+
+        this.radii = vMinus(originalRadii, widthDelta);
+        const insideSmallerElipse = this.isInside(x, y);
+
+        this.radii = originalRadii;
+        return insideBiggerElipse && !insideSmallerElipse;
     }
 
     private isInside(x: number, y: number) {
