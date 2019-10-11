@@ -3,6 +3,7 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 
@@ -28,6 +29,9 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
 
+    @ViewChild(GalleryOptionComponent, { static: true })
+    galleryOption: GalleryOptionComponent;
+
     options: IOption[];
 
     currentOption: IOption;
@@ -38,12 +42,12 @@ export class ToolbarComponent implements OnInit {
         private drawAreaService: DrawAreaService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.galleryOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
     }
 
-    selectOption(option: any): void {
+    selectOption(option: IOption): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();
