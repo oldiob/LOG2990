@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
@@ -27,9 +28,9 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
 
-    options: any[];
+    options: IOption[];
 
-    currentOption: any;
+    currentOption: IOption;
     optionDisplayed: boolean;
 
     constructor(
@@ -45,7 +46,7 @@ export class ToolbarComponent implements OnInit {
     selectOption(option: any): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
-        this.currentOption.selectTool(this.currentOption.currentTool);
+        this.currentOption.select();
     }
 
     newDrawingOption(): void {
@@ -56,8 +57,8 @@ export class ToolbarComponent implements OnInit {
         this.drawAreaService.save();
     }
 
-    getImage(option: any): string {
-        return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
+    getImage(option: IOption): string {
+        return this.FILE_LOCATION + option.getImage();
     }
 
     @HostListener('window: keypress', ['$event'])

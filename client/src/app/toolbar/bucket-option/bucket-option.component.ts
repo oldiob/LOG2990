@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 
@@ -9,7 +10,7 @@ import { ToolService } from 'src/services/tool/tool.service';
   templateUrl: './bucket-option.component.html',
   styleUrls: ['./bucket-option.component.scss', '../toolbar-option.scss'],
 })
-export class BucketOptionComponent implements OnInit {
+export class BucketOptionComponent implements OnInit, IOption {
   private readonly FILE_LOCATION = '../../../../assets/images/';
 
   currentTool: ITool;
@@ -28,6 +29,14 @@ export class BucketOptionComponent implements OnInit {
     this.currentTool = this.bucket;
     this.isShowPrimary = false;
     this.isShowSecondary = false;
+  }
+
+  select() {
+    this.selectTool(this.currentTool);
+  }
+
+  getImage() {
+    return this.currentTool.BUTTON_FILENAME;
   }
 
   selectTool(tool: ITool): void {

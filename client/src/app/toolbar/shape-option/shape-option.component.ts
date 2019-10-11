@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -11,12 +12,12 @@ import { ShowcaseComponent } from '../showcase/showcase.component';
     templateUrl: './shape-option.component.html',
     styleUrls: ['./shape-option.component.scss', '../toolbar-option.scss'],
 })
-export class ShapeOptionComponent implements OnInit {
+export class ShapeOptionComponent implements OnInit, IOption {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
     traces: TraceType;
 
-    @ViewChild(ShowcaseComponent, {static: true})
+    @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
     tools: IShapeTool[];
@@ -44,6 +45,14 @@ export class ShapeOptionComponent implements OnInit {
 
         this.isShowPrimary = false;
         this.isShowSecondary = false;
+    }
+
+    select() {
+        this.selectTool(this.currentTool);
+    }
+
+    getImage() {
+        return this.currentTool.BUTTON_FILENAME;
     }
 
     selectTool(tool: IShapeTool): void {
