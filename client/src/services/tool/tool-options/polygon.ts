@@ -1,8 +1,8 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
-import { IShapeTool, PolygonType, TraceType} from './i-shape-tool';
+import { PolygonType, SVGPolygon } from 'src/services/svg/element/svg.polygon';
+import { IShapeTool, TraceType} from './i-shape-tool';
 
 @Injectable({
     providedIn: 'root',
