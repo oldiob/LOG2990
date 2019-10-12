@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
+import { atLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
-import { atLine } from 'src/utils/math';
 
 export class SVGBrush implements SVGInterface {
     element: any;
