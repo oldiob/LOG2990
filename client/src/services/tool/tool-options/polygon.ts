@@ -1,7 +1,7 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { PolygonType, SVGPolygon } from 'src/services/svg/element/svg.polygon';
+import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
 import { IShapeTool, TraceType} from './i-shape-tool';
 
 @Injectable({
@@ -13,7 +13,8 @@ export class PolygonTool implements IShapeTool {
 
     width: number;
     traceType: TraceType;
-    polygonType: PolygonType;
+
+    nSides: number;
 
     element: SVGPolygon | null;
 
@@ -23,11 +24,11 @@ export class PolygonTool implements IShapeTool {
         this.renderer = rendererProvider.renderer;
         this.width = 1;
         this.traceType = TraceType.FillAndBorder;
-        this.polygonType = PolygonType.Dodecagon;
+        this.nSides = 1;
     }
 
     onPressed(event: MouseEvent): SVGPolygon {
-        this.element = new SVGPolygon(event.svgX, event.svgY, this.renderer);
+        this.element = new SVGPolygon(event.svgX, event.svgY, this.nSides, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
@@ -40,7 +41,7 @@ export class PolygonTool implements IShapeTool {
     }
     onMotion(event: MouseEvent): void {
         if (this.element != null) {
-            this.element.setCursor(event.svgX, event.svgY, this.polygonType);
+            this.element.setCursor(event.svgX, event.svgY);
         }
     }
 }

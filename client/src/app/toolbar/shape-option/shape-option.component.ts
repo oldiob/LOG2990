@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
@@ -9,7 +9,6 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
-import { PolygonType } from 'src/services/svg/element/svg.polygon';
 
 @Component({
     selector: 'app-shape-option',
@@ -19,8 +18,6 @@ import { PolygonType } from 'src/services/svg/element/svg.polygon';
 export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
-
-    polygonType = PolygonType;
 
     images = new Map<ITool, string>([
         [this.rectangleTool, 'rectangle.png'],
@@ -45,15 +42,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
-        private polygonTool: PolygonTool,
-        private formBuilder: FormBuilder) {
+        public polygonTool: PolygonTool) {
     }
 
     ngOnInit() {
         this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
         this.currentTool = this.tools[0];
-        this.createForm();
-
         this.showcase.display(this.currentTool);
 
         this.isShowPrimary = false;
@@ -83,17 +77,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    private createForm(): void {
-        const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
-        const DEFAULT_POLYGON_TYPE = PolygonType.Triangle;
-        const validators = [Validators.min(0), Validators.required];
-
-        this.shapeForm = this.formBuilder.group({
-            traceType: [DEFAULT_TRACE_TYPE, validators],
-            polygonType: [DEFAULT_POLYGON_TYPE, validators],
-        });
-    }
-
     setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
@@ -107,11 +90,13 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.showcase.display(this.currentTool);
     }
 
-    onPolygonTypeChange(): void {
-        if (this.currentTool instanceof PolygonTool) {
-            this.currentTool.polygonType = this.shapeForm.controls.polygonType.value;
-            this.showcase.display(this.currentTool);
-        }
+    set polygonNSides(nSides: number) {
+        this.polygonTool.nSides = nSides;
+        this.showcase.display(this.currentTool);
+    }
+
+    get polygonNSides(): number {
+        return this.polygonTool.nSides;
     }
 
     togglePrimaryColorPicker(): void {
