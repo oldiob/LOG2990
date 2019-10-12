@@ -7,7 +7,8 @@ import { TraceType, AbsShapeTool } from './abs-shape-tool';
 @Injectable({
     providedIn: 'root',
 })
-export class RectangleTool extends AbsShapeTool {
+export class RectangleTool implements IShapeTool {
+    angle: number;
     width: number;
     traceType: TraceType;
     element: SVGRect | null;
