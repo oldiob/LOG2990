@@ -14,7 +14,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
     images = new Map<ITool, string>([
-        [this.bucket, this.FILE_LOCATION + 'bucket.png'],
+        [this.bucket, 'bucket.png'],
     ]);
 
     currentTool: ITool;
@@ -49,7 +49,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getFilesource(tool: ITool): string {
-        return this.images.get(tool) as string;
+        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
     togglePrimaryColorPicker() {

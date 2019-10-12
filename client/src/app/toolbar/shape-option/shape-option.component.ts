@@ -18,7 +18,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     TraceType = TraceType;
 
     images = new Map<ITool, string>([
-        [this.rectangleTool, this.FILE_LOCATION + 'rectangle.png'],
+        [this.rectangleTool, 'rectangle.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -67,7 +67,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getFilesource(tool: IShapeTool): string {
-        return this.images.get(tool) as string;
+        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
     private createForm(): void {

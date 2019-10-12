@@ -23,8 +23,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
     images = new Map<ITool, string>([
-        [this.pencil, this.FILE_LOCATION + 'pencil.png'],
-        [this.brush, this.FILE_LOCATION + 'brush.png'],
+        [this.pencil, 'pencil.png'],
+        [this.brush, 'brush.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -90,7 +90,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getFilesource(tool: ITool): string {
-        return this.images.get(tool) as string;
+        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
     togglePrimaryColorPicker(): void {
