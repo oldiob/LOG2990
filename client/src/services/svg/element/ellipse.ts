@@ -2,10 +2,13 @@ import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { vMinus, vMultiply, vPlus } from 'src/utils/math';
+import { SVGRect } from 'src/services/svg/element/svg.rect'
 
 export class SVGEllipse implements SVGInterface {
     element: any;
     ellipseElement: any;
+
+    surroundingRectangle: SVGRect;
 
     startingPoint: number[];
     center: number[];
@@ -24,6 +27,13 @@ export class SVGEllipse implements SVGInterface {
 
         this.startingPoint = this.center = [x, y];
         this.radii = [0, 0];
+
+        this.surroundingRectangle = new SVGRect(x, y, renderer);
+        this.surroundingRectangle.setTraceType(TraceType.BorderOnly);
+        this.surroundingRectangle.setPointSize(0.5);
+        this.surroundingRectangle.setSecondary('gray');
+
+        this.renderer.appendChild(this.element, this.surroundingRectangle.element);
 
         this.renderer.setAttribute(this.ellipseElement, 'fill', 'none');
 
@@ -104,6 +114,8 @@ export class SVGEllipse implements SVGInterface {
         this.traceType = traceType;
     }
     setCursor(x: number, y: number, shift: boolean) {
+        this.surroundingRectangle.setCursor(x, y, false);
+
         const point: number[] = [x, y];
         const vectorToCenter = vMultiply(vMinus(point, this.startingPoint), 0.5);
 
@@ -118,7 +130,7 @@ export class SVGEllipse implements SVGInterface {
         this.setAttributes();
     }
     release() {
-
+        this.renderer.removeChild(this.element, this.surroundingRectangle.element);
     }
 
     private setAttributes() {
