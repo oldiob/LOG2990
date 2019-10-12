@@ -10,6 +10,7 @@ import { ITool } from './i-tool';
 export class PencilTool implements ITool {
     element: SVGPencil | null;
     width: number;
+    angle: number;
 
     protected renderer: Renderer2;
 

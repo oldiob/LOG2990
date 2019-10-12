@@ -12,6 +12,7 @@ export class BrushTool implements ITool {
     element: SVGBrush | null;
 
     width: number;
+    angle: number;
 
     texture: ITexture;
 

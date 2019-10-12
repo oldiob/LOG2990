@@ -16,6 +16,7 @@ export class StampTool implements ITool {
     element: SVGStamp;
 
     width: number;
+    angle: number;
 
     stamp: IStamp;
 

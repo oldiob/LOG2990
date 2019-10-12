@@ -6,7 +6,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
  */
 export interface ITool {
     width: number | null;
-
+    angle: number | null;
     onPressed(event: MouseEvent): SVGInterface | null;
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;

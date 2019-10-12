@@ -10,6 +10,7 @@ import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 })
 export class EllipseTool extends AbsShapeTool {
     width: number;
+    angle: number;
     traceType: TraceType;
     protected renderer: Renderer2;
 

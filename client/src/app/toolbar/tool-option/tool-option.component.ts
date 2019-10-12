@@ -119,6 +119,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         }
     }
 
+    setAngle(angle: number): void {
+        if (this.currentTool.angle !== null) {
+            this.currentTool.angle = angle;
+            this.showcase.display(this.currentTool);
+        }
+    }
+
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
