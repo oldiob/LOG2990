@@ -48,8 +48,8 @@
 
 .button {
     margin: 10px;
-    padding: 28px;
-    border-radius: 25%;
+    padding: 30px;
+    border-radius: 50%;
 }
 
 .options {
@@ -63,10 +63,15 @@ a {
     justify-content: center;
     align-items: center;
     display: flex;
+    transition: 0.3s;
 }
 
 a:hover {
-    background-color: #0b0e1a;
+    background-color: darken($color: #414d8f, $amount: 4);
+}
+
+a:active {
+    background-color: darken($color: #414d8f, $amount: 8);
 }
 
 .toolbar-icon {
@@ -77,5 +82,5 @@ a:hover {
 }
 
 .selected-toolbar-button {
-    background-color: #344380;
+    background-color: #414d8f;
 }
