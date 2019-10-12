@@ -2,8 +2,7 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { IShapeTool, TraceType } from './i-shape-tool';
-import { SVGEllipse } from 'src/services/svg/element/ellipse';
-import { ShiftAction } from './i-shift-action';
+import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
 
 @Injectable({
     providedIn: 'root',

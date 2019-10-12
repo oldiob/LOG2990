@@ -1,10 +1,10 @@
 import { Renderer2 } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { vMinus, vMultiply, vPlus } from 'src/utils/math';
 import { SVGRect } from 'src/services/svg/element/svg.rect'
+import { AbsSvgShape } from './svg.abs-shape';
 
-export class SVGEllipse implements SVGInterface {
+export class SVGEllipse extends AbsSvgShape {
     element: any;
     ellipseElement: any;
 
@@ -21,6 +21,7 @@ export class SVGEllipse implements SVGInterface {
     traceType: TraceType;
 
     constructor(x: number, y: number, private renderer: Renderer2) {
+        super();
         this.element = this.renderer.createElement('g', 'svg');
         this.ellipseElement = this.renderer.createElement('ellipse', 'svg');
         this.renderer.appendChild(this.element, this.ellipseElement);
