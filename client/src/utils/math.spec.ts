@@ -1,6 +1,6 @@
-import { atLine, vProject, vDot, vMinus, vModule } from './math';
+import { atLine, vDot, vMinus, vModule, vProject } from './math';
 
-fdescribe('BucketTool', () => {
+describe('BucketTool', () => {
 
     const v0 = [23, 31];
     const v1 = [53, 92];

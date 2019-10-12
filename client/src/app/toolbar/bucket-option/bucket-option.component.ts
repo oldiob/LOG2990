@@ -1,80 +1,93 @@
 import { Component, OnInit } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
-  selector: 'app-bucket-option',
-  templateUrl: './bucket-option.component.html',
-  styleUrls: ['./bucket-option.component.scss', '../toolbar-option.scss'],
+    selector: 'app-bucket-option',
+    templateUrl: './bucket-option.component.html',
+    styleUrls: ['./bucket-option.component.scss', '../toolbar-option.scss'],
 })
-export class BucketOptionComponent implements OnInit {
-  private readonly FILE_LOCATION = '../../../../assets/images/';
+export class BucketOptionComponent implements OnInit, IOption<ITool> {
+    private readonly FILE_LOCATION = '../../../../assets/images/';
 
-  currentTool: ITool;
+    images = new Map<ITool, string>([
+        [this.bucket, 'bucket.png'],
+    ]);
 
-  isShowPrimary: boolean;
-  isShowSecondary: boolean;
-  primaryColor: string;
-  secondaryColor: string;
+    currentTool: ITool;
 
-  constructor(
-    private paletteService: PaletteService,
-    private toolService: ToolService,
-    private bucket: BucketTool) {}
+    isShowPrimary: boolean;
+    isShowSecondary: boolean;
+    primaryColor: string;
+    secondaryColor: string;
 
-  ngOnInit() {
-    this.currentTool = this.bucket;
-    this.isShowPrimary = false;
-    this.isShowSecondary = false;
-  }
+    constructor(
+        private paletteService: PaletteService,
+        private toolService: ToolService,
+        private bucket: BucketTool) { }
 
-  selectTool(tool: ITool): void {
-    this.currentTool = tool;
-    this.toolService.currentTool = tool;
-  }
+    ngOnInit() {
+        this.currentTool = this.bucket;
+        this.isShowPrimary = false;
+        this.isShowSecondary = false;
+    }
 
-  getFilesource(tool: ITool): string {
-    return this.FILE_LOCATION + tool.BUTTON_FILENAME;
-  }
+    select() {
+        this.selectTool(this.currentTool);
+    }
 
-  togglePrimaryColorPicker() {
-    this.isShowSecondary = false;
-    this.isShowPrimary = !this.isShowPrimary;
-  }
+    getImage(): string {
+        return this.images.get(this.currentTool) as string;
+    }
 
-  toggleSecondaryColorPicker() {
-    this.isShowPrimary = false;
-    this.isShowSecondary = !this.isShowSecondary;
-  }
+    selectTool(tool: ITool): void {
+        this.currentTool = tool;
+        this.toolService.currentTool = tool;
+    }
 
-  onSwap() {
-    this.paletteService.swap();
-    this.setPrimaryColor();
-    this.setSecondary();
-  }
+    getFilesource(tool: ITool): string {
+        return this.FILE_LOCATION + this.images.get(tool) as string;
+    }
 
-  onColorPick() {
-    this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-    this.hideColorPicker();
-}
+    togglePrimaryColorPicker() {
+        this.isShowSecondary = false;
+        this.isShowPrimary = !this.isShowPrimary;
+    }
 
-hideColorPicker() {
-    this.isShowPrimary ? this.isShowPrimary = false
-        : this.isShowSecondary = false;
-}
+    toggleSecondaryColorPicker() {
+        this.isShowPrimary = false;
+        this.isShowSecondary = !this.isShowSecondary;
+    }
 
-  private setPrimaryColor() {
-    return {
-      'background-color': this.paletteService.getPrimary(),
-    };
-  }
+    onSwap() {
+        this.paletteService.swap();
+        this.setPrimaryColor();
+        this.setSecondary();
+    }
 
-  private setSecondary() {
-    return {
-      'background-color': this.paletteService.getSecondary(),
-    };
-  }
+    onColorPick() {
+        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
+        this.hideColorPicker();
+    }
+
+    hideColorPicker() {
+        this.isShowPrimary ? this.isShowPrimary = false
+            : this.isShowSecondary = false;
+    }
+
+    private setPrimaryColor() {
+        return {
+            'background-color': this.paletteService.getPrimary(),
+        };
+    }
+
+    private setSecondary() {
+        return {
+            'background-color': this.paletteService.getSecondary(),
+        };
+    }
 
 }

@@ -8,9 +8,6 @@ import { IShapeTool, TraceType } from './i-shape-tool';
     providedIn: 'root',
 })
 export class RectangleTool implements IShapeTool {
-    readonly BUTTON_FILENAME: string = 'rectangle.png';
-    readonly CURSOR_FILENAME: string = 'rectangle-cursor.svg';
-
     width: number;
     traceType: TraceType;
 

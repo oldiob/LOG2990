@@ -5,9 +5,6 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
  * position elements without color, thickness or texture.
  */
 export interface ITool {
-    readonly BUTTON_FILENAME: string;
-    readonly CURSOR_FILENAME: string;
-
     width: number | null;
 
     onPressed(event: MouseEvent): SVGInterface | null;

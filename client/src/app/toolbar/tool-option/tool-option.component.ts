@@ -7,6 +7,7 @@ import { RandomCircleTexture } from 'src/services/svg/element/texture/random-cir
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { RectTexture } from 'src/services/svg/element/texture/rect';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -18,8 +19,13 @@ import { WidthComponent } from '../width/width.component';
     templateUrl: './tool-option.component.html',
     styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
 })
-export class ToolOptionComponent implements OnInit {
+export class ToolOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
+
+    images = new Map<ITool, string>([
+        [this.pencil, 'pencil.png'],
+        [this.brush, 'brush.png'],
+    ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
@@ -35,12 +41,16 @@ export class ToolOptionComponent implements OnInit {
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
-    constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
+    constructor(
+        private paletteService: PaletteService,
+        private toolService: ToolService,
+        private pencil: PencilTool,
+        private brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush];
+        this.tools = [this.pencil, this.brush];
         this.currentTool = this.tools[0];
     }
 
@@ -49,6 +59,14 @@ export class ToolOptionComponent implements OnInit {
         this.isShowSecondary = false;
 
         this.showcase.display(this.currentTool);
+    }
+
+    select() {
+        this.selectTool(this.currentTool);
+    }
+
+    getImage(): string {
+        return this.images.get(this.currentTool) as string;
     }
 
     selectTool(tool: ITool): void {
@@ -72,7 +90,7 @@ export class ToolOptionComponent implements OnInit {
     }
 
     getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + tool.BUTTON_FILENAME;
+        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
     togglePrimaryColorPicker(): void {

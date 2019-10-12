@@ -65,17 +65,17 @@ describe('ToolbarComponent', () => {
 
     it('should select tool option', () => {
         component.selectOption(toolOption);
-        expect(component.toolOption).toBe(component.currentOption);
+        expect(component.currentOption).toBe(component.toolOption);
     });
 
     it('should select shape option', () => {
         component.selectOption(shapeOption);
-        expect(component.shapeOption).toBe(component.currentOption);
+        expect(component.currentOption).toBe(component.shapeOption);
     });
 
     it('should select bucket option', () => {
         component.selectOption(bucketOption);
-        expect(component.bucketOption).toBe(component.currentOption);
+        expect(component.currentOption).toBe(component.bucketOption);
     });
 
     it('should open new drawing pop up', () => {

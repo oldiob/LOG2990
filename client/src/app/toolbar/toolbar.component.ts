@@ -1,7 +1,9 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 
@@ -27,9 +29,12 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
 
-    options: any[];
+    @ViewChild(GalleryOptionComponent, { static: true })
+    galleryOption: GalleryOptionComponent;
 
-    currentOption: any;
+    options: IOption<any>[];
+
+    currentOption: IOption<any>;
     optionDisplayed: boolean;
 
     constructor(
@@ -37,15 +42,15 @@ export class ToolbarComponent implements OnInit {
         private drawAreaService: DrawAreaService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.galleryOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
     }
 
-    selectOption(option: any): void {
+    selectOption(option: IOption<any>): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
-        this.currentOption.selectTool(this.currentOption.currentTool);
+        this.currentOption.select();
     }
 
     newDrawingOption(): void {
@@ -56,8 +61,8 @@ export class ToolbarComponent implements OnInit {
         this.drawAreaService.save();
     }
 
-    getImage(option: any): string {
-        return this.FILE_LOCATION + option.currentTool.BUTTON_FILENAME;
+    getImage(option: IOption<any>): string {
+        return this.FILE_LOCATION + option.getImage();
     }
 
     @HostListener('window: keypress', ['$event'])
