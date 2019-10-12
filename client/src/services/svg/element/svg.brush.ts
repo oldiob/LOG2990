@@ -1,4 +1,5 @@
 import { Renderer2 } from '@angular/core';
+import { atLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
 import { isAtLine } from 'src/utils/math';

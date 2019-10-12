@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="text2 text">Angle : </div>
+    <input class="text2 input-text" [value]="angle" [(ngModel)]="angle" autocomplete=off>
+
+</div>
+
+<input type="range" [(ngModel)]="angle" [min]="MIN_ANGLE" [max]="MAX_ANGLE" step="0.1" class="slider">
