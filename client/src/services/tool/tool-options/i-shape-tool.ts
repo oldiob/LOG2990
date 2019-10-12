@@ -1,3 +1,4 @@
+import { IShiftAction } from './i-shift-action';
 import { ITool } from './i-tool';
 
 export enum TraceType {
@@ -6,7 +7,7 @@ export enum TraceType {
     FillAndBorder = 2,
 }
 
-export interface IShapeTool extends ITool {
+export interface IShapeTool extends ITool, IShiftAction {
     width: number;
     traceType: TraceType;
 }

@@ -3,6 +3,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { IShapeTool, TraceType } from './i-shape-tool';
 import { SVGEllipse } from 'src/services/svg/element/ellipse';
+import { ShiftAction } from './i-shift-action';
 
 @Injectable({
     providedIn: 'root',
@@ -44,5 +45,9 @@ export class EllipseTool implements IShapeTool {
         if (this.element != null) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
+    }
+
+    onShift(): void {
+        // no yet implemented
     }
 }
