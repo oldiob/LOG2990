@@ -6,7 +6,9 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
     templateUrl: './gallery-option.component.html',
     styleUrls: ['./gallery-option.component.scss', '../toolbar-option.scss'],
 })
-export class GalleryOptionComponent implements OnInit, IOption {
+export class GalleryOptionComponent implements OnInit, IOption<string> {
+
+    images: Map<string, string>;
 
     constructor() {
         //
@@ -21,7 +23,7 @@ export class GalleryOptionComponent implements OnInit, IOption {
     }
 
     getImage() {
-        const BUTTON_FILENAME = '../../../assets/images/gallery.png';
-        return BUTTON_FILENAME;
+        const IMAGE = '../../../assets/images/gallery.png';
+        return IMAGE;
     }
 }

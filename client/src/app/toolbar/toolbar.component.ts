@@ -32,9 +32,9 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(GalleryOptionComponent, { static: true })
     galleryOption: GalleryOptionComponent;
 
-    options: IOption[];
+    options: IOption<any>[];
 
-    currentOption: IOption;
+    currentOption: IOption<any>;
     optionDisplayed: boolean;
 
     constructor(
@@ -47,7 +47,7 @@ export class ToolbarComponent implements OnInit {
         this.optionDisplayed = false;
     }
 
-    selectOption(option: IOption): void {
+    selectOption(option: IOption<any>): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();
@@ -61,7 +61,7 @@ export class ToolbarComponent implements OnInit {
         this.drawAreaService.save();
     }
 
-    getImage(option: IOption): string {
+    getImage(option: IOption<any>): string {
         return this.FILE_LOCATION + option.getImage();
     }
 

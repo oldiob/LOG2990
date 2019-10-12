@@ -57,7 +57,6 @@ export class DrawAreaComponent implements OnInit {
             height: `${this.height}px`,
             width: `${this.width}px`,
             'background-color': `${this.backgroundColor}`,
-            cursor: `url(./../assets/images/${this.toolService.currentTool.CURSOR_FILENAME}), crosshair`,
         };
     }
     onMouseMove(event: MouseEvent): void {

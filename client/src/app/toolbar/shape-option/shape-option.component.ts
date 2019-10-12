@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
@@ -12,10 +13,13 @@ import { ShowcaseComponent } from '../showcase/showcase.component';
     templateUrl: './shape-option.component.html',
     styleUrls: ['./shape-option.component.scss', '../toolbar-option.scss'],
 })
-export class ShapeOptionComponent implements OnInit, IOption {
+export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
-    traces: TraceType;
+
+    images = new Map<ITool, string>([
+        [this.rectangleTool, this.FILE_LOCATION + 'rectangle.png'],
+    ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
@@ -51,8 +55,8 @@ export class ShapeOptionComponent implements OnInit, IOption {
         this.selectTool(this.currentTool);
     }
 
-    getImage() {
-        return this.currentTool.BUTTON_FILENAME;
+    getImage(): string {
+        return this.images.get(this.currentTool) as string;
     }
 
     selectTool(tool: IShapeTool): void {
@@ -63,7 +67,7 @@ export class ShapeOptionComponent implements OnInit, IOption {
     }
 
     getFilesource(tool: IShapeTool): string {
-        return this.FILE_LOCATION + tool.BUTTON_FILENAME;
+        return this.images.get(tool) as string;
     }
 
     private createForm(): void {

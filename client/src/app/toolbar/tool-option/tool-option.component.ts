@@ -19,8 +19,13 @@ import { WidthComponent } from '../width/width.component';
     templateUrl: './tool-option.component.html',
     styleUrls: ['./tool-option.component.scss', '../toolbar-option.scss'],
 })
-export class ToolOptionComponent implements OnInit, IOption {
+export class ToolOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
+
+    images = new Map<ITool, string>([
+        [this.pencil, this.FILE_LOCATION + 'pencil.png'],
+        [this.brush, this.FILE_LOCATION + 'brush.png'],
+    ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
@@ -36,12 +41,16 @@ export class ToolOptionComponent implements OnInit, IOption {
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
-    constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool, public brush: BrushTool) {
+    constructor(
+        private paletteService: PaletteService,
+        private toolService: ToolService,
+        private pencil: PencilTool,
+        private brush: BrushTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush];
+        this.tools = [this.pencil, this.brush];
         this.currentTool = this.tools[0];
     }
 
@@ -56,8 +65,8 @@ export class ToolOptionComponent implements OnInit, IOption {
         this.selectTool(this.currentTool);
     }
 
-    getImage() {
-        return this.currentTool.BUTTON_FILENAME;
+    getImage(): string {
+        return this.images.get(this.currentTool) as string;
     }
 
     selectTool(tool: ITool): void {
@@ -81,7 +90,7 @@ export class ToolOptionComponent implements OnInit, IOption {
     }
 
     getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + tool.BUTTON_FILENAME;
+        return this.images.get(tool) as string;
     }
 
     togglePrimaryColorPicker(): void {
