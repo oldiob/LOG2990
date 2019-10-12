@@ -20,6 +20,11 @@ export class SVGStamp implements SVGInterface {
         this.stampTexture = stamp;
         this.icons = [];
         this.stampTexture.create(this);
+<<<<<<< HEAD
+=======
+        this.icons = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
+                      './assets/images/bec.png', './assets/images/shade.png'];
+>>>>>>> Add 5 Stamps In Toolbar
     }
 
     isAt(x: number, y: number): boolean {

@@ -61,9 +61,18 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
                 public brush: BrushTool, public stamp: StampTool) {
 >>>>>>> Add Stamp Svg In Tool Options
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
+<<<<<<< HEAD
         // this.stamps = [];
         // this.currentStamp = this.stamps[0];
         // this.stamp.stampTexture = this.currentStamp;
+=======
+        this.stamps = [new EmojiStamp()];
+        this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
+                           './assets/images/bec.png', './assets/images/shade.png'];
+        this.currentPath = this.imagePaths[0];
+        this.currentStamp = this.stamps[0];
+        this.stamp.stampTexture = this.currentStamp;
+>>>>>>> Add 5 Stamps In Toolbar
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
