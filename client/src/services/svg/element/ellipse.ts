@@ -37,7 +37,7 @@ export class SVGEllipse implements SVGInterface {
 
         this.renderer.setAttribute(this.ellipseElement, 'fill', 'none');
 
-        this.setAttributes();
+        this.setPositionAttributes();
     }
 
     isAt(x: number, y: number): boolean {
@@ -127,13 +127,13 @@ export class SVGEllipse implements SVGInterface {
         this.radii = [Math.abs(vectorToCenter[0]), Math.abs(vectorToCenter[1])];
         this.center = vPlus(vectorToCenter, this.startingPoint);
 
-        this.setAttributes();
+        this.setPositionAttributes();
     }
     release() {
         this.renderer.removeChild(this.element, this.surroundingRectangle.element);
     }
 
-    private setAttributes() {
+    private setPositionAttributes() {
         this.renderer.setAttribute(this.ellipseElement, 'cx', `${this.center[0]}`);
         this.renderer.setAttribute(this.ellipseElement, 'cy', `${this.center[1]}`);
         this.renderer.setAttribute(this.ellipseElement, 'rx', `${this.radii[0]}`);
