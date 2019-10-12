@@ -1,7 +1,11 @@
 import { Renderer2 } from '@angular/core';
+import { atLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
+<<<<<<< HEAD
 import { isAtLine } from 'src/utils/math';
+=======
+>>>>>>> Add imagePath in AddPoint and Add Angle Component
 
 export class SVGBrush implements SVGInterface {
     element: any;

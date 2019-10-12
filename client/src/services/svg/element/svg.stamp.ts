@@ -12,14 +12,14 @@ export class SVGStamp implements SVGInterface {
 
     lineWidth: number;
 
-    stamp: IStamp;
-
+    stampTexture: IStamp;
+    icons: string[];
     constructor(public renderer: Renderer2, width: number, stamp: IStamp) {
         this.points = [];
         this.lineWidth = width;
-        this.stamp = stamp;
-
-        this.stamp.create(this);
+        this.stampTexture = stamp;
+        this.icons = [];
+        this.stampTexture.create(this);
     }
 
     isAt(x: number, y: number): boolean {
@@ -81,8 +81,9 @@ export class SVGStamp implements SVGInterface {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-
-        this.stamp.addPoint(this, x, y);
+        this.icons.push('./assets/images/emoji.png');
+        this.icons.push('./assets/images/angel.png');
+        this.stampTexture.addPoint(this.icons[0], this, x, y);
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
