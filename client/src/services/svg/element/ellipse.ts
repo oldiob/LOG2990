@@ -5,6 +5,7 @@ import { vMinus, vMultiply, vPlus } from 'src/utils/math';
 
 export class SVGEllipse implements SVGInterface {
     element: any;
+    ellipseElement: any;
 
     startingPoint: number[];
     center: number[];
@@ -17,11 +18,14 @@ export class SVGEllipse implements SVGInterface {
     traceType: TraceType;
 
     constructor(x: number, y: number, private renderer: Renderer2) {
-        this.element = this.renderer.createElement('ellipse', 'svg');
+        this.element = this.renderer.createElement('g', 'svg');
+        this.ellipseElement = this.renderer.createElement('ellipse', 'svg');
+        this.renderer.appendChild(this.element, this.ellipseElement);
+
         this.startingPoint = this.center = [x, y];
         this.radii = [0, 0];
 
-        this.renderer.setAttribute(this.element, 'fill', 'none');
+        this.renderer.setAttribute(this.ellipseElement, 'fill', 'none');
 
         this.setAttributes();
     }
@@ -66,17 +70,17 @@ export class SVGEllipse implements SVGInterface {
     }
     setPrimary(color: string): void {
         if (this.fill === 1) {
-            this.renderer.setAttribute(this.element, 'fill', color);
+            this.renderer.setAttribute(this.ellipseElement, 'fill', color);
         }
     }
     setSecondary(color: string): void {
         if (this.stroke === 1) {
-            this.renderer.setAttribute(this.element, 'stroke', color);
+            this.renderer.setAttribute(this.ellipseElement, 'stroke', color);
         }
     }
     setPointSize(pointSize: number): void {
         this.pointSize = pointSize;
-        this.renderer.setAttribute(this.element, 'stroke-width', this.pointSize.toString());
+        this.renderer.setAttribute(this.ellipseElement, 'stroke-width', this.pointSize.toString());
     }
     setTraceType(traceType: TraceType): void {
         switch (traceType) {
@@ -94,8 +98,8 @@ export class SVGEllipse implements SVGInterface {
                 break;
         }
 
-        this.renderer.setAttribute(this.element, 'fill-opacity', `${this.fill}`);
-        this.renderer.setAttribute(this.element, 'stroke-opacity', `${this.stroke}`);
+        this.renderer.setAttribute(this.ellipseElement, 'fill-opacity', `${this.fill}`);
+        this.renderer.setAttribute(this.ellipseElement, 'stroke-opacity', `${this.stroke}`);
 
         this.traceType = traceType;
     }
@@ -113,12 +117,15 @@ export class SVGEllipse implements SVGInterface {
 
         this.setAttributes();
     }
+    release() {
+
+    }
 
     private setAttributes() {
-        this.renderer.setAttribute(this.element, 'cx', `${this.center[0]}`);
-        this.renderer.setAttribute(this.element, 'cy', `${this.center[1]}`);
-        this.renderer.setAttribute(this.element, 'rx', `${this.radii[0]}`);
-        this.renderer.setAttribute(this.element, 'ry', `${this.radii[1]}`);
+        this.renderer.setAttribute(this.ellipseElement, 'cx', `${this.center[0]}`);
+        this.renderer.setAttribute(this.ellipseElement, 'cy', `${this.center[1]}`);
+        this.renderer.setAttribute(this.ellipseElement, 'rx', `${this.radii[0]}`);
+        this.renderer.setAttribute(this.ellipseElement, 'ry', `${this.radii[1]}`);
     }
 
     private ellipseYs(x: number): number[] {

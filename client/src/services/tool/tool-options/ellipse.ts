@@ -34,6 +34,10 @@ export class EllipseTool implements IShapeTool {
         return this.element;
     }
     onReleased(event: MouseEvent): void {
+        if (this.element !== null) {
+            this.element.release();
+        }
+
         this.element = null;
     }
     onMotion(event: MouseEvent): void {
