@@ -47,7 +47,7 @@
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
-  <app-angle [rotate] ="currentTool.rotate"  (angleEmmiter)="setAngle($event)"></app-angle>
+  <app-angle [angle] ="currentTool.angle"  (angleEmmiter)="setAngle($event)"></app-angle>
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
@@ -55,16 +55,7 @@
   <div class="tools">
     <div *ngFor="let image of imagePaths" class="btn-texture texture-number"
       (click)="selectStamp(image)" [class.selected-tool]="stamp === currentStamp">
-      <img class="emoji"  width= "50px" [src]="image">
+      <img class="emoji" width="50px" [src]="image">
   </div>
   </div>
 </div>
-<!-- <div *ngIf="currentTool === stamp" class="separation">
-  <div class="text">Stamp</div>
-  <div class="tools">
-    <a *ngFor="let image of imagePaths; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
-      (click)="selectStamp(image)" [class.selected-tool]="stamp === currentStamp">
-      {{i + 1}}
-    </a>
-  </div>
-</div> -->

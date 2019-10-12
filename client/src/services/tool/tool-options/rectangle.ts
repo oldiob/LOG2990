@@ -8,6 +8,7 @@ import { IShapeTool, TraceType } from './i-shape-tool';
     providedIn: 'root',
 })
 export class RectangleTool implements IShapeTool {
+    angle: number;
     width: number;
     traceType: TraceType;
 

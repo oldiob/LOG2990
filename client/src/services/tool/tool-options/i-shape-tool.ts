@@ -7,6 +7,7 @@ export enum TraceType {
 }
 
 export interface IShapeTool extends ITool {
+    angle: number;
     width: number;
     traceType: TraceType;
 }
