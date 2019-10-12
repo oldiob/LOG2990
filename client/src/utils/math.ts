@@ -52,6 +52,13 @@ export const vMinus = (v0: number[], v1: number[]): number[] => {
     return [v0[0] - v1[0], v0[1] - v1[1]];
 };
 
+export const vPlus = (v0: number[], v1: number[]): number[] => {
+    validateLength(v0, 2);
+    validateLength(v1, 2);
+
+    return [v0[0] + v1[0], v0[1] + v1[1]];
+};
+
 export const vModule = (vector: number[]): number => {
     validateLength(vector, 2);
     return Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
@@ -62,6 +69,12 @@ export const vDot = (v0: number[], v1: number[]): number => {
     validateLength(v1, 2);
 
     return v0[0] * v1[0] + v0[1] * v1[1];
+};
+
+export const vMultiply = (v: number[], x: number): number[] => {
+    validateLength(v, 2);
+
+    return [v[0] * x, v[1] * x];
 };
 
 const validateLength = (list: any[], expectedLength: number): void => {

@@ -4,9 +4,10 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
-import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
+import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
+import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 
 @Component({
     selector: 'app-shape-option',
@@ -19,6 +20,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
     images = new Map<ITool, string>([
         [this.rectangleTool, 'rectangle.png'],
+        [this.ellipseTool, 'ellipse.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -37,11 +39,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         private paletteService: PaletteService,
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
+        private ellipseTool: EllipseTool,
         private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.tools = [this.rectangleTool];
+        this.tools = [this.rectangleTool, this.ellipseTool];
         this.currentTool = this.tools[0];
         this.createForm();
 
