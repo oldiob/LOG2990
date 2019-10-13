@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     styleUrls: ['./angle.component.scss'],
 })
 export class AngleComponent implements OnInit {
-    readonly MAX_ANGLE: number = 90.0;
+    readonly MAX_ANGLE: number = 360.0;
     readonly MIN_ANGLE: number = 0.0;
 
     private mAngle: number;
@@ -15,7 +15,7 @@ export class AngleComponent implements OnInit {
     angleEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
     constructor() {
-        this.mAngle = 0.0;
+        this.mAngle = 0.5;
     }
 
     ngOnInit() {
