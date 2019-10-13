@@ -3,7 +3,7 @@ import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { Renderer2 } from '@angular/core';
 import { vMultiply, vPlus, vMinus } from 'src/utils/math';
 
-export abstract class AbsSvgShape implements SVGInterface {
+export abstract class AbsSVGShape implements SVGInterface {
     element: any;
     protected shapeElement: any;
 

@@ -1,9 +1,9 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { vMinus, vPlus } from 'src/utils/math';
-import { AbsSvgShape } from './svg.abs-shape';
+import { AbsSVGShape } from './svg.abs-shape';
 
-export class SVGEllipse extends AbsSvgShape {
+export class SVGEllipse extends AbsSVGShape {
 
     stroke = 1;
     fill = 1;
@@ -55,6 +55,10 @@ export class SVGEllipse extends AbsSvgShape {
 
     release() {
         this.hidePerimeter();
+    }
+
+    onShift(isShift: boolean) {
+        this.setCursor(this.endingPoint[0], this.endingPoint[1], isShift);
     }
 
     protected setPositionAttributes() {
