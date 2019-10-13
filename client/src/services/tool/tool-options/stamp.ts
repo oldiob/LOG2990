@@ -31,7 +31,7 @@ export class StampTool implements ITool {
     }
 
     onPressed(event: MouseEvent): SVGStamp {
-        this.element = new SVGStamp(this.renderer, this.width, this.stamp);
+        this.element = new SVGStamp(this.renderer, this.width, this.stampTexture, this.angle);
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
         this.element.addPoint(event.svgX, event.svgY);
