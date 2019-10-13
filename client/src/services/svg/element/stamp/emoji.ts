@@ -13,7 +13,10 @@ export class EmojiStamp implements IStamp {
         stamp.renderer.setAttribute(img, 'y', y.toString());
         stamp.renderer.setAttribute(img, 'width',  stamp.lineWidth.toString());
         stamp.renderer.setAttribute(img, 'height',  stamp.lineWidth.toString());
-        stamp.renderer.setAttribute(img, 'href', imagePath );
+        stamp.renderer.setAttribute(img, 'href', stamp.icons[0]);
+        if (stamp.angles !== undefined) {
+        stamp.renderer.setAttribute(img, 'transform', `rotate(${stamp.angles} ${x} ${y})` );
+        }
         stamp.renderer.appendChild(stamp.element, img);
     }
 }
