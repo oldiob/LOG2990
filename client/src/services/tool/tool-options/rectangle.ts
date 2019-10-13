@@ -25,12 +25,11 @@ export class RectangleTool implements IShapeTool {
         if (this.element) {
             return null;
         }
-        this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
+        this.element = new SVGRect(event.svgX, event.svgY, this.traceType, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
         this.element.setPointSize(this.width);
-        this.element.setTraceType(this.traceType);
         return this.element;
     }
     onReleased(event: MouseEvent): void {
@@ -38,7 +37,7 @@ export class RectangleTool implements IShapeTool {
     }
     onMotion(event: MouseEvent): void {
         if (this.element) {
-            this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
+            this.element.setCursor(event.svgX, event.svgY);
         }
     }
 

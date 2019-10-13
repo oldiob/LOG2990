@@ -25,12 +25,11 @@ export class EllipseTool implements IShapeTool {
     }
 
     onPressed(event: MouseEvent): SVGEllipse {
-        this.element = new SVGEllipse(event.svgX, event.svgY, this.renderer);
+        this.element = new SVGEllipse(event.svgX, event.svgY, this.traceType, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
         this.element.setPointSize(this.width);
-        this.element.setTraceType(this.traceType);
         return this.element;
     }
     onReleased(event: MouseEvent): void {
