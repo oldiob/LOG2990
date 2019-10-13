@@ -1,3 +1,37 @@
 <div class="gallery">
+    <mat-form-field color="accent">
+        <input matInput (keyup)="filter($event.target.value)" placeholder="Filter" autocomplete="off">
+    </mat-form-field>
 
+    <div class="tag-wrapper">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <div class="grid">
+
+                <ng-container matColumnDef="preview">
+                    <th mat-header-cell *matHeaderCellDef>Preview</th>
+                    <div mat-cell *matCellDef="let element">
+                        <svg class="svg" width="120" height="100" viewbox="0 0 120 100">
+                            {{element.preview}}
+                        </svg>
+                    </div>
+                </ng-container>
+                <ng-container matColumnDef="tags">
+                    <div class="cell-wrapper">
+                        <th mat-header-cell *matHeaderCellDef class="header-tag">
+                            Tags
+                        </th>
+                        <div class="cell" mat-cell *matCellDef="let element">
+                            <div class="tags">
+                                <div class="tag" *ngFor="let tag of element.tags">
+                                    {{tag}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
 </div>
