@@ -3,20 +3,16 @@ import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { AbsSvgShape } from './svg.abs-shape';
 
 export class SVGRect extends AbsSvgShape {
-    protected setPositionAttributes(): void {
-        throw new Error("Method not implemented.");
-    }
 
     constructor(x: number, y: number, traceType: TraceType, renderer: Renderer2) {
         super(x, y, traceType, renderer);
+        this.hidePerimeter();
 
-        /*this.rectElement = this.renderer.createElement('polygon', 'svg');
-        this.x1 = this.x2 = x;
-        this.y1 = this.y2 = y;
-        this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'x', `${this.x1}`);
-        this.renderer.setAttribute(this.element, 'y', `${this.y1}`);
-        */
+        this.shapeElement = this.renderer.createElement('rect', 'svg');
+        this.renderer.appendChild(this.element, this.shapeElement);
+
+        this.setOpacities();
+        this.setCursor(x, y, false);
     }
 
     protected isAtBorder(x: number, y: number) {
@@ -51,12 +47,27 @@ export class SVGRect extends AbsSvgShape {
         return true;
     }
 
-    setCursor(x: number, y: number) {
-        /*this.x2 = x;
-        this.y2 = y;
-        this.renderer.setAttribute(this.element, 'points', `${this.x1},${this.y1}
-                                                            ${this.x2},${this.y1}
-                                                            ${this.x2},${this.y2}
-                                                            ${this.x1},${this.y2}`);*/
+    setCursor(x: number, y: number, isShift: boolean) {
+        this.updateCoordinates(x, y, isShift);
+
+        if (isShift) {
+            this.showPerimeter();
+            this.updatePerimeter();
+        } else {
+            this.hidePerimeter();
+        }
+
+        this.setPositionAttributes();
+    }
+
+    release() {
+        this.hidePerimeter();
+    }
+
+    protected setPositionAttributes(): void {
+        this.renderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
+        this.renderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
+        this.renderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
+        this.renderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
     }
 }

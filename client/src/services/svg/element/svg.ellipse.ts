@@ -16,9 +16,8 @@ export class SVGEllipse extends AbsSvgShape {
         this.shapeElement = this.renderer.createElement('ellipse', 'svg');
         this.renderer.appendChild(this.element, this.shapeElement);
 
-        this.startingPoint = this.center = [x, y];
-
-        this.setPositionAttributes();
+        this.setOpacities();
+        this.setCursor(x, y, false);
     }
 
     protected isAtBorder(x: number, y: number) {
