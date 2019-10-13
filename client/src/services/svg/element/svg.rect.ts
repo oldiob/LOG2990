@@ -1,6 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { AbsSvgShape } from './svg.abs-shape';
+import { atLine } from 'src/utils/math';
 
 export class SVGRect extends AbsSvgShape {
 
@@ -16,31 +17,30 @@ export class SVGRect extends AbsSvgShape {
     }
 
     protected isAtBorder(x: number, y: number) {
-        /*const additionnalWidth = 10.0;
+        const additionnalWidth = 10.0;
         const width = this.pointSize + additionnalWidth;
         const points = [
-            [this.x1, this.y1],
-            [this.x2, this.y1],
-            [this.x2, this.y2],
-            [this.x1, this.y2],
-            [this.x1, this.y1]];
+            [this.center[0] - this.size[0], this.center[1] - this.size[1]],
+            [this.center[0] + this.size[0], this.center[1] - this.size[1]],
+            [this.center[0] + this.size[0], this.center[1] + this.size[1]],
+            [this.center[0] - this.size[0], this.center[1] + this.size[1]],
+            [this.center[0] - this.size[0], this.center[1] - this.size[1]]];
 
         for (let i = 0; i < 4; i++) {
             if (atLine([x, y], [points[i], points[i + 1]], width)) {
                 return true;
             }
-        }*/
+        }
 
         return false;
     }
 
     protected isInside(x: number, y: number) {
-        /*const minX: number = Math.min(this.x1, this.x2);
-        const maxX: number = Math.max(this.x1, this.x2);
-        const minY: number = Math.min(this.y1, this.y2);
-        const maxY: number = Math.max(this.y1, this.y2);
-        return (minX <= x && x <= maxX && minY <= y && y <= maxY);
-        */ return false;
+        return (
+            this.center[0] - this.size[0] <= x &&
+            this.center[0] + this.size[0] >= x &&
+            this.center[1] - this.size[1] <= y &&
+            this.center[1] + this.size[1] >= y);
     }
 
     isIn(x: number, y: number, r: number): boolean {
