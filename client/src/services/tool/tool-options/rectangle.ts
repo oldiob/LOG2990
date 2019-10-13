@@ -41,7 +41,9 @@ export class RectangleTool implements IShapeTool {
         }
     }
 
-    onShift(): void {
-        // not yet implemented
+    onShift(isShift: boolean): void {
+        if (this.element !== null) {
+            this.element.onShift(isShift);
+        }
     }
 }

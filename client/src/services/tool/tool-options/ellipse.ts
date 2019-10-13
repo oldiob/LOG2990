@@ -40,12 +40,14 @@ export class EllipseTool implements IShapeTool {
         this.element = null;
     }
     onMotion(event: MouseEvent): void {
-        if (this.element != null) {
+        if (this.element !== null) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
     }
 
-    onShift(): void {
-        // no yet implemented
+    onShift(isShift: boolean): void {
+        if (this.element !== null) {
+            this.element.onShift(isShift);
+        }
     }
 }

@@ -3,5 +3,5 @@
  * shapes might use it in the future
  */
 export interface IShiftAction {
-    onShift(): void;
+    onShift(isShift: boolean): void;
 }

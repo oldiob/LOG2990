@@ -1,9 +1,9 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
-import { AbsSvgShape } from './svg.abs-shape';
+import { AbsSVGShape } from './svg.abs-shape';
 import { atLine } from 'src/utils/math';
 
-export class SVGRect extends AbsSvgShape {
+export class SVGRect extends AbsSVGShape {
 
     constructor(x: number, y: number, traceType: TraceType, renderer: Renderer2) {
         super(x, y, traceType, renderer);
@@ -62,6 +62,10 @@ export class SVGRect extends AbsSvgShape {
 
     release() {
         this.hidePerimeter();
+    }
+
+    onShift(isShift: boolean) {
+        this.setCursor(this.endingPoint[0], this.endingPoint[1], isShift);
     }
 
     protected setPositionAttributes(): void {
