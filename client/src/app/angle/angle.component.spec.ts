@@ -7,7 +7,7 @@ describe('AngleComponent', () => {
     let component: AngleComponent;
     let fixture: ComponentFixture<AngleComponent>;
     const emmiter = jasmine.createSpyObj('EventEmitter<number>', ['emit']);
-    const validWidth = 15;
+    const validAngle = 15;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -21,7 +21,7 @@ describe('AngleComponent', () => {
         fixture = TestBed.createComponent(AngleComponent);
         component = fixture.componentInstance;
 
-        component.widthEmmiter = emmiter;
+        component.angleEmmiter = emmiter;
         fixture.detectChanges();
     });
 
@@ -30,22 +30,22 @@ describe('AngleComponent', () => {
     });
 
     it('should set a valid angle', () => {
-        component.width = validWidth;
+        component.angle = validAngle;
 
-        expect(component.width).toEqual(validWidth);
-        expect(emmiter.emit).toHaveBeenCalledWith(validWidth);
+        expect(component.angle).toEqual(validAngle);
+        expect(emmiter.emit).toHaveBeenCalledWith(validAngle);
     });
 
     it('should keep the valid angle', () => {
-        component.width = validWidth;
-        component.width = 0;
+        component.angle = validAngle;
+        component.angle = 0;
 
-        expect(component.width).toEqual(validWidth);
-        expect(emmiter.emit).toHaveBeenCalledWith(validWidth);
+        expect(component.angle).toEqual(validAngle);
+        expect(emmiter.emit).toHaveBeenCalledWith(validAngle);
 
-        component.width = 50;
+        component.angle = 50;
 
-        expect(component.width).toEqual(validWidth);
-        expect(emmiter.emit).toHaveBeenCalledWith(validWidth);
+        expect(component.angle).toEqual(validAngle);
+        expect(emmiter.emit).toHaveBeenCalledWith(validAngle);
     });
 });

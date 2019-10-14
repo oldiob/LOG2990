@@ -29,7 +29,7 @@ export class SVGStamp implements SVGInterface {
     isAt(x: number, y: number): boolean {
         return false;
     }
-    isIn(x: number, y: number, r: number): boolean {
+    isIn(x: number, y: number): boolean {
         return false;
     }
     setPrimary(color: string): void {
