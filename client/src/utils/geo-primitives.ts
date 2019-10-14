@@ -6,6 +6,14 @@ export class Point {
         this.x = x;
         this.y = y;
     }
+
+    toVector(): number[] {
+        return [this.x, this.y];
+    }
+
+    toString() {
+        return `${this.x},${this.y}`;
+    }
 }
 
 export class Rect {
