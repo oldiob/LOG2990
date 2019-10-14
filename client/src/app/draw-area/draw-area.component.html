@@ -6,6 +6,7 @@
 </svg>
 <svg
   mousetrack class="draw-area"
+  (wheel)="onWheel($event)"
   (mouseenter)="onMouseEnter($event)"
   (mouseleave)="onMouseLeave($event)"
   (mousemove)="onMouseMove($event)"
