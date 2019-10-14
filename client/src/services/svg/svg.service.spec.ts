@@ -38,7 +38,7 @@ describe('SVGService', () => {
         service.entry = entry;
     });
 
-    it('should exits', () => {
+    it('should exists', () => {
         expect(service).toBeTruthy();
     });
 
