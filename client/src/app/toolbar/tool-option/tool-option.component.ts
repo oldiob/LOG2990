@@ -68,7 +68,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     ngOnInit(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
-
         this.showcase.display(this.currentTool);
     }
 
@@ -112,19 +111,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             this.showcase.display(this.currentTool);
         }
     }
+
     mouseWheelUp(event: MouseEvent): void {
-        if (this.currentTool.angle !== null) {
-        this.currentTool.angle += 15;
-        console.log('UP', this.currentTool.angle);
-        }
+        console.log('UP');
+    }
+    mouseWheelDown(event: MouseEvent): void {
+        console.log('UP');
     }
 
-    mouseWheelDown(event: MouseEvent): void {
-        if (this.currentTool.angle !== null) {
-        this.currentTool.angle -= 15;
-        console.log('DOWN', this.currentTool.angle);
-        }
-    }
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
