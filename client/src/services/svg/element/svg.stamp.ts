@@ -4,7 +4,6 @@ import { SVGInterface } from './svg.interface';
 
 export class SVGStamp implements SVGInterface {
     element: any;
-
     previousX = 0;
     previousY = 0;
 
@@ -14,17 +13,17 @@ export class SVGStamp implements SVGInterface {
     lineWidth: number;
 
     stampTexture: IStamp;
-    icons: string[];
 
-    constructor(public renderer: Renderer2, width: number, stamp: IStamp, angle: number) {
+    imagePaths: string;
+
+    constructor(public renderer: Renderer2, width: number, stamp: IStamp, angle: number, imagePath: string) {
         this.points = [];
         this.lineWidth = width;
         this.angles = angle;
         this.stampTexture = stamp;
         this.icons = [];
         this.stampTexture.create(this);
-        this.icons = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
-                      './assets/images/bec.png', './assets/images/shade.png'];
+        this.imagePaths = imagePath;
     }
 
     isAt(x: number, y: number): boolean {
@@ -39,12 +38,6 @@ export class SVGStamp implements SVGInterface {
     setSecondary(color: string): void {
         // No secondary for stamp
     }
-
-    setWidth(width: number): void {
-        this.lineWidth = width;
-        this.renderer.setAttribute(this.element, 'stroke-width', width.toString());
-    }
-
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
         this.icons.push('./assets/images/emoji.png');

@@ -15,7 +15,7 @@ export class AngleComponent implements OnInit {
     angleEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
     constructor() {
-        this.mAngle = 0.5;
+        this.mAngle = 0.0;
     }
 
     ngOnInit() {
