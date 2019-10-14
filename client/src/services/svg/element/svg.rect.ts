@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
-import { atLine } from 'src/utils/math';
+import { isAtLine } from 'src/utils/math';
 
 export class SVGRect extends AbsSVGShape {
 
@@ -27,7 +27,7 @@ export class SVGRect extends AbsSVGShape {
             [this.center[0] - this.size[0], this.center[1] - this.size[1]]];
 
         for (let i = 0; i < 4; i++) {
-            if (atLine([x, y], [points[i], points[i + 1]], width)) {
+            if (isAtLine([x, y], [points[i], points[i + 1]], width)) {
                 return true;
             }
         }

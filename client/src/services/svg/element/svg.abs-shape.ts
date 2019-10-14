@@ -1,7 +1,7 @@
 import { SVGInterface } from './svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { Renderer2 } from '@angular/core';
-import { vMultiply, vPlus, vMinus } from 'src/utils/math';
+import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
 
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;
@@ -96,16 +96,16 @@ export abstract class AbsSVGShape implements SVGInterface {
 
     protected updateCoordinates(x: number, y: number, isShift: boolean) {
         this.endingPoint = [x, y];
-        const vectorToCenter = vMultiply(vMinus(this.endingPoint, this.startingPoint), 0.5);
+        const VECTOR_TO_CENTER = vectorMultiply(vectorMinus(this.endingPoint, this.startingPoint), 0.5);
 
         if (isShift) {
-            const min = Math.min(Math.abs(vectorToCenter[0]), Math.abs(vectorToCenter[1]));
-            vectorToCenter[0] = Math.sign(vectorToCenter[0]) * min;
-            vectorToCenter[1] = Math.sign(vectorToCenter[1]) * min;
+            const RADIUS = Math.min(Math.abs(VECTOR_TO_CENTER[0]), Math.abs(VECTOR_TO_CENTER[1]));
+            VECTOR_TO_CENTER[0] = Math.sign(VECTOR_TO_CENTER[0]) * RADIUS;
+            VECTOR_TO_CENTER[1] = Math.sign(VECTOR_TO_CENTER[1]) * RADIUS;
         }
 
-        this.size = [Math.abs(vectorToCenter[0]), Math.abs(vectorToCenter[1])];
-        this.center = vPlus(vectorToCenter, this.startingPoint);
+        this.size = [Math.abs(VECTOR_TO_CENTER[0]), Math.abs(VECTOR_TO_CENTER[1])];
+        this.center = vectorPlus(VECTOR_TO_CENTER, this.startingPoint);
     }
 
     protected abstract setPositionAttributes(): void;

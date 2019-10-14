@@ -1,5 +1,5 @@
 
-export const atLine = (point: number[], line: number[][], width: number): boolean => {
+export const isAtLine = (point: number[], line: number[][], width: number): boolean => {
     validateLength(point, 2);
     validateLength(line, 2);
 
@@ -8,70 +8,70 @@ export const atLine = (point: number[], line: number[][], width: number): boolea
 
     const halfWidth = width / 2.0;
 
-    const directionVector = vMinus(line[1], line[0]);
-    const toPoint = vMinus(point, line[0]);
+    const directionVector = vectorMinus(line[1], line[0]);
+    const toPoint = vectorMinus(point, line[0]);
 
-    const parallel = vProject(toPoint, directionVector);
-    const perpendicular = vMinus(toPoint, parallel);
+    const parallel = vectorProject(toPoint, directionVector);
+    const perpendicular = vectorMinus(toPoint, parallel);
 
-    const perpendicularModule = vModule(perpendicular);
+    const perpendicularModule = vectorModule(perpendicular);
     if (halfWidth < perpendicularModule) {
         return false;
     }
 
     // direction size + size of 2 widthss
-    const directionModule = vModule(directionVector);
+    const directionModule = vectorModule(directionVector);
     const behindLength = halfWidth;
     const forwardLength = directionModule + halfWidth;
 
-    const parallelModule = vModule(parallel);
+    const parallelModule = vectorModule(parallel);
 
     // if parallel pointing behind direction vector
-    if (vDot(directionVector, parallel) < 0) {
+    if (vectorDot(directionVector, parallel) < 0) {
         return parallelModule <= behindLength;
     }
 
     return parallelModule <= forwardLength;
 };
 
-export const vProject = (vector: number[], onto: number[]): number[] => {
+export const vectorProject = (vector: number[], onto: number[]): number[] => {
     validateLength(vector, 2);
     validateLength(onto, 2);
 
     const moduleSquare: number = onto[0] * onto[0] + onto[1] * onto[1];
 
-    const ratio = vDot(vector, onto) / moduleSquare;
+    const ratio = vectorDot(vector, onto) / moduleSquare;
 
     return [ratio * onto[0], ratio * onto[1]];
 };
 
-export const vMinus = (v0: number[], v1: number[]): number[] => {
+export const vectorMinus = (v0: number[], v1: number[]): number[] => {
     validateLength(v0, 2);
     validateLength(v1, 2);
 
     return [v0[0] - v1[0], v0[1] - v1[1]];
 };
 
-export const vPlus = (v0: number[], v1: number[]): number[] => {
+export const vectorPlus = (v0: number[], v1: number[]): number[] => {
     validateLength(v0, 2);
     validateLength(v1, 2);
 
     return [v0[0] + v1[0], v0[1] + v1[1]];
 };
 
-export const vModule = (vector: number[]): number => {
+export const vectorModule = (vector: number[]): number => {
     validateLength(vector, 2);
     return Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
 };
 
-export const vDot = (v0: number[], v1: number[]): number => {
+export const vectorDot = (v0: number[], v1: number[]): number => {
     validateLength(v0, 2);
     validateLength(v1, 2);
 
     return v0[0] * v1[0] + v0[1] * v1[1];
 };
 
-export const vMultiply = (v: number[], x: number): number[] => {
+export const vectorMultiply = (v: number[], x: number): number[] => {
     validateLength(v, 2);
 
     return [v[0] * x, v[1] * x];
