@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Point } from 'src/utils/geo-primitives';
-import { atLine } from 'src/utils/math';
+import { isAtLine } from 'src/utils/math';
 
 export class SVGLine implements SVGInterface {
 
@@ -76,7 +76,7 @@ export class SVGLine implements SVGInterface {
         const additionnalWidth = 10.0;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {
-            if (atLine([x, y], [this.anchors[i].toVector(), this.anchors[i + 1].toVector()], width)) {
+            if (isAtLine([x, y], this.anchors[i].toVector(), this.anchors[i + 1].toVector(), width)) {
                 return true;
             }
         }

@@ -27,7 +27,7 @@ export class SVGRect extends AbsSVGShape {
             [this.center[0] - this.size[0], this.center[1] - this.size[1]]];
 
         for (let i = 0; i < 4; i++) {
-            if (isAtLine([x, y], [points[i], points[i + 1]], width)) {
+            if (isAtLine([x, y], points[i], points[i + 1], width)) {
                 return true;
             }
         }

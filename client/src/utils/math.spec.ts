@@ -38,14 +38,13 @@ describe('BucketTool', () => {
     });
 
     it('should check if point is at line', () => {
-        expect(() => isAtLine(badV, [v0, v1], 1)).toThrowError('List length not valid. Expected 2, got 3');
-        expect(() => isAtLine(v0, [v0, v1, v1], 1)).toThrowError('List length not valid. Expected 2, got 3');
-        expect(() => isAtLine(v0, [v0, badV], 1)).toThrowError('List length not valid. Expected 2, got 3');
+        expect(() => isAtLine(badV, v0, v1, 1)).toThrowError('List length not valid. Expected 2, got 3');
+        expect(() => isAtLine(v0, v0, badV, 1)).toThrowError('List length not valid. Expected 2, got 3');
 
-        expect(isAtLine(v0, [v0, v1], 1)).toBe(true);
-        expect(isAtLine(v1, [v0, v1], 1)).toBe(true);
-        expect(isAtLine(v0, [v1, v0], 1)).toBe(true);
+        expect(isAtLine(v0, v0, v1, 1)).toBe(true);
+        expect(isAtLine(v1, v0, v1, 1)).toBe(true);
+        expect(isAtLine(v0, v1, v0, 1)).toBe(true);
 
-        expect(isAtLine([0, 0], [v1, v0], 1)).toBe(false);
+        expect(isAtLine([0, 0], v1, v0, 1)).toBe(false);
     });
 });

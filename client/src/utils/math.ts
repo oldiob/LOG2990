@@ -1,15 +1,13 @@
 
-export const isAtLine = (point: number[], line: number[][], width: number): boolean => {
+export const isAtLine = (point: number[], lineStart: number[], lineEnd: number[], width: number): boolean => {
     validateLength(point, 2);
-    validateLength(line, 2);
-
-    validateLength(line[0], 2);
-    validateLength(line[1], 2);
+    validateLength(lineStart, 2);
+    validateLength(lineEnd, 2);
 
     const halfWidth = width / 2.0;
 
-    const directionVector = vectorMinus(line[1], line[0]);
-    const toPoint = vectorMinus(point, line[0]);
+    const directionVector = vectorMinus(lineEnd, lineStart);
+    const toPoint = vectorMinus(point, lineStart);
 
     const parallel = vectorProject(toPoint, directionVector);
     const perpendicular = vectorMinus(toPoint, parallel);
