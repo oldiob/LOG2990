@@ -11,7 +11,7 @@ export class StampTool implements ITool {
     readonly BUTTON_FILENAME = 'brush.png';
     readonly CURSOR_FILENAME: string = 'brush-cursor.svg';
 
-    element: SVGStamp;
+    element: SVGStamp | null;
     currentPath: string;
     width: number;
     angle: number;
@@ -37,9 +37,9 @@ export class StampTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        return;
+        this.element = null;
     }
     onReleased(event: MouseEvent): void {
-        return;
+        this.element = null;
     }
 }
