@@ -19,7 +19,6 @@ export class PolyDessinComponent implements OnInit {
         map((message: Message) => `${message.title} ${message.body}`),
       )
       .subscribe(this.message);
-      alert(this.message.asObservable());
 
       /*
       this.workZoneService.currentWidth.subscribe(

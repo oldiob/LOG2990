@@ -6,4 +6,5 @@ export default {
     IndexService: Symbol('IndexService'),
     DateService: Symbol('DateService'),
     DataBaseService: Symbol('DataBaseService'),
+    DrawingRoute: Symbol('DrawingRoute'),
 };
