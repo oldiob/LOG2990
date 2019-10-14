@@ -32,7 +32,11 @@ export class DrawingRoute {
                 });
             });
         this.router.get('/a', (req, res) => {
-                res.send({hello: 'world'});
+                let drawResponse = new Message();
+                drawResponse.title = 'hello';
+                drawResponse.body = 'world';
+                res.json(drawResponse);
+                //res.send({hello: 'world'});
             });
     }
 }

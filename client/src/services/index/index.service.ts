@@ -11,6 +11,7 @@ import { SVGService } from '../svg/svg.service';
 export class IndexService {
 
   private readonly BASE_URL: string = 'http://localhost:3000/api/index';
+  private readonly CUSTOM_URL: string = 'http://localhost:3000/draw/a';
 
   constructor(private http: HttpClient, private svgService: SVGService ) {
   }
@@ -24,7 +25,7 @@ export class IndexService {
 
   getSVGObjects(): Observable<Message> {
 
-    return this.http.get<Message>(this.BASE_URL).pipe(
+    return this.http.get<Message>(this.CUSTOM_URL).pipe(
       catchError(this.handleError<Message>('basicGet')),
     );
   }
