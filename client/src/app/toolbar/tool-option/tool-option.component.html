@@ -47,14 +47,15 @@
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
-  <app-angle [angle] ="currentTool.angle" (mouseWheelUp)="mouseWheelUp($event)" (mouseWheelDown)="mouseWheelDown($event)" (angleEmmiter)="setAngle($event)"></app-angle>
+  <app-angle [angle] ="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
   <div class="text">Stamp</div>
   <div class="tools">
     <div *ngFor="let image of imagePaths" class="btn-texture texture-number"
-      (click)="selectStamp(image)" [class.selected-tool]="stamp === currentStamp">
+      (click)="selectStamp(image)" (ng-mouse-wheel-down)="mouseWheelDown($event)" 
+      (ng-mouse-wheel-up)="mouseWheelUp($event)" [class.selected-tool]="stamp === currentStamp">
       <img class="emoji" width="50px" [src]="image">
   </div>
   </div>
