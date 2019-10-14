@@ -49,6 +49,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     selectOption(option: IOption<any>): void {
+        this.galleryOption.clearFilters();
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();

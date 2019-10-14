@@ -1,14 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
-import { SVGService } from 'src/services/svg/svg.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
+import { Drawing } from 'src/services/draw-area/i-drawing';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-
-export interface Drawing {
-    id: number;
-    preview: string;
-    tags: string[];
-    svgs: string[];
-}
 
 @Component({
     selector: 'app-gallery-option',
@@ -16,45 +9,69 @@ export interface Drawing {
     styleUrls: ['./gallery-option.component.scss', '../toolbar-option.scss'],
 })
 export class GalleryOptionComponent implements OnInit, IOption<string> {
-    displayedColumns: string[] = ['tags'];
+    @ViewChild('filterInput', { static: true })
+    filterInput: ElementRef<HTMLInputElement>;
 
     images: Map<string, string>;
 
-    drawingData: Drawing[];
-    dataSource: MatTableDataSource<Drawing>;
+    private filter: string;
+    private filterCallback: (drawing: Drawing) => boolean;
+    private drawings: Drawing[];
+    filteredDrawings: Drawing[];
 
-    constructor(private svgService: SVGService) {
-        const DRAWING_DATA: Drawing[] = [
-            { id: 1, preview: JSON.stringify(this.svgService.entry), tags: ['house', 'big', 'wood'], svgs: [''] },
-            { id: 2, preview: '', tags: ['small'], svgs: [''] },
-            { id: 3, preview: '', tags: ['small'], svgs: [''] },
-            { id: 4, preview: '', tags: ['small', 'old'], svgs: [''] },
-            { id: 5, preview: '', tags: ['human'], svgs: [''] },
-            { id: 6, preview: '', tags: ['human'], svgs: [''] },
-            { id: 7, preview: '', tags: ['wood', 'old'], svgs: [''] },
-            { id: 8, preview: '', tags: ['asphalt'], svgs: [''] },
-            { id: 9, preview: '', tags: ['human', 'old'], svgs: [''] },
-            { id: 10, preview: '', tags: ['human', 'old'], svgs: [''] },
-        ];
-        this.dataSource = new MatTableDataSource(DRAWING_DATA);
-        this.dataSource.filterPredicate = this.makeFilter();
+    isTagExists: boolean;
 
-    }
+    constructor(private drawAreaService: DrawAreaService) { }
 
     ngOnInit() {
-        //
+        this.isTagExists = true;
+        this.filter = '';
+        this.filterCallback = this.makeFilterCallback();
+        this.updateDrawings();
+        this.filteredDrawings = this.drawings;
     }
 
-    filter(filterValue: string) {
-        this.dataSource.filter = filterValue.toLowerCase();
+    private updateDrawings() {
+        this.drawings = [];
+        this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
+            this.drawings = savedDrawing;
+            this.refresh();
+        });
     }
 
-    private makeFilter(): (data: any, filter: string) => boolean {
-        return (data: any, filter: string): boolean => {
+    filterDrawings(filterValue: string) {
+        this.filter = filterValue.toLowerCase();
+        this.refresh();
+    }
+
+    private refresh() {
+        this.filteredDrawings = this.drawings.filter(this.filterCallback);
+        this.checkTags();
+    }
+
+    private checkTags() {
+        this.isTagExists = true;
+        if (this.filteredDrawings.length === 0) {
+            if (this.filter.length === 0) {
+                this.filteredDrawings = this.drawings;
+            } else {
+                this.isTagExists = false;
+            }
+        }
+    }
+
+    private makeFilterCallback(): (drawing: Drawing) => boolean {
+        return (drawing: Drawing) => {
             const hasTag: boolean =
-                data.tags.some((tag: string) => filter.includes(tag.toLowerCase()) || tag.toLowerCase().includes(filter));
+                drawing.tags.some((tag: string) => this.filter.includes(tag.toLowerCase()));
             return hasTag;
         };
+    }
+
+    clearFilters() {
+        this.filteredDrawings = this.drawings;
+        this.filterInput.nativeElement.value = '';
+        this.isTagExists = true;
     }
 
     select() {

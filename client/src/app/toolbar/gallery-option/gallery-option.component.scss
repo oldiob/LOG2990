@@ -15,7 +15,6 @@ table {
   grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
   width: 100%;
   grid-gap: 2vh;
-  padding: 3vh 10vw;
   justify-items: center;
   align-items: center;
 }
@@ -43,12 +42,21 @@ table {
   font-size: 1rem;
 }
 
-.cell {
+.drawing {
   padding: 25px;
   height: auto;
   margin: 25px 25px 0 25px;
   border-radius: 10px;
   background-color: lighten($color: #151b33, $amount: 10);
+}
+
+.tag-not-found {
+  margin: 25px;
+  color: rgb(255, 74, 74);
+  font-size: 1.1rem;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 .tags {
