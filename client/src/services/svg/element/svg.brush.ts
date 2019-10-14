@@ -27,7 +27,7 @@ export class SVGBrush implements SVGInterface {
         const additionnalWidth = 10.0;
         const width: number = this.lineWidth + additionnalWidth;
         for (let i = 0; i < this.points.length - 1; i++) {
-            if (isAtLine([x, y], [this.points[i], this.points[i + 1]], width)) {
+            if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                 return true;
             }
         }
