@@ -111,10 +111,14 @@ export abstract class AbsSVGShape implements SVGInterface {
     protected abstract setPositionAttributes(): void;
 
     protected updatePerimeter() {
-        this.renderer.setAttribute(this.perimeter, 'x', `${Math.min(this.endingPoint[0], this.startingPoint[0])}`);
-        this.renderer.setAttribute(this.perimeter, 'y', `${Math.min(this.endingPoint[1], this.startingPoint[1])}`);
-        this.renderer.setAttribute(this.perimeter, 'width', `${Math.abs(this.startingPoint[0] - this.endingPoint[0])}`);
-        this.renderer.setAttribute(this.perimeter, 'height', `${Math.abs(this.startingPoint[1] - this.endingPoint[1])}`);
+        this.renderer.setAttribute(this.perimeter, 'x',
+            `${Math.min(this.endingPoint[0], this.startingPoint[0]) - this.pointSize / 2}`);
+        this.renderer.setAttribute(this.perimeter, 'y',
+            `${Math.min(this.endingPoint[1], this.startingPoint[1]) - this.pointSize / 2}`);
+        this.renderer.setAttribute(this.perimeter, 'width',
+            `${Math.abs(this.startingPoint[0] - this.endingPoint[0]) + this.pointSize}`);
+        this.renderer.setAttribute(this.perimeter, 'height',
+            `${Math.abs(this.startingPoint[1] - this.endingPoint[1]) + this.pointSize}`);
     }
 
     protected showPerimeter() {
