@@ -47,7 +47,7 @@
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
-  <app-angle [angle] ="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
+  <app-angle [angle] ="currentTool.angle" (mouseWheelUp)="mouseWheelUp($event)" (mouseWheelDown)="mouseWheelDown($event)" (angleEmmiter)="setAngle($event)"></app-angle>
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
