@@ -7,6 +7,7 @@ import { RandomCircleTexture } from 'src/services/svg/element/texture/random-cir
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { RectTexture } from 'src/services/svg/element/texture/rect';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
+import { LineTool } from 'src/services/tool/tool-options/line';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
@@ -25,6 +26,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
+        [this.line, 'brush.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -45,12 +47,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         private paletteService: PaletteService,
         private toolService: ToolService,
         private pencil: PencilTool,
-        private brush: BrushTool) {
+        private brush: BrushTool,
+        private line: LineTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [this.pencil, this.brush];
+        this.tools = [this.pencil, this.brush, this.line];
         this.currentTool = this.tools[0];
     }
 
