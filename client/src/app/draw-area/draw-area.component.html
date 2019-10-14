@@ -1,12 +1,18 @@
-<svg  
-  mousetrack class="draw-area" 
-  (mouseenter)="onMouseEnter($event)" 
+<svg
+  #gridContainer
+  id="svg-grid"
+  [ngStyle]="gridStyle()"
+  stroke-width="1" stroke="black" fill-opacity="0" stroke-opacity="1">
+</svg>
+<svg
+  mousetrack class="draw-area"
+  (mouseenter)="onMouseEnter($event)"
   (mouseleave)="onMouseLeave($event)"
-  (mousemove)="onMouseMove($event)" 
-  on-click="onClick($event)" 
+  (mousemove)="onMouseMove($event)"
+  on-click="onClick($event)"
   (mousedown)="onMouseDown($event)"
-  (mouseup)="onMouseUp($event)" 
-  (drag)="onDrag($event)" 
+  (mouseup)="onMouseUp($event)"
+  (drag)="onDrag($event)"
   [ngStyle]="setCurrentStyles()"
   #svgContainer height="180" width="500" style="height: 100%; width: 100%;">
 </svg>

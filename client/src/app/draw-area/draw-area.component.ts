@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
+import { GridService } from 'src/services/grid/grid.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
@@ -10,7 +11,10 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 })
 export class DrawAreaComponent implements OnInit {
     @ViewChild('svgContainer', { static: true })
-    entry: ElementRef;
+    svg: ElementRef;
+
+    @ViewChild('gridContainer', { static: true })
+    grid: ElementRef;
 
     @Input()
     keyEvent: KeyboardEvent;
@@ -26,19 +30,23 @@ export class DrawAreaComponent implements OnInit {
     height: number;
     width: number;
     backgroundColor = '#ffffffff';
-    currentStyles: { height: string; width: string;
-                    'background-color': string;
-                    cursor: string };
+    currentStyles: {
+        height: string; width: string;
+        'background-color': string;
+        cursor: string
+    };
     isMouseDown = false;
     isOnceWhileDown = true;
     constructor(
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
-        private toolService: ToolService) {
+        private toolService: ToolService,
+        private gridService: GridService) {
     }
 
     ngOnInit() {
-        this.svgService.entry = this.entry;
+        this.svgService.entry = this.svg;
+        this.gridService.ref = this.grid;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => this.width = width,
@@ -59,8 +67,17 @@ export class DrawAreaComponent implements OnInit {
             'background-color': `${this.backgroundColor}`,
         };
     }
+    gridStyle() {
+        this.gridService.draw(this.width, this.height);
+        return {
+            height: `${this.height}px`,
+            width: `${this.width}px`,
+            position: 'absolute',
+            'pointer-events': 'none',
+        };
+    }
     onMouseMove(event: MouseEvent): void {
-        const rect = this.entry.nativeElement.getBoundingClientRect();
+        const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
         if (this.isMouseDown) {
@@ -73,7 +90,7 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseDown(event: MouseEvent): void {
-        const rect = this.entry.nativeElement.getBoundingClientRect();
+        const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
         if (this.isOnceWhileDown) {
