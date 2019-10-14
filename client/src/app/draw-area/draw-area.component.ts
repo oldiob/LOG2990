@@ -115,13 +115,12 @@ export class DrawAreaComponent implements OnInit {
     onDrag(): void {
         //
     }
-
-    @HostListener('window:keyup', ['$event'])
-    onKeyReleased(event: KeyboardEvent): void {
-        if (this.toolService.currentTool.onKeyReleased) {
-            if (this.toolService.currentTool.onKeyReleased(event)) {
-                return;
-            }
-        }
+    onWheel(event: WheelEvent): void {
+      if (event.deltaY < 0 && this.toolService.angle - 15 >= 0) {
+          this.toolService.angle -= 15;
+      } else if (event.deltaY > 0 && this.toolService.angle + 15 <= 360) {
+          this.toolService.angle += 15;
+      }
+      console.log(this.toolService.angle);
     }
 }
