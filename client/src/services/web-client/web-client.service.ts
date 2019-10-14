@@ -9,7 +9,7 @@ import { SVGService} from 'src/services/svg/svg.service'
 @Injectable({
   providedIn: 'root',
 })
-export class WebServiceService {
+export class WebClientService {
 
   uri = 'http://localhost:4000/draw';
   private readonly CUSTOM_URL: string = 'http://localhost:3000/draw';
