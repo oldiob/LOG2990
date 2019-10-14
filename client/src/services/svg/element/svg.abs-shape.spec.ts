@@ -2,7 +2,7 @@ import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
 
-fdescribe('AbsSVGShape', () => {
+describe('AbsSVGShape', () => {
 
     const renderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
 
