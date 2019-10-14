@@ -10,7 +10,10 @@ export class AngleComponent implements OnInit {
     readonly MIN_ANGLE: number = 0.0;
 
     private mAngle: number;
-
+    @Output()
+    mouseWheelUp: EventEmitter<number> = new EventEmitter();
+    @Output()
+    mouseWheelDown: EventEmitter<number> = new EventEmitter();
     @Output()
     angleEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
@@ -32,5 +35,7 @@ export class AngleComponent implements OnInit {
             this.mAngle = angle;
         }
         this.angleEmmiter.emit(this.mAngle);
+        this.mouseWheelUp.emit(this.mAngle);
+        this.mouseWheelDown.emit(this.mAngle);
     }
 }
