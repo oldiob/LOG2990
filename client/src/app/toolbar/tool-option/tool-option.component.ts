@@ -49,38 +49,19 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
-<<<<<<< HEAD
-    constructor(
-        private paletteService: PaletteService,
-        private toolService: ToolService,
-        private pencil: PencilTool,
-        private brush: BrushTool,
-        private line: LineTool) {
-=======
     constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool,
                 public brush: BrushTool, public stamp: StampTool) {
->>>>>>> Add Stamp Svg In Tool Options
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
-<<<<<<< HEAD
-        // this.stamps = [];
-        // this.currentStamp = this.stamps[0];
-        // this.stamp.stampTexture = this.currentStamp;
-=======
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
                            './assets/images/bec.png', './assets/images/shade.png'];
-        this.currentPath = this.imagePaths[0];
+        this.currentPath = '';
         this.currentStamp = this.stamps[0];
         this.stamp.stampTexture = this.currentStamp;
->>>>>>> Add 5 Stamps In Toolbar
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-<<<<<<< HEAD
-        this.tools = [this.pencil, this.brush, this.line];
-=======
         this.tools = [pencil, brush, stamp];
->>>>>>> Add Stamp Svg In Tool Options
         this.currentTool = this.tools[0];
     }
 
@@ -109,6 +90,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = texture;
         this.brush.texture = this.currentTexture;
 
+        this.showcase.display(this.currentTool);
+    }
+
+    selectStamp(image: string): void {
+        this.currentPath = image;
+        this.stamp.currentPath = this.currentPath;
         this.showcase.display(this.currentTool);
     }
 

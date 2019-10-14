@@ -1,10 +1,8 @@
 import { Injectable, Renderer2 } from '@angular/core';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { ITool } from './i-tool';
-
 @Injectable({
     providedIn: 'root',
 })
@@ -14,28 +12,27 @@ export class StampTool implements ITool {
     readonly CURSOR_FILENAME: string = 'brush-cursor.svg';
 
     element: SVGStamp;
-
+    currentPath: string;
     width: number;
     angle: number;
 
+<<<<<<< HEAD
     stamp: IStamp;
 
+=======
+    stampTexture: IStamp;
+>>>>>>> Add Select One Of The 5 Emojis
     renderer: Renderer2;
-
-    constructor(
-            rendererProvider: RendererProviderService,
-            private paletteService: PaletteService) {
-
+    constructor(rendererProvider: RendererProviderService) {
         this.renderer = rendererProvider.renderer;
-        this.width = 1;
+        this.width = 25;
+        this.angle = 0;
+        this.currentPath = '';
     }
 
     onPressed(event: MouseEvent): SVGStamp {
-        this.element = new SVGStamp(this.renderer, this.width, this.stampTexture, this.angle);
-        this.element.setPrimary(this.paletteService.getPrimary());
-        this.element.setSecondary(this.paletteService.getSecondary());
+        this.element = new SVGStamp(this.renderer, this.width, this.stampTexture, this.angle, this.currentPath);
         this.element.addPoint(event.svgX, event.svgY);
-
         return this.element;
     }
 
