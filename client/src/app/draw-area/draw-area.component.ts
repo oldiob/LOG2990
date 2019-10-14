@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { HostListener, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -85,8 +85,9 @@ export class DrawAreaComponent implements OnInit {
         event.stopPropagation();
     }
 
-    onClick(event: MouseEvent): void {
-        //
+    onDoubleClick(event: MouseEvent): void {
+        event.doubleClick = true;
+        this.onMouseUp(event);
     }
 
     onMouseDown(event: MouseEvent): void {
@@ -113,5 +114,14 @@ export class DrawAreaComponent implements OnInit {
     }
     onDrag(): void {
         //
+    }
+
+    @HostListener('window:keyup', ['$event'])
+    onKeyReleased(event: KeyboardEvent): void {
+        if (this.toolService.currentTool.onKeyReleased) {
+            if (this.toolService.currentTool.onKeyReleased(event)) {
+                return;
+            }
+        }
     }
 }
