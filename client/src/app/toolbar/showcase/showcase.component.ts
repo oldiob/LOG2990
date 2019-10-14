@@ -39,19 +39,20 @@ export class ShowcaseComponent implements OnInit {
     }
 
     display(tool: ITool) {
-        // This break everything
-        // if (this.service == null) {
-        //     return;
-        // }
+        if (this.service == null) {
+            return;
+        }
 
-        // this.service.clearDrawArea();
-        // for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
-        //     if (i === this.MIN) {
-        //         this.service.addObject(tool.onPressed(this.sinClick(i)));
-        //     }
-        //     tool.onMotion(this.sinClick(i));
-        // }
-        // tool.onReleased(this.mouseEvent);
+        this.service.clearDrawArea();
+        for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
+            if (i === this.MIN) {
+                this.service.addObject(tool.onPressed(this.sinClick(i)));
+            }
+            tool.onMotion(this.sinClick(i));
+        }
+
+        this.mouseEvent.doubleClick = true;
+        tool.onReleased(this.mouseEvent);
     }
 
     click(x: number, y: number): MouseEvent {

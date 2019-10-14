@@ -35,8 +35,6 @@ export class LineTool implements ITool {
             return;
         }
         if (event.doubleClick) {
-            this.element.anchors.pop();
-            this.element.anchors.pop();
             if (event.shiftKey) {
                 this.element.lineLoop();
             }
