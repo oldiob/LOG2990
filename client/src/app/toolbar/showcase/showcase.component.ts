@@ -20,7 +20,7 @@ export class ShowcaseComponent implements OnInit {
 
     readonly STEP = 0.5;
 
-    @ViewChild('svgContainer', {static: true})
+    @ViewChild('svgContainer', { static: true })
     entry: ElementRef;
 
     service: SVGService | null;
@@ -39,18 +39,19 @@ export class ShowcaseComponent implements OnInit {
     }
 
     display(tool: ITool) {
-        if (this.service == null) {
-            return;
-        }
+        // This break everything
+        // if (this.service == null) {
+        //     return;
+        // }
 
-        this.service.clearDrawArea();
-        for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
-            if (i === this.MIN) {
-                this.service.addObject(tool.onPressed(this.sinClick(i)));
-            }
-            tool.onMotion(this.sinClick(i));
-        }
-        tool.onReleased(this.mouseEvent);
+        // this.service.clearDrawArea();
+        // for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
+        //     if (i === this.MIN) {
+        //         this.service.addObject(tool.onPressed(this.sinClick(i)));
+        //     }
+        //     tool.onMotion(this.sinClick(i));
+        // }
+        // tool.onReleased(this.mouseEvent);
     }
 
     click(x: number, y: number): MouseEvent {
