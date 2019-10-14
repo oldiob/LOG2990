@@ -72,7 +72,7 @@ export abstract class AbsSVGShape implements SVGInterface {
     abstract isIn(x: number, y: number, r: number): boolean;
 
     setPointSize(pointSize: number): void {
-        this.pointSize = pointSize;
+        this.pointSize = this.strokeOpacity === 0 ? 0 : pointSize;
         this.renderer.setAttribute(this.shapeElement, 'stroke-width', this.pointSize.toString());
     }
 
