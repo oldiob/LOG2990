@@ -21,7 +21,10 @@ export class RectangleTool implements IShapeTool {
         this.traceType = TraceType.FillAndBorder;
     }
 
-    onPressed(event: MouseEvent): SVGRect {
+    onPressed(event: MouseEvent): SVGRect | null {
+        if (this.element) {
+            return null;
+        }
         this.element = new SVGRect(event.svgX, event.svgY, this.renderer);
 
         this.element.setPrimary(this.paletteService.getPrimary());
@@ -34,7 +37,7 @@ export class RectangleTool implements IShapeTool {
         this.element = null;
     }
     onMotion(event: MouseEvent): void {
-        if (this.element != null) {
+        if (this.element) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
     }

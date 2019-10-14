@@ -9,7 +9,7 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class BrushTool implements ITool {
-    element: SVGBrush;
+    element: SVGBrush | null;
 
     width: number;
 
@@ -18,14 +18,17 @@ export class BrushTool implements ITool {
     renderer: Renderer2;
 
     constructor(
-            rendererProvider: RendererProviderService,
-            private paletteService: PaletteService) {
+        rendererProvider: RendererProviderService,
+        private paletteService: PaletteService) {
 
         this.renderer = rendererProvider.renderer;
         this.width = 5;
     }
 
-    onPressed(event: MouseEvent): SVGBrush {
+    onPressed(event: MouseEvent): SVGBrush | null {
+        if (this.element) {
+            return null;
+        }
         this.element = new SVGBrush(this.renderer, this.width, this.texture);
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.setSecondary(this.paletteService.getSecondary());
@@ -35,11 +38,13 @@ export class BrushTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        const x = event.svgX;
-        const y = event.svgY;
-        this.element.addPoint(x, y);
+        if (this.element) {
+            const x = event.svgX;
+            const y = event.svgY;
+            this.element.addPoint(x, y);
+        }
     }
     onReleased(event: MouseEvent): void {
-        return;
+        this.element = null;
     }
 }

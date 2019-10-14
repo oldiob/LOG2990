@@ -14,14 +14,16 @@ export class PencilTool implements ITool {
     protected renderer: Renderer2;
 
     constructor(
-            rendererProvider: RendererProviderService,
-            private paletteService: PaletteService) {
-
+        rendererProvider: RendererProviderService,
+        private paletteService: PaletteService) {
         this.renderer = rendererProvider.renderer;
         this.width = 5;
     }
 
-    onPressed(event: MouseEvent): SVGPencil {
+    onPressed(event: MouseEvent): SVGPencil | null {
+        if (this.element) {
+            return null;
+        }
         const x = event.svgX;
         const y = event.svgY;
         this.element = new SVGPencil(this.renderer);
@@ -30,17 +32,15 @@ export class PencilTool implements ITool {
         this.element.addPoint(x, y);
 
         this.element.setPrimary(this.paletteService.getPrimary());
-        this.element.setSecondary(this.paletteService.getSecondary());
 
         return this.element;
     }
     onMotion(event: MouseEvent): void {
-        if (this.element == null) {
-            throw new Error('Motion event on null element');
+        if (this.element) {
+            const x = event.svgX;
+            const y = event.svgY;
+            this.element.addPoint(x, y);
         }
-        const x = event.svgX;
-        const y = event.svgY;
-        this.element.addPoint(x, y);
     }
     onReleased(event: MouseEvent): void {
         this.element = null;

@@ -76,13 +76,13 @@ export class DrawAreaComponent implements OnInit {
             'pointer-events': 'none',
         };
     }
+
     onMouseMove(event: MouseEvent): void {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
-        if (this.isMouseDown) {
-            this.toolService.currentTool.onMotion(event);
-        }
+        this.toolService.currentTool.onMotion(event);
+        event.stopPropagation();
     }
 
     onClick(event: MouseEvent): void {
@@ -93,17 +93,18 @@ export class DrawAreaComponent implements OnInit {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
-        if (this.isOnceWhileDown) {
-            this.svgService.addObject(this.toolService.currentTool.onPressed(event));
-            this.isOnceWhileDown = false;
-        }
-        this.isMouseDown = true;
+        this.svgService.addObject(this.toolService.currentTool.onPressed(event));
+        event.stopPropagation();
     }
+
     onMouseUp(event: MouseEvent): void {
-        this.isMouseDown = false;
-        this.isOnceWhileDown = true;
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
         this.toolService.currentTool.onReleased(event);
+        event.stopPropagation();
     }
+
     onMouseEnter(): void {
         //
     }
