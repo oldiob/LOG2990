@@ -24,6 +24,7 @@ export class SVGLine implements SVGInterface {
 
         this.line = this.renderer.createElement('line', 'svg');
         this.renderer.setAttribute(this.line, 'fill', 'none');
+        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
 
         this.element = this.renderer.createElement('g', 'svg');
         this.renderer.appendChild(this.element, this.polyline);
