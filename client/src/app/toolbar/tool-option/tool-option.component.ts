@@ -26,7 +26,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
-        [this.line, 'brush.png'],
+        [this.line, 'line.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
