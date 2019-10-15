@@ -16,8 +16,8 @@ export class DialogService {
         return this.isClosedWelcome.asObservable();
     }
 
-    openNewDrawing(): void {
-        this.dialog.open(NewDrawingComponent);
+    openNewDrawing(): any {
+        return this.dialog.open(NewDrawingComponent);
     }
 
     openEntryPoint(cookie: string): void {
