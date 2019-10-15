@@ -1,6 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { vMultiply, vPlus } from 'src/utils/math';
 
 export class SVGPolygon implements SVGInterface {
     element: any;
@@ -23,7 +24,7 @@ export class SVGPolygon implements SVGInterface {
 
         const angleBetweenCorners = 2 * Math.PI / nSides;
         for (let i = 0; i < nSides; i++) {
-            this.circularPoints.push([Math.cos(i * angleBetweenCorners), Math.sin(i * angleBetweenCorners)]);
+            this.circularPoints.push([Math.cos(i * angleBetweenCorners), -Math.sin(i * angleBetweenCorners)]);
         }
     }
 
@@ -75,7 +76,23 @@ export class SVGPolygon implements SVGInterface {
     setCursor(x: number, y: number) {
         // you habe your this.circularPoints :
         //      a centered Polygon corner positions of radius 1;
+        let radius: number;
+        const middleX = Math.abs(x + this.startingPoint[1]) / 2;
+        const middleY = Math.abs(y + this.startingPoint[2]) / 2;
+        const point: number[] = [middleX, middleY];
+        if (Math.abs(x - this.startingPoint[1]) < y - this.startingPoint[2]) {
+            radius = Math.abs(x + this.startingPoint[1]) / 2;
+        } else {
+            radius = Math.abs(y + this.startingPoint[2]) / 2;
+        }
+        let stringForRenderer = '';
+        for (let i = 0; i < this.circularPoints.length; i++) {
+            const actualPointsPosition = vPlus(vMultiply(this.circularPoints[i], radius), point);
 
+            stringForRenderer += `${actualPointsPosition[i]}`;
+        }
+
+        this.renderer.setAttribute(this.element, 'points', stringForRenderer);
         // you have this.startingPoint :
         //      position of the spot what you clicked to create the shape;
 
