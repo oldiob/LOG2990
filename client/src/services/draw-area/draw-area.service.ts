@@ -31,16 +31,19 @@ export class DrawAreaService {
 
   save() {
     this.isSavedDrawing = true;
-    //const svgElem = document.getElementsByTagName('svg');
     //this.webClientServer.sendMessage();
+
+    this.webClientServer.sendDrawing();
+
+    /*
     if (this.count === 0) {
       this.webClientServer.sendDrawingTest();
       this.count++;
-    }
-    else if (this.count === 1) {
+    } else if (this.count === 1) {
       this.webClientServer.getDrawingTest().subscribe(res => console.log(res));
       console.log(this.page);
     }
+    */
   }
 
   dirty() {
