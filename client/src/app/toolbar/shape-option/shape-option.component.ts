@@ -8,7 +8,6 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 
 @Component({
     selector: 'app-shape-option',
@@ -36,15 +35,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     primaryColor: string;
     secondaryColor: string;
 
-    private isShift: boolean;
-
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
-        private formBuilder: FormBuilder,
-        private rendererProvider: RendererProviderService) {
+        private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
@@ -56,22 +52,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
         this.isShowPrimary = false;
         this.isShowSecondary = false;
-
-        this.isShift = false;
-
-        this.rendererProvider.renderer.listen(document, 'keydown', (event) => {
-            if (event.shiftKey && !this.isShift) {
-                this.isShift = true;
-                this.currentTool.onShift(this.isShift);
-            }
-        });
-
-        this.rendererProvider.renderer.listen(document, 'keyup', (event) => {
-            if (!event.shiftKey && this.isShift) {
-                this.isShift = false;
-                this.currentTool.onShift(this.isShift);
-            }
-        });
     }
 
     select() {

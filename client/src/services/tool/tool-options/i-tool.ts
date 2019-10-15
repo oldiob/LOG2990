@@ -11,7 +11,8 @@ export interface ITool {
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;
 
-    onKeyReleased?(event: KeyboardEvent): boolean;
+    onKeydown?(event: KeyboardEvent): boolean;
+    onKeyup?(event: KeyboardEvent): boolean;
 }
 
 declare global {
