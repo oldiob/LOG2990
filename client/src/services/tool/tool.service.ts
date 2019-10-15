@@ -6,5 +6,4 @@ import { ITool } from './tool-options/i-tool';
 })
 export class ToolService {
     currentTool: ITool;
-    angle = 0;
 }
