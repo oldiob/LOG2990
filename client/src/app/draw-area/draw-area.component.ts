@@ -98,6 +98,7 @@ export class DrawAreaComponent implements OnInit {
         event.stopPropagation();
     }
 
+    @HostListener('window:mouseup', ['$event'])
     onMouseUp(event: MouseEvent): void {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
@@ -109,7 +110,7 @@ export class DrawAreaComponent implements OnInit {
     onMouseEnter(): void {
         //
     }
-    onMouseLeave(): void {
+    onMouseLeave(event: MouseEvent): void {
         //
     }
     onDrag(): void {
