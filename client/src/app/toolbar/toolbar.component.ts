@@ -35,6 +35,7 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
+    isDialogOpened: boolean = false;
     optionDisplayed: boolean;
 
     constructor(
@@ -54,7 +55,12 @@ export class ToolbarComponent implements OnInit {
     }
 
     newDrawingOption(): void {
-        this.dialogService.openNewDrawing();
+        if (!this.isDialogOpened) {
+            this.isDialogOpened = true;
+            this.dialogService.openNewDrawing().afterClosed().subscribe(() => {
+                this.isDialogOpened = false;
+            });
+        }
     }
 
     saveImage(): void {
@@ -65,8 +71,12 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
-    @HostListener('window: keypress', ['$event'])
     @HostListener('window: keydown', ['$event'])
+    preventDefaults(event: KeyboardEvent) {
+        event.preventDefault();
+    }
+
+    @HostListener('window: keyup', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
         const kbd: { [id: string]: callback } = {
             c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
