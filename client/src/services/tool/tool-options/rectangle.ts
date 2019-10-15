@@ -10,8 +10,6 @@ import { TraceType, AbsShapeTool } from './abs-shape-tool';
 export class RectangleTool extends AbsShapeTool {
     width: number;
     traceType: TraceType;
-    isShiftDown: boolean;
-
     element: SVGRect | null;
 
     protected renderer: Renderer2;

@@ -10,7 +10,6 @@ export enum TraceType {
 export abstract class AbsShapeTool implements ITool {
     width: number;
     traceType: TraceType;
-    protected isShiftDown: boolean;
 
     element: AbsSVGShape | null;
 
@@ -37,23 +36,21 @@ export abstract class AbsShapeTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        if (event.shiftKey) {
-            this.isShiftDown = true;
-            return this.onShift();
+        if (event.key === 'Shift') {
+            return this.onShift(true);
         }
         return false;
     }
     onKeyup(event: KeyboardEvent): boolean {
-        if (!event.shiftKey && this.isShiftDown) {
-            this.isShiftDown = false;
-            return this.onShift();
+        if (event.key === 'Shift') {
+            return this.onShift(false);
         }
         return false;
     }
 
-    private onShift(): boolean {
+    private onShift(isShift: boolean): boolean {
         if (this.element !== null) {
-            this.element.onShift(this.isShiftDown);
+            this.element.onShift(isShift);
             return true;
         }
         return false;
