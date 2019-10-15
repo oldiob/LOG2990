@@ -8,7 +8,7 @@ describe('ToolOptionComponent', () => {
   let component: ToolOptionComponent;
   let fixture: ComponentFixture<ToolOptionComponent>;
   let showcase: ShowcaseComponent;
-  let event: WheelEvent;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ToolOptionComponent, ShowcaseComponent, WidthComponent ],
@@ -25,7 +25,7 @@ describe('ToolOptionComponent', () => {
     showcase = jasmine.createSpyObj('ShowcaseComponent', ['showcase', 'display']);
     component.showcase = showcase;
     component.ngOnInit();
-    event = new WheelEvent('wheel');
+
   });
 
   it('should create', () => {
@@ -82,11 +82,6 @@ describe('ToolOptionComponent', () => {
     component.setAngle(angle);
     expect(component.currentTool.angle).toEqual(angle);
     expect(showcase.display).toHaveBeenCalled();
-  });
-
-  it('should return false when alt key is not press', () => {
-    component.onWheel(event);
-    expect(event.altKey).toBeFalsy();
   });
 
   it('should show primary color', () => {

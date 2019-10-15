@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-    isDialogOpened: boolean = false;
+    isDialogOpened = false;
     optionDisplayed: boolean;
 
     constructor(

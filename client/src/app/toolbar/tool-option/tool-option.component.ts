@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngleComponent } from 'src/app/angle/angle.component';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
@@ -124,18 +124,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         if (this.currentTool.angle !== null) {
             this.currentTool.angle = angle;
             this.showcase.display(this.currentTool);
-        }
-    }
-
-    @HostListener('document: wheel', ['$event'])
-    onWheel(event: WheelEvent): void {
-        const changeAngle = event.altKey ? this.degres : this.degres * this.MULTI_15;
-        if (this.currentTool.angle !== null) {
-            if (event.deltaY < this.MIN_ANGLE && this.currentTool.angle - changeAngle >= this.MIN_ANGLE) {
-                this.currentTool.angle -= changeAngle;
-            } else if (event.deltaY > this.MIN_ANGLE && this.currentTool.angle + changeAngle <= this.MAX_ANGLE) {
-                this.currentTool.angle += changeAngle;
-            }
         }
     }
 
