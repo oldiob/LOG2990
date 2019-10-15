@@ -1,13 +1,15 @@
 import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
-import { SVGEllipse } from 'src/services/svg/element/ellipse';
-import { IShapeTool, TraceType } from './i-shape-tool';
+import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
+import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
+import { AbsShapeTool } from './abs-shape-tool';
+import { TraceType } from './i-shape-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class EllipseTool implements IShapeTool {
+export class EllipseTool extends AbsShapeTool {
     readonly BUTTON_FILENAME: string = 'rectangle.png';
     readonly CURSOR_FILENAME: string = 'rectangle-cursor.svg';
     width: number;

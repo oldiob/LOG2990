@@ -1,5 +1,5 @@
-import { ITool } from './i-tool';
 import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
+import { ITool } from './i-tool';
 
 export enum TraceType {
     BorderOnly = 0,
@@ -10,7 +10,7 @@ export enum TraceType {
 export abstract class AbsShapeTool implements ITool {
     width: number;
     traceType: TraceType;
-
+    angle: number;
     element: AbsSVGShape | null;
 
     protected setElementAttributes(primaryColor: string, secondaryColor: string, width: number) {

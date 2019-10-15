@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { AbsShapeTool, TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
+import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { TraceType, AbsShapeTool } from 'src/services/tool/tool-options/abs-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
-import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
-import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 
 @Component({
     selector: 'app-shape-option',
