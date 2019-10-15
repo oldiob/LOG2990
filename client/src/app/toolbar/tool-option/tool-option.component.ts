@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AngleComponent } from 'src/app/angle/angle.component';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
@@ -24,6 +25,9 @@ import { WidthComponent } from '../width/width.component';
 })
 export class ToolOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
+    MIN_ANGLE = 0;
+    MAX_ANGLE = 360;
+    MULTI_15 = 15;
 
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
@@ -49,7 +53,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
-    constructor(private paletteService: PaletteService, private toolService: ToolService, pencil: PencilTool,
+    degres: number;
+
+    constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
                 public brush: BrushTool, public stamp: StampTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
@@ -63,6 +69,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
         this.tools = [pencil, brush, stamp];
         this.currentTool = this.tools[0];
+        this.degres = 1;
     }
 
     ngOnInit(): void {
@@ -112,11 +119,16 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         }
     }
 
-    mouseWheelUp(event: MouseEvent): void {
-        console.log('UP');
-    }
-    mouseWheelDown(event: MouseEvent): void {
-        console.log('UP');
+    @HostListener('document: wheel', ['$event'])
+    onWheel(event: WheelEvent): void {
+        const changeAngle = event.altKey ? this.degres : this.degres * this.MULTI_15;
+        if (this.currentTool.angle !== null) {
+            if (event.deltaY < this.MIN_ANGLE && this.currentTool.angle - changeAngle >= this.MIN_ANGLE) {
+                this.currentTool.angle -= changeAngle;
+            } else if (event.deltaY > this.MIN_ANGLE && this.currentTool.angle + changeAngle <= this.MAX_ANGLE) {
+                this.currentTool.angle += changeAngle;
+            }
+        }
     }
 
     getFilesource(tool: ITool): string {
