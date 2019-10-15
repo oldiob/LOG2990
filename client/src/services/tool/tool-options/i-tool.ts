@@ -10,8 +10,10 @@ export interface ITool {
     onPressed(event: MouseEvent): SVGInterface | null;
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;
+
+    onKeyReleased?(event: KeyboardEvent): boolean;
 }
 
 declare global {
-    interface MouseEvent { svgX: number; svgY: number; }
+    interface MouseEvent { svgX: number; svgY: number; doubleClick: boolean; }
 }

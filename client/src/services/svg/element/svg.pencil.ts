@@ -31,11 +31,13 @@ export class SVGPencil implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
+
     setPrimary(color: string): void {
         this.renderer.setAttribute(this.element, 'stroke', color);
     }
+
     setSecondary(color: string): void {
-        // No secondary for the pencil
+        // NO OP
     }
 
     setWidth(width: number): void {

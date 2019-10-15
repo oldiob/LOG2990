@@ -20,7 +20,7 @@ export class ShowcaseComponent implements OnInit {
 
     readonly STEP = 0.5;
 
-    @ViewChild('svgContainer', {static: true})
+    @ViewChild('svgContainer', { static: true })
     entry: ElementRef;
 
     service: SVGService | null;
@@ -50,6 +50,14 @@ export class ShowcaseComponent implements OnInit {
             }
             tool.onMotion(this.sinClick(i));
         }
+
+        // coutering the behaviour of double clicked line
+        for (let i = 0; i < 2; i++) {
+            this.mouseEvent.doubleClick = false;
+            tool.onReleased(this.mouseEvent);
+            tool.onPressed(this.sinClick(this.MAX));
+        }
+        this.mouseEvent.doubleClick = true;
         tool.onReleased(this.mouseEvent);
     }
 

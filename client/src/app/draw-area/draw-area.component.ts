@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { HostListener, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -76,34 +76,36 @@ export class DrawAreaComponent implements OnInit {
             'pointer-events': 'none',
         };
     }
+
     onMouseMove(event: MouseEvent): void {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
-        if (this.isMouseDown) {
-            this.toolService.currentTool.onMotion(event);
-        }
+        this.toolService.currentTool.onMotion(event);
+        event.stopPropagation();
     }
 
-    onClick(event: MouseEvent): void {
-        //
+    onDoubleClick(event: MouseEvent): void {
+        event.doubleClick = true;
+        this.onMouseUp(event);
     }
 
     onMouseDown(event: MouseEvent): void {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
-        if (this.isOnceWhileDown) {
-            this.svgService.addObject(this.toolService.currentTool.onPressed(event));
-            this.isOnceWhileDown = false;
-        }
-        this.isMouseDown = true;
+        this.svgService.addObject(this.toolService.currentTool.onPressed(event));
+        event.stopPropagation();
     }
+
     onMouseUp(event: MouseEvent): void {
-        this.isMouseDown = false;
-        this.isOnceWhileDown = true;
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
         this.toolService.currentTool.onReleased(event);
+        event.stopPropagation();
     }
+
     onMouseEnter(): void {
         //
     }
@@ -112,5 +114,14 @@ export class DrawAreaComponent implements OnInit {
     }
     onDrag(): void {
         //
+    }
+
+    @HostListener('window:keyup', ['$event'])
+    onKeyReleased(event: KeyboardEvent): void {
+        if (this.toolService.currentTool.onKeyReleased) {
+            if (this.toolService.currentTool.onKeyReleased(event)) {
+                return;
+            }
+        }
     }
 }
