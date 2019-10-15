@@ -116,10 +116,17 @@ export class DrawAreaComponent implements OnInit {
         //
     }
 
+    @HostListener('window:keydown', ['$event'])
+    onKeyPressed(event: KeyboardEvent): void {
+        if (this.toolService.currentTool.onKeydown) {
+            this.toolService.currentTool.onKeydown(event);
+        }
+    }
+
     @HostListener('window:keyup', ['$event'])
     onKeyReleased(event: KeyboardEvent): void {
-        if (this.toolService.currentTool.onKeyReleased) {
-            if (this.toolService.currentTool.onKeyReleased(event)) {
+        if (this.toolService.currentTool.onKeyup) {
+            if (this.toolService.currentTool.onKeyup(event)) {
                 return;
             }
         }

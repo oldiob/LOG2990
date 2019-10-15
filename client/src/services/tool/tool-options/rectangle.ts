@@ -10,6 +10,7 @@ import { IShapeTool, TraceType } from './i-shape-tool';
 export class RectangleTool implements IShapeTool {
     width: number;
     traceType: TraceType;
+    isShiftDown: boolean;
 
     element: SVGRect | null;
 
@@ -44,9 +45,27 @@ export class RectangleTool implements IShapeTool {
         }
     }
 
-    onShift(isShift: boolean): void {
-        if (this.element !== null) {
-            this.element.onShift(isShift);
+    onKeydown(event: KeyboardEvent): boolean {
+        if (event.shiftKey) {
+            this.isShiftDown = true;
+            return this.onShift();
         }
+        return false;
+    }
+
+    onKeyup(event: KeyboardEvent): boolean {
+        if (!event.shiftKey && this.isShiftDown) {
+            this.isShiftDown = false;
+            return this.onShift();
+        }
+        return false;
+    }
+
+    private onShift(): boolean {
+        if (this.element !== null) {
+            this.element.onShift(this.isShiftDown);
+            return true;
+        }
+        return false;
     }
 }

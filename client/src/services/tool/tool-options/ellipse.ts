@@ -8,11 +8,9 @@ import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
     providedIn: 'root',
 })
 export class EllipseTool implements IShapeTool {
-    readonly BUTTON_FILENAME: string = 'rectangle.png';
-    readonly CURSOR_FILENAME: string = 'rectangle-cursor.svg';
-
     width: number;
     traceType: TraceType;
+    isShiftDown: boolean;
 
     element: SVGEllipse | null;
 
@@ -45,9 +43,26 @@ export class EllipseTool implements IShapeTool {
         }
     }
 
-    onShift(isShift: boolean): void {
-        if (this.element !== null) {
-            this.element.onShift(isShift);
+    onKeydown(event: KeyboardEvent): boolean {
+        if (event.shiftKey) {
+            this.isShiftDown = true;
+            return this.onShift();
         }
+        return false;
+    }
+    onKeyup(event: KeyboardEvent): boolean {
+        if (!event.shiftKey && this.isShiftDown) {
+            this.isShiftDown = false;
+            return this.onShift();
+        }
+        return false;
+    }
+
+    onShift(): boolean {
+        if (this.element !== null) {
+            this.element.onShift(this.isShiftDown);
+            return true;
+        }
+        return false;
     }
 }
