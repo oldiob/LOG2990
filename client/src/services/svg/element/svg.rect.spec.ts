@@ -1,7 +1,7 @@
 import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { SVGRect } from './svg.rect';
 
-fdescribe('SVGRect', () => {
+describe('SVGRect', () => {
 
     let renderer: any;
     let rect: SVGRect;
@@ -16,9 +16,7 @@ fdescribe('SVGRect', () => {
     });
 
     it('should be clicked on', () => {
-
-    });
-
-    it('should return true when (x,y) is in its area', () => {
+        expect(rect.isAt(0, 0)).toBe(true);
+        expect(rect.isAt(-10000, -10000)).toBe(false);
     });
 });
