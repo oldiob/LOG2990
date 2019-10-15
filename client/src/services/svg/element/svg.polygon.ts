@@ -13,6 +13,7 @@ export class SVGPolygon implements SVGInterface {
     pointSize: number;
 
     private circularPoints: number[][];
+    private actualPointsPosition: number[][] = [];
 
     constructor(x: number, y: number, nSides: number, private renderer: Renderer2) {
         this.startingPoint = [x, y];
@@ -79,24 +80,26 @@ export class SVGPolygon implements SVGInterface {
         let radius: number;
         const middleX = Math.abs(x + this.startingPoint[1]) / 2;
         const middleY = Math.abs(y + this.startingPoint[2]) / 2;
-        const point: number[] = [middleX, middleY];
+        const middlePoint: number[] = [middleX, middleY];
         if (Math.abs(x - this.startingPoint[1]) < y - this.startingPoint[2]) {
             radius = Math.abs(x + this.startingPoint[1]) / 2;
         } else {
             radius = Math.abs(y + this.startingPoint[2]) / 2;
         }
-        let stringForRenderer = '';
         for (let i = 0; i < this.circularPoints.length; i++) {
-            const actualPointsPosition = vPlus(vMultiply(this.circularPoints[i], radius), point);
-
-            stringForRenderer += `${actualPointsPosition[i]}`;
+            this.actualPointsPosition.push(vPlus(vMultiply(this.circularPoints[i], radius), middlePoint));
         }
 
-        this.renderer.setAttribute(this.element, 'points', stringForRenderer);
+        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
         // you have this.startingPoint :
         //      position of the spot what you clicked to create the shape;
 
         // use maths to transform those 'local' points to the global scale
         // you have some vector functions in src/utils/math.ts
+    }
+
+    // [[1, 2], [3, 4]] -> 1,2 3,4
+    private pointsAttribute(): string {
+        return this.actualPointsPosition.map((e) => `${e[0]},${e[1]}`).join(' ');
     }
 }
