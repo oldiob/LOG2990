@@ -1,6 +1,6 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from './svg.interface';
-import { atLine } from 'src/utils/math';
+import { isAtLine } from 'src/utils/math';
 
 export class SVGPencil implements SVGInterface {
     element: any;
@@ -18,10 +18,10 @@ export class SVGPencil implements SVGInterface {
     }
 
     isAt(x: number, y: number): boolean {
-        const additionnalWidth = 10.0;
-        const width: number = this.lineWidth + additionnalWidth;
+        const WIDTH_MARGIN = 10.0;
+        const width: number = this.lineWidth + WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {
-            if (atLine([x, y], [this.points[i], this.points[i + 1]], width)) {
+            if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                 return true;
             }
         }

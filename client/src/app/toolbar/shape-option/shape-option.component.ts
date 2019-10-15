@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { TraceType, AbsShapeTool } from 'src/services/tool/tool-options/abs-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
@@ -26,8 +26,8 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
-    tools: IShapeTool[];
-    currentTool: IShapeTool;
+    tools: AbsShapeTool[];
+    currentTool: AbsShapeTool;
     shapeForm: FormGroup;
 
     isShowPrimary: boolean;
@@ -62,14 +62,14 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         return this.images.get(this.currentTool) as string;
     }
 
-    selectTool(tool: IShapeTool): void {
+    selectTool(tool: AbsShapeTool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
 
         this.showcase.display(this.currentTool);
     }
 
-    getFilesource(tool: IShapeTool): string {
+    getFilesource(tool: AbsShapeTool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 

@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
-import { atLine } from 'src/utils/math';
+import { isAtLine } from 'src/utils/math';
 
 export class SVGBrush implements SVGInterface {
     element: any;
@@ -27,7 +27,7 @@ export class SVGBrush implements SVGInterface {
         const additionnalWidth = 10.0;
         const width: number = this.lineWidth + additionnalWidth;
         for (let i = 0; i < this.points.length - 1; i++) {
-            if (atLine([x, y], [this.points[i], this.points[i + 1]], width)) {
+            if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                 return true;
             }
         }

@@ -11,19 +11,18 @@ declare type callback = () => void;
     providedIn: 'root',
 })
 export class LineTool implements ITool {
-
     element: SVGLine | null = null;
     width: number = 1;
 
-    constructor(private paletteService: PaletteService,
-        private rendererProvider: RendererProviderService, ) { }
+    constructor(private paletteService: PaletteService, private rendererProvider: RendererProviderService) { }
 
     onPressed(event: MouseEvent): SVGLine | null {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY);
             return null;
         }
-        let line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
+
+        const line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
@@ -54,10 +53,10 @@ export class LineTool implements ITool {
         }
     }
 
-    onKeyReleased(event: KeyboardEvent): boolean {
+    onKeyup(event: KeyboardEvent): boolean {
         const actions: { [id: string]: callback } = {
             'Escape': () => { if (this.element) { this.element.end(); this.element = null; } },
-            'Backspace': () => { if (this.element) { this.element.popAnchor(); } }
+            'Backspace': () => { if (this.element) { this.element.popAnchor(); } },
         };
         if (event.key in actions) {
             const func: callback = actions[event.key];
@@ -66,4 +65,5 @@ export class LineTool implements ITool {
         }
         return false;
     }
+
 }
