@@ -56,6 +56,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     newDrawingOption(): void {
+        this.galleryOption.clearFilters();
         if (!this.isDialogOpened) {
             this.isDialogOpened = true;
             this.dialogService.openNewDrawing().afterClosed().subscribe(() => {
@@ -65,6 +66,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
+        this.galleryOption.clearFilters();
         this.drawAreaService.save();
     }
 

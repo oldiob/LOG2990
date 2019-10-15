@@ -1,21 +1,16 @@
 .gallery {
   height: 100%;
-  width: 100%;
+  width: 70vw;
   padding: 25px;
-}
-
-table {
-  width: 100%;
-  height: 100px;
-  color: whitesmoke;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 250px));
   width: 100%;
-  grid-gap: 2vh;
-  justify-items: center;
+  grid-gap: 5px;
+  // justify-items: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -24,29 +19,25 @@ table {
   width: 100%;
   color: whitesmoke;
   background-color: #151b33;
+  padding: 0 22px 0 22px;
 }
 
-.mat-elevation-z8 {
-  background-color: #151b33;
-  height: 100px;
-  box-shadow: none;
-}
-
-.tag-wrapper {
-  height: 650px;
+.drawings {
+  height: 562px;
   overflow: auto;
   text-align: left;
 }
 
-.header-tag {
+.name {
   font-size: 1rem;
+  font-weight: medium;
+  text-transform: capitalize;
 }
 
 .drawing {
-  padding: 25px;
   height: auto;
   margin: 25px 25px 0 25px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: lighten($color: #151b33, $amount: 10);
 }
 
@@ -59,15 +50,16 @@ table {
   overflow: hidden;
 }
 
-.tags {
+.drawing-section {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  padding: 15px;
+  color: whitesmoke;
 }
 
 .tag {
   padding: 5px 10px;
-  margin: 5px;
   background-color: rgb(73, 105, 167);
   border-radius: 5px;
 }
@@ -77,4 +69,8 @@ table {
   align-items: center;
   justify-content: center;
   margin-bottom: 25px;
+}
+
+.thumbnail {
+  cursor: pointer;
 }

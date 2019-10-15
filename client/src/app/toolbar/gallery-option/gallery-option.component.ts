@@ -54,6 +54,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         if (this.filteredDrawings.length === 0) {
             if (this.filter.length === 0) {
                 this.filteredDrawings = this.drawings;
+                this.isTagExists = true;
             } else {
                 this.isTagExists = false;
             }
@@ -63,7 +64,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     private makeFilterCallback(): (drawing: Drawing) => boolean {
         return (drawing: Drawing) => {
             const hasTag: boolean =
-                drawing.tags.some((tag: string) => this.filter.includes(tag.toLowerCase()));
+                drawing.tags.some((tag: string) => this.filter.includes(tag.toLowerCase())) || this.filter.includes(drawing.name);
             return hasTag;
         };
     }

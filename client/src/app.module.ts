@@ -13,6 +13,7 @@ import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
+import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
 import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
@@ -40,6 +41,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
         WidthComponent,
         ShowcaseComponent,
         AngleComponent,
+        ThumbnailComponent,
     ],
     imports: [
         BrowserModule,

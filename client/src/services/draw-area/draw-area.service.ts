@@ -36,7 +36,8 @@ export class DrawAreaService {
 
     private addDrawing() {
         const index = Math.floor(Math.random() * 10);
-        const preview = this.svgService.entry.nativeElement;
+        const DEEP_COPY = true;
+        const preview = this.svgService.entry.nativeElement.cloneNode(DEEP_COPY) as SVGElement;
         this.savedDrawings.push({
             id: index,
             name: mockDrawings[index].name,

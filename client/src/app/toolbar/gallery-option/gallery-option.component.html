@@ -1,17 +1,24 @@
+<div class="title">Gallery</div>
+
 <div class="gallery">
     <mat-form-field color="accent">
-        <input #filterInput matInput (keyup)="filterDrawings($event.target.value)" placeholder="Filter" autocomplete="off">
+        <input #filterInput matInput (keyup)="filterDrawings($event.target.value)" placeholder="Filter"
+            autocomplete="off">
     </mat-form-field>
 
-    <div class="tag-wrapper">
+    <div class="drawings">
         <div class="tag-not-found" *ngIf="!isTagExists">
             "{{filterInput.value}}" does not exist
         </div>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index">
-                <div class="thumbnail">
+                <div class="drawing-section name">
+                    {{drawing.name}}
                 </div>
-                <div class="tags">
+                <div class="thumbnail">
+                    <app-thumbnail [thumbnailSVG]="drawing.thumbnail"></app-thumbnail>
+                </div>
+                <div class="drawing-section">
                     <div class="tag" *ngFor="let tag of drawing.tags">
                         {{tag}}
                     </div>
