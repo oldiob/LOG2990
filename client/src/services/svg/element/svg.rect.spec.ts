@@ -1,4 +1,4 @@
-import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGRect } from './svg.rect';
 
 describe('SVGRect', () => {

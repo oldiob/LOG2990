@@ -1,5 +1,5 @@
 import { Renderer2 } from '@angular/core';
-import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
 import { isAtLine } from 'src/utils/math';
 

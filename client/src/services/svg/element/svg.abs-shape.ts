@@ -1,5 +1,5 @@
 import { SVGInterface } from './svg.interface';
-import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { Renderer2 } from '@angular/core';
 import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
 
@@ -93,6 +93,7 @@ export abstract class AbsSVGShape implements SVGInterface {
     }
 
     abstract setCursor(x: number, y: number, isShift: boolean): void;
+    abstract release(): void;
 
     protected updateCoordinates(x: number, y: number, isShift: boolean) {
         this.endingPoint = [x, y];
@@ -128,4 +129,6 @@ export abstract class AbsSVGShape implements SVGInterface {
     protected hidePerimeter() {
         this.renderer.setAttribute(this.perimeter, 'stroke', 'transparent');
     }
+
+    abstract onShift(isShift: boolean): void;
 }

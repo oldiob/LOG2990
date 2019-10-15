@@ -2,12 +2,12 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGRect } from 'src/services/svg/element/svg.rect';
-import { IShapeTool, TraceType } from './i-shape-tool';
+import { TraceType, AbsShapeTool } from './abs-shape-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RectangleTool implements IShapeTool {
+export class RectangleTool extends AbsShapeTool {
     width: number;
     traceType: TraceType;
     isShiftDown: boolean;
@@ -17,55 +17,15 @@ export class RectangleTool implements IShapeTool {
     protected renderer: Renderer2;
 
     constructor(rendererProvider: RendererProviderService, private paletteService: PaletteService) {
+        super();
         this.renderer = rendererProvider.renderer;
         this.width = 5;
         this.traceType = TraceType.FillAndBorder;
     }
 
     onPressed(event: MouseEvent): SVGRect | null {
-        if (this.element) {
-            return null;
-        }
         this.element = new SVGRect(event.svgX, event.svgY, this.traceType, this.renderer);
-
-        this.element.setPrimary(this.paletteService.getPrimary());
-        this.element.setSecondary(this.paletteService.getSecondary());
-        this.element.setPointSize(this.width);
+        this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
         return this.element;
-    }
-    onReleased(event: MouseEvent): void {
-        if (this.element !== null) {
-            this.element.release();
-        }
-        this.element = null;
-    }
-    onMotion(event: MouseEvent): void {
-        if (this.element) {
-            this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
-        }
-    }
-
-    onKeydown(event: KeyboardEvent): boolean {
-        if (event.shiftKey) {
-            this.isShiftDown = true;
-            return this.onShift();
-        }
-        return false;
-    }
-
-    onKeyup(event: KeyboardEvent): boolean {
-        if (!event.shiftKey && this.isShiftDown) {
-            this.isShiftDown = false;
-            return this.onShift();
-        }
-        return false;
-    }
-
-    private onShift(): boolean {
-        if (this.element !== null) {
-            this.element.onShift(this.isShiftDown);
-            return true;
-        }
-        return false;
     }
 }
