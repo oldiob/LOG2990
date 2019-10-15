@@ -120,6 +120,12 @@ describe('AbsSVGShape', () => {
 });
 
 class TestShape extends AbsSVGShape {
+    release(): void {
+        //
+    }
+    onShift(isShift: boolean): void {
+        //
+    }
 
     constructor(x: number, y: number, traceType: TraceType, renderer: Renderer2) {
         super(x, y, traceType, renderer);
