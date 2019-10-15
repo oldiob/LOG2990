@@ -1,6 +1,6 @@
-import { HostListener, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { SVGService } from 'src/services/svg/svg.service';
+import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 

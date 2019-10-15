@@ -21,7 +21,6 @@ export class SVGStamp implements SVGInterface {
         this.lineWidth = width;
         this.angles = angle;
         this.stampTexture = stamp;
-        this.icons = [];
         this.stampTexture.create(this);
         this.imagePaths = imagePath;
     }
@@ -40,8 +39,6 @@ export class SVGStamp implements SVGInterface {
     }
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-        this.icons.push('./assets/images/emoji.png');
-        this.icons.push('./assets/images/angel.png');
-        this.stampTexture.addPoint(this.icons[0], this, x, y);
+        this.stampTexture.addPoint(this, x, y);
     }
 }

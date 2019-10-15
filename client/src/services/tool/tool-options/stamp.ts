@@ -16,12 +16,7 @@ export class StampTool implements ITool {
     width: number;
     angle: number;
 
-<<<<<<< HEAD
-    stamp: IStamp;
-
-=======
     stampTexture: IStamp;
->>>>>>> Add Select One Of The 5 Emojis
     renderer: Renderer2;
     constructor(rendererProvider: RendererProviderService) {
         this.renderer = rendererProvider.renderer;
