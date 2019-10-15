@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Message } from '../../../../common/communication/message';
 import { DialogService } from '../dialog/dialog.service';
 import { IndexService } from '../index/index.service';
+import { WebClientService } from '../web-client/web-client.service'
 
 @Injectable({
     providedIn: 'root',
@@ -12,10 +13,13 @@ import { IndexService } from '../index/index.service';
 export class DrawAreaService {
 
   drawings: BehaviorSubject<Drawing[]>;
-  localMessage = '1';
+
+  localMessage: string;
   message = new BehaviorSubject<string>('');
   isSavedDrawing: boolean;
-  constructor(private basicService: IndexService) {
+  count = 0;
+  page: any;
+  constructor(private basicService: IndexService, private webClientServer: WebClientService) {
     this.isSavedDrawing = true;
     const INITIAL_DRAWINGS: Drawing[] = [];
     this.drawings = new BehaviorSubject(INITIAL_DRAWINGS);
@@ -26,7 +30,7 @@ export class DrawAreaService {
       )
       .subscribe(this.message);
 
-    this.basicService.getSVGObjects().subscribe((messageR : Message) => {
+    this.webClientServer.getMessage().subscribe((messageR: Message) => {
       this.localMessage = messageR.body;
     });
   }
