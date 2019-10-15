@@ -4,15 +4,18 @@ import { map } from 'rxjs/operators';
 import { Message } from '../../../../common/communication/message';
 import { DialogService } from '../dialog/dialog.service';
 import { IndexService } from '../index/index.service';
+import { WebClientService } from '../web-client/web-client.service'
 
 @Injectable({
   providedIn: 'root',
 })
 export class DrawAreaService {
-  localMessage = '1';
+  localMessage: string;
   message = new BehaviorSubject<string>('');
   isSavedDrawing: boolean;
-  constructor(private basicService: IndexService) {
+  count = 0;
+  page: any;
+  constructor(private basicService: IndexService, private webClientServer: WebClientService) {
     this.isSavedDrawing = true;
 
     this.basicService.basicGet()
@@ -21,19 +24,23 @@ export class DrawAreaService {
       )
       .subscribe(this.message);
 
-    this.basicService.getSVGObjects().subscribe((messageR : Message) => {
+    this.webClientServer.getMessage().subscribe((messageR: Message) => {
       this.localMessage = messageR.body;
     });
   }
 
   save() {
     this.isSavedDrawing = true;
-    const newMessage: Message = {
-      body : 'ba',
-      title : 'ab',
-    };
-
-    alert(this.localMessage);
+    //const svgElem = document.getElementsByTagName('svg');
+    //this.webClientServer.sendMessage();
+    if (this.count === 0) {
+      this.webClientServer.sendDrawingTest();
+      this.count++;
+    }
+    else if (this.count === 1) {
+      this.webClientServer.getDrawingTest().subscribe(res => console.log(res));
+      console.log(this.page);
+    }
   }
 
   dirty() {
