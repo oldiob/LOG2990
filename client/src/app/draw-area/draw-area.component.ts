@@ -10,6 +10,11 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
     styleUrls: ['./draw-area.component.scss'],
 })
 export class DrawAreaComponent implements OnInit {
+    MAX_ANGLE = 360;
+    MIN_ANGLE = 0;
+    MULTI_15 = 15;
+    DEGREE = 1;
+
     @ViewChild('svgContainer', { static: true })
     svg: ElementRef;
 
@@ -26,7 +31,6 @@ export class DrawAreaComponent implements OnInit {
 
     mouseX: number;
     mouseY: number;
-
     height: number;
     width: number;
     backgroundColor = '#ffffffff';
@@ -133,10 +137,13 @@ export class DrawAreaComponent implements OnInit {
         }
     }
     onWheel(event: WheelEvent): void {
-      if (event.deltaY < 0 && this.toolService.angle - 15 >= 0) {
-          this.toolService.angle -= 15;
-      } else if (event.deltaY > 0 && this.toolService.angle + 15 <= 360) {
-          this.toolService.angle += 15;
+      const changeAngle = event.altKey ? this.DEGREE : this.DEGREE * this.MULTI_15;
+      if (this.toolService.currentTool.angle !== null) {
+      if (event.deltaY < this.MIN_ANGLE && this.toolService.currentTool.angle - changeAngle >= this.MIN_ANGLE) {
+          this.toolService.currentTool.angle -= changeAngle;
+      } else if (event.deltaY > this.MIN_ANGLE && this.toolService.currentTool.angle + changeAngle <= this.MAX_ANGLE) {
+          this.toolService.currentTool.angle += changeAngle;
       }
     }
+}
 }
