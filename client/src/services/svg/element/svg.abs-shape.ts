@@ -6,6 +6,7 @@ import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;
     protected shapeElement: any;
+    private perimeter: any;
 
     protected startingPoint: number[];
     protected endingPoint: number[];
@@ -15,31 +16,45 @@ export abstract class AbsSVGShape implements SVGInterface {
 
     protected pointSize: number;
 
-    private perimeter: any;
+    fillOpacity: number;
+    strokeOpacity: number;
+    traceType: number;
+    primary: string;
+    secondary: string;
 
-    private fillOpacity: number;
-    private strokeOpacity: number;
+    serialize(): { [id: string]: any } {
+        return {
+            startingPoint: this.startingPoint,
+            endingPoint: this.endingPoint,
+            center: this.center,
+            size: this.size,
+            pointSize: this.pointSize,
+            traceType: this.traceType,
+            primary: this.primary,
+            secondary: this.secondary,
+        };
+    }
+
+    dserialize(blob: { [id: string]: any }): void {
+        this.startingPoint = blob['startingPoint'];
+        this.endingPoint = blob['endingPoint'];
+        this.center = blob['center'];
+        this.size = blob['size'];
+        this.pointSize = blob['pointSize'];
+        this.setTraceType(blob['traceType']);
+        this.setPrimary(blob['primary']);
+        this.setSecondary(blob['secondary']);
+        this.setOpacities();
+    }
+
 
     constructor(x: number, y: number, traceType: TraceType, protected renderer: Renderer2) {
         this.startingPoint = [x, y];
         this.endingPoint = [x, y];
         this.size = [0, 0];
         this.pointSize = 0;
+        this.setTraceType(traceType);
 
-        switch (traceType) {
-            case TraceType.BorderOnly:
-                this.fillOpacity = 0;
-                this.strokeOpacity = 1;
-                break;
-            case TraceType.FillOnly:
-                this.fillOpacity = 1;
-                this.strokeOpacity = 0;
-                break;
-            case TraceType.FillAndBorder:
-                this.fillOpacity = 1;
-                this.strokeOpacity = 1;
-                break;
-        }
         this.element = this.renderer.createElement('g', 'svg');
 
         this.perimeter = this.renderer.createElement('rect', 'svg');
@@ -77,11 +92,13 @@ export abstract class AbsSVGShape implements SVGInterface {
     }
 
     setPrimary(color: string): void {
+        this.primary = color;
         if (this.fillOpacity === 1) {
             this.renderer.setAttribute(this.shapeElement, 'fill', color);
         }
     }
     setSecondary(color: string): void {
+        this.secondary = color;
         if (this.strokeOpacity === 1) {
             this.renderer.setAttribute(this.shapeElement, 'stroke', color);
         }
@@ -131,4 +148,23 @@ export abstract class AbsSVGShape implements SVGInterface {
     }
 
     abstract onShift(isShift: boolean): void;
+
+    setTraceType(traceType: TraceType) {
+        this.traceType = traceType;
+
+        switch (traceType) {
+            case TraceType.BorderOnly:
+                this.fillOpacity = 0;
+                this.strokeOpacity = 1;
+                break;
+            case TraceType.FillOnly:
+                this.fillOpacity = 1;
+                this.strokeOpacity = 0;
+                break;
+            case TraceType.FillAndBorder:
+                this.fillOpacity = 1;
+                this.strokeOpacity = 1;
+                break;
+        }
+    }
 }
