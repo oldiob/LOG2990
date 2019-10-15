@@ -121,6 +121,5 @@ export class DrawAreaComponent implements OnInit {
       } else if (event.deltaY > 0 && this.toolService.angle + 15 <= 360) {
           this.toolService.angle += 15;
       }
-      console.log(this.toolService.angle);
     }
 }
