@@ -8,6 +8,7 @@ describe('ToolOptionComponent', () => {
   let component: ToolOptionComponent;
   let fixture: ComponentFixture<ToolOptionComponent>;
   let showcase: ShowcaseComponent;
+  let event: WheelEvent;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ToolOptionComponent, ShowcaseComponent, WidthComponent ],
@@ -24,6 +25,7 @@ describe('ToolOptionComponent', () => {
     showcase = jasmine.createSpyObj('ShowcaseComponent', ['showcase', 'display']);
     component.showcase = showcase;
     component.ngOnInit();
+    event = new WheelEvent('wheel');
   });
 
   it('should create', () => {
@@ -31,7 +33,13 @@ describe('ToolOptionComponent', () => {
   });
 
   it('should pencil be the current tool', () => {
+    component.select();
     expect(component.currentTool).toBe(component.tools[0]);
+  });
+
+  it('should getImage of the current tool', () => {
+    component.getImage();
+    expect(component.getImage()).toBe(component.images.get(component.currentTool) as string);
   });
 
   it('should not show primary and secondary', () => {
@@ -54,11 +62,31 @@ describe('ToolOptionComponent', () => {
     expect(showcase.display).toHaveBeenCalled();
   });
 
+  it('should select emoji for stamp', () => {
+    component.selectStamp(component.currentPath);
+    component.currentStamp = component.stamps[0];
+    component.showcase.display(component.currentTool);
+    expect(component.currentStamp).toEqual(component.stamps[0]);
+    expect(showcase.display).toHaveBeenCalled();
+  });
+
   it('should set width of the current tool on display', () => {
       const width = 50;
       component.setWidth(width);
       expect(component.currentTool.width).toEqual(width);
       expect(showcase.display).toHaveBeenCalled();
+  });
+
+  it('should set angle of the current tool on display', () => {
+    const angle = 50;
+    component.setAngle(angle);
+    expect(component.currentTool.angle).toEqual(angle);
+    expect(showcase.display).toHaveBeenCalled();
+  });
+
+  it('should return false when alt key is not press', () => {
+    component.onWheel(event);
+    expect(event.altKey).toBeFalsy();
   });
 
   it('should show primary color', () => {
