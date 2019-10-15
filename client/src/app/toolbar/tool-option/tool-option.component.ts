@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { AngleComponent } from 'src/app/angle/angle.component';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
@@ -9,9 +10,9 @@ import { RandomCircleTexture } from 'src/services/svg/element/texture/random-cir
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { RectTexture } from 'src/services/svg/element/texture/rect';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
-import { LineTool } from 'src/services/tool/tool-options/line';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -33,6 +34,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
         [this.line, 'line.png'],
+        [this.stamp, 'stamp.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -40,6 +42,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     @ViewChild(WidthComponent, { static: true })
     widthComponent: WidthComponent;
+
+    @ViewChild(AngleComponent, { static: true })
+    angleComponent: AngleComponent;
 
     textures: ITexture[];
     currentTexture: ITexture;
@@ -53,10 +58,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     isShowPrimary: boolean;
     isShowSecondary: boolean;
 
+    imagePaths: string[];
+    currentPath: string;
+
     degres: number;
 
     constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
-                public brush: BrushTool, public stamp: StampTool) {
+                public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
         this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
@@ -67,7 +75,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, stamp];
+        this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
         this.degres = 1;
     }

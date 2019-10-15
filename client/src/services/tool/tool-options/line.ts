@@ -12,18 +12,19 @@ declare type callback = () => void;
 })
 export class LineTool implements ITool {
 
+    angle: number;
     element: SVGLine | null = null;
     width: number = 1;
 
     constructor(private paletteService: PaletteService,
-        private rendererProvider: RendererProviderService, ) { }
+                private rendererProvider: RendererProviderService, ) { }
 
     onPressed(event: MouseEvent): SVGLine | null {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY);
             return null;
         }
-        let line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
+        const line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
