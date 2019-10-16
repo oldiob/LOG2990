@@ -7,9 +7,12 @@ export class EmojiStamp implements IStamp {
         stamp.element = stamp.renderer.createElement('g', 'svg');
     }
     addPoint(stamp: SVGStamp, x: number, y: number): void {
+        const centerX = (x - stamp.lineWidth / 2).toString();
+        const centerY = (y - stamp.lineWidth / 2).toString();
+
         const img = stamp.renderer.createElement('image', 'svg');
-        stamp.renderer.setAttribute(img, 'x', x.toString());
-        stamp.renderer.setAttribute(img, 'y', y.toString());
+        stamp.renderer.setAttribute(img, 'x', centerX);
+        stamp.renderer.setAttribute(img, 'y', centerY);
         stamp.renderer.setAttribute(img, 'width',  stamp.lineWidth.toString());
         stamp.renderer.setAttribute(img, 'height',  stamp.lineWidth.toString());
         stamp.renderer.setAttribute(img, 'href', `${stamp.imagePaths}`);

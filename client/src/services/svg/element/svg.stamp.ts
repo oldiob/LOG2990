@@ -3,6 +3,7 @@ import { IStamp } from './stamp/i-stamp';
 import { SVGInterface } from './svg.interface';
 
 export class SVGStamp implements SVGInterface {
+    IMAGESIZE = 10;
     element: any;
     previousX = 0;
     previousY = 0;
@@ -18,7 +19,7 @@ export class SVGStamp implements SVGInterface {
 
     constructor(public renderer: Renderer2, width: number, stamp: IStamp, angle: number, imagePath: string) {
         this.points = [];
-        this.lineWidth = width;
+        this.lineWidth = width * this.IMAGESIZE;
         this.angles = angle;
         this.stampTexture = stamp;
         this.stampTexture.create(this);

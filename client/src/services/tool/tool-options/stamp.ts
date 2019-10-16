@@ -11,7 +11,7 @@ export class StampTool implements ITool {
     private readonly MIN_ANGLE = 0;
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
-
+    private readonly IMAGESIZE = 12.5;
     element: SVGStamp | null;
     currentPath: string;
     width: number;
@@ -21,8 +21,8 @@ export class StampTool implements ITool {
     renderer: Renderer2;
     constructor(rendererProvider: RendererProviderService) {
         this.renderer = rendererProvider.renderer;
-        this.width = 25;
-        this.angle = 0;
+        this.width = this.IMAGESIZE;
+        this.angle = this.MIN_ANGLE;
         this.currentPath = '';
     }
 
