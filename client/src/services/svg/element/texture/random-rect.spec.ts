@@ -1,6 +1,6 @@
 import { RandomRectTexture } from './random-rect';
 
-describe('RandomRectTecture', () => {
+describe('RandomRectTexture', () => {
 
     let rect: RandomRectTexture;
     let brush: any;
@@ -9,7 +9,7 @@ describe('RandomRectTecture', () => {
 
     beforeEach(() => {
         brush = jasmine.createSpyObj('SVGBrush', ['renderer', 'lineWidth', 'pointsAttribute']);
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+        renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'createElement', 'setAttribute']);
         element = jasmine.createSpyObj('any', ['']);
 
         brush.renderer = renderer;
