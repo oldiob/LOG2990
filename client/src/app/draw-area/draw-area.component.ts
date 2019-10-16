@@ -49,17 +49,32 @@ export class DrawAreaComponent implements OnInit {
         this.gridService.ref = this.grid;
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
-            (width: number) => this.width = width,
+            (width: number) => {
+                this.width = width;
+                this.gridService.width = this.width;
+                this.gridService.draw();
+                return width;
+            }
         );
         this.workZoneService.currentHeight.subscribe(
-            (height): number => this.height = height,
+            (height): number => {
+                this.height = height;
+                this.gridService.height = this.height;
+                this.gridService.draw();
+                return height;
+            }
+
         );
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: string) => this.backgroundColor = backgroundColor,
         );
 
+        this.gridService.width = this.width;
+        this.gridService.height = this.height;
+        this.gridService.draw();
         this.svgService.clearDrawArea();
     }
+
     setCurrentStyles() {
         return {
             height: `${this.height}px`,
@@ -67,8 +82,8 @@ export class DrawAreaComponent implements OnInit {
             'background-color': `${this.backgroundColor}`,
         };
     }
+
     gridStyle() {
-        this.gridService.draw(this.width, this.height);
         return {
             height: `${this.height}px`,
             width: `${this.width}px`,
