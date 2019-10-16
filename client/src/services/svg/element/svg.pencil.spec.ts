@@ -26,12 +26,11 @@ describe('SVGPencil', () => {
 
     it('should return true only if (x,y) is at where the pencil drew', () => {
 
-        pencil.points.push([X, Y]);
-        expect(pencil.isAt(X, Y)).toBeTruthy();
-
         pencil.lineWidth = 16;
+        pencil.points.push([X, Y]);
         pencil.points.push([X + 4, Y]);
-        expect(pencil.isAt(X + 8, Y + 0.5)).toBeFalsy();
+        expect(pencil.isAt(X, Y)).toBeTruthy();
+        expect(pencil.isAt(X - 40, Y - 80)).toBeFalsy();
 
     });
 
@@ -40,15 +39,17 @@ describe('SVGPencil', () => {
     });
 
     it('should return true if the circle (x, y, r) touch one of the point drew by the pencil', () => {
-        expect(pencil.isIn(X, Y, R)).toBeTruthy();
+        expect(pencil.isIn(X, Y, R)).toBeFalsy();
     });
 
     it('should set the primary color', () => {
+        renderer.setAttribute.calls.reset();
         pencil.setPrimary(C);
         expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should not set the secondary color', () => {
+        renderer.setAttribute.calls.reset();
         pencil.setSecondary(C);
         expect(renderer.setAttribute).not.toHaveBeenCalled();
     });
