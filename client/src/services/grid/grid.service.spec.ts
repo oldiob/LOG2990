@@ -12,14 +12,21 @@ class MockProvider {
 
 describe('GridService', () => {
 
-    const renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'setAttribute', 'createElement']);
-    const provider = new MockProvider(renderer);
-    const ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
-
+    let renderer: any;
+    let provider: any;
+    let ref: any;
     let service: GridService;
 
+    const WIDTH = Math.random() * 1000;
+    const HEIGHT = Math.random() * 1000;
+
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'setAttribute', 'createElement']);
+        provider = new MockProvider(renderer);
+        ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
         service = new GridService(provider);
+        service.width = WIDTH;
+        service.height = HEIGHT;
         service.ref = ref;
     });
 
@@ -28,16 +35,16 @@ describe('GridService', () => {
         expect(service.renderer).toBe(renderer);
     });
 
-    it('should set the size correctly and redraw the grid', () => {
-        const under = GridService.MIN_SIZE - 1;
-        const over = GridService.MAX_SIZE + 1;
-        const okay = GridService.MIN_SIZE + 1;
+    it('should set the step correctly and redraw the grid', () => {
+        const under = GridService.MIN_STEP - 1;
+        const over = GridService.MAX_STEP + 1;
+        const okay = GridService.MIN_STEP;
         spyOn(service, 'draw');
-        service.size = under;
+        service.step = under;
         expect(service.draw).not.toHaveBeenCalled();
-        service.size = over;
+        service.step = over;
         expect(service.draw).not.toHaveBeenCalled();
-        service.size = okay;
+        service.step = okay;
         expect(service.draw).toHaveBeenCalled();
     });
 
@@ -54,7 +61,7 @@ describe('GridService', () => {
     });
 
     it('should draw a grid', () => {
-        service.draw(2 * GridService.DEFAULT_SIZE, 2 * GridService.DEFAULT_SIZE);
+        service.draw();
         expect(renderer.setAttribute).toHaveBeenCalled();
         expect(renderer.appendChild).toHaveBeenCalled();
     });
