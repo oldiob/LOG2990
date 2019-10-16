@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { AbsShapeTool, TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
+import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { IShapeTool, TraceType } from 'src/services/tool/tool-options/i-shape-tool';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
-import { PolygonTool } from 'src/services/tool/tool-options/polygon';
+import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
+// import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
-import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
-import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 
 @Component({
     selector: 'app-shape-option',
@@ -33,7 +33,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
     isShowPrimary: boolean;
     isShowSecondary: boolean;
-    isPolygon: boolean;
     primaryColor: string;
     secondaryColor: string;
 
@@ -42,12 +41,14 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
-        public polygonTool: PolygonTool) {
+        private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
+        this.tools = [this.rectangleTool, this.ellipseTool];
         this.currentTool = this.tools[0];
+        this.createForm();
+
         this.showcase.display(this.currentTool);
 
         this.isShowPrimary = false;
@@ -65,16 +66,21 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: AbsShapeTool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-        if (this.currentTool instanceof PolygonTool) {
-            this.isPolygon = true;
-        } else {
-            this.isPolygon = false;
-        }
+
         this.showcase.display(this.currentTool);
     }
 
     getFilesource(tool: AbsShapeTool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
+    }
+
+    private createForm(): void {
+        const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
+        const validators = [Validators.min(0), Validators.required];
+
+        this.shapeForm = this.formBuilder.group({
+            traceType: [DEFAULT_TRACE_TYPE, validators],
+        });
     }
 
     setWidth(width: number): void {
@@ -88,15 +94,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
 
         this.showcase.display(this.currentTool);
-    }
-
-    set polygonNSides(nSides: number) {
-        this.polygonTool.nSides = nSides;
-        this.showcase.display(this.currentTool);
-    }
-
-    get polygonNSides(): number {
-        return this.polygonTool.nSides;
     }
 
     togglePrimaryColorPicker(): void {

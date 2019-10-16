@@ -1,27 +1,23 @@
 import { Renderer2 } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { TraceType } from 'src/services/tool/tool-options/i-shape-tool';
-import { vMultiply, vPlus } from 'src/utils/math';
+import { vectorPlus, vectorMultiply, isAtLine } from 'src/utils/math';
+import { AbsSVGShape } from './svg.abs-shape';
 
-export class SVGPolygon implements SVGInterface {
-    element: any;
-
-    startingPoint: number[];
-    fill: number;
-    stroke: number;
-
-    pointSize: number;
+export class SVGPolygon extends AbsSVGShape {
 
     private circularPoints: number[][];
     private actualPointsPosition: number[][] = [];
 
-    constructor(x: number, y: number, nSides: number, private renderer: Renderer2) {
-        this.startingPoint = [x, y];
+    constructor(x: number, y: number, nSides: number, traceType: number, renderer: Renderer2) {
+        super(x, y, traceType, renderer);
+        this.hidePerimeter();
+
+        this.shapeElement = this.renderer.createElement('rect', 'svg');
+        this.renderer.appendChild(this.element, this.shapeElement);
+
+        this.setOpacities();
+        this.setCursor(x, y);
 
         this.element = this.renderer.createElement('polygon', 'svg');
-        this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'x', `${this.startingPoint[0]}`);
-        this.renderer.setAttribute(this.element, 'y', `${this.startingPoint[1]}`);
 
         const angleBetweenCorners = 2 * Math.PI / nSides;
         for (let i = 0; i < nSides; i++) {
@@ -29,49 +25,50 @@ export class SVGPolygon implements SVGInterface {
         }
     }
 
-    isAt(x: number, y: number): boolean {
+    protected isAtBorder(x: number, y: number) {
+        const additionnalWidth = 10.0;
+        const width = this.pointSize + additionnalWidth;
+        const points = [
+            [this.center[0] - this.size[0], this.center[1] - this.size[1]],
+            [this.center[0] + this.size[0], this.center[1] - this.size[1]],
+            [this.center[0] + this.size[0], this.center[1] + this.size[1]],
+            [this.center[0] - this.size[0], this.center[1] + this.size[1]],
+            [this.center[0] - this.size[0], this.center[1] - this.size[1]]];
+
+        for (let i = 0; i < 4; i++) {
+            if (isAtLine([x, y], points[i], points[i + 1], width)) {
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    protected isInside(x: number, y: number) {
+        return (
+            this.center[0] - this.size[0] <= x &&
+            this.center[0] + this.size[0] >= x &&
+            this.center[1] - this.size[1] <= y &&
+            this.center[1] + this.size[1] >= y);
+    }
+
+    release() {
+        this.hidePerimeter();
+    }
+
+    onShift(isShift: boolean) {
+        // nothing
     }
 
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
 
-    setPrimary(color: string): void {
-        if (this.fill) {
-            this.renderer.setAttribute(this.element, 'fill', color);
-        }
-
-    }
-    setSecondary(color: string): void {
-        if (this.stroke) {
-            this.renderer.setAttribute(this.element, 'stroke', color);
-        }
-    }
-
-    setPointSize(pointSize: number): void {
-        this.pointSize = pointSize;
-        this.renderer.setAttribute(this.element, 'stroke-width', this.pointSize.toString());
-    }
-
-    setTraceType(traceType: TraceType): void {
-        switch (traceType) {
-            case TraceType.BorderOnly:
-                this.fill = 0;
-                this.stroke = 1;
-                break;
-            case TraceType.FillOnly:
-                this.fill = 1;
-                this.stroke = 0;
-                break;
-            case TraceType.FillAndBorder:
-                this.fill = 1;
-                this.stroke = 1;
-                break;
-        }
-
-        this.renderer.setAttribute(this.element, 'fill-opacity', `${this.fill}`);
-        this.renderer.setAttribute(this.element, 'stroke-opacity', `${this.stroke}`);
+    protected setPositionAttributes(): void {
+        this.renderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
+        this.renderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
+        this.renderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
+        this.renderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
     }
 
     setCursor(x: number, y: number) {
@@ -87,7 +84,7 @@ export class SVGPolygon implements SVGInterface {
             radius = Math.abs(y + this.startingPoint[2]) / 2;
         }
         for (let i = 0; i < this.circularPoints.length; i++) {
-            this.actualPointsPosition.push(vPlus(vMultiply(this.circularPoints[i], radius), middlePoint));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiply(this.circularPoints[i], radius), middlePoint));
         }
 
         this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
