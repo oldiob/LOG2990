@@ -12,7 +12,7 @@ declare type callback = () => void;
 export class LineTool implements ITool {
 
     element: SVGLine | null = null;
-    width: number = 1;
+    width = 1;
 
     constructor(private paletteService: PaletteService) { }
 
@@ -21,8 +21,7 @@ export class LineTool implements ITool {
             this.element.addAnchor(event.svgX, event.svgY);
             return null;
         }
-
-        const line = new SVGLine(event.svgX, event.svgY);
+        const line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
@@ -38,8 +37,7 @@ export class LineTool implements ITool {
             this.element.anchors.pop();
             if (event.shiftKey) {
                 this.element.lineLoop();
-            }
-            else {
+            } else {
                 this.element.finish();
             }
             this.element = null;
@@ -55,8 +53,8 @@ export class LineTool implements ITool {
 
     onKeyup(event: KeyboardEvent): boolean {
         const actions: { [id: string]: callback } = {
-            'Escape': () => { if (this.element) { this.element.end(); this.element = null; } },
-            'Backspace': () => { if (this.element) { this.element.popAnchor(); } },
+            Escape: () => { if (this.element) { this.element.end(); this.element = null; } },
+            Backspace: () => { if (this.element) { this.element.popAnchor(); } },
         };
         if (event.key in actions) {
             const func: callback = actions[event.key];
