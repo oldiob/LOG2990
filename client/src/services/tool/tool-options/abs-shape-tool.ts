@@ -8,6 +8,10 @@ export enum TraceType {
 }
 
 export abstract class AbsShapeTool implements ITool {
+    MAX_ANGLE = 360;
+    MIN_ANGLE = 0;
+    MULTI_15 = 15;
+    DEGREE = 1;
     width: number;
     traceType: TraceType;
     angle: number;
@@ -44,6 +48,12 @@ export abstract class AbsShapeTool implements ITool {
     onKeyup(event: KeyboardEvent): boolean {
         if (event.key === 'Shift') {
             return this.onShift(false);
+        }
+        return false;
+    }
+    onScroll(event: WheelEvent): boolean {
+        if (event.deltaY >= 0 || event.deltaY < 0) {
+            return true;
         }
         return false;
     }

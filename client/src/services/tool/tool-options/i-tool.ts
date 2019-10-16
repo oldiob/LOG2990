@@ -13,6 +13,8 @@ export interface ITool {
 
     onKeydown?(event: KeyboardEvent): boolean;
     onKeyup?(event: KeyboardEvent): boolean;
+
+    onScroll?(event: WheelEvent): boolean;
 }
 
 declare global {

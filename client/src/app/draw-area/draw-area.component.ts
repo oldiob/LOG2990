@@ -137,13 +137,16 @@ export class DrawAreaComponent implements OnInit {
         }
     }
     onWheel(event: WheelEvent): void {
-      const changeAngle = event.altKey ? this.DEGREE : this.DEGREE * this.MULTI_15;
-      if (this.toolService.currentTool.angle !== null) {
-      if (event.deltaY < this.MIN_ANGLE && this.toolService.currentTool.angle - changeAngle >= this.MIN_ANGLE) {
-          this.toolService.currentTool.angle -= changeAngle;
-      } else if (event.deltaY > this.MIN_ANGLE && this.toolService.currentTool.angle + changeAngle <= this.MAX_ANGLE) {
-          this.toolService.currentTool.angle += changeAngle;
-      }
+        // return toujours false
+        if (this.toolService.currentTool.onScroll) {
+            const changeAngle = event.altKey ? this.DEGREE : this.DEGREE * this.MULTI_15;
+            if (this.toolService.currentTool.angle !== null) {
+                if (event.deltaY < this.MIN_ANGLE && this.toolService.currentTool.angle - changeAngle >= this.MIN_ANGLE) {
+                    this.toolService.currentTool.angle -= changeAngle;
+                } else if (event.deltaY > this.MIN_ANGLE && this.toolService.currentTool.angle + changeAngle <= this.MAX_ANGLE) {
+                    this.toolService.currentTool.angle += changeAngle;
+                }
+            }
+        }
     }
-}
 }
