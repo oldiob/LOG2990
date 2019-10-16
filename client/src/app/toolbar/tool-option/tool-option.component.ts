@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngleComponent } from 'src/app/angle/angle.component';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { DashMotif } from 'src/services/svg/element/pattern/dash';
+import { DotMotif } from 'src/services/svg/element/pattern/dot';
+import { FullMotif } from 'src/services/svg/element/pattern/full';
+import { IPattern } from 'src/services/svg/element/pattern/i-pattern';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
@@ -49,6 +53,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     textures: ITexture[];
     currentTexture: ITexture;
 
+    patterns: IPattern[];
+    currentPattern: IPattern;
+
     tools: ITool[];
     currentTool: ITool;
 
@@ -61,14 +68,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     imagePaths: string[];
     currentPath: string;
 
-    degres: number;
-
     constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
                 public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
                            './assets/images/bec.png', './assets/images/shade.png'];
+        this.patterns = [new FullMotif(), new DashMotif(), new DotMotif()];
+        this.currentPattern = this.patterns[0];
         this.currentPath = '';
         this.currentStamp = this.stamps[0];
         this.stamp.stampTexture = this.currentStamp;
@@ -78,7 +85,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
         this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
-        this.degres = 1;
     }
 
     ngOnInit(): void {
@@ -111,6 +117,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     selectStamp(image: string): void {
         this.currentPath = image;
         this.stamp.currentPath = this.currentPath;
+        this.showcase.display(this.currentTool);
+    }
+
+    selectPattern(pattern: IPattern): void {
+        this.currentPattern = pattern;
+        this.line.pattern = this.currentPattern;
         this.showcase.display(this.currentTool);
     }
 

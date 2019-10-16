@@ -1,9 +1,13 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
+<<<<<<< HEAD
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { atLine } from 'src/utils/math';
 import { IMotif } from './motif/i-motif';
+=======
+import { IPattern } from './pattern/i-pattern';
+>>>>>>> Add Patterns in ToolBar
 
 export class SVGLine implements SVGInterface {
 
@@ -13,26 +17,26 @@ export class SVGLine implements SVGInterface {
     element: any;
     polyline: any;
     line: any;
-    motif: IMotif;
+    pattern: IPattern;
 
-    constructor(x: number, y: number, renderer: Renderer2,  motif: IMotif) {
+    constructor(x: number, y: number, renderer: Renderer2,  pattern: IPattern) {
         this.renderer = renderer;
 
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
-        this.motif = motif;
-        this.motif.create(this, this, this);
+        this.pattern = pattern;
+        // this.pattern.create(this);
 
-        // this.polyline = this.renderer.createElement('polyline', 'svg');
-        // this.renderer.setAttribute(this.polyline, 'fill', 'none');
+        this.polyline = this.renderer.createElement('polyline', 'svg');
+        this.renderer.setAttribute(this.polyline, 'fill', 'none');
 
-        // this.line = this.renderer.createElement('line', 'svg');
-        // this.renderer.setAttribute(this.line, 'fill', 'none');
-        // this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
+        this.line = this.renderer.createElement('line', 'svg');
+        this.renderer.setAttribute(this.line, 'fill', 'none');
+        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
 
-        // this.element = this.renderer.createElement('g', 'svg');
-        // this.renderer.appendChild(this.element, this.polyline);
-        // this.renderer.appendChild(this.element, this.line);
+        this.element = this.renderer.createElement('g', 'svg');
+        this.renderer.appendChild(this.element, this.polyline);
+        this.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
     }
@@ -93,7 +97,7 @@ export class SVGLine implements SVGInterface {
 
     addAnchor(x: number, y: number) {
         this.anchors.push(new Point(x, y));
-        this.motif.addPoint(this, this, this, x, y);
+        // this.motif.addPoint(this, this, this, x, y);
         this.renderAnchors();
     }
 

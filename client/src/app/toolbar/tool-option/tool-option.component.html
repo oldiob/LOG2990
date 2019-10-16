@@ -59,3 +59,13 @@
   </div>
   </div>
 </div>
+
+<div *ngIf="currentTool === line" class="separation">
+  <div class="text">Patterns</div>
+  <div class="tools">
+    <a *ngFor="let pattern of patterns; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
+      (click)="selectPattern(pattern)" [class.selected-tool]="pattern === currentPattern">
+      {{i + 1}}
+    </a>
+  </div>
+</div>

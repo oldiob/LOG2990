@@ -3,6 +3,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGLine } from 'src/services/svg/element/svg.line';
 
 import { ITool } from './i-tool';
+import { IPattern } from 'src/services/svg/element/pattern/i-pattern';
 
 declare type callback = () => void;
 
@@ -21,7 +22,7 @@ export class LineTool implements ITool {
             this.element.addAnchor(event.svgX, event.svgY);
             return null;
         }
-        const line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer);
+        const line = new SVGLine(event.svgX, event.svgY, this.rendererProvider.renderer, this.pattern);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;

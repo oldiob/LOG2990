@@ -71,10 +71,10 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
-    @HostListener('window: keydown', ['$event'])
-    preventDefaults(event: KeyboardEvent) {
-        event.preventDefault();
-    }
+    // @HostListener('window: keydown', ['$event'])
+    // preventDefaults(event: KeyboardEvent) {
+    //     event.preventDefault();
+    // }
 
     @HostListener('window: keyup', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
