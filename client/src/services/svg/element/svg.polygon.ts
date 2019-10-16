@@ -4,7 +4,7 @@ import { AbsSVGShape } from './svg.abs-shape';
 
 export class SVGPolygon extends AbsSVGShape {
 
-    private circularPoints: number[][];
+    private circularPoints: number[][] = [];
     private actualPointsPosition: number[][] = [];
 
     constructor(x: number, y: number, nSides: number, traceType: number, renderer: Renderer2) {
@@ -71,14 +71,9 @@ export class SVGPolygon extends AbsSVGShape {
     setCursor(x: number, y: number) {
         // you habe your this.circularPoints :
         //      a centered Polygon corner positions of radius 1;
-        let radius: number;
-        if (Math.abs(x - this.startingPoint[1]) < y - this.startingPoint[2]) {
-            radius = Math.abs(x + this.startingPoint[1]) / 2;
-        } else {
-            radius = Math.abs(y + this.startingPoint[2]) / 2;
-        }
+        this.updateCoordinates(x, y, true);
         for (let i = 0; i < this.circularPoints.length; i++) {
-            this.actualPointsPosition.push(vectorPlus(vectorMultiply(this.circularPoints[i], radius), this.center));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiply(this.circularPoints[i], this.size[1]), this.center));
         }
     }
 
