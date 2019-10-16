@@ -5,7 +5,16 @@ import { Drawing } from './i-drawing';
 
 const mockDrawings: Drawing[] = [
     { id: 1, name: 'house', thumbnail: null, tags: ['house', 'big'], svgs: [''] },
-    { id: 2, name: 'me', thumbnail: null, tags: ['small'], svgs: [''] },
+    {
+        id: 2, name: 'me', thumbnail: null, tags: [
+            'small',
+            'man',
+            'student',
+            'programmer',
+            'biiiiiiiiiiiiiiiiiiigwoooooopoooooooooooooooooord',
+        ]
+        , svgs: [''],
+    },
     { id: 3, name: 'me', thumbnail: null, tags: ['medium'], svgs: [''] },
     { id: 4, name: 'home', thumbnail: null, tags: ['house', 'new'], svgs: [''] },
     { id: 5, name: 'dog', thumbnail: null, tags: ['animal'], svgs: [''] },
