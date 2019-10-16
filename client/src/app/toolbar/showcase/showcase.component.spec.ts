@@ -13,7 +13,7 @@ describe('ShowcaseComponent', () => {
         TestBed.configureTestingModule({
             declarations: [ShowcaseComponent],
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {
@@ -38,10 +38,10 @@ describe('ShowcaseComponent', () => {
         const tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
         component.display(tool);
 
-        expect(tool.onPressed).toHaveBeenCalledTimes(1);
-        expect(tool.onMotion).toHaveBeenCalledTimes(Math.round((component.MAX - component.MIN) / component.STEP));
-        expect(tool.onReleased).toHaveBeenCalledTimes(1);
-        expect(svgService.addObject).toHaveBeenCalledTimes(1);
+        expect(tool.onPressed).toHaveBeenCalled();
+        expect(tool.onMotion).toHaveBeenCalled();
+        expect(tool.onReleased).toHaveBeenCalled()
+        expect(svgService.addObject).toHaveBeenCalled();
     });
 
     it('should return if service is undefined', () => {

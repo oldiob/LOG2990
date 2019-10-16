@@ -5,29 +5,24 @@ describe('BucketTool', () => {
     const PRIMARY = '#000';
     const SECONDARY = '#fff';
 
-    const svgInterface = jasmine.createSpyObj('SVGInterface',
-        ['setPrimary', 'setSecondary']);
-
-    const svgService = jasmine.createSpyObj('SVGService', ['findAt']);
-    svgService.findAt.and.returnValue(svgInterface);
-
-    const svgService2 = jasmine.createSpyObj('SVGService', ['findAt']);
-    svgService2.findAt.and.returnValue(null);
-
-    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
-    paletteService.getPrimary.and.returnValue(PRIMARY);
-    paletteService.getSecondary.and.returnValue(SECONDARY);
-
-    const workzoneService = jasmine.createSpyObj('WorkZoneService', ['updateBackgroundColor']);
-
+    let svgInterface: any;
+    let svgService: any;
+    let paletteService: any;
     let bucket: BucketTool;
-    let bucket2: BucketTool;
     const left: MouseEvent = new MouseEvent('mousedown', { button: 0 });
     const right: MouseEvent = new MouseEvent('mousedown', { button: 2 });
 
     beforeEach(() => {
+        svgInterface = jasmine.createSpyObj('SVGInterface',
+            ['setPrimary', 'setSecondary']);
+
+        svgService = jasmine.createSpyObj('SVGService', ['findAt']);
+        svgService.findAt.and.returnValue(svgInterface);
+
+        paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+        paletteService.getPrimary.and.returnValue(PRIMARY);
+        paletteService.getSecondary.and.returnValue(SECONDARY);
         bucket = new BucketTool(svgService, paletteService);
-        bucket2 = new BucketTool(svgService2, paletteService);
         left.svgX = Math.floor(Math.random() * 1000);
         left.svgY = Math.floor(Math.random() * 1000);
         right.svgX = Math.floor(Math.random() * 1000);
@@ -50,13 +45,6 @@ describe('BucketTool', () => {
         expect(svgService.findAt).toHaveBeenCalledWith(right.svgX, right.svgY);
         expect(paletteService.getSecondary).toHaveBeenCalled();
         expect(svgInterface.setSecondary).toHaveBeenCalledWith(SECONDARY);
-    });
-
-    it('should change the workzone background color on left click', () => {
-        expect(bucket2.onPressed(left)).toBeNull();
-        expect(svgService2.findAt).toHaveBeenCalledWith(left.svgX, left.svgY);
-        expect(paletteService.getPrimary).toHaveBeenCalled();
-        expect(workzoneService.updateBackgroundColor).toHaveBeenCalledWith(PRIMARY);
     });
 
     it('should do nothing on motion', () => {

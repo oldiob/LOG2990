@@ -2,15 +2,19 @@ import { RectangleTool } from './rectangle';
 
 describe('RectangleTool', () => {
 
-    const element = jasmine.createSpyObj('SVGRect', ['addPoint', 'setWidth', 'setCursor']);
-    const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-    const rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
-    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+    let element: any;
+    let renderer: any;
+    let rendererProvider: any;
+    let paletteService: any;
 
     let rectangle: RectangleTool;
     let event: MouseEvent;
 
     beforeEach(() => {
+        element = jasmine.createSpyObj('SVGRect', ['addPoint', 'setWidth', 'setCursor', 'release']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+        rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
+        paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
         rendererProvider.renderer = renderer;
         rectangle = new RectangleTool(rendererProvider, paletteService);
         rectangle.element = element;
@@ -25,14 +29,14 @@ describe('RectangleTool', () => {
 
     it('should create new rect when onPressed', () => {
         rectangle.element = element;
-        const returnElement = rectangle.onPressed(event);
+        expect((): any => { return rectangle.onPressed(event); }).toBeTruthy();
         expect(rectangle.element).toBeTruthy();
-        expect(returnElement).toBeTruthy();
     });
 
-    it('should set element to null when OnRelased', () => {
+    it('should set element to null when OnReleased', () => {
         rectangle.onReleased(event);
         expect(rectangle.element).toBeNull();
+        expect(element.release).toHaveBeenCalled();
     });
 
     it('should set cursor with proper parameter when OnMotion', () => {

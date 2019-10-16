@@ -17,23 +17,33 @@ describe('SVGService', () => {
     const Y = Math.random() * 1000;
     const R = Math.random() * 1000;
 
-    const obj = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
-    obj.isAt.and.returnValue(false);
-    obj.isIn.and.returnValue(false);
-    const objAt = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
-    objAt.isAt.and.returnValue(true);
-    objAt.isIn.and.returnValue(false);
-    const objIn = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
-    objIn.isAt.and.returnValue(false);
-    objIn.isIn.and.returnValue(true);
-
-    const renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild']);
-    const provider = new MockProvider(renderer);
-    const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
-
+    let obj: any;
+    let objAt: any;
+    let objIn: any;
+    let renderer: any;
+    let provider: any;
+    let elem: any;
+    let entry: any;
     let service: SVGService;
 
     beforeEach(() => {
+        obj = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+        obj.isAt.and.returnValue(false);
+        obj.isIn.and.returnValue(false);
+        objAt = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+        objAt.isAt.and.returnValue(true);
+        objAt.isIn.and.returnValue(false);
+        objIn = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+        objIn.isAt.and.returnValue(false);
+        objIn.isIn.and.returnValue(true);
+
+        renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'createElement',
+            'setAttribute']);
+        provider = new MockProvider(renderer);
+        elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild', 'removeChild', 'firstChild']);
+        elem.hasChildNodes.and.returnValue(false);
+        entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+        entry.nativeElement = elem;
         service = new SVGService(provider);
         service.entry = entry;
     });
@@ -69,15 +79,18 @@ describe('SVGService', () => {
         expect(objAt.isAt).toHaveBeenCalledWith(X, Y);
     });
 
-    it('should iterate over all objects and return the one in circle (x,y) or null', () => {
+    it('should iterate over all objects and return the one in circle (x,y, r) or null', () => {
         expect(service.findIn(X, Y, R)).toBe(null);
         service.addObject(objIn);
         expect(service.findIn(X, Y, R)).toBe(objIn);
-        expect(objAt.isAt).toHaveBeenCalledWith(X, Y, R);
+        expect(objIn.isIn).toHaveBeenCalledWith(X, Y, R);
     });
 
     it('should clear the draw area', () => {
-        // TODO - Implement me
+        service.clearDrawArea();
+        expect(elem.hasChildNodes).toHaveBeenCalled();
+        expect(elem.removeChild).not.toHaveBeenCalled();
+        expect(renderer.appendChild).toHaveBeenCalled();
     });
 
 });

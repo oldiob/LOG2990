@@ -14,122 +14,124 @@ describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
     let workZoneService: WorkZoneService;
-    let mockSvgService: SVGService;
     let svgService: SVGService;
     let drawAreaService: DrawAreaService;
+    const elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild']);
+    elem.hasChildNodes.and.returnValue(false);
     const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+    entry.nativeElement = elem;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-        imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
-        MatDialogModule, FormsModule, ReactiveFormsModule],
-        declarations: [ NewDrawingComponent],
-        providers: [SVGService, DrawAreaService,
-                   { provide: MAT_DIALOG_DATA, useValue: [] },
-        ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      })
-      .compileComponents();
+            imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
+                MatDialogModule, FormsModule, ReactiveFormsModule],
+            declarations: [NewDrawingComponent],
+            providers: [SVGService, DrawAreaService,
+                { provide: MAT_DIALOG_DATA, useValue: [] },
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        })
+            .compileComponents();
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(NewDrawingComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-      svgService = TestBed.get(SVGService);
-      drawAreaService = new DrawAreaService();
-      workZoneService = new WorkZoneService();
-      svgService.entry = entry;
-      mockSvgService = jasmine.createSpyObj('SVGService', ['entry', 'clearDrawArea']);
-      component.ngOnInit();
+        fixture = TestBed.createComponent(NewDrawingComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        svgService = TestBed.get(SVGService);
+        drawAreaService = new DrawAreaService();
+        workZoneService = new WorkZoneService();
+        svgService.entry = entry;
+        component.ngOnInit();
     });
 
     it('should create a new drawing component', () => {
-    expect(component).toBeTruthy();
-  });
+        expect(component).toBeTruthy();
+    });
 
     it('should create a form', () => {
-    expect(component.newDrawingFrom).toBeTruthy();
-  });
+        expect(component.newDrawingFrom).toBeTruthy();
+    });
 
     it('#createForm should create a width, height and background color form input', () => {
-    expect(component.newDrawingFrom.contains('width')).toBeTruthy();
-    expect(component.newDrawingFrom.contains('height')).toBeTruthy();
-    expect(component.newDrawingFrom.contains('backgroundColor')).toBeTruthy();
-  });
+        expect(component.newDrawingFrom.contains('width')).toBeTruthy();
+        expect(component.newDrawingFrom.contains('height')).toBeTruthy();
+        expect(component.newDrawingFrom.contains('backgroundColor')).toBeTruthy();
+    });
 
     it('should get width, height and background form input values', () => {
-    expect(component.width).toBe(component.newDrawingFrom.controls.width.value);
-    expect(component.height).toBe(component.newDrawingFrom.controls.height.value);
-    expect(component.backgroundColor).toBe(component.newDrawingFrom.controls.backgroundColor.value);
-  });
+        expect(component.width).toBe(component.newDrawingFrom.controls.width.value);
+        expect(component.height).toBe(component.newDrawingFrom.controls.height.value);
+        expect(component.backgroundColor).toBe(component.newDrawingFrom.controls.backgroundColor.value);
+    });
 
     it('#onSubmit should update draw area height, width and background color', () => {
-      const WIDTH = component.width;
-      const HEIGHT = component.height;
-      const BACKGROUND_COLOR = component.backgroundColorHEX;
-      workZoneService.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
-      drawAreaService.dirty();
-      mockSvgService.clearDrawArea();
-      component.onSubmit();
-      workZoneService.currentWidth.subscribe(
-        (currentHeight) => expect(currentHeight).toBe(WIDTH),
-      );
-      workZoneService.currentHeight.subscribe(
-        (currentHeight) => expect(currentHeight).toBe(HEIGHT),
-      );
-      workZoneService.currentBackgroundColor.subscribe(
-        (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
-    );
-  });
+        const WIDTH = component.width;
+        const HEIGHT = component.height;
+        const BACKGROUND_COLOR = component.backgroundColorHEX;
+        workZoneService.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
+        drawAreaService.dirty();
+        svgService.clearDrawArea();
+        component.onSubmit();
+        workZoneService.currentWidth.subscribe(
+            (currentHeight) => expect(currentHeight).toBe(WIDTH),
+        );
+        workZoneService.currentHeight.subscribe(
+            (currentHeight) => expect(currentHeight).toBe(HEIGHT),
+        );
+        workZoneService.currentBackgroundColor.subscribe(
+            (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
+        );
+    });
 
     it('should change background color form control', () => {
-    const BACKGROUND_COLOR = '#CCCCCC';
-    component.chooseBgColor(BACKGROUND_COLOR);
-    expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR);
+        const BACKGROUND_COLOR = '#CCCCCC';
+        component.chooseBgColor(BACKGROUND_COLOR);
+        expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR);
 
-  });
+    });
 
     it('should fetch default dimensions from work zone service and update its default dimensions', () => {
-    workZoneService.currentMaxWidth.subscribe((maxWidth) => {
-        component.newDrawingFrom.controls.width.setValue(maxWidth);
-        expect(component.width).toBe(maxWidth);
+        workZoneService.currentMaxWidth.subscribe((maxWidth) => {
+            component.newDrawingFrom.controls.width.setValue(maxWidth);
+            expect(component.width).toBe(maxWidth);
+        });
+        workZoneService.currentMaxWidth.subscribe((maxHeight) => {
+            component.newDrawingFrom.controls.height.setValue(maxHeight);
+            expect(component.height).toBe(maxHeight);
+        });
     });
-    workZoneService.currentMaxWidth.subscribe((maxHeight) => {
-        component.newDrawingFrom.controls.height.setValue(maxHeight);
-        expect(component.height).toBe(maxHeight);
-    });
-  });
 
     it('should return true if the create button is clicked', () => {
-      component.onCreateClick();
-      expect(component.displaySaveError).toBe(true);
+        component.onCreateClick();
+        expect(component.displaySaveError).toBe(true);
     });
 
     it('should return false if the create button is not clicked', () => {
-      expect(component.displaySaveError).toBe(false);
+        expect(component.displaySaveError).toBe(false);
     });
 
     it('should update HEX to RGBA', () => {
-      const BACKGROUND_COLOR_HEX = '#FFFFFF';
-      const BACKGROUND_COLOR_RGBA = 'rgba(255, 255, 255, 1)';
-      component.chooseBgColor(BACKGROUND_COLOR_HEX);
-      component.onColorRGBAChange();
-      component.onColorHEXChange();
-      expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR_RGBA);
+        const BACKGROUND_COLOR_HEX = '#FFFFFF';
+        const BACKGROUND_COLOR_RGBA = 'rgba(255, 255, 255, 1)';
+        component.chooseBgColor(BACKGROUND_COLOR_HEX);
+        component.onColorRGBAChange();
+        component.onColorHEXChange();
+        expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR_RGBA);
     });
 
     it('should not get width error message', () => {
-      expect(component.getWidthErrorMessage()).toBe('');
+        expect(component.getWidthErrorMessage()).toBe('');
     });
 
     it('should not get height error message', () => {
-      component.getHeightErrorMessage();
-      expect(component.getHeightErrorMessage()).toBe('');
+        component.getHeightErrorMessage();
+        expect(component.getHeightErrorMessage()).toBe('');
     });
 
     it('should get width error message', () => {
-      component.newDrawingFrom.controls.width.setValue('');
-      expect(component.getWidthErrorMessage()).toBe('You must enter a width');
+        component.newDrawingFrom.controls.width.setValue('');
+        expect(component.getWidthErrorMessage()).toBe('You must enter a width');
     });
 
     it('should get height error message', () => {
@@ -138,46 +140,46 @@ describe('NewDrawingComponent', () => {
     });
 
     it('should get save error message', () => {
-      component.getSaveErrorMessage();
-      expect(component.getSaveErrorMessage()).toBe('Are you sure want to abandon your unsaved work?');
+        component.getSaveErrorMessage();
+        expect(component.getSaveErrorMessage()).toBe('Are you sure want to abandon your unsaved work?');
     });
 
     it('should be true if it shows color picker', () => {
-      component.showColorPicker();
-      expect(component.isShowColorPicker).toBe(true);
+        component.showColorPicker();
+        expect(component.isShowColorPicker).toBe(true);
     });
 
     it('should be true if it shows color picker', () => {
-      let color: Color;
-      color = new Color(255, 255, 255, 1);
-      component.onColorPick(color);
-      expect(component.newDrawingFrom.controls.red.value).toBe(255);
-      expect(component.newDrawingFrom.controls.green.value).toBe(255);
-      expect(component.newDrawingFrom.controls.blue.value).toBe(255);
-      expect(component.newDrawingFrom.controls.alpha.value).toBe(1);
+        let color: Color;
+        color = new Color(255, 255, 255, 1);
+        component.onColorPick(color);
+        expect(component.newDrawingFrom.controls.red.value).toBe(255);
+        expect(component.newDrawingFrom.controls.green.value).toBe(255);
+        expect(component.newDrawingFrom.controls.blue.value).toBe(255);
+        expect(component.newDrawingFrom.controls.alpha.value).toBe(1);
     });
 
     it('should return false if height value did not change', () => {
-      component.onHeightChange();
-      expect(component.newDrawingFrom.controls.height.dirty).toBe(false);
+        component.onHeightChange();
+        expect(component.newDrawingFrom.controls.height.dirty).toBe(false);
     });
 
     it('should return true if height value change', () => {
-      component.newDrawingFrom.controls.height.setValue(0);
-      component.newDrawingFrom.controls.height.markAsDirty();
-      component.onHeightChange();
-      expect(component.newDrawingFrom.controls.height.dirty).toBeTruthy();
+        component.newDrawingFrom.controls.height.setValue(0);
+        component.newDrawingFrom.controls.height.markAsDirty();
+        component.onHeightChange();
+        expect(component.newDrawingFrom.controls.height.dirty).toBeTruthy();
     });
 
     it('should return false if width value did not change', () => {
-      component.onWidthChange();
-      expect(component.newDrawingFrom.controls.width.dirty).toBe(false);
+        component.onWidthChange();
+        expect(component.newDrawingFrom.controls.width.dirty).toBe(false);
     });
 
     it('should return true if width value change', () => {
-      component.newDrawingFrom.controls.width.setValue(0);
-      component.newDrawingFrom.controls.width.markAsDirty();
-      component.onWidthChange();
-      expect(component.newDrawingFrom.controls.width.dirty).toBeTruthy();
+        component.newDrawingFrom.controls.width.setValue(0);
+        component.newDrawingFrom.controls.width.markAsDirty();
+        component.onWidthChange();
+        expect(component.newDrawingFrom.controls.width.dirty).toBeTruthy();
     });
 });

@@ -2,15 +2,19 @@ import { PencilTool } from './pencil';
 
 describe('PencilTool', () => {
 
-    const element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
-    const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-    const rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
-    const paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+    let element: any;
+    let renderer: any;
+    let rendererProvider: any;
+    let paletteService: any;
 
     let pencil: PencilTool;
     let event: MouseEvent;
 
     beforeEach(() => {
+        element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+        rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
+        paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
         rendererProvider.renderer = renderer;
         pencil = new PencilTool(rendererProvider, paletteService);
         event = new MouseEvent('mousedown');
@@ -23,10 +27,10 @@ describe('PencilTool', () => {
     });
 
     it('should keep track of a newly created SVGPencil', () => {
-        pencil.element = element;
-        const returnElement = pencil.onPressed(event);
+        pencil.element = null;
+        expect(pencil.onPressed(event)).toBeTruthy();
         expect(pencil.element).toBeTruthy();
-        expect(returnElement).toBeTruthy();
+        expect(pencil.onPressed(event)).toBeNull();
     });
 
     it('should add a point to the newly created element', () => {
@@ -37,7 +41,8 @@ describe('PencilTool', () => {
 
     it('should do nothing on motion if no element is selected', () => {
         pencil.element = null;
-        expect(() => { pencil.onMotion(event); }).toThrow();
+        pencil.onMotion(event);
+        expect(element.addPoint).not.toHaveBeenCalled();
     });
 
     it('should loose reference to the newly created element when released', () => {
