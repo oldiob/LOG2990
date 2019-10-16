@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 import { ToolOptionComponent } from './tool-option.component';
@@ -80,7 +81,7 @@ describe('ToolOptionComponent', () => {
   it('should set angle of the current tool on display', () => {
     const angle = 50;
     component.setAngle(angle);
-    expect(component.currentTool.angle).toEqual(angle);
+    expect((component.currentTool as StampTool).angle).toEqual(angle);
     expect(showcase.display).toHaveBeenCalled();
   });
 

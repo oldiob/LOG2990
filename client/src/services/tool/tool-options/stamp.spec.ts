@@ -43,4 +43,10 @@ describe('StampTool', () => {
         stamp.onMotion(event);
         expect(element.setCursor).not.toHaveBeenCalled();
     });
+
+    it('should return true when it is on wheel', () => {
+        const wheelEvent = new WheelEvent('wheel');
+        stamp.onWheel(wheelEvent);
+        expect(stamp.onWheel).toBeTruthy();
+    });
 });
