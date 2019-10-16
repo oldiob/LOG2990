@@ -1,5 +1,5 @@
 <div class="title">Tools</div>
-<div class="buttons-wrapper">
+<div *ngIf="currentTool === brush || currentTool === pencil || currentTool === line" class="buttons-wrapper">
   <div class="btn-color-wrapper">
     <button mat-raised-button class="btn btn-primary" (click)="togglePrimaryColorPicker()"
       [ngStyle]="setPrimaryColor()">
@@ -43,5 +43,19 @@
       (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
       {{i + 1}}
     </a>
+  </div>
+</div>
+
+<div *ngIf="currentTool === stamp" class="separation">
+  <app-angle [angle] ="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
+</div>
+
+<div *ngIf="currentTool === stamp" class="separation">
+  <div class="text">Stamp</div>
+  <div class="tools">
+    <div *ngFor="let image of imagePaths" class="btn-texture texture-number"
+      (click)="selectStamp(image)"  [class.selected-tool]="stamp === currentStamp">
+      <img class="emoji" width="50px" [src]="image">
+  </div>
   </div>
 </div>

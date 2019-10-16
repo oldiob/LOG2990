@@ -11,6 +11,7 @@ declare type callback = () => void;
     providedIn: 'root',
 })
 export class LineTool implements ITool {
+
     element: SVGLine | null = null;
     width: number = 1;
 

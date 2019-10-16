@@ -7,6 +7,7 @@ import {
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngleComponent } from './app/angle/angle.component';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
@@ -38,6 +39,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
         GalleryOptionComponent,
         WidthComponent,
         ShowcaseComponent,
+        AngleComponent,
     ],
     imports: [
         BrowserModule,
