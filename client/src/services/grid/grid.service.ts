@@ -13,7 +13,7 @@ export class GridService {
     static readonly MAX_OPACITY = 1.0;
 
     ref: ElementRef;
-    _step: number = GridService.DEFAULT_STEP;
+    mStep: number = GridService.DEFAULT_STEP;
     renderer: Renderer2;
     width: number;
     height: number;
@@ -24,8 +24,8 @@ export class GridService {
 
     set step(step: number) {
         if (GridService.MIN_STEP <= step && step <= GridService.MAX_STEP) {
-            if (step !== this._step) {
-                this._step = step;
+            if (step !== this.mStep) {
+                this.mStep = step;
                 this.draw();
             }
         }
@@ -40,14 +40,14 @@ export class GridService {
 
     draw(): void {
         let ctx: any = this.ref.nativeElement;
-        const max_i = this.width / this._step;
-        const max_j = this.height / this._step;
+        const max_i = this.width / this.mStep;
+        const max_j = this.height / this.mStep;
 
         while (ctx.firstChild) {
             ctx.removeChild(ctx.firstChild);
         }
         for (let i = 0; i < max_i; ++i) {
-            const pos_x = i * this._step;
+            const pos_x = i * this.mStep;
             const line = this.renderer.createElement('line', 'svg');
             this.renderer.setAttribute(line, 'x1', `${pos_x}`);
             this.renderer.setAttribute(line, 'y1', `0`);
@@ -58,7 +58,7 @@ export class GridService {
             this.renderer.appendChild(ctx, line);
         }
         for (let j = 0; j < max_j; ++j) {
-            const pos_y = j * this._step;
+            const pos_y = j * this.mStep;
             const line = this.renderer.createElement('line', 'svg');
             this.renderer.setAttribute(line, 'x1', `0`);
             this.renderer.setAttribute(line, 'y1', `${pos_y}`);
