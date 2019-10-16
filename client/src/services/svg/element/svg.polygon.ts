@@ -19,7 +19,7 @@ export class SVGPolygon extends AbsSVGShape {
 
         const angleBetweenCorners = 2 * Math.PI / nSides;
         for (let i = 0; i < nSides; i++) {
-            this.circularPoints.push([Math.cos(i * angleBetweenCorners), -Math.sin(i * angleBetweenCorners)]);
+            this.circularPoints.push([Math.sin(i * angleBetweenCorners), -Math.cos(i * angleBetweenCorners)]);
         }
     }
 
@@ -69,6 +69,7 @@ export class SVGPolygon extends AbsSVGShape {
     setCursor(x: number, y: number) {
         // you habe your this.circularPoints :
         //      a centered Polygon corner positions of radius 1;
+        this.actualPointsPosition = [];
         this.updateCoordinates(x, y, true);
         for (const circularPoint of this.circularPoints) {
             this.actualPointsPosition.push(vectorPlus(vectorMultiply(circularPoint, this.size[1]), this.center));
