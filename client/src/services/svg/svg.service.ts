@@ -57,10 +57,12 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
-        this.renderer.appendChild(this.entry.nativeElement, this.createFilters());
+        this.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
+        this.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
+        this.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
     }
 
-    private createFilters() {
+    private createBlurFilter() {
         const renderer = this.renderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
@@ -73,5 +75,47 @@ export class SVGService {
         renderer.appendChild(filterBlur, filterBlurContent);
 
         return filterBlur;
+    }
+    private createOpacityFilter() {
+        const renderer = this.renderer;
+        const filterOpacity = renderer.createElement('filter', 'svg');
+        renderer.setAttribute(filterOpacity, 'id', 'opacity');
+        renderer.setAttribute(filterOpacity, 'x', '-20');
+        renderer.setAttribute(filterOpacity, 'width', '200');
+        renderer.setAttribute(filterOpacity, 'y', '-20');
+        renderer.setAttribute(filterOpacity, 'height', '200');
+        const filterContent = renderer.createElement('feComponentTransfer', 'svg');
+
+        const filterSubContent = renderer.createElement('feFuncA', 'svg');
+        renderer.setAttribute(filterSubContent, 'type', 'table');
+        renderer.setAttribute(filterSubContent, 'tableValues', '0 0.5');
+        renderer.appendChild(filterContent, filterSubContent);
+
+        renderer.appendChild(filterOpacity, filterContent);
+
+        return filterOpacity;
+  }
+    private createTurbulenceFilter() {
+        const renderer = this.renderer;
+        const filterTurbulence = renderer.createElement('filter', 'svg');
+        renderer.setAttribute(filterTurbulence, 'id', 'turbulence');
+
+        const filterContent = renderer.createElement('feTurbulence', 'svg');
+        renderer.setAttribute(filterContent, 'type', 'turbulence');
+        renderer.setAttribute(filterContent, 'baseFrequency', '0.05');
+        renderer.setAttribute(filterContent, 'numOctaves', '2');
+        renderer.setAttribute(filterContent, 'result', 'turbulence');
+
+        const filterSubContent = renderer.createElement('feDisplacementMap', 'svg');
+        renderer.setAttribute(filterSubContent, 'in2', 'turbulence');
+        renderer.setAttribute(filterSubContent, 'in', 'SourceGraphic');
+        renderer.setAttribute(filterSubContent, 'scale', '50');
+        renderer.setAttribute(filterSubContent, 'xChannelSelector', 'R');
+        renderer.setAttribute(filterSubContent, 'yChannelSelector', 'G');
+
+        renderer.appendChild(filterTurbulence, filterContent);
+        renderer.appendChild(filterTurbulence, filterSubContent);
+
+        return filterTurbulence;
     }
 }
