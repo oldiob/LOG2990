@@ -6,9 +6,9 @@ import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
-import { RandomCircleTexture } from 'src/services/svg/element/texture/random-circle';
+import { OpacityTexture } from 'src/services/svg/element/texture/opacity';
+import { RandomLineTexture } from 'src/services/svg/element/texture/random-line';
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
-import { RectTexture } from 'src/services/svg/element/texture/rect';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
@@ -65,13 +65,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
                 public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
-        this.textures = [new BlurTexture(), new CircleTexture(), new RectTexture(), new RandomCircleTexture(), new RandomRectTexture()];
+        this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new RandomLineTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
                            './assets/images/bec.png', './assets/images/shade.png'];
         this.currentPath = '';
         this.currentStamp = this.stamps[0];
         this.stamp.stampTexture = this.currentStamp;
+
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 

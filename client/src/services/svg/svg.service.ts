@@ -57,10 +57,11 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
-        this.renderer.appendChild(this.entry.nativeElement, this.createFilters());
+        this.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
+        this.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
     }
 
-    private createFilters() {
+    private createBlurFilter() {
         const renderer = this.renderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
@@ -74,4 +75,23 @@ export class SVGService {
 
         return filterBlur;
     }
+    private createOpacityFilter() {
+      const renderer = this.renderer;
+      const filterBlur = renderer.createElement('filter', 'svg');
+      renderer.setAttribute(filterBlur, 'id', 'opacity');
+      renderer.setAttribute(filterBlur, 'x', '-20');
+      renderer.setAttribute(filterBlur, 'width', '200');
+      renderer.setAttribute(filterBlur, 'y', '-20');
+      renderer.setAttribute(filterBlur, 'height', '200');
+      const filterBlurContent = renderer.createElement('feComponentTransfer', 'svg');
+
+      const filterSubContent = renderer.createElement('feFuncA', 'svg');
+      renderer.setAttribute(filterSubContent, 'type', 'table');
+      renderer.setAttribute(filterSubContent, 'tableValues', '0 0.5');
+      renderer.appendChild(filterBlurContent, filterSubContent);
+
+      renderer.appendChild(filterBlur, filterBlurContent);
+
+      return filterBlur;
+  }
 }
