@@ -75,9 +75,6 @@ export class DrawAreaComponent implements OnInit {
         this.svgService.clearDrawArea();
     }
 
-    ngDoCheck() {
-    }
-
     setCurrentStyles() {
         return {
             height: `${this.height}px`,
