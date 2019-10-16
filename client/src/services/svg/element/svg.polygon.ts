@@ -57,7 +57,7 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     onShift(isShift: boolean) {
-        // nothing
+        // nothing happens
     }
 
     isIn(x: number, y: number, r: number): boolean {
@@ -65,34 +65,21 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        this.renderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
-        this.renderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
-        this.renderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
-        this.renderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
+        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
 
     setCursor(x: number, y: number) {
         // you habe your this.circularPoints :
         //      a centered Polygon corner positions of radius 1;
         let radius: number;
-        const middleX = Math.abs(x + this.startingPoint[1]) / 2;
-        const middleY = Math.abs(y + this.startingPoint[2]) / 2;
-        const middlePoint: number[] = [middleX, middleY];
         if (Math.abs(x - this.startingPoint[1]) < y - this.startingPoint[2]) {
             radius = Math.abs(x + this.startingPoint[1]) / 2;
         } else {
             radius = Math.abs(y + this.startingPoint[2]) / 2;
         }
         for (let i = 0; i < this.circularPoints.length; i++) {
-            this.actualPointsPosition.push(vectorPlus(vectorMultiply(this.circularPoints[i], radius), middlePoint));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiply(this.circularPoints[i], radius), this.center));
         }
-
-        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
-        // you have this.startingPoint :
-        //      position of the spot what you clicked to create the shape;
-
-        // use maths to transform those 'local' points to the global scale
-        // you have some vector functions in src/utils/math.ts
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4

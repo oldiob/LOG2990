@@ -23,7 +23,7 @@ export class PolygonTool extends AbsShapeTool {
         this.nSides = 3;
     }
 
-    onPressed(event: MouseEvent): SVGRect | null {
+    onPressed(event: MouseEvent): SVGPolygon | null {
         this.element = new SVGPolygon(event.svgX, event.svgY, this.nSides, this.traceType, this.renderer);
         this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
         return this.element;

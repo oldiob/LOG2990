@@ -5,8 +5,8 @@ import { AbsShapeTool, TraceType } from 'src/services/tool/tool-options/abs-shap
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
-// import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 
@@ -22,6 +22,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     images = new Map<ITool, string>([
         [this.rectangleTool, 'rectangle.png'],
         [this.ellipseTool, 'ellipse.png'],
+        [this.polygonTool, 'polygon.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -30,6 +31,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     tools: AbsShapeTool[];
     currentTool: AbsShapeTool;
     shapeForm: FormGroup;
+    isPolygon = false;
 
     isShowPrimary: boolean;
     isShowSecondary: boolean;
@@ -41,11 +43,12 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
+        private polygonTool: PolygonTool,
         private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.tools = [this.rectangleTool, this.ellipseTool];
+        this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
         this.currentTool = this.tools[0];
         this.createForm();
 
@@ -68,6 +71,11 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.toolService.currentTool = tool;
 
         this.showcase.display(this.currentTool);
+        if (this.currentTool instanceof PolygonTool ) {
+            this.isPolygon = true;
+        } else {
+            this.isPolygon = false;
+        }
     }
 
     getFilesource(tool: AbsShapeTool): string {
