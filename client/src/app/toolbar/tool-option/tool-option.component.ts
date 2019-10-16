@@ -7,8 +7,8 @@ import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
 import { OpacityTexture } from 'src/services/svg/element/texture/opacity';
-import { RandomLineTexture } from 'src/services/svg/element/texture/random-line';
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
+import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
@@ -65,7 +65,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
                 public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
-        this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new RandomLineTexture(), new RandomRectTexture()];
+        this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
                            './assets/images/bec.png', './assets/images/shade.png'];
