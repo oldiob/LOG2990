@@ -1,3 +1,4 @@
+import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -5,6 +6,7 @@ import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -52,13 +54,13 @@ export class ToolbarComponent implements OnInit {
     }
 
     openGalleryOption(): void {
-        this.dialogService.openGallery();
+        this.dialogService.open(GalleryOptionComponent);
     }
 
     newDrawingOption(): void {
         if (!this.isDialogOpened) {
             this.isDialogOpened = true;
-            this.dialogService.openNewDrawing().afterClosed().subscribe(() => {
+            this.dialogService.open(NewDrawingComponent).afterClosed().subscribe(() => {
                 this.isDialogOpened = false;
             });
         }

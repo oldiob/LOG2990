@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { NewDrawingComponent } from './../new-drawing/new-drawing.component';
 
 @Component({
   selector: 'app-poly-dessin',
@@ -24,11 +25,11 @@ export class PolyDessinComponent implements OnInit {
 
       this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
         if (isClosedWelcome) {
-          this.dialogService.openNewDrawing();
+          this.dialogService.open(NewDrawingComponent);
         }
       });
     } else {
-      this.dialogService.openNewDrawing();
+      this.dialogService.open(NewDrawingComponent);
     }
   }
 
