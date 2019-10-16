@@ -3,7 +3,6 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
-import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 
@@ -29,13 +28,10 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
 
-    @ViewChild(GalleryOptionComponent, { static: true })
-    galleryOption: GalleryOptionComponent;
-
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-    isDialogOpened = false;
+    isDialogOpened: boolean;
     optionDisplayed: boolean;
 
     constructor(
@@ -43,20 +39,23 @@ export class ToolbarComponent implements OnInit {
         private drawAreaService: DrawAreaService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.galleryOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
+        this.isDialogOpened = false;
     }
 
     selectOption(option: IOption<any>): void {
-        this.galleryOption.clearFilters();
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();
     }
 
+    openGalleryOption(): void {
+        this.dialogService.openGallery();
+    }
+
     newDrawingOption(): void {
-        this.galleryOption.clearFilters();
         if (!this.isDialogOpened) {
             this.isDialogOpened = true;
             this.dialogService.openNewDrawing().afterClosed().subscribe(() => {
@@ -66,17 +65,11 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        this.galleryOption.clearFilters();
         this.drawAreaService.save();
     }
 
     getImage(option: IOption<any>): string {
         return this.FILE_LOCATION + option.getImage();
-    }
-
-    @HostListener('window: keydown', ['$event'])
-    preventDefaults(event: KeyboardEvent) {
-        event.preventDefault();
     }
 
     @HostListener('window: keyup', ['$event'])

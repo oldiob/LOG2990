@@ -72,6 +72,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
     entryComponents: [
         EntryPointComponent,
         NewDrawingComponent,
+        GalleryOptionComponent,
     ],
 })
 

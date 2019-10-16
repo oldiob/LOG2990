@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
+import { GalleryOptionComponent } from './../../app/toolbar/gallery-option/gallery-option.component';
 
 @Injectable({
     providedIn: 'root',
@@ -16,7 +17,7 @@ export class DialogService {
         return this.isClosedWelcome.asObservable();
     }
 
-    openNewDrawing(): any {
+    openNewDrawing(): MatDialogRef<NewDrawingComponent> {
         return this.dialog.open(NewDrawingComponent);
     }
 
@@ -32,5 +33,9 @@ export class DialogService {
                 this.isClosedWelcome.next(isClosed);
             }
         });
+    }
+
+    openGallery(): MatDialogRef<GalleryOptionComponent> {
+        return this.dialog.open(GalleryOptionComponent);
     }
 }
