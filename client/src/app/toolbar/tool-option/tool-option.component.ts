@@ -121,7 +121,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     setAngle(angle: number): void {
-        if (this.currentTool.angle !== null) {
+        // dumbass temporary solution
+        if (this.currentTool instanceof StampTool) {
             this.currentTool.angle = angle;
             this.showcase.display(this.currentTool);
         }

@@ -10,7 +10,7 @@ import { ITool } from './i-tool';
 })
 export class BucketTool implements ITool {
     width: null;
-    angle: null;
+
     constructor(private svgService: SVGService,
                 private paletteService: PaletteService) { }
 

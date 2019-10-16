@@ -7,9 +7,10 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class StampTool implements ITool {
-    // à changer
-    readonly BUTTON_FILENAME = 'brush.png';
-    readonly CURSOR_FILENAME: string = 'brush-cursor.svg';
+    private readonly MAX_ANGLE = 360;
+    private readonly MIN_ANGLE = 0;
+    private readonly MULTI_15 = 15;
+    private readonly DEGREE = 1;
 
     element: SVGStamp | null;
     currentPath: string;
@@ -36,5 +37,19 @@ export class StampTool implements ITool {
     }
     onReleased(event: MouseEvent): void {
         this.element = null;
+    }
+
+    onWheel(event: WheelEvent): boolean {
+        const changeAngle = event.altKey ? this.DEGREE : this.DEGREE * this.MULTI_15;
+        let newAngle = this.angle + Math.sign(event.deltaY) * changeAngle;
+
+        if (newAngle < this.MIN_ANGLE) {
+            newAngle += this.MAX_ANGLE;
+        } else if (newAngle > this.MAX_ANGLE) {
+            newAngle -= this.MAX_ANGLE;
+        }
+
+        this.angle = newAngle;
+        return true;
     }
 }
