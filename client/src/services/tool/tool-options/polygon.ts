@@ -2,46 +2,30 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
-import { IShapeTool, TraceType} from './i-shape-tool';
+import { TraceType, AbsShapeTool } from './abs-shape-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class PolygonTool implements IShapeTool {
-    readonly BUTTON_FILENAME: string = 'polygon.png';
-    readonly CURSOR_FILENAME: string = 'polygon-cursor.svg';
-
+export class PolygonTool extends AbsShapeTool {
     width: number;
     traceType: TraceType;
-
     nSides: number;
-
     element: SVGPolygon | null;
 
     protected renderer: Renderer2;
 
     constructor(rendererProvider: RendererProviderService, private paletteService: PaletteService) {
+        super();
         this.renderer = rendererProvider.renderer;
-        this.width = 1;
+        this.width = 5;
         this.traceType = TraceType.FillAndBorder;
-        this.nSides = 1;
+        this.nSides = 3;
     }
 
-    onPressed(event: MouseEvent): SVGPolygon {
-        this.element = new SVGPolygon(event.svgX, event.svgY, this.nSides, this.renderer);
-
-        this.element.setPrimary(this.paletteService.getPrimary());
-        this.element.setSecondary(this.paletteService.getSecondary());
-        this.element.setPointSize(this.width);
-        this.element.setTraceType(this.traceType);
+    onPressed(event: MouseEvent): SVGRect | null {
+        this.element = new SVGPolygon(event.svgX, event.svgY, this.nSides, this.traceType, this.renderer);
+        this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
         return this.element;
-    }
-    onReleased(event: MouseEvent): void {
-        this.element = null;
-    }
-    onMotion(event: MouseEvent): void {
-        if (this.element != null) {
-            this.element.setCursor(event.svgX, event.svgY);
-        }
     }
 }
