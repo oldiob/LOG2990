@@ -60,15 +60,15 @@ export class SVGLine implements SVGInterface {
 
                 this.marker = this.renderer.createElement('marker', 'svg');
                 this.renderer.setAttribute(this.marker, 'id', 'dot');
-                this.renderer.setAttribute(this.marker, 'refX', '25');
-                this.renderer.setAttribute(this.marker, 'refY', '25');
+                this.renderer.setAttribute(this.marker, 'refX', '0');
+                this.renderer.setAttribute(this.marker, 'refY', '0');
                 this.renderer.setAttribute(this.marker, 'markerWidth', '25');
                 this.renderer.setAttribute(this.marker, 'markerHeight', '25');
 
                 this.circle = this.renderer.createElement('circle', 'svg');
-                this.renderer.setAttribute(this.circle, 'cx', '12.5');
-                this.renderer.setAttribute(this.circle, 'cy', '12.5');
-                this.renderer.setAttribute(this.circle, 'r', '12.5');
+                this.renderer.setAttribute(this.circle, 'cx', '0');
+                this.renderer.setAttribute(this.circle, 'cy', '0');
+                this.renderer.setAttribute(this.circle, 'r', '25');
                 this.renderer.setAttribute(this.circle, 'fill', 'red');
 
                 this.renderer.appendChild(this.marker, this.circle);
