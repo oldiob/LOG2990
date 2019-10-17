@@ -1,6 +1,8 @@
 import { ITool } from './i-tool';
 import { Injectable, Renderer2 } from '@angular/core';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { SVGService } from 'src/services/svg/svg.service';
+import { PaletteService } from 'src/services/palette/palette.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,34 +19,29 @@ export class DropperTool implements ITool {
     canvasContext: CanvasRenderingContext2D;
 
     constructor(
-            rendererProvider: RendererProviderService,
-            //private svgService: SVGService,
+        rendererProvider: RendererProviderService,
+        private svgService: SVGService,
             /*private paletteService: PaletteService*/) {
         this.renderer = rendererProvider.renderer;
     }
 
     onPressed(event: MouseEvent): null {
-        const canvas = document.createElement('canvas');
+        const canvas = this.renderer.createElement('canvas');
 
-        const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
+        const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
-        //const svg = this.svgService.entry.nativeElement;
-        //const svgInner: string = svg.outerHTML;
+        const svgOuterHTML = this.svgService.entry.nativeElement.outerHTML;
 
-        var svgImage: HTMLImageElement = new Image(100, 100);
-        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa('<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#aaaaaa"/></svg>');
+        const svgImage: HTMLImageElement = new Image();
+        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
 
-        function drawBitmap() {
-            console.log('drawing bitmap');
+        const setColor = (): void => {
+            ctx.drawImage(svgImage, 0, 0);
+            console.log(svgImage.width, svgImage.height);
+            console.log(ctx.getImageData(event.svgX, event.svgY, 1, 1).data);
+        };
 
-            if (ctx){
-                ctx.drawImage(svgImage, 0, 0);
-                console.log(ctx.getImageData(0, 0, 10, 10).data);
-            }
-        }
-
-        console.log('waiting to draw');
-        svgImage.onload = drawBitmap;
+        svgImage.onload = setColor;
 
         return null;
     }
