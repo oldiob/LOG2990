@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Message } from '../../../../common/communication/message';
 import { DialogService } from '../dialog/dialog.service';
 import { IndexService } from '../index/index.service';
-import { WebClientService } from '../web-client/web-client.service'
+import { WebClientService } from '../web-client/web-client.service';
 
 @Injectable({
     providedIn: 'root',
