@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Message } from '../../../../common/communication/message';
 import { DialogService } from '../dialog/dialog.service';
 import { IndexService } from '../index/index.service';
-import { WebClientService } from '../web-client/web-client.service'
+import { WebClientService } from '../web-client/web-client.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,16 +31,15 @@ export class DrawAreaService {
 
   save() {
     this.isSavedDrawing = true;
-    //this.webClientServer.sendMessage();
+    this.webClientServer.sendMessage();
 
-    this.webClientServer.sendDrawing();
-
-    /*
+    // this.webClientServer.sendDrawing();
+/*
     if (this.count === 0) {
       this.webClientServer.sendDrawingTest();
       this.count++;
     } else if (this.count === 1) {
-      this.webClientServer.getDrawingTest().subscribe(res => console.log(res));
+      this.webClientServer.getDrawingTest().subscribe((res) => console.log(res));
       console.log(this.page);
     }
     */
