@@ -1,6 +1,8 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { LineType } from 'src/services/tool/tool-options/i-tool';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
+<<<<<<< HEAD
 <<<<<<< HEAD
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { atLine } from 'src/utils/math';
@@ -8,6 +10,8 @@ import { IMotif } from './motif/i-motif';
 =======
 import { IPattern } from './pattern/i-pattern';
 >>>>>>> Add Patterns in ToolBar
+=======
+>>>>>>> Add Dot, Full And Dash Line
 
 export class SVGLine implements SVGInterface {
 
@@ -17,22 +21,35 @@ export class SVGLine implements SVGInterface {
     element: any;
     polyline: any;
     line: any;
-    pattern: IPattern;
     circle: any;
     marker: any;
-    constructor(x: number, y: number, renderer: Renderer2,  pattern: IPattern) {
+    constructor(x: number, y: number, lineType: LineType, renderer: Renderer2) {
         this.renderer = renderer;
 
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
-        this.pattern = pattern;
-        this.pattern.create(this);
-        console.log(this.pattern);
-        // this.pattern.create(this);
-        // strock-dasharray =
-
         this.polyline = this.renderer.createElement('polyline', 'svg');
         this.renderer.setAttribute(this.polyline, 'fill', 'none');
+        this.line = this.renderer.createElement('line', 'svg');
+        this.renderer.setAttribute(this.line, 'fill', 'none');
+        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
+        this.element = this.renderer.createElement('g', 'svg');
+        switch (lineType) {
+            case LineType.FullLine:
+                this.renderer.setAttribute(this.polyline, 'stroke', '4');
+                break;
+            case LineType.DashLine:
+                this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
+                break;
+            case LineType.DotLine:
+                this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
+                this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
+                break;
+        }
+        this.renderer.appendChild(this.element, this.polyline);
+        this.renderer.appendChild(this.element, this.line);
+
+        this.fullRender();
         // this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
         // this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
         // this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
@@ -69,17 +86,8 @@ export class SVGLine implements SVGInterface {
         // this.renderer.setAttribute(this.circle, 'r', '12.5');
         // this.renderer.setAttribute(this.circle, 'fill', 'red');
 
-        this.line = this.renderer.createElement('line', 'svg');
-        this.renderer.setAttribute(this.line, 'fill', 'none');
-        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
-
-        this.element = this.renderer.createElement('g', 'svg');
         // // this.renderer.appendChild(this.marker, this.circle);
         // // this.renderer.appendChild(this.element, this.marker);
-        // this.renderer.appendChild(this.element, this.polyline);
-        // this.renderer.appendChild(this.element, this.line);
-
-        this.fullRender();
     }
 
     private fullRender() {

@@ -60,12 +60,22 @@
   </div>
 </div>
 
-<div *ngIf="currentTool === line" class="separation">
-  <div class="text">Patterns</div>
-  <div class="tools">
-    <a *ngFor="let pattern of patterns; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
-      (click)="selectPattern(pattern)" [class.selected-tool]="pattern === currentPattern">
-      {{i + 1}}
-    </a>
-  </div>
+<div *ngIf="currentTool === line">
+<form  class="form" [formGroup]="lineForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field color="accent">
+    <mat-label class="trace-label">Pattern Type</mat-label>
+    <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="lineType" >
+      <mat-option [value]="LineType.FullLine">
+        Full Line
+      </mat-option>
+      <mat-option [value]="LineType.DashLine">
+        Dash Line
+      </mat-option>
+      <mat-option [value]="LineType.DotLine">
+        Dot Line
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
 </div>
