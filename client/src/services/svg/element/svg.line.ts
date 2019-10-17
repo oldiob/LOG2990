@@ -1,5 +1,5 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { LineType } from 'src/services/tool/tool-options/i-tool';
+import { JonctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
 <<<<<<< HEAD
@@ -23,7 +23,7 @@ export class SVGLine implements SVGInterface {
     line: any;
     circle: any;
     marker: any;
-    constructor(x: number, y: number, lineType: LineType, renderer: Renderer2) {
+    constructor(x: number, y: number, lineType: LineType, jonctionType: JonctionType, renderer: Renderer2) {
         this.renderer = renderer;
 
         this.anchors.push(new Point(x, y));
@@ -46,48 +46,39 @@ export class SVGLine implements SVGInterface {
                 this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
         }
+        switch (jonctionType) {
+            case JonctionType.Angle:
+                this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
+                break;
+            case JonctionType.Round:
+                this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
+                break;
+            case JonctionType.Marker:
+                this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
+                this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
+                this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
+
+                this.marker = this.renderer.createElement('marker', 'svg');
+                this.renderer.setAttribute(this.marker, 'id', 'dot');
+                this.renderer.setAttribute(this.marker, 'refX', '25');
+                this.renderer.setAttribute(this.marker, 'refY', '25');
+                this.renderer.setAttribute(this.marker, 'markerWidth', '25');
+                this.renderer.setAttribute(this.marker, 'markerHeight', '25');
+
+                this.circle = this.renderer.createElement('circle', 'svg');
+                this.renderer.setAttribute(this.circle, 'cx', '12.5');
+                this.renderer.setAttribute(this.circle, 'cy', '12.5');
+                this.renderer.setAttribute(this.circle, 'r', '12.5');
+                this.renderer.setAttribute(this.circle, 'fill', 'red');
+
+                this.renderer.appendChild(this.marker, this.circle);
+                this.renderer.appendChild(this.element, this.marker);
+                break;
+                }
         this.renderer.appendChild(this.element, this.polyline);
         this.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
-        // this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
-        // this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
-        // this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
-        // MOTIF
-        // 1. Lignes pointillé (trait)
-        // this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
-
-        // 2. Lignes pointillé (point) // pas trouvé encore
-        // this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
-        // this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
-
-        // 3. Lignes continue par defaut
-        // this.renderer.setAttribute(this.polyline, 'stroke', '4');
-
-        // JONCTION
-
-        // 1. ANGLE
-        // this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
-        // 2. ARRONDI
-        // this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
-        // stroke-linejoin: round
-
-        // 3. POINT
-        // this.marker = this.renderer.createElement('marker', 'svg');
-        // this.renderer.setAttribute(this.marker, 'id', 'dot');
-        // this.renderer.setAttribute(this.marker, 'refX', '25');
-        // this.renderer.setAttribute(this.marker, 'refY', '25');
-        // this.renderer.setAttribute(this.marker, 'markerWidth', '25');
-        // this.renderer.setAttribute(this.marker, 'markerHeight', '25');
-
-        // this.circle = this.renderer.createElement('circle', 'svg');
-        // this.renderer.setAttribute(this.circle, 'cx', '12.5');
-        // this.renderer.setAttribute(this.circle, 'cy', '12.5');
-        // this.renderer.setAttribute(this.circle, 'r', '12.5');
-        // this.renderer.setAttribute(this.circle, 'fill', 'red');
-
-        // // this.renderer.appendChild(this.marker, this.circle);
-        // // this.renderer.appendChild(this.element, this.marker);
     }
 
     private fullRender() {

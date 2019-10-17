@@ -12,7 +12,7 @@ import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect'
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool, LineType } from 'src/services/tool/tool-options/i-tool';
+import { ITool, LineType, JonctionType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
@@ -31,6 +31,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     MAX_ANGLE = 360;
     MULTI_15 = 15;
     LineType = LineType;
+    JonctionType = JonctionType;
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
@@ -63,6 +64,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     currentPath: string;
 
     lineForm: FormGroup;
+    jonctionForm: FormGroup;
 
     constructor(private paletteService: PaletteService, private toolService: ToolService, private formBuilder: FormBuilder,
                 public pencil: PencilTool, public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
@@ -85,7 +87,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     ngOnInit(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
-        this.createForm();
+        this.createLineForm();
+        this.createJonctionForm();
         this.showcase.display(this.currentTool);
     }
 
@@ -161,18 +164,33 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             : this.isShowSecondary = false;
     }
 
-    onTraceTypeChange(): void {
+    onLineTypeChange(): void {
         this.currentTool.lineType = this.lineForm.controls.lineType.value;
 
         this.showcase.display(this.currentTool);
     }
 
-    private createForm(): void {
+    onJonctionTypeChange(): void {
+        this.currentTool.jonctionType = this.jonctionForm.controls.jonctionType.value;
+
+        this.showcase.display(this.currentTool);
+    }
+
+    private createLineForm(): void {
         const DEFAULT_LINE_TYPE = LineType.FullLine;
         const validators = [Validators.min(0), Validators.required];
 
         this.lineForm = this.formBuilder.group({
             lineType: [DEFAULT_LINE_TYPE, validators],
+        });
+    }
+
+    private createJonctionForm(): void {
+        const DEFAULT_JONCTION_TYPE = JonctionType.Angle;
+        const validators = [Validators.min(0), Validators.required];
+
+        this.jonctionForm = this.formBuilder.group({
+            jonctionType: [DEFAULT_JONCTION_TYPE, validators],
         });
     }
 

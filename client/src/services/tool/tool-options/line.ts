@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGLine } from 'src/services/svg/element/svg.line';
-import { ITool, LineType } from './i-tool';
+import { ITool, LineType, JonctionType } from './i-tool';
 
 declare type callback = () => void;
 
@@ -14,6 +14,7 @@ export class LineTool implements ITool {
     element: SVGLine | null = null;
     width = 1;
     lineType: LineType;
+    jonctionType: JonctionType;
     constructor(private paletteService: PaletteService, private rendererProvider: RendererProviderService) { }
 
     onPressed(event: MouseEvent): SVGLine | null {
@@ -21,7 +22,7 @@ export class LineTool implements ITool {
             this.element.addAnchor(event.svgX, event.svgY);
             return null;
         }
-        const line = new SVGLine(event.svgX, event.svgY, this.lineType, this.rendererProvider.renderer);
+        const line = new SVGLine(event.svgX, event.svgY, this.lineType, this.jonctionType, this.rendererProvider.renderer);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;

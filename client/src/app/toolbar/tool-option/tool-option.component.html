@@ -65,7 +65,7 @@
 
   <mat-form-field color="accent">
     <mat-label class="trace-label">Pattern Type</mat-label>
-    <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="lineType" >
+    <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType" >
       <mat-option [value]="LineType.FullLine">
         Full Line
       </mat-option>
@@ -74,6 +74,24 @@
       </mat-option>
       <mat-option [value]="LineType.DotLine">
         Dot Line
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+</div>
+<div *ngIf="currentTool === line">
+<form  class="form" [formGroup]="jonctionForm" (ngSubmit)="onSubmit()">
+  <mat-form-field color="accent">
+    <mat-label class="trace-label">Jonction Type</mat-label>
+    <mat-select (selectionChange)="onJonctionTypeChange()" panelClass="trace-panel" formControlName="jonctionType" >
+      <mat-option [value]="JonctionType.Angle">
+        Angle
+      </mat-option>
+      <mat-option [value]="JonctionType.Round">
+        Round
+      </mat-option>
+      <mat-option [value]="JonctionType.Marker">
+        Marker
       </mat-option>
     </mat-select>
   </mat-form-field>
