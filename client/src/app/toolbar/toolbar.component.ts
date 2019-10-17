@@ -1,12 +1,12 @@
-import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { DrawAreaService } from './../../services/draw-area/draw-area.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
+import { SaveOptionComponent } from './save-option/save-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -37,8 +37,7 @@ export class ToolbarComponent implements OnInit {
     optionDisplayed: boolean;
 
     constructor(
-        private dialogService: DialogService,
-        private drawAreaService: DrawAreaService) { }
+        private dialogService: DialogService) { }
 
     ngOnInit() {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption];
@@ -67,7 +66,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        this.drawAreaService.save();
+        this.dialogService.open(SaveOptionComponent);
     }
 
     getImage(option: IOption<any>): string {
