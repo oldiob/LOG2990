@@ -8,7 +8,7 @@
 
         <mat-form-field class="tags" color="accent">
             <mat-chip-list #chipList aria-label="Tag selection">
-                <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+                <mat-chip class="tag" *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
                     (removed)="remove(tag)">
                     {{tag}}
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
