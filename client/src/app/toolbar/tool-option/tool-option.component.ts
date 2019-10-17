@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AngleComponent } from 'src/app/angle/angle.component';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
@@ -12,11 +11,13 @@ import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect'
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool, LineType, JonctionType } from 'src/services/tool/tool-options/i-tool';
+import { ITool, JonctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
+import { AngleComponent } from '../angle/angle.component';
+import { JonctionComponent } from '../jonction-width/jonction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 
@@ -47,6 +48,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     @ViewChild(AngleComponent, { static: true })
     angleComponent: AngleComponent;
+
+    @ViewChild(JonctionComponent, { static: true })
+    jonctionComponent: JonctionComponent;
 
     textures: ITexture[];
     currentTexture: ITexture;
@@ -122,6 +126,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
+            this.showcase.display(this.currentTool);
+        }
+    }
+
+    setJonctionWidth(width: number): void {
+        if (this.currentTool instanceof LineTool) {
+            this.currentTool.jonctionWidth = width;
             this.showcase.display(this.currentTool);
         }
     }

@@ -2,30 +2,25 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { JonctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { atLine } from 'src/utils/math';
 import { IMotif } from './motif/i-motif';
-=======
 import { IPattern } from './pattern/i-pattern';
->>>>>>> Add Patterns in ToolBar
-=======
->>>>>>> Add Dot, Full And Dash Line
 
 export class SVGLine implements SVGInterface {
 
     anchors: Point[] = [];
     cursor: Point;
-    width: number = 5;
+    width = 5;
+    jonctionWidth = 5;
+    renderer: Renderer2;
     element: any;
     polyline: any;
     line: any;
     circle: any;
     marker: any;
-    constructor(x: number, y: number, lineType: LineType, jonctionType: JonctionType, renderer: Renderer2) {
+    constructor(x: number, y: number, jonctionWidth: number, lineType: LineType, jonctionType: JonctionType, renderer: Renderer2) {
         this.renderer = renderer;
-
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
         this.polyline = this.renderer.createElement('polyline', 'svg');
@@ -54,6 +49,7 @@ export class SVGLine implements SVGInterface {
                 this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
                 break;
             case JonctionType.Marker:
+                this.jonctionWidth = jonctionWidth;
                 this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
                 this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
                 this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
@@ -68,7 +64,7 @@ export class SVGLine implements SVGInterface {
                 this.circle = this.renderer.createElement('circle', 'svg');
                 this.renderer.setAttribute(this.circle, 'cx', '0');
                 this.renderer.setAttribute(this.circle, 'cy', '0');
-                this.renderer.setAttribute(this.circle, 'r', '25');
+                this.renderer.setAttribute(this.circle, 'r', this.jonctionWidth.toString());
                 this.renderer.setAttribute(this.circle, 'fill', 'red');
 
                 this.renderer.appendChild(this.marker, this.circle);
