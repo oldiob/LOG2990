@@ -31,7 +31,7 @@ export class DrawAreaService {
 
   save() {
     this.isSavedDrawing = true;
-    this.webClientServer.sendMessage();
+    this.webClientServer.sendDrawing();
 
     // this.webClientServer.sendDrawing();
 /*
