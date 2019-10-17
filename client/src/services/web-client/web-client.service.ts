@@ -58,7 +58,14 @@ export class WebClientService {
   sendDrawing() {
     const etiquette: string[] = ['abc', 'acd'];
     const drawing = new Drawing(etiquette, this.svgService.objects, 'name');
-    this.http.post(`${this.CUSTOM_URL}/addM`, drawing)
+    console.log(this.svgService.entry.nativeElement);
+
+    const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
+    const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
+    console.log(parsed.childNodes[0]);
+    console.log(parsed);
+
+    this.http.post(`${this.CUSTOM_URL}/addM`, result)
     .subscribe(res => console.log('Done'));
   }
 
