@@ -6,9 +6,10 @@ import {DateService} from '../services/date.service';
 import Types from '../types';
 
 @injectable()
-export class DateController {
+export class DrawingRoute {
 
     router: Router;
+    page: any;
 
     constructor(
         @inject(Types.DateService) private dateService: DateService) {

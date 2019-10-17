@@ -6,4 +6,8 @@ export interface SVGInterface {
 
     setPrimary(color: string): void;
     setSecondary(color: string): void;
+
+    serialize?(): { [id: string]: any };
+
+    deserialize?(blob: { [id: string]: any }): void;
 }
