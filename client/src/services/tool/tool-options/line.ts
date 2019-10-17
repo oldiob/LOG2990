@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGLine } from 'src/services/svg/element/svg.line';
-
-import { ITool } from './i-tool';
+import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { IPattern } from 'src/services/svg/element/pattern/i-pattern';
+import { SVGLine } from 'src/services/svg/element/svg.line';
+import { ITool } from './i-tool';
 
 declare type callback = () => void;
 

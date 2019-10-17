@@ -18,7 +18,8 @@ export class SVGLine implements SVGInterface {
     polyline: any;
     line: any;
     pattern: IPattern;
-
+    circle: any;
+    marker: any;
     constructor(x: number, y: number, renderer: Renderer2,  pattern: IPattern) {
         this.renderer = renderer;
 
@@ -26,15 +27,53 @@ export class SVGLine implements SVGInterface {
         this.cursor = new Point(x, y);
         this.pattern = pattern;
         // this.pattern.create(this);
+        // strock-dasharray =
 
         this.polyline = this.renderer.createElement('polyline', 'svg');
         this.renderer.setAttribute(this.polyline, 'fill', 'none');
+        this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
+        this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
+        this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
+        // MOTIF
+        // 1. Lignes pointillé (trait)
+        // this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
+
+        // 2. Lignes pointillé (point) // pas trouvé encore
+        // this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
+        // this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
+
+        // 3. Lignes continue par defaut
+        this.renderer.setAttribute(this.polyline, 'stroke', '4');
+
+        // JONCTION
+
+        // 1. ANGLE
+        // this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
+        // 2. ARRONDI
+        // this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
+        // stroke-linejoin: round
+
+        // 3. POINT
+        // this.marker = this.renderer.createElement('marker', 'svg');
+        // this.renderer.setAttribute(this.marker, 'id', 'dot');
+        // this.renderer.setAttribute(this.marker, 'refX', '25');
+        // this.renderer.setAttribute(this.marker, 'refY', '25');
+        // this.renderer.setAttribute(this.marker, 'markerWidth', '25');
+        // this.renderer.setAttribute(this.marker, 'markerHeight', '25');
+
+        // this.circle = this.renderer.createElement('circle', 'svg');
+        // this.renderer.setAttribute(this.circle, 'cx', '12.5');
+        // this.renderer.setAttribute(this.circle, 'cy', '12.5');
+        // this.renderer.setAttribute(this.circle, 'r', '12.5');
+        // this.renderer.setAttribute(this.circle, 'fill', 'red');
 
         this.line = this.renderer.createElement('line', 'svg');
         this.renderer.setAttribute(this.line, 'fill', 'none');
         this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
 
         this.element = this.renderer.createElement('g', 'svg');
+        // this.renderer.appendChild(this.marker, this.circle);
+        // this.renderer.appendChild(this.element, this.marker);
         this.renderer.appendChild(this.element, this.polyline);
         this.renderer.appendChild(this.element, this.line);
 
