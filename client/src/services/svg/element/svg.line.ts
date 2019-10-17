@@ -26,14 +26,16 @@ export class SVGLine implements SVGInterface {
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
         this.pattern = pattern;
+        this.pattern.create(this);
+        console.log(this.pattern);
         // this.pattern.create(this);
         // strock-dasharray =
 
         this.polyline = this.renderer.createElement('polyline', 'svg');
         this.renderer.setAttribute(this.polyline, 'fill', 'none');
-        this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
-        this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
-        this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
+        // this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
+        // this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
+        // this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
         // MOTIF
         // 1. Lignes pointillé (trait)
         // this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
@@ -43,7 +45,7 @@ export class SVGLine implements SVGInterface {
         // this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
 
         // 3. Lignes continue par defaut
-        this.renderer.setAttribute(this.polyline, 'stroke', '4');
+        // this.renderer.setAttribute(this.polyline, 'stroke', '4');
 
         // JONCTION
 
@@ -72,10 +74,10 @@ export class SVGLine implements SVGInterface {
         this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
 
         this.element = this.renderer.createElement('g', 'svg');
-        // this.renderer.appendChild(this.marker, this.circle);
-        // this.renderer.appendChild(this.element, this.marker);
-        this.renderer.appendChild(this.element, this.polyline);
-        this.renderer.appendChild(this.element, this.line);
+        // // this.renderer.appendChild(this.marker, this.circle);
+        // // this.renderer.appendChild(this.element, this.marker);
+        // this.renderer.appendChild(this.element, this.polyline);
+        // this.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
     }

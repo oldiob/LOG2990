@@ -3,10 +3,17 @@ import { IPattern } from './i-pattern';
 
 export class DashMotif implements IPattern {
     create(line: SVGLine): void {
+        console.log('DASH');
         line.element = line.renderer.createElement('g', 'svg');
-    }
-    addPoint(line: SVGLine, x: number, y: number): void {
-        // line.renderer.setAttribute(line.element, 'fill', 'none');
-        // line.renderer.setAttribute(line.element, 'stroke-dasharray', '4');
+        const lineLine = line.renderer.createElement('line', 'svg');
+        const polyline = line.renderer.createElement('polyline', 'svg');
+        line.renderer.setAttribute(lineLine, 'fill', 'none');
+        line.renderer.setAttribute(lineLine, 'stroke-dasharray', '4');
+
+        line.renderer.setAttribute(polyline, 'fill', 'none');
+        line.renderer.setAttribute(polyline, 'stroke-dasharray', '4');
+
+        line.renderer.appendChild(line.element, polyline);
+        line.renderer.appendChild(line.element, line);
     }
 }
