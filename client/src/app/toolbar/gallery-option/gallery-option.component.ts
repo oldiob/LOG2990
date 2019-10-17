@@ -32,6 +32,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     private updateDrawings() {
+        // TODO: Fetch list of saved drawings from server
         this.drawings = [];
         this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
             this.drawings = savedDrawing;
@@ -64,7 +65,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     private makeFilterCallback(): (drawing: Drawing) => boolean {
         return (drawing: Drawing) => {
             const hasTag: boolean =
-                drawing.tags.some((tag: string) => this.filter.includes(tag.toLowerCase())) || this.filter.includes(drawing.name);
+                drawing.tags.some((tag: string) => this.filter.includes(tag.toLowerCase()));
             return hasTag;
         };
     }

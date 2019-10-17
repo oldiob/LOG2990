@@ -19,7 +19,7 @@ export class SaveOptionComponent implements OnInit {
     addOnBlur: boolean;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-    tags: string[] = [];
+    tags: string[];
 
     saveForm: FormGroup;
 
@@ -33,16 +33,18 @@ export class SaveOptionComponent implements OnInit {
         this.selectable = true;
         this.removable = true;
         this.addOnBlur = true;
+        this.tags = [];
         this.createForm();
     }
 
     private createForm(): void {
         const DEFAULT_NAME = 'Untitled';
+        const DEFAULT_TAG: string[] = [];
         const validators = [Validators.required];
 
         this.saveForm = this.formBuilder.group({
             name: [DEFAULT_NAME, validators],
-            tags: [''],
+            tags: [DEFAULT_TAG],
         });
     }
 
@@ -67,12 +69,13 @@ export class SaveOptionComponent implements OnInit {
         this.saveForm.controls.tags.setValue(this.tags);
     }
 
-    // TODO: Upload drawing to server
+    // TODO: Upload drawing (name: string, tag: string[], thumbnail: JPEG) to server
     upload(drawing: Drawing) {
         //
     }
 
     onSubmit() {
+        // ! Refactor following when server implemented
         const DEEP_COPY = true;
         const preview = this.svgService.entry.nativeElement.cloneNode(DEEP_COPY) as SVGElement;
 
@@ -82,7 +85,6 @@ export class SaveOptionComponent implements OnInit {
             tags: this.saveForm.controls.tags.value,
             svgs: [''],
         };
-
         this.drawAreaService.save(drawing);
     }
 }

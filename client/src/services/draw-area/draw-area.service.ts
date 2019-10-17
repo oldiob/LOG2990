@@ -8,10 +8,12 @@ import { Drawing } from './i-drawing';
 export class DrawAreaService {
     isSavedDrawing: boolean;
 
-    private savedDrawings: Drawing[] = [];
-    drawings = new BehaviorSubject(this.savedDrawings);
+    drawings: BehaviorSubject<Drawing[]>;
 
     constructor() {
+        const INITIAL_DRAWINGS: Drawing[] = [];
+        this.drawings = new BehaviorSubject(INITIAL_DRAWINGS);
+
         this.isSavedDrawing = true;
     }
 
@@ -19,8 +21,7 @@ export class DrawAreaService {
         this.isSavedDrawing = true;
 
         // ! Remove following once server is implemented
-        this.savedDrawings.push(drawing);
-        this.drawings.next(this.savedDrawings);
+        this.drawings.value.push(drawing);
     }
 
     // TODO: Fetch a list of saved drawings (id: number, name: string, tag: string[], thumbnail: JPEG) from server
