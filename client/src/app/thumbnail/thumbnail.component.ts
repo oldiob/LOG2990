@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 export interface Size {
@@ -12,10 +12,6 @@ export interface Size {
     styleUrls: ['./thumbnail.component.scss'],
 })
 export class ThumbnailComponent implements OnInit {
-
-    @ViewChild('g', { static: true })
-    g: ElementRef<SVGElement>;
-
     @Input()
     thumbnailSVG: SVGElement;
 
