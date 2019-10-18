@@ -64,12 +64,12 @@ export class SVGLine implements SVGInterface {
         this.fullRender();
     }
 
-    private fullRender() {
+    private fullRender(): void {
         this.renderAnchors();
         this.renderCursor();
     }
 
-    private renderCursor() {
+    private renderCursor(): void {
         let lastPoint: Point = this.anchors[this.anchors.length - 1];
         if (!lastPoint) {
             lastPoint = this.cursor;
@@ -80,7 +80,7 @@ export class SVGLine implements SVGInterface {
         RendererProvider.renderer.setAttribute(this.line, 'y2', `${this.cursor.y}`);
     }
 
-    private renderAnchors() {
+    private renderAnchors(): void {
         RendererProvider.renderer.setAttribute(this.polyline,
             'points',
             this.anchors.map((point: Point) => {
@@ -118,7 +118,7 @@ export class SVGLine implements SVGInterface {
         return false;
     }
 
-    addAnchor(x: number, y: number, junctionType: JunctionType) {
+    addAnchor(x: number, y: number, junctionType: JunctionType): void {
         this.anchors.push(new Point(x, y));
         if (junctionType === JunctionType.Dot) {
             this.circle = RendererProvider.renderer.createElement('circle', 'svg');
@@ -131,28 +131,28 @@ export class SVGLine implements SVGInterface {
         this.renderAnchors();
     }
 
-    setCursor(x: number, y: number) {
+    setCursor(x: number, y: number): void {
         this.cursor = new Point(x, y);
         this.renderCursor();
     }
 
-    lineLoop() {
+    lineLoop(): void {
         this.anchors.push(new Point(this.cursor.x, this.cursor.y));
         this.anchors.push(new Point(this.anchors[0].x, this.anchors[0].y));
         this.end();
     }
 
-    finish() {
+    finish(): void {
         this.anchors.push(new Point(this.cursor.x, this.cursor.y));
         this.end();
     }
 
-    end() {
+    end(): void {
         RendererProvider.renderer.removeChild(this.line.parentNode, this.line);
         this.renderAnchors();
     }
 
-    popAnchor() {
+    popAnchor(): void {
         this.anchors.pop();
         this.fullRender();
     }
