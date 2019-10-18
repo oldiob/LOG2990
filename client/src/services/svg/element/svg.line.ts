@@ -41,37 +41,28 @@ export class SVGLine implements SVGInterface {
                 this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
         }
+        this.renderer.appendChild(this.element, this.polyline);
         switch (junctionType) {
             case JunctionType.Angle:
                 this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
+                this.renderer.appendChild(this.element, this.polyline);
                 break;
             case JunctionType.Round:
                 this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
+                this.renderer.appendChild(this.element, this.polyline);
                 break;
             case JunctionType.Dot:
                 this.junctionWidth = junctionWidth;
-                this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
-                this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
-                this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
-
-                this.marker = this.renderer.createElement('marker', 'svg');
-                this.renderer.setAttribute(this.marker, 'id', 'dot');
-                this.renderer.setAttribute(this.marker, 'refX', '0');
-                this.renderer.setAttribute(this.marker, 'refY', '0');
-                this.renderer.setAttribute(this.marker, 'markerWidth', '25');
-                this.renderer.setAttribute(this.marker, 'markerHeight', '25');
-
                 this.circle = this.renderer.createElement('circle', 'svg');
-                this.renderer.setAttribute(this.circle, 'cx', '0');
-                this.renderer.setAttribute(this.circle, 'cy', '0');
+                this.renderer.setAttribute(this.circle, 'cx', x.toString());
+                this.renderer.setAttribute(this.circle, 'cy', y.toString());
                 this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
                 this.renderer.setAttribute(this.circle, 'fill', 'red');
+                this.renderer.appendChild(this.element, this.polyline);
+                this.renderer.appendChild(this.element, this.circle);
 
-                this.renderer.appendChild(this.marker, this.circle);
-                this.renderer.appendChild(this.element, this.marker);
                 break;
                 }
-        this.renderer.appendChild(this.element, this.polyline);
         this.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
@@ -131,9 +122,16 @@ export class SVGLine implements SVGInterface {
         return false;
     }
 
-    addAnchor(x: number, y: number) {
+    addAnchor(x: number, y: number, junctionType: JunctionType) {
         this.anchors.push(new Point(x, y));
-        // this.motif.addPoint(this, this, this, x, y);
+        if (junctionType === JunctionType.Dot) {
+            this.circle = this.renderer.createElement('circle', 'svg');
+            this.renderer.setAttribute(this.circle, 'cx', x.toString());
+            this.renderer.setAttribute(this.circle, 'cy', y.toString());
+            this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
+            this.renderer.setAttribute(this.circle, 'fill', 'red');
+            this.renderer.appendChild(this.element, this.circle);
+        }
         this.renderAnchors();
     }
 

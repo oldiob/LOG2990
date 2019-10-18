@@ -20,7 +20,7 @@ export class LineTool implements ITool {
 
     onPressed(event: MouseEvent): SVGLine | null {
         if (this.element) {
-            this.element.addAnchor(event.svgX, event.svgY);
+            this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
             return null;
         }
         const line = new SVGLine(event.svgX, event.svgY, this.junctionWidth, this.lineType,
