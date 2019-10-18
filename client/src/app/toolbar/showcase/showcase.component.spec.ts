@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowcaseComponent } from './showcase.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('ShowcaseComponent', () => {
     let component: ShowcaseComponent;
@@ -8,6 +9,7 @@ describe('ShowcaseComponent', () => {
     let svgService: any;
     let entry: any;
     let mouseEvent: any;
+    let renderer;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -17,6 +19,9 @@ describe('ShowcaseComponent', () => {
     }));
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+
         fixture = TestBed.createComponent(ShowcaseComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
