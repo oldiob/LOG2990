@@ -1,11 +1,8 @@
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
-import { atLine } from 'src/utils/math';
-import { IMotif } from './motif/i-motif';
-import { IPattern } from './pattern/i-pattern';
 
 export class SVGLine implements SVGInterface {
 
@@ -13,56 +10,56 @@ export class SVGLine implements SVGInterface {
     cursor: Point;
     width = 5;
     junctionWidth = 5;
-    renderer: Renderer2;
+    renderer: RendererProvider;
     element: any;
     polyline: any;
     line: any;
     circle: any;
-    constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType, renderer: Renderer2) {
-        this.renderer = renderer;
+    constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
-        this.polyline = this.renderer.createElement('polyline', 'svg');
-        this.renderer.setAttribute(this.polyline, 'fill', 'none');
-        this.line = this.renderer.createElement('line', 'svg');
-        this.renderer.setAttribute(this.line, 'fill', 'none');
-        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
-        this.element = this.renderer.createElement('g', 'svg');
+        this.polyline = RendererProvider.renderer.createElement('polyline', 'svg');
+        RendererProvider.renderer.setAttribute(this.polyline, 'fill', 'none');
+        this.line = RendererProvider.renderer.createElement('line', 'svg');
+        RendererProvider.renderer.setAttribute(this.line, 'fill', 'none');
+        RendererProvider.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
+        this.element = RendererProvider.renderer.createElement('g', 'svg');
         switch (lineType) {
             case LineType.FullLine:
-                this.renderer.setAttribute(this.polyline, 'stroke', '4');
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke', '4');
                 break;
             case LineType.DashLine:
-                this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
                 break;
             case LineType.DotLine:
-                this.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
-                this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
         }
-        this.renderer.appendChild(this.element, this.polyline);
+        RendererProvider.renderer.appendChild(this.element, this.polyline);
         switch (junctionType) {
             case JunctionType.Angle:
-                this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
-                this.renderer.appendChild(this.element, this.polyline);
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
+                RendererProvider.renderer.appendChild(this.element, this.polyline);
                 break;
             case JunctionType.Round:
-                this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
-                this.renderer.appendChild(this.element, this.polyline);
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
+                RendererProvider.renderer.appendChild(this.element, this.polyline);
                 break;
             case JunctionType.Dot:
                 this.junctionWidth = junctionWidth;
-                this.circle = this.renderer.createElement('circle', 'svg');
-                this.renderer.setAttribute(this.circle, 'cx', x.toString());
-                this.renderer.setAttribute(this.circle, 'cy', y.toString());
-                this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
-                this.renderer.setAttribute(this.circle, 'fill', 'black');
-                this.renderer.appendChild(this.element, this.polyline);
-                this.renderer.appendChild(this.element, this.circle);
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
+                this.circle = RendererProvider.renderer.createElement('circle', 'svg');
+                RendererProvider.renderer.setAttribute(this.circle, 'cx', x.toString());
+                RendererProvider.renderer.setAttribute(this.circle, 'cy', y.toString());
+                RendererProvider.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
+                RendererProvider.renderer.setAttribute(this.circle, 'fill', 'black');
+                RendererProvider.renderer.appendChild(this.element, this.polyline);
+                RendererProvider.renderer.appendChild(this.element, this.circle);
 
                 break;
                 }
-        this.renderer.appendChild(this.element, this.line);
+        RendererProvider.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
     }
@@ -124,12 +121,12 @@ export class SVGLine implements SVGInterface {
     addAnchor(x: number, y: number, junctionType: JunctionType) {
         this.anchors.push(new Point(x, y));
         if (junctionType === JunctionType.Dot) {
-            this.circle = this.renderer.createElement('circle', 'svg');
-            this.renderer.setAttribute(this.circle, 'cx', x.toString());
-            this.renderer.setAttribute(this.circle, 'cy', y.toString());
-            this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
-            this.renderer.setAttribute(this.circle, 'fill', 'black');
-            this.renderer.appendChild(this.element, this.circle);
+            this.circle = RendererProvider.renderer.createElement('circle', 'svg');
+            RendererProvider.renderer.setAttribute(this.circle, 'cx', x.toString());
+            RendererProvider.renderer.setAttribute(this.circle, 'cy', y.toString());
+            RendererProvider.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
+            RendererProvider.renderer.setAttribute(this.circle, 'fill', 'black');
+            RendererProvider.renderer.appendChild(this.element, this.circle);
         }
         this.renderAnchors();
     }
