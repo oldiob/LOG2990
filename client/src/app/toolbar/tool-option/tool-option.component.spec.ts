@@ -148,14 +148,18 @@ describe('ToolOptionComponent', () => {
 
     it('should line type change on display', () => {
         component.onLineTypeChange();
+        if (component.currentTool instanceof LineTool) {
         expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
         expect(showcase.display).toHaveBeenCalled();
+        }
     });
 
     it('should jonction type change on display', () => {
         component.onJunctionTypeChange();
+        if (component.currentTool instanceof LineTool) {
         expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
         expect(showcase.display).toHaveBeenCalled();
+        }
     });
 
 });
