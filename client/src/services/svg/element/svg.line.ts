@@ -1,34 +1,31 @@
-import { Renderer2 } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGLine implements SVGInterface {
 
     anchors: Point[] = [];
     cursor: Point;
     width: number = 5;
-    renderer: Renderer2;
     element: any;
     polyline: any;
     line: any;
 
-    constructor(x: number, y: number, renderer: Renderer2) {
-        this.renderer = renderer;
-
+    constructor(x: number, y: number) {
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
 
-        this.polyline = this.renderer.createElement('polyline', 'svg');
-        this.renderer.setAttribute(this.polyline, 'fill', 'none');
+        this.polyline = RendererProvider.renderer.createElement('polyline', 'svg');
+        RendererProvider.renderer.setAttribute(this.polyline, 'fill', 'none');
 
-        this.line = this.renderer.createElement('line', 'svg');
-        this.renderer.setAttribute(this.line, 'fill', 'none');
-        this.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
+        this.line = RendererProvider.renderer.createElement('line', 'svg');
+        RendererProvider.renderer.setAttribute(this.line, 'fill', 'none');
+        RendererProvider.renderer.setAttribute(this.line, 'stroke-dasharray', '4');
 
-        this.element = this.renderer.createElement('g', 'svg');
-        this.renderer.appendChild(this.element, this.polyline);
-        this.renderer.appendChild(this.element, this.line);
+        this.element = RendererProvider.renderer.createElement('g', 'svg');
+        RendererProvider.renderer.appendChild(this.element, this.polyline);
+        RendererProvider.renderer.appendChild(this.element, this.line);
 
         this.fullRender();
     }
@@ -43,14 +40,14 @@ export class SVGLine implements SVGInterface {
         if (!lastPoint) {
             lastPoint = this.cursor;
         }
-        this.renderer.setAttribute(this.line, 'x1', `${lastPoint.x}`);
-        this.renderer.setAttribute(this.line, 'y1', `${lastPoint.y}`);
-        this.renderer.setAttribute(this.line, 'x2', `${this.cursor.x}`);
-        this.renderer.setAttribute(this.line, 'y2', `${this.cursor.y}`);
+        RendererProvider.renderer.setAttribute(this.line, 'x1', `${lastPoint.x}`);
+        RendererProvider.renderer.setAttribute(this.line, 'y1', `${lastPoint.y}`);
+        RendererProvider.renderer.setAttribute(this.line, 'x2', `${this.cursor.x}`);
+        RendererProvider.renderer.setAttribute(this.line, 'y2', `${this.cursor.y}`);
     }
 
     private renderAnchors() {
-        this.renderer.setAttribute(this.polyline,
+        RendererProvider.renderer.setAttribute(this.polyline,
             'points',
             this.anchors.map((point: Point) => {
                 return point.toString();
@@ -59,13 +56,13 @@ export class SVGLine implements SVGInterface {
 
     setWidth(width: number) {
         this.width = width;
-        this.renderer.setAttribute(this.polyline, 'stroke-width', width.toString());
-        this.renderer.setAttribute(this.line, 'stroke-width', width.toString());
+        RendererProvider.renderer.setAttribute(this.polyline, 'stroke-width', width.toString());
+        RendererProvider.renderer.setAttribute(this.line, 'stroke-width', width.toString());
     }
 
     setPrimary(color: string) {
-        this.renderer.setAttribute(this.polyline, 'stroke', color);
-        this.renderer.setAttribute(this.line, 'stroke', color);
+        RendererProvider.renderer.setAttribute(this.polyline, 'stroke', color);
+        RendererProvider.renderer.setAttribute(this.line, 'stroke', color);
     }
 
     setSecondary(color: string) {
@@ -109,7 +106,7 @@ export class SVGLine implements SVGInterface {
     }
 
     end() {
-        this.renderer.removeChild(this.line.parentNode, this.line);
+        RendererProvider.renderer.removeChild(this.line.parentNode, this.line);
         this.renderAnchors();
     }
 

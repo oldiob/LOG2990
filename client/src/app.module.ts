@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, RendererFactory2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatDialogRef,
@@ -22,6 +22,7 @@ import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.compo
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
+import { RendererProvider } from './services/renderer-provider/renderer-provider';
 
 @NgModule({
     declarations: [
@@ -74,4 +75,7 @@ import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 })
 
 export class AppModule {
+    constructor(rendererFactory: RendererFactory2) {
+        RendererProvider.init(rendererFactory);
+    }
 }

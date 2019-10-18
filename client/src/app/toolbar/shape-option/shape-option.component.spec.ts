@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatDialogModule,
@@ -8,11 +8,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { ShapeOptionComponent } from './shape-option.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('ShapeOptionComponent', () => {
     let component: ShapeOptionComponent;
     let fixture: ComponentFixture<ShapeOptionComponent>;
     let showcase: ShowcaseComponent;
+    let renderer: Renderer2;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -27,6 +29,9 @@ describe('ShapeOptionComponent', () => {
     }));
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+
         fixture = TestBed.createComponent(ShapeOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

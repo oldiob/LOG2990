@@ -1,7 +1,7 @@
-import { Renderer2 } from '@angular/core';
 import { isAtLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGBrush implements SVGInterface {
     element: any;
@@ -15,7 +15,7 @@ export class SVGBrush implements SVGInterface {
 
     texture: ITexture;
 
-    constructor(public renderer: Renderer2, width: number, texture: ITexture) {
+    constructor(width: number, texture: ITexture) {
         this.points = [];
         this.lineWidth = width;
         this.texture = texture;
@@ -38,7 +38,7 @@ export class SVGBrush implements SVGInterface {
         return false;
     }
     setPrimary(color: string): void {
-        this.renderer.setAttribute(this.element, 'stroke', color);
+        RendererProvider.renderer.setAttribute(this.element, 'stroke', color);
     }
     setSecondary(color: string): void {
         // No secondary for brush
@@ -46,7 +46,7 @@ export class SVGBrush implements SVGInterface {
 
     setWidth(width: number): void {
         this.lineWidth = width;
-        this.renderer.setAttribute(this.element, 'stroke-width', width.toString());
+        RendererProvider.renderer.setAttribute(this.element, 'stroke-width', width.toString());
     }
 
     addPoint(x: number, y: number): void {

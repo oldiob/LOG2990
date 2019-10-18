@@ -1,11 +1,11 @@
 import { BrushTool } from './brush';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('BrushTool', () => {
     let create: any;
     let texture: any;
     let element: any;
     let renderer: any;
-    let rendererProvider: any;
     let paletteService: any;
     let event: any;
     let brush: BrushTool;
@@ -15,15 +15,14 @@ describe('BrushTool', () => {
         texture = jasmine.createSpyObj('ITexture', ['create', 'addPoint']);
         element = jasmine.createSpyObj('SVGBrush', ['addPoint', 'setWidth', 'texture']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        rendererProvider = jasmine.createSpyObj('RendererProviderService', ['renderer']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
         event = jasmine.createSpyObj('MouseEvent', ['svgX', 'svgY']);
         texture.create = create;
         texture.create.and.returnValue(null);
 
-        rendererProvider.renderer = renderer;
+        RendererProvider.renderer = renderer;
 
-        brush = new BrushTool(rendererProvider, paletteService);
+        brush = new BrushTool(paletteService);
         brush.element = element;
         brush.texture = texture;
 
@@ -33,7 +32,6 @@ describe('BrushTool', () => {
 
     it('should exists', () => {
         expect(brush).toBeTruthy();
-        expect(brush.renderer).toEqual(renderer);
     });
 
     it('should return a SVGBrush thats not null, only if no element is currently manipulated', () => {

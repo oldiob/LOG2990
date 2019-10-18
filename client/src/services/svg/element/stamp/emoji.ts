@@ -1,23 +1,24 @@
 import { SVGStamp } from '../svg.stamp';
 import { IStamp } from './i-stamp';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class EmojiStamp implements IStamp {
 
     create(stamp: SVGStamp): void {
-        stamp.element = stamp.renderer.createElement('g', 'svg');
+        stamp.element = RendererProvider.renderer.createElement('g', 'svg');
     }
     addPoint(stamp: SVGStamp, x: number, y: number): void {
         const centerX = (x - stamp.lineWidth / 2).toString();
         const centerY = (y - stamp.lineWidth / 2).toString();
 
-        const img = stamp.renderer.createElement('image', 'svg');
-        stamp.renderer.setAttribute(img, 'x', centerX);
-        stamp.renderer.setAttribute(img, 'y', centerY);
-        stamp.renderer.setAttribute(img, 'width',  stamp.lineWidth.toString());
-        stamp.renderer.setAttribute(img, 'height',  stamp.lineWidth.toString());
-        stamp.renderer.setAttribute(img, 'href', `${stamp.imagePaths}`);
-        stamp.renderer.setAttribute(img, 'transform', `rotate(${stamp.angles} ${x} ${y})` );
-        stamp.renderer.appendChild(stamp.element, img);
+        const img = RendererProvider.renderer.createElement('image', 'svg');
+        RendererProvider.renderer.setAttribute(img, 'x', centerX);
+        RendererProvider.renderer.setAttribute(img, 'y', centerY);
+        RendererProvider.renderer.setAttribute(img, 'width',  stamp.lineWidth.toString());
+        RendererProvider.renderer.setAttribute(img, 'height',  stamp.lineWidth.toString());
+        RendererProvider.renderer.setAttribute(img, 'href', `${stamp.imagePaths}`);
+        RendererProvider.renderer.setAttribute(img, 'transform', `rotate(${stamp.angles} ${x} ${y})` );
+        RendererProvider.renderer.appendChild(stamp.element, img);
     }
 
 }
