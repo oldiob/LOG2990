@@ -11,13 +11,13 @@ import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect'
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool, JonctionType, LineType } from 'src/services/tool/tool-options/i-tool';
+import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { AngleComponent } from '../angle/angle.component';
-import { JonctionComponent } from '../jonction-width/jonction-width.component';
+import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 
@@ -32,7 +32,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     MAX_ANGLE = 360;
     MULTI_15 = 15;
     LineType = LineType;
-    JonctionType = JonctionType;
+    JunctionType = JunctionType;
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
@@ -49,8 +49,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     @ViewChild(AngleComponent, { static: true })
     angleComponent: AngleComponent;
 
-    @ViewChild(JonctionComponent, { static: true })
-    jonctionComponent: JonctionComponent;
+    @ViewChild(JunctionComponent, { static: true })
+    junctionComponent: JunctionComponent;
 
     textures: ITexture[];
     currentTexture: ITexture;
@@ -68,7 +68,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     currentPath: string;
 
     lineForm: FormGroup;
-    jonctionForm: FormGroup;
+    junctionForm: FormGroup;
 
     constructor(private paletteService: PaletteService, private toolService: ToolService, private formBuilder: FormBuilder,
                 public pencil: PencilTool, public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
@@ -92,7 +92,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
         this.createLineForm();
-        this.createJonctionForm();
+        this.createJunctionForm();
         this.showcase.display(this.currentTool);
     }
 
@@ -130,9 +130,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         }
     }
 
-    setJonctionWidth(width: number): void {
+    setJunctionWidth(width: number): void {
         if (this.currentTool instanceof LineTool) {
-            this.currentTool.jonctionWidth = width;
+            this.currentTool.junctionWidth = width;
             this.showcase.display(this.currentTool);
         }
     }
@@ -181,8 +181,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.showcase.display(this.currentTool);
     }
 
-    onJonctionTypeChange(): void {
-        this.currentTool.jonctionType = this.jonctionForm.controls.jonctionType.value;
+    onJunctionTypeChange(): void {
+        this.currentTool.junctionType = this.junctionForm.controls.junctionType.value;
 
         this.showcase.display(this.currentTool);
     }
@@ -196,12 +196,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         });
     }
 
-    private createJonctionForm(): void {
-        const DEFAULT_JONCTION_TYPE = JonctionType.Angle;
+    private createJunctionForm(): void {
+        const DEFAULT_JUNCTION_TYPE = JunctionType.Angle;
         const validators = [Validators.min(0), Validators.required];
 
-        this.jonctionForm = this.formBuilder.group({
-            jonctionType: [DEFAULT_JONCTION_TYPE, validators],
+        this.junctionForm = this.formBuilder.group({
+            junctionType: [DEFAULT_JUNCTION_TYPE, validators],
         });
     }
 

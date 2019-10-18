@@ -1,5 +1,5 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { JonctionType, LineType } from 'src/services/tool/tool-options/i-tool';
+import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
@@ -12,14 +12,14 @@ export class SVGLine implements SVGInterface {
     anchors: Point[] = [];
     cursor: Point;
     width = 5;
-    jonctionWidth = 5;
+    junctionWidth = 5;
     renderer: Renderer2;
     element: any;
     polyline: any;
     line: any;
     circle: any;
     marker: any;
-    constructor(x: number, y: number, jonctionWidth: number, lineType: LineType, jonctionType: JonctionType, renderer: Renderer2) {
+    constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType, renderer: Renderer2) {
         this.renderer = renderer;
         this.anchors.push(new Point(x, y));
         this.cursor = new Point(x, y);
@@ -41,15 +41,15 @@ export class SVGLine implements SVGInterface {
                 this.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
         }
-        switch (jonctionType) {
-            case JonctionType.Angle:
+        switch (junctionType) {
+            case JunctionType.Angle:
                 this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
                 break;
-            case JonctionType.Round:
+            case JunctionType.Round:
                 this.renderer.setAttribute(this.polyline, 'stroke-linejoin', 'round');
                 break;
-            case JonctionType.Marker:
-                this.jonctionWidth = jonctionWidth;
+            case JunctionType.Dot:
+                this.junctionWidth = junctionWidth;
                 this.renderer.setAttribute(this.polyline, 'marker-start', 'url(#dot)');
                 this.renderer.setAttribute(this.polyline, 'marker-mid', 'url(#dot)');
                 this.renderer.setAttribute(this.polyline, 'marker-end', 'url(#dot)');
@@ -64,7 +64,7 @@ export class SVGLine implements SVGInterface {
                 this.circle = this.renderer.createElement('circle', 'svg');
                 this.renderer.setAttribute(this.circle, 'cx', '0');
                 this.renderer.setAttribute(this.circle, 'cy', '0');
-                this.renderer.setAttribute(this.circle, 'r', this.jonctionWidth.toString());
+                this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
                 this.renderer.setAttribute(this.circle, 'fill', 'red');
 
                 this.renderer.appendChild(this.marker, this.circle);

@@ -10,10 +10,10 @@ export enum LineType {
     DashLine = 1,
     DotLine = 2,
 }
-export enum JonctionType {
+export enum JunctionType {
     Angle = 0,
     Round = 1,
-    Marker = 2,
+    Dot = 2,
 }
 export interface ITool {
     [x: string]: any;

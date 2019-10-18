@@ -36,8 +36,8 @@
 <div class="separation">
   <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 </div>
-<div *ngIf="currentTool.jonctionType === 2" class="separation">
-  <app-jonction [jonctionWidth]="currentTool.jonctionWidth" (jonctionEmmiter)="setJonctionWidth($event)"></app-jonction>
+<div *ngIf="currentTool.junctionType === 2" class="separation">
+  <app-junction [junctionWidth]="currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)"></app-junction>
 </div>
 <div *ngIf="currentTool === brush" class="separation">
   <div class="text">Textures</div>
@@ -83,18 +83,18 @@
 </form>
 </div>
 <div *ngIf="currentTool === line">
-<form  class="form" [formGroup]="jonctionForm" (ngSubmit)="onSubmit()">
+<form  class="form" [formGroup]="junctionForm" (ngSubmit)="onSubmit()">
   <mat-form-field color="accent">
-    <mat-label class="trace-label">Jonction Type</mat-label>
-    <mat-select (selectionChange)="onJonctionTypeChange()" panelClass="trace-panel" formControlName="jonctionType" >
-      <mat-option [value]="JonctionType.Angle">
+    <mat-label class="trace-label">Junction Type</mat-label>
+    <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel" formControlName="junctionType" >
+      <mat-option [value]="JunctionType.Angle">
         Angle
       </mat-option>
-      <mat-option [value]="JonctionType.Round">
+      <mat-option [value]="JunctionType.Round">
         Round
       </mat-option>
-      <mat-option [value]="JonctionType.Marker">
-        Marker
+      <mat-option [value]="JunctionType.Dot">
+        Dot
       </mat-option>
     </mat-select>
   </mat-form-field>
