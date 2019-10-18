@@ -1,5 +1,5 @@
 import { GridService } from './grid.service';
-import { RendererProvider } from '../renderer-provider/renderer-provider.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 describe('GridService', () => {
 

@@ -1,4 +1,5 @@
 import { RectTexture } from './rect';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('RectTexture', () => {
 
@@ -8,11 +9,11 @@ describe('RectTexture', () => {
     let element: any;
 
     beforeEach(() => {
-        brush = jasmine.createSpyObj('SVGBrush', ['renderer', 'lineWidth', 'pointsAttribute']);
+        brush = jasmine.createSpyObj('SVGBrush', ['lineWidth', 'pointsAttribute']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         element = jasmine.createSpyObj('any', ['']);
 
-        brush.renderer = renderer;
+        RendererProvider.renderer = renderer;
         rect = new RectTexture();
     });
 

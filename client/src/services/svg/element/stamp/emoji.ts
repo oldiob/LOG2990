@@ -1,6 +1,6 @@
 import { SVGStamp } from '../svg.stamp';
 import { IStamp } from './i-stamp';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class EmojiStamp implements IStamp {
 

@@ -1,7 +1,7 @@
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGLine implements SVGInterface {
 

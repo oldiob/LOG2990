@@ -1,7 +1,7 @@
 import { isAtLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGBrush implements SVGInterface {
     element: any;

@@ -1,6 +1,6 @@
 import { SVGInterface } from './element/svg.interface';
 import { SVGService } from './svg.service';
-import { RendererProvider } from '../renderer-provider/renderer-provider.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 
 describe('SVGService', () => {

@@ -1,6 +1,6 @@
 import { IStamp } from './stamp/i-stamp';
 import { SVGStamp } from './svg.stamp';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGStamp', () => {
 

@@ -1,6 +1,6 @@
 import { SVGBrush } from '../svg.brush';
 import { ITexture } from './i-texture';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class RectTexture implements ITexture {
     create(brush: SVGBrush): void {

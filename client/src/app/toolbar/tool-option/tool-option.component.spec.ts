@@ -1,14 +1,16 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 import { ToolOptionComponent } from './tool-option.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('ToolOptionComponent', () => {
     let component: ToolOptionComponent;
     let fixture: ComponentFixture<ToolOptionComponent>;
     let showcase: ShowcaseComponent;
+    let renderer: Renderer2;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -19,6 +21,9 @@ describe('ToolOptionComponent', () => {
     }));
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+
         fixture = TestBed.createComponent(ToolOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

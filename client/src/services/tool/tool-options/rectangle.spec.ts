@@ -1,5 +1,5 @@
 import { RectangleTool } from './rectangle';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('RectangleTool', () => {
 

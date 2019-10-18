@@ -1,6 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { RendererProvider } from '../renderer-provider/renderer-provider.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 @Injectable({
     providedIn: 'root',

@@ -1,5 +1,5 @@
 import { SVGPencil } from './svg.pencil';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGPencil', () => {
 

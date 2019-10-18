@@ -1,7 +1,7 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { vectorMinus, vectorPlus } from 'src/utils/math';
 import { AbsSVGShape } from './svg.abs-shape';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGEllipse extends AbsSVGShape {
 

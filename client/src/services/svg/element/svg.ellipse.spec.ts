@@ -1,6 +1,6 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGEllipse } from './svg.ellipse';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGEllipse', () => {
 

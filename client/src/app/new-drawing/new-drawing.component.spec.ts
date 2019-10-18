@@ -9,6 +9,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { NewDrawingComponent } from './new-drawing.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
@@ -20,8 +21,10 @@ describe('NewDrawingComponent', () => {
     elem.hasChildNodes.and.returnValue(false);
     const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
     entry.nativeElement = elem;
+    const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
 
     beforeEach(async(() => {
+        RendererProvider.renderer = renderer;
         TestBed.configureTestingModule({
             imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
                 MatDialogModule, FormsModule, ReactiveFormsModule],

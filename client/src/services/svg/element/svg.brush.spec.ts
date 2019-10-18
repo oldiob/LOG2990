@@ -1,5 +1,5 @@
 import { SVGBrush } from './svg.brush';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGBrush', () => {
 

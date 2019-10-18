@@ -1,6 +1,6 @@
 import { SVGInterface } from './svg.interface';
 import { isAtLine } from 'src/utils/math';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGPencil implements SVGInterface {
     element: any;

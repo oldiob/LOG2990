@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { RendererProvider } from '../renderer-provider/renderer-provider.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 @Injectable({
     providedIn: 'root',

@@ -1,12 +1,15 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaComponent } from './draw-area.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
     let fixture: ComponentFixture<DrawAreaComponent>;
+    let renderer: Renderer2;
+
     // let mockToolService: ToolService;
     // const rectCursor = `url(./../assets/images/${'rectangle-cursor.svg'}), crosshair`;
     // let mockTool: ITool;
@@ -20,6 +23,9 @@ describe('DrawAreaComponent', () => {
     }));
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+
         // mockTool = jasmine.createSpyObj('ITool', ['onReleased', 'onMotion', 'onPressed', 'CURSOR_FILENAME']);
         fixture = TestBed.createComponent(DrawAreaComponent);
         component = fixture.componentInstance;

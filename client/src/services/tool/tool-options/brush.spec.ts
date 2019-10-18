@@ -1,5 +1,5 @@
 import { BrushTool } from './brush';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('BrushTool', () => {
     let create: any;

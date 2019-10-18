@@ -1,7 +1,7 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
 import { isAtLine } from 'src/utils/math';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGRect extends AbsSVGShape {
 
