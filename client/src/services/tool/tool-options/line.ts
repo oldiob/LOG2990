@@ -13,7 +13,7 @@ export class LineTool implements ITool {
 
     element: SVGLine | null = null;
     width = 1;
-    junctionWidth = 1;
+    junctionWidth = 12;
     lineType: LineType;
     junctionType: JunctionType;
     constructor(private paletteService: PaletteService, private rendererProvider: RendererProviderService) { }

@@ -29,7 +29,7 @@ describe('RectangleTool', () => {
 
     it('should create new rect when onPressed', () => {
         rectangle.element = element;
-        expect((): any => { return rectangle.onPressed(event); }).toBeTruthy();
+        expect((): any => rectangle.onPressed(event)).toBeTruthy();
         expect(rectangle.element).toBeTruthy();
     });
 

@@ -18,7 +18,6 @@ export class SVGLine implements SVGInterface {
     polyline: any;
     line: any;
     circle: any;
-    marker: any;
     constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType, renderer: Renderer2) {
         this.renderer = renderer;
         this.anchors.push(new Point(x, y));
@@ -57,7 +56,7 @@ export class SVGLine implements SVGInterface {
                 this.renderer.setAttribute(this.circle, 'cx', x.toString());
                 this.renderer.setAttribute(this.circle, 'cy', y.toString());
                 this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
-                this.renderer.setAttribute(this.circle, 'fill', 'red');
+                this.renderer.setAttribute(this.circle, 'fill', 'black');
                 this.renderer.appendChild(this.element, this.polyline);
                 this.renderer.appendChild(this.element, this.circle);
 
@@ -129,7 +128,7 @@ export class SVGLine implements SVGInterface {
             this.renderer.setAttribute(this.circle, 'cx', x.toString());
             this.renderer.setAttribute(this.circle, 'cy', y.toString());
             this.renderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
-            this.renderer.setAttribute(this.circle, 'fill', 'red');
+            this.renderer.setAttribute(this.circle, 'fill', 'black');
             this.renderer.appendChild(this.element, this.circle);
         }
         this.renderAnchors();
