@@ -1,5 +1,4 @@
-import { Injectable, Renderer2 } from '@angular/core';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { Injectable } from '@angular/core';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { ITool } from './i-tool';
@@ -18,16 +17,14 @@ export class StampTool implements ITool {
     angle: number;
 
     stampTexture: IStamp;
-    renderer: Renderer2;
-    constructor(rendererProvider: RendererProviderService) {
-        this.renderer = rendererProvider.renderer;
+    constructor() {
         this.width = this.IMAGESIZE;
         this.angle = this.MIN_ANGLE;
         this.currentPath = '';
     }
 
     onPressed(event: MouseEvent): SVGStamp {
-        this.element = new SVGStamp(this.renderer, this.width, this.stampTexture, this.angle, this.currentPath);
+        this.element = new SVGStamp(this.width, this.stampTexture, this.angle, this.currentPath);
         this.element.addPoint(event.svgX, event.svgY);
         return this.element;
     }

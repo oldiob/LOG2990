@@ -1,4 +1,5 @@
 import { SVGBrush } from './svg.brush';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 describe('SVGBrush', () => {
 
@@ -17,7 +18,9 @@ describe('SVGBrush', () => {
         C = `#(Math.floor(Math.random() * 1000)).toString(16)`;
         width = 1;
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        brush = new SVGBrush(renderer, width, texture);
+        RendererProvider.renderer = renderer;
+
+        brush = new SVGBrush(width, texture);
         brush.texture = texture;
     });
 

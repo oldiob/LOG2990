@@ -1,4 +1,5 @@
 import { SVGPencil } from './svg.pencil';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 describe('SVGPencil', () => {
 
@@ -15,7 +16,9 @@ describe('SVGPencil', () => {
         R = Math.random() * 1000;
         C = `#(Math.floor(Math.random() * 1000)).toString(16)`;
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        pencil = new SVGPencil(renderer);
+        RendererProvider.renderer = renderer;
+
+        pencil = new SVGPencil();
     });
 
     it('should exits', () => {

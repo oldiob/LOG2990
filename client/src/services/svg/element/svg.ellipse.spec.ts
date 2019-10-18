@@ -1,5 +1,6 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGEllipse } from './svg.ellipse';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 describe('SVGEllipse', () => {
 
@@ -8,7 +9,9 @@ describe('SVGEllipse', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'appendChild', 'setAttribute']);
-        ellipse = new SVGEllipse(0, 0, TraceType.FillAndBorder, renderer);
+        RendererProvider.renderer = renderer;
+
+        ellipse = new SVGEllipse(0, 0, TraceType.FillAndBorder);
     });
 
     it('should exits', () => {

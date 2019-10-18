@@ -1,16 +1,16 @@
-import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
 import { isAtLine } from 'src/utils/math';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 export class SVGRect extends AbsSVGShape {
 
-    constructor(x: number, y: number, traceType: TraceType, renderer: Renderer2) {
-        super(x, y, traceType, renderer);
+    constructor(x: number, y: number, traceType: TraceType) {
+        super(x, y, traceType);
         this.hidePerimeter();
 
-        this.shapeElement = this.renderer.createElement('rect', 'svg');
-        this.renderer.appendChild(this.element, this.shapeElement);
+        this.shapeElement = RendererProvider.renderer.createElement('rect', 'svg');
+        RendererProvider.renderer.appendChild(this.element, this.shapeElement);
 
         this.setOpacities();
         this.setCursor(x, y, false);
@@ -69,9 +69,9 @@ export class SVGRect extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        this.renderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
-        this.renderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
-        this.renderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
-        this.renderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
+        RendererProvider.renderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
+        RendererProvider.renderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
+        RendererProvider.renderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
+        RendererProvider.renderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
     }
 }

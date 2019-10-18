@@ -1,5 +1,6 @@
 import { SVGStamp } from '../svg.stamp';
 import { EmojiStamp } from './emoji';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 describe('EmojiStamp', () => {
 
@@ -13,7 +14,7 @@ describe('EmojiStamp', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         element = jasmine.createSpyObj('any', ['']);
 
-        stamp.renderer = renderer;
+        RendererProvider.renderer = renderer;
         emoji = new EmojiStamp();
     });
 

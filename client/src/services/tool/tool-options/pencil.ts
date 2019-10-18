@@ -1,6 +1,5 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { ITool } from './i-tool';
 
@@ -11,12 +10,7 @@ export class PencilTool implements ITool {
     element: SVGPencil | null;
     width: number;
 
-    protected renderer: Renderer2;
-
-    constructor(
-        rendererProvider: RendererProviderService,
-        private paletteService: PaletteService) {
-        this.renderer = rendererProvider.renderer;
+    constructor(private paletteService: PaletteService) {
         this.width = 5;
     }
 
@@ -26,7 +20,7 @@ export class PencilTool implements ITool {
         }
         const x = event.svgX;
         const y = event.svgY;
-        this.element = new SVGPencil(this.renderer);
+        this.element = new SVGPencil();
         this.element.setWidth(this.width);
         this.element.addPoint(x, y);
         this.element.addPoint(x, y);
@@ -43,6 +37,11 @@ export class PencilTool implements ITool {
         }
     }
     onReleased(event: MouseEvent): void {
+        if (false) {
+            /*let lol =  JSON.parse((this.element.element));
+            console.log(1, lol.outerHTML);
+            console.log(2, this.element.element.outerHTML);*/
+        }
         this.element = null;
     }
 

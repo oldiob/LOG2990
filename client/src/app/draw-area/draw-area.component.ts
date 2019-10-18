@@ -1,8 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, HostListener, RendererFactory2 } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider.service';
 
 @Component({
     selector: 'app-draw-area',
@@ -41,7 +42,9 @@ export class DrawAreaComponent implements OnInit {
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private toolService: ToolService,
-        private gridService: GridService) {
+        private gridService: GridService,
+        rendererFactory: RendererFactory2) {
+        RendererProvider.init(rendererFactory);
     }
 
     ngOnInit() {

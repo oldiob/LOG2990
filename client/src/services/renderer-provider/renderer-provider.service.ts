@@ -1,12 +1,11 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Renderer2, RendererFactory2 } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root',
-})
-export class RendererProviderService {
-    renderer: Renderer2;
+export class RendererProvider {
+    static renderer: Renderer2;
 
-    constructor(rendererFactory: RendererFactory2) {
-        this.renderer = rendererFactory.createRenderer(null, null);
+    static init(rendererFactory: RendererFactory2) {
+        if (this.renderer === undefined) {
+            RendererProvider.renderer = rendererFactory.createRenderer(null, null);
+        }
     }
 }
