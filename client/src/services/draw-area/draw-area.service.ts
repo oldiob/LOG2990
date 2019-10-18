@@ -37,12 +37,7 @@ export class DrawAreaService {
 
   save(drawing: Drawing): void {
       this.isSavedDrawing = true;
-      const newMessage: Message = {
-        body : 'ba',
-        title : 'ab',
-      };
 
-      alert(this.localMessage);
       // ! Remove following once server is implemented
       this.drawings.value.push(drawing);
       this.webClientServer.sendDrawing();
