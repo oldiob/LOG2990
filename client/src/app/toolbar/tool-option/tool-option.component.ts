@@ -176,15 +176,17 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     onLineTypeChange(): void {
+        if (this.currentTool instanceof LineTool) {
         this.currentTool.lineType = this.lineForm.controls.lineType.value;
-
         this.showcase.display(this.currentTool);
+        }
     }
 
     onJunctionTypeChange(): void {
-        this.currentTool.junctionType = this.junctionForm.controls.junctionType.value;
-
+        if (this.currentTool instanceof LineTool) {
+        this.currentTool.junctionType  = this.junctionForm.controls.junctionType.value;
         this.showcase.display(this.currentTool);
+        }
     }
 
     private createLineForm(): void {
