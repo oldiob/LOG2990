@@ -1,6 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
+         MatOptionModule, MatSelectModule } from '@angular/material';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LineTool } from 'src/services/tool/tool-options/line';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
+import { AngleComponent } from '../angle/angle.component';
+import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 import { ToolOptionComponent } from './tool-option.component';
@@ -14,7 +22,11 @@ describe('ToolOptionComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ToolOptionComponent, ShowcaseComponent, WidthComponent],
+            imports: [MatSelectModule, MatDialogModule, FormsModule,
+                      BrowserAnimationsModule, BrowserDynamicTestingModule,
+                      ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
+                      MatOptionModule, MatFormFieldModule],
+            declarations: [ToolOptionComponent, ShowcaseComponent, WidthComponent, AngleComponent, JunctionComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
@@ -91,6 +103,14 @@ describe('ToolOptionComponent', () => {
         expect(showcase.display).toHaveBeenCalled();
     });
 
+    it('should set junction width of the current tool on display', () => {
+        const junctionWidth = 15;
+        component.currentTool = component.tools[2];
+        component.setJunctionWidth(junctionWidth);
+        expect((component.currentTool as LineTool).junctionWidth).toEqual(junctionWidth);
+        expect(showcase.display).toHaveBeenCalled();
+    });
+
     it('should show primary color', () => {
         component.togglePrimaryColorPicker();
         expect(component.isShowSecondary).toBeFalsy();
@@ -124,6 +144,22 @@ describe('ToolOptionComponent', () => {
         component.isShowPrimary = false;
         component.hideColorPicker();
         expect(component.isShowSecondary).toBeFalsy();
+    });
+
+    it('should line type change on display', () => {
+        component.onLineTypeChange();
+        if (component.currentTool instanceof LineTool) {
+        expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
+        expect(showcase.display).toHaveBeenCalled();
+        }
+    });
+
+    it('should jonction type change on display', () => {
+        component.onJunctionTypeChange();
+        if (component.currentTool instanceof LineTool) {
+        expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
+        expect(showcase.display).toHaveBeenCalled();
+        }
     });
 
 });
