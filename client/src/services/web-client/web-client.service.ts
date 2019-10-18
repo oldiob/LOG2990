@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Message } from '../../../../common/communication/message';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map } from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import { Drawing } from 'src/utils/drawing';
+import { Drawing } from '../draw-area/i-drawing';
 import { SVGService} from 'src/services/svg/svg.service'
 
 @Injectable({
@@ -28,15 +28,28 @@ export class WebClientService {
     this.http.post(`${this.uri}/add`, obj)
         .subscribe(res => console.log('Done'));
   }
-  getDrawings() {
-    return this
-           .http
-           .get(`${this.uri}`);
+  getDrawingCount(): Observable<number> {
+    return this.http.get<number>(`${this.CUSTOM_URL}/drawing/count`).pipe(
+      catchError(this.handleError<number>('getDrawingCount')),
+    );
   }
-  removeDrawing(Name: string) {
-    return this
-              .http
-              .get(`${this.uri}/delete/${Name}`);
+  getAllDrawings() {
+    return this.http.get(`${this.CUSTOM_URL}/drawing/all`);
+  }
+  getDrawingsByID(id: number) {
+    return this.http.get(`${this.CUSTOM_URL}/drawing/byid/${id}`);
+  }
+  getDrawingsByTags(tags: string[], min: number, max: number) {
+    const obj: any = {
+      tags,
+      min,
+      max,
+    };
+    this.http.post(`${this.CUSTOM_URL}/drawing/bytags`, obj)
+    .pipe(map((res: Response) => res));
+  }
+  deleteDrawing(id: number) {
+    return this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${id}`);
   }
 
   getMessage(): Observable<Message> {
@@ -55,9 +68,7 @@ export class WebClientService {
     .subscribe(res => console.log('Done'));
   }
 
-  sendDrawing() {
-    const etiquette: string[] = ['abc', 'acd'];
-    const drawing = new Drawing(etiquette, this.svgService.objects, 'name');
+  sendDrawing(drawing: Drawing) {
     console.log(this.svgService.entry.nativeElement);
 
     const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
@@ -65,21 +76,8 @@ export class WebClientService {
     console.log(parsed.childNodes[0]);
     console.log(parsed);
 
-    this.http.post(`${this.CUSTOM_URL}/addM`, result)
+    this.http.post(`${this.CUSTOM_URL}/addM`, drawing)
     .subscribe(res => console.log('Done'));
-  }
-
-  sendDrawingTest() {
-    const svgElem = document.getElementsByTagName('app-draw-area')[0].childNodes[0];
-    console.log(svgElem);
-    this.http.post(`${this.CUSTOM_URL}/addTEST`, svgElem)
-    .subscribe(res => console.log('Done'));
-  }
-
-  getDrawingTest(): Observable<any> {
-    return this.http.get<any>(`${this.CUSTOM_URL}/getTest`).pipe(
-      catchError(this.handleError<any>('basicGet')),
-    );
   }
 
   private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {

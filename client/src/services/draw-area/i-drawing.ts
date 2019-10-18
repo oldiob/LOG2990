@@ -3,4 +3,5 @@ export interface Drawing {
     thumbnail: SVGElement | null;
     tags: string[];
     svgs: string[];
+    id: number;
 }

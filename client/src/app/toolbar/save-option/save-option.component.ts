@@ -84,6 +84,7 @@ export class SaveOptionComponent implements OnInit {
             thumbnail: preview,
             tags: this.saveForm.controls.tags.value,
             svgs: [''],
+            id: -1,
         };
         this.drawAreaService.save(drawing);
     }

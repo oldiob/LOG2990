@@ -40,7 +40,11 @@ export class DrawAreaService {
 
       // ! Remove following once server is implemented
       this.drawings.value.push(drawing);
-      this.webClientServer.sendDrawing();
+
+      this.webClientServer.sendDrawing(drawing);
+      this.webClientServer.getDrawingCount().subscribe((count: number) => {
+        console.log(count);
+      });
   }
 
   dirty() {

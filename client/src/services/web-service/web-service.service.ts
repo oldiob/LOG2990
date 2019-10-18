@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Message } from '../../../../common/communication/message';
 import { Observable, of } from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import { Drawing } from 'src/utils/drawing';
+import { Drawing } from '../draw-area/i-drawing';
 import { SVGService} from 'src/services/svg/svg.service'
 
 @Injectable({
@@ -57,8 +57,7 @@ export class WebServiceService {
 
   sendDrawing() {
     const etiquette: string[] = ['abc', 'acd'];
-    const drawing = new Drawing(etiquette, this.svgService.objects, 'name');
-    this.http.post(`${this.CUSTOM_URL}/addM`, drawing)
+    this.http.post(`${this.CUSTOM_URL}/addM`, etiquette)
     .subscribe(res => console.log('Done'));
   }
 
