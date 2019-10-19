@@ -1,4 +1,3 @@
-import { Renderer2 } from '@angular/core';
 import { IStamp } from './stamp/i-stamp';
 import { SVGInterface } from './svg.interface';
 
@@ -17,7 +16,7 @@ export class SVGStamp implements SVGInterface {
 
     imagePaths: string;
 
-    constructor(public renderer: Renderer2, width: number, stamp: IStamp, angle: number, imagePath: string) {
+    constructor(width: number, stamp: IStamp, angle: number, imagePath: string) {
         this.points = [];
         this.lineWidth = width * this.IMAGESIZE;
         this.angles = angle;

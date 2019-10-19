@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 
@@ -26,13 +25,13 @@ export class ShowcaseComponent implements OnInit {
     service: SVGService | null;
     mouseEvent: MouseEvent;
 
-    constructor(private rendererProvider: RendererProviderService) {
+    constructor() {
         this.mouseEvent = new MouseEvent('', undefined);
         this.service = null;
     }
 
     ngOnInit() {
-        this.service = new SVGService(this.rendererProvider);
+        this.service = new SVGService();
         this.service.entry = this.entry;
 
         this.service.clearDrawArea();

@@ -1,6 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('AbsSVGShape', () => {
 
@@ -12,7 +13,8 @@ describe('AbsSVGShape', () => {
     const defaultEndingPoint = [51, 101];
 
     beforeEach(() => {
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly, renderer);
+        RendererProvider.renderer = renderer;
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
     });
 
     it('should exits', () => {
@@ -55,25 +57,28 @@ describe('AbsSVGShape', () => {
     it('should set correct colors depending of the trace type', () => {
         const color = 'color';
 
-        const borderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['setAttribute']);
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly, renderer);
-        shape.mRenderer = borderRenderer;
+        const borderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
+        RendererProvider.renderer = borderRenderer;
         shape.setPrimary(color);
         expect(borderRenderer.setAttribute).toHaveBeenCalledTimes(0);
         shape.setSecondary(color);
         expect(borderRenderer.setAttribute).toHaveBeenCalledTimes(1);
 
-        const fillRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['setAttribute']);
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly, renderer);
-        shape.mRenderer = fillRenderer;
+        const fillRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
+        RendererProvider.renderer = fillRenderer;
         shape.setPrimary(color);
         expect(fillRenderer.setAttribute).toHaveBeenCalledTimes(1);
         shape.setSecondary(color);
         expect(fillRenderer.setAttribute).toHaveBeenCalledTimes(1);
 
-        const fillAndBorderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['setAttribute']);
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder, renderer);
-        shape.mRenderer = fillAndBorderRenderer;
+        const fillAndBorderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
+        RendererProvider.renderer = fillAndBorderRenderer;
         shape.setPrimary(color);
         expect(fillAndBorderRenderer.setAttribute).toHaveBeenCalledTimes(1);
         shape.setSecondary(color);
@@ -82,35 +87,35 @@ describe('AbsSVGShape', () => {
 
     it('should set point size', () => {
         const pointSize = 5;
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
         shape.setPointSize(pointSize);
         expect(shape.mPointSize).toEqual(pointSize);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
         shape.setPointSize(pointSize);
         expect(shape.mPointSize).toEqual(0);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
         shape.setPointSize(pointSize);
         expect(shape.mPointSize).toEqual(pointSize);
     });
 
     it('should call the correct is at methods', () => {
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
         spyOn(shape, 'isInside');
         spyOn(shape, 'isAtBorder');
         shape.isAt(0, 0);
         expect(shape.isAtBorder).toHaveBeenCalledTimes(1);
         expect(shape.isInside).toHaveBeenCalledTimes(0);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
         spyOn(shape, 'isInside');
         spyOn(shape, 'isAtBorder');
         shape.isAt(0, 0);
         expect(shape.isAtBorder).toHaveBeenCalledTimes(0);
         expect(shape.isInside).toHaveBeenCalledTimes(1);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder, renderer);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
         spyOn(shape, 'isInside');
         spyOn(shape, 'isAtBorder');
         shape.isAt(0, 0);
@@ -126,8 +131,8 @@ class TestShape extends AbsSVGShape {
     onShift(isShift: boolean): void {
         //
     }
-    constructor(x: number, y: number, traceType: TraceType, renderer: Renderer2) {
-        super(x, y, traceType, renderer);
+    constructor(x: number, y: number, traceType: TraceType) {
+        super(x, y, traceType);
     }
 
     isInside(x: number, y: number): boolean {
@@ -164,9 +169,5 @@ class TestShape extends AbsSVGShape {
 
     get mPointSize(): number {
         return this.pointSize;
-    }
-
-    set mRenderer(renderer: any) {
-        this.renderer = renderer;
     }
 }

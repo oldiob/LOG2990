@@ -1,10 +1,10 @@
 import { RectangleTool } from './rectangle';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('RectangleTool', () => {
 
     let element: any;
     let renderer: any;
-    let rendererProvider: any;
     let paletteService: any;
 
     let rectangle: RectangleTool;
@@ -13,10 +13,10 @@ describe('RectangleTool', () => {
     beforeEach(() => {
         element = jasmine.createSpyObj('SVGRect', ['addPoint', 'setWidth', 'setCursor', 'release']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
         paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
-        rendererProvider.renderer = renderer;
-        rectangle = new RectangleTool(rendererProvider, paletteService);
+
+        RendererProvider.renderer = renderer;
+        rectangle = new RectangleTool(paletteService);
         rectangle.element = element;
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
@@ -29,7 +29,7 @@ describe('RectangleTool', () => {
 
     it('should create new rect when onPressed', () => {
         rectangle.element = element;
-        expect((): any => { return rectangle.onPressed(event); }).toBeTruthy();
+        expect((): any => rectangle.onPressed(event)).toBeTruthy();
         expect(rectangle.element).toBeTruthy();
     });
 

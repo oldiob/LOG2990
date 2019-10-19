@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatDialogModule,
@@ -15,6 +15,7 @@ import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar.component';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('ToolbarComponent', () => {
     let component: ToolbarComponent;
@@ -27,6 +28,8 @@ describe('ToolbarComponent', () => {
     let galleryOption: GalleryOptionComponent;
     let option: IOption<any>;
     let options: IOption<any>[];
+    let renderer: Renderer2;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [MatSelectModule, MatDialogModule, FormsModule,
@@ -44,6 +47,9 @@ describe('ToolbarComponent', () => {
     }));
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        RendererProvider.renderer = renderer;
+
         fixture = TestBed.createComponent(ToolbarComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

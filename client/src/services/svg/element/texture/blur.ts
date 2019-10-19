@@ -1,19 +1,20 @@
 import { SVGBrush } from '../svg.brush';
 import { ITexture } from './i-texture';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class BlurTexture implements ITexture {
 
     create(brush: SVGBrush): void {
-        brush.element = brush.renderer.createElement('polyline', 'svg');
+        brush.element = RendererProvider.renderer.createElement('polyline', 'svg');
 
-        brush.renderer.setAttribute(brush.element, 'fill', 'none');
-        brush.renderer.setAttribute(brush.element, 'stroke-linecap', 'round');
-        brush.renderer.setAttribute(brush.element, 'stroke-linejoin', 'round');
+        RendererProvider.renderer.setAttribute(brush.element, 'fill', 'none');
+        RendererProvider.renderer.setAttribute(brush.element, 'stroke-linecap', 'round');
+        RendererProvider.renderer.setAttribute(brush.element, 'stroke-linejoin', 'round');
 
-        brush.renderer.setAttribute(brush.element, 'stroke-width', brush.lineWidth.toString());
-        brush.renderer.setAttribute(brush.element, 'filter', 'url(#blur)');
+        RendererProvider.renderer.setAttribute(brush.element, 'stroke-width', brush.lineWidth.toString());
+        RendererProvider.renderer.setAttribute(brush.element, 'filter', 'url(#blur)');
     }
     addPoint(brush: SVGBrush, x: number, y: number): void {
-        brush.renderer.setAttribute(brush.element, 'points', brush.pointsAttribute());
+        RendererProvider.renderer.setAttribute(brush.element, 'points', brush.pointsAttribute());
     }
 }

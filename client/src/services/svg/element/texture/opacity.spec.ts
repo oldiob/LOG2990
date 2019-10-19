@@ -1,4 +1,5 @@
 import { OpacityTexture } from './opacity';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('OpacityTexture', () => {
 
@@ -8,11 +9,11 @@ describe('OpacityTexture', () => {
     let element: any;
 
     beforeEach(() => {
-        brush = jasmine.createSpyObj('SVGBrush', ['renderer', 'lineWidth', 'pointsAttribute']);
+        brush = jasmine.createSpyObj('SVGBrush', ['lineWidth', 'pointsAttribute']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         element = jasmine.createSpyObj('any', ['']);
 
-        brush.renderer = renderer;
+        RendererProvider.renderer = renderer;
         opacity = new OpacityTexture();
     });
 

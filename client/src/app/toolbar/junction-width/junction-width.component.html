@@ -1,0 +1,7 @@
+<div class="container">
+        <div class="text2 text">Junction width : </div>
+        <input class="text2 input-text" [value]="junctionWidth" [(ngModel)]="junctionWidth" autocomplete=off>
+    
+    </div>
+    
+    <input type="range" [(ngModel)]="junctionWidth" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">

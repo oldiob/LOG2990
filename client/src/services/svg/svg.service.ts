@@ -1,6 +1,6 @@
-import { ElementRef, Injectable, Renderer2 } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { RendererProviderService } from '../renderer-provider/renderer-provider.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 @Injectable({
     providedIn: 'root',
@@ -9,10 +9,9 @@ export class SVGService {
     entry: ElementRef;
 
     objects: SVGInterface[] = [];
-    renderer: Renderer2;
 
-    constructor(rendererProvider: RendererProviderService) {
-        this.renderer = rendererProvider.renderer;
+    constructor() {
+        //
     }
 
     findAt(x: number, y: number): SVGInterface | null {
@@ -39,13 +38,13 @@ export class SVGService {
         }
 
         this.objects.push(obj);
-        this.renderer.appendChild(this.entry.nativeElement, obj.element);
+        RendererProvider.renderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
     removeObject(): SVGInterface | null {
         const removedObject: SVGInterface | undefined = this.objects.pop();
         if (removedObject !== undefined) {
-            this.renderer.removeChild(this.entry.nativeElement, removedObject.element);
+            RendererProvider.renderer.removeChild(this.entry.nativeElement, removedObject.element);
             return removedObject;
         }
         return null;
@@ -57,13 +56,13 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
-        this.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
-        this.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
-        this.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
+        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
+        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
+        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
     }
 
     private createBlurFilter() {
-        const renderer = this.renderer;
+        const renderer = RendererProvider.renderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
         renderer.setAttribute(filterBlur, 'x', '-20');
@@ -77,7 +76,7 @@ export class SVGService {
         return filterBlur;
     }
     private createOpacityFilter() {
-        const renderer = this.renderer;
+        const renderer = RendererProvider.renderer;
         const filterOpacity = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterOpacity, 'id', 'opacity');
         renderer.setAttribute(filterOpacity, 'x', '-20');
@@ -96,7 +95,7 @@ export class SVGService {
         return filterOpacity;
   }
     private createTurbulenceFilter() {
-        const renderer = this.renderer;
+        const renderer = RendererProvider.renderer;
         const filterTurbulence = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterTurbulence, 'id', 'turbulence');
 

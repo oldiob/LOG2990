@@ -1,17 +1,17 @@
 import { StampTool } from './stamp';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('StampTool', () => {
 
     const element = jasmine.createSpyObj('SVGStamp', ['addPoint', 'setCursor']);
     const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-    const rendererProvider = jasmine.createSpyObj('RendererProviderService', renderer);
     const iStamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
     let stamp: StampTool;
     let event: MouseEvent;
 
     beforeEach(() => {
-        rendererProvider.renderer = renderer;
-        stamp = new StampTool(rendererProvider);
+        RendererProvider.renderer = renderer;
+        stamp = new StampTool();
         stamp.element = element;
         stamp.stampTexture = iStamp;
         event = new MouseEvent('mousedown');
