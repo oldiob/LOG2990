@@ -4,4 +4,7 @@ export class Drawing {
     tags: string[];
     svgs: string;
     id: number;
+    backgroundColor: string;
+    width: number;
+    height: number;
 }

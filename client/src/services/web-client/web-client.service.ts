@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SVGService} from 'src/services/svg/svg.service'
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Message } from '../../../../common/communication/message';
 import { serializeDrawArea } from '../../utils/element-parser';
 import { Drawing } from '../draw-area/i-drawing';
@@ -17,7 +18,8 @@ export class WebClientService {
   preparedDrawings: Drawing[];
   preparedReady: boolean;
 
-  constructor(private http: HttpClient, private svgService: SVGService) {
+  constructor(private workZoneService: WorkZoneService,
+    private http: HttpClient, private svgService: SVGService) {
     //
    }
 
@@ -31,17 +33,35 @@ export class WebClientService {
   }
 
   sendDrawing(drawing: Drawing) {
-    console.log(this.svgService.entry.nativeElement);
+      console.log(this.svgService.entry.nativeElement);
 
-    drawing.svgs = serializeDrawArea(this.svgService);
+      drawing.svgs = serializeDrawArea(this.svgService);
+      this.workZoneService.currentHeight.subscribe(
+          (height): number => {
+            drawing.height = height;
+            return height;
+          },
+      );
+      this.workZoneService.currentWidth.subscribe(
+        (width): number => {
+          drawing.width = width;
+          return width;
+        },
+    );
+      this.workZoneService.currentBackgroundColor.subscribe(
+      (color): string => {
+        drawing.backgroundColor = color;
+        return color;
+      },
+  );
 
-    const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
-    const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
-    console.log(parsed.childNodes[0]);
-    console.log(parsed);
+      const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
+      const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
+      console.log(parsed.childNodes[0]);
+      console.log(parsed);
 
-    this.http.post(`${this.CUSTOM_URL}/add`, drawing)
-    .subscribe(res => console.log('Done'));
+      this.http.post(`${this.CUSTOM_URL}/add`, drawing)
+      .subscribe(res => console.log('Done'));
   }
 
   getDrawingCount(): Observable<number> {
