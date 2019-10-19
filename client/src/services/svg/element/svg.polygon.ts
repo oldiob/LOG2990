@@ -1,18 +1,17 @@
-import { Renderer2 } from '@angular/core';
 import { isAtLine, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { AbsSVGShape } from './svg.abs-shape';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGPolygon extends AbsSVGShape {
 
     private circularPoints: number[][] = [];
     private actualPointsPosition: number[][] = [];
 
-    constructor(x: number, y: number, nSides: number, traceType: number, renderer: Renderer2) {
-        super(x, y, traceType, renderer);
-        this.hidePerimeter();
+    constructor(x: number, y: number, nSides: number, traceType: number) {
+        super(x, y, traceType);
 
-        this.shapeElement = this.renderer.createElement('polygon', 'svg');
-        this.renderer.appendChild(this.element, this.shapeElement);
+        this.shapeElement = RendererProvider.renderer.createElement('polygon', 'svg');
+        RendererProvider.renderer.appendChild(this.element, this.shapeElement);
 
         this.setOpacities();
         this.setCursor(x, y);
@@ -63,14 +62,14 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        this.renderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
+        RendererProvider.renderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
     }
 
     setCursor(x: number, y: number) {
-        // you habe your this.circularPoints :
-        //      a centered Polygon corner positions of radius 1;
-        this.actualPointsPosition = [];
         this.updateCoordinates(x, y, true);
+        this.updatePerimeter();
+
+        this.actualPointsPosition = [];
         for (const circularPoint of this.circularPoints) {
             this.actualPointsPosition.push(vectorPlus(vectorMultiply(circularPoint, this.size[1]), this.center));
         }

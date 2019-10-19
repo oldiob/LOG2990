@@ -44,7 +44,7 @@ export abstract class AbsSVGShape implements SVGInterface {
 
         this.perimeter = RendererProvider.renderer.createElement('rect', 'svg');
 
-        RendererProvider.renderer.setAttribute(this.perimeter, 'stroke-width', '0.3');
+        RendererProvider.renderer.setAttribute(this.perimeter, 'stroke-width', '0.5');
         RendererProvider.renderer.setAttribute(this.perimeter, 'fill', 'transparent');
         RendererProvider.renderer.setAttribute(this.element, 'x', `${x}`);
         RendererProvider.renderer.setAttribute(this.element, 'y', `${y}`);
