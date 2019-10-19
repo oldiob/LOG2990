@@ -17,6 +17,7 @@ export class DrawingRoute {
         @inject(Types.DateService) private dateService: DateService) {
       //  @inject(Types.DataBaseService) private database: DataBaseService) {
         this.drawings = [];
+        this.uniqueID = 0;
         this.configureRouter();
     }
 
@@ -31,7 +32,9 @@ export class DrawingRoute {
     }
 
     private findDrawing(id: number): Drawing | null {
+        console.log('logging 2');
         for (let i = 0; i < this.drawings.length; i++) {
+                console.log(this.drawings[i].id);
                 if (this.drawings[i].id === id) {
                         return this.drawings[i];
                 }
@@ -100,14 +103,14 @@ export class DrawingRoute {
                     });
         });
         */
-        this.router.post('/add', (req, res) => {
+        this.router.post('/addM', (req, res) => {
            console.log(req.body);
            res.status(200).json({RESPONSE: 'Message received'});
        });
-        this.router.post('/addM', (req, res) => {
+        this.router.post('/add', (req, res) => {
                 console.log(req.body);
-                const drawing: Drawing = req.body;
-                console.log(drawing.name);
+                let drawing = new Drawing();
+                drawing = req.body;
                 this.assignID(drawing);
                 this.drawings.push(drawing);
                 res.status(200).json({RESPONSE: 'Message received'});
@@ -120,6 +123,9 @@ export class DrawingRoute {
         });
         this.router.get('/drawing/byid/:id', (req, res) => {
                 const id: number = Number(req.params.id);
+                console.log('loggin');
+                console.log('drawing[] size', this.drawings.length);
+                console.log(this.findDrawing(id));
                 res.json(this.findDrawing(id));
         });
         this.router.get('/drawing/bytags', (req, res) => {
@@ -136,7 +142,7 @@ export class DrawingRoute {
                 const index: number = this.getDrawingIndex(Number(req.params.id));
                 if (index > -1) {
                         this.drawings.splice(index, 1);
-                     }
+                }
         });
     }
 }

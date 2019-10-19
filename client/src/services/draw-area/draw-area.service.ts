@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Drawing } from './i-drawing';
 import { map } from 'rxjs/operators';
 import { Message } from '../../../../common/communication/message';
-import { DialogService } from '../dialog/dialog.service';
 import { IndexService } from '../index/index.service';
 import { WebClientService } from '../web-client/web-client.service';
+import { Drawing } from './i-drawing';
 
 @Injectable({
     providedIn: 'root',
@@ -45,6 +44,7 @@ export class DrawAreaService {
       this.webClientServer.getDrawingCount().subscribe((count: number) => {
         console.log(count);
       });
+      this.webClientServer.getDrawingsByID(1).subscribe((res: Drawing[]) => console.log(res));
   }
 
   dirty() {

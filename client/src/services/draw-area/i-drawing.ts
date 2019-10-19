@@ -1,4 +1,4 @@
-export interface Drawing {
+export class Drawing {
     name: string;
     thumbnail: SVGElement | null;
     tags: string[];

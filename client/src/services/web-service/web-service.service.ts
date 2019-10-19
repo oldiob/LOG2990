@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message } from '../../../../common/communication/message';
 import { Observable, of } from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import { Drawing } from '../draw-area/i-drawing';
-import { SVGService} from 'src/services/svg/svg.service'
+import { Message } from '../../../../common/communication/message';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +12,7 @@ export class WebServiceService {
   uri = 'http://localhost:4000/draw';
   private readonly CUSTOM_URL: string = 'http://localhost:3000/draw';
 
-  constructor(private http: HttpClient, private svgService: SVGService) {
+  constructor(private http: HttpClient) {
     //
    }
 
@@ -26,7 +24,7 @@ export class WebServiceService {
       Tags,
     };
     this.http.post(`${this.uri}/add`, obj)
-        .subscribe(res => console.log('Done'));
+        .subscribe(() => console.log('Done'));
   }
   getDrawings() {
     return this
@@ -42,7 +40,7 @@ export class WebServiceService {
   getMessage(): Observable<Message> {
     // GET EXAMPLE DO NOT REMOVE CLIENTSIDE
     return this.http.get<Message>(`${this.CUSTOM_URL}/a`).pipe(
-      catchError(this.handleError<Message>('basicGet')),
+      catchError(this.handleError<Message>()),
     );
   }
 
@@ -52,30 +50,30 @@ export class WebServiceService {
     drawResponse.title = 'hello';
     drawResponse.body = 'world';
     this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
-    .subscribe(res => console.log('Done'));
+    .subscribe(() => console.log('Done'));
   }
 
   sendDrawing() {
     const etiquette: string[] = ['abc', 'acd'];
     this.http.post(`${this.CUSTOM_URL}/addM`, etiquette)
-    .subscribe(res => console.log('Done'));
+    .subscribe(() => console.log('Done'));
   }
 
   sendDrawingTest() {
     const svgElem = document.getElementsByTagName('app-draw-area')[0].childNodes[0];
     console.log(svgElem);
     this.http.post(`${this.CUSTOM_URL}/addTEST`, svgElem)
-    .subscribe(res => console.log('Done'));
+    .subscribe(() => console.log('Done'));
   }
 
   getDrawingTest(): Observable<any> {
     return this.http.get<any>(`${this.CUSTOM_URL}/getTest`).pipe(
-      catchError(this.handleError<any>('basicGet')),
+      catchError(this.handleError<any>()),
     );
   }
 
-  private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-    return (error: Error): Observable<T> => {
+  private handleError<T>(result?: T): (error: Error) => Observable<T> {
+    return (): Observable<T> => {
       return of(result as T);
     };
   }

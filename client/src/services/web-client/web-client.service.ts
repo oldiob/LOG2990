@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Message } from '../../../../common/communication/message';
-import { Observable, of, map } from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import { Drawing } from '../draw-area/i-drawing';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { SVGService} from 'src/services/svg/svg.service'
+import { Message } from '../../../../common/communication/message';
+import { Drawing } from '../draw-area/i-drawing';
 
 @Injectable({
   providedIn: 'root',
@@ -18,16 +18,27 @@ export class WebClientService {
     //
    }
 
-  addDrawing(Drawing: string, Name: string, Tags: string) {
-    console.log(Drawing, Name, Tags);
-    const obj = {
-      Drawing,
-      Name,
-      Tags,
-    };
-    this.http.post(`${this.uri}/add`, obj)
-        .subscribe(res => console.log('Done'));
+   sendMessage() {
+    // POST EXAMPLE DO NOT REMOVE CLIENTSIDE
+    const drawResponse = new Message();
+    drawResponse.title = 'hello';
+    drawResponse.body = 'world';
+    this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
+    .subscribe(res => console.log('Done'));
   }
+
+  sendDrawing(drawing: Drawing) {
+    console.log(this.svgService.entry.nativeElement);
+
+    const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
+    const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
+    console.log(parsed.childNodes[0]);
+    console.log(parsed);
+
+    this.http.post(`${this.CUSTOM_URL}/add`, drawing)
+    .subscribe(res => console.log('Done'));
+  }
+
   getDrawingCount(): Observable<number> {
     return this.http.get<number>(`${this.CUSTOM_URL}/drawing/count`).pipe(
       catchError(this.handleError<number>('getDrawingCount')),
@@ -57,27 +68,6 @@ export class WebClientService {
     return this.http.get<Message>(`${this.CUSTOM_URL}/a`).pipe(
       catchError(this.handleError<Message>('basicGet')),
     );
-  }
-
-  sendMessage() {
-    // POST EXAMPLE DO NOT REMOVE CLIENTSIDE
-    const drawResponse = new Message();
-    drawResponse.title = 'hello';
-    drawResponse.body = 'world';
-    this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
-    .subscribe(res => console.log('Done'));
-  }
-
-  sendDrawing(drawing: Drawing) {
-    console.log(this.svgService.entry.nativeElement);
-
-    const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
-    const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
-    console.log(parsed.childNodes[0]);
-    console.log(parsed);
-
-    this.http.post(`${this.CUSTOM_URL}/addM`, drawing)
-    .subscribe(res => console.log('Done'));
   }
 
   private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
