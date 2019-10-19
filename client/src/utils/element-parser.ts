@@ -23,8 +23,6 @@ export const populateDrawArea = (svgService: SVGService, information: string): v
     for (const e of elements.elements) {
         svgService.addObject(deserializeSVG(e));
     }
-
-    console.log('after', svgService.objects);
 };
 
 const serializeSVG = (element: SVGInterface): string => {
