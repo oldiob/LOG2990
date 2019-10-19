@@ -13,9 +13,8 @@ export class Prototypes {
         if (Prototypes.mPrototypes === null) {
             Prototypes.mPrototypes = new Map();
 
-            console.log('PROTOTYPES', listOfPrototypes);
-            for (const p of listOfPrototypes) {
-                Prototypes.mPrototypes.set(p.constructor.name, p);
+            for (const prot of listOfPrototypes) {
+                Prototypes.mPrototypes.set(prot.constructor.name, prot);
             }
         }
         const p: object | undefined = Prototypes.mPrototypes.get(name);

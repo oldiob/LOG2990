@@ -155,9 +155,7 @@ export class NewDrawingComponent implements OnInit {
         this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
         this.drawAreaService.dirty();
 
-        const serialized = serializeDrawArea(this.svgService);
         this.svgService.clearDrawArea();
-        populateDrawArea(this.svgService, serialized);
     }
 
     onColorRGBAChange() {
