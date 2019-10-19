@@ -83,6 +83,8 @@ export class ToolbarComponent implements OnInit {
             w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
             b: () => { this.bucketOption.selectTool(this.bucketOption.currentTool); },
             1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
+            2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
+            l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
             'C-o': () => { this.newDrawingOption(); },
             'C-s': () => { this.saveImage(); },
         };
