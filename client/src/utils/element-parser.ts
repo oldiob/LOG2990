@@ -66,7 +66,7 @@ const recreateElement = (fakeElement: any): any => {
 };
 
 // tslint:disable-next-line: max-classes-per-file
-class DrawAreaHolder {
+export class DrawAreaHolder {
     entry: string;
     elements: string[];
 }

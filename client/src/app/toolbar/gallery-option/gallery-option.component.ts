@@ -2,6 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { IOption } from 'src/services/tool/tool-options/i-option';
+import { WebClientService } from 'src/services/web-client/web-client.service';
+import { populateDrawArea } from 'src/utils/element-parser';
+import { SVGService } from 'src/services/svg/svg.service';
 
 @Component({
     selector: 'app-gallery-option',
@@ -21,7 +24,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     isTagExists: boolean;
 
-    constructor(private drawAreaService: DrawAreaService) { }
+    constructor(private svgService: SVGService, private drawAreaService: DrawAreaService, private webClientService: WebClientService) { }
 
     ngOnInit() {
         this.isTagExists = true;
@@ -34,10 +37,21 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     private updateDrawings() {
         // TODO: Fetch list of saved drawings from server
         this.drawings = [];
+        /*
         this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
             this.drawings = savedDrawing;
             this.refresh();
         });
+        */
+        console.log(this.webClientService.getPreparedDrawing());
+        this.webClientService.getPreparedDrawing();
+
+        while (this.webClientService.preparedReady === false) {
+            //
+        }
+        this.webClientService.preparedReady = false;
+        this.drawings = this.webClientService.preparedDrawings;
+        this.refresh();
     }
 
     filterDrawings(filterValue: string) {
@@ -83,5 +97,9 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     getImage() {
         const IMAGE = '../../../assets/images/gallery.png';
         return IMAGE;
+    }
+
+    onClick(event: MouseEvent, drawing: Drawing) {
+      populateDrawArea(this.svgService, drawing.svgs);
     }
 }

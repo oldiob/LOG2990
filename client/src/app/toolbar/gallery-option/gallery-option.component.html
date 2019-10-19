@@ -11,8 +11,9 @@
             "{{filterInput.value}}" tag does not exist
         </div>
         <div class="grid">
-            <div class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index">
-                <div class="drawing-section name">
+            <div class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index"
+            (click)="onClick($event, drawing)">
+                <div class="drawing-section name" >
                     {{drawing.name}}
                 </div>
                 <div class="thumbnail">
