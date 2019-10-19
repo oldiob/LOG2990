@@ -1,16 +1,17 @@
 import { SVGBrush } from '../svg.brush';
 import { ITexture } from './i-texture';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class RectTexture implements ITexture {
     create(brush: SVGBrush): void {
-        brush.element = brush.renderer.createElement('g', 'svg');
+        brush.element = RendererProvider.renderer.createElement('g', 'svg');
     }
     addPoint(brush: SVGBrush, x: number, y: number): void {
-        const rec = brush.renderer.createElement('rect', 'svg');
-        brush.renderer.setAttribute(rec, 'x', x.toString());
-        brush.renderer.setAttribute(rec, 'y', y.toString());
-        brush.renderer.setAttribute(rec, 'width', brush.lineWidth.toString());
-        brush.renderer.setAttribute(rec, 'height', brush.lineWidth.toString());
-        brush.renderer.appendChild(brush.element, rec);
+        const rec = RendererProvider.renderer.createElement('rect', 'svg');
+        RendererProvider.renderer.setAttribute(rec, 'x', x.toString());
+        RendererProvider.renderer.setAttribute(rec, 'y', y.toString());
+        RendererProvider.renderer.setAttribute(rec, 'width', brush.lineWidth.toString());
+        RendererProvider.renderer.setAttribute(rec, 'height', brush.lineWidth.toString());
+        RendererProvider.renderer.appendChild(brush.element, rec);
     }
 }

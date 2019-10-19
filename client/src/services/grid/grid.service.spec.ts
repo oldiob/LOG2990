@@ -1,19 +1,9 @@
 import { GridService } from './grid.service';
-
-class MockProvider {
-    _renderer: any;
-    constructor(renderer: any) {
-        this._renderer = renderer;
-    }
-    get renderer(): any {
-        return this._renderer;
-    }
-}
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
 describe('GridService', () => {
 
     let renderer: any;
-    let provider: any;
     let ref: any;
     let service: GridService;
 
@@ -22,9 +12,9 @@ describe('GridService', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'setAttribute', 'createElement']);
-        provider = new MockProvider(renderer);
+        RendererProvider.renderer = renderer;
         ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
-        service = new GridService(provider);
+        service = new GridService();
         service.width = WIDTH;
         service.height = HEIGHT;
         service.ref = ref;
@@ -32,7 +22,6 @@ describe('GridService', () => {
 
     it('should exits', () => {
         expect(service).toBeTruthy();
-        expect(service.renderer).toBe(renderer);
     });
 
     it('should set the step correctly and redraw the grid', () => {

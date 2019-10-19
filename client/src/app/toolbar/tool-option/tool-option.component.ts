@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngleComponent } from 'src/app/angle/angle.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
@@ -11,11 +11,13 @@ import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect'
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
+import { AngleComponent } from '../angle/angle.component';
+import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 
@@ -29,7 +31,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     MIN_ANGLE = 0;
     MAX_ANGLE = 360;
     MULTI_15 = 15;
-
+    LineType = LineType;
+    JunctionType = JunctionType;
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],
@@ -46,6 +49,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     @ViewChild(AngleComponent, { static: true })
     angleComponent: AngleComponent;
 
+    @ViewChild(JunctionComponent, { static: true })
+    junctionComponent: JunctionComponent;
+
     textures: ITexture[];
     currentTexture: ITexture;
 
@@ -61,14 +67,16 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     imagePaths: string[];
     currentPath: string;
 
-    degres: number;
+    lineForm: FormGroup;
+    junctionForm: FormGroup;
 
-    constructor(private paletteService: PaletteService, private toolService: ToolService, public pencil: PencilTool,
-                public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
+    constructor(private paletteService: PaletteService, private toolService: ToolService, private formBuilder: FormBuilder,
+                public pencil: PencilTool, public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
                            './assets/images/bec.png', './assets/images/shade.png'];
+
         this.currentPath = '';
         this.currentStamp = this.stamps[0];
         this.stamp.stampTexture = this.currentStamp;
@@ -78,12 +86,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
         this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
-        this.degres = 1;
     }
 
     ngOnInit(): void {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
+        this.createLineForm();
+        this.createJunctionForm();
         this.showcase.display(this.currentTool);
     }
 
@@ -117,6 +126,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
+            this.showcase.display(this.currentTool);
+        }
+    }
+
+    setJunctionWidth(width: number): void {
+        if (this.currentTool instanceof LineTool) {
+            this.currentTool.junctionWidth = width;
             this.showcase.display(this.currentTool);
         }
     }
@@ -157,6 +173,38 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     hideColorPicker(): void {
         this.isShowPrimary ? this.isShowPrimary = false
             : this.isShowSecondary = false;
+    }
+
+    onLineTypeChange(): void {
+        if (this.currentTool instanceof LineTool) {
+        this.currentTool.lineType = this.lineForm.controls.lineType.value;
+        this.showcase.display(this.currentTool);
+        }
+    }
+
+    onJunctionTypeChange(): void {
+        if (this.currentTool instanceof LineTool) {
+        this.currentTool.junctionType  = this.junctionForm.controls.junctionType.value;
+        this.showcase.display(this.currentTool);
+        }
+    }
+
+    private createLineForm(): void {
+        const DEFAULT_LINE_TYPE = LineType.FullLine;
+        const validators = [Validators.min(0), Validators.required];
+
+        this.lineForm = this.formBuilder.group({
+            lineType: [DEFAULT_LINE_TYPE, validators],
+        });
+    }
+
+    private createJunctionForm(): void {
+        const DEFAULT_JUNCTION_TYPE = JunctionType.Angle;
+        const validators = [Validators.min(0), Validators.required];
+
+        this.junctionForm = this.formBuilder.group({
+            junctionType: [DEFAULT_JUNCTION_TYPE, validators],
+        });
     }
 
     private setPrimaryColor() {

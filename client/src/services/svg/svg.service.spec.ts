@@ -1,15 +1,7 @@
 import { SVGInterface } from './element/svg.interface';
 import { SVGService } from './svg.service';
+import { RendererProvider } from '../renderer-provider/renderer-provider';
 
-class MockProvider {
-    _renderer: any;
-    constructor(renderer: any) {
-        this._renderer = renderer;
-    }
-    get renderer(): any {
-        return this._renderer;
-    }
-}
 
 describe('SVGService', () => {
 
@@ -21,7 +13,6 @@ describe('SVGService', () => {
     let objAt: any;
     let objIn: any;
     let renderer: any;
-    let provider: any;
     let elem: any;
     let entry: any;
     let service: SVGService;
@@ -39,12 +30,13 @@ describe('SVGService', () => {
 
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'createElement',
             'setAttribute']);
-        provider = new MockProvider(renderer);
+        RendererProvider.renderer = renderer;
+
         elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild', 'removeChild', 'firstChild']);
         elem.hasChildNodes.and.returnValue(false);
         entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
         entry.nativeElement = elem;
-        service = new SVGService(provider);
+        service = new SVGService();
         service.entry = entry;
     });
 

@@ -1,5 +1,6 @@
 import { IStamp } from './stamp/i-stamp';
 import { SVGStamp } from './svg.stamp';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGStamp', () => {
 
@@ -21,8 +22,10 @@ describe('SVGStamp', () => {
         width = 1;
         imagePath = '';
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
+        RendererProvider.renderer = renderer;
+
         Istamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
-        stamp = new SVGStamp(renderer, width, Istamp, angle, imagePath);
+        stamp = new SVGStamp(width, Istamp, angle, imagePath);
         stamp.imagePaths = imagePath;
     });
 

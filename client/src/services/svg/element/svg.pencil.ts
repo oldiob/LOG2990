@@ -1,6 +1,6 @@
-import { Renderer2 } from '@angular/core';
 import { SVGInterface } from './svg.interface';
 import { isAtLine } from 'src/utils/math';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 export class SVGPencil implements SVGInterface {
     element: any;
@@ -9,12 +9,12 @@ export class SVGPencil implements SVGInterface {
 
     lineWidth = 1;
 
-    constructor(private renderer: Renderer2) {
-        this.element = this.renderer.createElement('polyline', 'svg');
+    constructor() {
+        this.element = RendererProvider.renderer.createElement('polyline', 'svg');
 
-        this.renderer.setAttribute(this.element, 'fill', 'none');
-        this.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
-        this.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
+        RendererProvider.renderer.setAttribute(this.element, 'fill', 'none');
+        RendererProvider.renderer.setAttribute(this.element, 'stroke-linecap', 'round');
+        RendererProvider.renderer.setAttribute(this.element, 'stroke-linejoin', 'round');
     }
 
     isAt(x: number, y: number): boolean {
@@ -33,7 +33,7 @@ export class SVGPencil implements SVGInterface {
     }
 
     setPrimary(color: string): void {
-        this.renderer.setAttribute(this.element, 'stroke', color);
+        RendererProvider.renderer.setAttribute(this.element, 'stroke', color);
     }
 
     setSecondary(color: string): void {
@@ -42,12 +42,12 @@ export class SVGPencil implements SVGInterface {
 
     setWidth(width: number): void {
         this.lineWidth = width;
-        this.renderer.setAttribute(this.element, 'stroke-width', width.toString());
+        RendererProvider.renderer.setAttribute(this.element, 'stroke-width', width.toString());
     }
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-        this.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
+        RendererProvider.renderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
