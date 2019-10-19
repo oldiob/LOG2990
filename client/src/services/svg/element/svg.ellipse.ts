@@ -13,8 +13,8 @@ export class SVGEllipse extends AbsSVGShape {
     constructor(x: number, y: number, traceType: TraceType) {
         super(x, y, traceType);
 
-        this.shapeElement = RendererProvider.renderer.createElement('ellipse', 'svg');
-        RendererProvider.renderer.appendChild(this.element, this.shapeElement);
+        const shapeElement = RendererProvider.renderer.createElement('ellipse', 'svg');
+        RendererProvider.renderer.appendChild(this.element, shapeElement);
 
         this.setOpacities();
         this.setCursor(x, y, false);
@@ -62,10 +62,10 @@ export class SVGEllipse extends AbsSVGShape {
     }
 
     protected setPositionAttributes() {
-        RendererProvider.renderer.setAttribute(this.shapeElement, 'cx', `${this.center[0]}`);
-        RendererProvider.renderer.setAttribute(this.shapeElement, 'cy', `${this.center[1]}`);
-        RendererProvider.renderer.setAttribute(this.shapeElement, 'rx', `${this.size[0]}`);
-        RendererProvider.renderer.setAttribute(this.shapeElement, 'ry', `${this.size[1]}`);
+        RendererProvider.renderer.setAttribute(this.element.children[1], 'cx', `${this.center[0]}`);
+        RendererProvider.renderer.setAttribute(this.element.children[1], 'cy', `${this.center[1]}`);
+        RendererProvider.renderer.setAttribute(this.element.children[1], 'rx', `${this.size[0]}`);
+        RendererProvider.renderer.setAttribute(this.element.children[1], 'ry', `${this.size[1]}`);
     }
 
     private ellipseYs(x: number): number[] {

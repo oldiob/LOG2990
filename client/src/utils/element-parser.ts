@@ -20,12 +20,11 @@ export const populateDrawArea = (svgService: SVGService, information: string): v
     const elements = JSON.parse(information);
 
     svgService.clearDrawArea();
-    console.log('before', svgService);
     for (const e of elements.elements) {
         svgService.addObject(deserializeSVG(e));
     }
 
-    console.log('after', svgService);
+    console.log('after', svgService.objects);
 };
 
 const serializeSVG = (element: SVGInterface): string => {
@@ -80,4 +79,3 @@ class ElementHolder {
     elementData: SVGInterface;
     svgData: string;
 }
-

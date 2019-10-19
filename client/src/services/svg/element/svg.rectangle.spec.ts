@@ -1,17 +1,17 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { SVGRect } from './svg.rect';
+import { SVGRectangle } from './svg.rectangle';
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('SVGRect', () => {
 
     let renderer: any;
-    let rect: SVGRect;
+    let rect: SVGRectangle;
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'appendChild', 'setAttribute']);
         RendererProvider.renderer = renderer;
 
-        rect = new SVGRect(0, 0, TraceType.FillAndBorder);
+        rect = new SVGRectangle(0, 0, TraceType.FillAndBorder);
     });
 
     it('should exits', () => {

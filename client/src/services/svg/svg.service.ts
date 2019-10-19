@@ -60,6 +60,8 @@ export class SVGService {
         RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
         RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
 
+        console.log('before', this.objects);
+        
         this.objects = [];
     }
 
