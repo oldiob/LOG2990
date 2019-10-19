@@ -5,6 +5,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
+import { serializeDrawArea, populateDrawArea } from 'src/utils/element-parser';
 @Component({
     selector: 'app-new-drawing',
     templateUrl: './new-drawing.component.html',
@@ -153,7 +154,10 @@ export class NewDrawingComponent implements OnInit {
         const bgColor = this.backgroundColor;
         this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
         this.drawAreaService.dirty();
+
+        const serialized = serializeDrawArea(this.svgService);
         this.svgService.clearDrawArea();
+        populateDrawArea(this.svgService, serialized);
     }
 
     onColorRGBAChange() {

@@ -59,6 +59,8 @@ export class SVGService {
         RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
         RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
         RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
+
+        this.objects = [];
     }
 
     private createBlurFilter() {
