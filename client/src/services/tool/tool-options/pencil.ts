@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { ITool } from './i-tool';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { serializeSVG, deserializeSVG } from 'src/utils/element-parser';
 
 @Injectable({
     providedIn: 'root',
@@ -37,10 +39,12 @@ export class PencilTool implements ITool {
         }
     }
     onReleased(event: MouseEvent): void {
-        if (false) {
-            /*let lol =  JSON.parse((this.element.element));
-            console.log(1, lol.outerHTML);
-            console.log(2, this.element.element.outerHTML);*/
+        if (this.element) {
+            const serialized: string = serializeSVG(this.element);
+
+            const realElement = deserializeSVG(serialized);
+
+            console.log(realElement);
         }
         this.element = null;
     }
