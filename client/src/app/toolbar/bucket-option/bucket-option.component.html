@@ -32,3 +32,12 @@
     </a>
   </div>
 </div>
+
+<div *ngIf="currentTool === dropper">
+  <div class="separation">
+    <div class="text"><div>Targeted Color</div></div>
+  </div>
+  <div class="separation text" [ngStyle]="{'background-color': dropper.currentColor.toString(), 'height' : '100px', 'border': '2px solid #aaaaaa'}">
+      {{ dropper.currentColor.toString() }}
+  </div>
+</div>
