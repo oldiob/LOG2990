@@ -57,8 +57,8 @@
 
   <div class="container" *ngIf="isPolygon">
     <div class="text"># Sides : </div>
-    <input class="text2 input-text" type="number" [min]="3" [max]="10" [(ngModel)]="polygonTool.nSides"
+    <input class="text2 input-text" type="number" [min]="3" [max]="12" [(ngModel)]="polygonTool.nSides"
       (change)="updateShowcase()" autocomplete="off">
   </div>
-  <input type="range"  *ngIf="isPolygon" [(ngModel)]="polygonTool.nSides" [min]="3" [max]="10" step="1" class="slider"
+  <input type="range"  *ngIf="isPolygon" [(ngModel)]="polygonTool.nSides" [min]="3" [max]="12" step="1" class="slider"
     (change)="updateShowcase()">

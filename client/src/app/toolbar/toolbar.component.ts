@@ -81,9 +81,13 @@ export class ToolbarComponent implements OnInit {
         const kbd: { [id: string]: callback } = {
             c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
             w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
-            b: () => { this.bucketOption.selectTool(this.bucketOption.currentTool); },
+            l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
+            b: () => { this.bucketOption.selectTool(this.bucketOption.tools[0]); },
+            i: () => { this.bucketOption.selectTool(this.bucketOption.tools[1]); },
             1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
-            'C-o': () => { this.newDrawingOption(); },
+            2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
+            3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
+            'C-o': () => { if (this.dialogService.isClosed) {this.newDrawingOption(); } },
             'C-s': () => { this.saveImage(); },
         };
         let keys = '';
