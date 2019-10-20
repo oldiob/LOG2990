@@ -1,4 +1,5 @@
 .toolbar-option {
+    position: absolute;
     background-color: #151b33;
     width: 300px;
     height: 100%;
@@ -15,18 +16,10 @@
     text-align: center;
     background-color: #212749;
     position: absolute;
-    z-index: 0;
     -webkit-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
 }
-
-.toolbar-element {
-    display: inline-table;
-    position: absolute;
-    float: left;
-}
-
 
 .disappear {
     transform: translate(-100%,0 );
@@ -34,12 +27,13 @@
 }
 
 .appear {
-    transform: translate(25%,0 );
+    transform: translate(23%,0 );
     transition: all 0.4s ease;
 }
 
 .tools {
     height: 70%;
+    width: 100%;
     display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -47,23 +41,21 @@
 }
 
 .button {
-    margin: 10px;
-    padding: 30px;
+    margin: 10px 10px 0 10px;
     border-radius: 50%;
-}
 
-.options {
-	height: 30%;
-}
-
-
-a {
-	width: 50px;
+    width: 50px;
     height: 50px;
+
     justify-content: center;
     align-items: center;
     display: flex;
+    
     transition: 0.3s;
+}
+
+.options {
+    width: 100%;
 }
 
 a:hover {
@@ -75,7 +67,7 @@ a:active {
 }
 
 .toolbar-icon {
-    --length: 29px;
+    --length: 23px;
     display: block;
     height: var(--length);
     width: var(--length);
