@@ -20,7 +20,6 @@ import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
-import { DropperTool } from 'src/services/tool/tool-options/dropper';
 
 @Component({
     selector: 'app-tool-option',
