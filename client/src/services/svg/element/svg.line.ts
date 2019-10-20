@@ -32,7 +32,7 @@ export class SVGLine implements SVGInterface {
                 RendererProvider.renderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
                 break;
             case LineType.DotLine:
-                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-dasharray', '0.1 10');
+                RendererProvider.renderer.setAttribute(this.polyline, 'stroke-dasharray', `0.1 ${5 * this.width}`);
                 RendererProvider.renderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
         }
