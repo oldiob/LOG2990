@@ -80,8 +80,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
-        this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
-                           './assets/images/bec.png', './assets/images/shade.png'];
+        this.imagePaths = [
+        './assets/images/emojis/051-angel.png', './assets/images/emojis/051-angry.png',
+        './assets/images/emojis/051-cool-1.png', './assets/images/emojis/051-crying-1.png',
+         './assets/images/emojis/051-kiss-1.png', './assets/images/emojis/051-laughing-1.png',
+         './assets/images/emojis/051-shocked.png', './assets/images/emojis/051-sick.png',
+        ];
 
         this.currentPath = '';
         this.currentStamp = this.stamps[0];
