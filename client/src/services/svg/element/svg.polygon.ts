@@ -65,7 +65,7 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     onShift(isShift: boolean) {
-        // nothing happens
+        this.setCursor(this.endingPoint[0], this.endingPoint[1], isShift);
     }
 
     isIn(x: number, y: number, r: number): boolean {
@@ -76,9 +76,14 @@ export class SVGPolygon extends AbsSVGShape {
         RendererProvider.renderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
     }
 
-    setCursor(x: number, y: number) {
-        this.updateCoordinates(x, y, true);
-        this.updatePerimeter();
+    setCursor(x: number, y: number, isShift: boolean) {
+        this.updateCoordinates(x, y, isShift);
+        if (isShift) {
+            this.showPerimeter();
+            this.updatePerimeter();
+        } else {
+            this.hidePerimeter();
+        }
 
         this.actualPointsPosition = [];
         for (const circularPoint of this.circularPoints) {
