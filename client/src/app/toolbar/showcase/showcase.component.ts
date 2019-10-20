@@ -1,6 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { PaletteService } from 'src/services/palette/palette.service';
+import { Color } from 'src/utils/color';
 
 @Component({
     selector: 'app-showcase',
@@ -8,16 +12,21 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
     styleUrls: ['./showcase.component.scss'],
 })
 export class ShowcaseComponent implements OnInit {
-    readonly STRETCH_V_CONST = 32.0;
-    readonly STRETCH_H_CONST = 6.0 * Math.PI;
+    readonly WIDTH = 300;
+    readonly HEIGHT = 200;
 
-    readonly H_SHIFT = 125;
-    readonly V_SHIFT = 75;
+    readonly STRETCH_V_CONST = 38.0;
+    readonly STRETCH_H_CONST = 8.0 * Math.PI;
+
+    readonly H_SHIFT = this.WIDTH / 2.0;
+    readonly V_SHIFT = this.HEIGHT / 2.0;
 
     readonly MIN = -3.0 * Math.PI / 2.0;
     readonly MAX = 3.0 * Math.PI / 2.0;
 
     readonly STEP = 0.5;
+
+    private currentTool: ITool;
 
     @ViewChild('svgContainer', { static: true })
     entry: ElementRef;
@@ -25,16 +34,28 @@ export class ShowcaseComponent implements OnInit {
     service: SVGService | null;
     mouseEvent: MouseEvent;
 
-    constructor() {
+    constructor(palette: PaletteService) {
         this.mouseEvent = new MouseEvent('', undefined);
         this.service = null;
+
+        palette.primaryObs$.subscribe((color: Color) => this.displayCurrent());
+        palette.secondaryObs$.subscribe((color: Color) => this.displayCurrent());
     }
 
     ngOnInit() {
         this.service = new SVGService();
         this.service.entry = this.entry;
 
+        RendererProvider.renderer.setAttribute(this.entry.nativeElement, 'width', this.WIDTH.toString());
+        RendererProvider.renderer.setAttribute(this.entry.nativeElement, 'height', this.HEIGHT.toString());
+
         this.service.clearDrawArea();
+    }
+
+    private displayCurrent() {
+        if (this.currentTool) {
+            this.display(this.currentTool);
+        }
     }
 
     display(tool: ITool) {
@@ -42,22 +63,34 @@ export class ShowcaseComponent implements OnInit {
             return;
         }
 
+        this.currentTool = tool;
+
+        let elementToAdd: SVGInterface | null = null;
+
         this.service.clearDrawArea();
+        if (tool.onShowcase) {
+            elementToAdd = tool.onShowcase(this.WIDTH, this.HEIGHT);
+        } else {
+            elementToAdd = this.sinShowcase(tool);
+        }
+
+        if (elementToAdd !== null) {
+            this.service.addObject(elementToAdd);
+        }
+    }
+
+    private sinShowcase(tool: ITool): SVGInterface | null {
+
+        let object: SVGInterface | null = null;
+
         for (let i = this.MIN; i <= this.MAX; i += this.STEP) {
             if (i === this.MIN) {
-                this.service.addObject(tool.onPressed(this.sinClick(i)));
+                object = tool.onPressed(this.sinClick(i));
             }
             tool.onMotion(this.sinClick(i));
         }
-
-        // coutering the behaviour of double clicked line
-        for (let i = 0; i < 2; i++) {
-            this.mouseEvent.doubleClick = false;
-            tool.onReleased(this.mouseEvent);
-            tool.onPressed(this.sinClick(this.MAX));
-        }
-        this.mouseEvent.doubleClick = true;
         tool.onReleased(this.mouseEvent);
+        return object;
     }
 
     click(x: number, y: number): MouseEvent {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Color } from 'src/utils/color';
 import { RingBuffer } from 'src/utils/ring-buffer';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -9,6 +10,12 @@ import { RingBuffer } from 'src/utils/ring-buffer';
 export class PaletteService {
 
     constructor() {
+        this.primarySubject = new Subject<Color>();
+        this.primaryObs$ = this.primarySubject.asObservable();
+
+        this.secondarySubject = new Subject<Color>();
+        this.secondaryObs$ = this.secondarySubject.asObservable();
+
         this.primary = PaletteService.DEFAULT_PRIMARY;
         this.secondary = PaletteService.DEFAULT_SECONDARY;
         this.previous = new RingBuffer<Color>(PaletteService.MAX_HISTORY);
@@ -20,9 +27,32 @@ export class PaletteService {
     static readonly DEFAULT_MEMSET: Color = new Color(255, 255, 255, 1);
     static readonly MAX_HISTORY = 10;
 
-    primary: Color;
-    secondary: Color;
+    private mPrimary: Color;
+    private mSecondary: Color;
+
+    private primarySubject: Subject<Color>;
+    private secondarySubject: Subject<Color>;
+
+    primaryObs$: Observable<Color>;
+    secondaryObs$: Observable<Color>;
+
     previous: RingBuffer<Color>;
+
+    set primary(color: Color) {
+        this.mPrimary = color;
+        this.primarySubject.next(this.mPrimary);
+    }
+    get primary(): Color {
+        return this.mPrimary;
+    }
+
+    set secondary(color: Color) {
+        this.mSecondary = color;
+        this.primarySubject.next(this.mSecondary);
+    }
+    get secondary(): Color {
+        return this.mSecondary;
+    }
 
     swap() {
         const tmp: Color = this.primary;

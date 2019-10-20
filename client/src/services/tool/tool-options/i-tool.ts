@@ -25,6 +25,8 @@ export interface ITool {
     onKeydown?(event: KeyboardEvent): boolean;
     onKeyup?(event: KeyboardEvent): boolean;
     onWheel?(event: WheelEvent): boolean;
+
+    onShowcase?(width: number, height: number): SVGInterface | null;
 }
 
 declare global {
