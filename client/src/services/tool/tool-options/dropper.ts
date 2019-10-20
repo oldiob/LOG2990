@@ -1,6 +1,6 @@
 import { ITool } from './i-tool';
-import { Injectable, Renderer2 } from '@angular/core';
-import { RendererProviderService } from 'src/services/renderer-provider/renderer-provider.service';
+import { Injectable } from '@angular/core';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { SVGService } from 'src/services/svg/svg.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 
@@ -8,37 +8,39 @@ import { PaletteService } from 'src/services/palette/palette.service';
     providedIn: 'root',
 })
 export class DropperTool implements ITool {
-    readonly BUTTON_FILENAME = 'dropper.png';
-    readonly CURSOR_FILENAME = 'dropper.png';
-
     element: null;
 
     width: number;
 
-    renderer: Renderer2;
     canvasContext: CanvasRenderingContext2D;
 
     constructor(
-        rendererProvider: RendererProviderService,
         private svgService: SVGService,
-            /*private paletteService: PaletteService*/) {
-        this.renderer = rendererProvider.renderer;
+        private paletteService: PaletteService) {
     }
 
     onPressed(event: MouseEvent): null {
-        const canvas = this.renderer.createElement('canvas');
+        const canvas = RendererProvider.renderer.createElement('canvas');
+        RendererProvider.renderer.setAttribute(canvas, 'width', this.svgService.entry.nativeElement.attributes.width.nodeValue);
+        RendererProvider.renderer.setAttribute(canvas, 'height', this.svgService.entry.nativeElement.attributes.height.nodeValue);
 
         const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
         const svgOuterHTML = this.svgService.entry.nativeElement.outerHTML;
 
         const svgImage: HTMLImageElement = new Image();
-        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
+        svgImage.src = 'data:image/svg+xml,' + svgOuterHTML;
+        RendererProvider.renderer.appendChild(canvas, svgImage);
 
         const setColor = (): void => {
             ctx.drawImage(svgImage, 0, 0);
-            console.log(svgImage.width, svgImage.height);
-            console.log(ctx.getImageData(event.svgX, event.svgY, 1, 1).data);
+            const color = ctx.getImageData(event.svgX, event.svgY, 1, 1).data;
+            console.log(color);
+            if (event.button === 0) {
+                this.paletteService.selectPrimary(color[0], color[1], color[2], color[3]);
+            } else if (event.button === 2) {
+                this.paletteService.selectSecondary(color[0], color[1], color[2], color[3]);
+            }
         };
 
         svgImage.onload = setColor;
