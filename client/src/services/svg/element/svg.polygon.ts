@@ -10,7 +10,7 @@ export class SVGPolygon extends AbsSVGShape {
         RendererProvider.renderer.appendChild(this.element, this.shapeElement);
         this.nSides = nSides;
         this.setOpacities();
-        this.setCursor(x, y, false);
+        this.setCursor(x, y);
 
         const angleBetweenCorners = 2 * Math.PI / nSides;
         for (let i = 0; i < nSides; i++) {
