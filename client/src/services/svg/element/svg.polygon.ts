@@ -1,4 +1,4 @@
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { AbsSVGShape } from './svg.abs-shape';
 
@@ -6,8 +6,8 @@ export class SVGPolygon extends AbsSVGShape {
     constructor(x: number, y: number, nSides: number, traceType: number) {
         super(x, y, traceType);
 
-        this.shapeElement = RendererProvider.renderer.createElement('polygon', 'svg');
-        RendererProvider.renderer.appendChild(this.element, this.shapeElement);
+        this.shapeElement = DOMRenderer.createElement('polygon', 'svg');
+        DOMRenderer.appendChild(this.element, this.shapeElement);
         this.nSides = nSides;
         this.setOpacities();
         this.setCursor(x, y);
@@ -73,7 +73,7 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        RendererProvider.renderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
+        DOMRenderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
     }
 
     setCursor(x: number, y: number) {

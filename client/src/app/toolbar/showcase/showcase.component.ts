@@ -2,9 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 @Component({
     selector: 'app-showcase',
@@ -46,8 +46,8 @@ export class ShowcaseComponent implements OnInit {
         this.service = new SVGService();
         this.service.entry = this.entry;
 
-        RendererProvider.renderer.setAttribute(this.entry.nativeElement, 'width', this.WIDTH.toString());
-        RendererProvider.renderer.setAttribute(this.entry.nativeElement, 'height', this.HEIGHT.toString());
+        DOMRenderer.setAttribute(this.entry.nativeElement, 'width', this.WIDTH.toString());
+        DOMRenderer.setAttribute(this.entry.nativeElement, 'height', this.HEIGHT.toString());
 
         this.service.clearDrawArea();
     }

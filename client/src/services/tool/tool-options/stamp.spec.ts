@@ -1,5 +1,5 @@
 import { StampTool } from './stamp';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('StampTool', () => {
 
@@ -10,7 +10,7 @@ describe('StampTool', () => {
     let event: MouseEvent;
 
     beforeEach(() => {
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         stamp = new StampTool();
         stamp.element = element;
         stamp.stampTexture = iStamp;

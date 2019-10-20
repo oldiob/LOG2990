@@ -1,6 +1,6 @@
 import { SVGInterface } from './element/svg.interface';
 import { SVGService } from './svg.service';
-import { RendererProvider } from '../renderer-provider/renderer-provider';
+import { DOMRenderer } from '../../utils/dom-renderer';
 
 
 describe('SVGService', () => {
@@ -30,7 +30,7 @@ describe('SVGService', () => {
 
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'createElement',
             'setAttribute']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild', 'removeChild', 'firstChild']);
         elem.hasChildNodes.and.returnValue(false);

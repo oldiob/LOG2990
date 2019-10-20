@@ -1,6 +1,6 @@
 import { ITool } from './i-tool';
 import { Injectable } from '@angular/core';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGService } from 'src/services/svg/svg.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
@@ -24,11 +24,11 @@ export class DropperTool implements ITool {
     }
 
     loadImage() {
-        const canvas = RendererProvider.renderer.createElement('canvas');
+        const canvas = DOMRenderer.createElement('canvas');
 
-        RendererProvider.renderer.setAttribute(canvas, 'width',
+        DOMRenderer.setAttribute(canvas, 'width',
             this.svgService.entry.nativeElement.attributes.width.nodeValue);
-        RendererProvider.renderer.setAttribute(canvas, 'height',
+        DOMRenderer.setAttribute(canvas, 'height',
             this.svgService.entry.nativeElement.attributes.height.nodeValue);
 
         const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
@@ -37,7 +37,7 @@ export class DropperTool implements ITool {
 
         const svgImage: HTMLImageElement = new Image();
         svgImage.src = 'data:image/svg+xml,' + svgOuterHTML;
-        RendererProvider.renderer.appendChild(canvas, svgImage);
+        DOMRenderer.appendChild(canvas, svgImage);
 
         const setColor = (): void => {
             ctx.drawImage(svgImage, 0, 0);

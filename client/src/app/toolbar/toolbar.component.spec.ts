@@ -7,7 +7,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
@@ -48,7 +48,7 @@ describe('ToolbarComponent', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         fixture = TestBed.createComponent(ToolbarComponent);
         component = fixture.componentInstance;

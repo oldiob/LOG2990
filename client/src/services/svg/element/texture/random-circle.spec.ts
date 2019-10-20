@@ -1,5 +1,5 @@
 import { RandomCircleTexture } from './random-circle';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('RandomCircleTexture', () => {
 
@@ -13,7 +13,7 @@ describe('RandomCircleTexture', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         element = jasmine.createSpyObj('any', ['']);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         circle = new RandomCircleTexture();
     });
 

@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { RendererProvider } from '../renderer-provider/renderer-provider';
+import { DOMRenderer } from '../../utils/dom-renderer';
 
 @Injectable({
     providedIn: 'root',
@@ -33,7 +33,7 @@ export class GridService {
     set opacity(opacity: number) {
         if (GridService.MIN_OPACITY <= opacity &&
             opacity <= GridService.MAX_OPACITY) {
-            RendererProvider.renderer.setAttribute(this.ref.nativeElement, 'stroke-opacity', `${opacity}`);
+            DOMRenderer.setAttribute(this.ref.nativeElement, 'stroke-opacity', `${opacity}`);
         }
     }
 
@@ -47,24 +47,24 @@ export class GridService {
         }
         for (let i = 0; i < max_i; ++i) {
             const pos_x = i * this.mStep;
-            const line = RendererProvider.renderer.createElement('line', 'svg');
-            RendererProvider.renderer.setAttribute(line, 'x1', `${pos_x}`);
-            RendererProvider.renderer.setAttribute(line, 'y1', `0`);
-            RendererProvider.renderer.setAttribute(line, 'x2', `${pos_x}`);
-            RendererProvider.renderer.setAttribute(line, 'y2', `${this.height}`);
-            RendererProvider.renderer.setAttribute(line, 'stroke', 'black');
-            RendererProvider.renderer.setAttribute(line, 'stroke-width', '1');
-            RendererProvider.renderer.appendChild(ctx, line);
+            const line = DOMRenderer.createElement('line', 'svg');
+            DOMRenderer.setAttribute(line, 'x1', `${pos_x}`);
+            DOMRenderer.setAttribute(line, 'y1', `0`);
+            DOMRenderer.setAttribute(line, 'x2', `${pos_x}`);
+            DOMRenderer.setAttribute(line, 'y2', `${this.height}`);
+            DOMRenderer.setAttribute(line, 'stroke', 'black');
+            DOMRenderer.setAttribute(line, 'stroke-width', '1');
+            DOMRenderer.appendChild(ctx, line);
         }
         for (let j = 0; j < max_j; ++j) {
             const pos_y = j * this.mStep;
-            const line = RendererProvider.renderer.createElement('line', 'svg');
-            RendererProvider.renderer.setAttribute(line, 'x1', `0`);
-            RendererProvider.renderer.setAttribute(line, 'y1', `${pos_y}`);
-            RendererProvider.renderer.setAttribute(line, 'x2', `${this.width}`);
-            RendererProvider.renderer.setAttribute(line, 'y2', `${pos_y}`);
-            RendererProvider.renderer.setAttribute(line, 'stroke', 'black');
-            RendererProvider.renderer.appendChild(ctx, line);
+            const line = DOMRenderer.createElement('line', 'svg');
+            DOMRenderer.setAttribute(line, 'x1', `0`);
+            DOMRenderer.setAttribute(line, 'y1', `${pos_y}`);
+            DOMRenderer.setAttribute(line, 'x2', `${this.width}`);
+            DOMRenderer.setAttribute(line, 'y2', `${pos_y}`);
+            DOMRenderer.setAttribute(line, 'stroke', 'black');
+            DOMRenderer.appendChild(ctx, line);
         }
     }
 }

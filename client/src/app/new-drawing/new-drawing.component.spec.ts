@@ -9,7 +9,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { NewDrawingComponent } from './new-drawing.component';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
@@ -24,7 +24,8 @@ describe('NewDrawingComponent', () => {
     const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
 
     beforeEach(async(() => {
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
+
         TestBed.configureTestingModule({
             imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
                 MatDialogModule, FormsModule, ReactiveFormsModule],

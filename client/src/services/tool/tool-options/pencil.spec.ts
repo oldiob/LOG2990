@@ -1,5 +1,5 @@
 import { PencilTool } from './pencil';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('PencilTool', () => {
 
@@ -14,7 +14,7 @@ describe('PencilTool', () => {
         element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         pencil = new PencilTool(paletteService);
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
