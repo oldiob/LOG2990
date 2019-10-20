@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -25,11 +26,13 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     isTagExists: boolean;
 
-    constructor(private workZoneService: WorkZoneService,
+    constructor(private dialogService: DialogService,
+                private workZoneService: WorkZoneService,
                 private svgService: SVGService,
                 private drawAreaService: DrawAreaService, private webClientService: WebClientService) { }
 
     ngOnInit() {
+        this.dialogService.disableKey();
         this.isTagExists = true;
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
@@ -105,5 +108,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     onClick(event: MouseEvent, drawing: Drawing) {
       populateDrawArea(this.svgService, drawing.svgs);
       this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+    }
+    onClose() {
+      this.dialogService.enableKey();
     }
 }

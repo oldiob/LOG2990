@@ -17,6 +17,7 @@ export class WebClientService {
   private readonly CUSTOM_URL: string = 'http://localhost:3000/draw';
   preparedDrawings: Drawing[];
   preparedReady: boolean;
+  saving = false;
 
   constructor(private workZoneService: WorkZoneService,
     private http: HttpClient, private svgService: SVGService) {
@@ -33,7 +34,7 @@ export class WebClientService {
   }
 
   sendDrawing(drawing: Drawing) {
-      console.log(this.svgService.entry.nativeElement);
+      this.saving = true;
 
       drawing.svgs = serializeDrawArea(this.svgService);
       this.workZoneService.currentHeight.subscribe(
@@ -61,7 +62,9 @@ export class WebClientService {
       console.log(parsed);
 
       this.http.post(`${this.CUSTOM_URL}/add`, drawing)
-      .subscribe(res => console.log('Done'));
+      .subscribe(res => {
+        this.saving = true;
+      } );
   }
 
   getDrawingCount(): Observable<number> {

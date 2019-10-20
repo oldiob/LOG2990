@@ -22,7 +22,7 @@
         </mat-form-field>
 
         <div class="button-wrapper">
-            <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
+            <button class="btn-close" (click)="onClose()" color="secondary" mat-raised-button mat-dialog-close>Close</button>
             <button color="primary" mat-raised-button mat-dialog-close type="submit"
                 [disabled]="!saveForm.valid">Save</button>
         </div>

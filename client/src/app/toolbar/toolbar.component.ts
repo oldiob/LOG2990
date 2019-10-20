@@ -75,23 +75,25 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keyup', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
-        const kbd: { [id: string]: callback } = {
-            c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
-            w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
-            b: () => { this.bucketOption.selectTool(this.bucketOption.currentTool); },
-            1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
-            'C-o': () => { this.newDrawingOption(); },
-            'C-s': () => { this.saveImage(); },
-        };
-        let keys = '';
-        if (event.ctrlKey) {
-            event.preventDefault();
-            keys += 'C-';
-        }
-        keys += event.key;
-        if (kbd[keys]) {
-            const func: callback = kbd[keys];
-            func();
+        if (this.dialogService.keyEnable) {
+            const kbd: { [id: string]: callback } = {
+                c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
+                w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
+                b: () => { this.bucketOption.selectTool(this.bucketOption.currentTool); },
+                1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
+                'C-o': () => { this.newDrawingOption(); },
+                'C-s': () => { this.saveImage(); },
+            };
+            let keys = '';
+            if (event.ctrlKey) {
+                event.preventDefault();
+                keys += 'C-';
+            }
+            keys += event.key;
+            if (kbd[keys]) {
+                const func: callback = kbd[keys];
+                func();
+            }
         }
     }
 }
