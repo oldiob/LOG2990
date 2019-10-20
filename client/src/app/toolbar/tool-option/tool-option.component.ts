@@ -78,8 +78,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             public pencil: PencilTool,
             public brush: BrushTool,
             public line: LineTool,
-            public stamp: StampTool,
-            dropper: DropperTool) {
+            public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
@@ -92,7 +91,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, dropper];
+        this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
     }
 

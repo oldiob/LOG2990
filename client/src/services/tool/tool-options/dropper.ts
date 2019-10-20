@@ -35,7 +35,7 @@ export class DropperTool implements ITool {
         const setColor = (): void => {
             ctx.drawImage(svgImage, 0, 0);
             const color = ctx.getImageData(event.svgX, event.svgY, 1, 1).data;
-            console.log(color);
+
             if (event.button === 0) {
                 this.paletteService.selectPrimary(color[0], color[1], color[2], color[3]);
             } else if (event.button === 2) {

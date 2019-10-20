@@ -23,4 +23,12 @@
 
 </div>
 
-<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#aaaaaa"/></svg>
+
+<div class="separation">
+  <div class="tools">
+    <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
+      [class.selected-tool]="tool === currentTool">
+      <img class="tool-icon" [src]="getFilesource(tool)">
+    </a>
+  </div>
+</div>
