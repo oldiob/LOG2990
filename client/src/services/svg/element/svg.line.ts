@@ -95,8 +95,13 @@ export class SVGLine implements SVGInterface {
     }
 
     setPrimary(color: string) {
-        DOMRenderer.setAttribute(this.polyline, 'stroke', color);
-        DOMRenderer.setAttribute(this.line, 'stroke', color);
+        for (const child of this.element.children) {
+            if (child.nodeName === 'circle') {
+                DOMRenderer.setAttribute(child, 'fill', color);
+            } else {
+                DOMRenderer.setAttribute(child, 'stroke', color);
+            }
+        }
     }
 
     setSecondary(color: string) {
@@ -121,11 +126,13 @@ export class SVGLine implements SVGInterface {
     addAnchor(x: number, y: number, junctionType: JunctionType): void {
         this.anchors.push(new Point(x, y));
         if (junctionType === JunctionType.Dot) {
+            const currentColor = this.polyline.attributes.stroke.nodeValue;
+
             this.circle = DOMRenderer.createElement('circle', 'svg');
             DOMRenderer.setAttribute(this.circle, 'cx', x.toString());
             DOMRenderer.setAttribute(this.circle, 'cy', y.toString());
             DOMRenderer.setAttribute(this.circle, 'r', this.junctionWidth.toString());
-            DOMRenderer.setAttribute(this.circle, 'fill', 'black');
+            DOMRenderer.setAttribute(this.circle, 'fill', currentColor);
             DOMRenderer.appendChild(this.element, this.circle);
         }
         this.renderAnchors();
