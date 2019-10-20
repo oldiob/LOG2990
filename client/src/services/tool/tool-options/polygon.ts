@@ -24,4 +24,25 @@ export class PolygonTool extends AbsShapeTool {
         this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
         return this.element;
     }
+
+    onShowcase(x: number, y: number): SVGPolygon | null {
+        const previousElement = this.element;
+
+        const center = [x / 2.0, y / 2.0];
+        const offset = 70;
+
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = center[0] - offset;
+        mouseEvent.svgY = center[1] - offset;
+
+        const element = this.onPressed(mouseEvent);
+
+        mouseEvent.svgX = center[0] + offset;
+        mouseEvent.svgY = center[1] + offset;
+        this.onMotion(mouseEvent);
+        this.onReleased(mouseEvent);
+
+        this.element = previousElement;
+        return element;
+    }
 }

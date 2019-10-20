@@ -49,4 +49,18 @@ export class StampTool implements ITool {
         this.angle = newAngle;
         return true;
     }
+
+    onShowcase(x: number, y: number): SVGStamp | null {
+        const previousElement = this.element;
+
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = x / 2.0;
+        mouseEvent.svgY = y / 2.0;
+
+        const element = this.onPressed(mouseEvent);
+        this.onReleased(mouseEvent);
+
+        this.element = previousElement;
+        return element;
+    }
 }
