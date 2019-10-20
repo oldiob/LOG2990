@@ -4,6 +4,7 @@ import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
+import { DropperTool } from 'src/services/tool/tool-options/dropper';
 
 @Component({
     selector: 'app-bucket-option',
@@ -15,8 +16,10 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     images = new Map<ITool, string>([
         [this.bucket, 'bucket.png'],
+        [this.dropper, 'dropper.png'],
     ]);
 
+    tools: ITool[];
     currentTool: ITool;
 
     isShowPrimary: boolean;
@@ -27,7 +30,12 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
-        private bucket: BucketTool) { }
+        private bucket: BucketTool,
+        public dropper: DropperTool) {
+
+        this.tools = [bucket, dropper];
+        this.currentTool = this.tools[0];
+    }
 
     ngOnInit() {
         this.currentTool = this.bucket;
@@ -46,6 +54,10 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+
+        if (this.currentTool instanceof DropperTool) {
+            this.dropper.loadImage();
+        }
     }
 
     getFilesource(tool: ITool): string {

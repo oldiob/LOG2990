@@ -3,6 +3,7 @@ import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
+import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 @Component({
     selector: 'app-draw-area',
@@ -76,9 +77,15 @@ export class DrawAreaComponent implements OnInit {
     }
 
     setCurrentStyles() {
+        const currentHeigth =  `${this.height}`;
+        const currentWidth =  `${this.width}`;
+
+        RendererProvider.renderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
+        RendererProvider.renderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
+
         return {
-            height: `${this.height}px`,
-            width: `${this.width}px`,
+            height: currentHeigth + 'px',
+            width: currentWidth + 'px',
             'background-color': `${this.backgroundColor}`,
         };
     }
