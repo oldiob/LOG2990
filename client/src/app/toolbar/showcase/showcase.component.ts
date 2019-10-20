@@ -3,6 +3,8 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { PaletteService } from 'src/services/palette/palette.service';
+import { Color } from 'src/utils/color';
 
 @Component({
     selector: 'app-showcase',
@@ -24,15 +26,20 @@ export class ShowcaseComponent implements OnInit {
 
     readonly STEP = 0.5;
 
+    private currentTool: ITool;
+
     @ViewChild('svgContainer', { static: true })
     entry: ElementRef;
 
     service: SVGService | null;
     mouseEvent: MouseEvent;
 
-    constructor() {
+    constructor(palette: PaletteService) {
         this.mouseEvent = new MouseEvent('', undefined);
         this.service = null;
+
+        palette.primaryObs$.subscribe((color: Color) => this.displayCurrent());
+        palette.secondaryObs$.subscribe((color: Color) => this.displayCurrent());
     }
 
     ngOnInit() {
@@ -45,10 +52,18 @@ export class ShowcaseComponent implements OnInit {
         this.service.clearDrawArea();
     }
 
+    private displayCurrent() {
+        if (this.currentTool) {
+            this.display(this.currentTool);
+        }
+    }
+
     display(tool: ITool) {
         if (this.service == null) {
             return;
         }
+
+        this.currentTool = tool;
 
         let elementToAdd: SVGInterface | null = null;
 
