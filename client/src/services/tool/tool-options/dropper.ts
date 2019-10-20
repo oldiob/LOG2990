@@ -51,14 +51,14 @@ export class DropperTool implements ITool {
         if (event.button === 0) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
-                this.currentColor.blue,
                 this.currentColor.green,
+                this.currentColor.blue,
                 this.currentColor.alpha);
         } else if (event.button === 2) {
             this.paletteService.selectSecondary(
                 this.currentColor.red,
-                this.currentColor.blue,
                 this.currentColor.green,
+                this.currentColor.blue,
                 this.currentColor.alpha);
         }
 
