@@ -1,5 +1,5 @@
 import { RandomRectTexture } from './random-rect';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('RandomRectTexture', () => {
 
@@ -13,7 +13,7 @@ describe('RandomRectTexture', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'createElement', 'setAttribute']);
         element = jasmine.createSpyObj('any', ['']);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         rect = new RandomRectTexture();
     });
 

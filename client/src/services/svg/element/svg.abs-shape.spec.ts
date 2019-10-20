@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { AbsSVGShape } from './svg.abs-shape';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('AbsSVGShape', () => {
 
@@ -13,7 +13,7 @@ describe('AbsSVGShape', () => {
     const defaultEndingPoint = [51, 101];
 
     beforeEach(() => {
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
     });
 
@@ -58,27 +58,27 @@ describe('AbsSVGShape', () => {
         const color = 'color';
 
         const borderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
-        RendererProvider.renderer = borderRenderer;
+        DOMRenderer.renderer = borderRenderer;
         shape.setPrimary(color);
         expect(borderRenderer.setAttribute).toHaveBeenCalledTimes(0);
         shape.setSecondary(color);
         expect(borderRenderer.setAttribute).toHaveBeenCalledTimes(1);
 
         const fillRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
-        RendererProvider.renderer = fillRenderer;
+        DOMRenderer.renderer = fillRenderer;
         shape.setPrimary(color);
         expect(fillRenderer.setAttribute).toHaveBeenCalledTimes(1);
         shape.setSecondary(color);
         expect(fillRenderer.setAttribute).toHaveBeenCalledTimes(1);
 
         const fillAndBorderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
-        RendererProvider.renderer = fillAndBorderRenderer;
+        DOMRenderer.renderer = fillAndBorderRenderer;
         shape.setPrimary(color);
         expect(fillAndBorderRenderer.setAttribute).toHaveBeenCalledTimes(1);
         shape.setSecondary(color);

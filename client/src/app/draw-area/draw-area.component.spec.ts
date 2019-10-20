@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaComponent } from './draw-area.component';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
@@ -24,7 +24,7 @@ describe('DrawAreaComponent', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         // mockTool = jasmine.createSpyObj('ITool', ['onReleased', 'onMotion', 'onPressed', 'CURSOR_FILENAME']);
         fixture = TestBed.createComponent(DrawAreaComponent);

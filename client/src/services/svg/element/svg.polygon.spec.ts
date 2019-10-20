@@ -1,4 +1,4 @@
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGPolygon } from './svg.polygon';
 
@@ -10,7 +10,7 @@ describe('SVGPolygon', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'appendChild', 'setAttribute']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         nSides = 3;
         polygon = new SVGPolygon(0, 0, nSides, TraceType.FillAndBorder);
     });

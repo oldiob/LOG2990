@@ -23,7 +23,7 @@ import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.compo
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
-import { RendererProvider } from './services/renderer-provider/renderer-provider';
+import { DOMRenderer } from './utils/dom-renderer';
 
 @NgModule({
     declarations: [
@@ -78,6 +78,6 @@ import { RendererProvider } from './services/renderer-provider/renderer-provider
 
 export class AppModule {
     constructor(rendererFactory: RendererFactory2) {
-        RendererProvider.init(rendererFactory);
+        DOMRenderer.init(rendererFactory);
     }
 }

@@ -1,4 +1,4 @@
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { JunctionType } from './i-tool';
 import { LineTool } from './line';
 
@@ -15,7 +15,7 @@ describe('LineTool', () => {
         'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         line = new LineTool(paletteService);
         line.junctionType = JunctionType.Round;
         event = new MouseEvent('mousedown');

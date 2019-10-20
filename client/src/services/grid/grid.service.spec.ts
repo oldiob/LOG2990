@@ -1,5 +1,5 @@
 import { GridService } from './grid.service';
-import { RendererProvider } from '../renderer-provider/renderer-provider';
+import { DOMRenderer } from '../../utils/dom-renderer';
 
 describe('GridService', () => {
 
@@ -12,7 +12,7 @@ describe('GridService', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'setAttribute', 'createElement']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
         service = new GridService();
         service.width = WIDTH;

@@ -12,7 +12,7 @@ import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 import { ToolOptionComponent } from './tool-option.component';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('ToolOptionComponent', () => {
     let component: ToolOptionComponent;
@@ -34,7 +34,7 @@ describe('ToolOptionComponent', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         fixture = TestBed.createComponent(ToolOptionComponent);
         component = fixture.componentInstance;

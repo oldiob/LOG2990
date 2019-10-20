@@ -1,5 +1,5 @@
 import { RectangleTool } from './rectangle';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('RectangleTool', () => {
 
@@ -15,7 +15,7 @@ describe('RectangleTool', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         rectangle = new RectangleTool(paletteService);
         rectangle.element = element;
         event = new MouseEvent('mousedown');

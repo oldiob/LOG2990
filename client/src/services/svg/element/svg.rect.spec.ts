@@ -1,6 +1,6 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGRect } from './svg.rect';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('SVGRect', () => {
 
@@ -9,7 +9,7 @@ describe('SVGRect', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'appendChild', 'setAttribute']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         rect = new SVGRect(0, 0, TraceType.FillAndBorder);
     });
