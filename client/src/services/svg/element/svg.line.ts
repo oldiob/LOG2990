@@ -10,7 +10,6 @@ export class SVGLine implements SVGInterface {
     cursor: Point;
     width = 5;
     junctionWidth = 5;
-    renderer: DOMRenderer;
     element: any;
     polyline: any;
     line: any;
