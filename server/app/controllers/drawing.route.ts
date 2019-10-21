@@ -35,8 +35,8 @@ export class DrawingRoute {
             if (drawing.name === '') {
                     return false;
             }
-            for (let tag in drawing.tags) {
-                    if (!/^[a-zA-Z]+$/.test(tag)) {
+            for (const tag of drawing.tags) {
+                    if (!(/^[a-zA-Z]+$/.test(tag))) {
                         return false;
                     }
             }
