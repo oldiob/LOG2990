@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -27,7 +27,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     isTagExists: boolean;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: Drawing[],
         private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
@@ -38,8 +37,18 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.isTagExists = true;
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
-        this.drawings = this.data;
         this.filteredDrawings = this.drawings;
+    }
+
+    load() {
+        this.drawings = [];
+
+        this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
+            this.drawings = savedDrawing;
+            console.log('LOADED', this.drawings);
+            this.refresh();
+        });
+
     }
 
     filterDrawings(filterValue: string) {
@@ -88,7 +97,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClick(event: MouseEvent, drawing: Drawing) {
-        populateDrawArea(this.svgService, drawing.svgs);
+        populateDrawArea(this.svgService, drawing.holder);
         this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
     }
 

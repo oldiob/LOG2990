@@ -10,6 +10,7 @@ import { GalleryOptionComponent } from './gallery-option/gallery-option.componen
 import { SaveOptionComponent } from './save-option/save-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -57,23 +58,8 @@ export class ToolbarComponent implements OnInit {
     }
 
     openGalleryOption(): void {
-
-        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
-        loadingDialogRef.componentInstance.data = 'Loading';
-        let drawings: Drawing[] = [];
-        this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
-            drawings = savedDrawing;
-            for (let i = 0; i < drawings.length; i++) {
-                const holder = JSON.parse(drawings[i].svgs).entry;
-                const parsed = new DOMParser().parseFromString(holder, 'image/svg+xml');
-                const svgEntry: SVGElement = parsed.childNodes[0] as SVGElement;
-                drawings[i].thumbnail = svgEntry;
-            }
-
-            loadingDialogRef.close();
-            const galleryDialogRef = this.dialogService.open(GalleryOptionComponent);
-            galleryDialogRef.componentInstance.data = drawings;
-        });
+        const ref: MatDialogRef<GalleryOptionComponent> = this.dialogService.open(GalleryOptionComponent);
+        ref.componentInstance.load();
     }
 
     newDrawingOption(): void {

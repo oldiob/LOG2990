@@ -6,6 +6,8 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
+import { serializeDrawArea, DrawAreaHolder } from 'src/utils/element-parser';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 @Component({
     selector: 'app-save-option',
@@ -19,6 +21,10 @@ export class SaveOptionComponent implements OnInit {
     removable: boolean;
     addOnBlur: boolean;
 
+    drawingHeight: number;
+    drawingWidth: number;
+    drawingBackgroundColor: string;
+
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     tags: string[];
 
@@ -28,7 +34,27 @@ export class SaveOptionComponent implements OnInit {
         private dialogService: DialogService,
         private drawAreaService: DrawAreaService,
         private svgService: SVGService,
-        private formBuilder: FormBuilder) { }
+        private formBuilder: FormBuilder,
+        workZoneService: WorkZoneService) {
+            workZoneService.currentHeight.subscribe(
+                (height): number => {
+                    this.drawingHeight = height;
+                    return height;
+                },
+            );
+            workZoneService.currentWidth.subscribe(
+                (width): number => {
+                    this.drawingWidth = width;
+                    return width;
+                },
+            );
+            workZoneService.currentBackgroundColor.subscribe(
+                (color): string => {
+                    this.drawingBackgroundColor = color;
+                    return color;
+                },
+            );
+         }
 
     ngOnInit() {
         this.dialogService.disableKey();
@@ -78,20 +104,21 @@ export class SaveOptionComponent implements OnInit {
     }
 
     onSubmit() {
-        // ! Refactor following when server implemented
-        const DEEP_COPY = true;
-        const preview = this.svgService.entry.nativeElement.cloneNode(DEEP_COPY) as SVGElement;
+        const drawAreaHolder: DrawAreaHolder = serializeDrawArea(this.svgService);
+        this.svgService.clearDrawArea();
 
         const drawing: Drawing = {
-            name: this.saveForm.controls.name.value,
-            thumbnail: preview,
-            tags: this.saveForm.controls.tags.value,
-            svgs: '',
             id: -1,
-            backgroundColor: '',
-            width: 0,
-            height: 0,
+
+            name: this.saveForm.controls.name.value,
+            tags: this.saveForm.controls.tags.value,
+            holder: drawAreaHolder,
+
+            backgroundColor: this.drawingBackgroundColor,
+            width: this.drawingWidth,
+            height: this.drawingHeight,
         };
+
         this.drawAreaService.save(drawing);
         this.dialogService.enableKey();
     }

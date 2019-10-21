@@ -5,10 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { SVGService } from 'src/services/svg/svg.service';
-import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Message } from '../../../../common/communication/message';
-import { serializeDrawArea } from '../../utils/element-parser';
 import { Drawing } from '../draw-area/i-drawing';
 
 @Injectable({
@@ -25,9 +22,7 @@ export class WebClientService {
 
     constructor(
         private dialogService: DialogService,
-        private workZoneService: WorkZoneService,
-        private http: HttpClient,
-        private svgService: SVGService) { }
+        private http: HttpClient) { }
 
     sendMessage() {
         // POST EXAMPLE DO NOT REMOVE CLIENTSIDE
@@ -49,33 +44,7 @@ export class WebClientService {
         const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
         loadingDialogRef.componentInstance.data = 'Saving';
 
-        drawing.svgs = serializeDrawArea(this.svgService);
-        this.workZoneService.currentHeight.subscribe(
-            (height): number => {
-                drawing.height = height;
-                return height;
-            },
-        );
-        this.workZoneService.currentWidth.subscribe(
-            (width): number => {
-                drawing.width = width;
-                return width;
-            },
-        );
-        this.workZoneService.currentBackgroundColor.subscribe(
-            (color): string => {
-                drawing.backgroundColor = color;
-                return color;
-            },
-        );
-
-        const result = new XMLSerializer().serializeToString(this.svgService.entry.nativeElement.cloneNode(true) as SVGElement);
-        const parsed = new DOMParser().parseFromString(result, 'image/svg+xml');
-        console.log(parsed.childNodes[0]);
-        console.log(parsed);
-
-        return this.http.post(`${this.CUSTOM_URL}/add`, drawing).pipe(
-          catchError(this.handleError<Message>('add')))
+        return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe((res: Response) => {
                 if (res.status === 500) {
                     const modalRef = this.dialogService.open(CustomAlertComponent);
@@ -128,12 +97,7 @@ export class WebClientService {
         let drawings: Drawing[] = [];
         this.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
             drawings = savedDrawing;
-            for (let i = 0; i < drawings.length; i++) {
-                const holder = JSON.parse(drawings[i].svgs).entry;
-                const parsed = new DOMParser().parseFromString(holder, 'image/svg+xml');
-                const svgEntry: SVGElement = parsed.childNodes[0] as SVGElement;
-                drawings[i].thumbnail = svgEntry;
-            }
+            console.log(drawings);
             this.preparedDrawings = drawings;
             this.preparedReady = true;
             this.loading = false;

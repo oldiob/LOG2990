@@ -18,7 +18,7 @@
                 </div>
                 <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
                 <div class="thumbnail">
-                    <app-thumbnail [thumbnailSVG]="drawing.thumbnail"></app-thumbnail>
+                    <app-thumbnail [thumbnailSVG]="drawing.holder.entry"></app-thumbnail>
                 </div>
                 <div class="drawing-section">
                     <div class="tag" *ngFor="let tag of drawing.tags">

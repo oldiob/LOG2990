@@ -5,6 +5,7 @@ import { Message } from '../../../../common/communication/message';
 import { IndexService } from '../index/index.service';
 import { WebClientService } from '../web-client/web-client.service';
 import { Drawing } from './i-drawing';
+import { SVGService } from '../svg/svg.service';
 
 @Injectable({
     providedIn: 'root',
@@ -18,7 +19,11 @@ export class DrawAreaService {
   isSavedDrawing: boolean;
   count = 0;
   page: any;
-  constructor(private basicService: IndexService, private webClientServer: WebClientService) {
+  constructor(
+      private basicService: IndexService,
+      private webClientServer: WebClientService,
+      private svgService: SVGService) {
+
     this.isSavedDrawing = true;
     const INITIAL_DRAWINGS: Drawing[] = [];
     this.drawings = new BehaviorSubject(INITIAL_DRAWINGS);
@@ -36,9 +41,6 @@ export class DrawAreaService {
 
   save(drawing: Drawing): void {
       this.isSavedDrawing = true;
-
-      // ! Remove following once server is implemented
-      this.drawings.value.push(drawing);
 
       this.webClientServer.sendDrawing(drawing);
   }

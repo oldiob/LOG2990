@@ -3,7 +3,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Prototypes } from './prototypes';
 
-export const serializeDrawArea = (svgService: SVGService): string => {
+export const serializeDrawArea = (svgService: SVGService): DrawAreaHolder => {
     const holder = new DrawAreaHolder();
 
     holder.entry = svgService.entry.nativeElement.outerHTML;
@@ -13,14 +13,12 @@ export const serializeDrawArea = (svgService: SVGService): string => {
         holder.elements.push(serializeSVG(obj));
     }
 
-    return JSON.stringify(holder);
+    return holder;
 };
 
-export const populateDrawArea = (svgService: SVGService, information: string): void => {
-    const elements = JSON.parse(information);
-
+export const populateDrawArea = (svgService: SVGService, holder: DrawAreaHolder): void => {
     svgService.clearDrawArea();
-    for (const e of elements.elements) {
+    for (const e of holder.elements) {
         svgService.addObject(deserializeSVG(e));
     }
 };

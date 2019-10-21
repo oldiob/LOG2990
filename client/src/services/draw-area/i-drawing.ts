@@ -1,9 +1,12 @@
+import { DrawAreaHolder } from 'src/utils/element-parser';
+
 export class Drawing {
-    name: string;
-    thumbnail: SVGElement | null;
-    tags: string[];
-    svgs: string;
     id: number;
+
+    name: string;
+    tags: string[];
+    holder: DrawAreaHolder;
+
     backgroundColor: string;
     width: number;
     height: number;
