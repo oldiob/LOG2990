@@ -1,5 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';

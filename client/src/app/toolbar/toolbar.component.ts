@@ -1,16 +1,13 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { Drawing } from 'src/services/draw-area/i-drawing';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { WebClientService } from 'src/services/web-client/web-client.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -41,7 +38,6 @@ export class ToolbarComponent implements OnInit {
     optionDisplayed: boolean;
 
     constructor(
-        private webClientService: WebClientService,
         private dialogService: DialogService) { }
 
     ngOnInit() {

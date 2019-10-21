@@ -5,7 +5,6 @@ import { Message } from '../../../../common/communication/message';
 import { IndexService } from '../index/index.service';
 import { WebClientService } from '../web-client/web-client.service';
 import { Drawing } from './i-drawing';
-import { SVGService } from '../svg/svg.service';
 
 @Injectable({
     providedIn: 'root',
@@ -21,8 +20,7 @@ export class DrawAreaService {
   page: any;
   constructor(
       private basicService: IndexService,
-      private webClientServer: WebClientService,
-      private svgService: SVGService) {
+      private webClientServer: WebClientService) {
 
     this.isSavedDrawing = true;
     const INITIAL_DRAWINGS: Drawing[] = [];

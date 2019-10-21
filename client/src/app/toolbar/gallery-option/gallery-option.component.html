@@ -12,13 +12,17 @@
         </div>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index"
-            (click)="onClick($event, drawing)" mat-dialog-close>
-                <div class="drawing-section name" >
+                (click)="onClick($event, drawing)" mat-dialog-close>
+                <div class="drawing-section name">
                     {{drawing.name}}
                 </div>
                 <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
                 <div class="thumbnail">
-                    <app-thumbnail [thumbnailSVG]="drawing.holder.entry"></app-thumbnail>
+                    <app-thumbnail 
+                        [thumbnailSVG]="drawing.holder.entry" 
+                        [svgWidth]="drawing.width"
+                        [svgHeight]="drawing.height">
+                    </app-thumbnail>
                 </div>
                 <div class="drawing-section">
                     <div class="tag" *ngFor="let tag of drawing.tags">
