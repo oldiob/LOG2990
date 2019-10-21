@@ -139,10 +139,15 @@ export class DrawingRoute {
                 res.json(result);
         });
         this.router.delete('/drawing/delete/:id', (req: Request, res: Response) => {
+                console.log('deleting');
                 const index: number = this.getDrawingIndex(Number(req.params.id));
                 if (index > -1) {
                         this.drawings.splice(index, 1);
+                        res.status(200).json({RESPONSE: 'deleted'});
+                } else {
+                        res.status(200).json({RESPONSE: 'not found'});
                 }
+                console.log('Deleted');
         });
     }
 }

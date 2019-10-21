@@ -16,6 +16,7 @@
                 <div class="drawing-section name" >
                     {{drawing.name}}
                 </div>
+                <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
                 <div class="thumbnail">
                     <app-thumbnail [thumbnailSVG]="drawing.thumbnail"></app-thumbnail>
                 </div>

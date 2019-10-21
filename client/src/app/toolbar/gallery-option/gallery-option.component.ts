@@ -108,6 +108,15 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
       populateDrawArea(this.svgService, drawing.svgs);
       this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
     }
+    onDelete(event: MouseEvent, drawing: Drawing) {
+      for (let i = 0; i < this.filterDrawings.length; i++) {
+          if ( this.filteredDrawings[i].id === drawing.id) {
+              this.drawings.splice(i, 1);
+          }
+      }
+      console.log('deleting', drawing.id);
+      this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
+    }
     onClose() {
       this.dialogService.enableKey();
     }
