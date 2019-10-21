@@ -14,7 +14,7 @@ describe('ColorOptionComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ColorOptionComponent, ],
+            declarations: [ColorOptionComponent],
             providers: [PaletteService],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -85,17 +85,10 @@ describe('ColorOptionComponent', () => {
         expect(service.getSecondary()).toBe(aColor.toString());
     });
 
-    it('#setPrimaryColor should set background color', () => {
-        const backgroundColorString = component.setPrimaryColor();
+    it('#setColor should set background color', () => {
+        const backgroundColorString = component.setColor();
         expect(backgroundColorString).toEqual({
             'background-color': `${service.getPrimary()}`,
-        });
-    });
-
-    it('#setSecondaryColor should set background color', () => {
-        const backgroundColorString = component.setSecondaryColor();
-        expect(backgroundColorString).toEqual({
-            'background-color': `${service.getSecondary()}`,
         });
     });
 });

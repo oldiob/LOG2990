@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { Color } from 'src/utils/color';
 
 @Component({
@@ -13,7 +12,7 @@ export class ColorOptionComponent implements OnInit {
 
     alpha: number;
 
-    currentTool: ITool;
+    currentColor: Color;
     colorsForm: FormGroup;
 
     colorsHistory: Color[];
@@ -22,7 +21,9 @@ export class ColorOptionComponent implements OnInit {
     readonly DEFAULT_GREEN = 255;
     readonly DEFAULT_BLUE = 255;
     readonly DEFAULT_ALPHA = 1;
-    readonly DEFAULT_BACKGROUND_HEX = '#FFFFFF';
+    readonly DEFAULT_COLOR_HEX = '#FFFFFF';
+
+    isShowForm: boolean;
 
     @Output() color = new EventEmitter<Color>();
     @Input() isPrimary: boolean;
@@ -33,8 +34,8 @@ export class ColorOptionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.isShowForm = false;
         this.createForm();
-        this.colorsHistory = this.paletteService.getHistory();
     }
 
     private createForm(): void {
@@ -44,25 +45,47 @@ export class ColorOptionComponent implements OnInit {
             green: [this.DEFAULT_GREEN, rgbaValidators],
             blue: [this.DEFAULT_BLUE, rgbaValidators],
             alpha: [this.DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
-            backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX, [Validators.min(0), Validators.maxLength(7)]],
+            colorHEX: [this.DEFAULT_COLOR_HEX, [Validators.min(0), Validators.maxLength(7)]],
         });
     }
 
     onColorPick(color: Color): void {
+        this.currentColor = color;
         this.colorsForm.controls.red.setValue(color.red);
         this.colorsForm.controls.green.setValue(color.green);
         this.colorsForm.controls.blue.setValue(color.blue);
-        this.colorsForm.controls.alpha.setValue(color.alpha);
-        this.color.emit(color);
-        this.updatePalette(color);
+        this.updateColorHEX();
     }
 
-    private updatePalette(color: Color): void {
+    onMouseUp() {
+        this.updatePalette();
+        this.hideForm();
+        this.colorsHistory = this.paletteService.getHistory();
+    }
+
+    onOldColor(color: Color) {
+        this.onColorPick(color);
+        this.updatePalette();
+        this.hideForm();
+    }
+
+    updatePalette(): void {
         if (this.isPrimary) {
-            this.paletteService.selectPrimary(color.red, color.green, color.blue, color.alpha);
+            this.paletteService.selectPrimary(
+                this.currentColor.red,
+                this.currentColor.green,
+                this.currentColor.blue,
+                this.currentColor.alpha,
+            );
         } else {
-            this.paletteService.selectSecondary(color.red, color.green, color.blue, color.alpha);
+            this.paletteService.selectSecondary(
+                this.currentColor.red,
+                this.currentColor.green,
+                this.currentColor.blue,
+                this.currentColor.alpha,
+            );
         }
+        console.log(this.paletteService.getPrimary());
     }
 
     onColorHEXChange(): void {
@@ -71,17 +94,18 @@ export class ColorOptionComponent implements OnInit {
 
     private updateColorRGBA() {
         const RED
-            = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(1, 3));
+            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(1, 3));
         const GREEN
-            = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(3, 5));
+            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(3, 5));
         const BLUE
-            = this.convertToDecimal(this.colorsForm.controls.backgroundColorHEX.value.substring(5, 7));
+            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(5, 7));
 
         this.colorsForm.controls.red.setValue(RED);
         this.colorsForm.controls.green.setValue(GREEN);
         this.colorsForm.controls.blue.setValue(BLUE);
         const FULL_ALPHA = 1;
-        this.updatePalette({ red: RED, green: GREEN, blue: BLUE, alpha: FULL_ALPHA });
+        this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: FULL_ALPHA };
+        this.updatePalette();
     }
 
     private convertToDecimal(hex: string): number {
@@ -90,6 +114,7 @@ export class ColorOptionComponent implements OnInit {
 
     onColorRGBAChange(): void {
         this.updateColorHEX();
+        this.updatePalette();
     }
 
     private updateColorHEX(): void {
@@ -97,13 +122,13 @@ export class ColorOptionComponent implements OnInit {
         const GREEN = this.colorsForm.controls.green.value;
         const BLUE = this.colorsForm.controls.blue.value;
         const ALPHA = this.colorsForm.controls.alpha.value;
-        const backgroundColorHEX =
+        const colorHEX =
             '#' +
             `${this.convertToHEX(RED)}` +
             `${this.convertToHEX(GREEN)}` +
             `${this.convertToHEX(BLUE)}`;
-        this.colorsForm.controls.backgroundColorHEX.setValue(backgroundColorHEX);
-        this.updatePalette({ red: RED, green: GREEN, blue: BLUE, alpha: ALPHA });
+        this.colorsForm.controls.colorHEX.setValue(colorHEX);
+        this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: ALPHA };
     }
 
     private convertToHEX(rgb: number): string {
@@ -115,24 +140,38 @@ export class ColorOptionComponent implements OnInit {
     }
 
     onAlphaChange(): void {
-        this.colorsForm.controls.alpha.setValue(this.colorsForm.controls.alpha.value);
-        const color = {
+        this.currentColor = {
             red: this.colorsForm.controls.red.value,
             green: this.colorsForm.controls.green.value,
             blue: this.colorsForm.controls.blue.value,
             alpha: this.colorsForm.controls.alpha.value,
         };
-        this.updatePalette(color);
+        this.updatePalette();
     }
 
-    setPrimaryColor(): object {
-        return {
-            'background-color': `${this.paletteService.getPrimary()}`,
-        };
+    toggleForm(): void {
+        this.isShowForm = !this.isShowForm;
+        this.colorsHistory = this.paletteService.getHistory();
+        // this.onAlphaChange();
+        // this.onColorHEXChange();
+        // this.onColorRGBAChange();
     }
-    setSecondaryColor() {
-        return {
-            'background-color': `${this.paletteService.getSecondary()}`,
-        };
+
+    hideForm(): void {
+        this.isShowForm = false;
+    }
+
+    setColor() {
+        let style = {};
+        if (this.isPrimary) {
+            style = {
+                'background-color': `${this.paletteService.getPrimary()}`,
+            };
+        } else {
+            style = {
+                'background-color': `${this.paletteService.getSecondary()}`,
+            };
+        }
+        return style;
     }
 }

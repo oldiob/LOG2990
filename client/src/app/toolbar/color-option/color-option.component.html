@@ -1,43 +1,62 @@
-<div class="color-picker-wrapper">
-  <color-picker class="color-picker" (color)="onColorPick($event)"></color-picker>
-</div>
-<form class="form" [formGroup]="colorsForm" (ngSubmit)="onSubmit()">
-  <div class="alpha-wrapper">
-    <label for="alpha">Alpha</label>
-    <input name="alpha" type="range" formControlName="alpha" [min]="0" [max]="1" step="0.01" class="slider" value="colorsForm.controls.alpha.value"
-      (change)=onAlphaChange()>
-  </div>
+<div class="btn-color-wrapper">
 
-  <div class="hex-wrapper">
-    <span class="field-label">HEX</span>
-    <mat-form-field color="accent" class="field">
-      <input maxlength="7" matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
-        value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
-    </mat-form-field>
-  </div>
+    <button mat-flat-button class="btn btn-primary" (click)="toggleForm()"
+        [ngStyle]="setColor()">
+        <span class="color-text">Color 1</span></button>
+    <div class="color1-picker" *ngIf="isShowForm">
 
-  <label class="rgba-wrapper">
-    <span class="field-label">RGBA </span>
+        <div class="form-wrapper">
+            <div class="color-picker-wrapper">
+                <color-picker class="color-picker" (color)="onColorPick($event)" (mouseup)="onMouseUp()">
+                </color-picker>
+            </div>
+    
+            <form class="form" [formGroup]="colorsForm">
+                <div class="alpha-wrapper">
+                    <label for="alpha" class="field-label">Alpha</label>
+                    <input name="alpha" type="range" formControlName="alpha" [min]="0" [max]="1" step="0.01" class="slider"
+                        (change)=onAlphaChange() > 
+                </div>
+    
+                <div class="hex-wrapper">
+                    <span class="field-label">HEX</span>
+                    <mat-form-field color="accent" class="field hex-field">
+                        <input maxlength="7" matInput type="text" formControlName="colorHEX" (change)="onColorHEXChange()"
+                            value="{{DEFAULT_COLOR_HEX}}" autocomplete=off>
+                    </mat-form-field>
+                </div>
+    
+                <label class="rgba-wrapper">
+                    <span class="field-label">RGB </span>
+    
+                    <mat-form-field color="accent" class="field rgba-field">
+                        <input min="0" max="255" (selectionChange)=validate($event); matInput type="number"
+                            formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}" class="field rgba-field">
+                    </mat-form-field>
+    
+                    <mat-form-field color="accent" class="field rgba-field">
+                        <input min="0" max="255" matInput type="number" formControlName="green"
+                            (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
+                    </mat-form-field>
+    
+                    <mat-form-field color="accent" class="field rgba-field">
+                        <input min="0" max="255" matInput type="number" formControlName="blue"
+                            (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+                    </mat-form-field>
+                </label>
 
-    <mat-form-field color="accent" class="rgba-field">
-      <input min="0" max="255" (selectionChange)=validate($event); matInput type="number" formControlName="red"
-        (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}" class="rgba-field">
-    </mat-form-field>
+                <div class="history-wrapper">
+                    <span class="history-label">History</span>
+                    <div class="old-colors">
+                        <div class="old-color" *ngFor="let color of colorsHistory"
+                            [ngStyle]="{'background-color': color.toString()}" (click)="onOldColor(color)"></div>
+                    </div>
+                </div>
+                <div class="ok-wrapper">
+                    <button class="ok" mat-flat-button (click)="hideForm()" color="primary">OK</button>
+                </div>
+            </form>
+        </div>
 
-    <mat-form-field color="accent" class="rgba-field">
-      <input min="0" max="255" matInput type="number" formControlName="green" (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
-    </mat-form-field>
-
-    <mat-form-field color="accent" class="rgba-field">
-      <input min="0" max="255" matInput type="number" formControlName="blue" (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
-    </mat-form-field>
-  </label>
-  <div class="old-colors">
-    <div class="old-color" *ngFor="let color of colorsHistory" [ngStyle]="{'background-color': color.toString()}"
-      (click)="onColorPick(color)">
     </div>
-  </div>
-<div class="ok-wrapper">
-  <button class="ok" mat-raised-button (click)="onColorPick(color)" color="accent">OK</button>
 </div>
-</form>

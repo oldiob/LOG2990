@@ -60,11 +60,6 @@ describe('ToolOptionComponent', () => {
         expect(component.getImage()).toBe(component.images.get(component.currentTool) as string);
     });
 
-    it('should not show primary and secondary', () => {
-        expect(component.isShowPrimary).toBeFalsy();
-        expect(component.isShowSecondary).toBeFalsy();
-    });
-
     it('should select pencil tool and expect showcase to display', () => {
         component.selectTool(component.currentTool);
         component.currentTool = component.tools[0];
@@ -110,42 +105,10 @@ describe('ToolOptionComponent', () => {
         expect((component.currentTool as LineTool).junctionWidth).toEqual(junctionWidth);
         expect(showcase.display).toHaveBeenCalled();
     });
-
-    it('should show primary color', () => {
-        component.togglePrimaryColorPicker();
-        expect(component.isShowSecondary).toBeFalsy();
-        expect(component.isShowPrimary).toBeTruthy();
-    });
-
-    it('should show secondary color', () => {
-        component.toggleSecondaryColorPicker();
-        expect(component.isShowSecondary).toBeTruthy();
-        expect(component.isShowPrimary).toBeFalsy();
-    });
-
     it('should swap primary and secondary color', () => {
         component.onSwap();
         expect(component.onSwap).toBeTruthy();
     });
-
-    it('should pick color and call hideColorPicker', () => {
-        component.isShowPrimary = true;
-        component.onColorPick();
-        expect(component.hideColorPicker).toBeTruthy();
-    });
-
-    it('should hide primary color', () => {
-        component.isShowPrimary = true;
-        component.hideColorPicker();
-        expect(component.isShowPrimary).toBeFalsy();
-    });
-
-    it('should hide secondary color', () => {
-        component.isShowPrimary = false;
-        component.hideColorPicker();
-        expect(component.isShowSecondary).toBeFalsy();
-    });
-
     it('should line type change on display', () => {
         component.onLineTypeChange();
         if (component.currentTool instanceof LineTool) {
@@ -153,7 +116,6 @@ describe('ToolOptionComponent', () => {
         expect(showcase.display).toHaveBeenCalled();
         }
     });
-
     it('should jonction type change on display', () => {
         component.onJunctionTypeChange();
         if (component.currentTool instanceof LineTool) {
@@ -161,5 +123,4 @@ describe('ToolOptionComponent', () => {
         expect(showcase.display).toHaveBeenCalled();
         }
     });
-
 });
