@@ -29,6 +29,7 @@ import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { RendererProvider } from './services/renderer-provider/renderer-provider';
+import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import { RendererProvider } from './services/renderer-provider/renderer-provider
         ThumbnailComponent,
         SaveOptionComponent,
         JunctionComponent,
+        CustomAlertComponent,
     ],
     imports: [
         BrowserModule,
@@ -89,6 +91,7 @@ import { RendererProvider } from './services/renderer-provider/renderer-provider
         NewDrawingComponent,
         GalleryOptionComponent,
         SaveOptionComponent,
+        CustomAlertComponent,
     ],
 })
 

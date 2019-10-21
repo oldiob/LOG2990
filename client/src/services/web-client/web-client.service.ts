@@ -7,6 +7,8 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Message } from '../../../../common/communication/message';
 import { serializeDrawArea } from '../../utils/element-parser';
 import { Drawing } from '../draw-area/i-drawing';
+import { DialogService } from 'src/services/dialog/dialog.service';
+import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +22,9 @@ export class WebClientService {
     saving = false;
     loading = false;
 
-    constructor(private workZoneService: WorkZoneService,
-        private http: HttpClient, private svgService: SVGService) {
+    constructor(private dialogService: DialogService,
+                private workZoneService: WorkZoneService,
+                private http: HttpClient, private svgService: SVGService) {
       //
     }
 
@@ -37,6 +40,7 @@ export class WebClientService {
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
           // TODO dialog invalid tag
+          this.dialogService.open(CustomAlertComponent);
           console.log('invalid drawing, not sending to server');
           return;
         }
@@ -69,8 +73,11 @@ export class WebClientService {
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
         .subscribe((res: Response) => {
+          if (res.status === 500) {
+              // TODO dialog informing is not saved
+          }
           console.log(res.body);
-          this.saving = true;
+          this.saving = false;
         } );
     }
 
@@ -116,7 +123,6 @@ export class WebClientService {
             const svgEntry: SVGElement = parsed.childNodes[0] as SVGElement;
             drawings[i].thumbnail = svgEntry;
             }
-          console.log('ABC', drawings);
           this.preparedDrawings = drawings;
           this.preparedReady = true;
           this.loading = false;
