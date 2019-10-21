@@ -77,8 +77,6 @@ export class DropperTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        console.log(this.loaded);
-
         if (!this.loaded) {
             return;
         }
