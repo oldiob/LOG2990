@@ -1,3 +1,4 @@
+import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
@@ -25,10 +26,11 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     isTagExists: boolean;
 
-    constructor(private dialogService: DialogService,
-                private workZoneService: WorkZoneService,
-                private svgService: SVGService,
-                private webClientService: WebClientService) { }
+    constructor(
+        private dialogService: DialogService,
+        private workZoneService: WorkZoneService,
+        private svgService: SVGService,
+        private webClientService: WebClientService) { }
 
     ngOnInit() {
         this.dialogService.disableKey();
@@ -42,12 +44,12 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     private updateDrawings() {
         // TODO: Fetch list of saved drawings from server
         this.drawings = [];
-        /*
-        this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
-            this.drawings = savedDrawing;
-            this.refresh();
-        });
-        */
+
+        // this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
+        //     this.drawings = savedDrawing;
+        //     this.refresh();
+        // });
+
         console.log(this.webClientService.getPreparedDrawing());
         this.webClientService.getPreparedDrawing();
 
@@ -105,19 +107,20 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClick(event: MouseEvent, drawing: Drawing) {
-      populateDrawArea(this.svgService, drawing.svgs);
-      this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+        populateDrawArea(this.svgService, drawing.svgs);
+        this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
     }
+
     onDelete(event: MouseEvent, drawing: Drawing) {
-      for (let i = 0; i < this.filterDrawings.length; i++) {
-          if ( this.filteredDrawings[i].id === drawing.id) {
-              this.drawings.splice(i, 1);
-          }
-      }
-      console.log('deleting', drawing.id);
-      this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
+        for (let i = 0; i < this.filterDrawings.length; i++) {
+            if (this.filteredDrawings[i].id === drawing.id) {
+                this.drawings.splice(i, 1);
+            }
+        }
+        console.log('deleting', drawing.id);
+        this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
     }
     onClose() {
-      this.dialogService.enableKey();
+        this.dialogService.enableKey();
     }
 }

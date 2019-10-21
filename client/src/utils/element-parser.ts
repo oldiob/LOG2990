@@ -1,7 +1,7 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { Prototypes } from './prototypes';
-import { SVGService } from 'src/services/svg/svg.service';
 import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGService } from 'src/services/svg/svg.service';
+import { Prototypes } from './prototypes';
 
 export const serializeDrawArea = (svgService: SVGService): string => {
     const holder = new DrawAreaHolder();
