@@ -6,7 +6,9 @@
   height: 485px;
   width: 100%;
   z-index: 3;
-  border: #344380 1px solid;
+  -webkit-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .rgba-wrapper {
