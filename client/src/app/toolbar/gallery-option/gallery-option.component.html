@@ -11,12 +11,12 @@
             "{{filterInput.value}}" tag does not exist
         </div>
         <div class="grid">
-            <div mat-dialog-close class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index"
-            (click)="onClick($event, drawing)">
+            <div class="drawing" *ngFor="let drawing of filteredDrawings; trackBy: index"
+            (click)="onClick($event, drawing)" mat-dialog-close>
                 <div class="drawing-section name" >
                     {{drawing.name}}
                 </div>
-                
+                <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
                 <div class="thumbnail">
                     <app-thumbnail [thumbnailSVG]="drawing.thumbnail"></app-thumbnail>
                 </div>
