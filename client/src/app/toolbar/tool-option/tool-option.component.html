@@ -56,9 +56,9 @@
 <div *ngIf="currentTool === stamp" class="separation">
   <div class="text">Stamp</div>
   <div class="toolsEmo">
-    <div *ngFor="let image of imagePaths" class="btn-texture texture-number"
-      (click)="selectStamp(image)"  [class.selected-tool]="stamp === currentStamp">
-      <img class="emoji" width="30px" [src]="image">
+    <div *ngFor="let image of imageStamp" class="btn-texture texture-number"
+      (click)="selectStamp(image.base64)"  [class.selected-tool]="stamp === currentStamp">
+      <img class="emoji" width="30px" [src]="image.png">
   </div>
   </div>
 </div>
