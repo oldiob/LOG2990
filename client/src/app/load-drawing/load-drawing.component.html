@@ -1,4 +1,4 @@
-<div>
+<div class="wrapper">
   <div *ngIf="!isDone">{{data}}...</div>
   <div *ngIf="isDone">Done {{data}}</div>
   <button *ngIf="isDone" (click)="onClose()" mat-raised-button mat-dialog-close>Close</button>

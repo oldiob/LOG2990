@@ -1,5 +1,5 @@
-import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -27,6 +27,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     isTagExists: boolean;
 
     constructor(
+        @Inject(MAT_DIALOG_DATA) public data: Drawing[],
         private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
@@ -37,28 +38,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.isTagExists = true;
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
-        this.updateDrawings();
+        this.drawings = this.data;
         this.filteredDrawings = this.drawings;
-    }
-
-    private updateDrawings() {
-        // TODO: Fetch list of saved drawings from server
-        this.drawings = [];
-
-        // this.drawAreaService.drawings.subscribe((savedDrawing: Drawing[]) => {
-        //     this.drawings = savedDrawing;
-        //     this.refresh();
-        // });
-
-        console.log(this.webClientService.getPreparedDrawing());
-        this.webClientService.getPreparedDrawing();
-
-        while (this.webClientService.preparedReady === false) {
-            //
-        }
-        this.webClientService.preparedReady = false;
-        this.drawings = this.webClientService.preparedDrawings;
-        this.refresh();
     }
 
     filterDrawings(filterValue: string) {

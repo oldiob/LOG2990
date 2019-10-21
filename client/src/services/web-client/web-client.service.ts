@@ -121,6 +121,8 @@ export class WebClientService {
     }
 
     getPreparedDrawing(): Drawing[] {
+        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
+        loadingDialogRef.componentInstance.data = 'Loading';
         let drawings: Drawing[] = [];
         this.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
             drawings = savedDrawing;
@@ -133,6 +135,7 @@ export class WebClientService {
             this.preparedDrawings = drawings;
             this.preparedReady = true;
             this.loading = false;
+            loadingDialogRef.componentInstance.done();
             return drawings;
         });
         return drawings;

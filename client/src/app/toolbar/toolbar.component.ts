@@ -1,7 +1,10 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { Drawing } from 'src/services/draw-area/i-drawing';
 import { IOption } from 'src/services/tool/tool-options/i-option';
+import { WebClientService } from 'src/services/web-client/web-client.service';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
@@ -37,6 +40,7 @@ export class ToolbarComponent implements OnInit {
     optionDisplayed: boolean;
 
     constructor(
+        private webClientService: WebClientService,
         private dialogService: DialogService) { }
 
     ngOnInit() {
@@ -53,7 +57,25 @@ export class ToolbarComponent implements OnInit {
     }
 
     openGalleryOption(): void {
-        this.dialogService.open(GalleryOptionComponent);
+        console.log('open');
+        // const allDrawings: Drawing[] = this.webClientService.getPreparedDrawing();
+
+        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
+        loadingDialogRef.componentInstance.data = 'Loading';
+        let drawings: Drawing[] = [];
+        this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
+            drawings = savedDrawing;
+            for (let i = 0; i < drawings.length; i++) {
+                const holder = JSON.parse(drawings[i].svgs).entry;
+                const parsed = new DOMParser().parseFromString(holder, 'image/svg+xml');
+                const svgEntry: SVGElement = parsed.childNodes[0] as SVGElement;
+                drawings[i].thumbnail = svgEntry;
+            }
+
+            loadingDialogRef.componentInstance.done();
+            const galleryDialogRef = this.dialogService.open(GalleryOptionComponent);
+            galleryDialogRef.componentInstance.data = drawings;
+        });
     }
 
     newDrawingOption(): void {
