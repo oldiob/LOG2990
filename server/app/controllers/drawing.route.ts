@@ -31,6 +31,18 @@ export class DrawingRoute {
             return -1;
     }
 
+    private isDrawingValid(drawing: Drawing): boolean {
+            if (drawing.name === '') {
+                    return false;
+            }
+            for (let tag in drawing.tags) {
+                    if (!/^[a-zA-Z]+$/.test(tag)) {
+                        return false;
+                    }
+            }
+            return true;
+    }
+
     private findDrawing(id: number): Drawing | null {
         console.log('logging 2');
         for (let i = 0; i < this.drawings.length; i++) {
@@ -111,9 +123,13 @@ export class DrawingRoute {
                 console.log(req.body);
                 let drawing = new Drawing();
                 drawing = req.body;
-                this.assignID(drawing);
-                this.drawings.push(drawing);
-                res.status(200).json({RESPONSE: 'Message received'});
+                if (this.isDrawingValid(drawing)) {
+                        this.assignID(drawing);
+                        this.drawings.push(drawing);
+                        res.status(200).json({RESPONSE: 'Message received'});
+                } else {
+                        res.status(500).json({RESPONSE: 'invalid drawing'});
+                }
         });
         this.router.get('/drawing/count', (req, res) => {
                 res.json(this.drawings.length);
@@ -145,7 +161,7 @@ export class DrawingRoute {
                         this.drawings.splice(index, 1);
                         res.status(200).json({RESPONSE: 'deleted'});
                 } else {
-                        res.status(200).json({RESPONSE: 'not found'});
+                        res.status(500).json({RESPONSE: 'not found'});
                 }
                 console.log('Deleted');
         });

@@ -30,11 +30,16 @@ export class WebClientService {
         const drawResponse = new Message();
         drawResponse.title = 'hello';
         drawResponse.body = 'world';
-        this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
-        .subscribe(res => console.log('Done'));
+        return this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
+        .subscribe((res: Response) => console.log(res.body));
     }
 
     sendDrawing(drawing: Drawing) {
+        if (!this.isDrawingValid(drawing)) {
+          // TODO dialog invalid tag
+          console.log('invalid drawing, not sending to server');
+          return;
+        }
         this.saving = true;
 
         drawing.svgs = serializeDrawArea(this.svgService);
@@ -62,8 +67,9 @@ export class WebClientService {
         console.log(parsed.childNodes[0]);
         console.log(parsed);
 
-        this.http.post(`${this.CUSTOM_URL}/add`, drawing)
-        .subscribe(res => {
+        return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
+        .subscribe((res: Response) => {
+          console.log(res.body);
           this.saving = true;
         } );
     }
@@ -118,6 +124,18 @@ export class WebClientService {
         });
         return drawings;
     }
+
+    private isDrawingValid(drawing: Drawing): boolean {
+      if (drawing.name === '') {
+              return false;
+      }
+      for (let tag in drawing.tags) {
+              if (!/^[a-zA-Z]+$/.test(tag)) {
+                  return false;
+              }
+      }
+      return true;
+}
 
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
         return (error: Error): Observable<T> => {
