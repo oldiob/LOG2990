@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -106,8 +106,7 @@ export class WebClientService {
             min,
             max,
         };
-        this.http.post(`${this.CUSTOM_URL}/drawing/bytags`, obj)
-            .pipe(map((res: Response) => res));
+        return this.http.post(`${this.CUSTOM_URL}/drawing/bytags`, obj);
     }
     deleteDrawing(id: number) {
         return this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${id}`);

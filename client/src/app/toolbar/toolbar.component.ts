@@ -72,7 +72,8 @@ export class ToolbarComponent implements OnInit {
                 drawings[i].thumbnail = svgEntry;
             }
 
-            loadingDialogRef.componentInstance.done();
+            // loadingDialogRef.componentInstance.done(); // replace this with next line for now
+            loadingDialogRef.close();
             const galleryDialogRef = this.dialogService.open(GalleryOptionComponent);
             galleryDialogRef.componentInstance.data = drawings;
         });
