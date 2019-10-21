@@ -18,7 +18,7 @@ export enum OptionType {
     styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-    private FILE_LOCATION = 'assets/images/';
+    private FILE_LOCATION = '../../../assets/images/';
 
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;

@@ -8,9 +8,9 @@ import {
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { ShapeOptionComponent } from './shape-option.component';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('ShapeOptionComponent', () => {
     let component: ShapeOptionComponent;

@@ -116,15 +116,6 @@ describe('ToolbarComponent', () => {
         expect(option.getImage).toHaveBeenCalled();
     });
 
-    it('should event be prevent when it is a keydown ', () => {
-        const event = new KeyboardEvent('keydown', {
-            key: 'd',
-            cancelable: true,
-        });
-        component.preventDefaults(event);
-        expect(event.defaultPrevented).toBeTruthy();
-    });
-
     it('should return pencil when c is press on keyboard ', () => {
         const pressC = new KeyboardEvent('keypress', { key: 'c'});
         component.pressKeyboard(pressC);

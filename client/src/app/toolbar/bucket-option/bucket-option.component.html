@@ -1,14 +1,16 @@
 <div class="title">Bucket</div>
 
 <div class="buttons-wrapper">
-    <app-color-option [isPrimary]="IS_PRIMARY">
+    <app-color-option 
+        [isPrimary]="IS_PRIMARY">
     </app-color-option>
 
     <div class="swap" (click)="onSwap()">
         <img src="../../../assets/images/swap.svg" alt="swap">
     </div>
-
-    <app-color-option [isPrimary]="!IS_PRIMARY">
+    
+    <app-color-option
+        [isPrimary]="!IS_PRIMARY">
     </app-color-option>
 </div>
 

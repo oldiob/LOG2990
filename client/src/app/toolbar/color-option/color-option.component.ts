@@ -24,8 +24,6 @@ export class ColorOptionComponent implements OnInit {
     readonly DEFAULT_COLOR_HEX = '#FFFFFF';
 
     isShowForm: boolean;
-
-    @Output() color = new EventEmitter<Color>();
     @Input() isPrimary: boolean;
 
     constructor(
