@@ -18,6 +18,7 @@ export class WebClientService {
   preparedDrawings: Drawing[];
   preparedReady: boolean;
   saving = false;
+  loading = false;
 
   constructor(private workZoneService: WorkZoneService,
     private http: HttpClient, private svgService: SVGService) {
@@ -68,6 +69,7 @@ export class WebClientService {
   }
 
   getDrawingCount(): Observable<number> {
+    this.loading = true;
     return this.http.get<number>(`${this.CUSTOM_URL}/drawing/count`).pipe(
       catchError(this.handleError<number>('getDrawingCount')),
     );
@@ -111,6 +113,7 @@ export class WebClientService {
       console.log('ABC', drawings);
       this.preparedDrawings = drawings;
       this.preparedReady = true;
+      this.loading = false;
       return drawings;
     });
     return drawings;

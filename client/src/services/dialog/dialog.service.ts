@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Injectable({
     providedIn: 'root',

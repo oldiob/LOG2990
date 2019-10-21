@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -29,7 +28,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     constructor(private dialogService: DialogService,
                 private workZoneService: WorkZoneService,
                 private svgService: SVGService,
-                private drawAreaService: DrawAreaService, private webClientService: WebClientService) { }
+                private webClientService: WebClientService) { }
 
     ngOnInit() {
         this.dialogService.disableKey();
