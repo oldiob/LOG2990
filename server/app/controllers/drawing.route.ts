@@ -126,7 +126,7 @@ export class DrawingRoute {
                 if (this.isDrawingValid(drawing)) {
                         this.assignID(drawing);
                         this.drawings.push(drawing);
-                        res.status(200).json({RESPONSE: 'Message received'});
+                        res.status(200).json({RESPONSE: 'drawing add to server'});
                 } else {
                         res.status(500).json({RESPONSE: 'invalid drawing'});
                 }

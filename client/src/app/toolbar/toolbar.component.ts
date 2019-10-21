@@ -57,8 +57,6 @@ export class ToolbarComponent implements OnInit {
     }
 
     openGalleryOption(): void {
-        console.log('open');
-        // const allDrawings: Drawing[] = this.webClientService.getPreparedDrawing();
 
         const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
         loadingDialogRef.componentInstance.data = 'Loading';
@@ -72,7 +70,6 @@ export class ToolbarComponent implements OnInit {
                 drawings[i].thumbnail = svgEntry;
             }
 
-            // loadingDialogRef.componentInstance.done(); // replace this with next line for now
             loadingDialogRef.close();
             const galleryDialogRef = this.dialogService.open(GalleryOptionComponent);
             galleryDialogRef.componentInstance.data = drawings;

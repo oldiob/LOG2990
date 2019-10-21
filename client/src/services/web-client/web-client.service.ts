@@ -74,16 +74,19 @@ export class WebClientService {
         console.log(parsed.childNodes[0]);
         console.log(parsed);
 
-        return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
+        return this.http.post(`${this.CUSTOM_URL}/add`, drawing).pipe(
+          catchError(this.handleError<Message>('add')))
             .subscribe((res: Response) => {
                 if (res.status === 500) {
                     const modalRef = this.dialogService.open(CustomAlertComponent);
                     modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
                     console.log('Invalid drawing, server refused saving.');
                 }
-                console.log(res.status);
+                if (res.status === 200) {
+                    console.log('Valid drawing');
+                }
+                console.log(res);
                 this.saving = false;
-                //loadingDialogRef.close();
                 loadingDialogRef.componentInstance.done();
             });
     }
