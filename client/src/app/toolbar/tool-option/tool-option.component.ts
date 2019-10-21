@@ -15,6 +15,7 @@ import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
+import { SelectorTool } from 'src/services/tool/tool-options/selector';
 import { ToolService } from 'src/services/tool/tool.service';
 import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
@@ -38,6 +39,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.brush, 'brush.png'],
         [this.line, 'line.png'],
         [this.stamp, 'stamp.png'],
+        [this.selector, 'line.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -71,13 +73,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     junctionForm: FormGroup;
 
     constructor(
-            private paletteService: PaletteService,
-            private toolService: ToolService,
-            private formBuilder: FormBuilder,
-            public pencil: PencilTool,
-            public brush: BrushTool,
-            public line: LineTool,
-            public stamp: StampTool) {
+        private paletteService: PaletteService,
+        private toolService: ToolService,
+        private formBuilder: FormBuilder,
+        public pencil: PencilTool,
+        public brush: BrushTool,
+        public line: LineTool,
+        public stamp: StampTool,
+        public selector: SelectorTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
@@ -90,7 +93,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp];
+        this.tools = [pencil, brush, line, stamp, selector];
         this.currentTool = this.tools[0];
     }
 
@@ -183,15 +186,15 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     onLineTypeChange(): void {
         if (this.currentTool instanceof LineTool) {
-        this.currentTool.lineType = this.lineForm.controls.lineType.value;
-        this.showcase.display(this.currentTool);
+            this.currentTool.lineType = this.lineForm.controls.lineType.value;
+            this.showcase.display(this.currentTool);
         }
     }
 
     onJunctionTypeChange(): void {
         if (this.currentTool instanceof LineTool) {
-        this.currentTool.junctionType  = this.junctionForm.controls.junctionType.value;
-        this.showcase.display(this.currentTool);
+            this.currentTool.junctionType = this.junctionForm.controls.junctionType.value;
+            this.showcase.display(this.currentTool);
         }
     }
 
