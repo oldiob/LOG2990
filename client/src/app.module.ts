@@ -11,8 +11,10 @@ import {MatIconModule} from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
+import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
+import { LoadDrawingComponent } from './app/load-drawing/load-drawing.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
@@ -29,7 +31,6 @@ import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { RendererProvider } from './services/renderer-provider/renderer-provider';
-import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { CustomAlertComponent } from './app/custom-alert/custom-alert.component'
         SaveOptionComponent,
         JunctionComponent,
         CustomAlertComponent,
+        LoadDrawingComponent,
     ],
     imports: [
         BrowserModule,
@@ -92,6 +94,7 @@ import { CustomAlertComponent } from './app/custom-alert/custom-alert.component'
         GalleryOptionComponent,
         SaveOptionComponent,
         CustomAlertComponent,
+        LoadDrawingComponent,
     ],
 })
 

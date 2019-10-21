@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
+import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { SVGService } from 'src/services/svg/svg.service'
+import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Message } from '../../../../common/communication/message';
 import { serializeDrawArea } from '../../utils/element-parser';
@@ -39,13 +40,14 @@ export class WebClientService {
 
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
-            // TODO dialog invalid tag
             const modalRef = this.dialogService.open(CustomAlertComponent);
             modalRef.componentInstance.data = 'Invalid drawing, not sending to server.';
             console.log('Invalid drawing, not sending to server.');
             return;
         }
         this.saving = true;
+        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
+        loadingDialogRef.componentInstance.data = 'Saving';
 
         drawing.svgs = serializeDrawArea(this.svgService);
         this.workZoneService.currentHeight.subscribe(
@@ -75,13 +77,14 @@ export class WebClientService {
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe((res: Response) => {
                 if (res.status === 500) {
-                    // TODO dialog informing is not saved
                     const modalRef = this.dialogService.open(CustomAlertComponent);
                     modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
                     console.log('Invalid drawing, server refused saving.');
                 }
                 console.log(res.status);
                 this.saving = false;
+                //loadingDialogRef.close();
+                loadingDialogRef.componentInstance.done();
             });
     }
 
