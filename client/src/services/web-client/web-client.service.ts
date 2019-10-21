@@ -40,8 +40,9 @@ export class WebClientService {
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
             // TODO dialog invalid tag
-            this.dialogService.open(CustomAlertComponent);
-            console.log('invalid drawing, not sending to server');
+            const modalRef = this.dialogService.open(CustomAlertComponent);
+            modalRef.componentInstance.data = 'Invalid drawing, not sending to server.';
+            console.log('Invalid drawing, not sending to server.');
             return;
         }
         this.saving = true;
@@ -75,8 +76,11 @@ export class WebClientService {
             .subscribe((res: Response) => {
                 if (res.status === 500) {
                     // TODO dialog informing is not saved
+                    const modalRef = this.dialogService.open(CustomAlertComponent);
+                    modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
+                    console.log('Invalid drawing, server refused saving.');
                 }
-                console.log(res.body);
+                console.log(res.status);
                 this.saving = false;
             });
     }
