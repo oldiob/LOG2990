@@ -15,15 +15,20 @@ export class DropperTool implements ITool {
 
     imageData: ImageData;
 
+    private loaded: boolean;
+
     currentColor: Color;
 
     constructor(
         private svgService: SVGService,
         private paletteService: PaletteService) {
         this.currentColor = new Color(0, 0, 0, 0);
+        this.loaded = false;
     }
 
     loadImage() {
+        this.loaded = false;
+
         const canvas = DOMRenderer.createElement('canvas');
 
         DOMRenderer.setAttribute(canvas, 'width',
@@ -36,18 +41,24 @@ export class DropperTool implements ITool {
         const svgOuterHTML = this.svgService.entry.nativeElement.outerHTML;
 
         const svgImage: HTMLImageElement = new Image();
-        svgImage.src = 'data:image/svg+xml,' + svgOuterHTML;
+        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
         DOMRenderer.appendChild(canvas, svgImage);
 
         const setColor = (): void => {
             ctx.drawImage(svgImage, 0, 0);
             this.imageData = ctx.getImageData(0, 0, svgImage.width, svgImage.height);
+
+            this.loaded = true;
         };
 
         svgImage.onload = setColor;
     }
 
     onPressed(event: MouseEvent): null {
+        if (!this.loaded) {
+            return null;
+        }
+
         if (event.button === 0) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
@@ -66,6 +77,10 @@ export class DropperTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
+        if (!this.loaded) {
+            return;
+        }
+
         const pixelData = this.getPixelData(this.imageData, event.svgX, event.svgY);
 
         this.currentColor.red = pixelData[0];
