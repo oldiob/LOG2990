@@ -152,9 +152,6 @@ export class ColorOptionComponent implements OnInit {
     toggleForm(): void {
         this.isShowForm = !this.isShowForm;
         this.colorsHistory = this.paletteService.getHistory();
-        // this.onAlphaChange();
-        // this.onColorHEXChange();
-        // this.onColorRGBAChange();
     }
 
     hideForm(): void {

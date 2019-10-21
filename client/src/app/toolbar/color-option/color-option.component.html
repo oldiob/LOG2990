@@ -4,7 +4,6 @@
         [ngStyle]="setColor()">
         <span class="color-text">Color 1</span></button>
     <div class="color1-picker" *ngIf="isShowForm">
-
         <div class="form-wrapper">
             <div class="color-picker-wrapper">
                 <color-picker class="color-picker" (color)="onColorPick($event)" (mouseup)="onMouseUp()">

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { Observable, Subject } from 'rxjs';
 import { Color } from 'src/utils/color';
 import { RingBuffer } from 'src/utils/ring-buffer';
-import { Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',

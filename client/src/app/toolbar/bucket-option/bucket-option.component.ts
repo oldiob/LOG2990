@@ -24,6 +24,11 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     readonly IS_PRIMARY = true;
 
+    isSelected: boolean;
+
+    primaryColor: string;
+    secondaryColor: string;
+
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
