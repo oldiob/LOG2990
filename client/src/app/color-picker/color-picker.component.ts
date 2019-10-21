@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { mergeMap, takeUntil } from 'rxjs/operators';
 import { Color } from 'src/utils/color';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 @Component({
   selector: 'color-picker',
@@ -27,7 +28,7 @@ export class ColorPickerComponent implements OnInit {
   // to be removed
   debug: string;
 
-  constructor(private renderer: Renderer2) { }
+  constructor() { }
 
   ngOnInit() {
     this.canvasElement = this.canvas.nativeElement as HTMLCanvasElement;
@@ -42,14 +43,14 @@ export class ColorPickerComponent implements OnInit {
   }
 
   createPickerIcon() {
-    this.picker = this.renderer.createElement('div');
-    this.renderer.appendChild(this.wrapper.nativeElement, this.picker);
-    this.renderer.setStyle(this.picker, 'position', 'absolute');
-    this.renderer.setStyle(this.picker, 'width', '20px');
-    this.renderer.setStyle(this.picker, 'height', '20px');
-    this.renderer.setStyle(this.picker, 'border', '2px solid white');
-    this.renderer.setStyle(this.picker, 'border-radius', '100%');
-    this.renderer.setStyle(this.picker, 'opacity', '0');
+    this.picker = DOMRenderer.createElement('div');
+    DOMRenderer.renderer.appendChild(this.wrapper.nativeElement, this.picker);
+    DOMRenderer.renderer.setStyle(this.picker, 'position', 'absolute');
+    DOMRenderer.renderer.setStyle(this.picker, 'width', '20px');
+    DOMRenderer.renderer.setStyle(this.picker, 'height', '20px');
+    DOMRenderer.renderer.setStyle(this.picker, 'border', '2px solid white');
+    DOMRenderer.renderer.setStyle(this.picker, 'border-radius', '100%');
+    DOMRenderer.renderer.setStyle(this.picker, 'opacity', '0');
   }
 
   private listenToColor() {
@@ -83,11 +84,11 @@ export class ColorPickerComponent implements OnInit {
     const dotX = event.clientX - rect.left;
     const dotY = event.clientY - rect.top;
 
-    this.renderer.setStyle(this.picker, 'opacity', '1');
-    this.renderer.setStyle(this.picker, 'pointer-events', 'none');
-    this.renderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
-    this.renderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
-    this.renderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
+    DOMRenderer.renderer.setStyle(this.picker, 'opacity', '1');
+    DOMRenderer.renderer.setStyle(this.picker, 'pointer-events', 'none');
+    DOMRenderer.renderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
+    DOMRenderer.renderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
+    DOMRenderer.renderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
   }
 
   private makeColorPallette() {

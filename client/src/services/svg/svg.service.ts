@@ -1,6 +1,6 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { RendererProvider } from '../renderer-provider/renderer-provider';
+import { DOMRenderer } from '../../utils/dom-renderer';
 
 @Injectable({
     providedIn: 'root',
@@ -38,13 +38,14 @@ export class SVGService {
         }
 
         this.objects.push(obj);
-        RendererProvider.renderer.appendChild(this.entry.nativeElement, obj.element);
+        DOMRenderer
+            .appendChild(this.entry.nativeElement, obj.element);
     }
 
     removeObject(): SVGInterface | null {
         const removedObject: SVGInterface | undefined = this.objects.pop();
         if (removedObject !== undefined) {
-            RendererProvider.renderer.removeChild(this.entry.nativeElement, removedObject.element);
+            DOMRenderer.removeChild(this.entry.nativeElement, removedObject.element);
             return removedObject;
         }
         return null;
@@ -56,15 +57,15 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
-        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
-        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
-        RendererProvider.renderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
-
         this.objects = [];
+
+        DOMRenderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
+        DOMRenderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
+        DOMRenderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
     }
 
     private createBlurFilter() {
-        const renderer = RendererProvider.renderer;
+        const renderer = DOMRenderer;
         const filterBlur = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterBlur, 'id', 'blur');
         renderer.setAttribute(filterBlur, 'x', '-20');
@@ -78,7 +79,7 @@ export class SVGService {
         return filterBlur;
     }
     private createOpacityFilter() {
-        const renderer = RendererProvider.renderer;
+        const renderer = DOMRenderer;
         const filterOpacity = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterOpacity, 'id', 'opacity');
         renderer.setAttribute(filterOpacity, 'x', '-20');
@@ -95,9 +96,9 @@ export class SVGService {
         renderer.appendChild(filterOpacity, filterContent);
 
         return filterOpacity;
-  }
+    }
     private createTurbulenceFilter() {
-        const renderer = RendererProvider.renderer;
+        const renderer = DOMRenderer;
         const filterTurbulence = renderer.createElement('filter', 'svg');
         renderer.setAttribute(filterTurbulence, 'id', 'turbulence');
 

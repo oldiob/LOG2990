@@ -11,6 +11,7 @@ export class DialogService {
     private isClosedWelcome = new BehaviorSubject<boolean>(false);
     keyEnable = false;
 
+    isClosed = false;
     constructor(private dialog: MatDialog) { }
 
     get isClosedWelcomeObservable(): Observable<boolean> {
@@ -18,15 +19,14 @@ export class DialogService {
     }
 
     openEntryPoint(cookie: string): void {
-        let isClosed = false;
         const dialogConfig: MatDialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
 
         this.dialog.open(EntryPointComponent, dialogConfig).afterClosed().subscribe((result: boolean) => {
             sessionStorage.setItem(cookie, JSON.stringify(result));
             if (typeof result !== 'undefined') {
-                isClosed = true;
-                this.isClosedWelcome.next(isClosed);
+                this.isClosed = true;
+                this.isClosedWelcome.next(this.isClosed);
             }
         });
     }

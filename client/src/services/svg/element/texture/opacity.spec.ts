@@ -1,5 +1,5 @@
 import { OpacityTexture } from './opacity';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('OpacityTexture', () => {
 
@@ -13,7 +13,7 @@ describe('OpacityTexture', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         element = jasmine.createSpyObj('any', ['']);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         opacity = new OpacityTexture();
     });
 

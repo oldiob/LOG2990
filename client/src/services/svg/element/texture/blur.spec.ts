@@ -1,5 +1,5 @@
 import { BlurTexture } from './blur';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('BlurTexture', () => {
 
@@ -13,7 +13,7 @@ describe('BlurTexture', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         element = jasmine.createSpyObj('any', ['']);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
         blur = new BlurTexture();
     });
 

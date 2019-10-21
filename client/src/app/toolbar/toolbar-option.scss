@@ -27,23 +27,27 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 15px;
 }
 
 .button {
+  margin: 10px 10px 0 10px;
+  border-radius: 50%;
+
   width: 50px;
   height: 50px;
-  margin: 10px;
-  padding: 30px;
-  border-radius: 50%;
-  display: flex;
+
   justify-content: center;
   align-items: center;
+  display: flex;
+  
+  transition: 0.3s;
 }
 
 .tool-icon {
-  height: 28px;
-  width: 28px;
+    --length: 23px;
+    display: block;
+    height: var(--length);
+    width: var(--length);
 }
 
 .selected-tool {
@@ -125,5 +129,41 @@ a:active {
 }
 
 .swap:hover {
+  cursor: pointer;
+}
+
+
+
+.slider {
+  -webkit-appearance: none;
+  width: 200px;
+  height: 5px;
+  border-radius: 5px;
+  background: #ffffffff;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #344380;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #344380;
   cursor: pointer;
 }

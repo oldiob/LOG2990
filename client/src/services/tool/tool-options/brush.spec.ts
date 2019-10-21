@@ -1,5 +1,5 @@
 import { BrushTool } from './brush';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('BrushTool', () => {
     let create: any;
@@ -20,7 +20,7 @@ describe('BrushTool', () => {
         texture.create = create;
         texture.create.and.returnValue(null);
 
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         brush = new BrushTool(paletteService);
         brush.element = element;

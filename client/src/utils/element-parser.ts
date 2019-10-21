@@ -1,4 +1,4 @@
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Prototypes } from './prototypes';
@@ -52,14 +52,14 @@ const deserializeSVG = (json: string): any => {
  * The parsed elements dont keep their namespace, we need to recreate their attributes and children.
  */
 const recreateElement = (fakeElement: any): any => {
-    const realElement = RendererProvider.renderer.createElement(fakeElement.nodeName, 'svg');
+    const realElement = DOMRenderer.createElement(fakeElement.nodeName, 'svg');
 
     for (const attribute of fakeElement.attributes) {
-        RendererProvider.renderer.setAttribute(realElement, attribute.nodeName, attribute.nodeValue);
+        DOMRenderer.setAttribute(realElement, attribute.nodeName, attribute.nodeValue);
     }
 
     for (const child of fakeElement.children) {
-        RendererProvider.renderer.appendChild(realElement, recreateElement(child));
+        DOMRenderer.appendChild(realElement, recreateElement(child));
     }
 
     return realElement;

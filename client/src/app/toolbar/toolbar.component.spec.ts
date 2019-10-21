@@ -7,6 +7,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
@@ -15,7 +16,6 @@ import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar.component';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
 
 describe('ToolbarComponent', () => {
     let component: ToolbarComponent;
@@ -48,7 +48,7 @@ describe('ToolbarComponent', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         fixture = TestBed.createComponent(ToolbarComponent);
         component = fixture.componentInstance;
@@ -57,7 +57,7 @@ describe('ToolbarComponent', () => {
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save']);
         dialogService = jasmine.createSpyObj('DialogService', ['openNewDrawing']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
-        bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'currentTool']);
+        bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         galleryOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
@@ -140,13 +140,31 @@ describe('ToolbarComponent', () => {
     it('should return bucket when b is press on keyboard ', () => {
         const pressB = new KeyboardEvent('keypress', { key: 'b'});
         component.pressKeyboard(pressB);
-        expect(component.pressKeyboard(pressB)).toEqual(component.bucketOption.selectTool(bucketOption.currentTool));
+        expect(component.pressKeyboard(pressB)).toEqual(component.bucketOption.selectTool(bucketOption.tools[0]));
+    });
+
+    it('should return dropper when i is press on keyboard ', () => {
+        const pressI = new KeyboardEvent('keypress', { key: 'i'});
+        component.pressKeyboard(pressI);
+        expect(component.pressKeyboard(pressI)).toEqual(component.bucketOption.selectTool(bucketOption.tools[1]));
     });
 
     it('should return rectangle when 1 is press on keyboard ', () => {
         const press1 = new KeyboardEvent('keypress', { key: '1'});
         component.pressKeyboard(press1);
         expect(component.pressKeyboard(press1)).toEqual(component.shapeOption.selectTool(shapeOption.tools[0]));
+    });
+
+    it('should return ellipse when 2 is press on keyboard ', () => {
+        const press2 = new KeyboardEvent('keypress', { key: '2'});
+        component.pressKeyboard(press2);
+        expect(component.pressKeyboard(press2)).toEqual(component.shapeOption.selectTool(shapeOption.tools[1]));
+    });
+
+    it('should return polygone when 3 is press on keyboard ', () => {
+        const press3 = new KeyboardEvent('keypress', { key: '3'});
+        component.pressKeyboard(press3);
+        expect(component.pressKeyboard(press3)).toEqual(component.shapeOption.selectTool(shapeOption.tools[2]));
     });
 
     it('should return new drawing when (ctrl + o) is press on keyboard ', () => {

@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { ShapeOptionComponent } from './shape-option.component';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('ShapeOptionComponent', () => {
     let component: ShapeOptionComponent;
@@ -30,7 +30,7 @@ describe('ShapeOptionComponent', () => {
 
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
-        RendererProvider.renderer = renderer;
+        DOMRenderer.renderer = renderer;
 
         fixture = TestBed.createComponent(ShapeOptionComponent);
         component = fixture.componentInstance;

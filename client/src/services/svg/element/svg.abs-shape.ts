@@ -1,7 +1,7 @@
 import { SVGInterface } from './svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
-import { RendererProvider } from 'src/services/renderer-provider/renderer-provider';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;
@@ -66,15 +66,15 @@ export abstract class AbsSVGShape implements SVGInterface {
                 this.strokeOpacity = 1;
                 break;
         }
-        this.element = RendererProvider.renderer.createElement('g', 'svg');
+        this.element = DOMRenderer.createElement('g', 'svg');
 
-        const perimeter = RendererProvider.renderer.createElement('rect', 'svg');
+        const perimeter = DOMRenderer.createElement('rect', 'svg');
 
-        RendererProvider.renderer.setAttribute(perimeter, 'stroke-width', '0.3');
-        RendererProvider.renderer.setAttribute(perimeter, 'fill', 'transparent');
-        RendererProvider.renderer.setAttribute(this.element, 'x', `${x}`);
-        RendererProvider.renderer.setAttribute(this.element, 'y', `${y}`);
-        RendererProvider.renderer.appendChild(this.element, perimeter);
+        DOMRenderer.setAttribute(perimeter, 'stroke-width', '0.5');
+        DOMRenderer.setAttribute(perimeter, 'fill', 'transparent');
+        DOMRenderer.setAttribute(this.element, 'x', `${x}`);
+        DOMRenderer.setAttribute(this.element, 'y', `${y}`);
+        DOMRenderer.appendChild(this.element, perimeter);
 
         this.showPerimeter();
     }
@@ -99,25 +99,25 @@ export abstract class AbsSVGShape implements SVGInterface {
 
     setPointSize(pointSize: number): void {
         this.pointSize = this.strokeOpacity === 0 ? 0 : pointSize;
-        RendererProvider.renderer.setAttribute(this.element.children[1], 'stroke-width', this.pointSize.toString());
+        DOMRenderer.setAttribute(this.element.children[1], 'stroke-width', this.pointSize.toString());
     }
 
     setPrimary(color: string): void {
         this.primary = color;
         if (this.fillOpacity === 1) {
-            RendererProvider.renderer.setAttribute(this.element.children[1], 'fill', color);
+            DOMRenderer.setAttribute(this.element.children[1], 'fill', color);
         }
     }
     setSecondary(color: string): void {
         this.secondary = color;
         if (this.strokeOpacity === 1) {
-            RendererProvider.renderer.setAttribute(this.element.children[1], 'stroke', color);
+            DOMRenderer.setAttribute(this.element.children[1], 'stroke', color);
         }
     }
 
     protected setOpacities() {
-        RendererProvider.renderer.setAttribute(this.element.children[1], 'fill-opacity', `${this.fillOpacity}`);
-        RendererProvider.renderer.setAttribute(this.element.children[1], 'stroke-opacity', `${this.strokeOpacity}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'fill-opacity', `${this.fillOpacity}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'stroke-opacity', `${this.strokeOpacity}`);
     }
 
     abstract setCursor(x: number, y: number, isShift: boolean): void;
@@ -140,22 +140,22 @@ export abstract class AbsSVGShape implements SVGInterface {
     protected abstract setPositionAttributes(): void;
 
     protected updatePerimeter() {
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'x',
+        DOMRenderer.setAttribute(this.element.children[0], 'x',
             `${Math.min(this.endingPoint[0], this.startingPoint[0]) - this.pointSize / 2}`);
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'y',
+        DOMRenderer.setAttribute(this.element.children[0], 'y',
             `${Math.min(this.endingPoint[1], this.startingPoint[1]) - this.pointSize / 2}`);
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'width',
+        DOMRenderer.setAttribute(this.element.children[0], 'width',
             `${Math.abs(this.startingPoint[0] - this.endingPoint[0]) + this.pointSize}`);
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'height',
+        DOMRenderer.setAttribute(this.element.children[0], 'height',
             `${Math.abs(this.startingPoint[1] - this.endingPoint[1]) + this.pointSize}`);
     }
 
     protected showPerimeter() {
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'stroke', 'gray');
+        DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'gray');
     }
 
     protected hidePerimeter() {
-        RendererProvider.renderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
+        DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
     }
 
     abstract onShift(isShift: boolean): void;

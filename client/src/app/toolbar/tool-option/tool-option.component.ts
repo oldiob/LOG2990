@@ -70,8 +70,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     lineForm: FormGroup;
     junctionForm: FormGroup;
 
-    constructor(private paletteService: PaletteService, private toolService: ToolService, private formBuilder: FormBuilder,
-                public pencil: PencilTool, public brush: BrushTool, public line: LineTool, public stamp: StampTool) {
+    constructor(
+            private paletteService: PaletteService,
+            private toolService: ToolService,
+            private formBuilder: FormBuilder,
+            public pencil: PencilTool,
+            public brush: BrushTool,
+            public line: LineTool,
+            public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
         this.imagePaths = ['./assets/images/quiet.png', './assets/images/love.png', './assets/images/kiss.png',
