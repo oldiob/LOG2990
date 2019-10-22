@@ -48,8 +48,7 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
     "reflect-metadata": "^0.1.10",
-    "serve-favicon": "~2.5.0",
-    "ts-node": "^8.3.0"
+    "serve-favicon": "~2.5.0"
   },
   "devDependencies": {
     "@types/body-parser": "1.17.1",
@@ -64,12 +63,13 @@
     "@types/node": "~12.7.2",
     "@types/node-uuid": "0.0.28",
     "@types/sinon": "^7.0.3",
-    "chai": "~4.2.0",
+    "chai": "^4.2.0",
     "concurrently": "^4.0.1",
-    "mocha": "~6.2.0",
+    "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "rimraf": "3.0.0",
     "sinon": "^7.2.2",
+    "ts-node": "^8.4.1",
     "tslint": "~5.18.0",
     "tslint-eslint-rules": "5.4.0",
     "tslint-microsoft-contrib": "6.2.0",
