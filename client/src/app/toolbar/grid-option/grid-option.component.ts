@@ -47,14 +47,6 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [gridTool];
         this.currentTool = this.tools[0];
 
-        // switch (GridType) {
-        //     case Off:
-        //         this.gridOff();
-        //         break;
-        //     case GridType.On:
-        //         this.gridOn();
-        //         break;
-        // }
     }
 
     ngOnInit() {
@@ -75,12 +67,13 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
     }
+
     gridOn(): void {
-        //  this.gridService.draw();
+        this.gridService.opacity = 1;
     }
 
     gridOff(): void {
-         // this.svgService.clearDrawArea();
+        this.gridService.opacity = 0;
     }
 
     getFilesource(tool: ITool): string {
