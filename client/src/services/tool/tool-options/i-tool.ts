@@ -16,7 +16,7 @@ export enum JunctionType {
     Dot = 2,
 }
 export interface ITool {
-    width: number | null;
+    width?: number;
 
     onPressed(event: MouseEvent): SVGInterface | null;
     onMotion(event: MouseEvent): void;
