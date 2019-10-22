@@ -32,3 +32,19 @@
     </a>
   </div>
 </div>
+
+<div>
+<form  class="form" [formGroup]="gridForm" (ngSubmit)="onSubmit()">
+  <mat-form-field color="accent">
+    <mat-label class="trace-label">Grid Options</mat-label>
+    <mat-select (selectionChange)="onGridTypeChange()" panelClass="trace-panel" formControlName="gridType" >
+      <mat-option [value]="GridType.On">
+        On
+      </mat-option>
+      <mat-option [value]="GridType.Round">
+        Off
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+</div>

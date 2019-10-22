@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GridService } from 'src/services/grid/grid.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { GridType, ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
@@ -15,29 +17,51 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
        images = new Map<ITool, string>([
-        [this.grid, 'grid.png'],
+        [this.gridTool, 'grid.png'],
     ]);
+
+    @ViewChild('svgContainer', { static: true })
+    svg: ElementRef;
+
+    @ViewChild('gridContainer', { static: true })
+    grid: ElementRef;
 
     tools: ITool[];
     currentTool: ITool;
+     backgroundColor = '#ffffffff';
 
     isShowPrimary: boolean;
     isShowSecondary: boolean;
     primaryColor: string;
     secondaryColor: string;
+    height: number;
+    width: number;
+    GridType = GridType;
+    gridForm: FormGroup;
 
     constructor(
+        private formBuilder: FormBuilder,
         private paletteService: PaletteService,
         private toolService: ToolService,
         public gridService: GridService,
-        private grid: GridTool) {
-        this.tools = [grid];
+        private gridTool: GridTool) {
+        this.tools = [gridTool];
         this.currentTool = this.tools[0];
+
+        // switch (gridType) {
+        //     case GridType.Off:
+        //         this.gridOff();
+        //         break;
+        //     case GridType.On:
+        //         this.gridOn();
+        //         break;
+        // }
     }
 
     ngOnInit() {
         this.isShowPrimary = false;
         this.isShowSecondary = false;
+        this.createGridForm();
     }
 
     select() {
@@ -51,6 +75,13 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+    }
+    gridOn(): void {
+        //  this.gridService.draw();
+    }
+
+    gridOff(): void {
+         // this.svgService.clearDrawArea();
     }
 
     getFilesource(tool: ITool): string {
@@ -81,6 +112,15 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     hideColorPicker() {
         this.isShowPrimary ? this.isShowPrimary = false
             : this.isShowSecondary = false;
+    }
+
+    private createGridForm(): void {
+        const DEFAULT_GRID_TYPE = GridType.Off;
+        const validators = [Validators.min(0), Validators.required];
+
+        this.gridForm = this.formBuilder.group({
+            gridType: [DEFAULT_GRID_TYPE, validators],
+        });
     }
 
     private setPrimaryColor() {
