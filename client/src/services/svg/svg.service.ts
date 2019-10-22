@@ -1,6 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from '../../utils/dom-renderer';
+import { Rect } from 'src/utils/geo-primitives';
 
 @Injectable({
     providedIn: 'root',
@@ -38,8 +39,7 @@ export class SVGService {
         }
 
         this.objects.push(obj);
-        DOMRenderer
-            .appendChild(this.entry.nativeElement, obj.element);
+        DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
     removeObject(): SVGInterface | null {
@@ -49,6 +49,14 @@ export class SVGService {
             return removedObject;
         }
         return null;
+    }
+
+    addElement(element: any) {
+        DOMRenderer.appendChild(this.entry.nativeElement, element);
+    }
+
+    removeElement(element: any) {
+        DOMRenderer.removeChild(this.entry.nativeElement, element);
     }
 
     clearDrawArea() {
@@ -78,6 +86,7 @@ export class SVGService {
 
         return filterBlur;
     }
+
     private createOpacityFilter() {
         const renderer = DOMRenderer;
         const filterOpacity = renderer.createElement('filter', 'svg');
@@ -119,5 +128,16 @@ export class SVGService {
         renderer.appendChild(filterTurbulence, filterSubContent);
 
         return filterTurbulence;
+    }
+
+    getInRect(rect: Rect): Set<SVGInterface> {
+        let matches: Set<SVGInterface> = new Set<SVGInterface>([]);
+        this.objects.forEach((obj) => {
+            const box: any = obj.element.getBBox();
+            if (rect.intersect(new Rect(box.x, box.y, box.x + box.width, box.y + box.height))) {
+                matches.add(obj);
+            }
+        });
+        return matches;
     }
 }

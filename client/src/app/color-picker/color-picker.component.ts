@@ -44,13 +44,13 @@ export class ColorPickerComponent implements OnInit {
 
   createPickerIcon() {
     this.picker = DOMRenderer.createElement('div');
-    DOMRenderer.renderer.appendChild(this.wrapper.nativeElement, this.picker);
-    DOMRenderer.renderer.setStyle(this.picker, 'position', 'absolute');
-    DOMRenderer.renderer.setStyle(this.picker, 'width', '20px');
-    DOMRenderer.renderer.setStyle(this.picker, 'height', '20px');
-    DOMRenderer.renderer.setStyle(this.picker, 'border', '2px solid white');
-    DOMRenderer.renderer.setStyle(this.picker, 'border-radius', '100%');
-    DOMRenderer.renderer.setStyle(this.picker, 'opacity', '0');
+    DOMRenderer.appendChild(this.wrapper.nativeElement, this.picker);
+    DOMRenderer.setStyle(this.picker, 'position', 'absolute');
+    DOMRenderer.setStyle(this.picker, 'width', '20px');
+    DOMRenderer.setStyle(this.picker, 'height', '20px');
+    DOMRenderer.setStyle(this.picker, 'border', '2px solid white');
+    DOMRenderer.setStyle(this.picker, 'border-radius', '100%');
+    DOMRenderer.setStyle(this.picker, 'opacity', '0');
   }
 
   private listenToColor() {
@@ -84,11 +84,11 @@ export class ColorPickerComponent implements OnInit {
     const dotX = event.clientX - rect.left;
     const dotY = event.clientY - rect.top;
 
-    DOMRenderer.renderer.setStyle(this.picker, 'opacity', '1');
-    DOMRenderer.renderer.setStyle(this.picker, 'pointer-events', 'none');
-    DOMRenderer.renderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
-    DOMRenderer.renderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
-    DOMRenderer.renderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
+    DOMRenderer.setStyle(this.picker, 'opacity', '1');
+    DOMRenderer.setStyle(this.picker, 'pointer-events', 'none');
+    DOMRenderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
+    DOMRenderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
+    DOMRenderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
   }
 
   private makeColorPallette() {

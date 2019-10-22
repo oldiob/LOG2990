@@ -1,4 +1,4 @@
-import { Renderer2, RendererFactory2 } from '@angular/core';
+import { Renderer2, RendererFactory2, RendererStyleFlags2 } from '@angular/core';
 
 export class DOMRenderer {
     static renderer: Renderer2;
@@ -23,5 +23,9 @@ export class DOMRenderer {
 
     static removeChild(parent: any, oldChild: any, isHostElement?: boolean | undefined): void {
         return DOMRenderer.renderer.removeChild(parent, oldChild, isHostElement);
+    }
+
+    static setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2 | undefined): void {
+        return DOMRenderer.renderer.setStyle(el, style, value, flags);
     }
 }

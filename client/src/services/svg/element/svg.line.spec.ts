@@ -31,8 +31,8 @@ describe('SVGLine', () => {
 
     it('should exits', () => {
         expect(line).toBeTruthy();
-        expect(DOMRenderer.renderer.createElement).toHaveBeenCalled();
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.createElement).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should return true only if (x,y) is at where the line drew', () => {
@@ -55,27 +55,36 @@ describe('SVGLine', () => {
 
     it('should set the primary color', () => {
         renderer.setAttribute.calls.reset();
+        const circleChild = jasmine.createSpyObj('any', ['nodeName']);
+        const nonCircleChild = jasmine.createSpyObj('any', ['nodeName']);
+
+        const children = [circleChild, nonCircleChild];
+        const element = jasmine.createSpyObj('any', ['children']);
+
+        element.children = children;
+        line.element = element;
+
         line.setPrimary(C);
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(2);
     });
 
     it('should not set the secondary color', () => {
         renderer.setAttribute.calls.reset();
         line.setSecondary(C);
-        expect(DOMRenderer.renderer.setAttribute).not.toHaveBeenCalled();
+        expect(renderer.setAttribute).not.toHaveBeenCalled();
     });
 
     it('should set width', () => {
         const width = Math.random() * 1000;
         line.setWidth(width);
         expect(line.width).toEqual(width);
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should renderer full line with angle junction', () => {
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalledTimes(10);
-        expect(DOMRenderer.renderer.createElement).toHaveBeenCalledTimes(3);
-        expect(DOMRenderer.renderer.appendChild).toHaveBeenCalledTimes(3);
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(10);
+        expect(renderer.createElement).toHaveBeenCalledTimes(3);
+        expect(renderer.appendChild).toHaveBeenCalledTimes(3);
     });
 
     it('should popAnchor last element', () => {
@@ -87,15 +96,24 @@ describe('SVGLine', () => {
         line.addAnchor(X, Y, junctionType);
         const anchorsSpy = new Point(X, Y);
         expect(line.anchors).toContain(anchorsSpy);
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should add circle when it is dot junction', () => {
+        const polyline = jasmine.createSpyObj('any', ['attributes']);
+        const attributes = jasmine.createSpyObj('any', ['stroke']);
+        const stroke = jasmine.createSpyObj('any', ['nodeValue']);
+        const nodeValue = jasmine.createSpyObj('any', ['']);
+        polyline.attributes = attributes;
+        attributes.stroke = stroke;
+        stroke.nodeValue = nodeValue;
+
+        line.polyline = polyline;
         junctionType = JunctionType.Dot;
         line.addAnchor(X, Y, junctionType);
-        expect(DOMRenderer.renderer.setAttribute).toHaveBeenCalled();
-        expect(DOMRenderer.renderer.createElement).toHaveBeenCalled();
-        expect(DOMRenderer.renderer.appendChild).toHaveBeenCalled();
+        expect(renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.createElement).toHaveBeenCalled();
+        expect(renderer.appendChild).toHaveBeenCalled();
     });
 
 });
