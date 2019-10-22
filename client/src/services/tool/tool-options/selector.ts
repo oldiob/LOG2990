@@ -5,7 +5,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
 
-enum State {
+export enum State {
     idle = 0,
     maybe,
     selecting,
@@ -37,7 +37,7 @@ export class SelectorTool implements ITool {
 
     policy = false;
 
-    constructor(private svg: SVGService) {
+    constructor(public svg: SVGService) {
         this.boxElement = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(this.boxElement, 'fill', 'none');
         DOMRenderer.setAttribute(this.boxElement, 'stroke', 'black');
@@ -88,6 +88,7 @@ export class SelectorTool implements ITool {
         } else if (event.button === 2) {
             this.policy = true;
         } else {
+            this.state = State.idle;
             return null;
         }
         switch (this.state) {
