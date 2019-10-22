@@ -106,7 +106,6 @@ export class SaveOptionComponent implements OnInit {
 
     onSubmit() {
         const drawAreaHolder: DrawAreaHolder = serializeDrawArea(this.svgService);
-        this.svgService.clearDrawArea();
 
         const drawing: Drawing = {
             id: -1,
