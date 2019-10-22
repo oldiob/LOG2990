@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebClientService } from './web-client.service';
 
-describe('WebServiceService', () => {
+describe('WebClientService', () => {
   let service: WebClientService;
   beforeEach(() => {
     TestBed.configureTestingModule({
