@@ -25,7 +25,7 @@ describe('ToolbarComponent', () => {
     let shapeOption: ShapeOptionComponent;
     let dialogService: DialogService;
     let drawareaService: DrawAreaService;
-    let galleryOption: GalleryOptionComponent;
+    // let galleryOption: GalleryOptionComponent;
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
@@ -59,7 +59,7 @@ describe('ToolbarComponent', () => {
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
-        galleryOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
+        // galleryOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
         options = jasmine.createSpyObj('IOption<any>[]', ['images', 'select', 'getImage']);
 
@@ -67,13 +67,13 @@ describe('ToolbarComponent', () => {
         component.options = options;
         component.currentOption = option;
         component.currentOption.select = option.select;
-        component.saveImage = drawareaService.save;
-        component.newDrawingOption = dialogService.openNewDrawing;
+        // component.saveImage = drawareaService.save;
+        // component.newDrawingOption = dialogService.;
         component.toolOption = toolOption;
         component.bucketOption = bucketOption;
         component.shapeOption = shapeOption;
         component.bucketOption.currentTool = bucketOption.currentTool;
-        component.galleryOption = galleryOption;
+        // component.galleryOption = galleryOption;
         component.ngOnInit();
     });
 
@@ -95,17 +95,18 @@ describe('ToolbarComponent', () => {
         component.selectOption(bucketOption);
         expect(bucketOption).toEqual(component.bucketOption);
     });
-
+/*
     it('should select gallery option', () => {
         component.selectOption(galleryOption);
         expect(galleryOption).toEqual(component.galleryOption);
     });
-
+*/
+/*
     it('should open new drawing pop up', () => {
         component.newDrawingOption();
         expect(dialogService.openNewDrawing).toHaveBeenCalled();
     });
-
+*/
     it('should save image ', () => {
         component.saveImage();
         expect(drawareaService.save).toHaveBeenCalled();
@@ -115,7 +116,7 @@ describe('ToolbarComponent', () => {
         component.getImage(option);
         expect(option.getImage).toHaveBeenCalled();
     });
-
+/*
     it('should event be prevent when it is a keydown ', () => {
         const event = new KeyboardEvent('keydown', {
             key: 'd',
@@ -124,7 +125,7 @@ describe('ToolbarComponent', () => {
         component.preventDefaults(event);
         expect(event.defaultPrevented).toBeTruthy();
     });
-
+*/
     it('should return pencil when c is press on keyboard ', () => {
         const pressC = new KeyboardEvent('keypress', { key: 'c'});
         component.pressKeyboard(pressC);

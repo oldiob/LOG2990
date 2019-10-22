@@ -43,7 +43,7 @@ describe('NewDrawingComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         svgService = TestBed.get(SVGService);
-        drawAreaService = new DrawAreaService();
+        // drawAreaService = new DrawAreaService();
         workZoneService = new WorkZoneService();
         svgService.entry = entry;
         component.ngOnInit();

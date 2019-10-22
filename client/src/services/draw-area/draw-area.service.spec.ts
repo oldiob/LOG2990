@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
+import { Drawing } from '../draw-area/i-drawing';
 import { DrawAreaService } from './draw-area.service';
 
 describe('DrawAreaService', () => {
 
     let service: DrawAreaService;
+    let drawing: Drawing;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
@@ -16,7 +18,7 @@ describe('DrawAreaService', () => {
     });
 
     it('should save the drawing', () => {
-        service.save();
+        service.save(drawing);
         expect(service.isSavedDrawing).toBeTruthy();
     });
 

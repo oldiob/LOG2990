@@ -63,9 +63,9 @@ describe('PolyDessinComponent', () => {
     it('should open the dialog if it closed the entry dialog', () => {
         dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
             if (isClosedWelcome) {
-            expect(dialogService.openNewDrawing).toBeTruthy();
+            expect(dialogService.openEntryPoint).toBeTruthy();
             } else {
-                expect(dialogService.openNewDrawing).toBeTruthy();
+                expect(dialogService.openEntryPoint).toBeTruthy();
             }
         });
     });
