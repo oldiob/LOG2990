@@ -1,12 +1,18 @@
+import {HttpClientModule} from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-
 import { WebClientService } from './web-client.service';
 
 describe('WebServiceService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: WebClientService;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+        imports: [HttpClientModule],
+        providers: [WebClientService]
+    });
+    service = TestBed.get(WebClientService);
+  });
 
   it('should be created', () => {
-    const service: WebClientService = TestBed.get(WebClientService);
     expect(service).toBeTruthy();
   });
 });
