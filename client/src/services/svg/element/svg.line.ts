@@ -1,13 +1,12 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
-import { Point } from 'src/utils/geo-primitives';
 import { isAtLine } from 'src/utils/math';
 
 export class SVGLine implements SVGInterface {
 
-    anchors: Point[] = [];
-    cursor: Point;
+    anchors: number[][] = [];
+    cursor: number[];
     width = 5;
     junctionWidth = 5;
     element: any;
@@ -15,8 +14,8 @@ export class SVGLine implements SVGInterface {
     line: any;
     circle: any;
     constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
-        this.anchors.push(new Point(x, y));
-        this.cursor = new Point(x, y);
+        this.cursor = [x, y];
+        this.anchors.push(this.cursor);
         this.polyline = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(this.polyline, 'fill', 'none');
         this.line = DOMRenderer.createElement('line', 'svg');
@@ -69,22 +68,20 @@ export class SVGLine implements SVGInterface {
     }
 
     private renderCursor(): void {
-        let lastPoint: Point = this.anchors[this.anchors.length - 1];
+        let lastPoint = this.anchors[this.anchors.length - 1];
         if (!lastPoint) {
             lastPoint = this.cursor;
         }
-        DOMRenderer.setAttribute(this.line, 'x1', `${lastPoint.x}`);
-        DOMRenderer.setAttribute(this.line, 'y1', `${lastPoint.y}`);
-        DOMRenderer.setAttribute(this.line, 'x2', `${this.cursor.x}`);
-        DOMRenderer.setAttribute(this.line, 'y2', `${this.cursor.y}`);
+        DOMRenderer.setAttribute(this.line, 'x1', `${lastPoint[0]}`);
+        DOMRenderer.setAttribute(this.line, 'y1', `${lastPoint[1]}`);
+        DOMRenderer.setAttribute(this.line, 'x2', `${this.cursor[0]}`);
+        DOMRenderer.setAttribute(this.line, 'y2', `${this.cursor[1]}`);
     }
 
     private renderAnchors(): void {
         DOMRenderer.setAttribute(this.polyline,
             'points',
-            this.anchors.map((point: Point) => {
-                return point.toString();
-            }).join(' '));
+            this.anchors.map((point: number[]) => `${point[0]},${point[1]}`).join(' '));
     }
 
     setWidth(width: number) {
@@ -111,7 +108,7 @@ export class SVGLine implements SVGInterface {
         const additionnalWidth = 10.0;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {
-            if (isAtLine([x, y], this.anchors[i].toVector(), this.anchors[i + 1].toVector(), width)) {
+            if (isAtLine([x, y], this.anchors[i], this.anchors[i + 1], width)) {
                 return true;
             }
         }
@@ -123,7 +120,7 @@ export class SVGLine implements SVGInterface {
     }
 
     addAnchor(x: number, y: number, junctionType: JunctionType): void {
-        this.anchors.push(new Point(x, y));
+        this.anchors.push([x, y]);
         if (junctionType === JunctionType.Dot) {
             const currentColor = this.polyline.attributes.stroke.nodeValue;
 
@@ -138,18 +135,18 @@ export class SVGLine implements SVGInterface {
     }
 
     setCursor(x: number, y: number): void {
-        this.cursor = new Point(x, y);
+        this.cursor = [x, y];
         this.renderCursor();
     }
 
     lineLoop(): void {
-        this.anchors.push(new Point(this.cursor.x, this.cursor.y));
-        this.anchors.push(new Point(this.anchors[0].x, this.anchors[0].y));
+        this.anchors.push([this.cursor[0], this.cursor[1]]);
+        this.anchors.push([this.anchors[0][0], this.anchors[0][1]]);
         this.end();
     }
 
     finish(): void {
-        this.anchors.push(new Point(this.cursor.x, this.cursor.y));
+        this.anchors.push([this.cursor[0], this.cursor[1]]);
         this.end();
     }
 
