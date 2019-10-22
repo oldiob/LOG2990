@@ -20,10 +20,16 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     private filter: string;
     private filterCallback: (drawing: Drawing) => boolean;
-    private drawings: Drawing[];
+    drawings: Drawing[];
     filteredDrawings: Drawing[];
+    drawingsOnPage: Drawing[];
 
     isTagExists: boolean;
+
+    readonly N_DRAWINGS_PER_PAGE = 8;
+    page: number;
+    beginPage: number;
+    endPage: number;
 
     constructor(
         private dialogService: DialogService,
@@ -37,6 +43,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
         this.filteredDrawings = this.drawings;
+        this.drawingsOnPage = [];
+        this.page = 1;
     }
 
     load() {
@@ -44,7 +52,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
         this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
             this.drawings = savedDrawing;
-            console.log('LOADED', this.drawings);
             this.refresh();
         });
 
@@ -66,10 +73,12 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
             if (this.filter.length === 0) {
                 this.filteredDrawings = this.drawings;
                 this.isTagExists = true;
+                this.filterPage();
             } else {
                 this.isTagExists = false;
             }
         }
+        this.filterPage();
     }
 
     private makeFilterCallback(): (drawing: Drawing) => boolean {
@@ -106,10 +115,41 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
                 this.drawings.splice(i, 1);
             }
         }
-        console.log('deleting', drawing.id);
         this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
     }
+
     onClose() {
         this.dialogService.enableKey();
+    }
+
+    previousPage(): void {
+        if (this.page > 1) {
+            this.page--;
+            this.refresh();
+        }
+    }
+
+    nextPage(): void {
+        const nPages = Math.ceil(this.filteredDrawings.length / this.N_DRAWINGS_PER_PAGE);
+        if (this.page < nPages) {
+            this.page++;
+            this.refresh();
+        }
+    }
+
+    filterPage(): void {
+        if (this.filteredDrawings.length < this.N_DRAWINGS_PER_PAGE) {
+            this.drawingsOnPage = this.filteredDrawings;
+            return;
+        }
+
+        this.beginPage = this.page * this.N_DRAWINGS_PER_PAGE - this.N_DRAWINGS_PER_PAGE;
+        this.endPage = this.page * this.N_DRAWINGS_PER_PAGE;
+
+        if (this.endPage > this.filteredDrawings.length) {
+            this.endPage = this.filteredDrawings.length;
+        }
+
+        this.drawingsOnPage = this.filteredDrawings.slice(this.beginPage, this.endPage);
     }
 }

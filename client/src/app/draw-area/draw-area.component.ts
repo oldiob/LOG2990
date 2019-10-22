@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, HostListener   } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -77,8 +77,8 @@ export class DrawAreaComponent implements OnInit {
     }
 
     setCurrentStyles() {
-        const currentHeigth =  `${this.height}`;
-        const currentWidth =  `${this.width}`;
+        const currentHeigth = `${this.height}`;
+        const currentWidth = `${this.width}`;
 
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
