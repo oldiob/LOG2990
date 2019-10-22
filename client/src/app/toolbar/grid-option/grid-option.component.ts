@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GridService } from 'src/services/grid/grid.service';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGService } from 'src/services/svg/svg.service';
 import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { GridType, ITool } from 'src/services/tool/tool-options/i-tool';
@@ -48,8 +47,8 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [gridTool];
         this.currentTool = this.tools[0];
 
-        // switch (gridType) {
-        //     case GridType.Off:
+        // switch (GridType) {
+        //     case Off:
         //         this.gridOff();
         //         break;
         //     case GridType.On:
@@ -112,6 +111,12 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     hideColorPicker() {
         this.isShowPrimary ? this.isShowPrimary = false
             : this.isShowSecondary = false;
+    }
+
+    onGridTypeChange(): void {
+        if (this.currentTool instanceof GridTool) {
+            this.currentTool.gridType = this.gridForm.controls.gridType.value;
+        }
     }
 
     private createGridForm(): void {

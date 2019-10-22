@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
-import { ITool } from './i-tool';
+import { GridType, ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GridTool implements ITool {
 
+    gridType: GridType;
     constructor(public grid: GridService) { }
 
     onPressed(event: MouseEvent): null {
