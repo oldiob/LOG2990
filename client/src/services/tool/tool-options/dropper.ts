@@ -1,9 +1,9 @@
-import { ITool } from './i-tool';
 import { Injectable } from '@angular/core';
-import { DOMRenderer } from 'src/utils/dom-renderer';
-import { SVGService } from 'src/services/svg/svg.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
-import { IStamp, Base64 } from 'src/services/svg/element/stamp/i-stamp';
+import { Base64, IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
@@ -15,7 +15,6 @@ import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
-import { SelectorTool } from 'src/services/tool/tool-options/selector';
 import { ToolService } from 'src/services/tool/tool.service';
 import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
@@ -40,7 +39,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.brush, 'brush.png'],
         [this.line, 'line.png'],
         [this.stamp, 'stamp.png'],
-        [this.selector, 'line.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -64,9 +62,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     stamps: IStamp[];
     currentStamp: IStamp;
 
-    isShowPrimary: boolean;
-    isShowSecondary: boolean;
-
     imageStamp: any[];
     imageEmojis: string[];
     imagePaths: string[];
@@ -75,6 +70,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     lineForm: FormGroup;
     junctionForm: FormGroup;
 
+    readonly IS_PRIMARY = true;
+
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
@@ -82,8 +79,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public pencil: PencilTool,
         public brush: BrushTool,
         public line: LineTool,
-        public stamp: StampTool,
-        public selector: SelectorTool) {
+        public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -104,15 +100,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, selector];
+        this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
     }
 
     ngOnInit(): void {
-        this.isShowPrimary = false;
-        this.isShowSecondary = false;
-        this.createLineForm();
         this.createJunctionForm();
+        this.createLineForm();
         this.showcase.display(this.currentTool);
     }
 
@@ -169,32 +163,10 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    togglePrimaryColorPicker(): void {
-        this.isShowSecondary = false;
-        this.isShowPrimary = !this.isShowPrimary;
-    }
-
-    toggleSecondaryColorPicker(): void {
-        this.isShowPrimary = false;
-        this.isShowSecondary = !this.isShowSecondary;
-    }
-
     onSwap(): void {
         this.paletteService.swap();
-        this.setPrimaryColor();
-        this.setSecondary();
-    }
 
-    onColorPick(): void {
-        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-        this.hideColorPicker();
     }
-
-    hideColorPicker(): void {
-        this.isShowPrimary ? this.isShowPrimary = false
-            : this.isShowSecondary = false;
-    }
-
     onLineTypeChange(): void {
         if (this.currentTool instanceof LineTool) {
             this.currentTool.lineType = this.lineForm.controls.lineType.value;
@@ -225,17 +197,5 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.junctionForm = this.formBuilder.group({
             junctionType: [DEFAULT_JUNCTION_TYPE, validators],
         });
-    }
-
-    private setPrimaryColor() {
-        return {
-            'background-color': this.paletteService.getPrimary(),
-        };
-    }
-
-    private setSecondary() {
-        return {
-            'background-color': this.paletteService.getSecondary(),
-        };
     }
 }

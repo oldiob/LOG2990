@@ -5,6 +5,7 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
+import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { MatDialogRef } from '@angular/material';
@@ -20,7 +21,7 @@ export enum OptionType {
     styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-    private FILE_LOCATION = 'assets/images/';
+    private FILE_LOCATION = '../../../assets/images/';
 
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
@@ -30,6 +31,12 @@ export class ToolbarComponent implements OnInit {
 
     @ViewChild(ShapeOptionComponent, { static: true })
     shapeOption: ShapeOptionComponent;
+
+    @ViewChild(SelectorOptionComponent, { static: true })
+    selectorOption: SelectorOptionComponent;
+
+    @ViewChild(GalleryOptionComponent, { static: true })
+    galleryOption: GalleryOptionComponent;
 
     options: IOption<any>[];
 
@@ -41,7 +48,7 @@ export class ToolbarComponent implements OnInit {
         private dialogService: DialogService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.galleryOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
         this.isDialogOpened = false;

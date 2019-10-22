@@ -7,11 +7,12 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { IOption } from 'src/services/tool/tool-options/i-option';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
+import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
@@ -26,6 +27,7 @@ describe('ToolbarComponent', () => {
     let dialogService: DialogService;
     let drawareaService: DrawAreaService;
     // let galleryOption: GalleryOptionComponent;
+    let selectorOption: SelectorOptionComponent;
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
@@ -38,7 +40,7 @@ describe('ToolbarComponent', () => {
                       MatOptionModule, MatFormFieldModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                            ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent,
-                           GalleryOptionComponent],
+                           GalleryOptionComponent, SelectorOptionComponent],
             providers: [{provide: DialogService, useValue: dialogService},
                         {provide: DrawAreaService, useValue: drawareaService}],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
@@ -60,6 +62,7 @@ describe('ToolbarComponent', () => {
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         // galleryOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
+        selectorOption = jasmine.createSpyObj('SelectorOptionComponent', ['selectTool', 'tools']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
         options = jasmine.createSpyObj('IOption<any>[]', ['images', 'select', 'getImage']);
 
@@ -74,6 +77,7 @@ describe('ToolbarComponent', () => {
         component.shapeOption = shapeOption;
         component.bucketOption.currentTool = bucketOption.currentTool;
         // component.galleryOption = galleryOption;
+        component.selectorOption = selectorOption;
         component.ngOnInit();
     });
 
@@ -94,6 +98,11 @@ describe('ToolbarComponent', () => {
     it('should select bucket option', () => {
         component.selectOption(bucketOption);
         expect(bucketOption).toEqual(component.bucketOption);
+    });
+
+    it('should select selector option', () => {
+        component.selectOption(selectorOption);
+        expect(selectorOption).toEqual(component.selectorOption);
     });
 /*
     it('should select gallery option', () => {
@@ -116,16 +125,6 @@ describe('ToolbarComponent', () => {
         component.getImage(option);
         expect(option.getImage).toHaveBeenCalled();
     });
-/*
-    it('should event be prevent when it is a keydown ', () => {
-        const event = new KeyboardEvent('keydown', {
-            key: 'd',
-            cancelable: true,
-        });
-        component.preventDefaults(event);
-        expect(event.defaultPrevented).toBeTruthy();
-    });
-*/
     it('should return pencil when c is press on keyboard ', () => {
         const pressC = new KeyboardEvent('keypress', { key: 'c'});
         component.pressKeyboard(pressC);

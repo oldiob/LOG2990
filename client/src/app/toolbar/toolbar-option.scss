@@ -106,31 +106,6 @@ a:active {
   width: 100%;
 }
 
-.color-picker {
-  width: 300px;
-  height: 150px;
-}
-
-.color1-picker,
-.color2-picker {
-  position: absolute;
-  left: 0%;
-  top: 100%;
-  z-index: 3;
-  background-color: #0b1230;
-  width: 350px;
-  height: 500px;
-  padding: 0 20px;
-  border-radius: 15px;
-  -webkit-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
-}
-
-.btn-color-wrapper {
-  position: relative;
-}
-
 .swap {
   --length: 50px;
   height: var(--length);

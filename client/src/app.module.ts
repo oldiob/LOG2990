@@ -24,6 +24,7 @@ import { ColorOptionComponent } from './app/toolbar/color-option/color-option.co
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
+import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
@@ -54,6 +55,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         JunctionComponent,
         CustomAlertComponent,
         LoadDrawingComponent,
+        SelectorOptionComponent,
     ],
     imports: [
         BrowserModule,
