@@ -41,7 +41,7 @@ describe('SVGLine', () => {
         line.anchors.push(new Point(X, Y));
         line.anchors.push(new Point(X + 4, Y));
         expect(line.isAt(X, Y)).toBeTruthy();
-        expect(line.isAt(X - 40, Y - 80)).toBeFalsy();
+        expect(line.isAt(X - 40000, Y - 80000)).toBeFalsy();
 
     });
 
