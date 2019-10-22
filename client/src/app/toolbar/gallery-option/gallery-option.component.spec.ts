@@ -14,31 +14,34 @@ describe('GalleryOptionComponent', () => {
   let filteredDrawings: Drawing[];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GalleryOptionComponent ],
-      imports: [ MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule ],
+      declarations: [GalleryOptionComponent],
+      imports: [MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GalleryOptionComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-    filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['']);
-    component.filterInput = filterInput;
     filteredDrawings = [{
       id: 17,
 
       name: 'test',
       tags: ['allo'],
-      holder:   {entry: 'entry', elements: ['vide']},
+      holder: { entry: 'entry', elements: ['vide'] },
 
       backgroundColor: '#ffffff',
       width: 200,
       height: 200,
-      }];
+    }];
+    component.drawings = filteredDrawings;
     component.filteredDrawings = filteredDrawings;
+
+    fixture.detectChanges();
+    filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['']);
+    component.filterInput = filterInput;
+
   });
 
   it('should create', () => {
