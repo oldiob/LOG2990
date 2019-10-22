@@ -1,5 +1,5 @@
-import { RectTexture } from './rect';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { RectTexture } from './rect';
 
 describe('RectTexture', () => {
 

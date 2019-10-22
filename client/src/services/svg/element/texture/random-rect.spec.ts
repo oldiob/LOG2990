@@ -1,5 +1,5 @@
-import { RandomRectTexture } from './random-rect';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { RandomRectTexture } from './random-rect';
 
 describe('RandomRectTexture', () => {
 

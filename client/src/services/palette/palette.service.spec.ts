@@ -27,10 +27,10 @@ describe('PaletteService', () => {
 
     it('should select the correct color', () => {
         const colorEqual = (A: Color, B: Color): boolean => {
-            return ((A.red == B.red) &&
-                (A.green == B.green) &&
-                (A.blue == B.blue) &&
-                (A.alpha == B.alpha));
+            return ((A.red === B.red) &&
+                (A.green === B.green) &&
+                (A.blue === B.blue) &&
+                (A.alpha === B.alpha));
         };
         const NEW_PRIMARY = new Color(242, 123, 32, 0);
         const NEW_SECONDARY = new Color(21, 13, 212, 123);

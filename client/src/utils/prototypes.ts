@@ -1,10 +1,10 @@
-import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
-import { SVGLine } from 'src/services/svg/element/svg.line';
 import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
-import { SVGStamp } from 'src/services/svg/element/svg.stamp';
-import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
+import { SVGLine } from 'src/services/svg/element/svg.line';
+import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
+import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
+import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 
 export class Prototypes {
     private static mPrototypes: Map<string, object> | null = null;

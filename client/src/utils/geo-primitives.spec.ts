@@ -9,7 +9,7 @@ describe('Point', () => {
     });
 
     it('should return a vector of its value', () => {
-        let vec: number[] = point.toVector();
+        const vec: number[] = point.toVector();
         expect(vec).toContain(point.x);
         expect(vec).toContain(point.y);
     });
@@ -18,20 +18,19 @@ describe('Point', () => {
         expect(point.toString()).toEqual(`${point.x},${point.y}`);
     });
 
-
 });
 
 describe('Rect', () => {
     let rect: Rect;
 
     beforeEach(() => {
-        let x1 = Math.random();
-        let y1 = Math.random();
+        const x1 = Math.random();
+        const y1 = Math.random();
         rect = new Rect(x1, y1, x1 + 1, y1 + 1);
     });
 
     it('should find the intersection correctly', () => {
-        let other: Rect = new Rect(rect.x1, rect.y1, rect.x1 + 0.5, rect.y1 + 0.5);
+        const other: Rect = new Rect(rect.x1, rect.y1, rect.x1 + 0.5, rect.y1 + 0.5);
         expect(other.intersect(rect)).toBeTruthy();
         other.x1 = rect.x1 + 10000;
         other.x2 = other.x1 + 0.5;
@@ -42,4 +41,4 @@ describe('Rect', () => {
         other.y2 = other.y1 + 0.5;
         expect(other.intersect(rect)).toBeFalsy();
     });
-})
+});

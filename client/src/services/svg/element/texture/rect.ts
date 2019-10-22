@@ -1,6 +1,6 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGBrush } from '../svg.brush';
 import { ITexture } from './i-texture';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class RectTexture implements ITexture {
     create(brush: SVGBrush): void {

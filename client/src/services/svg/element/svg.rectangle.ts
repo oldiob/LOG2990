@@ -1,7 +1,7 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { AbsSVGShape } from './svg.abs-shape';
-import { isAtLine } from 'src/utils/math';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { isAtLine } from 'src/utils/math';
+import { AbsSVGShape } from './svg.abs-shape';
 
 export class SVGRectangle extends AbsSVGShape {
 

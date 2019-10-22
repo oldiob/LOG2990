@@ -1,6 +1,6 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { IStamp } from './stamp/i-stamp';
 import { SVGStamp } from './svg.stamp';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('SVGStamp', () => {
 

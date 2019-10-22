@@ -1,5 +1,5 @@
-import { BrushTool } from './brush';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { BrushTool } from './brush';
 
 describe('BrushTool', () => {
     let create: any;

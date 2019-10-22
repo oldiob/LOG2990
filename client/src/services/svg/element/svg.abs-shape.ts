@@ -1,7 +1,7 @@
-import { SVGInterface } from './svg.interface';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { SVGInterface } from './svg.interface';
 
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;

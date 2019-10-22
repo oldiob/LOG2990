@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 

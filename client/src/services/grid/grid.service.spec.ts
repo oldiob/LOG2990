@@ -1,5 +1,5 @@
-import { GridService } from './grid.service';
 import { DOMRenderer } from '../../utils/dom-renderer';
+import { GridService } from './grid.service';
 
 describe('GridService', () => {
 

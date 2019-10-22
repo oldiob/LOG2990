@@ -37,8 +37,9 @@ export class Rect {
         let oMax = Math.max(other.x1, other.x2);
         tMax = Math.min(tMax, oMax);
         tMin = Math.max(tMin, oMin);
-        if (tMax <= tMin)
+        if (tMax <= tMin) {
             return false;
+        }
 
         tMin = Math.min(this.y1, this.y2);
         tMax = Math.max(this.y1, this.y2);
@@ -46,8 +47,9 @@ export class Rect {
         oMax = Math.max(other.y1, other.y2);
         tMax = Math.min(tMax, oMax);
         tMin = Math.max(tMin, oMin);
-        if (tMax <= tMin)
+        if (tMax <= tMin) {
             return false;
+        }
 
         return true;
     }

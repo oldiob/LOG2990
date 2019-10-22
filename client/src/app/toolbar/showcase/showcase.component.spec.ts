@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowcaseComponent } from './showcase.component';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ShowcaseComponent } from './showcase.component';
 
 describe('ShowcaseComponent', () => {
     let component: ShowcaseComponent;
@@ -45,7 +45,7 @@ describe('ShowcaseComponent', () => {
 
         expect(tool.onPressed).toHaveBeenCalled();
         expect(tool.onMotion).toHaveBeenCalled();
-        expect(tool.onReleased).toHaveBeenCalled()
+        expect(tool.onReleased).toHaveBeenCalled();
         expect(svgService.addObject).toHaveBeenCalled();
     });
 

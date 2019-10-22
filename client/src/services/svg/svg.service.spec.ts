@@ -1,7 +1,6 @@
+import { DOMRenderer } from '../../utils/dom-renderer';
 import { SVGInterface } from './element/svg.interface';
 import { SVGService } from './svg.service';
-import { DOMRenderer } from '../../utils/dom-renderer';
-
 
 describe('SVGService', () => {
 

@@ -1,5 +1,5 @@
-import { OpacityTexture } from './opacity';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { OpacityTexture } from './opacity';
 
 describe('OpacityTexture', () => {
 

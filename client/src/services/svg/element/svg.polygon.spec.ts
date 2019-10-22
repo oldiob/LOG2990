@@ -1,7 +1,7 @@
-import { DOMRenderer } from 'src/utils/dom-renderer';
-import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { SVGPolygon } from './svg.polygon';
 import { Renderer2 } from '@angular/core';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGPolygon } from './svg.polygon';
 
 describe('SVGPolygon', () => {
     jasmine.getEnv().allowRespy(true);

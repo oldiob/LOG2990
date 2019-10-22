@@ -2,9 +2,9 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { NewDrawingComponent } from './../new-drawing/new-drawing.component';
 import { Message } from '../../../../common/communication/message';
 import {IndexService} from '../../services/index/index.service';
+import { NewDrawingComponent } from './../new-drawing/new-drawing.component';
 
 @Component({
   selector: 'app-poly-dessin',

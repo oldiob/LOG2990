@@ -1,7 +1,7 @@
-import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { SVGEllipse } from './svg.ellipse';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Renderer2 } from '@angular/core';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGEllipse } from './svg.ellipse';
 
 describe('SVGEllipse', () => {
     jasmine.getEnv().allowRespy(true);
