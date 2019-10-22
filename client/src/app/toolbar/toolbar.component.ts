@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -8,7 +9,6 @@ import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { MatDialogRef } from '@angular/material';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -35,9 +35,6 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(SelectorOptionComponent, { static: true })
     selectorOption: SelectorOptionComponent;
 
-    @ViewChild(GalleryOptionComponent, { static: true })
-    galleryOption: GalleryOptionComponent;
-
     options: IOption<any>[];
 
     currentOption: IOption<any>;
@@ -48,7 +45,7 @@ export class ToolbarComponent implements OnInit {
         private dialogService: DialogService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.galleryOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
         this.isDialogOpened = false;
