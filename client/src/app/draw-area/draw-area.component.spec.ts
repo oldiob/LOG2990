@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToolService } from 'src/services/tool/tool.service';
 import { DrawAreaComponent } from './draw-area.component';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
@@ -15,6 +16,7 @@ describe('DrawAreaComponent', () => {
     // let mockTool: ITool;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [HttpClientModule],
             declarations: [DrawAreaComponent],
             providers: [ToolService],
             schemas: [NO_ERRORS_SCHEMA],
