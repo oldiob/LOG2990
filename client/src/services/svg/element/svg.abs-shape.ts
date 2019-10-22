@@ -27,20 +27,6 @@ export abstract class AbsSVGShape implements SVGInterface {
         this.pointSize = 0;
         this.setTraceType(traceType);
 
-        switch (traceType) {
-            case TraceType.BorderOnly:
-                this.fillOpacity = 0;
-                this.strokeOpacity = 1;
-                break;
-            case TraceType.FillOnly:
-                this.fillOpacity = 1;
-                this.strokeOpacity = 0;
-                break;
-            case TraceType.FillAndBorder:
-                this.fillOpacity = 1;
-                this.strokeOpacity = 1;
-                break;
-        }
         this.element = DOMRenderer.createElement('g', 'svg');
 
         const perimeter = DOMRenderer.createElement('rect', 'svg');

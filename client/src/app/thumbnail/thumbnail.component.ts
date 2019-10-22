@@ -22,8 +22,6 @@ export class ThumbnailComponent implements OnInit {
 
     ngOnInit() {
         this.adjustSize();
-
-        console.log('THUMBNAIL', this.svgWidth, this.svgHeight);
         const svgImage: HTMLImageElement = new Image(this.svgWidth, this.svgHeight);
         svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(this.thumbnailSVG);
 
