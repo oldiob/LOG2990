@@ -22,4 +22,9 @@ describe('LoadDrawingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set isDone to true', () => {
+    component.done();
+    expect(component.isDone).toBeTruthy();
+  });
 });
