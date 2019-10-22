@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GridService } from 'src/services/grid/grid.service';
 import { PaletteService } from 'src/services/palette/palette.service';
@@ -6,24 +6,22 @@ import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { GridType, ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
-
+import { ShowcaseComponent } from '../showcase/showcase.component';
 @Component({
     selector: 'app-grid-option',
     templateUrl: './grid-option.component.html',
     styleUrls: ['./grid-option.component.scss', '../toolbar-option.scss'],
 })
 export class GridOptionComponent implements OnInit, IOption<ITool> {
+
+    @ViewChild(ShowcaseComponent, { static: true })
+    showcase: ShowcaseComponent;
+
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
        images = new Map<ITool, string>([
         [this.gridTool, 'grid.png'],
     ]);
-
-    @ViewChild('svgContainer', { static: true })
-    svg: ElementRef;
-
-    @ViewChild('gridContainer', { static: true })
-    grid: ElementRef;
 
     tools: ITool[];
     currentTool: ITool;
@@ -46,6 +44,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         private gridTool: GridTool) {
         this.tools = [gridTool];
         this.currentTool = this.tools[0];
+        this.gridService = new GridService();
 
     }
 
@@ -69,11 +68,11 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     gridOn(): void {
-        this.gridService.opacity = 1;
+        this.gridService.opacity = 1.0;
     }
 
     gridOff(): void {
-        this.gridService.opacity = 0;
+        this.gridService.opacity = 0.2;
     }
 
     getFilesource(tool: ITool): string {
@@ -109,6 +108,17 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     onGridTypeChange(): void {
         if (this.currentTool instanceof GridTool) {
             this.currentTool.gridType = this.gridForm.controls.gridType.value;
+
+            switch (this.currentTool.gridType) {
+                case 0:
+                    console.log('OFF', this.gridOff());
+                    this.gridOff();
+                    break;
+                case 1:
+                    console.log('ON', this.gridOn());
+                    this.gridOn();
+                    break;
+            }
         }
     }
 
