@@ -6,8 +6,9 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
-import { serializeDrawArea, DrawAreaHolder } from 'src/utils/element-parser';
+import { serializeDrawArea } from 'src/utils/element-parser';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
+import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 
 @Component({
     selector: 'app-save-option',
@@ -36,25 +37,25 @@ export class SaveOptionComponent implements OnInit {
         private svgService: SVGService,
         private formBuilder: FormBuilder,
         workZoneService: WorkZoneService) {
-            workZoneService.currentHeight.subscribe(
-                (height): number => {
-                    this.drawingHeight = height;
-                    return height;
-                },
-            );
-            workZoneService.currentWidth.subscribe(
-                (width): number => {
-                    this.drawingWidth = width;
-                    return width;
-                },
-            );
-            workZoneService.currentBackgroundColor.subscribe(
-                (color): string => {
-                    this.drawingBackgroundColor = color;
-                    return color;
-                },
-            );
-         }
+        workZoneService.currentHeight.subscribe(
+            (height): number => {
+                this.drawingHeight = height;
+                return height;
+            },
+        );
+        workZoneService.currentWidth.subscribe(
+            (width): number => {
+                this.drawingWidth = width;
+                return width;
+            },
+        );
+        workZoneService.currentBackgroundColor.subscribe(
+            (color): string => {
+                this.drawingBackgroundColor = color;
+                return color;
+            },
+        );
+    }
 
     ngOnInit() {
         this.dialogService.disableKey();

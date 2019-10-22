@@ -1,4 +1,4 @@
-import { DrawAreaHolder } from 'src/utils/element-parser';
+import { DrawAreaHolder } from './draw-area-holder';
 
 export class Drawing {
     id: number;

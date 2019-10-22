@@ -2,6 +2,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Prototypes } from './prototypes';
+import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 
 export const serializeDrawArea = (svgService: SVGService): DrawAreaHolder => {
     const holder = new DrawAreaHolder();
@@ -62,12 +63,6 @@ const recreateElement = (fakeElement: any): any => {
 
     return realElement;
 };
-
-// tslint:disable-next-line: max-classes-per-file
-export class DrawAreaHolder {
-    entry: string;
-    elements: string[];
-}
 
 // tslint:disable-next-line: max-classes-per-file
 class ElementHolder {

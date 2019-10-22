@@ -20,31 +20,6 @@ export abstract class AbsSVGShape implements SVGInterface {
     primary: string;
     secondary: string;
 
-    serialize(): { [id: string]: any } {
-        return {
-            startingPoint: this.startingPoint,
-            endingPoint: this.endingPoint,
-            center: this.center,
-            size: this.size,
-            pointSize: this.pointSize,
-            traceType: this.traceType,
-            primary: this.primary,
-            secondary: this.secondary,
-        };
-    }
-
-    dserialize(blob: { [id: string]: any }): void {
-        this.startingPoint = blob['startingPoint'];
-        this.endingPoint = blob['endingPoint'];
-        this.center = blob['center'];
-        this.size = blob['size'];
-        this.pointSize = blob['pointSize'];
-        this.setTraceType(blob['traceType']);
-        this.setPrimary(blob['primary']);
-        this.setSecondary(blob['secondary']);
-        this.setOpacities();
-    }
-
     constructor(x: number, y: number, traceType: TraceType) {
         this.startingPoint = [x, y];
         this.endingPoint = [x, y];
