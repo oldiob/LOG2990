@@ -3,7 +3,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { DropperTool } from './dropper';
 import { Color } from 'src/utils/color';
 
-fdescribe('DropperTool', () => {
+describe('DropperTool', () => {
 
     let svgService: SVGService;
     let paletteService: PaletteService;
