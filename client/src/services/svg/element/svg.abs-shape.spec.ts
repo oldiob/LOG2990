@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { AbsSVGShape } from './svg.abs-shape';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { AbsSVGShape } from './svg.abs-shape';
 
 describe('AbsSVGShape', () => {
     jasmine.getEnv().allowRespy(true);

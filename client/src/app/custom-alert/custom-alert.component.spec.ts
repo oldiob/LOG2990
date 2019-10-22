@@ -8,7 +8,7 @@ describe('CustomAlertComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomAlertComponent ]
+      declarations: [ CustomAlertComponent ],
     })
     .compileComponents();
   }));

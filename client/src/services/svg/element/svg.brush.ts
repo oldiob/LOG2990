@@ -1,7 +1,7 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 import { ITexture } from './texture/i-texture';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class SVGBrush implements SVGInterface {
     element: any;

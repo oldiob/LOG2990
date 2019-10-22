@@ -1,4 +1,4 @@
-import { State, SelectorTool } from './selector';
+import { SelectorTool, State } from './selector';
 
 describe('SelectorTool', () => {
 

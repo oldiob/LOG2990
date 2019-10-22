@@ -1,10 +1,10 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
-import { DrawAreaComponent } from './draw-area.component';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { HttpClientModule } from '@angular/common/http';
+import { DrawAreaComponent } from './draw-area.component';
 
 describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;

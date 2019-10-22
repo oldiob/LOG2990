@@ -1,5 +1,5 @@
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 // import { Point } from 'src/utils/geo-primitives';
 import { SVGLine } from './svg.line';
 

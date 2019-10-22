@@ -1,5 +1,5 @@
-import { SVGPencil } from './svg.pencil';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGPencil } from './svg.pencil';
 
 describe('SVGPencil', () => {
 

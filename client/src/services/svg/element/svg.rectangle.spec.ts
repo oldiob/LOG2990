@@ -1,7 +1,7 @@
-import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
-import { SVGRectangle } from './svg.rectangle';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Renderer2 } from '@angular/core';
+import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGRectangle } from './svg.rectangle';
 
 describe('SVGRectangle', () => {
     jasmine.getEnv().allowRespy(true);

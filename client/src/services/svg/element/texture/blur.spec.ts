@@ -1,5 +1,5 @@
-import { BlurTexture } from './blur';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { BlurTexture } from './blur';
 
 describe('BlurTexture', () => {
 

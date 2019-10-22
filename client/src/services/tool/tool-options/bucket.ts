@@ -11,7 +11,7 @@ import { ITool } from './i-tool';
 export class BucketTool implements ITool {
 
     constructor(private svgService: SVGService,
-        private paletteService: PaletteService) { }
+                private paletteService: PaletteService) { }
 
     onPressed(event: MouseEvent): null {
         const x: number = event.svgX;

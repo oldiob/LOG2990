@@ -1,5 +1,5 @@
-import { CircleTexture } from './circle';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { CircleTexture } from './circle';
 
 describe('CircleTexture', () => {
 

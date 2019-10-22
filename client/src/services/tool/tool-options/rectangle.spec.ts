@@ -1,5 +1,5 @@
-import { RectangleTool } from './rectangle';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { RectangleTool } from './rectangle';
 
 describe('RectangleTool', () => {
 

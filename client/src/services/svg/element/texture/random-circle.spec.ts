@@ -1,5 +1,5 @@
-import { RandomCircleTexture } from './random-circle';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { RandomCircleTexture } from './random-circle';
 
 describe('RandomCircleTexture', () => {
 

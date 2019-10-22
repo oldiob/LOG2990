@@ -1,5 +1,5 @@
-import { StampTool } from './stamp';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { StampTool } from './stamp';
 
 describe('StampTool', () => {
 

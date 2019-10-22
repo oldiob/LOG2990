@@ -1,5 +1,5 @@
-import { TurbulenceTexture } from './turbulence';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { TurbulenceTexture } from './turbulence';
 
 describe('OpacityTexture', () => {
 

@@ -1,6 +1,6 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGStamp } from '../svg.stamp';
 import { IStamp } from './i-stamp';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class EmojiStamp implements IStamp {
 

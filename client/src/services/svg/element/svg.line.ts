@@ -1,6 +1,6 @@
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 
 export class SVGLine implements SVGInterface {

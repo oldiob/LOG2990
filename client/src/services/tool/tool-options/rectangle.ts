@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
-import { TraceType, AbsShapeTool } from './abs-shape-tool';
+import { AbsShapeTool, TraceType } from './abs-shape-tool';
 
 @Injectable({
     providedIn: 'root',

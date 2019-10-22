@@ -1,7 +1,7 @@
-import { SVGService } from "src/services/svg/svg.service";
 import { PaletteService } from 'src/services/palette/palette.service';
-import { DropperTool } from './dropper';
+import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
+import { DropperTool } from './dropper';
 
 describe('DropperTool', () => {
 

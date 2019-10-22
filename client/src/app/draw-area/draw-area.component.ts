@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -55,7 +55,7 @@ export class DrawAreaComponent implements OnInit {
                 this.gridService.width = this.width;
                 this.gridService.draw();
                 return width;
-            }
+            },
         );
         this.workZoneService.currentHeight.subscribe(
             (height): number => {
@@ -63,7 +63,7 @@ export class DrawAreaComponent implements OnInit {
                 this.gridService.height = this.height;
                 this.gridService.draw();
                 return height;
-            }
+            },
 
         );
         this.workZoneService.currentBackgroundColor.subscribe(

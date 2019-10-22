@@ -1,6 +1,6 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGStamp } from '../svg.stamp';
 import { EmojiStamp } from './emoji';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('EmojiStamp', () => {
 

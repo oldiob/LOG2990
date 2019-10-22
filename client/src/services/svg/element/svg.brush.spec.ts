@@ -1,5 +1,5 @@
-import { SVGBrush } from './svg.brush';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGBrush } from './svg.brush';
 
 describe('SVGBrush', () => {
 
@@ -44,9 +44,9 @@ describe('SVGBrush', () => {
     });
 
     it('should set width', () => {
-        const width = Math.random() * 1000;
-        brush.setWidth(width);
-        expect(brush.lineWidth).toEqual(width);
+        const width2 = Math.random() * 1000;
+        brush.setWidth(width2);
+        expect(brush.lineWidth).toEqual(width2);
         expect(renderer.setAttribute).toHaveBeenCalled();
     });
 

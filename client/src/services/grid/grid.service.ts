@@ -38,14 +38,14 @@ export class GridService {
     }
 
     draw(): void {
-        let ctx: any = this.ref.nativeElement;
-        const max_i = this.width / this.mStep;
-        const max_j = this.height / this.mStep;
+        const ctx: any = this.ref.nativeElement;
+        const maxI = this.width / this.mStep;
+        const maxJ = this.height / this.mStep;
 
         while (ctx.firstChild) {
             ctx.removeChild(ctx.firstChild);
         }
-        for (let i = 0; i < max_i; ++i) {
+        for (let i = 0; i < maxI; ++i) {
             const pos_x = i * this.mStep;
             const line = DOMRenderer.createElement('line', 'svg');
             DOMRenderer.setAttribute(line, 'x1', `${pos_x}`);
@@ -56,7 +56,7 @@ export class GridService {
             DOMRenderer.setAttribute(line, 'stroke-width', '1');
             DOMRenderer.appendChild(ctx, line);
         }
-        for (let j = 0; j < max_j; ++j) {
+        for (let j = 0; j < maxJ; ++j) {
             const pos_y = j * this.mStep;
             const line = DOMRenderer.createElement('line', 'svg');
             DOMRenderer.setAttribute(line, 'x1', `0`);
