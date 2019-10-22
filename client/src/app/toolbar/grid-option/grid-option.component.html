@@ -1,26 +1,15 @@
 <div class="title">Grid</div>
 
 <div class="buttons-wrapper">
-  <div class="btn-color-wrapper">
-    <button mat-raised-button class="btn btn-primary" (click)="togglePrimaryColorPicker()"
-      [ngStyle]="setPrimaryColor()"> <span class="color-text">Color 1</span></button>
-    <div class="color1-picker" *ngIf="isShowPrimary">
-      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick()"></app-color-option>
-    </div>
-  </div>
+  <app-color-option [isPrimary]="IS_PRIMARY">
+  </app-color-option>
 
   <div class="swap" (click)="onSwap()">
     <img src="../../../assets/images/swap.svg" alt="swap">
   </div>
 
-  <div class="btn-color-wrapper">
-    <button mat-raised-button (click)="toggleSecondaryColorPicker()" [ngStyle]="setSecondary()">Color
-      2</button>
-    <div class="color2-picker" *ngIf="isShowSecondary">
-      <app-color-option [isPrimary]="isShowPrimary" (color)="onColorPick($event)"></app-color-option>
-    </div>
-  </div>
-
+  <app-color-option [isPrimary]="!IS_PRIMARY">
+  </app-color-option>
 </div>
 
 <app-showcase></app-showcase>
@@ -34,18 +23,7 @@
   </div>
 </div>
 
-<div>
-<form  class="form" [formGroup]="gridForm" (ngSubmit)="onSubmit()">
-  <mat-form-field color="accent">
-    <mat-label class="trace-label">Grid Options</mat-label>
-    <mat-select (selectionChange)="onGridTypeChange()" panelClass="trace-panel" formControlName="gridType" >
-      <mat-option [value]="GridType.Off">
-        Off
-      </mat-option>
-      <mat-option [value]="GridType.On">
-        On
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</form>
-</div>
+<label class="switch">
+  <input type="checkbox" (change)="toggleGrid($event)">
+  <span class="slider round"></span>
+</label>

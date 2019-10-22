@@ -19,18 +19,16 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-       images = new Map<ITool, string>([
+    images = new Map<ITool, string>([
         [this.gridTool, 'grid.png'],
     ]);
 
     tools: ITool[];
     currentTool: ITool;
-     backgroundColor = '#ffffffff';
+    backgroundColor = '#ffffffff';
 
-    isShowPrimary: boolean;
-    isShowSecondary: boolean;
-    primaryColor: string;
-    secondaryColor: string;
+    readonly IS_PRIMARY = true;
+
     height: number;
     width: number;
     GridType = GridType;
@@ -49,8 +47,6 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     ngOnInit() {
-        this.isShowPrimary = false;
-        this.isShowSecondary = false;
         this.createGridForm();
     }
 
@@ -67,42 +63,32 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.toolService.currentTool = tool;
     }
 
+    toggleGrid(event: InputEvent): void {
+        const target = event.target as EventTarget;
+        console.log(target.checked);
+
+        if (target.checked) {
+            this.gridOn();
+        } else {
+            this.gridOff();
+        }
+    }
+
     gridOn(): void {
+        console.log(this.gridService.ref);
         this.gridService.opacity = 1.0;
     }
 
     gridOff(): void {
-        this.gridService.opacity = 0.2;
+        this.gridService.opacity = 0;
     }
 
     getFilesource(tool: ITool): string {
-         return this.FILE_LOCATION + this.images.get(tool) as string;
-    }
-
-    togglePrimaryColorPicker() {
-        this.isShowSecondary = false;
-        this.isShowPrimary = !this.isShowPrimary;
-    }
-
-    toggleSecondaryColorPicker() {
-        this.isShowPrimary = false;
-        this.isShowSecondary = !this.isShowSecondary;
+        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
     onSwap() {
         this.paletteService.swap();
-        this.setPrimaryColor();
-        this.setSecondary();
-    }
-
-    onColorPick() {
-        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-        this.hideColorPicker();
-    }
-
-    hideColorPicker() {
-        this.isShowPrimary ? this.isShowPrimary = false
-            : this.isShowSecondary = false;
     }
 
     onGridTypeChange(): void {
@@ -129,18 +115,6 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.gridForm = this.formBuilder.group({
             gridType: [DEFAULT_GRID_TYPE, validators],
         });
-    }
-
-    private setPrimaryColor() {
-        return {
-            'background-color': this.paletteService.getPrimary(),
-        };
-    }
-
-    private setSecondary() {
-        return {
-            'background-color': this.paletteService.getSecondary(),
-        };
     }
 
 }

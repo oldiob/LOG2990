@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -48,12 +48,15 @@ export class DrawAreaComponent implements OnInit {
     ngOnInit() {
         this.svgService.entry = this.svg;
         this.gridService.ref = this.grid;
+
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => {
                 this.width = width;
                 this.gridService.width = this.width;
                 this.gridService.draw();
+                // this.gridService.opacity = 0;
+
                 return width;
             },
         );
@@ -62,6 +65,8 @@ export class DrawAreaComponent implements OnInit {
                 this.height = height;
                 this.gridService.height = this.height;
                 this.gridService.draw();
+                // this.gridService.opacity = 0;
+
                 return height;
             },
 
@@ -73,6 +78,7 @@ export class DrawAreaComponent implements OnInit {
         this.gridService.width = this.width;
         this.gridService.height = this.height;
         this.gridService.draw();
+        this.gridService.opacity = 0;
         this.svgService.clearDrawArea();
     }
 
