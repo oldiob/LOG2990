@@ -42,7 +42,7 @@ export class ToolbarComponent implements OnInit {
     optionDisplayed: boolean;
 
     constructor(
-        private dialogService: DialogService) { }
+        public dialogService: DialogService) { }
 
     ngOnInit() {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption];
@@ -88,10 +88,10 @@ export class ToolbarComponent implements OnInit {
                 l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
                 b: () => { this.bucketOption.selectTool(this.bucketOption.tools[0]); },
                 i: () => { this.bucketOption.selectTool(this.bucketOption.tools[1]); },
-                1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
-                2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
-                3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
-                'C-o': () => { if (this.dialogService.isClosed) {this.newDrawingOption(); } },
+                '1': () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
+                '2': () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
+                '3': () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
+                'C-o': () => { if (this.dialogService.isClosed) { this.newDrawingOption(); } },
                 'C-s': () => { this.saveImage(); },
             };
             let keys = '';

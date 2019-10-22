@@ -34,7 +34,7 @@ export class DialogService {
     open(component: ComponentType<any>): MatDialogRef<any> {
         const ref = this.dialog.open(component);
         ref.afterClosed().subscribe((result: boolean) => {
-          this.enableKey();
+            this.enableKey();
         });
         return ref;
     }
