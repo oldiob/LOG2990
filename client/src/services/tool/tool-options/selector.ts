@@ -16,8 +16,6 @@ enum State {
 })
 export class SelectorTool implements ITool {
 
-    width = 1;		// TODO - Remove me
-
     state: State = State.idle;
 
     anchor: Point = new Point();
@@ -216,13 +214,13 @@ export class SelectorTool implements ITool {
         DOMRenderer.setAttribute(this.circleN, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
         DOMRenderer.setAttribute(this.circleN, 'cy', y1.toString());
 
-        DOMRenderer.setAttribute(this.circleO, 'cx',  x1.toString());
+        DOMRenderer.setAttribute(this.circleO, 'cx', x1.toString());
         DOMRenderer.setAttribute(this.circleO, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
 
-        DOMRenderer.setAttribute(this.circleS, 'cx',  ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
+        DOMRenderer.setAttribute(this.circleS, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
         DOMRenderer.setAttribute(this.circleS, 'cy', y2.toString());
 
-        DOMRenderer.setAttribute(this.circleW, 'cx',  x2.toString());
+        DOMRenderer.setAttribute(this.circleW, 'cx', x2.toString());
         DOMRenderer.setAttribute(this.circleW, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
 
         this.svg.addElement(this.previewElement);
