@@ -54,7 +54,7 @@ export class ColorPickerComponent implements OnInit {
   }
 
   private listenToColor() {
-    const mouseUp = fromEvent(this.canvasElement, 'mouseup');
+    const mouseUp = fromEvent(document, 'mouseup');
     const mouseDown = fromEvent(this.canvasElement, 'mousedown');
     const mouseMove = fromEvent(this.canvasElement, 'mousemove');
 

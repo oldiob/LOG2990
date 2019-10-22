@@ -14,7 +14,7 @@ describe('ColorOptionComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ColorOptionComponent, ],
+            declarations: [ColorOptionComponent],
             providers: [PaletteService],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -32,20 +32,10 @@ describe('ColorOptionComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('#onColorPick emits color event and updates palette service', () => {
-        spyOn(component.color, 'emit');
-        const aColor = new Color(255, 255, 255, 1);
-        component.isPrimary = true;
+    it('#onColorPick update current color', () => {
+        const aColor = { red: 255, green: 255, blue: 255, alpha: 1 };
         component.onColorPick(aColor);
-        expect(component.color.emit).toHaveBeenCalled();
-        expect(component.color.emit).toHaveBeenCalledWith(aColor);
-        expect(service.getPrimary()).toBe(aColor.toString());
-
-        component.isPrimary = false;
-        component.onColorPick(aColor);
-        expect(component.color.emit).toHaveBeenCalled();
-        expect(component.color.emit).toHaveBeenCalledWith(aColor);
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(component.currentColor).toEqual(aColor);
     });
 
     it('#onColorHEXChange should update RGBA color', () => {
@@ -85,16 +75,16 @@ describe('ColorOptionComponent', () => {
         expect(service.getSecondary()).toBe(aColor.toString());
     });
 
-    it('#setPrimaryColor should set background color', () => {
-        const backgroundColorString = component.setPrimaryColor();
-        expect(backgroundColorString).toEqual({
+    it('#setColor should set background color', () => {
+        component.isPrimary = true;
+        const backgroundColorString1 = component.setColor();
+        expect(backgroundColorString1).toEqual({
             'background-color': `${service.getPrimary()}`,
         });
-    });
 
-    it('#setSecondaryColor should set background color', () => {
-        const backgroundColorString = component.setSecondaryColor();
-        expect(backgroundColorString).toEqual({
+        component.isPrimary = false;
+        const backgroundColorString2 = component.setColor();
+        expect(backgroundColorString2).toEqual({
             'background-color': `${service.getSecondary()}`,
         });
     });

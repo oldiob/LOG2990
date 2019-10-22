@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
-import { DropperTool } from 'src/services/tool/tool-options/dropper';
 
 @Component({
     selector: 'app-bucket-option',
@@ -22,8 +22,10 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     tools: ITool[];
     currentTool: ITool;
 
-    isShowPrimary: boolean;
-    isShowSecondary: boolean;
+    readonly IS_PRIMARY = true;
+
+    isSelected: boolean;
+
     primaryColor: string;
     secondaryColor: string;
 
@@ -39,8 +41,6 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     ngOnInit() {
         this.currentTool = this.bucket;
-        this.isShowPrimary = false;
-        this.isShowSecondary = false;
     }
 
     select() {
@@ -64,42 +64,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    togglePrimaryColorPicker() {
-        this.isShowSecondary = false;
-        this.isShowPrimary = !this.isShowPrimary;
-    }
-
-    toggleSecondaryColorPicker() {
-        this.isShowPrimary = false;
-        this.isShowSecondary = !this.isShowSecondary;
-    }
-
-    onSwap() {
+    onSwap(): void {
         this.paletteService.swap();
-        this.setPrimaryColor();
-        this.setSecondary();
     }
-
-    onColorPick() {
-        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-        this.hideColorPicker();
-    }
-
-    hideColorPicker() {
-        this.isShowPrimary ? this.isShowPrimary = false
-            : this.isShowSecondary = false;
-    }
-
-    private setPrimaryColor() {
-        return {
-            'background-color': this.paletteService.getPrimary(),
-        };
-    }
-
-    private setSecondary() {
-        return {
-            'background-color': this.paletteService.getSecondary(),
-        };
-    }
-
 }

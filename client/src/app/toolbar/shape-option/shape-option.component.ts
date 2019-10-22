@@ -33,10 +33,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     shapeForm: FormGroup;
     isPolygon = false;
 
-    isShowPrimary: boolean;
-    isShowSecondary: boolean;
-    primaryColor: string;
-    secondaryColor: string;
+    readonly IS_PRIMARY = true;
 
     constructor(
         private paletteService: PaletteService,
@@ -51,11 +48,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
         this.currentTool = this.tools[0];
         this.createForm();
-
         this.updateShowcase();
-
-        this.isShowPrimary = false;
-        this.isShowSecondary = false;
     }
 
     select() {
@@ -105,45 +98,10 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.updateShowcase();
     }
 
-    togglePrimaryColorPicker(): void {
-        this.isShowSecondary = false;
-        this.isShowPrimary = !this.isShowPrimary;
-    }
-
-    toggleSecondaryColorPicker(): void {
-        this.isShowPrimary = false;
-        this.isShowSecondary = !this.isShowSecondary;
-    }
-
     onSwap(): void {
         this.paletteService.swap();
-        this.setPrimaryColor();
-        this.setSecondary();
     }
-
-    onColorPick(): void {
-        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-        this.hideColorPicker();
-    }
-
     updateShowcase(): void {
         this.showcase.display(this.currentTool);
-    }
-
-    hideColorPicker(): void {
-        this.isShowPrimary ? this.isShowPrimary = false
-            : this.isShowSecondary = false;
-    }
-
-    private setPrimaryColor(): { 'background-color': string; } {
-        return {
-            'background-color': this.paletteService.getPrimary(),
-        };
-    }
-
-    private setSecondary(): { 'background-color': string; } {
-        return {
-            'background-color': this.paletteService.getSecondary(),
-        };
     }
 }

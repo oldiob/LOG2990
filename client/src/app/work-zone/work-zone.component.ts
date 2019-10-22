@@ -17,8 +17,10 @@ export class WorkZoneComponent implements OnInit {
 
   // Update dimension values from ElementRef workZone in workZoneService
   updateMaxDimensions() {
-    const maxWidth = this.workZone.nativeElement.offsetWidth;
-    const maxHeight = this.workZone.nativeElement.offsetHeight;
+    const WIDTH_OFFSET = 70;
+    const HEIGHT_OFFSET = 5;
+    const maxWidth = this.workZone.nativeElement.offsetWidth - WIDTH_OFFSET;
+    const maxHeight = this.workZone.nativeElement.offsetHeight - HEIGHT_OFFSET;
     this.workZoneService.updateInitialDimensions(maxWidth, maxHeight);
   }
 

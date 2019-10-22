@@ -18,7 +18,7 @@ export enum OptionType {
     styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
-    private FILE_LOCATION = 'assets/images/';
+    private FILE_LOCATION = '../../../assets/images/';
 
     @ViewChild(ToolOptionComponent, { static: true })
     toolOption: ToolOptionComponent;
@@ -69,11 +69,6 @@ export class ToolbarComponent implements OnInit {
 
     getImage(option: IOption<any>): string {
         return this.FILE_LOCATION + option.getImage();
-    }
-
-    @HostListener('window: keydown', ['$event'])
-    preventDefaults(event: KeyboardEvent) {
-        event.preventDefault();
     }
 
     @HostListener('window: keyup', ['$event'])
