@@ -14,7 +14,6 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
-import { SelectorTool } from 'src/services/tool/tool-options/selector';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { AngleComponent } from '../angle/angle.component';
@@ -40,7 +39,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.brush, 'brush.png'],
         [this.line, 'line.png'],
         [this.stamp, 'stamp.png'],
-        [this.selector, 'line.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -81,8 +79,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public pencil: PencilTool,
         public brush: BrushTool,
         public line: LineTool,
-        public stamp: StampTool,
-        public selector: SelectorTool) {
+        public stamp: StampTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -103,7 +100,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, selector];
+        this.tools = [pencil, brush, line, stamp];
         this.currentTool = this.tools[0];
     }
 
