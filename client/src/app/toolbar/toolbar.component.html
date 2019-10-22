@@ -13,6 +13,9 @@
     <a class="button" (click)="saveImage()">
       <img class="toolbar-icon" src="../../../assets/images/save.png" alt="icon">
     </a>
+    <a class="button" (click)="openGalleryOption()">
+      <img class="toolbar-icon" src="../../../assets/images/gallery.png">
+    </a>
   </div>
 </div>
 
@@ -33,7 +36,3 @@
 <app-selector-option [class.disappear]="!optionDisplayed || currentOption !== selectorOption"
   [class.appear]="optionDisplayed && currentOption === selectorOption"
   class="toolbar-option selected-option disappear"></app-selector-option>
-
-<app-gallery-option [class.disappear]="!optionDisplayed || currentOption !== galleryOption"
-  [class.appear]="optionDisplayed && currentOption === galleryOption"
-  class="toolbar-option selected-option disappear"></app-gallery-option>

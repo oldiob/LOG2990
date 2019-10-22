@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -8,15 +9,14 @@ import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
-import { NewDrawingComponent } from './new-drawing.component';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { NewDrawingComponent } from './new-drawing.component';
 
 describe('NewDrawingComponent', () => {
     let component: NewDrawingComponent;
     let fixture: ComponentFixture<NewDrawingComponent>;
     let workZoneService: WorkZoneService;
     let svgService: SVGService;
-    let drawAreaService: DrawAreaService;
     const elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild']);
     elem.hasChildNodes.and.returnValue(false);
     const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
@@ -28,7 +28,7 @@ describe('NewDrawingComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
-                MatDialogModule, FormsModule, ReactiveFormsModule],
+                MatDialogModule, FormsModule, ReactiveFormsModule, HttpClientModule],
             declarations: [NewDrawingComponent],
             providers: [SVGService, DrawAreaService,
                 { provide: MAT_DIALOG_DATA, useValue: [] },
@@ -43,7 +43,7 @@ describe('NewDrawingComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         svgService = TestBed.get(SVGService);
-        drawAreaService = new DrawAreaService();
+        // drawAreaService = new DrawAreaService();
         workZoneService = new WorkZoneService();
         svgService.entry = entry;
         component.ngOnInit();
@@ -67,25 +67,6 @@ describe('NewDrawingComponent', () => {
         expect(component.width).toBe(component.newDrawingFrom.controls.width.value);
         expect(component.height).toBe(component.newDrawingFrom.controls.height.value);
         expect(component.backgroundColor).toBe(component.newDrawingFrom.controls.backgroundColor.value);
-    });
-
-    it('#onSubmit should update draw area height, width and background color', () => {
-        const WIDTH = component.width;
-        const HEIGHT = component.height;
-        const BACKGROUND_COLOR = component.backgroundColorHEX;
-        workZoneService.updateDrawAreaDimensions(WIDTH, HEIGHT, BACKGROUND_COLOR);
-        drawAreaService.dirty();
-        svgService.clearDrawArea();
-        component.onSubmit();
-        workZoneService.currentWidth.subscribe(
-            (currentHeight) => expect(currentHeight).toBe(WIDTH),
-        );
-        workZoneService.currentHeight.subscribe(
-            (currentHeight) => expect(currentHeight).toBe(HEIGHT),
-        );
-        workZoneService.currentBackgroundColor.subscribe(
-            (currentBackgroundColor) => expect(currentBackgroundColor.toUpperCase()).toBe(BACKGROUND_COLOR),
-        );
     });
 
     it('should change background color form control', () => {

@@ -3,14 +3,14 @@ import { AbsSVGShape } from './svg.abs-shape';
 import { isAtLine } from 'src/utils/math';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
-export class SVGRect extends AbsSVGShape {
+export class SVGRectangle extends AbsSVGShape {
 
     constructor(x: number, y: number, traceType: TraceType) {
         super(x, y, traceType);
         this.hidePerimeter();
 
-        this.shapeElement = DOMRenderer.createElement('rect', 'svg');
-        DOMRenderer.appendChild(this.element, this.shapeElement);
+        const shapeElement = DOMRenderer.createElement('rect', 'svg');
+        DOMRenderer.appendChild(this.element, shapeElement);
 
         this.setOpacities();
         this.setCursor(x, y, false);
@@ -69,9 +69,9 @@ export class SVGRect extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        DOMRenderer.setAttribute(this.shapeElement, 'x', `${this.center[0] - this.size[0]}`);
-        DOMRenderer.setAttribute(this.shapeElement, 'y', `${this.center[1] - this.size[1]}`);
-        DOMRenderer.setAttribute(this.shapeElement, 'width', `${2 * this.size[0]}`);
-        DOMRenderer.setAttribute(this.shapeElement, 'height', `${2 * this.size[1]}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'x', `${this.center[0] - this.size[0]}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'y', `${this.center[1] - this.size[1]}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'width', `${2 * this.size[0]}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'height', `${2 * this.size[1]}`);
     }
 }

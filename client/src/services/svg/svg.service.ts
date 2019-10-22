@@ -65,6 +65,8 @@ export class SVGService {
             ref.removeChild(ref.firstChild);
         }
 
+        this.objects = [];
+
         DOMRenderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());

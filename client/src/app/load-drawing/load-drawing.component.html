@@ -1,0 +1,5 @@
+<div class="wrapper">
+  <div *ngIf="!isDone" class="message">{{data}}...</div>
+  <div *ngIf="isDone" class="message">Done {{data}}</div>
+  <button *ngIf="isDone" mat-raised-button mat-dialog-close>Close</button>
+</div>

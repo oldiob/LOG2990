@@ -6,8 +6,8 @@ export class SVGPolygon extends AbsSVGShape {
     constructor(x: number, y: number, nSides: number, traceType: number) {
         super(x, y, traceType);
 
-        this.shapeElement = DOMRenderer.createElement('polygon', 'svg');
-        DOMRenderer.appendChild(this.element, this.shapeElement);
+        const shapeElement = DOMRenderer.createElement('polygon', 'svg');
+        DOMRenderer.appendChild(this.element, shapeElement);
         this.nSides = nSides;
         this.setOpacities();
         this.setCursor(x, y);
@@ -73,7 +73,7 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     protected setPositionAttributes(): void {
-        DOMRenderer.setAttribute(this.shapeElement, 'points', this.pointsAttribute());
+        DOMRenderer.setAttribute(this.element.children[1], 'points', this.pointsAttribute());
     }
 
     setCursor(x: number, y: number) {

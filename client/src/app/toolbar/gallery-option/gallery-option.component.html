@@ -1,3 +1,45 @@
-<div class="gallery">
+<div class="header">Gallery</div>
 
+<div class="gallery">
+    <mat-form-field color="accent">
+        <input #filterInput matInput (keyup)="filterDrawings($event.target.value)" placeholder="Filter Tags"
+            autocomplete="off">
+    </mat-form-field>
+
+    <div class="drawings">
+        <div class="tag-not-found" *ngIf="!isTagExists">
+            "{{filterInput.value}}" tag does not exist
+        </div>
+        <div class="grid">
+            <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
+                (click)="onClick($event, drawing)" mat-dialog-close>
+                <div class="drawing-section name">
+                    {{drawing.name}}
+                </div>
+                <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
+                <div class="thumbnail">
+                    <app-thumbnail [thumbnailSVG]="drawing.holder.entry" [svgWidth]="drawing.width"
+                        [svgHeight]="drawing.height">
+                    </app-thumbnail>
+                </div>
+                <div class="drawing-section">
+                    <div class="tag" *ngFor="let tag of drawing.tags">
+                        {{tag}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-wrapper">
+        -- Page: {{page}} - 
+        - Begin: {{beginPage}} -
+        - End: {{endPage}} -
+        - Total: {{filteredDrawings.length}} --
+        <button class="btn" color="primary" (click)="previousPage()" mat-raised-button>Previous</button>
+        <button class="btn" color="primary" (click)="nextPage()" mat-raised-button>Next</button>
+
+        <button class="btn btn-close" color="accent" (click)="onClose()" mat-raised-button mat-dialog-close>Close</button>
+    </div>
+</div>
+<div class="background">
 </div>

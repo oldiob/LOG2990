@@ -11,11 +11,9 @@ import { ITool } from './i-tool';
 export class DropperTool implements ITool {
     element: null;
 
-    width: number;
-
     imageData: ImageData;
 
-    private loaded: boolean;
+    loaded: boolean;
 
     currentColor: Color;
 
@@ -92,7 +90,7 @@ export class DropperTool implements ITool {
         return;
     }
 
-    private getPixelData(imageData: ImageData, x: number, y: number) {
+    getPixelData(imageData: ImageData, x: number, y: number) {
         const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
         return [
             imageData.data[pixelIndex + 0],

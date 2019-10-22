@@ -67,7 +67,7 @@ describe('DialogService', () => {
   });
 
   it('#openNewDrawing should open NewDrawingComponent dialog', () => {
-    service.openNewDrawing();
+    service.open(NewDrawingComponent);
     expect(openDialogSpy).toHaveBeenCalled();
   });
 

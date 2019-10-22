@@ -1,4 +1,123 @@
+.header {
+  padding: 5% 0 5% 0;
+  padding: 38px;
+  font-size: 2rem;
+  font-weight: 900;
+  width: 100%;
+  background-color: lighten(#212749, 20%);
+  align-content: center;
+  -webkit-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
 .gallery {
-    width: 100px;
-    height: 100px;   
+  height: 100%;
+  width: 64vw;
+  padding: 25px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 250px));
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mat-form-field {
+  font-size: 1.1rem;
+  width: 100%;
+  color: whitesmoke;
+  padding: 0 22px 0 22px;
+}
+
+.drawings {
+  height: 50vh;
+  overflow: auto;
+  text-align: left;
+  margin: 25px 0;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: medium;
+}
+
+.drawing {
+  height: auto;
+  margin: 25px 25px 0 25px;
+  border-radius: 5px;
+  background-color: lighten($color: #151b33, $amount: 10);
+  -webkit-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 7px 5px 0px rgba(0, 0, 0, 0.05);
+  background-color: darken($color: #414d8f, $amount: 17);
+  border: solid 1px #ececec1f;
+  width: 202px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.drawing:hover {
+  border: solid 1px #ececec79;
+}
+
+.tag-not-found {
+  margin: 25px;
+  color: rgb(255, 74, 74);
+  font-size: 1.1rem;
+  text-align: center;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.drawing-section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  color: whitesmoke;
+  width: 195px;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 5px 8px;
+  background-color: #6f7bbe;
+  border-radius: 10px;
+  margin: 0 7px 7px 0;
+  word-break: break-word;
+  overflow: hidden;
+}
+
+.svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.background {
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.btn {
+  margin-left: 25px;
 }

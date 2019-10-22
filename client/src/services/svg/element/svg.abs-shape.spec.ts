@@ -4,8 +4,14 @@ import { AbsSVGShape } from './svg.abs-shape';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
 describe('AbsSVGShape', () => {
+    jasmine.getEnv().allowRespy(true);
 
-    const renderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+    let renderer: Renderer2;
+    let element: any;
+    let perimeter: any;
+    let baseElement: any;
+
+    let children: any;
 
     let shape: TestShape;
 
@@ -13,12 +19,27 @@ describe('AbsSVGShape', () => {
     const defaultEndingPoint = [51, 101];
 
     beforeEach(() => {
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+
+        element = jasmine.createSpyObj('any', ['children']);
+        perimeter = jasmine.createSpyObj('any', ['']);
+        baseElement = jasmine.createSpyObj('any', ['']);
+        children = [perimeter, baseElement];
+        element.children = children;
+
         DOMRenderer.renderer = renderer;
+
+        spyOn(renderer, 'createElement').and.returnValue(element);
+
         shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.BorderOnly);
     });
 
     it('should exits', () => {
         expect(shape).toBeDefined();
+        expect(shape.element).toBe(element);
+        expect(shape.element.children).toBe(children);
+        expect(shape.element.children[0]).toBe(perimeter);
+        expect(shape.element.children[1]).toBe(baseElement);
     });
 
     it('should set a starting point', () => {

@@ -37,11 +37,6 @@ export class PencilTool implements ITool {
         }
     }
     onReleased(event: MouseEvent): void {
-        if (false) {
-            /*let lol =  JSON.parse((this.element.element));
-            console.log(1, lol.outerHTML);
-            console.log(2, this.element.element.outerHTML);*/
-        }
         this.element = null;
     }
 

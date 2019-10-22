@@ -1,5 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { NewDrawingComponent } from './../new-drawing/new-drawing.component';
+import { Message } from '../../../../common/communication/message';
+import {IndexService} from '../../services/index/index.service';
 
 @Component({
   selector: 'app-poly-dessin',
@@ -7,8 +12,20 @@ import { DialogService } from 'src/services/dialog/dialog.service';
   styleUrls: ['./poly-dessin.component.scss'],
 })
 export class PolyDessinComponent implements OnInit {
+  message = new BehaviorSubject<string>('');
   constructor(
-    private dialogService: DialogService) {
+    private dialogService: DialogService, private basicService: IndexService) {
+      this.basicService.basicGet()
+      .pipe(
+        map((message: Message) => `${message.title} ${message.body}`),
+      )
+      .subscribe(this.message);
+
+      /*
+      this.workZoneService.currentWidth.subscribe(
+        (width: number) => this.width = width,
+    );
+    */
   }
   keyEvent: KeyboardEvent;
   key: string;
@@ -24,11 +41,11 @@ export class PolyDessinComponent implements OnInit {
 
       this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
         if (isClosedWelcome) {
-          this.dialogService.openNewDrawing();
+          this.dialogService.open(NewDrawingComponent);
         }
       });
     } else {
-      this.dialogService.openNewDrawing();
+      this.dialogService.open(NewDrawingComponent);
     }
   }
 
