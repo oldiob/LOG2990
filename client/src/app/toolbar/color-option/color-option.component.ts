@@ -83,7 +83,6 @@ export class ColorOptionComponent implements OnInit {
                 this.currentColor.alpha,
             );
         }
-        console.log(this.paletteService.getPrimary());
     }
 
     onColorHEXChange(): void {

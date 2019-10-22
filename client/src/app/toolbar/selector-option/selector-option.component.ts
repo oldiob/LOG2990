@@ -25,6 +25,8 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     primaryColor: string;
     secondaryColor: string;
 
+    readonly IS_PRIMARY = true;
+
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
