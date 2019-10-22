@@ -1,15 +1,30 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { SVGRectangle } from './svg.rectangle';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { Renderer2 } from '@angular/core';
 
-describe('SVGRect', () => {
+describe('SVGRectangle', () => {
+    jasmine.getEnv().allowRespy(true);
 
-    let renderer: any;
+    let renderer: Renderer2;
+    let element: any;
+    let perimeter: any;
+    let baseElement: any;
+    let children: any;
     let rect: SVGRectangle;
 
     beforeEach(() => {
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'appendChild', 'setAttribute']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+
+        element = jasmine.createSpyObj('any', ['children']);
+        perimeter = jasmine.createSpyObj('any', ['']);
+        baseElement = jasmine.createSpyObj('any', ['']);
+        children = [perimeter, baseElement];
+        element.children = children;
+
         DOMRenderer.renderer = renderer;
+
+        spyOn(renderer, 'createElement').and.returnValue(element);
 
         rect = new SVGRectangle(0, 0, TraceType.FillAndBorder);
     });
