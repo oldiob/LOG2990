@@ -6,6 +6,7 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
+import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
@@ -35,6 +36,12 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(SelectorOptionComponent, { static: true })
     selectorOption: SelectorOptionComponent;
 
+    @ViewChild(GalleryOptionComponent, { static: true })
+    galleryOption: GalleryOptionComponent;
+
+    @ViewChild(GridOptionComponent, { static: true })
+    gridOption: GridOptionComponent;
+
     options: IOption<any>[];
 
     currentOption: IOption<any>;
@@ -45,7 +52,7 @@ export class ToolbarComponent implements OnInit {
         public dialogService: DialogService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.galleryOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
         this.isDialogOpened = false;

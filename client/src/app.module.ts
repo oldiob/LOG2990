@@ -32,6 +32,7 @@ import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { DOMRenderer } from './utils/dom-renderer';
+import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         CustomAlertComponent,
         LoadDrawingComponent,
         SelectorOptionComponent,
+        GridOptionComponent,
     ],
     imports: [
         BrowserModule,
