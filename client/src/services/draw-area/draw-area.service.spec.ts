@@ -14,27 +14,28 @@ describe('DrawAreaService', () => {
 
     beforeEach(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [
-            LoadDrawingComponent,
-        ],
-      },
-    });
+            set: {
+                entryComponents: [
+                    LoadDrawingComponent,
+                ],
+            },
+        });
         TestBed.configureTestingModule({
             imports: [HttpClientModule, MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule],
             declarations: [LoadDrawingComponent],
+            providers: [DrawAreaService],
         });
-        service = TestBed.get(DrawAreaService);
+
+        service = jasmine.createSpyObj('DrawAreaService', ['save', 'dirty']);
+
         drawing = {
             id: 17,
-
-        name: 'test',
-        tags: ['allo'],
-        holder:   {entry: 'entry', elements: ['vide']},
-
-        backgroundColor: '#ffffff',
-        width: 200,
-        height: 200,
+            name: 'test',
+            tags: ['allo'],
+            holder: { entry: 'entry', elements: ['empty'] },
+            backgroundColor: '#ffffff',
+            width: 200,
+            height: 200,
         };
     });
 
@@ -44,11 +45,11 @@ describe('DrawAreaService', () => {
 
     it('should save the drawing', () => {
         service.save(drawing);
-        expect(service.isSavedDrawing).toBeTruthy();
+        expect(service.save).toHaveBeenCalled();
     });
 
     it('should mark the drawing as dirty', () => {
         service.dirty();
-        expect(service.isSavedDrawing).toBeFalsy();
+        expect(service.dirty).toHaveBeenCalled();
     });
 });

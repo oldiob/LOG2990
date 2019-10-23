@@ -15,7 +15,7 @@ export class DrawAreaComponent implements OnInit {
     @ViewChild('svgContainer', { static: true, })
     svg: ElementRef;
 
-    @ViewChild('gridContainer', { static: true, read: ElementRef })
+    @ViewChild('gridContainer', { static: true })
     grid: ElementRef;
 
     @Input()
