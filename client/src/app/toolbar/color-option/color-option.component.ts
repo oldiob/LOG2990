@@ -137,12 +137,21 @@ export class ColorOptionComponent implements OnInit {
     }
 
     onAlphaChange(): void {
-        this.currentColor = {
-            red: this.colorsForm.controls.red.value,
-            green: this.colorsForm.controls.green.value,
-            blue: this.colorsForm.controls.blue.value,
-            alpha: this.colorsForm.controls.alpha.value,
-        };
+        if (this.isPrimary) {
+            this.currentColor = {
+                red: this.paletteService.primary.red,
+                green: this.paletteService.primary.green,
+                blue: this.paletteService.primary.blue,
+                alpha: this.colorsForm.controls.alpha.value,
+            };
+        } else {
+            this.currentColor = {
+                red: this.paletteService.secondary.red,
+                green: this.paletteService.secondary.green,
+                blue: this.paletteService.secondary.blue,
+                alpha: this.colorsForm.controls.alpha.value,
+            };
+        }
         this.updatePalette();
     }
 

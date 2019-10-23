@@ -27,6 +27,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     currentTool: ITool;
     backgroundColor = '#ffffffff';
 
+    isOn: boolean;
     readonly IS_PRIMARY = true;
 
     height: number;
@@ -63,11 +64,8 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.toolService.currentTool = tool;
     }
 
-    toggleGrid(event: InputEvent): void {
-        const target = event.target as EventTarget;
-        console.log(target.checked);
-
-        if (target.checked) {
+    toggleGrid(): void {
+        if (this.isOn) {
             this.gridOn();
         } else {
             this.gridOff();

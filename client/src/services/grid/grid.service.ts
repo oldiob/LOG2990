@@ -69,6 +69,6 @@ export class GridService {
     }
 
     clear(): void {
-
+        
     }
 }

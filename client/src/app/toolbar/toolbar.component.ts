@@ -36,9 +36,6 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(SelectorOptionComponent, { static: true })
     selectorOption: SelectorOptionComponent;
 
-    @ViewChild(GalleryOptionComponent, { static: true })
-    galleryOption: GalleryOptionComponent;
-
     @ViewChild(GridOptionComponent, { static: true })
     gridOption: GridOptionComponent;
 
@@ -52,7 +49,7 @@ export class ToolbarComponent implements OnInit {
         public dialogService: DialogService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.galleryOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
         this.isDialogOpened = false;

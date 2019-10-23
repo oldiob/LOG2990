@@ -12,8 +12,6 @@
   </app-color-option>
 </div>
 
-<app-showcase></app-showcase>
-
 <div class="separation">
   <div class="tools">
     <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
@@ -24,6 +22,6 @@
 </div>
 
 <label class="switch">
-  <input type="checkbox" (change)="toggleGrid($event)">
+  <input type="checkbox" [checked]="isOn" (change)="toggleGrid()">
   <span class="slider round"></span>
 </label>
