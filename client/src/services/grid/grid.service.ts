@@ -9,7 +9,7 @@ export class GridService {
     static readonly MIN_STEP = 5;
     static readonly MAX_STEP = 25;
     static readonly DEFAULT_STEP = 15;
-    static readonly MIN_OPACITY = 0.0;
+    static readonly MIN_OPACITY = 0.1;
     static readonly MAX_OPACITY = 1.0;
 
     ref: ElementRef;
@@ -33,12 +33,14 @@ export class GridService {
     set opacity(opacity: number) {
         if (GridService.MIN_OPACITY <= opacity &&
             opacity <= GridService.MAX_OPACITY) {
+            console.log(this.ref.nativeElement);
+
             DOMRenderer.setAttribute(this.ref.nativeElement, 'stroke-opacity', `${opacity}`);
         }
     }
 
     draw(): void {
-        const ctx: any = this.ref.nativeElement;
+        const ctx: SVGElement = this.ref.nativeElement;
         const maxI = this.width / this.mStep;
         const maxJ = this.height / this.mStep;
 
@@ -69,6 +71,9 @@ export class GridService {
     }
 
     clear(): void {
-        
+        const ctx: SVGElement = this.ref.nativeElement;
+        while (ctx.firstChild) {
+            ctx.removeChild(ctx.firstChild);
+        }
     }
 }

@@ -52,3 +52,16 @@ input:checked+.slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+  margin: 25px;
+}
+
+.label {
+  font-size: 1rem;
+  color: whitesmoke;
+}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
@@ -12,10 +12,10 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 })
 export class DrawAreaComponent implements OnInit {
 
-    @ViewChild('svgContainer', { static: true })
+    @ViewChild('svgContainer', { static: true, })
     svg: ElementRef;
 
-    @ViewChild('gridContainer', { static: true })
+    @ViewChild('gridContainer', { static: true, read: ElementRef })
     grid: ElementRef;
 
     @Input()
@@ -54,8 +54,6 @@ export class DrawAreaComponent implements OnInit {
             (width: number) => {
                 this.width = width;
                 this.gridService.width = this.width;
-                this.gridService.draw();
-                // this.gridService.opacity = 0;
 
                 return width;
             },
@@ -64,8 +62,6 @@ export class DrawAreaComponent implements OnInit {
             (height): number => {
                 this.height = height;
                 this.gridService.height = this.height;
-                this.gridService.draw();
-                // this.gridService.opacity = 0;
 
                 return height;
             },
@@ -77,8 +73,6 @@ export class DrawAreaComponent implements OnInit {
 
         this.gridService.width = this.width;
         this.gridService.height = this.height;
-        this.gridService.draw();
-        this.gridService.opacity = 0;
         this.svgService.clearDrawArea();
     }
 
