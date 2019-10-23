@@ -1,5 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ElementRef, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { GridService } from 'src/services/grid/grid.service';
 import { GridTool } from 'src/services/tool/tool-options/grid';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { GridOptionComponent } from './grid-option.component';
@@ -9,23 +10,30 @@ describe('GridOptionComponent', () => {
   let fixture: ComponentFixture<GridOptionComponent>;
   let grid: GridTool;
   let renderer: Renderer2;
+  let gridService: GridService;
+  let ref: ElementRef;
   const BUTTON = 'grid.png';
   const PATH  = '../../../../assets/images/';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ GridOptionComponent ],
+      providers: [GridService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+    gridService = jasmine.createSpyObj('GridService', ['clear', 'draw', 'opacity', 'step']);
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
     fixture = TestBed.createComponent(GridOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     grid = TestBed.get(GridTool);
+    component.gridService = gridService;
+    component.gridService.ref = ref;
 
 });
 
@@ -37,9 +45,8 @@ describe('GridOptionComponent', () => {
     expect(component.currentTool).toBe(grid);
   });
 
-  it('should not show primary and secondary', () => {
-      expect(component.isShowPrimary).toBeFalsy();
-      expect(component.isShowSecondary).toBeFalsy();
+  it('should show primary', () => {
+      expect(component.IS_PRIMARY).toBeTruthy();
   });
 
   it('should get image of grid tool', () => {
@@ -62,39 +69,33 @@ describe('GridOptionComponent', () => {
     expect(component.getFilesource(grid)).toEqual(PATH + BUTTON);
   });
 
-  it('should show primary color', () => {
-      component.togglePrimaryColorPicker();
-      expect(component.isShowSecondary).toBeFalsy();
-      expect(component.isShowPrimary).toBeTruthy();
-  });
-
-  it('should show secondary color', () => {
-      component.toggleSecondaryColorPicker();
-      expect(component.isShowSecondary).toBeTruthy();
-      expect(component.isShowPrimary).toBeFalsy();
-  });
-
   it('should swap primary and secondary color', () => {
       component.onSwap();
       expect(component.onSwap).toBeTruthy();
   });
 
-  it('should pick color and call hideColorPicker', () => {
-      component.isShowPrimary = true;
-      component.onColorPick();
-      expect(component.hideColorPicker).toBeTruthy();
+  it('should draw grid if it is toggle', () => {
+    component.isOn = true;
+    component.toggleGrid();
+    expect(gridService.draw).toHaveBeenCalled();
   });
 
-  it('should hide primary color', () => {
-      component.isShowPrimary = true;
-      component.hideColorPicker();
-      expect(component.isShowPrimary).toBeFalsy();
+  it('should clear grid if it is not toggle', () => {
+    component.isOn = false;
+    component.toggleGrid();
+    expect(gridService.clear).toHaveBeenCalled();
   });
 
-  it('should hide secondary color', () => {
-      component.isShowPrimary = false;
-      component.hideColorPicker();
-      expect(component.isShowSecondary).toBeFalsy();
+  it('should opacity change' , () => {
+    component.opacity = 0.8;
+    component.onOpacity();
+    expect(gridService.opacity).toEqual(component.opacity);
+  });
+
+  it('should step change ', () => {
+    component.step = 5;
+    component.onStep();
+    expect(gridService.step).toEqual(component.step);
   });
 
 });
