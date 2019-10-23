@@ -8,7 +8,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 @Component({
     selector: 'app-grid-option',
     templateUrl: './grid-option.component.html',
-    styleUrls: ['./grid-option.component.scss', '../toolbar-option.scss'],
+    styleUrls: ['../toolbar-option.scss', './grid-option.component.scss'],
 })
 export class GridOptionComponent implements OnInit, IOption<ITool> {
 

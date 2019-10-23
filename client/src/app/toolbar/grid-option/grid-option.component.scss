@@ -5,6 +5,7 @@
   height: 34px;
   background-color: #2d376d;
   border-radius: 34px;
+  margin-right: 28%;
 }
 
 .switch input {
@@ -13,7 +14,7 @@
   height: 0;
 }
 
-.slider {
+.toggler {
   cursor: pointer;
   top: 0;
   left: 0;
@@ -25,7 +26,7 @@
 
 }
 
-.slider:before {
+.toggler:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -39,15 +40,15 @@
 
 }
 
-input:checked+.slider {
+input:checked+.toggler {
   background-color: #2196F3;
 }
 
-input:focus+.slider {
+input:focus+.toggler {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked+.slider:before {
+input:checked+.toggler:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -64,4 +65,8 @@ input:checked+.slider:before {
 .label {
   font-size: 1rem;
   color: whitesmoke;
+}
+
+.slider {
+  width: 127px;
 }
