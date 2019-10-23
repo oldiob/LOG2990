@@ -83,6 +83,7 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
+    @HostListener('window: keydown', ['$event'])
     @HostListener('window: keyup', ['$event'])
     pressKeyboard(event: KeyboardEvent): void {
         if (this.dialogService.keyEnable) {
@@ -97,6 +98,7 @@ export class ToolbarComponent implements OnInit {
                 3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
                 'C-o': () => { if (this.dialogService.isClosed) { this.newDrawingOption(); } },
                 'C-s': () => { this.saveImage(); },
+                'C-g': () => { this.openGalleryOption(); },
             };
             let keys = '';
             if (event.ctrlKey) {
