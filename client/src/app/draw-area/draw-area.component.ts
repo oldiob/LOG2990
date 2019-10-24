@@ -12,7 +12,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 })
 export class DrawAreaComponent implements OnInit {
 
-    @ViewChild('svgContainer', { static: true })
+    @ViewChild('svgContainer', { static: true, })
     svg: ElementRef;
 
     @ViewChild('gridContainer', { static: true })
@@ -48,12 +48,13 @@ export class DrawAreaComponent implements OnInit {
     ngOnInit() {
         this.svgService.entry = this.svg;
         this.gridService.ref = this.grid;
+
         // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => {
                 this.width = width;
                 this.gridService.width = this.width;
-                this.gridService.draw();
+
                 return width;
             },
         );
@@ -61,7 +62,7 @@ export class DrawAreaComponent implements OnInit {
             (height): number => {
                 this.height = height;
                 this.gridService.height = this.height;
-                this.gridService.draw();
+
                 return height;
             },
 
@@ -72,7 +73,6 @@ export class DrawAreaComponent implements OnInit {
 
         this.gridService.width = this.width;
         this.gridService.height = this.height;
-        this.gridService.draw();
         this.svgService.clearDrawArea();
     }
 

@@ -15,6 +15,7 @@ export enum JunctionType {
     Round = 1,
     Dot = 2,
 }
+
 export interface ITool {
     width?: number;
 

@@ -36,3 +36,7 @@
 <app-selector-option [class.disappear]="!optionDisplayed || currentOption !== selectorOption"
   [class.appear]="optionDisplayed && currentOption === selectorOption"
   class="toolbar-option selected-option disappear"></app-selector-option>
+
+<app-grid-option [class.disappear]="!optionDisplayed || currentOption !== gridOption"
+  [class.appear]="optionDisplayed && currentOption === gridOption"
+  class="toolbar-option selected-option disappear"></app-grid-option>

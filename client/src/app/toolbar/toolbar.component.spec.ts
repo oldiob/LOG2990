@@ -2,8 +2,8 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/co
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-    MatButtonModule, MatCheckboxModule, MatDialogModule,
-    MatFormFieldModule, MatOptionModule, MatSelectModule
+    MatButtonModule, MatCheckboxModule,
+    MatDialogModule, MatDialogRef, MatFormFieldModule, MatOptionModule, MatSelectModule
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +14,8 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
+import { GridOptionComponent } from './grid-option/grid-option.component';
+import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
@@ -26,25 +28,34 @@ describe('ToolbarComponent', () => {
     let toolOption: ToolOptionComponent;
     let bucketOption: BucketOptionComponent;
     let shapeOption: ShapeOptionComponent;
-    let dialogService: any;
+    let dialogService: DialogService;
     let drawareaService: DrawAreaService;
-    // let galleryOption: GalleryOptionComponent;
     let selectorOption: SelectorOptionComponent;
+    let gridOption: GridOptionComponent;
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
-
     beforeEach(async(() => {
+        TestBed.overrideModule(BrowserDynamicTestingModule, {
+            set: {
+              entryComponents: [
+                  GalleryOptionComponent,
+                  NewDrawingComponent,
+                  SaveOptionComponent,
+              ],
+            },
+          });
         TestBed.configureTestingModule({
             imports: [MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
                 MatOptionModule, MatFormFieldModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
-                ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent,
-                GalleryOptionComponent, SelectorOptionComponent],
+                ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
+                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent],
             providers: [{ provide: DialogService, useValue: dialogService },
-            { provide: DrawAreaService, useValue: drawareaService }],
+            { provide: DrawAreaService, useValue: drawareaService },
+            { provide: MatDialogRef }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
@@ -53,24 +64,24 @@ describe('ToolbarComponent', () => {
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
-
-        fixture = TestBed.createComponent(ToolbarComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
-        dialogService = jasmine.createSpyObj('DialogService', ['openNewDrawing', 'keyEnable']);
+        dialogService = jasmine.createSpyObj('DialogService', ['keyEnable', 'open']);
         dialogService.keyEnable = true;
+        gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
-        // galleryOption = jasmine.createSpyObj('GalleryOptionComponent', ['selectTool', 'tools']);
         selectorOption = jasmine.createSpyObj('SelectorOptionComponent', ['selectTool', 'tools']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
         options = jasmine.createSpyObj('IOption<any>[]', ['images', 'select', 'getImage']);
+        fixture = TestBed.createComponent(ToolbarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
 
         component.selectOption = option.select;
         component.options = options;
         component.currentOption = option;
+        component.gridOption = gridOption;
         component.currentOption.select = option.select;
         component.toolOption = toolOption;
         component.bucketOption = bucketOption;
@@ -105,10 +116,22 @@ describe('ToolbarComponent', () => {
         expect(selectorOption).toEqual(component.selectorOption);
     });
 
+    it('should select grid option', () => {
+        component.selectOption(gridOption);
+        expect(gridOption).toEqual(component.gridOption);
+    });
+
     it('should get image ', () => {
         component.getImage(option);
         expect(option.getImage).toHaveBeenCalled();
     });
+
+    it('should save image ', () => {
+        component.saveImage();
+        component.dialogService.open(NewDrawingComponent);
+        expect(dialogService.open).toHaveBeenCalled();
+    });
+
     it('should return pencil when c is press on keyboard ', () => {
         const pressC = new KeyboardEvent('keypress', { key: 'c' });
         component.pressKeyboard(pressC);
@@ -125,6 +148,12 @@ describe('ToolbarComponent', () => {
         const pressB = new KeyboardEvent('keypress', { key: 'b' });
         component.pressKeyboard(pressB);
         expect(bucketOption.selectTool).toHaveBeenCalled();
+    });
+
+    it('should return line when l is press on keyboard ', () => {
+        const pressL = new KeyboardEvent('keypress', { key: 'l' });
+        component.pressKeyboard(pressL);
+        expect(toolOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return dropper when i is press on keyboard ', () => {

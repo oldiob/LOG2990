@@ -64,15 +64,25 @@ describe('ColorOptionComponent', () => {
         const ALPHA = 0.3;
         component.colorsForm.controls.alpha.setValue(ALPHA);
 
-        const aColor = new Color(255, 255, 255, ALPHA);
         component.isPrimary = true;
+        component.currentColor = {
+            red: service.primary.red,
+            green: service.primary.green,
+            blue: service.primary.blue,
+            alpha: component.colorsForm.controls.alpha.value,
+        };
         component.onAlphaChange();
-        expect(service.getPrimary()).toBe(aColor.toString());
+        expect(service.primary.alpha).toBe(component.currentColor.alpha);
 
         component.isPrimary = false;
-        component.onColorPick(aColor);
+        component.currentColor = {
+            red: service.secondary.red,
+            green: service.secondary.green,
+            blue: service.secondary.blue,
+            alpha: component.colorsForm.controls.alpha.value,
+        };
         component.onAlphaChange();
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(service.secondary.alpha).toBe(component.currentColor.alpha);
     });
 
     it('#setColor should set background color', () => {
