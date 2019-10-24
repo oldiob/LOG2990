@@ -36,6 +36,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
 
         this.tools = [eraser, selector];
         this.currentTool = this.tools[0];
+        this.select();
     }
 
     ngOnInit() {
@@ -55,6 +56,10 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+
+        if (tool === this.eraser) {
+            this.eraser.onSelect();
+        }
     }
 
     getFilesource(tool: ITool): string {

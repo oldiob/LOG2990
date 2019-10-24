@@ -129,6 +129,7 @@ export class SVGLine implements SVGInterface {
 
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.width;
+        this.width = r;
         const isInside = this.isAt(x, y);
         this.width = tempWidth;
 

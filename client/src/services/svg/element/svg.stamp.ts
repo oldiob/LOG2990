@@ -33,12 +33,11 @@ export class SVGStamp implements SVGInterface {
         return vectorModule(vectorTo) <= this.lineWidth;
     }
 
-    isIn(x: number, y: number): boolean {
+    isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.lineWidth;
+        this.lineWidth = r;
         const isInside = this.isAt(x, y);
         this.lineWidth = tempWidth;
-
-        console.log('IS IN', isInside);
 
         return isInside;
     }

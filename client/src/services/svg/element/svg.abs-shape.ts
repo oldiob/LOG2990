@@ -6,7 +6,7 @@ import { SVGInterface } from './svg.interface';
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;
 
-    protected startingPoint: number[];
+    startingPoint: number[];
     protected endingPoint: number[];
 
     protected center: number[];
@@ -59,6 +59,8 @@ export abstract class AbsSVGShape implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.pointSize;
         const tempSize = this.size;
+        this.pointSize = r;
+        this.size = vectorPlus(this.size, [r, r]);
 
         const isInside = this.isAt(x, y);
 
