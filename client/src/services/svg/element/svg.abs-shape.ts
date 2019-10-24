@@ -56,20 +56,15 @@ export abstract class AbsSVGShape implements SVGInterface {
         return inside || atBorder;
     }
 
-    protected abstract insideIsIn(x: number, y: number): boolean;
-    protected abstract borderIsIn(x: number, y: number): boolean;
-
     isIn(x: number, y: number, r: number): boolean {
-        let inside = false;
-        let atBorder = false;
+        const tempWidth = this.pointSize;
+        const tempSize = this.size;
 
-        if (this.fillOpacity === 1) {
-            inside = this.insideIsIn(x, y);
-        }
-        if (this.strokeOpacity === 1) {
-            atBorder = this.borderIsIn(x, y);
-        }
-        return inside || atBorder;
+        const isInside = this.isAt(x, y);
+
+        this.pointSize = tempWidth;
+        this.size = tempSize;
+        return isInside;
     }
 
     setPointSize(pointSize: number): void {
