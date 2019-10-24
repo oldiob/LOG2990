@@ -35,7 +35,11 @@ export class SVGBrush implements SVGInterface {
         return false;
     }
     isIn(x: number, y: number, r: number): boolean {
-        return false;
+        const tempWidth = this.lineWidth;
+        const isInside = this.isAt(x, y);
+        this.lineWidth = tempWidth;
+
+        return isInside;
     }
 
     getPrimary(): string {
