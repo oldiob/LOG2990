@@ -4,6 +4,7 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { SelectorTool } from 'src/services/tool/tool-options/selector';
 import { ToolService } from 'src/services/tool/tool.service';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-selector-option',
@@ -30,9 +31,10 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     constructor(
         private paletteService: PaletteService,
         private toolService: ToolService,
-        private selector: SelectorTool) {
+        private selector: SelectorTool,
+        private eraser: EraserTool) {
 
-        this.tools = [selector];
+        this.tools = [eraser, selector];
         this.currentTool = this.tools[0];
     }
 

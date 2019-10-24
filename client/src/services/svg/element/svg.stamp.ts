@@ -38,6 +38,8 @@ export class SVGStamp implements SVGInterface {
         const isInside = this.isAt(x, y);
         this.lineWidth = tempWidth;
 
+        console.log('IS IN', isInside);
+
         return isInside;
     }
     getPrimary(): string {

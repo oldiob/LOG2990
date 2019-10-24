@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
@@ -13,6 +12,8 @@ export class EraserTool implements ITool {
     activated: boolean;
     width: number;
 
+    objectOnHold: SVGInterface | null;
+
     constructor(private svgService: SVGService) {
         this.activated = false;
         this.width = 1;
@@ -20,12 +21,7 @@ export class EraserTool implements ITool {
 
     onPressed(event: MouseEvent): null {
         this.activated = true;
-        const x: number = event.svgX;
-        const y: number = event.svgY;
-
-        const obj: SVGInterface | null = this.svgService.findIn(x, y, this.width);
-        
-
+        this.svgService.removeObject(this.objectOnHold);
         return null;
     }
 
@@ -34,6 +30,13 @@ export class EraserTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        return;
+        const x: number = event.svgX;
+        const y: number = event.svgY;
+
+        this.objectOnHold = this.svgService.findIn(x, y, this.width);
+
+        if (this.activated) {
+            this.svgService.removeObject(this.objectOnHold);
+        }
     }
 }

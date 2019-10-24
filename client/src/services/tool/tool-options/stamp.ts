@@ -28,8 +28,7 @@ export class StampTool implements ITool {
     onPressed(event: MouseEvent): CmdSVG | null {
         let cmd: CmdSVG | null = null;
         if (!this.element) {
-            this.element = new SVGStamp(this.width, this.stampTexture, this.angle, this.currentPath);
-            this.element.addPoint(event.svgX, event.svgY);
+            this.element = new SVGStamp(event.svgX, event.svgY, this.width, this.stampTexture, this.angle, this.currentPath);
             cmd = new CmdSVG(this.element);
         }
         return cmd;
