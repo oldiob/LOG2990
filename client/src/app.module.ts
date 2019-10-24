@@ -22,17 +22,18 @@ import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
 import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
+import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
 import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
+import { TextOptionComponent } from './app/toolbar/text-option/text-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { DOMRenderer } from './utils/dom-renderer';
-import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 
 @NgModule({
     declarations: [
@@ -58,6 +59,7 @@ import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.compo
         LoadDrawingComponent,
         SelectorOptionComponent,
         GridOptionComponent,
+        TextOptionComponent,
     ],
     imports: [
         BrowserModule,

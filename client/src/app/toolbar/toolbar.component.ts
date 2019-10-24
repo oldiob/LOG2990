@@ -5,10 +5,11 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
-import { SaveOptionComponent } from './save-option/save-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
+import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
+import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 
 declare type callback = () => void;
@@ -39,6 +40,9 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(GridOptionComponent, { static: true })
     gridOption: GridOptionComponent;
 
+    @ViewChild(TextOptionComponent, { static: true })
+    textOption: TextOptionComponent;
+
     options: IOption<any>[];
 
     currentOption: IOption<any>;
@@ -49,7 +53,7 @@ export class ToolbarComponent implements OnInit {
         public dialogService: DialogService) { }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption];
+        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
         this.isDialogOpened = false;

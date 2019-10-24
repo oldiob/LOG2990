@@ -19,6 +19,7 @@ import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { ShowcaseComponent } from './showcase/showcase.component';
+import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar.component';
 
@@ -31,6 +32,7 @@ describe('ToolbarComponent', () => {
     let dialogService: DialogService;
     let drawareaService: DrawAreaService;
     let selectorOption: SelectorOptionComponent;
+    let textOption: TextOptionComponent;
     let gridOption: GridOptionComponent;
     let option: IOption<any>;
     let options: IOption<any>[];
@@ -52,7 +54,7 @@ describe('ToolbarComponent', () => {
                 MatOptionModule, MatFormFieldModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
-                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent],
+                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
             providers: [{ provide: DialogService, useValue: dialogService },
             { provide: DrawAreaService, useValue: drawareaService },
             { provide: MatDialogRef }],
@@ -67,6 +69,7 @@ describe('ToolbarComponent', () => {
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
         dialogService = jasmine.createSpyObj('DialogService', ['keyEnable', 'open']);
         dialogService.keyEnable = true;
+        textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -88,6 +91,7 @@ describe('ToolbarComponent', () => {
         component.shapeOption = shapeOption;
         component.bucketOption.currentTool = bucketOption.currentTool;
         component.selectorOption = selectorOption;
+        component.textOption = textOption;
         component.dialogService = dialogService;
         component.ngOnInit();
     });
@@ -119,6 +123,11 @@ describe('ToolbarComponent', () => {
     it('should select grid option', () => {
         component.selectOption(gridOption);
         expect(gridOption).toEqual(component.gridOption);
+    });
+
+    it('should select text option', () => {
+        component.selectOption(textOption);
+        expect(textOption).toEqual(component.textOption);
     });
 
     it('should get image ', () => {

@@ -1,0 +1,23 @@
+<div class="title">Text</div>
+
+<div class="buttons-wrapper">
+  <app-color-option [isPrimary]="IS_PRIMARY">
+  </app-color-option>
+
+  <div class="swap" (click)="onSwap()">
+    <img src="../../../assets/images/swap.svg" alt="swap">
+  </div>
+
+  <app-color-option [isPrimary]="!IS_PRIMARY">
+  </app-color-option>
+</div>
+
+
+<div class="separation">
+  <div class="tools">
+    <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
+      [class.selected-tool]="tool === currentTool">
+      <img class="tool-icon" [src]="getFilesource(tool)">
+    </a>
+  </div>
+</div>
