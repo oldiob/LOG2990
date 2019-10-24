@@ -21,7 +21,7 @@ export class DrawingRoute {
         this.configureRouter();
     }
 
-    private assignID(drawing: Drawing): number {
+     assignID(drawing: Drawing): number {
             if ( drawing.id === -1) {
                 const currentID = this.uniqueID;
                 this.uniqueID++;
@@ -31,7 +31,7 @@ export class DrawingRoute {
             return -1;
     }
 
-    private isDrawingValid(drawing: Drawing): boolean {
+     isDrawingValid(drawing: Drawing): boolean {
             if (drawing.name === '') {
                     return false;
             }
@@ -43,10 +43,8 @@ export class DrawingRoute {
             return true;
     }
 
-    private findDrawing(id: number): Drawing | null {
-        console.log('logging 2');
+     findDrawing(id: number): Drawing | null {
         for (let i = 0; i < this.drawings.length; i++) {
-                console.log(this.drawings[i].id);
                 if (this.drawings[i].id === id) {
                         return this.drawings[i];
                 }
@@ -54,7 +52,7 @@ export class DrawingRoute {
         return null;
     }
 
-    private getDrawingIndex(id: number): number {
+     getDrawingIndex(id: number): number {
         for (let i = 0; i < this.drawings.length; i++) {
                 if (this.drawings[i].id === id) {
                         return i;
@@ -63,8 +61,8 @@ export class DrawingRoute {
         return -1;
     }
 
-    private findDrawingsByTag(tags: string[]): Drawing[] {
-            let correctDrawings: Drawing[] = [];
+     findDrawingsByTag(tags: string[]): Drawing[] {
+            const correctDrawings: Drawing[] = [];
             for (let i = 0; i < this.drawings.length; i++) {
                         if (this.drawings[i].tags.every((elem) => tags.indexOf(elem) > -1)) {
                                 correctDrawings.push(this.drawings[i]);
@@ -73,15 +71,15 @@ export class DrawingRoute {
             return correctDrawings;
     }
 
-    private returnElementByRange(drawings: Drawing[], min: number, max: number): Drawing[] {
-                let result: Drawing[] = [];
+     returnElementByRange(drawings: Drawing[], min: number, max: number): Drawing[] {
+                const result: Drawing[] = [];
                 for (let i = min; min < max; i++) {
                         result.push(drawings[i]);
                 }
                 return result;
     }
 
-    private configureRouter() {
+     configureRouter() {
         this.router = Router();
         this.router.get('/',
             (req: Request, res: Response) => {
@@ -103,24 +101,11 @@ export class DrawingRoute {
                 drawResponse.body = 'world';
                 res.json(drawResponse);
             });
-            /*
-        this.router.post('/add', (req, res) => {
-                const drawing = new DrawingRoute(req.body.etiquette, req.body.SVGObjects, req.body.name);
-                drawing.save()
-                    .then(drawing => {
-                    res.status(200).json({'Product': 'Product has been added successfully'});
-                    })
-                    .catch(err => {
-                    res.status(400).send('unable to save to database');
-                    });
-        });
-        */
+
         this.router.post('/addM', (req, res) => {
-           console.log(req.body);
            res.status(200).json({RESPONSE: 'Message received'});
        });
         this.router.post('/add', (req, res) => {
-                console.log(req.body);
                 let drawing = new Drawing();
                 drawing = req.body;
                 if (this.isDrawingValid(drawing)) {
@@ -139,9 +124,6 @@ export class DrawingRoute {
         });
         this.router.get('/drawing/byid/:id', (req, res) => {
                 const id: number = Number(req.params.id);
-                console.log('loggin');
-                console.log('drawing[] size', this.drawings.length);
-                console.log(this.findDrawing(id));
                 res.json(this.findDrawing(id));
         });
         this.router.get('/drawing/bytags', (req, res) => {
@@ -155,7 +137,6 @@ export class DrawingRoute {
                 res.json(result);
         });
         this.router.delete('/drawing/delete/:id', (req: Request, res: Response) => {
-                console.log('deleting');
                 const index: number = this.getDrawingIndex(Number(req.params.id));
                 if (index > -1) {
                         this.drawings.splice(index, 1);
@@ -163,7 +144,6 @@ export class DrawingRoute {
                 } else {
                         res.status(500).json({RESPONSE: 'not found'});
                 }
-                console.log('Deleted');
         });
     }
 }

@@ -37,7 +37,6 @@ export class WebClientService {
         if (!this.isDrawingValid(drawing)) {
             const modalRef = this.dialogService.open(CustomAlertComponent);
             modalRef.componentInstance.data = 'Invalid drawing, not sending to server.';
-            console.log('Invalid drawing, not sending to server.');
             return;
         }
         this.saving = true;
@@ -49,12 +48,7 @@ export class WebClientService {
                 if (res.status === 500) {
                     const modalRef = this.dialogService.open(CustomAlertComponent);
                     modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
-                    console.log('Invalid drawing, server refused saving.');
                 }
-                if (res.status === 200) {
-                    console.log('Valid drawing');
-                }
-                console.log(res);
                 this.saving = false;
                 loadingDialogRef.componentInstance.done();
             });
@@ -107,7 +101,7 @@ export class WebClientService {
         return drawings;
     }
 
-    private isDrawingValid(drawing: Drawing): boolean {
+    isDrawingValid(drawing: Drawing): boolean {
         if (drawing.name === '') {
             return false;
         }
