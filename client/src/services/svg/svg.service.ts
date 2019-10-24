@@ -86,6 +86,7 @@ export class SVGService {
         DOMRenderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
+        DOMRenderer.appendChild(this.entry.nativeElement, this.createEraseFilter());
     }
 
     private createBlurFilter() {
@@ -122,6 +123,7 @@ export class SVGService {
 
         return filterOpacity;
     }
+
     private createTurbulenceFilter() {
         const renderer = DOMRenderer;
         const filterTurbulence = renderer.createElement('filter', 'svg');
@@ -142,6 +144,41 @@ export class SVGService {
 
         renderer.appendChild(filterTurbulence, filterContent);
         renderer.appendChild(filterTurbulence, filterSubContent);
+
+        return filterTurbulence;
+    }
+
+    private createEraseFilter() {
+        const renderer = DOMRenderer;
+        const filterTurbulence = renderer.createElement('filter', 'svg');
+        renderer.setAttribute(filterTurbulence, 'id', 'erase');
+
+        const blur = renderer.createElement('feGaussianBlur', 'svg');
+        renderer.setAttribute(blur, 'in', 'SourceAlpha');
+        renderer.setAttribute(blur, 'stdDeviation', '1.7');
+        renderer.setAttribute(blur, 'result', 'blur');
+
+        const offset = renderer.createElement('feOffset', 'svg');
+        renderer.setAttribute(offset, 'in', 'blur');
+        renderer.setAttribute(offset, 'dx', '3');
+        renderer.setAttribute(offset, 'dy', '3');
+        renderer.setAttribute(offset, 'result', 'offsetBlur');
+
+        const flood = renderer.createElement('feFlood', 'svg');
+        renderer.setAttribute(flood, 'flood-color', '#3D4574');
+        renderer.setAttribute(flood, 'flood-opacity', '0.5');
+        renderer.setAttribute(flood, 'result', 'offsetColor');
+
+        const composite = renderer.createElement('feComposite', 'svg');
+        renderer.setAttribute(composite, 'in', 'blur');
+        renderer.setAttribute(composite, 'dx', '3');
+        renderer.setAttribute(composite, 'dy', '3');
+        renderer.setAttribute(composite, 'result', 'offsetBlur');
+
+        renderer.appendChild(filterTurbulence, blur);
+        renderer.appendChild(filterTurbulence, offset);
+        renderer.appendChild(filterTurbulence, flood);
+        renderer.appendChild(filterTurbulence, composite);
 
         return filterTurbulence;
     }

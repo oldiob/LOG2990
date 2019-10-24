@@ -19,7 +19,7 @@ export class EraserTool implements ITool {
     }
 
     onPressed(event: MouseEvent): null {
-
+        this.activated = true;
         const x: number = event.svgX;
         const y: number = event.svgY;
 
@@ -30,7 +30,7 @@ export class EraserTool implements ITool {
     }
 
     onReleased(event: MouseEvent): void {
-        return;
+        this.activated = false;
     }
 
     onMotion(event: MouseEvent): void {
