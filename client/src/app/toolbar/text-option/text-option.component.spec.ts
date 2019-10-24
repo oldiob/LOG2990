@@ -1,18 +1,19 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { SelectorOptionComponent } from './selector-option.component';
+import { TextOptionComponent } from './text-option.component';
 
-describe('SelectorOptionComponent', () => {
-  let component: SelectorOptionComponent;
-  let fixture: ComponentFixture<SelectorOptionComponent>;
+describe('TextOptionComponent', () => {
+  let component: TextOptionComponent;
+  let fixture: ComponentFixture<TextOptionComponent>;
   let text: TextTool;
   let renderer: Renderer2;
-  const BUTTON = 'selector.png';
+  const BUTTON = 'text.png';
   const PATH  = '../../../../assets/images/';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectorOptionComponent ],
+      declarations: [ TextOptionComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
@@ -21,7 +22,7 @@ describe('SelectorOptionComponent', () => {
   beforeEach(() => {
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
-    fixture = TestBed.createComponent(SelectorOptionComponent);
+    fixture = TestBed.createComponent(TextOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     text = TestBed.get(TextTool);
@@ -32,7 +33,7 @@ describe('SelectorOptionComponent', () => {
   });
 
   it('should selector be the current tool', () => {
-    expect(component.currentTool).toBe(selector);
+    expect(component.currentTool).toBe(text);
   });
 
   it('should not show primary and secondary', () => {
@@ -47,17 +48,17 @@ describe('SelectorOptionComponent', () => {
 
   it('should select current tool', () => {
     component.select();
-    expect(component.currentTool).toEqual(selector);
+    expect(component.currentTool).toEqual(text);
   });
 
   it('should select selector tool', () => {
       component.selectTool(component.currentTool);
-      expect(component.currentTool).toEqual(selector);
+      expect(component.currentTool).toEqual(text);
     });
 
   it('should return string to get file source and button image', () => {
-    component.getFilesource(selector);
-    expect(component.getFilesource(selector)).toEqual(PATH + BUTTON);
+    component.getFilesource(text);
+    expect(component.getFilesource(text)).toEqual(PATH + BUTTON);
   });
 
   it('should show primary color', () => {
