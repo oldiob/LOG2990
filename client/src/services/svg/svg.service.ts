@@ -34,7 +34,10 @@ export class SVGService {
     }
 
     addObject(obj: SVGInterface | null) {
-        if (obj == null) {
+        if (obj === null) {
+            return;
+        }
+        if (obj.element === null) {
             return;
         }
 
@@ -42,13 +45,26 @@ export class SVGService {
         DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
-    removeObject(): SVGInterface | null {
-        const removedObject: SVGInterface | undefined = this.objects.pop();
-        if (removedObject !== undefined) {
-            DOMRenderer.removeChild(this.entry.nativeElement, removedObject.element);
-            return removedObject;
+    removeObject(obj: SVGInterface | null) {
+        if (obj === null) {
+            return;
         }
-        return null;
+        if (obj.element === null) {
+            return;
+        }
+
+        DOMRenderer.removeChild(this.entry.nativeElement, obj.element);
+
+        let index = 0;
+        for (const o of this.objects) {
+            if (o === obj) {
+                break;
+            }
+
+            index++;
+        }
+
+        this.objects.splice(index, 1);
     }
 
     addElement(element: any) {
