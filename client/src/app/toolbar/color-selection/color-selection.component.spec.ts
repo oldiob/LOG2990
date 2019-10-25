@@ -11,7 +11,14 @@ describe('ColorSelectionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ColorSelectionComponent],
-      providers: [{ provide: MatDialogRef, useValue: {} }],
+      providers: [{
+        provide: MatDialogRef,
+        useValue: {
+          close: (dialogResult: any) => {
+            //
+          },
+        },
+      }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .compileComponents();

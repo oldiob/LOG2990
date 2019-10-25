@@ -68,7 +68,7 @@ describe('ToolbarComponent', () => {
         DOMRenderer.renderer = renderer;
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
-        dialogService = jasmine.createSpyObj('DialogService', ['open']);
+        dialogService = jasmine.createSpyObj('DialogService', ['open', 'closeColorForms']);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -136,60 +136,100 @@ describe('ToolbarComponent', () => {
 
     it('should save image ', () => {
         component.saveImage();
+<<<<<<< HEAD
+=======
+        component.dialogService.open(NewDrawingComponent);
+>>>>>>> Add test that fail
         expect(dialogService.open).toHaveBeenCalled();
     });
 
     it('should return pencil when c is press on keyboard ', () => {
         const pressC = new KeyboardEvent('keypress', { key: 'c' });
+<<<<<<< HEAD
         component.onKeyUp(pressC);
+=======
+        component.pressKeyboard(pressC);
+>>>>>>> Add test that fail
         expect(toolOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return brush when w is press on keyboard ', () => {
         const pressW = new KeyboardEvent('keypress', { key: 'w' });
+<<<<<<< HEAD
         component.onKeyUp(pressW);
+=======
+        component.pressKeyboard(pressW);
+>>>>>>> Add test that fail
         expect(toolOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return bucket when b is press on keyboard ', () => {
         const pressB = new KeyboardEvent('keypress', { key: 'b' });
+<<<<<<< HEAD
         component.onKeyUp(pressB);
+=======
+        component.pressKeyboard(pressB);
+>>>>>>> Add test that fail
         expect(bucketOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return line when l is press on keyboard ', () => {
         const pressL = new KeyboardEvent('keypress', { key: 'l' });
+<<<<<<< HEAD
         component.onKeyUp(pressL);
+=======
+        component.pressKeyboard(pressL);
+>>>>>>> Add test that fail
         expect(toolOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return dropper when i is press on keyboard ', () => {
         const pressI = new KeyboardEvent('keypress', { key: 'i' });
+<<<<<<< HEAD
         component.onKeyUp(pressI);
+=======
+        component.pressKeyboard(pressI);
+>>>>>>> Add test that fail
         expect(bucketOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return rectangle when 1 is press on keyboard ', () => {
         const press1 = new KeyboardEvent('keyup', { key: '1' });
+<<<<<<< HEAD
         component.onKeyUp(press1);
+=======
+        component.pressKeyboard(press1);
+>>>>>>> Add test that fail
         expect(shapeOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return ellipse when 2 is press on keyboard ', () => {
         const press2 = new KeyboardEvent('keyup', { key: '2' });
+<<<<<<< HEAD
         component.onKeyUp(press2);
+=======
+        component.pressKeyboard(press2);
+>>>>>>> Add test that fail
         expect(shapeOption.selectTool).toHaveBeenCalled();
     });
 
     it('should return polygone when 3 is press on keyboard ', () => {
         const press3 = new KeyboardEvent('keyup', { key: '3' });
+<<<<<<< HEAD
         component.onKeyUp(press3);
+=======
+        component.pressKeyboard(press3);
+>>>>>>> Add test that fail
         expect(shapeOption.selectTool).toHaveBeenCalled();
     });
 
     it('should not prevent default if S is press on keyboard ', () => {
         const pressS = new KeyboardEvent('keypress', { key: 's' });
+<<<<<<< HEAD
         component.onKeyUp(pressS);
+=======
+        component.pressKeyboard(pressS);
+>>>>>>> Add test that fail
         expect(pressS.defaultPrevented).toBeFalsy();
     });
 
