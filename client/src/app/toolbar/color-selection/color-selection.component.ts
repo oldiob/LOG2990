@@ -1,25 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 
 @Component({
-  selector: 'app-color-selection',
-  templateUrl: './color-selection.component.html',
-  styleUrls: ['./color-selection.component.scss'],
+    selector: 'app-color-selection',
+    templateUrl: './color-selection.component.html',
+    styleUrls: ['./color-selection.component.scss'],
 })
 export class ColorSelectionComponent implements OnInit {
 
-  readonly IS_PRIMARY = true;
+    readonly IS_PRIMARY = true;
 
-  constructor(private paletteService: PaletteService) {
-    //
-  }
+    isOpenPrimary: boolean;
+    isOpenSecondary: boolean;
 
-  ngOnInit() {
-    //
-  }
+    constructor(
+        private dialogService: DialogService,
+        private paletteService: PaletteService) { }
 
-  onSwap(): void {
-    this.paletteService.swap();
-  }
+    ngOnInit() {
+        this.isOpenPrimary = false;
+        this.isOpenSecondary = false;
+        this.listenToClose();
+    }
+
+    private listenToClose() {
+        this.dialogService.isClosedColorObservable.subscribe((isOpen: boolean) => {
+            this.isOpenPrimary = isOpen;
+            this.isOpenSecondary = isOpen;
+        });
+    }
+
+    onSwap(): void {
+        this.paletteService.swap();
+    }
+
+    onOpen(isShowForm: boolean, isPrimary: boolean): void {
+        if (isPrimary && isShowForm) {
+            this.isOpenPrimary = true;
+            this.isOpenSecondary = false;
+        } else if (!isPrimary && isShowForm) {
+            this.isOpenPrimary = false;
+            this.isOpenSecondary = true;
+        }
+    }
+
+    close() {
+        this.isOpenPrimary = false;
+        this.isOpenSecondary = false;
+    }
 
 }

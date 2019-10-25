@@ -62,6 +62,7 @@ export class ToolbarComponent implements OnInit {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();
+        this.dialogService.closeColorForms();
     }
 
     openGalleryOption(): void {

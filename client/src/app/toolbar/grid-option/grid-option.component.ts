@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';

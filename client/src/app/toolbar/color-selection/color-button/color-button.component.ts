@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
@@ -23,8 +23,9 @@ export class ColorButtonComponent implements OnInit {
     readonly DEFAULT_ALPHA = 1;
     readonly DEFAULT_COLOR_HEX = '#FFFFFF';
 
-    isShowForm: boolean;
+    @Input() isShowForm: boolean;
     @Input() isPrimary: boolean;
+    @Output() open = new EventEmitter<boolean>();
 
     constructor(
         private paletteService: PaletteService,
@@ -157,6 +158,7 @@ export class ColorButtonComponent implements OnInit {
 
     toggleForm(): void {
         this.isShowForm = !this.isShowForm;
+        this.open.emit(this.isShowForm);
         this.colorsHistory = this.paletteService.getHistory();
     }
 
