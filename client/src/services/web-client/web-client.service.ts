@@ -54,6 +54,13 @@ export class WebClientService {
             });
     }
 
+    addTag(id: number, tag: string) {
+        this.http.post(`${this.CUSTOM_URL}/add/${id}`, tag)
+          .subscribe((res: Response) => {
+              console.log(res.body);
+          });
+    }
+
     getDrawingCount(): Observable<number> {
         this.loading = true;
         return this.http.get<number>(`${this.CUSTOM_URL}/drawing/count`).pipe(

@@ -78,6 +78,15 @@ export class DrawingRoute {
                 }
                 return result;
     }
+    addTag(id: number, tag: string): boolean {
+                const result = this.findDrawing(id);
+                if (result === null) {
+                        return false;
+                } else {
+                        result.tags.push(tag);
+                        return true;
+                }
+    }
 
      configureRouter() {
         this.router = Router();
@@ -116,6 +125,15 @@ export class DrawingRoute {
                         res.status(500).json({RESPONSE: 'invalid drawing'});
                 }
         });
+        this.router.post('/addtag/:id', (req, res) => {
+                const id: number = Number(req.params.id);
+                const tag: string = req.body;
+                if (this.addTag(id, tag)) {
+                        res.json('tag added');
+                } else {
+                        res.json('tag not added');
+                }
+            });
         this.router.get('/drawing/count', (req, res) => {
                 res.json(this.drawings.length);
         });
