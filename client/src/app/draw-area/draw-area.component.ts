@@ -101,13 +101,11 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseMove(event: MouseEvent): void {
-        if (this.toolService.currentTool.onMotion) {
-            const rect = this.svg.nativeElement.getBoundingClientRect();
-            event.svgX = event.clientX - rect.left;
-            event.svgY = event.clientY - rect.top;
-            this.toolService.currentTool.onMotion(event);
-            event.stopPropagation();
-        }
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
+        this.toolService.currentTool.onMotion(event);
+        event.stopPropagation();
     }
 
     onDoubleClick(event: MouseEvent): void {
@@ -116,25 +114,21 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseDown(event: MouseEvent): void {
-        if (this.toolService.currentTool.onPressed) {
-            const rect = this.svg.nativeElement.getBoundingClientRect();
-            event.svgX = event.clientX - rect.left;
-            event.svgY = event.clientY - rect.top;
-            const cmd: CmdInterface | null = this.toolService.currentTool.onPressed(event);
-            CmdService.execute(cmd);
-            event.stopPropagation();
-        }
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
+        const cmd: CmdInterface | null = this.toolService.currentTool.onPressed(event);
+        CmdService.execute(cmd);
+        event.stopPropagation();
     }
 
     @HostListener('window:mouseup', ['$event'])
     onMouseUp(event: MouseEvent): void {
-        if (this.toolService.currentTool.onReleased) {
-            const rect = this.svg.nativeElement.getBoundingClientRect();
-            event.svgX = event.clientX - rect.left;
-            event.svgY = event.clientY - rect.top;
-            this.toolService.currentTool.onReleased(event);
-            event.stopPropagation();
-        }
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
+        this.toolService.currentTool.onReleased(event);
+        event.stopPropagation();
     }
 
     onMouseEnter(): void {

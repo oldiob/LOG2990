@@ -40,4 +40,7 @@ export class BucketTool implements ITool {
         }
         return new CmdBucket(obj, color, primary);
     }
+
+    onMotion(event: MouseEvent): void { }
+    onReleased(event: MouseEvent): void { }
 }

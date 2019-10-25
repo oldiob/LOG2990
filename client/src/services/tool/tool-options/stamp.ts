@@ -67,4 +67,6 @@ export class StampTool implements ITool {
         // return element;
         return null;
     }
+
+    onMotion(event: MouseEvent): void { }
 }
