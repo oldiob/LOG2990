@@ -2,7 +2,6 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material';
-import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -32,7 +31,6 @@ export class SaveOptionComponent implements OnInit {
     saveForm: FormGroup;
 
     constructor(
-        private dialogService: DialogService,
         private drawAreaService: DrawAreaService,
         private svgService: SVGService,
         private formBuilder: FormBuilder,
@@ -58,7 +56,6 @@ export class SaveOptionComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.dialogService.disableKey();
         this.visible = true;
         this.selectable = true;
         this.removable = true;
@@ -120,10 +117,8 @@ export class SaveOptionComponent implements OnInit {
         };
 
         this.drawAreaService.save(drawing);
-        this.dialogService.enableKey();
     }
 
     onClose() {
-        this.dialogService.enableKey();
     }
 }

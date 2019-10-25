@@ -40,13 +40,13 @@ describe('ToolbarComponent', () => {
     beforeEach(async(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {
-              entryComponents: [
-                  GalleryOptionComponent,
-                  NewDrawingComponent,
-                  SaveOptionComponent,
-              ],
+                entryComponents: [
+                    GalleryOptionComponent,
+                    NewDrawingComponent,
+                    SaveOptionComponent,
+                ],
             },
-          });
+        });
         TestBed.configureTestingModule({
             imports: [MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
@@ -67,9 +67,8 @@ describe('ToolbarComponent', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
-        dialogService = jasmine.createSpyObj('DialogService', ['keyEnable', 'open']);
-        dialogService.keyEnable = true;
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
+        dialogService = jasmine.createSpyObj('DialogService', ['open']);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -137,7 +136,6 @@ describe('ToolbarComponent', () => {
 
     it('should save image ', () => {
         component.saveImage();
-        component.dialogService.open(NewDrawingComponent);
         expect(dialogService.open).toHaveBeenCalled();
     });
 
