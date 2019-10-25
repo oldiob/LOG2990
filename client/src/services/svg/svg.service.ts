@@ -24,13 +24,14 @@ export class SVGService {
         return null;
     }
 
-    findIn(x: number, y: number, r: number): SVGInterface | null {
+    findIn(x: number, y: number, r: number): (SVGInterface | null)[] {
+        let elements: (SVGInterface | null)[] = [];
         for (let i = this.objects.length - 1; i >= 0; --i) {
             if (this.objects[i].isIn(x, y, r)) {
-                return this.objects[i];
+                elements.push(this.objects[i]);
             }
         }
-        return null;
+        return elements;
     }
 
     addObject(obj: SVGInterface | null) {
@@ -165,8 +166,8 @@ export class SVGService {
         renderer.setAttribute(offset, 'result', 'offsetBlur');
 
         const flood = renderer.createElement('feFlood', 'svg');
-        renderer.setAttribute(flood, 'flood-color', '#3D4574');
-        renderer.setAttribute(flood, 'flood-opacity', '0.5');
+        renderer.setAttribute(flood, 'flood-color', 'red');
+        renderer.setAttribute(flood, 'flood-opacity', '0.2');
         renderer.setAttribute(flood, 'result', 'offsetColor');
 
         const composite = renderer.createElement('feComposite', 'svg');

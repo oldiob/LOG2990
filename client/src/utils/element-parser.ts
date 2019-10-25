@@ -50,7 +50,7 @@ const deserializeSVG = (json: string): any => {
 /**
  * The parsed elements dont keep their namespace, we need to recreate their attributes and children.
  */
-const recreateElement = (fakeElement: any): any => {
+export const recreateElement = (fakeElement: any): any => {
     const realElement = DOMRenderer.createElement(fakeElement.nodeName, 'svg');
 
     for (const attribute of fakeElement.attributes) {

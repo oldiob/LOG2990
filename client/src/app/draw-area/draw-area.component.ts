@@ -6,7 +6,6 @@ import { CmdService, CmdInterface } from 'src/services/cmd/cmd.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-draw-area',

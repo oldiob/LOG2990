@@ -35,7 +35,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
         private selector: SelectorTool,
         private eraser: EraserTool) {
 
-        this.tools = [eraser, selector];
+        this.tools = [selector, eraser];
         this.currentTool = this.tools[0];
         this.select();
     }
