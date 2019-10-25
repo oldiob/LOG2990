@@ -4,11 +4,11 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 
 @Component({
-    selector: 'app-color-option',
-    templateUrl: './color-option.component.html',
-    styleUrls: ['./color-option.component.scss', '../toolbar-option.scss'],
+    selector: 'app-color-button',
+    templateUrl: './color-button.component.html',
+    styleUrls: ['./color-button.component.scss'],
 })
-export class ColorOptionComponent implements OnInit {
+export class ColorButtonComponent implements OnInit {
 
     alpha: number;
 

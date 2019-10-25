@@ -23,7 +23,8 @@ import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
-import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
+import { ColorButtonComponent } from './app/toolbar/color-selection/color-button/color-button.component';
+import { ColorSelectionComponent } from './app/toolbar/color-selection/color-selection.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
@@ -41,7 +42,7 @@ import { DOMRenderer } from './utils/dom-renderer';
 
 @NgModule({
     declarations: [
-        ColorOptionComponent,
+        ColorButtonComponent,
         DrawAreaComponent,
         EntryPointComponent,
         NewDrawingComponent,
@@ -64,6 +65,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         SelectorOptionComponent,
         GridOptionComponent,
         TextOptionComponent,
+        ColorSelectionComponent,
     ],
     imports: [
         BrowserModule,

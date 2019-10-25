@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { AbsShapeTool, TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -33,10 +32,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     shapeForm: FormGroup;
     isPolygon = false;
 
-    readonly IS_PRIMARY = true;
-
     constructor(
-        private paletteService: PaletteService,
         private toolService: ToolService,
         private rectangleTool: RectangleTool,
         private ellipseTool: EllipseTool,
@@ -98,9 +94,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.updateShowcase();
     }
 
-    onSwap(): void {
-        this.paletteService.swap();
-    }
     updateShowcase(): void {
         this.showcase.display(this.currentTool);
     }

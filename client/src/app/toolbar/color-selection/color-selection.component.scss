@@ -1,0 +1,18 @@
+.buttons-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.swap {
+  --length: 50px;
+  height: var(--length);
+  width: var(--length);
+  align-self: center;
+}
+
+.swap:hover {
+  cursor: pointer;
+}

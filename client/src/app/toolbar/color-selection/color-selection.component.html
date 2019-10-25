@@ -1,0 +1,12 @@
+<div class="buttons-wrapper">
+    <app-color-button 
+        [isPrimary]="IS_PRIMARY">
+    </app-color-button>
+
+    <div class="swap" (click)="onSwap()">
+        <img src="../../../assets/images/swap.svg" alt="swap">
+    </div>
+    <app-color-button
+        [isPrimary]="!IS_PRIMARY">
+    </app-color-button>
+</div>

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { Base64, IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
@@ -70,10 +69,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     lineForm: FormGroup;
     junctionForm: FormGroup;
 
-    readonly IS_PRIMARY = true;
-
     constructor(
-        private paletteService: PaletteService,
         private toolService: ToolService,
         private formBuilder: FormBuilder,
         public pencil: PencilTool,
@@ -163,10 +159,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    onSwap(): void {
-        this.paletteService.swap();
-
-    }
     onLineTypeChange(): void {
         if (this.currentTool instanceof LineTool) {
             this.currentTool.lineType = this.lineForm.controls.lineType.value;

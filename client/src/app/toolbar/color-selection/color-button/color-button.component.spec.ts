@@ -4,17 +4,17 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
-import { ColorOptionComponent } from './color-option.component';
+import { ColorButtonComponent } from './color-button.component';
 
-describe('ColorOptionComponent', () => {
-    let component: ColorOptionComponent;
-    let fixture: ComponentFixture<ColorOptionComponent>;
+describe('ColorButtonComponent', () => {
+    let component: ColorButtonComponent;
+    let fixture: ComponentFixture<ColorButtonComponent>;
     let service: PaletteService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ColorOptionComponent],
+            declarations: [ColorButtonComponent],
             providers: [PaletteService],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -22,7 +22,7 @@ describe('ColorOptionComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ColorOptionComponent);
+        fixture = TestBed.createComponent(ColorButtonComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         service = TestBed.get(PaletteService);

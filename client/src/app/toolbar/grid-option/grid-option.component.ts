@@ -22,12 +22,10 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     currentTool: ITool;
 
     isOn: boolean;
-    readonly IS_PRIMARY = true;
     opacity: number;
     step: number;
 
     constructor(
-        private paletteService: PaletteService,
         private toolService: ToolService,
         public gridService: GridService,
         private gridTool: GridTool) {
@@ -72,9 +70,4 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
-
-    onSwap() {
-        this.paletteService.swap();
-    }
-
 }
