@@ -43,10 +43,6 @@ export class SVGRectangle extends AbsSVGShape {
             this.center[1] + this.size[1] >= y);
     }
 
-    isIn(x: number, y: number, r: number): boolean {
-        return true;
-    }
-
     setCursor(x: number, y: number, isShift: boolean) {
         this.updateCoordinates(x, y, isShift);
 

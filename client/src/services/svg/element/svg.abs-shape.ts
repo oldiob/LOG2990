@@ -59,11 +59,9 @@ export abstract class AbsSVGShape implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.pointSize;
         const tempSize = this.size;
-        this.pointSize = r;
-        this.size = vectorPlus(this.size, [r, r]);
-
+        this.pointSize += r;
+        this.size = vectorPlus(tempSize, [r / 2, r / 2]);
         const isInside = this.isAt(x, y);
-
         this.pointSize = tempWidth;
         this.size = tempSize;
         return isInside;
@@ -130,11 +128,11 @@ export abstract class AbsSVGShape implements SVGInterface {
             `${Math.abs(this.startingPoint[1] - this.endingPoint[1]) + this.pointSize}`);
     }
 
-    protected showPerimeter() {
+    showPerimeter() {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'gray');
     }
 
-    protected hidePerimeter() {
+    hidePerimeter() {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
     }
 

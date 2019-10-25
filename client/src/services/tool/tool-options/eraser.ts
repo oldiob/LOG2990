@@ -3,16 +3,11 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
 import { ITool } from './i-tool';
-import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
-import { TraceType } from './abs-shape-tool';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 
 @Injectable({
     providedIn: 'root',
 })
 export class EraserTool implements ITool {
-
-    circleOfDeath: SVGEllipse;
 
     activated: boolean;
     width: number;
@@ -21,11 +16,7 @@ export class EraserTool implements ITool {
 
     constructor(private svgService: SVGService) {
         this.activated = false;
-        this.width = 100;
-
-        this.circleOfDeath = new SVGEllipse(0, 0, TraceType.FillAndBorder);
-        this.circleOfDeath.setPrimary('white');
-        this.circleOfDeath.setSecondary('black');
+        this.width = 64;
     }
 
     onPressed(event: MouseEvent): null {
@@ -42,20 +33,10 @@ export class EraserTool implements ITool {
         const x: number = event.svgX;
         const y: number = event.svgY;
 
-        this.circleOfDeath.startingPoint = [x - this.width / 2, y - this.width / 2];
-        this.circleOfDeath.setCursor(x + this.width / 2, y + this.width / 2, true);
-
         this.objectOnHold = this.svgService.findIn(x, y, this.width);
 
         if (this.activated) {
             this.svgService.removeObject(this.objectOnHold);
-        }
-    }
-
-    onSelect() {
-        if (this.svgService.entry !== undefined) {
-            DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.circleOfDeath.element);
-            DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.circleOfDeath.element);
         }
     }
 }

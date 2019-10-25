@@ -16,6 +16,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
 
     images = new Map<ITool, string>([
         [this.selector, 'selector.png'],
+        [this.eraser, 'eraser.png'],
     ]);
 
     tools: ITool[];
@@ -56,10 +57,6 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-
-        if (tool === this.eraser) {
-            this.eraser.onSelect();
-        }
     }
 
     getFilesource(tool: ITool): string {

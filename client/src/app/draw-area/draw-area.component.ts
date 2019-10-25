@@ -5,6 +5,8 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { CmdService, CmdInterface } from 'src/services/cmd/cmd.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-draw-area',
@@ -84,10 +86,20 @@ export class DrawAreaComponent implements OnInit {
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
 
+        let currentCursor = 'crosshair';
+
+        if (Object.getPrototypeOf(this.toolService.currentTool) === EraserTool.prototype) {
+            const radius = this.toolService.currentTool.width;
+            if (radius) {
+                currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
+            }
+        }
+
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor}`,
+            cursor: currentCursor,
         };
     }
 
