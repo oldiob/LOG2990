@@ -1,5 +1,5 @@
 import { SVGInterface } from '../../svg/element/svg.interface';
-import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { CmdInterface } from '../../cmd/cmd.service';
 
 /**
  * Implementations of this interface should return raw SVGInterface with
@@ -20,7 +20,7 @@ export enum JunctionType {
 export interface ITool {
     width?: number;
 
-    onPressed?(event: MouseEvent): CmdInterface;
+    onPressed?(event: MouseEvent): CmdInterface | null;
     onMotion?(event: MouseEvent): void;
     onReleased?(event: MouseEvent): void;
 

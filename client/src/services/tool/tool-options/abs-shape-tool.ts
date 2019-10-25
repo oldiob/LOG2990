@@ -1,6 +1,5 @@
 import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 import { ITool } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 export enum TraceType {
     BorderOnly = 0,
@@ -20,8 +19,6 @@ export abstract class AbsShapeTool implements ITool {
             this.element.setPointSize(width);
         }
     }
-
-    abstract onPressed(event: MouseEvent): void;
 
     onMotion(event: MouseEvent): void {
         if (this.element !== null) {

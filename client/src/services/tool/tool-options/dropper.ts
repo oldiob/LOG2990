@@ -52,9 +52,9 @@ export class DropperTool implements ITool {
         svgImage.onload = setColor;
     }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): null {
         if (!this.loaded) {
-            return;
+            return null;
         }
 
         if (event.button === 0) {
@@ -70,6 +70,7 @@ export class DropperTool implements ITool {
                 this.currentColor.blue,
                 this.currentColor.alpha);
         }
+        return null;
     }
 
     onMotion(event: MouseEvent): void {

@@ -6,16 +6,13 @@ describe('StampTool', () => {
 
     const element = jasmine.createSpyObj('SVGStamp', ['addPoint', 'setCursor']);
     const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-    const injector = jasmine.createSpyObj('MyInjector', ['get']);
-    const svg = jasmine.createSpyObj('SVGService', ['addObject', 'removeObject'])
-    injector.get.and.returnValue(svg);
     const iStamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
     let stamp: StampTool;
     let event: MouseEvent;
 
     beforeEach(() => {
+        MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         DOMRenderer.renderer = renderer;
-        MyInjector.injector = injector;
         stamp = new StampTool();
         stamp.stampTexture = iStamp;
         event = new MouseEvent('mousedown');
@@ -26,8 +23,7 @@ describe('StampTool', () => {
     });
 
     it('should create new stamp when onPressed', () => {
-        stamp.onPressed(event);
-        expect(svg.addObject).toHaveBeenCalled();
+        expect(stamp.onPressed(event)).toBeTruthy();
     });
 
     it('should set element to null when OnReleased', () => {

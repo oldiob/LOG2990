@@ -1,5 +1,5 @@
 import { MyInjector } from 'src/utils/injector';
-import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
+import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 

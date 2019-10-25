@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
-import { SVGInterface } from 'src/services/cmd/cmd.interface';
+import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
@@ -83,8 +83,8 @@ export class SelectorTool implements ITool {
         DOMRenderer.setAttribute(this.circleW, 'fill', '#00F0FF');
     }
 
-    onPressed(event: MouseEvent): CmdInterface {
-	let cmd: CmdInterface;
+    onPressed(event: MouseEvent): CmdInterface | null {
+        let cmd: CmdInterface | null = null;
         switch (event.button) {
             case 0:
                 this.policy = false;
@@ -95,7 +95,7 @@ export class SelectorTool implements ITool {
                 break;
 
             default:
-                return;
+                return null;
         }
         switch (this.state) {
             case State.idle:
@@ -104,7 +104,7 @@ export class SelectorTool implements ITool {
             default:
                 this.state = State.idle;
         }
-	return cmd;
+        return cmd;
     }
 
     onMotion(event: MouseEvent): void {

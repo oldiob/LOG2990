@@ -18,11 +18,10 @@ export class LineTool implements ITool {
     junctionType: JunctionType;
     constructor(private paletteService: PaletteService) { }
 
-    onPressed(event: MouseEvent): CmdSVG {
-	let cmd: CmdSVG;
+    onPressed(event: MouseEvent): CmdSVG | null {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
-            return cmd;
+            return null;
 
         }
         const line = new SVGLine(event.svgX, event.svgY, this.junctionWidth, this.lineType,
@@ -30,7 +29,7 @@ export class LineTool implements ITool {
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
-	return new CmdSVG(this.element);
+        return new CmdSVG(this.element);
     }
 
     onReleased(event: MouseEvent): void {

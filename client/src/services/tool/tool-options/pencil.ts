@@ -13,8 +13,8 @@ export class PencilTool implements ITool {
 
     constructor(private paletteService: PaletteService) { }
 
-    onPressed(event: MouseEvent): CmdSVG {
-	let cmd: CmdSVG;
+    onPressed(event: MouseEvent): CmdSVG | null {
+        let cmd: CmdSVG | null = null;
         if (!this.element) {
             const x = event.svgX;
             const y = event.svgY;
@@ -27,7 +27,7 @@ export class PencilTool implements ITool {
 
             cmd = new CmdSVG(this.element);
         }
-	return cmd;
+        return cmd;
     }
     onMotion(event: MouseEvent): void {
         if (this.element) {

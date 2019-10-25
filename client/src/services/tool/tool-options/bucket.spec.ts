@@ -1,5 +1,4 @@
 import { BucketTool } from './bucket';
-import { CmdService } from 'src/services/cmd/cmd.service';
 
 describe('BucketTool', () => {
 
@@ -20,7 +19,6 @@ describe('BucketTool', () => {
         svgService = jasmine.createSpyObj('SVGService', ['findAt']);
         svgService.findAt.and.returnValue(svgInterface);
 
-
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
         paletteService.getPrimary.and.returnValue(PRIMARY);
         paletteService.getSecondary.and.returnValue(SECONDARY);
@@ -29,7 +27,6 @@ describe('BucketTool', () => {
         left.svgY = Math.floor(Math.random() * 1000);
         right.svgX = Math.floor(Math.random() * 1000);
         right.svgY = Math.floor(Math.random() * 1000);
-        spyOn(CmdService, 'execute');
     });
 
     it('should exists', () => {
@@ -37,12 +34,10 @@ describe('BucketTool', () => {
     });
 
     it('should change the primary color of an object on left click', () => {
-        bucket.onPressed(left);
-        expect(CmdService.execute).toHaveBeenCalled();
+        expect(bucket.onPressed(left)).toBeTruthy();
     });
 
     it('should change the secondary color of an object on right click', () => {
-        bucket.onPressed(right)
-        expect(CmdService.execute).toHaveBeenCalled();
+        expect(bucket.onPressed(right)).toBeTruthy();
     });
 });
