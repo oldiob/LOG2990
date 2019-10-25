@@ -21,8 +21,9 @@
                     <span class="field-label">HEX</span>
                     <mat-form-field color="accent" class="field hex-field">
                         <input maxlength="7" matInput type="text" formControlName="colorHEX" (change)="onColorHEXChange()"
-                            value="{{DEFAULT_COLOR_HEX}}" autocomplete=off>
+                            value="{{this.colorsForm.controls.colorHEX.value}}" autocomplete=off>
                     </mat-form-field>
+                    <div class="preview" [ngStyle]="{'background-color': this.colorsForm.controls.colorHEX.value}"></div>
                 </div>
     
                 <label class="rgba-wrapper">
@@ -30,17 +31,17 @@
     
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" (selectionChange)=validate($event); matInput type="number"
-                            formControlName="red" (change)="onColorRGBAChange()" value="{{DEFAULT_RED}}" class="field rgba-field">
+                            formControlName="red" (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.red.value}}" class="field rgba-field">
                     </mat-form-field>
     
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" matInput type="number" formControlName="green"
-                            (change)="onColorRGBAChange()" value="{{DEFAULT_GREEN}}">
+                            (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.green.value}}">
                     </mat-form-field>
     
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" matInput type="number" formControlName="blue"
-                            (change)="onColorRGBAChange()" value="{{DEFAULT_BLUE}}">
+                            (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.blue.value}}">
                     </mat-form-field>
                 </label>
 
