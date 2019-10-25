@@ -105,22 +105,20 @@ describe('ToolOptionComponent', () => {
         expect((component.currentTool as LineTool).junctionWidth).toEqual(junctionWidth);
         expect(showcase.display).toHaveBeenCalled();
     });
-    it('should swap primary and secondary color', () => {
-        component.onSwap();
-        expect(component.onSwap).toBeTruthy();
-    });
+
     it('should line type change on display', () => {
         component.onLineTypeChange();
         if (component.currentTool instanceof LineTool) {
-        expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
-        expect(showcase.display).toHaveBeenCalled();
+            expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
+            expect(showcase.display).toHaveBeenCalled();
         }
     });
+
     it('should jonction type change on display', () => {
         component.onJunctionTypeChange();
         if (component.currentTool instanceof LineTool) {
-        expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
-        expect(showcase.display).toHaveBeenCalled();
+            expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
+            expect(showcase.display).toHaveBeenCalled();
         }
     });
 });

@@ -39,25 +39,27 @@ describe('ColorButtonComponent', () => {
     });
 
     it('#onColorHEXChange should update RGBA color', () => {
-        const aColor = new Color(255, 255, 255, 1);
+        const primary = new Color(30, 30, 30, 1);
         component.isPrimary = true;
         component.onColorHEXChange();
-        expect(service.getPrimary()).toBe(aColor.toString());
+        expect(service.getPrimary()).toBe(primary.toString());
 
+        const secondary = new Color(170, 170, 170, 1);
         component.isPrimary = false;
         component.onColorHEXChange();
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(service.getSecondary()).toBe(secondary.toString());
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
-        const aColor = new Color(255, 255, 255, 1);
+        const primary = new Color(30, 30, 30, 1);
         component.isPrimary = true;
         component.onColorRGBAChange();
-        expect(service.getPrimary()).toBe(aColor.toString());
+        expect(service.getPrimary()).toBe(primary.toString());
 
+        const secondary = new Color(170, 170, 170, 1);
         component.isPrimary = false;
         component.onColorRGBAChange();
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(service.getSecondary()).toBe(secondary.toString());
     });
 
     it('#onAlphaChange should update alpha', () => {

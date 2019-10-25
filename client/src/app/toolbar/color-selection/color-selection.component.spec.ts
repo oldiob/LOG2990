@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ColorSelectionComponent } from './color-selection.component';
 
 describe('ColorSelectionComponent', () => {
@@ -8,9 +10,11 @@ describe('ColorSelectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ColorSelectionComponent ]
+      declarations: [ColorSelectionComponent],
+      providers: [{ provide: MatDialogRef, useValue: {} }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

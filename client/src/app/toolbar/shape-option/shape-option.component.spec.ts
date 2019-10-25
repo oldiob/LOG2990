@@ -71,10 +71,4 @@ describe('ShapeOptionComponent', () => {
         expect(component.currentTool.traceType).toEqual(component.shapeForm.controls.traceType.value);
         expect(showcase.display).toHaveBeenCalled();
     });
-
-    it('should swap primary and secondary color', () => {
-        component.onSwap();
-        expect(component.onSwap).toBeTruthy();
-    });
-
 });
