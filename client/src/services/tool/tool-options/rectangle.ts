@@ -17,9 +17,9 @@ export class RectangleTool extends AbsShapeTool {
         this.traceType = TraceType.FillAndBorder;
     }
 
-    onPressed(event: MouseEvent): SVGRectangle | null {
+    onPressed(event: MouseEvent): void {
         this.element = new SVGRectangle(event.svgX, event.svgY, this.traceType);
         this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
-        return this.element;
+        this.addShape();
     }
 }

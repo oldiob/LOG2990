@@ -9,8 +9,8 @@ export class GridTool implements ITool {
 
     constructor(public grid: GridService) { }
 
-    onPressed(event: MouseEvent): null {
-        return null;
+    onPressed(event: MouseEvent): void {
+        return;
     }
 
     onReleased(event: MouseEvent): void {

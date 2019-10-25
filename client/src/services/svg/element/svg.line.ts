@@ -56,7 +56,7 @@ export class SVGLine implements SVGInterface {
                 DOMRenderer.appendChild(this.element, this.circle);
 
                 break;
-                }
+        }
         DOMRenderer.appendChild(this.element, this.line);
 
         this.fullRender();
@@ -88,6 +88,18 @@ export class SVGLine implements SVGInterface {
         this.width = width;
         DOMRenderer.setAttribute(this.polyline, 'stroke-width', width.toString());
         DOMRenderer.setAttribute(this.line, 'stroke-width', width.toString());
+    }
+
+    getPrimary(): string {
+        const child = this.element.children[0];
+        if (child.nodeName === 'circle')
+            return child.getAttribute('fill');
+        else
+            return child.getAttribute('stroke');
+    }
+
+    getSecondary(): string {
+        return '';
     }
 
     setPrimary(color: string) {

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { CmdBucket } from 'src/services/cmd/cmd.bucket';
 import { SVGService } from 'src/services/svg/svg.service';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 
 import { ITool } from './i-tool';
 
@@ -11,29 +12,32 @@ import { ITool } from './i-tool';
 export class BucketTool implements ITool {
 
     constructor(private svgService: SVGService,
-                private paletteService: PaletteService) { }
+        private paletteService: PaletteService) { }
 
-    onPressed(event: MouseEvent): null {
+    onPressed(event: MouseEvent): void {
         const x: number = event.svgX;
         const y: number = event.svgY;
+        let primary: boolean = true;
+        let color: string = '';
 
-        const obj: SVGInterface | null = this.svgService.findAt(x, y);
-        if (obj !== null) {
-            if (event.button === 0) {
-                obj.setPrimary(this.paletteService.getPrimary());
-            } else if (event.button === 2) {
-                obj.setSecondary(this.paletteService.getSecondary());
-            }
+        switch (event.button) {
+            case 0:
+                primary = true;
+                color = this.paletteService.getPrimary();
+                break;
+
+            case 2:
+                primary = false;
+                color = this.paletteService.getSecondary();
+                break;
+
+            default:
+                return;
         }
 
-        return null;
-    }
-
-    onReleased(event: MouseEvent): void {
-        return;
-    }
-
-    onMotion(event: MouseEvent): void {
-        return;
+        const obj: SVGInterface | null = this.svgService.findAt(x, y);
+        if (obj) {
+            new CmdBucket(obj, color, primary);
+        }
     }
 }

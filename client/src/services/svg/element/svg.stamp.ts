@@ -31,6 +31,12 @@ export class SVGStamp implements SVGInterface {
     isIn(x: number, y: number): boolean {
         return false;
     }
+    getPrimary(): string {
+        return '';
+    }
+    getSecondary(): string {
+        return '';
+    }
     setPrimary(color: string): void {
         // No primary for stamp
     }

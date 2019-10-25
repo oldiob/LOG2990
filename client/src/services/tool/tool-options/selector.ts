@@ -82,24 +82,26 @@ export class SelectorTool implements ITool {
         DOMRenderer.setAttribute(this.circleW, 'fill', '#00F0FF');
     }
 
-    onPressed(event: MouseEvent): null {
-        if (event.button === 0) {
-            this.policy = false;
-        } else if (event.button === 2) {
-            this.policy = true;
-        } else {
-            this.state = State.idle;
-            return null;
+    onPressed(event: MouseEvent): void {
+        switch (event.button) {
+            case 0:
+                this.policy = false;
+                break;
+
+            case 2:
+                this.policy = true;
+                break;
+
+            default:
+                return;
         }
         switch (this.state) {
             case State.idle:
                 this.state = State.maybe;
                 break;
             default:
-                console.error('Impossible state', this.state);
                 this.state = State.idle;
         }
-        return null;
     }
 
     onMotion(event: MouseEvent): void {

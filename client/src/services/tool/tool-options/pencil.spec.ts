@@ -1,4 +1,5 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { MyInjector } from 'src/utils/injector';
 import { PencilTool } from './pencil';
 
 describe('PencilTool', () => {
@@ -6,19 +7,26 @@ describe('PencilTool', () => {
     let element: any;
     let renderer: any;
     let paletteService: any;
-
     let pencil: PencilTool;
     let event: MouseEvent;
+    let injector: any;
+    let svg: any;
 
     beforeEach(() => {
         element = jasmine.createSpyObj('SVGPencil', ['addPoint', 'setWidth']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         paletteService = jasmine.createSpyObj('PateService', ['getPrimary', 'getSecondary']);
-        DOMRenderer.renderer = renderer;
+        injector = jasmine.createSpyObj('MyInjector', ['get']);
+
+        svg = jasmine.createSpyObj('SVGService', ['addObject', 'removeObject'])
+        injector.get.and.returnValue(svg);
         pencil = new PencilTool(paletteService);
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
         event.svgY = Math.floor(Math.random() * 1000);
+
+        MyInjector.injector = injector;
+        DOMRenderer.renderer = renderer;
     });
 
     it('should exists', () => {
@@ -26,10 +34,9 @@ describe('PencilTool', () => {
     });
 
     it('should keep track of a newly created SVGPencil', () => {
-        pencil.element = null;
-        expect(pencil.onPressed(event)).toBeTruthy();
+        pencil.onPressed(event)
         expect(pencil.element).toBeTruthy();
-        expect(pencil.onPressed(event)).toBeNull();
+        expect(svg.addObject).toHaveBeenCalled();
     });
 
     it('should add a point to the newly created element', () => {

@@ -1,4 +1,5 @@
 import { BucketTool } from './bucket';
+import { CmdService } from 'src/services/cmd/cmd.service';
 
 describe('BucketTool', () => {
 
@@ -19,6 +20,7 @@ describe('BucketTool', () => {
         svgService = jasmine.createSpyObj('SVGService', ['findAt']);
         svgService.findAt.and.returnValue(svgInterface);
 
+
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
         paletteService.getPrimary.and.returnValue(PRIMARY);
         paletteService.getSecondary.and.returnValue(SECONDARY);
@@ -27,6 +29,7 @@ describe('BucketTool', () => {
         left.svgY = Math.floor(Math.random() * 1000);
         right.svgX = Math.floor(Math.random() * 1000);
         right.svgY = Math.floor(Math.random() * 1000);
+        spyOn(CmdService, 'execute');
     });
 
     it('should exists', () => {
@@ -34,24 +37,12 @@ describe('BucketTool', () => {
     });
 
     it('should change the primary color of an object on left click', () => {
-        expect(bucket.onPressed(left)).toBeNull();
-        expect(svgService.findAt).toHaveBeenCalledWith(left.svgX, left.svgY);
-        expect(paletteService.getPrimary).toHaveBeenCalled();
-        expect(svgInterface.setPrimary).toHaveBeenCalledWith(PRIMARY);
+        bucket.onPressed(left);
+        expect(CmdService.execute).toHaveBeenCalled();
     });
 
     it('should change the secondary color of an object on right click', () => {
-        expect(bucket.onPressed(right)).toBeNull();
-        expect(svgService.findAt).toHaveBeenCalledWith(right.svgX, right.svgY);
-        expect(paletteService.getSecondary).toHaveBeenCalled();
-        expect(svgInterface.setSecondary).toHaveBeenCalledWith(SECONDARY);
-    });
-
-    it('should do nothing on motion', () => {
-        expect(bucket.onMotion(left)).toBeUndefined();
-    });
-
-    it('should do nothingo on released', () => {
-        expect(bucket.onReleased(left)).toBeUndefined();
+        bucket.onPressed(right)
+        expect(CmdService.execute).toHaveBeenCalled();
     });
 });

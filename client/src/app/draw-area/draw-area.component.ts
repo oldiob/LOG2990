@@ -100,11 +100,13 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseMove(event: MouseEvent): void {
-        const rect = this.svg.nativeElement.getBoundingClientRect();
-        event.svgX = event.clientX - rect.left;
-        event.svgY = event.clientY - rect.top;
-        this.toolService.currentTool.onMotion(event);
-        event.stopPropagation();
+        if (this.toolService.currentTool.onMotion) {
+            const rect = this.svg.nativeElement.getBoundingClientRect();
+            event.svgX = event.clientX - rect.left;
+            event.svgY = event.clientY - rect.top;
+            this.toolService.currentTool.onMotion(event);
+            event.stopPropagation();
+        }
     }
 
     onDoubleClick(event: MouseEvent): void {
@@ -113,20 +115,24 @@ export class DrawAreaComponent implements OnInit {
     }
 
     onMouseDown(event: MouseEvent): void {
-        const rect = this.svg.nativeElement.getBoundingClientRect();
-        event.svgX = event.clientX - rect.left;
-        event.svgY = event.clientY - rect.top;
-        this.svgService.addObject(this.toolService.currentTool.onPressed(event));
-        event.stopPropagation();
+        if (this.toolService.currentTool.onPressed) {
+            const rect = this.svg.nativeElement.getBoundingClientRect();
+            event.svgX = event.clientX - rect.left;
+            event.svgY = event.clientY - rect.top;
+            this.toolService.currentTool.onPressed(event);
+            event.stopPropagation();
+        }
     }
 
     @HostListener('window:mouseup', ['$event'])
     onMouseUp(event: MouseEvent): void {
-        const rect = this.svg.nativeElement.getBoundingClientRect();
-        event.svgX = event.clientX - rect.left;
-        event.svgY = event.clientY - rect.top;
-        this.toolService.currentTool.onReleased(event);
-        event.stopPropagation();
+        if (this.toolService.currentTool.onReleased) {
+            const rect = this.svg.nativeElement.getBoundingClientRect();
+            event.svgX = event.clientX - rect.left;
+            event.svgY = event.clientY - rect.top;
+            this.toolService.currentTool.onReleased(event);
+            event.stopPropagation();
+        }
     }
 
     onMouseEnter(): void {
@@ -149,9 +155,7 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window:keyup', ['$event'])
     onKeyReleased(event: KeyboardEvent): void {
         if (this.toolService.currentTool.onKeyup) {
-            if (this.toolService.currentTool.onKeyup(event)) {
-                return;
-            }
+            this.toolService.currentTool.onKeyup(event);
         }
     }
 

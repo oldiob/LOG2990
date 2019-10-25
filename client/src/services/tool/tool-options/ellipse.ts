@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
 import { AbsShapeTool, TraceType } from './abs-shape-tool';
 
@@ -17,9 +16,11 @@ export class EllipseTool extends AbsShapeTool {
         this.traceType = TraceType.FillAndBorder;
     }
 
-    onPressed(event: MouseEvent): AbsSVGShape {
+    onPressed(event: MouseEvent) {
         this.element = new SVGEllipse(event.svgX, event.svgY, this.traceType);
-        this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
-        return this.element;
+        this.setElementAttributes(this.paletteService.getPrimary(),
+            this.paletteService.getSecondary(),
+            this.width);
+        this.addShape();
     }
 }

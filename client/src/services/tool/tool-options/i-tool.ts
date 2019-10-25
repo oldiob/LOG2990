@@ -19,9 +19,9 @@ export enum JunctionType {
 export interface ITool {
     width?: number;
 
-    onPressed(event: MouseEvent): SVGInterface | null;
-    onMotion(event: MouseEvent): void;
-    onReleased(event: MouseEvent): void;
+    onPressed?(event: MouseEvent): void;
+    onMotion?(event: MouseEvent): void;
+    onReleased?(event: MouseEvent): void;
 
     onKeydown?(event: KeyboardEvent): boolean;
     onKeyup?(event: KeyboardEvent): boolean;

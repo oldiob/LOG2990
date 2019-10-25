@@ -1,5 +1,6 @@
 import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 import { ITool } from './i-tool';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 export enum TraceType {
     BorderOnly = 0,
@@ -10,7 +11,7 @@ export enum TraceType {
 export abstract class AbsShapeTool implements ITool {
     width: number;
     traceType: TraceType;
-    element: AbsSVGShape | null;
+    element: AbsSVGShape | null = null;
 
     protected setElementAttributes(primaryColor: string, secondaryColor: string, width: number) {
         if (this.element !== null) {
@@ -20,12 +21,19 @@ export abstract class AbsShapeTool implements ITool {
         }
     }
 
-    abstract onPressed(event: MouseEvent): AbsSVGShape | null;
+    abstract onPressed(event: MouseEvent): void;
+
+    addShape() {
+        if (this.element)
+            new CmdSVG(this.element);
+    }
+
     onMotion(event: MouseEvent): void {
         if (this.element !== null) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
     }
+
     onReleased(event: MouseEvent): void {
         if (this.element !== null) {
             this.element.release();

@@ -63,6 +63,14 @@ export abstract class AbsSVGShape implements SVGInterface {
         DOMRenderer.setAttribute(this.element.children[1], 'stroke-width', this.pointSize.toString());
     }
 
+    getPrimary(): string {
+        return this.element.children[1].getAttribute('fill');
+    }
+
+    getSecondary(): string {
+        return this.element.children[1].getAttribute('stroke');
+    }
+
     setPrimary(color: string): void {
         this.primary = color;
         if (this.fillOpacity === 1) {
