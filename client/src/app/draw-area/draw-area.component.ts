@@ -119,7 +119,8 @@ export class DrawAreaComponent implements OnInit {
             const rect = this.svg.nativeElement.getBoundingClientRect();
             event.svgX = event.clientX - rect.left;
             event.svgY = event.clientY - rect.top;
-            this.toolService.currentTool.onPressed(event);
+            const cmd: CmdInterface = this.toolService.currentTool.onPressed(event);
+	    CmdService.execute(cmd);
             event.stopPropagation();
         }
     }

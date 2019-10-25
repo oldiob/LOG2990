@@ -11,7 +11,6 @@ export class CmdSVG implements CmdInterface {
     constructor(obj: SVGInterface) {
         this.obj = obj;
         this.svg = MyInjector.get(SVGService);
-        CmdService.execute(this);
     }
 
     execute(): void {

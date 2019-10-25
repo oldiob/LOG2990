@@ -18,14 +18,16 @@ export class BrushTool implements ITool {
         this.width = 5;
     }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): CmdSVG {
+	let cmd: CmdInterface;
         if (!this.element) {
             this.element = new SVGBrush(this.width, this.texture);
             this.element.setPrimary(this.paletteService.getPrimary());
             this.element.setSecondary(this.paletteService.getSecondary());
             this.element.addPoint(event.svgX, event.svgY);
-            new CmdSVG(this.element);
+            cmd = new CmdSVG(this.element);
         }
+	return cmd;
     }
 
     onMotion(event: MouseEvent): void {

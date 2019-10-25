@@ -14,7 +14,7 @@ export class BucketTool implements ITool {
     constructor(private svgService: SVGService,
         private paletteService: PaletteService) { }
 
-    onPressed(event: MouseEvent): void {
+    onPressed(event: MouseEvent): CmdBucket {
         const x: number = event.svgX;
         const y: number = event.svgY;
         let primary: boolean = true;
@@ -34,10 +34,11 @@ export class BucketTool implements ITool {
             default:
                 return;
         }
-
         const obj: SVGInterface | null = this.svgService.findAt(x, y);
+	let cmd: CmdBucket;
         if (obj) {
-            new CmdBucket(obj, color, primary);
+            cmd = new CmdBucket(obj, color, primary);
         }
+	return cmd;
     }
 }

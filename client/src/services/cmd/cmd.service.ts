@@ -4,9 +4,11 @@ export class CmdService {
     static redos: CmdInterface[] = [];
 
     static execute(cmd: CmdInterface) {
-        cmd.execute();
-        CmdService.redos.length = 0;
-        CmdService.undos.push(cmd);
+	if (cmd) {
+	         cmd.execute();
+            CmdService.redos.length = 0;
+            CmdService.undos.push(cmd);
+	}
     }
 
     static undo(): CmdInterface | undefined {

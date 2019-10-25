@@ -23,11 +23,6 @@ export abstract class AbsShapeTool implements ITool {
 
     abstract onPressed(event: MouseEvent): void;
 
-    addShape() {
-        if (this.element)
-            new CmdSVG(this.element);
-    }
-
     onMotion(event: MouseEvent): void {
         if (this.element !== null) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);

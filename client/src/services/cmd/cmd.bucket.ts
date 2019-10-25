@@ -12,7 +12,6 @@ export class CmdBucket implements CmdInterface {
         this.obj = obj;
         this.color = color;
         this.primary = primary;
-        CmdService.execute(this);
     }
 
     execute(): void {

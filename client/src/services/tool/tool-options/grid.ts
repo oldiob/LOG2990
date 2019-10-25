@@ -6,18 +6,5 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class GridTool implements ITool {
-
     constructor(public grid: GridService) { }
-
-    onPressed(event: MouseEvent): void {
-        return;
-    }
-
-    onReleased(event: MouseEvent): void {
-        return;
-    }
-
-    onMotion(event: MouseEvent): void {
-        return;
-    }
 }
