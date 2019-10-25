@@ -26,6 +26,7 @@ export class Application {
     }
 
     private config(): void {
+        this.app.use(bodyParser({limit: '100mb'}));
         // Middlewares configuration
         this.app.use(logger('dev'));
         this.app.use(bodyParser.json());
