@@ -36,11 +36,18 @@ export class DrawingRoute {
                     return false;
             }
             for (const tag of drawing.tags) {
-                    if (!(/^[a-zA-Z]+$/.test(tag))) {
+                    if (this.isTagValid(tag)) {
                         return false;
                     }
             }
             return true;
+    }
+
+    isTagValid(tag: string): boolean {
+        if (!(/^[a-zA-Z]+$/.test(tag))) {
+                return false;
+            }
+        return true;
     }
 
      findDrawing(id: number): Drawing | null {
@@ -80,7 +87,7 @@ export class DrawingRoute {
     }
     addTag(id: number, tag: string): boolean {
                 const result = this.findDrawing(id);
-                if (result === null) {
+                if (result === null || !this.isTagValid(tag)) {
                         return false;
                 } else {
                         result.tags.push(tag);
