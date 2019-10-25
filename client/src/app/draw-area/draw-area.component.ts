@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ToolService } from 'src/services/tool/tool.service';
+import { CmdService, CmdInterface } from 'src/services/cmd/cmd.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
@@ -116,7 +117,8 @@ export class DrawAreaComponent implements OnInit {
         const rect = this.svg.nativeElement.getBoundingClientRect();
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
-        this.svgService.addObject(this.toolService.currentTool.onPressed(event));
+        const cmd: CmdInterface | null = this.toolService.currentTool.onPressed(event);
+        CmdService.execute(cmd);
         event.stopPropagation();
     }
 
@@ -149,9 +151,7 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window:keyup', ['$event'])
     onKeyReleased(event: KeyboardEvent): void {
         if (this.toolService.currentTool.onKeyup) {
-            if (this.toolService.currentTool.onKeyup(event)) {
-                return;
-            }
+            this.toolService.currentTool.onKeyup(event);
         }
     }
 

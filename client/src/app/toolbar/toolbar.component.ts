@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -11,11 +12,9 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { CmdService } from 'src/services/cmd/cmd.service';
 
 declare type callback = () => void;
-export enum OptionType {
-    TOOL = 0,
-}
 
 @Component({
     selector: 'app-toolbar',
@@ -46,7 +45,7 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-    isDialogOpened: boolean;
+    isDialogOpened: boolean = false;
     optionDisplayed: boolean;
 
     constructor(
@@ -66,54 +65,91 @@ export class ToolbarComponent implements OnInit {
     }
 
     openGalleryOption(): void {
-        const ref: MatDialogRef<GalleryOptionComponent> = this.dialogService.open(GalleryOptionComponent);
-        ref.componentInstance.load();
-    }
-
-    newDrawingOption(): void {
-        if (!this.isDialogOpened) {
-            this.isDialogOpened = true;
-            this.dialogService.open(NewDrawingComponent).afterClosed().subscribe(() => {
-                this.isDialogOpened = false;
-            });
+        const ref: MatDialogRef<GalleryOptionComponent> | null = this.openDialog(GalleryOptionComponent);
+        if (ref) {
+            ref.componentInstance.load();
         }
     }
 
+    newDrawingOption(): void {
+        this.openDialog(NewDrawingComponent);
+    }
+
     saveImage(): void {
-        this.dialogService.open(SaveOptionComponent);
+        this.openDialog(SaveOptionComponent);
+    }
+
+    private openDialog(component: ComponentType<any>): MatDialogRef<any> | null {
+        if (!this.isDialogOpened) {
+            const ref: any = this.dialogService.open(component);
+            if (ref) {
+                this.isDialogOpened = true;
+                ref.afterClosed().subscribe(() => {
+                    this.isDialogOpened = false;
+                });
+                return ref;
+            }
+        }
+        return null;
     }
 
     getImage(option: IOption<any>): string {
         return this.FILE_LOCATION + option.getImage();
     }
 
+
+    private getComposedKey(event: KeyboardEvent): string {
+        let keys = '';
+        if (event.ctrlKey) {
+            keys += 'C-';
+        }
+        if (event.shiftKey) {
+            keys += 'S-';
+        }
+        keys += event.key.toLowerCase();
+        return keys;
+    }
+
     @HostListener('window: keydown', ['$event'])
+    onKeyDown(event: KeyboardEvent): void {
+        if (this.isDialogOpened) {
+            return;
+        }
+        const kbd: { [id: string]: callback } = {
+            'C-o': () => { this.newDrawingOption(); },
+            'C-s': () => { this.saveImage(); },
+            'C-g': () => { this.openGalleryOption(); }
+        };
+        const keys: string = this.getComposedKey(event);
+        if (kbd[keys]) {
+            event.preventDefault();
+            const func: callback = kbd[keys];
+            func();
+        }
+    }
+
     @HostListener('window: keyup', ['$event'])
-    pressKeyboard(event: KeyboardEvent): void {
-        if (this.dialogService.keyEnable) {
-            const kbd: { [id: string]: callback } = {
-                c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
-                w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
-                l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
-                b: () => { this.bucketOption.selectTool(this.bucketOption.tools[0]); },
-                i: () => { this.bucketOption.selectTool(this.bucketOption.tools[1]); },
-                1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
-                2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
-                3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
-                'C-o': () => { if (this.dialogService.isClosed) { this.newDrawingOption(); } },
-                'C-s': () => { this.saveImage(); },
-                'C-g': () => { this.openGalleryOption(); },
-            };
-            let keys = '';
-            if (event.ctrlKey) {
-                event.preventDefault();
-                keys += 'C-';
-            }
-            keys += event.key;
-            if (kbd[keys]) {
-                const func: callback = kbd[keys];
-                func();
-            }
+    onKeyUp(event: KeyboardEvent): void {
+        if (this.isDialogOpened) {
+            return;
+        }
+        const kbd: { [id: string]: callback } = {
+            c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
+            w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
+            l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
+            b: () => { this.bucketOption.selectTool(this.bucketOption.tools[0]); },
+            i: () => { this.bucketOption.selectTool(this.bucketOption.tools[1]); },
+            1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
+            2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
+            3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
+            'C-z': () => { CmdService.undo(); },
+            'C-S-z': () => { CmdService.redo(); }
+        };
+
+        const keys: string = this.getComposedKey(event);
+        if (kbd[keys]) {
+            const func: callback = kbd[keys];
+            func();
         }
     }
 }

@@ -1,4 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, RendererFactory2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,8 +7,8 @@ import {
     MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule,
     MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule
 } from '@angular/material';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
@@ -24,6 +25,7 @@ import { ColorOptionComponent } from './app/toolbar/color-option/color-option.co
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
+import { MyInjector } from 'src/utils/injector';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
@@ -103,9 +105,9 @@ import { DOMRenderer } from './utils/dom-renderer';
         LoadDrawingComponent,
     ],
 })
-
 export class AppModule {
-    constructor(rendererFactory: RendererFactory2) {
+    constructor(rendererFactory: RendererFactory2, injector: Injector) {
         DOMRenderer.init(rendererFactory);
+        MyInjector.init(injector);
     }
 }

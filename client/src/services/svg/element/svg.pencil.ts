@@ -32,6 +32,14 @@ export class SVGPencil implements SVGInterface {
         return false;
     }
 
+    getPrimary(): string {
+        return this.element.getAttribute('stroke');
+    }
+
+    getSecondary(): string {
+        return '';
+    }
+
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'stroke', color);
     }

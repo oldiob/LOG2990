@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { ITool } from './i-tool';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
+
 @Injectable({
     providedIn: 'root',
 })
@@ -11,7 +13,7 @@ export class StampTool implements ITool {
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
     private readonly IMAGESIZE = 12.5;
-    element: SVGStamp | null;
+    element: SVGStamp | null = null;
     currentPath: string;
     width: number;
     angle: number;
@@ -23,15 +25,16 @@ export class StampTool implements ITool {
         this.currentPath = '';
     }
 
-    onPressed(event: MouseEvent): SVGStamp {
-        this.element = new SVGStamp(this.width, this.stampTexture, this.angle, this.currentPath);
-        this.element.addPoint(event.svgX, event.svgY);
-        return this.element;
+    onPressed(event: MouseEvent): CmdSVG | null {
+        let cmd: CmdSVG | null = null;
+        if (!this.element) {
+            this.element = new SVGStamp(this.width, this.stampTexture, this.angle, this.currentPath);
+            this.element.addPoint(event.svgX, event.svgY);
+            cmd = new CmdSVG(this.element);
+        }
+        return cmd;
     }
 
-    onMotion(event: MouseEvent): void {
-        this.element = null;
-    }
     onReleased(event: MouseEvent): void {
         this.element = null;
     }
@@ -51,16 +54,19 @@ export class StampTool implements ITool {
     }
 
     onShowcase(x: number, y: number): SVGStamp | null {
-        const previousElement = this.element;
+        // const previousElement = this.element;
 
-        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
-        mouseEvent.svgX = x / 2.0;
-        mouseEvent.svgY = y / 2.0;
+        // const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        // mouseEvent.svgX = x / 2.0;
+        // mouseEvent.svgY = y / 2.0;
 
-        const element = this.onPressed(mouseEvent);
-        this.onReleased(mouseEvent);
+        // const element = this.onPressed(mouseEvent);
+        // this.onReleased(mouseEvent);
 
-        this.element = previousElement;
-        return element;
+        // this.element = previousElement;
+        // return element;
+        return null;
     }
+
+    onMotion(event: MouseEvent): void { }
 }

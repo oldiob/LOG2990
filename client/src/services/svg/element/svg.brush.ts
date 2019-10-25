@@ -37,6 +37,15 @@ export class SVGBrush implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
+
+    getPrimary(): string {
+        return this.element.getAttribute('stroke');
+    }
+
+    getSecondary(): string {
+        return '';
+    }
+
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'stroke', color);
     }

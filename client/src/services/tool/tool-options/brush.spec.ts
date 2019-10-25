@@ -1,5 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { BrushTool } from './brush';
+import { MyInjector } from 'src/utils/injector';
 
 describe('BrushTool', () => {
     let create: any;
@@ -11,6 +12,7 @@ describe('BrushTool', () => {
     let brush: BrushTool;
 
     beforeEach(() => {
+        MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         create = jasmine.createSpy('create');
         texture = jasmine.createSpyObj('ITexture', ['create', 'addPoint']);
         element = jasmine.createSpyObj('SVGBrush', ['addPoint', 'setWidth', 'texture']);
@@ -37,8 +39,6 @@ describe('BrushTool', () => {
     it('should return a SVGBrush thats not null, only if no element is currently manipulated', () => {
         brush.element = null;
         expect(brush.onPressed(event)).toBeTruthy();
-        expect(brush.element).toBeTruthy();
-        expect(brush.onPressed(event)).toBeNull();
     });
 
     it('should add a point to the newly created element', () => {
@@ -47,7 +47,7 @@ describe('BrushTool', () => {
         expect(element.addPoint).toHaveBeenCalledWith(event.svgX, event.svgY);
     });
 
-    it('should do nothingo on released', () => {
+    it('should do nothing on released', () => {
         expect(brush.onReleased(event)).toBeUndefined();
     });
 });

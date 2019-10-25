@@ -70,7 +70,6 @@ export class DropperTool implements ITool {
                 this.currentColor.blue,
                 this.currentColor.alpha);
         }
-
         return null;
     }
 

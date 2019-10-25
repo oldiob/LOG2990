@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -32,13 +31,11 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     endPage: number;
 
     constructor(
-        private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private webClientService: WebClientService) { }
 
     ngOnInit() {
-        this.dialogService.disableKey();
         this.isTagExists = true;
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
@@ -119,7 +116,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClose() {
-        this.dialogService.enableKey();
     }
 
     previousPage(): void {

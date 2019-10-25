@@ -5,6 +5,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { WorkZoneService } from '../../services/work-zone/work-zone.service';
 import { DrawAreaService } from './../../services/draw-area/draw-area.service';
+import { CmdService } from 'src/services/cmd/cmd.service';
 
 @Component({
     selector: 'app-new-drawing',
@@ -154,8 +155,8 @@ export class NewDrawingComponent implements OnInit {
         const bgColor = this.backgroundColor;
         this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
         this.drawAreaService.dirty();
-
         this.svgService.clearDrawArea();
+        CmdService.reset();
     }
 
     onColorRGBAChange() {

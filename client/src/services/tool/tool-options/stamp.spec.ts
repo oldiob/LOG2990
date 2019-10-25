@@ -1,5 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { StampTool } from './stamp';
+import { MyInjector } from 'src/utils/injector';
 
 describe('StampTool', () => {
 
@@ -10,9 +11,9 @@ describe('StampTool', () => {
     let event: MouseEvent;
 
     beforeEach(() => {
+        MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         DOMRenderer.renderer = renderer;
         stamp = new StampTool();
-        stamp.element = element;
         stamp.stampTexture = iStamp;
         event = new MouseEvent('mousedown');
     });
@@ -22,26 +23,13 @@ describe('StampTool', () => {
     });
 
     it('should create new stamp when onPressed', () => {
-        stamp.element = element;
-        const returnElement = stamp.onPressed(event);
-        expect(stamp.element).toBeTruthy();
-        expect(returnElement).toBeTruthy();
+        expect(stamp.onPressed(event)).toBeTruthy();
     });
 
     it('should set element to null when OnReleased', () => {
+        stamp.element = element;
         stamp.onReleased(event);
         expect(stamp.element).toBeNull();
-    });
-
-    it('should set element to null when OnMotion', () => {
-        stamp.onMotion(event);
-        expect(stamp.element).toBeNull();
-    });
-
-    it('should do nothing if no element is been manipulated', () => {
-        stamp.element = null;
-        stamp.onMotion(event);
-        expect(element.setCursor).not.toHaveBeenCalled();
     });
 
     it('should return true when it is on wheel', () => {
