@@ -5,6 +5,7 @@ import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { ExportOptionComponent } from './export-option/export-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
@@ -74,6 +75,10 @@ export class ToolbarComponent implements OnInit {
 
     newDrawingOption(): void {
         this.openDialog(NewDrawingComponent);
+    }
+
+    openExportOption(): void {
+        this.dialogService.open(ExportOptionComponent);
     }
 
     saveImage(): void {
