@@ -2,6 +2,7 @@ import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
 import { DOMRenderer } from '../../utils/dom-renderer';
+import { vectorPlus } from 'src/utils/math';
 
 @Injectable({
     providedIn: 'root',
@@ -25,10 +26,20 @@ export class SVGService {
     }
 
     findIn(x: number, y: number, r: number): (SVGInterface | null)[] {
-        let elements: (SVGInterface | null)[] = [];
-        for (let i = this.objects.length - 1; i >= 0; --i) {
-            if (this.objects[i].isIn(x, y, r)) {
-                elements.push(this.objects[i]);
+        const elements: (SVGInterface | null)[] = [];
+
+        const DISTANCE = 2.0;
+
+        const angle = Math.acos(((DISTANCE * DISTANCE) - (2 * r * r)) / (- 2 * r * r));
+        const circleCenter = [x, y];
+
+        for (let currentAngle = 0; currentAngle < 2 * Math.PI; currentAngle += angle) {
+            const pointOffset = [r * Math.sin(currentAngle), r * Math.cos(currentAngle)];
+            const findAtPosition = vectorPlus(circleCenter, pointOffset);
+            const elementFound = this.findAt(findAtPosition[0], findAtPosition[1]);
+
+            if (!elements.find((element: SVGInterface | null) => element === elementFound)) {
+                elements.push(elementFound);
             }
         }
         return elements;
