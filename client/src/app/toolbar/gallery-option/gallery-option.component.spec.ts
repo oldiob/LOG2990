@@ -15,7 +15,6 @@ describe('GalleryOptionComponent', () => {
   let fixture: ComponentFixture<GalleryOptionComponent>;
   let filterInput: ElementRef<HTMLInputElement>;
   let filteredDrawings: Drawing[];
-
   beforeEach(async(() => {
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
@@ -48,12 +47,67 @@ describe('GalleryOptionComponent', () => {
     component.filteredDrawings = filteredDrawings;
 
     fixture.detectChanges();
-    filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['']);
+    filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['nativeElement', 'entry']);
+    dialogService = jasmine.createSpyObj('DialogService', ['enableKey', 'disableKey']);
     component.filterInput = filterInput;
-
+    component.dialogService = dialogService;
+    component.ngOnInit();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should load', () => {
+    component.load();
+    component.drawings = [];
+    component.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
+      component.drawings = savedDrawing;
+      expect(component.drawings).toEqual(savedDrawing);
+    });
+  });
+
+  it('should filter drawings', () => {
+    const filterValue = 'filterTest';
+    component.filter = filterValue;
+    component.filterDrawings(filterValue);
+    expect(component.filter).toEqual(filterValue.toLowerCase());
+  });
+
+  it('should clear filters', () => {
+    component.filterInput.nativeElement.value = '';
+    component.clearFilters();
+    expect(component.filteredDrawings).toEqual(filteredDrawings);
+    expect(filterInput.nativeElement.value).toEqual('');
+    expect(component.isTagExists).toBeTruthy();
+  });
+
+  it('should select', () => {
+    expect(component.select()).toBeUndefined();
+  });
+
+  it('should get gallery image', () => {
+    const IMAGE = '../../../assets/images/gallery.png';
+    expect(component.getImage()).toEqual(IMAGE);
+  });
+
+  it('should go to the previous page', () => {
+    const previousPage = 2;
+    component.page = 3;
+    component.previousPage();
+    expect(component.page).toEqual(previousPage);
+  });
+
+  it('should go to the next page', () => {
+    component.nPages = 4;
+    component.page = 1;
+    component.nextPage();
+    expect(component.page).toEqual(component.nPages );
+  });
+
+  it('should close dialog', () => {
+    component.onClose();
+    expect(dialogService.enableKey).toHaveBeenCalled();
+  });
+
 });
