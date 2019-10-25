@@ -2,7 +2,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 import { SVGInterface } from './svg.interface';
 
-export class SVGPencil implements SVGInterface {
+export class SVGPen implements SVGInterface {
     element: any;
 
     points: number[][] = [];
@@ -58,9 +58,10 @@ export class SVGPencil implements SVGInterface {
         let distance: number;
         this.points.push([x, y]);
         const sizeOfPoint: number = this.points.length;
+
         distance = Math.sqrt(Math.pow(Math.abs(this.points[sizeOfPoint][0] - this.points[sizeOfPoint - 1][0]), 2) +
                             Math.pow(Math.abs(this.points[sizeOfPoint][0] - this.points[sizeOfPoint - 1][0]), 2));
-        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
+
         this.lineWidth = this.minWidth + this.maxWidth * (distance / 100);
         if (this.lineWidth > this.maxWidth) {
             this.lineWidth = this.maxWidth;
@@ -68,6 +69,8 @@ export class SVGPencil implements SVGInterface {
             this.lineWidth = this.minWidth;
         }
         this.setWidth(this.lineWidth);
+
+        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
