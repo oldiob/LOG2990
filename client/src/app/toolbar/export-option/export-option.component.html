@@ -1,32 +1,12 @@
 <div class="header">Export</div>
 
 <div class="save-wrapper">
-    <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
-        <mat-form-field class="name" color="accent">
-            <input matInput placeholder="Name" formControlName="name">
-        </mat-form-field>
 
-        <mat-form-field class="tags" color="accent">
-            <mat-chip-list #chipList aria-label="Tag selection">
-                <mat-chip class="tag" *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                    (removed)="remove(tag)">
-                    {{tag}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-
-                <input placeholder="New tag..." [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)">
-
-            </mat-chip-list>
-        </mat-form-field>
 
         <div class="button-wrapper">
-            <button class="btn-close" (click)="onClose()" color="secondary" mat-raised-button mat-dialog-close>Close</button>
-            <button color="primary" mat-raised-button mat-dialog-close type="submit"
-                [disabled]="!saveForm.valid">Save</button>
+            <button class="btn-close" (click)="close()" color="secondary" mat-raised-button mat-dialog-close>Close</button>
         </div>
-    </form>
+
 </div>
 <div class="background">
 </div>
