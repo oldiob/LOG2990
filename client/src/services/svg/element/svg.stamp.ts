@@ -1,5 +1,6 @@
 import { IStamp } from './stamp/i-stamp';
 import { SVGInterface } from './svg.interface';
+import { vectorMinus, vectorModule } from 'src/utils/math';
 
 export class SVGStamp implements SVGInterface {
     IMAGESIZE = 10;
@@ -7,7 +8,7 @@ export class SVGStamp implements SVGInterface {
     previousX = 0;
     previousY = 0;
 
-    points: number[][];
+    position: number[];
 
     angles: number;
     lineWidth: number;
@@ -16,20 +17,29 @@ export class SVGStamp implements SVGInterface {
 
     imagePaths: string;
 
-    constructor(width: number, stamp: IStamp, angle: number, imagePath: string) {
-        this.points = [];
+    constructor(x: number, y: number, width: number, stamp: IStamp, angle: number, imagePath: string) {
         this.lineWidth = width * this.IMAGESIZE;
         this.angles = angle;
         this.stampTexture = stamp;
         this.stampTexture.create(this);
         this.imagePaths = imagePath;
+
+        this.position = [x, y];
+        this.stampTexture.addPoint(this, x, y);
     }
 
     isAt(x: number, y: number): boolean {
-        return false;
+        const vectorTo: number[] = vectorMinus([x, y], this.position);
+        return vectorModule(vectorTo) <= this.lineWidth;
     }
-    isIn(x: number, y: number): boolean {
-        return false;
+
+    isIn(x: number, y: number, r: number): boolean {
+        const tempWidth = this.lineWidth;
+        this.lineWidth += r;
+        const isInside = this.isAt(x, y);
+        this.lineWidth = tempWidth;
+
+        return isInside;
     }
     getPrimary(): string {
         return '';
@@ -42,9 +52,5 @@ export class SVGStamp implements SVGInterface {
     }
     setSecondary(color: string): void {
         // No secondary for stamp
-    }
-    addPoint(x: number, y: number): void {
-        this.points.push([x, y]);
-        this.stampTexture.addPoint(this, x, y);
     }
 }

@@ -42,10 +42,6 @@ export class SVGEllipse extends AbsSVGShape {
         return RELATIVE_Y >= minMaxY[1] && RELATIVE_Y <= minMaxY[0];
     }
 
-    isIn(x: number, y: number, r: number): boolean {
-        return true;
-    }
-
     setCursor(x: number, y: number, isShift: boolean) {
         this.updateCoordinates(x, y, isShift);
         this.updatePerimeter();

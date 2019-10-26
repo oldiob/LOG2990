@@ -2,6 +2,7 @@ import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
 import { DOMRenderer } from '../../utils/dom-renderer';
+import { vectorPlus } from 'src/utils/math';
 
 @Injectable({
     providedIn: 'root',
@@ -24,17 +25,31 @@ export class SVGService {
         return null;
     }
 
-    findIn(x: number, y: number, r: number): SVGInterface | null {
-        for (let i = this.objects.length - 1; i >= 0; --i) {
-            if (this.objects[i].isIn(x, y, r)) {
-                return this.objects[i];
+    findIn(x: number, y: number, r: number): (SVGInterface | null)[] {
+        const elements: (SVGInterface | null)[] = [];
+
+        const DISTANCE = 2.0;
+
+        const angle = Math.acos(((DISTANCE * DISTANCE) - (2 * r * r)) / (- 2 * r * r));
+        const circleCenter = [x, y];
+
+        for (let currentAngle = 0; currentAngle < 2 * Math.PI; currentAngle += angle) {
+            const pointOffset = [r * Math.sin(currentAngle), r * Math.cos(currentAngle)];
+            const findAtPosition = vectorPlus(circleCenter, pointOffset);
+            const elementFound = this.findAt(findAtPosition[0], findAtPosition[1]);
+
+            if (!elements.find((element: SVGInterface | null) => element === elementFound)) {
+                elements.push(elementFound);
             }
         }
-        return null;
+        return elements;
     }
 
     addObject(obj: SVGInterface | null) {
-        if (obj == null) {
+        if (obj === null) {
+            return;
+        }
+        if (obj.element === null) {
             return;
         }
 
@@ -42,13 +57,23 @@ export class SVGService {
         DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
     }
 
-    removeObject(): SVGInterface | null {
-        const removedObject: SVGInterface | undefined = this.objects.pop();
-        if (removedObject !== undefined) {
-            DOMRenderer.removeChild(this.entry.nativeElement, removedObject.element);
-            return removedObject;
+    removeObject(obj: SVGInterface | null) {
+        if (obj === null || obj.element === null) {
+            return;
         }
-        return null;
+
+        DOMRenderer.removeChild(this.entry.nativeElement, obj.element);
+
+        let index = 0;
+        for (const o of this.objects) {
+            if (o === obj) {
+                break;
+            }
+
+            index++;
+        }
+
+        this.objects.splice(index, 1);
     }
 
     addElement(element: any) {
@@ -70,6 +95,7 @@ export class SVGService {
         DOMRenderer.appendChild(this.entry.nativeElement, this.createBlurFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createOpacityFilter());
         DOMRenderer.appendChild(this.entry.nativeElement, this.createTurbulenceFilter());
+        DOMRenderer.appendChild(this.entry.nativeElement, this.createEraseFilter());
     }
 
     private createBlurFilter() {
@@ -106,6 +132,7 @@ export class SVGService {
 
         return filterOpacity;
     }
+
     private createTurbulenceFilter() {
         const renderer = DOMRenderer;
         const filterTurbulence = renderer.createElement('filter', 'svg');
@@ -126,6 +153,41 @@ export class SVGService {
 
         renderer.appendChild(filterTurbulence, filterContent);
         renderer.appendChild(filterTurbulence, filterSubContent);
+
+        return filterTurbulence;
+    }
+
+    private createEraseFilter() {
+        const renderer = DOMRenderer;
+        const filterTurbulence = renderer.createElement('filter', 'svg');
+        renderer.setAttribute(filterTurbulence, 'id', 'erase');
+
+        const blur = renderer.createElement('feGaussianBlur', 'svg');
+        renderer.setAttribute(blur, 'in', 'SourceAlpha');
+        renderer.setAttribute(blur, 'stdDeviation', '1.7');
+        renderer.setAttribute(blur, 'result', 'blur');
+
+        const offset = renderer.createElement('feOffset', 'svg');
+        renderer.setAttribute(offset, 'in', 'blur');
+        renderer.setAttribute(offset, 'dx', '3');
+        renderer.setAttribute(offset, 'dy', '3');
+        renderer.setAttribute(offset, 'result', 'offsetBlur');
+
+        const flood = renderer.createElement('feFlood', 'svg');
+        renderer.setAttribute(flood, 'flood-color', 'red');
+        renderer.setAttribute(flood, 'flood-opacity', '0.2');
+        renderer.setAttribute(flood, 'result', 'offsetColor');
+
+        const composite = renderer.createElement('feComposite', 'svg');
+        renderer.setAttribute(composite, 'in', 'blur');
+        renderer.setAttribute(composite, 'dx', '3');
+        renderer.setAttribute(composite, 'dy', '3');
+        renderer.setAttribute(composite, 'result', 'offsetBlur');
+
+        renderer.appendChild(filterTurbulence, blur);
+        renderer.appendChild(filterTurbulence, offset);
+        renderer.appendChild(filterTurbulence, flood);
+        renderer.appendChild(filterTurbulence, composite);
 
         return filterTurbulence;
     }

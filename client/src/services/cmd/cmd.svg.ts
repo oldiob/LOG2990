@@ -18,7 +18,7 @@ export class CmdSVG implements CmdInterface {
     }
 
     undo(): void {
-        this.svg.removeObject();
+        this.svg.removeObject(this.obj);
     }
 
     redo(): void {
