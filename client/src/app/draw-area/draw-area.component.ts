@@ -38,6 +38,10 @@ export class DrawAreaComponent implements OnInit {
         'background-color': string;
         cursor: string
     };
+
+    currentCursor: string;
+    oldTool: object;
+
     isMouseDown = false;
     isOnceWhileDown = true;
     constructor(
@@ -45,6 +49,9 @@ export class DrawAreaComponent implements OnInit {
         private svgService: SVGService,
         private toolService: ToolService,
         private gridService: GridService) {
+
+            this.currentCursor = 'crosshair';
+            this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -85,20 +92,28 @@ export class DrawAreaComponent implements OnInit {
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
 
-        let currentCursor = 'crosshair';
+        const newTool = Object.getPrototypeOf(this.toolService.currentTool);
 
-        if (Object.getPrototypeOf(this.toolService.currentTool) === EraserTool.prototype) {
-            const radius = this.toolService.currentTool.width;
-            if (radius) {
-                currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
+        if (this.oldTool !== newTool) {
+            if (newTool === EraserTool.prototype) {
+                const radius = this.toolService.currentTool.width;
+                if (radius) {
+                    this.currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
+                    console.log('circle');
+                }
+            } else {
+                this.currentCursor = 'crosshair';
+                console.log(this.currentCursor);
             }
         }
+
+        this.oldTool = newTool;
 
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor}`,
-            cursor: currentCursor,
+            cursor: this.currentCursor,
         };
     }
 
