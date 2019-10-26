@@ -3,8 +3,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Data } from '@angular/router';
+import { populateDrawArea } from 'src/utils/element-parser';
+import { MyInjector } from 'src/utils/injector';
+import { SVGService } from 'src/services/svg/svg.service';
+import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 
-const SVG = '[^ @]*.svg';
+const REBASE = '[^ @]*.rebase';
 
 @Component({
     selector: 'app-import',
@@ -36,7 +40,7 @@ export class ImportComponent implements OnInit {
     protected validationMessages: { 'importImage': { type: string; message: string; }[] } = {
         importImage: [
             { type: 'required', message: 'File required' },
-            { type: 'pattern', message: 'Only .bmp, .jpg, .svg and .png are allowed' },
+            { type: 'pattern', message: 'Only .rebase files are allowed' },
         ],
     };
 
@@ -45,7 +49,7 @@ export class ImportComponent implements OnInit {
         this.requiredForm = new FormGroup({
             importImage: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern(SVG),
+                Validators.pattern(REBASE),
             ])),
         });
     }
@@ -57,12 +61,14 @@ export class ImportComponent implements OnInit {
             this.importFile = this.selectFile.files[0];
         }
 
-        console.log('File selected');
+
         this.reader.onload = () => {
-            //console.log(this.reader.result as string);
+            const res: DrawAreaHolder = JSON.parse(this.reader.result as string);
+            Object.setPrototypeOf(res, DrawAreaHolder.prototype);
+            populateDrawArea(MyInjector.get(SVGService), res);
         };
-        
-        this.reader.readAsDataURL(this.importFile);
+
+        this.reader.readAsText(this.importFile);
     }
 
     checkButton(): void {

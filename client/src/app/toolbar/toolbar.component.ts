@@ -15,6 +15,9 @@ import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { saveFile } from 'src/utils/filesystem';
+import { serializeDrawArea } from 'src/utils/element-parser';
+import { MyInjector } from 'src/utils/injector';
+import { SVGService } from 'src/services/svg/svg.service';
 
 declare type callback = () => void;
 
@@ -82,7 +85,10 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        saveFile();
+        const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
+
+        saveFile('lol_file', fileData);
+
         //this.openDialog(SaveOptionComponent);
     }
 

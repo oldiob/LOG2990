@@ -1,6 +1,12 @@
-export const saveFile = (): any => {
-    const b: any = new Blob(['Hello, World!'], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(b);
+export const saveFile = (fileName: string, fileContent: string): any => {
+    const dataBlob: any = new Blob([fileContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(dataBlob);
+    downloadUrl(fileName, url);
+};
 
-    console.log(b, url, window.open(url));
+const downloadUrl = (fileName: string, url: string): void => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fileName}.rebase`;
+    a.click();
 };
