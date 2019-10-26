@@ -45,17 +45,17 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-    isDialogOpened: boolean = false;
+    isDialogOpened: boolean;
     optionDisplayed: boolean;
 
-    constructor(
-        public dialogService: DialogService) { }
+    constructor(public dialogService: DialogService) {
+        this.isDialogOpened = false;
+    }
 
     ngOnInit() {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
-        this.isDialogOpened = false;
     }
 
     selectOption(option: IOption<any>): void {

@@ -37,7 +37,7 @@ export class DialogService {
         return this.dialog.open(component);
     }
 
-    closeColorForms() {
+    closeColorForms(): void {
         const IS_OPEN = false;
         this.isClosedColor.next(IS_OPEN);
     }
