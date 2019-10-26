@@ -7,7 +7,6 @@ import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule,
          MatInputModule, MatSelectModule, MatTableModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 import { ImportComponent } from './import.component';
 
 let httpClientSpy: jasmine.SpyObj<HttpClient>;
@@ -35,7 +34,7 @@ const modules: (typeof MatDialogModule)[] = [
             HttpClientModule,
 ];
 
-describe('ImportComponent', () => {
+fdescribe('ImportComponent', () => {
   let component: ImportComponent;
   let fixture: ComponentFixture<ImportComponent>;
 
@@ -69,11 +68,5 @@ describe('ImportComponent', () => {
   it('should close a dialog when it is clicked', () => {
         component.close(event);
         void expect(mockDialogRef.close).toHaveBeenCalled();
-    });
-
-  it('should throw alert if original file is not the right height/width', () => {
-        component.importFile = new File([], 'test');
-        component.submit(event);
-        expect(component.submit(event)).toBeTruthy();
     });
 });
