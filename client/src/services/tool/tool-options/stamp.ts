@@ -53,19 +53,18 @@ export class StampTool implements ITool {
         return true;
     }
 
-    onShowcase(x: number, y: number): SVGStamp | null {
-        // const previousElement = this.element;
+    onShowcase(x: number, y: number): CmdSVG | null {
+        const previousElement = this.element;
 
-        // const mouseEvent: MouseEvent = new MouseEvent('', undefined);
-        // mouseEvent.svgX = x / 2.0;
-        // mouseEvent.svgY = y / 2.0;
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = x / 2.0;
+        mouseEvent.svgY = y / 2.0;
 
-        // const element = this.onPressed(mouseEvent);
-        // this.onReleased(mouseEvent);
+        const action = this.onPressed(mouseEvent);
+        this.onReleased(mouseEvent);
 
-        // this.element = previousElement;
-        // return element;
-        return null;
+        this.element = previousElement;
+        return action;
     }
 
     onMotion(event: MouseEvent): void { }
