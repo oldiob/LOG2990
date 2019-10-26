@@ -1,0 +1,29 @@
+<div class="header"> Import</div>
+<mat-divider></mat-divider>
+<div class="import-wrapper">
+<form [formGroup]="requiredForm" >
+
+  <div>
+    <mat-form-field>
+	    <input matInput [hidden]="true">
+      <input type="file" formControlName="importImage"  (change)="getFile($event)"  required/>
+    </mat-form-field>
+    
+    <div *ngFor="let validation of validationMessages.importImage">
+      <span class="error-message" 
+        *ngIf="requiredForm.get('importImage').hasError(validation.type)
+        && (requiredForm.get('importImage').dirty 
+        || requiredForm.get('importImage').touched)">
+        {{validation.message}}
+      </span>
+    </div>
+  </div>
+</form>
+</div>
+<div class="button-wrapper">
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click) = "submit($event)" [disabled]="!enable"> Submit </button>
+  <button class="mat-raised-button" (click)="close($event)">Close</button>
+</mat-dialog-actions>
+<div class="background"></div>
+</div>
