@@ -58,10 +58,7 @@ export class SVGService {
     }
 
     removeObject(obj: SVGInterface | null) {
-        if (obj === null) {
-            return;
-        }
-        if (obj.element === null) {
+        if (obj === null || obj.element === null) {
             return;
         }
 

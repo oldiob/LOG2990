@@ -25,7 +25,7 @@ describe('SVGStamp', () => {
         DOMRenderer.renderer = renderer;
 
         Istamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
-        stamp = new SVGStamp(width, Istamp, angle, imagePath);
+        stamp = new SVGStamp(-100, -100, width, Istamp, angle, imagePath);
         stamp.imagePaths = imagePath;
     });
 
@@ -39,7 +39,7 @@ describe('SVGStamp', () => {
     });
 
     it('should return false if (x,y) is at where the pencil drew', () => {
-        expect(stamp.isIn(X, Y)).toBeFalsy();
+        expect(stamp.isIn(X, Y, 1)).toBeFalsy();
     });
 
     it('should not set the primary color', () => {
@@ -50,12 +50,6 @@ describe('SVGStamp', () => {
     it('should not set the secondary color', () => {
         stamp.setSecondary(C);
         expect(stamp.setSecondary(C)).toBeUndefined();
-    });
-
-    it('should add point to the points list', () => {
-        stamp.addPoint(X, Y);
-        expect(stamp.points).toContain([X, Y]);
-        expect(Istamp.addPoint).toHaveBeenCalled();
     });
 
 });

@@ -1,8 +1,8 @@
 import { DOMRenderer } from '../../utils/dom-renderer';
-import { SVGInterface } from './element/svg.interface';
 import { SVGService } from './svg.service';
+import { SVGInterface } from './element/svg.interface';
 
-describe('SVGService', () => {
+fdescribe('SVGService', () => {
 
     const X = Math.random() * 1000;
     const Y = Math.random() * 1000;
@@ -17,15 +17,15 @@ describe('SVGService', () => {
     let service: SVGService;
 
     beforeEach(() => {
-        obj = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
+        obj = jasmine.createSpyObj('obj', ['isAt', 'isIn', 'element']);
         obj.isAt.and.returnValue(false);
         obj.isIn.and.returnValue(false);
         objAt = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
         objAt.isAt.and.returnValue(true);
         objAt.isIn.and.returnValue(false);
         objIn = jasmine.createSpyObj('obj', ['isAt', 'isIn']);
-        objIn.isAt.and.returnValue(false);
-        objIn.isIn.and.returnValue(true);
+        objIn.isAt.and.returnValue(true);
+        objIn.isIn.and.returnValue(false);
 
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'createElement',
             'setAttribute']);
@@ -56,10 +56,8 @@ describe('SVGService', () => {
     });
 
     it('should remove object correctly', () => {
-        expect(service.removeObject()).toBeNull();
         service.addObject(obj);
-        const tmp: SVGInterface | null = service.removeObject();
-        expect(tmp).toBe(obj);
+        service.removeObject(obj);
         expect(renderer.removeChild).toHaveBeenCalled();
     });
 
@@ -71,10 +69,30 @@ describe('SVGService', () => {
     });
 
     it('should iterate over all objects and return the one in circle (x,y, r) or null', () => {
-        expect(service.findIn(X, Y, R)).toBe(null);
+        let actualList: (SVGInterface | null)[] = service.findIn(X, Y, R);
+        let expectedList: (SVGInterface | null)[] = [];
+
+        actualList.forEach((element) => expectedList.push(null));
+        expect(actualList).toEqual(expectedList);
+
         service.addObject(objIn);
-        expect(service.findIn(X, Y, R)).toBe(objIn);
-        expect(objIn.isIn).toHaveBeenCalledWith(X, Y, R);
+        actualList = service.findIn(X, Y, R);
+
+        let foundElement: SVGInterface | null = null;
+        actualList = actualList.filter((element) => {
+            if (element === objIn) {
+                foundElement = element;
+                return false;
+            }
+
+            return true;
+        });
+
+        expect(foundElement).toEqual(objIn);
+
+        expectedList = [];
+        actualList.forEach((element) => expectedList.push(null));
+        expect(actualList).toEqual(expectedList);
     });
 
     it('should clear the draw area', () => {
