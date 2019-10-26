@@ -68,9 +68,9 @@ import { DOMRenderer } from './utils/dom-renderer';
         SelectorOptionComponent,
         GridOptionComponent,
         TextOptionComponent,
-        ImportComponent,
         ColorSelectionComponent,
         ConfirmationComponent,
+        ImportComponent,
     ],
     imports: [
         BrowserModule,

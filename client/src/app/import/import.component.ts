@@ -9,20 +9,22 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 const REBASE = /.*.rebase$/;
 
 @Component({
-    selector: 'app-import',
-    templateUrl: './import.component.html',
-    styleUrls: ['./import.component.scss'],
+  selector: 'app-import',
+  templateUrl: './import.component.html',
+  styleUrls: ['./import.component.scss'],
 })
 export class ImportComponent implements OnInit {
 
+    uploadFile: boolean;
     enableFile: boolean;
     enable: boolean;
 
+    importImage: HTMLImageElement;
     selectFile: HTMLInputElement;
 
     requiredForm: FormGroup;
     importFile: File;
-    reader: FileReader;
+    readFile: FileReader;
 
     constructor(
         public dialogRef: MatDialogRef<ImportComponent>,
@@ -30,14 +32,17 @@ export class ImportComponent implements OnInit {
         private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
-        this.reader = new FileReader();
+
+        this.readFile = new FileReader();
+        this.uploadFile = false;
         this.enableFile = false;
+        this.importImage = new Image();
     }
 
-    protected validationMessages: { 'importImage': { type: string; message: string; }[] } = {
-        importImage: [
-            { type: 'required', message: 'File required' },
-            { type: 'pattern', message: 'Only .rebase files are allowed' },
+    protected validationMessages: {'importImage': {type: string; message: string; } [] }  =  {
+        importImage : [
+        { type: 'required', message: 'File required' },
+        { type: 'pattern', message: 'Only .bmp, .jpg, .svg and .png are allowed' },
         ],
     };
 
@@ -52,21 +57,24 @@ export class ImportComponent implements OnInit {
     }
 
     getFile(event: Event): void {
-        this.selectFile = event.currentTarget as HTMLInputElement;
-        if (this.selectFile.files !== null) {
-            this.importFile = this.selectFile.files[0];
-        }
+            this.uploadFile = true;
+            this.selectFile = event.currentTarget as HTMLInputElement;
+            if (this.selectFile.files !== null) {
+                this.importFile = this.selectFile.files[0];
+            }
+            this.readFile.onload = () => {
 
-        this.reader.onload = () => {
-            this.enableFile = true;
-            this.checkButton();
-        };
-
-        this.reader.readAsText(this.importFile);
+                this.importImage.onload = () => {
+                    this.enableFile = true;
+                    this.checkButton();
+                };
+                this.importImage.src = this.readFile.result as string;
+            };
+            this.readFile.readAsDataURL(this.importFile);
     }
 
     checkButton(): void {
-        this.enable = (this.requiredForm.valid && this.enableFile);
+        this.enable = ( this.requiredForm.valid && this.enableFile);
     }
 
     submit(event: MouseEvent): void {
