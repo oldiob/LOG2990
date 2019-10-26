@@ -26,6 +26,7 @@ export class CmdEraser implements CmdInterface {
     execute(): void {
         if (!this.areErased) {
             this.objs.forEach((obj) => this.svg.removeObject(obj));
+            this.areErased = true;
         }
     }
 
@@ -37,9 +38,6 @@ export class CmdEraser implements CmdInterface {
     }
 
     redo(): void {
-        if (!this.areErased) {
-            this.execute();
-            this.areErased = true;
-        }
+        this.execute();
     }
 }
