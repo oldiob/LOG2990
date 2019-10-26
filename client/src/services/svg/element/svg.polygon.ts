@@ -68,10 +68,6 @@ export class SVGPolygon extends AbsSVGShape {
         // nothing happens
     }
 
-    isIn(x: number, y: number, r: number): boolean {
-        return false;
-    }
-
     protected setPositionAttributes(): void {
         DOMRenderer.setAttribute(this.element.children[1], 'points', this.pointsAttribute());
     }

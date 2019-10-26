@@ -1,4 +1,3 @@
-import { SVGInterface } from '../../svg/element/svg.interface';
 import { CmdInterface } from '../../cmd/cmd.service';
 
 /**
@@ -28,7 +27,7 @@ export interface ITool {
     onKeyup?(event: KeyboardEvent): boolean;
     onWheel?(event: WheelEvent): boolean;
 
-    onShowcase?(width: number, height: number): SVGInterface | null;
+    onShowcase?(width: number, height: number): CmdInterface | null;
 }
 
 declare global {

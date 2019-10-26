@@ -23,28 +23,27 @@ export class PolygonTool extends AbsShapeTool {
     onPressed(event: MouseEvent): CmdSVG {
         this.element = new SVGPolygon(event.svgX, event.svgY, this.nSides, this.traceType);
         this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
-	return new CmdSVG(this.element);
+        return new CmdSVG(this.element);
     }
 
-    onShowcase(x: number, y: number): SVGPolygon | null {
-        // const previousElement = this.element;
+    onShowcase(x: number, y: number): CmdSVG | null {
+        const previousElement = this.element;
 
-        // const center = [x / 2.0, y / 2.0];
-        // const offset = 70;
+        const center = [x / 2.0, y / 2.0];
+        const offset = 70;
 
-        // const mouseEvent: MouseEvent = new MouseEvent('', undefined);
-        // mouseEvent.svgX = center[0] - offset;
-        // mouseEvent.svgY = center[1] - offset;
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = center[0] - offset;
+        mouseEvent.svgY = center[1] - offset;
 
-        // const element = this.onPressed(mouseEvent);
+        const action = this.onPressed(mouseEvent);
 
-        // mouseEvent.svgX = center[0] + offset;
-        // mouseEvent.svgY = center[1] + offset;
-        // this.onMotion(mouseEvent);
-        // this.onReleased(mouseEvent);
+        mouseEvent.svgX = center[0] + offset;
+        mouseEvent.svgY = center[1] + offset;
+        this.onMotion(mouseEvent);
+        this.onReleased(mouseEvent);
 
-        // this.element = previousElement;
-        // return element;
-        return null;
+        this.element = previousElement;
+        return action;
     }
 }

@@ -6,7 +6,7 @@ import { SVGInterface } from './svg.interface';
 export abstract class AbsSVGShape implements SVGInterface {
     element: any;
 
-    protected startingPoint: number[];
+    startingPoint: number[];
     protected endingPoint: number[];
 
     protected center: number[];
@@ -56,7 +56,16 @@ export abstract class AbsSVGShape implements SVGInterface {
         return inside || atBorder;
     }
 
-    abstract isIn(x: number, y: number, r: number): boolean;
+    isIn(x: number, y: number, r: number): boolean {
+        const tempWidth = this.pointSize;
+        const tempSize = this.size;
+        this.pointSize += r;
+        this.size = vectorPlus(tempSize, [r / 2, r / 2]);
+        const isInside = this.isAt(x, y);
+        this.pointSize = tempWidth;
+        this.size = tempSize;
+        return isInside;
+    }
 
     setPointSize(pointSize: number): void {
         this.pointSize = this.strokeOpacity === 0 ? 0 : pointSize;
@@ -119,11 +128,11 @@ export abstract class AbsSVGShape implements SVGInterface {
             `${Math.abs(this.startingPoint[1] - this.endingPoint[1]) + this.pointSize}`);
     }
 
-    protected showPerimeter() {
+    showPerimeter() {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'gray');
     }
 
-    protected hidePerimeter() {
+    hidePerimeter() {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
     }
 

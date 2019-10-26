@@ -128,7 +128,12 @@ export class SVGLine implements SVGInterface {
     }
 
     isIn(x: number, y: number, r: number): boolean {
-        return false;
+        const tempWidth = this.width;
+        this.width += r;
+        const isInside = this.isAt(x, y);
+        this.width = tempWidth;
+
+        return isInside;
     }
 
     addAnchor(x: number, y: number, junctionType: JunctionType): void {
