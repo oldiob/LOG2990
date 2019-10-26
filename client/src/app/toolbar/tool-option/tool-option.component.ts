@@ -101,7 +101,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp];
+        this.tools = [pencil, brush, line, stamp, pen];
         this.currentTool = this.tools[0];
     }
 
