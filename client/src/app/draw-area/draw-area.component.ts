@@ -99,11 +99,9 @@ export class DrawAreaComponent implements OnInit {
                 const radius = this.toolService.currentTool.width;
                 if (radius) {
                     this.currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
-                    console.log('circle');
                 }
             } else {
                 this.currentCursor = 'crosshair';
-                console.log(this.currentCursor);
             }
         }
 
