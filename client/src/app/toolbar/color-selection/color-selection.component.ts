@@ -36,10 +36,10 @@ export class ColorSelectionComponent implements OnInit {
     }
 
     onOpen(isShowForm: boolean, isPrimary: boolean): void {
-        if (isPrimary && isShowForm) {
+        if (isShowForm && isPrimary) {
             this.isOpenPrimary = true;
             this.isOpenSecondary = false;
-        } else if (!isPrimary && isShowForm) {
+        } else if (isShowForm && !isPrimary) {
             this.isOpenPrimary = false;
             this.isOpenSecondary = true;
         }
