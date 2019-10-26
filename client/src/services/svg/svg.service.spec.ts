@@ -2,7 +2,7 @@ import { DOMRenderer } from '../../utils/dom-renderer';
 import { SVGService } from './svg.service';
 import { SVGInterface } from './element/svg.interface';
 
-fdescribe('SVGService', () => {
+describe('SVGService', () => {
 
     const X = Math.random() * 1000;
     const Y = Math.random() * 1000;
