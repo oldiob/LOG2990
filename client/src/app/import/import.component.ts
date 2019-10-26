@@ -39,10 +39,10 @@ export class ImportComponent implements OnInit {
         this.importImage = new Image();
     }
 
-    protected validationMessages: {'importImage': {type: string; message: string; } [] }  =  {
-        importImage : [
-        { type: 'required', message: 'File required' },
-        { type: 'pattern', message: 'Only .bmp, .jpg, .svg and .png are allowed' },
+    protected validationMessages: { 'importImage': { type: string; message: string; }[] } = {
+        importImage: [
+            { type: 'required', message: 'File required' },
+            { type: 'pattern', message: 'Only .rebase files are allowed' },
         ],
     };
 
