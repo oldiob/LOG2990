@@ -137,7 +137,6 @@ export class ColorButtonComponent implements OnInit {
 
     onColorRGBAChange(): void {
         this.updateColorHEX();
-        this.updateColorRGBA();
     }
 
     private updateColorHEX(): void {
