@@ -11,6 +11,7 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { saveFile } from 'src/utils/filesystem';
 
 declare type callback = () => void;
 export enum OptionType {
@@ -80,7 +81,8 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        this.dialogService.open(SaveOptionComponent);
+        saveFile();
+        //this.dialogService.open(SaveOptionComponent);
     }
 
     getImage(option: IOption<any>): string {
