@@ -21,6 +21,6 @@ export class RectangleTool extends AbsShapeTool {
     onPressed(event: MouseEvent): CmdSVG {
         this.element = new SVGRectangle(event.svgX, event.svgY, this.traceType);
         this.setElementAttributes(this.paletteService.getPrimary(), this.paletteService.getSecondary(), this.width);
-	return new CmdSVG(this.element);
+	    return new CmdSVG(this.element);
     }
 }

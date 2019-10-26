@@ -68,39 +68,38 @@ export class LineTool implements ITool {
         return false;
     }
 
-    onShowcase(x: number, y: number): SVGLine | null {
-        // const previousElement = this.element;
+    onShowcase(x: number, y: number): CmdSVG | null {
+        const previousElement = this.element;
 
-        // const mouseEvent: MouseEvent = new MouseEvent('', undefined);
-        // mouseEvent.svgX = x / 7.0;
-        // mouseEvent.svgY = 6.0 * y / 7.0;
-        // mouseEvent.doubleClick = false;
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = x / 7.0;
+        mouseEvent.svgY = 6.0 * y / 7.0;
+        mouseEvent.doubleClick = false;
 
-        // const element = this.onPressed(mouseEvent);
-        // this.onReleased(mouseEvent);
+        const action = this.onPressed(mouseEvent);
+        this.onReleased(mouseEvent);
 
-        // mouseEvent.svgX = x / 2.0;
-        // mouseEvent.svgY = y / 7.0;
-        // mouseEvent.doubleClick = false;
-        // this.onMotion(mouseEvent);
+        mouseEvent.svgX = x / 2.0;
+        mouseEvent.svgY = y / 7.0;
+        mouseEvent.doubleClick = false;
+        this.onMotion(mouseEvent);
 
-        // this.onPressed(mouseEvent);
-        // this.onReleased(mouseEvent);
+        this.onPressed(mouseEvent);
+        this.onReleased(mouseEvent);
 
-        // mouseEvent.svgX = 6.0 * x / 7.0;
-        // mouseEvent.svgY = 6.0 * y / 7.0;
-        // mouseEvent.doubleClick = false;
-        // this.onMotion(mouseEvent);
+        mouseEvent.svgX = 6.0 * x / 7.0;
+        mouseEvent.svgY = 6.0 * y / 7.0;
+        mouseEvent.doubleClick = false;
+        this.onMotion(mouseEvent);
 
-        // this.onPressed(mouseEvent);
-        // this.onReleased(mouseEvent);
+        this.onPressed(mouseEvent);
+        this.onReleased(mouseEvent);
 
-        // this.onPressed(mouseEvent);
-        // mouseEvent.doubleClick = true;
-        // this.onReleased(mouseEvent);
+        this.onPressed(mouseEvent);
+        mouseEvent.doubleClick = true;
+        this.onReleased(mouseEvent);
 
-        // this.element = previousElement;
-        // return element;
-        return null;
+        this.element = previousElement;
+        return action;
     }
 }
