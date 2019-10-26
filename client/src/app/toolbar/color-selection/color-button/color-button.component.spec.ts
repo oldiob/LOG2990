@@ -100,4 +100,45 @@ describe('ColorButtonComponent', () => {
             'background-color': `${service.getSecondary()}`,
         });
     });
+
+    it('#onMouseUp should update palette, hide Form and update color history', () => {
+        spyOn(component, 'updatePalette');
+        spyOn(component, 'hideForm');
+
+        component.onMouseUp();
+
+        expect(component.updatePalette).toHaveBeenCalled();
+        expect(component.hideForm).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#onOldColor should pick color, update palette and hide form', () => {
+        spyOn(component, 'onColorPick');
+        spyOn(component, 'updatePalette');
+        spyOn(component, 'hideForm');
+        const color = new Color(255, 255, 255, 1);
+        component.onOldColor(color);
+
+        expect(component.onColorPick).toHaveBeenCalled();
+        expect(component.updatePalette).toHaveBeenCalled();
+        expect(component.hideForm).toHaveBeenCalled();
+    });
+
+    it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
+        component.isShowForm = true;
+        spyOn(component.open, 'emit');
+
+        component.toggleForm();
+
+        expect(component.isShowForm).toBeFalsy();
+        expect(component.open.emit).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#hideForm should put isShowForm to false', () => {
+        component.isShowForm = true;
+        component.hideForm();
+        expect(component.isShowForm).toBeFalsy();
+    });
+
 });
