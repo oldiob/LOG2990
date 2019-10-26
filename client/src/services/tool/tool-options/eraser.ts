@@ -5,6 +5,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from './i-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { recreateElement } from 'src/utils/element-parser';
+import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +18,8 @@ export class EraserTool implements ITool {
     container: any | null;
     objectsOnHold: (SVGInterface | null)[] = [];
 
+    cmd: CmdEraser;
+
     constructor(private svgService: SVGService) {
         this.activated = false;
         this.width = 64;
@@ -24,12 +27,14 @@ export class EraserTool implements ITool {
         this.container = DOMRenderer.createElement('g', 'svg');
     }
 
-    onPressed(event: MouseEvent): null {
+    onPressed(event: MouseEvent): CmdEraser {
+        this.cmd = new CmdEraser();
+
         this.activated = true;
         this.deleteAll();
         this.flushContainer();
 
-        return null;
+        return this.cmd;
     }
 
     onReleased(event: MouseEvent): void {
@@ -71,8 +76,8 @@ export class EraserTool implements ITool {
     }
 
     private deleteAll() {
-        this.objectsOnHold.forEach(obj => {
-            this.svgService.removeObject(obj);
+        this.objectsOnHold.forEach((obj) => {
+            this.cmd.eraseObject(obj);
         });
     }
 }
