@@ -1,11 +1,11 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
-import { ExportOptionComponent } from './export-option/export-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
@@ -13,7 +13,6 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { CmdService } from 'src/services/cmd/cmd.service';
 
 declare type callback = () => void;
 
@@ -46,7 +45,11 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
+<<<<<<< HEAD
     isDialogOpened: boolean;
+=======
+    isDialogOpened = false;
+>>>>>>> Remove ExportOptionComponent
     optionDisplayed: boolean;
 
     constructor(public dialogService: DialogService) {
@@ -75,10 +78,6 @@ export class ToolbarComponent implements OnInit {
 
     newDrawingOption(): void {
         this.openDialog(NewDrawingComponent);
-    }
-
-    openExportOption(): void {
-        this.dialogService.open(ExportOptionComponent);
     }
 
     saveImage(): void {

@@ -1,7 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, RendererFactory2 } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule, RendererFactory2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA,
@@ -13,6 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyInjector } from 'src/utils/injector';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
@@ -28,7 +28,6 @@ import { ColorSelectionComponent } from './app/toolbar/color-selection/color-sel
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
-import { MyInjector } from 'src/utils/injector';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
