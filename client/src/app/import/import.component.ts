@@ -3,10 +3,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Data } from '@angular/router';
+import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
+import { SVGService } from 'src/services/svg/svg.service';
 import { populateDrawArea } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
-import { SVGService } from 'src/services/svg/svg.service';
-import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 
 const REBASE = '[^ @]*.rebase';
 
@@ -17,7 +17,6 @@ const REBASE = '[^ @]*.rebase';
 })
 export class ImportComponent implements OnInit {
 
-    uploadFile: boolean;
     enableFile: boolean;
     enable: boolean;
 
@@ -33,7 +32,6 @@ export class ImportComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
         this.reader = new FileReader();
-        this.uploadFile = false;
         this.enableFile = false;
     }
 
@@ -55,17 +53,17 @@ export class ImportComponent implements OnInit {
     }
 
     getFile(event: Event): void {
-        this.uploadFile = true;
         this.selectFile = event.currentTarget as HTMLInputElement;
         if (this.selectFile.files !== null) {
             this.importFile = this.selectFile.files[0];
         }
 
-
         this.reader.onload = () => {
             const res: DrawAreaHolder = JSON.parse(this.reader.result as string);
             Object.setPrototypeOf(res, DrawAreaHolder.prototype);
             populateDrawArea(MyInjector.get(SVGService), res);
+            this.enableFile = true;
+            this.checkButton();
         };
 
         this.reader.readAsText(this.importFile);

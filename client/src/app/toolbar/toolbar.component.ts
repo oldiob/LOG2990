@@ -4,20 +4,19 @@ import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
+import { serializeDrawArea } from 'src/utils/element-parser';
+import { saveFile } from 'src/utils/filesystem';
+import { MyInjector } from 'src/utils/injector';
 import { ImportComponent } from '../import/import.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
-import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { saveFile } from 'src/utils/filesystem';
-import { serializeDrawArea } from 'src/utils/element-parser';
-import { MyInjector } from 'src/utils/injector';
-import { SVGService } from 'src/services/svg/svg.service';
 
 declare type callback = () => void;
 
