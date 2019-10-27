@@ -1,11 +1,9 @@
 import { expect } from 'chai';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-import { DateService } from '../services/date.service';
 import { DrawingRoute } from './drawing.route';
 
 describe('DrawingRoutes :', () => {
     let drawingRoute: DrawingRoute;
-    let dataService: DateService;
     let invalidID: Drawing;
     let validDrawing: Drawing;
     let invalidName: Drawing;
@@ -46,8 +44,7 @@ describe('DrawingRoutes :', () => {
           width: 200,
           height: 200,
     };
-    dataService = new DateService();
-    drawingRoute = new DrawingRoute(dataService);
+    drawingRoute = new DrawingRoute();
     describe('assignID function: ', () => {
         it('should assignID to drawing', () => {
             expect(drawingRoute.assignID(validDrawing)).equal(-1);
