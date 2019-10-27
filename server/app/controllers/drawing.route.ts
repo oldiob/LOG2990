@@ -1,8 +1,9 @@
 import { Request, Response, Router } from 'express';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import Types from '../types';
 import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-
+import { DataBaseService } from '../services/database.service';
 @injectable()
 export class DrawingRoute {
 
@@ -10,7 +11,7 @@ export class DrawingRoute {
     drawings: Drawing[];
     uniqueID: number;
 
-    constructor() {
+    constructor(@inject(Types.DataBaseService)private database: DataBaseService) {
         this.drawings = [];
         this.uniqueID = 0;
         this.configureRouter();
@@ -117,7 +118,12 @@ export class DrawingRoute {
             res.json(this.drawings.length);
         });
         this.router.get('/drawing/all', (req, res) => {
-            res.json(this.drawings);
+                this.database.getAllDrawings().then((result: Drawing[]) => {
+                        for (let i = 0; i < result.length; i++) {
+                                this.drawings[i] = result[i];
+                        }
+                });
+                res.json(this.drawings);
         });
         this.router.get('/drawing/byid/:id', (req, res) => {
             const id: number = Number(req.params.id);
@@ -134,13 +140,14 @@ export class DrawingRoute {
             res.json(result);
         });
         this.router.delete('/drawing/delete/:id', (req: Request, res: Response) => {
-            const index: number = this.getDrawingIndex(Number(req.params.id));
-            if (index > -1) {
-                this.drawings.splice(index, 1);
-                res.status(200).json({ RESPONSE: 'deleted' });
-            } else {
-                res.status(500).json({ RESPONSE: 'not found' });
-            }
+                const index: number = this.getDrawingIndex(Number(req.params.id));
+                if (index > -1) {
+                        this.drawings.splice(index, 1);
+                        this.database.deleteDrawing(this.drawings[index]);
+                        res.status(200).json({RESPONSE: 'deleted'});
+                } else {
+                        res.status(500).json({RESPONSE: 'not found'});
+                }
         });
     }
 }
