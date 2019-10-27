@@ -52,13 +52,6 @@ describe('WebClientService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should send the correct message', () => {
-    const expectedMessage: Message = {title: 'hello', body: 'world'};
-    httpClientSpy.post.and.returnValue(of(expectedMessage));
-    service.sendMessage();
-    expect(httpClientSpy.post.calls.count()).toEqual(CALL_COUNT);
-  });
-
   it('should get the drawing count', () => {
     service.loading = true;
     const expectedNumber = 8;
@@ -106,12 +99,6 @@ describe('WebClientService', () => {
     httpClientSpy.delete.and.returnValue(of(id));
     service.deleteDrawing(id);
     expect(httpClientSpy.delete.calls.count()).toEqual(CALL_COUNT);
-  });
-
-  it('should get message', () => {
-    httpClientSpy.get.and.returnValue(of(message));
-    service.getMessage();
-    expect(httpClientSpy.get.calls.count()).toEqual(CALL_COUNT);
   });
 
   it('should get prepared drawing', () => {

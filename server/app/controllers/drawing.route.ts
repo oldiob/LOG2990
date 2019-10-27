@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { injectable } from 'inversify';
+import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
 
 @injectable()

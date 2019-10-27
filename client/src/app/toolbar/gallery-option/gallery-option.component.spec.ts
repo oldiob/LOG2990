@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, ElementRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatMenuModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Drawing } from 'src/services/draw-area/i-drawing';
@@ -15,7 +15,7 @@ describe('GalleryOptionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [GalleryOptionComponent],
-      imports: [MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
+      imports: [MatMenuModule, MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
       .compileComponents();
