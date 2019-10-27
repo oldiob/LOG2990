@@ -121,3 +121,18 @@
 .btn {
   margin-left: 25px;
 }
+
+.extra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 15px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+}
