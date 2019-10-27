@@ -32,15 +32,16 @@ export class DrawingRoute {
     }
 
      isDrawingValid(drawing: Drawing): boolean {
+            let isDrawingValid = true;
             if (drawing.name === '') {
-                    return false;
+                isDrawingValid = false;
             }
             for (const tag of drawing.tags) {
-                    if (this.isTagValid(tag)) {
-                        return false;
+                    if (!this.isTagValid(tag)) {
+                        isDrawingValid = false;
                     }
             }
-            return true;
+            return isDrawingValid;
     }
 
     isTagValid(tag: string): boolean {

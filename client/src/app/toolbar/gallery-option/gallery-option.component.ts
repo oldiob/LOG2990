@@ -106,16 +106,29 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
     }
 
-    onDelete(event: MouseEvent, drawing: Drawing) {
-        for (let i = 0; i < this.filterDrawings.length; i++) {
-            if (this.filteredDrawings[i].id === drawing.id) {
-                this.drawings.splice(i, 1);
-            }
-        }
+    onDelete(drawing: Drawing) {
+        this.remove(drawing);
         this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
     }
 
+    private remove(drawing: Drawing) {
+        for (let i = 0; i < this.drawingsOnPage.length; i++) {
+            if (this.drawingsOnPage[i].id === drawing.id) {
+                this.drawingsOnPage.splice(i, 1);
+            }
+        }
+    }
+
     onClose() {
+        //
+    }
+
+    onAddTag(event: MouseEvent, drawing: Drawing): void {
+        // this.webClientService.addTag(this.drawing.id, tag);
+    }
+
+    stopEventPropagation(event: MouseEvent): void {
+        event.stopPropagation();
     }
 
     previousPage(): void {

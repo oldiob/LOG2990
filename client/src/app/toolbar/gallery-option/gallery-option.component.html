@@ -12,25 +12,36 @@
         </div>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
-                (click)="onClick($event, drawing)" mat-dialog-close>
-                <div class="drawing-section name">
-                    {{drawing.name}}
+                (click)="onClick($event, drawing)">
+
+                <div class="drawing-section">
+                    <div class="name" [innerText]="drawing.name"></div>
+                    <button class="overflow" mat-icon-button [matMenuTriggerFor]="menu" aria-label="more options"
+                        (click)="stopEventPropagation($event)">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu" yPosition="above" xPosition="after">
+                        <button mat-menu-item>
+                            <mat-icon>label</mat-icon>
+                            <span>Add Tag</span>
+                        </button>
+                        <button mat-menu-item (click)="onDelete(drawing)">
+                            <mat-icon>close</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
                 </div>
-                <div class="tag" (click)="onDelete($event, drawing)">Delete</div>
+
                 <div class="thumbnail">
                     <app-thumbnail [thumbnailSVG]="drawing.holder.entry" [svgWidth]="drawing.width"
                         [svgHeight]="drawing.height">
                     </app-thumbnail>
                 </div>
+
                 <div class="drawing-section">
                     <div class="tag" *ngFor="let tag of drawing.tags">
                         {{tag}}
                     </div>
-                </div>
-                <div class="extra">
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
                 </div>
             </div>
         </div>

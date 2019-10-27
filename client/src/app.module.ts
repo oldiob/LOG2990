@@ -4,8 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, RendererFactory2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-    MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule,
-    MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule
+    MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA,
+    MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule,
+    MatCardModule, MatCheckboxModule, MatDialogModule,
+    MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatSelectModule, MatTableModule
 } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -80,6 +82,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         ReactiveFormsModule,
         MatChipsModule,
         MatIconModule,
+        MatMenuModule,
     ],
     exports: [
         MatDividerModule,
