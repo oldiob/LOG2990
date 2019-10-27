@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { Message } from '../../../../common/communication/message';
 import { Drawing } from '../draw-area/i-drawing';
 
 @Injectable({
@@ -23,15 +22,6 @@ export class WebClientService {
     constructor(
         private dialogService: DialogService,
         private http: HttpClient) { }
-
-    sendMessage() {
-        // POST EXAMPLE DO NOT REMOVE CLIENTSIDE
-        const drawResponse = new Message();
-        drawResponse.title = 'hello';
-        drawResponse.body = 'world';
-        return this.http.post(`${this.CUSTOM_URL}/addM`, drawResponse)
-            .subscribe((res: Response) => console.log(res.body));
-    }
 
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
@@ -51,6 +41,13 @@ export class WebClientService {
                 }
                 this.saving = false;
                 loadingDialogRef.componentInstance.done();
+            });
+    }
+
+    addTag(id: number, tag: string) {
+        this.http.post(`${this.CUSTOM_URL}/addtag`, { id, tag })
+            .subscribe((res: Response) => {
+                console.log(res.body);
             });
     }
 
@@ -76,13 +73,6 @@ export class WebClientService {
     }
     deleteDrawing(id: number) {
         return this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${id}`);
-    }
-
-    getMessage(): Observable<Message> {
-        // GET EXAMPLE DO NOT REMOVE CLIENTSIDE
-        return this.http.get<Message>(`${this.CUSTOM_URL}/a`).pipe(
-            catchError(this.handleError<Message>('basicGet')),
-        );
     }
 
     getPreparedDrawing(): Drawing[] {

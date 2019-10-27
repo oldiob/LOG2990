@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule, MatCheckboxModule,
-    MatDialogModule, MatDialogRef, MatFormFieldModule, MatOptionModule, MatSelectModule
+    MatDialogModule, MatDialogRef, MatFormFieldModule, MatMenuModule, MatOptionModule, MatSelectModule
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +48,7 @@ describe('ToolbarComponent', () => {
             },
         });
         TestBed.configureTestingModule({
-            imports: [MatSelectModule, MatDialogModule, FormsModule,
+            imports: [MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
                 MatOptionModule, MatFormFieldModule],
