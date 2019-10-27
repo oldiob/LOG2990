@@ -15,9 +15,19 @@
         </div>
     </div>
 </div>
-<div class="separation">
-    <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+
+<div *ngIf="currentTool !== pen" class="separation">
+    <app-width [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 </div>
+
+<div *ngIf="currentTool === pen" class="separation">
+    <app-width [title]="'Min Width'" [width]="currentTool.minWidth" (widthEmmiter)="setMinWidth($event)"></app-width>
+</div>
+
+<div *ngIf="currentTool === pen" class="separation">
+    <app-width [title]="'Max Width'" [width]="currentTool.maxWidth" (widthEmmiter)="setMaxWidth($event)"></app-width>
+</div>
+
 <div *ngIf="currentTool.junctionType === 2" class="separation">
     <app-junction [junctionWidth]="currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)">
     </app-junction>
@@ -35,7 +45,6 @@
 <div *ngIf="currentTool === stamp" class="separation">
     <app-angle [angle]="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
 </div>
-
 <div *ngIf="currentTool === stamp" class="separation">
     <div class="text">Stamp</div>
     <div class="toolsEmo">
