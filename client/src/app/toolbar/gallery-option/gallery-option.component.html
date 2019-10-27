@@ -12,7 +12,7 @@
         </div>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
-                (click)="onClick($event, drawing)">
+                (click)="onClick($event, drawing)" mat-dialog-close>
 
                 <div class="drawing-section">
                     <div class="name" [innerText]="drawing.name"></div>
@@ -21,7 +21,7 @@
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu" yPosition="above" xPosition="after">
-                        <button mat-menu-item>
+                        <button mat-menu-item [matMenuTriggerFor]="addTag">
                             <mat-icon>label</mat-icon>
                             <span>Add Tag</span>
                         </button>
@@ -29,6 +29,15 @@
                             <mat-icon>close</mat-icon>
                             <span>Delete</span>
                         </button>
+                    </mat-menu>
+                    <mat-menu #addTag="matMenu">
+                        <div class="add-tag-wrapper">
+                            <input class="add-tag-input" type="text" [(ngModel)]="tagInput"
+                                (click)="stopEventPropagation($event)"
+                                (keyup.enter)="onAddTag(drawing)" placeholder="Add New Tag ...">
+                            <button class="btn-add-tag" mat-flat-button color="primary" (click)="onAddTag(drawing)">Add
+                                Tag</button>
+                        </div>
                     </mat-menu>
                 </div>
 

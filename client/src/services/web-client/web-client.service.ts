@@ -55,10 +55,10 @@ export class WebClientService {
     }
 
     addTag(id: number, tag: string) {
-        this.http.post(`${this.CUSTOM_URL}/add/${id}`, tag)
-          .subscribe((res: Response) => {
-              console.log(res.body);
-          });
+        this.http.post(`${this.CUSTOM_URL}/addtag`, { id, tag })
+            .subscribe((res: Response) => {
+                console.log(res.body);
+            });
     }
 
     getDrawingCount(): Observable<number> {

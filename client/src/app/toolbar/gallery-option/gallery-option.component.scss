@@ -146,3 +146,24 @@
   width: 10px;
   height: 15px;
 }
+
+.add-tag-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
+}
+
+.add-tag-input {
+  height: 2rem;
+  width: 160px;
+  font-size: 1rem;
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 3px;
+}
+
+.btn-add-tag {
+  margin: 10px;
+}

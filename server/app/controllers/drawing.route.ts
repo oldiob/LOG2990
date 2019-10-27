@@ -133,9 +133,9 @@ export class DrawingRoute {
                         res.status(500).json({RESPONSE: 'invalid drawing'});
                 }
         });
-        this.router.post('/addtag/:id', (req, res) => {
-                const id: number = Number(req.params.id);
-                const tag: string = req.body;
+        this.router.post('/addtag', (req, res) => {
+                const id: number = req.body.id;
+                const tag: string = req.body.tag;
                 if (this.addTag(id, tag)) {
                         res.json('tag added');
                 } else {

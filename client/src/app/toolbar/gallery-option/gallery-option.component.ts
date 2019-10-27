@@ -23,6 +23,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     filteredDrawings: Drawing[];
     drawingsOnPage: Drawing[];
 
+    tagInput: string;
     isTagExists: boolean;
 
     readonly N_DRAWINGS_PER_PAGE = 8;
@@ -123,8 +124,19 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         //
     }
 
-    onAddTag(event: MouseEvent, drawing: Drawing): void {
-        // this.webClientService.addTag(this.drawing.id, tag);
+    onAddTag(drawing: Drawing): void {
+        this.addTag(drawing);
+        this.webClientService.addTag(drawing.id, this.tagInput);
+        this.tagInput = '';
+    }
+
+    private addTag(drawing: Drawing): void {
+        const targetDrawing = this.drawingsOnPage.find((aDrawing: Drawing) => {
+            return aDrawing.id === drawing.id;
+        });
+        if (targetDrawing && this.tagInput) {
+            targetDrawing.tags.push(this.tagInput);
+        }
     }
 
     stopEventPropagation(event: MouseEvent): void {
