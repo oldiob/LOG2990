@@ -33,6 +33,10 @@ body {
   background: rgb(64, 76, 144);
 }
 
+.mat-menu-content {
+  background-color: darken($color: #414d8f, $amount: 17);
+}
+
 .slider {
   -webkit-appearance: none;
   width: 200px;

@@ -34,7 +34,7 @@
                         <div class="add-tag-wrapper">
                             <input class="add-tag-input" type="text" [(ngModel)]="tagInput"
                                 (click)="stopEventPropagation($event)"
-                                (keyup.enter)="onAddTag(drawing)" placeholder="Add New Tag ...">
+                                (keyup.enter)="onAddTag(drawing)" placeholder="Enter tag name ..." autocomplete="off" autofocus>
                             <button class="btn-add-tag" mat-flat-button color="primary" (click)="onAddTag(drawing)">Add
                                 Tag</button>
                         </div>
