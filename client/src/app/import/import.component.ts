@@ -15,7 +15,6 @@ const REBASE = /.*.rebase$/;
 })
 export class ImportComponent implements OnInit {
 
-    uploadFile: boolean;
     enableFile: boolean;
     enable: boolean;
 
@@ -32,9 +31,7 @@ export class ImportComponent implements OnInit {
         private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
-
         this.readFile = new FileReader();
-        this.uploadFile = false;
         this.enableFile = false;
         this.importImage = new Image();
     }
@@ -56,8 +53,7 @@ export class ImportComponent implements OnInit {
         });
     }
 
-    getFile(event: Event): void {
-            this.uploadFile = true;
+    getFile(event: KeyboardEvent): void {
             this.selectFile = event.currentTarget as HTMLInputElement;
             if (this.selectFile.files !== null) {
                 this.importFile = this.selectFile.files[0];
