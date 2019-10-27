@@ -1,9 +1,9 @@
 import { Request, Response, Router } from 'express';
-import { injectable, inject } from 'inversify';
-import Types from '../types';
+import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
 import { DataBaseService } from '../services/database.service';
+import Types from '../types';
 @injectable()
 export class DrawingRoute {
 
@@ -11,7 +11,7 @@ export class DrawingRoute {
     drawings: Drawing[];
     uniqueID: number;
 
-    constructor(@inject(Types.DataBaseService)private database: DataBaseService) {
+    constructor(@inject(Types.DataBaseService) private database: DataBaseService) {
         this.drawings = [];
         this.uniqueID = 0;
         this.configureRouter();
@@ -100,6 +100,7 @@ export class DrawingRoute {
             if (this.isDrawingValid(drawing)) {
                 this.assignID(drawing);
                 this.drawings.push(drawing);
+                this.database.addDrawing(drawing);
                 res.status(200).json({ RESPONSE: 'drawing add to server' });
             } else {
                 res.status(500).json({ RESPONSE: 'invalid drawing' });
