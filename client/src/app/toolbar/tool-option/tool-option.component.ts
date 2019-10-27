@@ -84,14 +84,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.stamps = [new EmojiStamp()];
 
         this.imageStamp = [] = [
-            { png: './assets/images/emojis/051-angel.png', base64: Base64.ANGEL},
-            { png: './assets/images/emojis/051-angry.png', base64: Base64.ANGRY},
-            { png: './assets/images/emojis/051-cool-1.png', base64: Base64.COOL},
-            { png: './assets/images/emojis/051-crying-1.png', base64: Base64.CRY},
-            { png: './assets/images/emojis/051-kiss-1.png', base64: Base64.KISS},
-            { png: './assets/images/emojis/051-laughing-1.png', base64: Base64.LAUGH},
-            { png: './assets/images/emojis/051-shocked.png', base64: Base64.SHOCKED},
-            { png: './assets/images/emojis/051-sick.png', base64: Base64.SICK},
+            { png: './assets/images/emojis/051-angel.png', base64: Base64.ANGEL },
+            { png: './assets/images/emojis/051-angry.png', base64: Base64.ANGRY },
+            { png: './assets/images/emojis/051-cool-1.png', base64: Base64.COOL },
+            { png: './assets/images/emojis/051-crying-1.png', base64: Base64.CRY },
+            { png: './assets/images/emojis/051-kiss-1.png', base64: Base64.KISS },
+            { png: './assets/images/emojis/051-laughing-1.png', base64: Base64.LAUGH },
+            { png: './assets/images/emojis/051-shocked.png', base64: Base64.SHOCKED },
+            { png: './assets/images/emojis/051-sick.png', base64: Base64.SICK },
         ];
 
         this.currentStamp = this.stamps[0];
@@ -140,6 +140,20 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
+            this.showcase.display(this.currentTool);
+        }
+    }
+
+    setMaxWidth(maxWidth: number): void {
+        if (this.currentTool instanceof PenTool) {
+            this.currentTool.maxWidth = maxWidth;
+            this.showcase.display(this.currentTool);
+        }
+    }
+
+    setMinWidth(minWidth: number): void {
+        if (this.currentTool instanceof PenTool) {
+            this.currentTool.minWidth = minWidth;
             this.showcase.display(this.currentTool);
         }
     }

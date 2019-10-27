@@ -11,6 +11,9 @@ export class WidthComponent implements OnInit {
 
     private mWidth: number;
 
+    @Input()
+    title: string;
+
     @Output()
     widthEmmiter: EventEmitter<number> = new EventEmitter<number>();
 

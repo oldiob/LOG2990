@@ -17,7 +17,7 @@
 </div>
 
 <form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
-    <app-width class="separation" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+    <app-width class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 
     <mat-form-field color="accent">
         <mat-label class="trace-label">Trace Type</mat-label>
