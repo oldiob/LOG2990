@@ -56,9 +56,10 @@ export class DrawingRoute {
         return null;
     }
 
-    getDrawingIndex(id: number): number {
+    async getDrawingIndex(id: number): Promise<number> {
         for (let i = 0; i < this.drawings.length; i++) {
             if (this.drawings[i].id === id) {
+                await this.database.deleteDrawing(this.drawings[i]);
                 return i;
             }
         }
@@ -142,10 +143,9 @@ export class DrawingRoute {
             res.json(result);
         });
         this.router.delete('/drawing/delete/:id', async (req: Request, res: Response) => {
-                const index: number = this.getDrawingIndex(Number(req.params.id));
+                const index: number = await this.getDrawingIndex(Number(req.params.id));
                 if (index > -1) {
                         this.drawings.splice(index, 1);
-                        await this.database.deleteDrawing(this.drawings[index]);
                         res.status(200).json({RESPONSE: 'deleted'});
                 } else {
                         res.status(500).json({RESPONSE: 'not found'});
