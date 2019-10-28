@@ -1,8 +1,9 @@
 import { Request, Response, Router } from 'express';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-
+import { DataBaseService } from '../services/database.service';
+import Types from '../types';
 @injectable()
 export class DrawingRoute {
 
@@ -10,7 +11,7 @@ export class DrawingRoute {
     drawings: Drawing[];
     uniqueID: number;
 
-    constructor() {
+    constructor(@inject(Types.DataBaseService) private database: DataBaseService) {
         this.drawings = [];
         this.uniqueID = 0;
         this.configureRouter();
@@ -81,33 +82,35 @@ export class DrawingRoute {
         }
         return result;
     }
-    addTag(id: number, tag: string): boolean {
+    async addTag(id: number, tag: string): Promise<boolean> {
         const result = this.findDrawing(id);
         if (result === null || !this.isTagValid(tag)) {
             return false;
         } else {
             result.tags.push(tag);
+            await this.database.updateTags(result);
             return true;
         }
     }
 
     configureRouter() {
         this.router = Router();
-        this.router.post('/add', (req, res) => {
+        this.router.post('/add', async (req, res) => {
             let drawing = new Drawing();
             drawing = req.body;
             if (this.isDrawingValid(drawing)) {
                 this.assignID(drawing);
                 this.drawings.push(drawing);
+                await this.database.addDrawing(drawing);
                 res.status(200).json({ RESPONSE: 'drawing add to server' });
             } else {
                 res.status(500).json({ RESPONSE: 'invalid drawing' });
             }
         });
-        this.router.post('/addtag', (req, res) => {
+        this.router.post('/addtag', async (req, res) => {
             const id: number = req.body.id;
             const tag: string = req.body.tag;
-            if (this.addTag(id, tag)) {
+            if (await this.addTag(id, tag)) {
                 res.json('tag added');
             } else {
                 res.json('tag not added');
@@ -116,8 +119,13 @@ export class DrawingRoute {
         this.router.get('/drawing/count', (req, res) => {
             res.json(this.drawings.length);
         });
-        this.router.get('/drawing/all', (req, res) => {
-            res.json(this.drawings);
+        this.router.get('/drawing/all', async (req, res) => {
+                await this.database.getAllDrawings().then((result: Drawing[]) => {
+                        for (let i = 0; i < result.length; i++) {
+                                this.drawings[i] = result[i];
+                        }
+                });
+                res.json(this.drawings);
         });
         this.router.get('/drawing/byid/:id', (req, res) => {
             const id: number = Number(req.params.id);
@@ -133,14 +141,15 @@ export class DrawingRoute {
             const result: Drawing[] = this.returnElementByRange(drawings, min, max);
             res.json(result);
         });
-        this.router.delete('/drawing/delete/:id', (req: Request, res: Response) => {
-            const index: number = this.getDrawingIndex(Number(req.params.id));
-            if (index > -1) {
-                this.drawings.splice(index, 1);
-                res.status(200).json({ RESPONSE: 'deleted' });
-            } else {
-                res.status(500).json({ RESPONSE: 'not found' });
-            }
+        this.router.delete('/drawing/delete/:id', async (req: Request, res: Response) => {
+                const index: number = this.getDrawingIndex(Number(req.params.id));
+                if (index > -1) {
+                        this.drawings.splice(index, 1);
+                        await this.database.deleteDrawing(this.drawings[index]);
+                        res.status(200).json({RESPONSE: 'deleted'});
+                } else {
+                        res.status(500).json({RESPONSE: 'not found'});
+                }
         });
     }
 }
