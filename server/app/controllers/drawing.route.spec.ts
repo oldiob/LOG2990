@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-import { DrawingRoute } from './drawing.route';
 import { DataBaseService } from '../services/database.service';
+import { DrawingRoute } from './drawing.route';
+
 describe('DrawingRoutes :', () => {
     let drawingRoute: DrawingRoute;
     let database: DataBaseService;

@@ -48,14 +48,13 @@ export class DataBaseService {
         });
 
     }
-    // update drawing
-    /*async updateDrawing(draw: Drawing): Promise<void> {
+
+    async updateTags(draw: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
         const drawings: Collection<Drawing> = this.db.collection('Drawing');
         const drawing: Drawing = draw;
-        // set what you want to update $set color, epaisseur, etc.
-        drawings.findOneAndUpdate({id: drawing.ID}, {$set: {}},
-                               {upsert: true});
-    }*/
+        drawings.findOneAndUpdate({id: drawing.id}, {$set: {tags: drawing.tags}},
+                                  {upsert: true});
+    }
 
 }
