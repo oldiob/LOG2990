@@ -33,6 +33,14 @@ export class SVGPen implements SVGInterface {
         return false;
     }
 
+    getPrimary(): string {
+        return this.element.getAttribute('stroke');
+    }
+
+    getSecondary(): string {
+        return '';
+    }
+
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'stroke', color);
     }
@@ -60,7 +68,7 @@ export class SVGPen implements SVGInterface {
         const sizeOfPoint: number = this.points.length;
 
         distance = Math.sqrt(Math.pow(Math.abs(this.points[sizeOfPoint][0] - this.points[sizeOfPoint - 1][0]), 2) +
-                            Math.pow(Math.abs(this.points[sizeOfPoint][0] - this.points[sizeOfPoint - 1][0]), 2));
+            Math.pow(Math.abs(this.points[sizeOfPoint][0] - this.points[sizeOfPoint - 1][0]), 2));
 
         this.lineWidth = this.minWidth + this.maxWidth * (distance / 100);
         if (this.lineWidth > this.maxWidth) {
