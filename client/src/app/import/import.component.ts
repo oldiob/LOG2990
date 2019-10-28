@@ -59,9 +59,6 @@ export class ImportComponent implements OnInit {
         }
 
         this.reader.onload = () => {
-            const res: DrawAreaHolder = JSON.parse(this.reader.result as string);
-            Object.setPrototypeOf(res, DrawAreaHolder.prototype);
-            populateDrawArea(MyInjector.get(SVGService), res);
             this.enableFile = true;
             this.checkButton();
         };
@@ -75,6 +72,10 @@ export class ImportComponent implements OnInit {
 
     submit(event: MouseEvent): void {
         this.checkButton();
+        const res: DrawAreaHolder = JSON.parse(this.reader.result as string);
+        Object.setPrototypeOf(res, DrawAreaHolder.prototype);
+        populateDrawArea(MyInjector.get(SVGService), res);
+        this.close(new MouseEvent('click'));
     }
 
     close(event: MouseEvent): void {
