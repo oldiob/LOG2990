@@ -59,14 +59,10 @@ export class ImportComponent implements OnInit {
                 this.importFile = this.selectFile.files[0];
             }
             this.readFile.onload = () => {
-
-                this.importImage.onload = () => {
                     this.enableFile = true;
                     this.checkButton();
-                };
-                this.importImage.src = this.readFile.result as string;
             };
-            this.readFile.readAsDataURL(this.importFile);
+            this.readFile.readAsText(this.importFile);
     }
 
     checkButton(): void {
