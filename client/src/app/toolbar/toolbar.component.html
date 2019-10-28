@@ -4,6 +4,12 @@
       [class.selected-toolbar-button]="option === currentOption">
       <img class="toolbar-icon" [src]="getImage(option)" alt="icon">
     </a>
+    <a class="button" *ngIf="!undosEmpty" (click)="undo()">
+      <img class="toolbar-icon" src="../../../assets/images/undo.png" alt="icon">
+    </a>
+    <a class="button" *ngIf="!redosEmpty" (click)="redo()">
+      <img class="toolbar-icon" src="../../../assets/images/redo.png" alt="icon">
+    </a>
   </div>
 
   <div class="options">
@@ -20,27 +26,25 @@
 </div>
 
 <app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
-  [class.appear]="optionDisplayed && currentOption === toolOption"
-  class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === toolOption" class="toolbar-option selected-option disappear">
 </app-tool-option>
 
 <app-shape-option [class.disappear]="!optionDisplayed || currentOption !== shapeOption"
-  [class.appear]="optionDisplayed && currentOption === shapeOption"
-  class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === shapeOption" class="toolbar-option selected-option disappear">
 </app-shape-option>
 
 <app-bucket-option [class.disappear]="!optionDisplayed || currentOption !== bucketOption"
-  [class.appear]="optionDisplayed && currentOption === bucketOption"
-  class="toolbar-option selected-option disappear"></app-bucket-option>
+  [class.appear]="optionDisplayed && currentOption === bucketOption" class="toolbar-option selected-option disappear">
+</app-bucket-option>
 
 <app-selector-option [class.disappear]="!optionDisplayed || currentOption !== selectorOption"
-  [class.appear]="optionDisplayed && currentOption === selectorOption"
-  class="toolbar-option selected-option disappear"></app-selector-option>
+  [class.appear]="optionDisplayed && currentOption === selectorOption" class="toolbar-option selected-option disappear">
+</app-selector-option>
 
 <app-grid-option [class.disappear]="!optionDisplayed || currentOption !== gridOption"
-  [class.appear]="optionDisplayed && currentOption === gridOption"
-  class="toolbar-option selected-option disappear"></app-grid-option>
+  [class.appear]="optionDisplayed && currentOption === gridOption" class="toolbar-option selected-option disappear">
+</app-grid-option>
 
 <app-text-option [class.disappear]="!optionDisplayed || currentOption !== textOption"
-  [class.appear]="optionDisplayed && currentOption === textOption"
-  class="toolbar-option selected-option disappear"></app-text-option>
+  [class.appear]="optionDisplayed && currentOption === textOption" class="toolbar-option selected-option disappear">
+</app-text-option>

@@ -48,6 +48,9 @@ export class ToolbarComponent implements OnInit {
     isDialogOpened: boolean;
     optionDisplayed: boolean;
 
+    undosEmpty: boolean;
+    redosEmpty: boolean;
+
     constructor(public dialogService: DialogService) {
         this.isDialogOpened = false;
     }
@@ -56,6 +59,8 @@ export class ToolbarComponent implements OnInit {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
+        this.undosEmpty = true;
+        this.redosEmpty = true;
     }
 
     selectOption(option: IOption<any>): void {
@@ -98,6 +103,13 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
+    undo(): void {
+        CmdService.undo();
+    }
+
+    redo(): void {
+        CmdService.redo();
+    }
 
     private getComposedKey(event: KeyboardEvent): string {
         let keys = '';
@@ -144,7 +156,7 @@ export class ToolbarComponent implements OnInit {
             2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
             3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
             'C-z': () => { CmdService.undo(); },
-            'C-S-z': () => { CmdService.redo(); }
+            'C-S-z': () => { CmdService.redo(); },
         };
 
         const keys: string = this.getComposedKey(event);
