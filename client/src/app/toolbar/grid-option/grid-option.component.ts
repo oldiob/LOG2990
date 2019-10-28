@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
@@ -22,12 +21,10 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     currentTool: ITool;
 
     isOn: boolean;
-    readonly IS_PRIMARY = true;
     opacity: number;
     step: number;
 
     constructor(
-        private paletteService: PaletteService,
         private toolService: ToolService,
         public gridService: GridService,
         private gridTool: GridTool) {
@@ -72,9 +69,4 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
-
-    onSwap() {
-        this.paletteService.swap();
-    }
-
 }

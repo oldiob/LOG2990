@@ -4,17 +4,17 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
-import { ColorOptionComponent } from './color-option.component';
+import { ColorButtonComponent } from './color-button.component';
 
-describe('ColorOptionComponent', () => {
-    let component: ColorOptionComponent;
-    let fixture: ComponentFixture<ColorOptionComponent>;
+describe('ColorButtonComponent', () => {
+    let component: ColorButtonComponent;
+    let fixture: ComponentFixture<ColorButtonComponent>;
     let service: PaletteService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ColorOptionComponent],
+            declarations: [ColorButtonComponent],
             providers: [PaletteService],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
@@ -22,7 +22,7 @@ describe('ColorOptionComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ColorOptionComponent);
+        fixture = TestBed.createComponent(ColorButtonComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         service = TestBed.get(PaletteService);
@@ -39,25 +39,27 @@ describe('ColorOptionComponent', () => {
     });
 
     it('#onColorHEXChange should update RGBA color', () => {
-        const aColor = new Color(255, 255, 255, 1);
+        const primary = new Color(30, 30, 30, 1);
         component.isPrimary = true;
         component.onColorHEXChange();
-        expect(service.getPrimary()).toBe(aColor.toString());
+        expect(service.getPrimary()).toBe(primary.toString());
 
+        const secondary = new Color(170, 170, 170, 1);
         component.isPrimary = false;
         component.onColorHEXChange();
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(service.getSecondary()).toBe(secondary.toString());
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
-        const aColor = new Color(255, 255, 255, 1);
+        const primary = new Color(30, 30, 30, 1);
         component.isPrimary = true;
         component.onColorRGBAChange();
-        expect(service.getPrimary()).toBe(aColor.toString());
+        expect(service.getPrimary()).toBe(primary.toString());
 
+        const secondary = new Color(170, 170, 170, 1);
         component.isPrimary = false;
         component.onColorRGBAChange();
-        expect(service.getSecondary()).toBe(aColor.toString());
+        expect(service.getSecondary()).toBe(secondary.toString());
     });
 
     it('#onAlphaChange should update alpha', () => {
@@ -98,4 +100,45 @@ describe('ColorOptionComponent', () => {
             'background-color': `${service.getSecondary()}`,
         });
     });
+
+    it('#onMouseUp should update palette, hide Form and update color history', () => {
+        spyOn(component, 'updatePalette');
+        spyOn(component, 'hideForm');
+
+        component.onMouseUp();
+
+        expect(component.updatePalette).toHaveBeenCalled();
+        expect(component.hideForm).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#onOldColor should pick color, update palette and hide form', () => {
+        spyOn(component, 'onColorPick');
+        spyOn(component, 'updatePalette');
+        spyOn(component, 'hideForm');
+        const color = new Color(255, 255, 255, 1);
+        component.onOldColor(color);
+
+        expect(component.onColorPick).toHaveBeenCalled();
+        expect(component.updatePalette).toHaveBeenCalled();
+        expect(component.hideForm).toHaveBeenCalled();
+    });
+
+    it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
+        component.isShowForm = true;
+        spyOn(component.open, 'emit');
+
+        component.toggleForm();
+
+        expect(component.isShowForm).toBeFalsy();
+        expect(component.open.emit).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#hideForm should put isShowForm to false', () => {
+        component.isShowForm = true;
+        component.hideForm();
+        expect(component.isShowForm).toBeFalsy();
+    });
+
 });

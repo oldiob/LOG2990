@@ -1,86 +1,83 @@
 <div class="title">Tools</div>
-<div class="buttons-wrapper">
-    <app-color-option [isPrimary]="IS_PRIMARY"></app-color-option>
-    <div class="swap" (click)="onSwap()">
-        <img src="../../../assets/images/swap.svg" alt="swap">
-    </div>
-    <app-color-option [isPrimary]="!IS_PRIMARY"></app-color-option>
-</div>
+
+<app-color-selection></app-color-selection>
 
 <app-showcase></app-showcase>
 
 <div class="separation">
-  <div class="tools">
-    <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
-      [class.selected-tool]="tool === currentTool">
-      <img class="tool-icon" [src]="getFilesource(tool)">
-    </a>
-  </div>
+    <div class="tools">
+        <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
+            [class.selected-tool]="tool === currentTool">
+            <img class="tool-icon" [src]="getFilesource(tool)">
+        </a>
+    </div>
 </div>
 <div class="separation">
-  <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+    <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 </div>
 <div *ngIf="currentTool.junctionType === 2" class="separation">
-  <app-junction [junctionWidth]="currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)"></app-junction>
+    <app-junction [junctionWidth]="currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)">
+    </app-junction>
 </div>
 <div *ngIf="currentTool === brush" class="separation">
-  <div class="text">Textures</div>
-  <div class="tools">
-    <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
-      (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
-      {{i + 1}}
-    </a>
-  </div>
+    <div class="text">Textures</div>
+    <div class="tools">
+        <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
+            (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
+            {{i + 1}}
+        </a>
+    </div>
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
-  <app-angle [angle] ="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
+    <app-angle [angle]="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
 </div>
 
 <div *ngIf="currentTool === stamp" class="separation">
-  <div class="text">Stamp</div>
-  <div class="toolsEmo">
-    <div *ngFor="let image of imageStamp" class="btn-texture texture-number"
-      (click)="selectStamp(image.base64)"  [class.selected-tool]="stamp === currentStamp">
-      <img class="emoji" width="30px" [src]="image.png">
-  </div>
-  </div>
+    <div class="text">Stamp</div>
+    <div class="toolsEmo">
+        <div *ngFor="let image of imageStamp" class="btn-texture texture-number" (click)="selectStamp(image.base64)"
+            [class.selected-tool]="stamp === currentStamp">
+            <img class="emoji" width="30px" [src]="image.png">
+        </div>
+    </div>
 </div>
 
 <div *ngIf="currentTool === line">
-<form  class="form" [formGroup]="lineForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="lineForm" (ngSubmit)="onSubmit()">
 
-  <mat-form-field color="accent">
-    <mat-label class="trace-label">Pattern Type</mat-label>
-    <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType" >
-      <mat-option [value]="LineType.FullLine">
-        Full Line
-      </mat-option>
-      <mat-option [value]="LineType.DashLine">
-        Dash Line
-      </mat-option>
-      <mat-option [value]="LineType.DotLine">
-        Dot Line
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</form>
+        <mat-form-field color="accent">
+            <mat-label class="trace-label">Pattern Type</mat-label>
+            <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType">
+                <mat-option [value]="LineType.FullLine">
+                    Full Line
+                </mat-option>
+                <mat-option [value]="LineType.DashLine">
+                    Dash Line
+                </mat-option>
+                <mat-option [value]="LineType.DotLine">
+                    Dot Line
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
 </div>
 <div *ngIf="currentTool === line">
-<form  class="form" [formGroup]="junctionForm" (ngSubmit)="onSubmit()">
-  <mat-form-field color="accent">
-    <mat-label class="trace-label">Junction Type</mat-label>
-    <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel" formControlName="junctionType" >
-      <mat-option [value]="JunctionType.Angle">
-        Angle
-      </mat-option>
-      <mat-option [value]="JunctionType.Round">
-        Round
-      </mat-option>
-      <mat-option [value]="JunctionType.Dot">
-        Dot
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</form>
+    <form class="form" [formGroup]="junctionForm" (ngSubmit)="onSubmit()">
+        <mat-form-field color="accent">
+            <mat-label class="trace-label">Junction Type</mat-label>
+            <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel"
+                formControlName="junctionType">
+                <mat-option [value]="JunctionType.Angle">
+                    Angle
+                </mat-option>
+                <mat-option [value]="JunctionType.Round">
+                    Round
+                </mat-option>
+                <mat-option [value]="JunctionType.Dot">
+                    Dot
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
 </div>

@@ -25,11 +25,8 @@ export class ColorPickerComponent implements OnInit {
     private picker: any;
     pickedColor: string;
 
-    // to be removed
-    debug: string;
-
     constructor() {
-        // NO OP
+        //
     }
 
     ngOnInit() {
@@ -70,7 +67,7 @@ export class ColorPickerComponent implements OnInit {
             });
     }
 
-    private pickColor(event: MouseEvent) {
+    pickColor(event: MouseEvent) {
         this.updateMousePosition(event);
         this.getColor();
         this.updatePickerStyle(event);
@@ -142,6 +139,5 @@ export class ColorPickerComponent implements OnInit {
 
         this.pickedColor = color.toString();
         this.color.emit(color);
-        this.debug = this.pickedColor;
     }
 }

@@ -45,10 +45,6 @@ describe('GridOptionComponent', () => {
     expect(component.currentTool).toBe(grid);
   });
 
-  it('should show primary', () => {
-      expect(component.IS_PRIMARY).toBeTruthy();
-  });
-
   it('should get image of grid tool', () => {
     component.getImage();
     expect(component.getImage()).toEqual(BUTTON);
@@ -68,12 +64,7 @@ describe('GridOptionComponent', () => {
     component.getFilesource(grid);
     expect(component.getFilesource(grid)).toEqual(PATH + BUTTON);
   });
-
-  it('should swap primary and secondary color', () => {
-      component.onSwap();
-      expect(component.onSwap).toBeTruthy();
-  });
-
+  
   it('should draw grid if it is toggle', () => {
     component.isOn = true;
     component.toggleGrid();

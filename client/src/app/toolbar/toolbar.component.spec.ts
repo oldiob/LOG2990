@@ -55,9 +55,9 @@ describe('ToolbarComponent', () => {
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
                 GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
-            providers: [{ provide: DialogService, useValue: dialogService },
-            { provide: DrawAreaService, useValue: drawareaService },
-            { provide: MatDialogRef }],
+            providers: [DialogService,
+                { provide: DrawAreaService, useValue: drawareaService },
+                { provide: MatDialogRef }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
@@ -68,7 +68,7 @@ describe('ToolbarComponent', () => {
         DOMRenderer.renderer = renderer;
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
-        dialogService = jasmine.createSpyObj('DialogService', ['open']);
+        dialogService = TestBed.get(DialogService);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -91,7 +91,6 @@ describe('ToolbarComponent', () => {
         component.bucketOption.currentTool = bucketOption.currentTool;
         component.selectorOption = selectorOption;
         component.textOption = textOption;
-        component.dialogService = dialogService;
         component.ngOnInit();
     });
 
@@ -135,6 +134,7 @@ describe('ToolbarComponent', () => {
     });
 
     it('should save image ', () => {
+        spyOn(dialogService, 'open');
         component.saveImage();
         expect(dialogService.open).toHaveBeenCalled();
     });
