@@ -5,7 +5,7 @@ import { MatDialog, MatDialogModule, MatDialogRef, MatSnackBar } from '@angular/
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { EntryPointComponent } from '../entry-point/entry-point.component';
+import { EntryPointComponent } from '../popups/entry-point/entry-point.component';
 import { PolyDessinComponent } from './poly-dessin.component';
 
 describe('PolyDessinComponent', () => {

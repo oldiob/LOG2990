@@ -7,8 +7,8 @@ import { MatCheckboxModule, MatDialog, MatDialogModule,
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
-import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
+import { EntryPointComponent } from 'src/app/popups/entry-point/entry-point.component';
+import { NewDrawingComponent } from 'src/app/popups/new-drawing/new-drawing.component';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {

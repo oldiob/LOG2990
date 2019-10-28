@@ -12,7 +12,7 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
@@ -135,7 +135,7 @@ describe('ToolbarComponent', () => {
     });
 
     it('should save image ', () => {
-        spyOn(dialogService, 'open');
+        spyOn(dialogService, 'openDialog');
         component.saveImage();
         expect(dialogService.openDialog).toHaveBeenCalled();
     });

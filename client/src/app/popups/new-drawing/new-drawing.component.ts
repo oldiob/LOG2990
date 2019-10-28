@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
-import { WorkZoneService } from '../../services/work-zone/work-zone.service';
-import { DrawAreaService } from './../../services/draw-area/draw-area.service';
-import { CmdService } from 'src/services/cmd/cmd.service';
+import { DrawAreaService } from '../../../services/draw-area/draw-area.service';
+import { WorkZoneService } from '../../../services/work-zone/work-zone.service';
 
 @Component({
     selector: 'app-new-drawing',

@@ -5,7 +5,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
-import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
+import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
 import { Message } from '../../../../common/communication/message';
 import { Drawing } from '../draw-area/i-drawing';
 import { WebClientService } from './web-client.service';

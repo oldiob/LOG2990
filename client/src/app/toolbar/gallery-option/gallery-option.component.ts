@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
+import { ConfirmationComponent } from 'src/app/popups/confirmation/confirmation.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -37,7 +38,9 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
-        private webClientService: WebClientService) { }
+        private webClientService: WebClientService,
+        private drawAreaService: DrawAreaService,
+        private dialogService: DialogService) { }
 
     ngOnInit() {
         this.isTagExists = true;
@@ -111,6 +114,9 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClick(event: MouseEvent, drawing: Drawing) {
+        if (!this.drawAreaService.isSavedDrawing) {
+            this.dialogService.openDialog(ConfirmationComponent);
+        }
         populateDrawArea(this.svgService, drawing.holder);
         this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
     }

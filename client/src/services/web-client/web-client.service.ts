@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
-import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
+import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
+import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from '../draw-area/i-drawing';
 

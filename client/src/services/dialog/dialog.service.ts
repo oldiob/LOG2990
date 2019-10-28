@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatSnackBarRef } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
+import { EntryPointComponent } from 'src/app/popups/entry-point/entry-point.component';
 
 @Injectable({
     providedIn: 'root',
