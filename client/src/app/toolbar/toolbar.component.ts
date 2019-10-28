@@ -45,11 +45,7 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-<<<<<<< HEAD
     isDialogOpened: boolean;
-=======
-    isDialogOpened = false;
->>>>>>> Remove ExportOptionComponent
     optionDisplayed: boolean;
 
     constructor(public dialogService: DialogService) {
@@ -123,7 +119,7 @@ export class ToolbarComponent implements OnInit {
         const kbd: { [id: string]: callback } = {
             'C-o': () => { this.newDrawingOption(); },
             'C-s': () => { this.saveImage(); },
-            'C-g': () => { this.openGalleryOption(); }
+            'C-g': () => { this.openGalleryOption(); },
         };
         const keys: string = this.getComposedKey(event);
         if (kbd[keys]) {
