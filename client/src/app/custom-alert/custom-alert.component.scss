@@ -1,11 +1,17 @@
 .wrapper {
-  width: 16vw;
-  height: 20vh;
-  padding: 25px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  font-weight: bold;
-  font-size: 1.5rem;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.content {}
+
+.button-dismiss {
+  border: none;
+  font-weight: 700;
 }

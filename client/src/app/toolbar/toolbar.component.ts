@@ -100,7 +100,7 @@ export class ToolbarComponent implements OnInit {
 
     private openDialog(component: ComponentType<any>): MatDialogRef<any> | null {
         if (!this.isDialogOpened) {
-            const ref: any = this.dialogService.open(component);
+            const ref: any = this.dialogService.openDialog(component);
             if (ref) {
                 this.isDialogOpened = true;
                 ref.afterClosed().subscribe(() => {

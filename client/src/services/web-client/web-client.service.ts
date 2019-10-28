@@ -25,28 +25,32 @@ export class WebClientService {
 
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
-            const modalRef = this.dialogService.open(CustomAlertComponent);
-            modalRef.componentInstance.data = 'Invalid drawing, not sending to server.';
+            const snackRef = this.dialogService.openSnack(CustomAlertComponent);
+            snackRef.instance.data = 'Drawing not sent to server.';
             return;
         }
         this.saving = true;
-        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
+        const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
         loadingDialogRef.componentInstance.data = 'Saving';
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe((res: Response) => {
+                if (res.status === 500) {
+                    const snackRef = this.dialogService.openSnack(CustomAlertComponent);
+                    snackRef.instance.data = 'Server denied saving the drawing.';
+                }
                 this.saving = false;
-                loadingDialogRef.componentInstance.done();
+                loadingDialogRef.close();
             },
                 (error) => {
                     loadingDialogRef.close();
                     if (error.status === 0) {
                         this.saving = false;
-                        const modalRef = this.dialogService.open(CustomAlertComponent);
-                        modalRef.componentInstance.data = 'Cannot reach server';
+                        const modalRef = this.dialogService.openSnack(CustomAlertComponent);
+                        modalRef.instance.data = 'cannot reach server';
                     } else if (error.status === 500) {
-                        const modalRef = this.dialogService.open(CustomAlertComponent);
-                        modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
+                        const modalRef = this.dialogService.openSnack(CustomAlertComponent);
+                        modalRef.instance.data = 'Invalid drawing, server refused saving.';
                     }
                 },
             );
@@ -89,7 +93,7 @@ export class WebClientService {
     }
 
     getPreparedDrawing(): Drawing[] {
-        const loadingDialogRef = this.dialogService.open(LoadDrawingComponent);
+        const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
         loadingDialogRef.componentInstance.data = 'Loading';
         let drawings: Drawing[] = [];
         this.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {

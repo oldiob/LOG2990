@@ -25,11 +25,11 @@ export class PolyDessinComponent implements OnInit {
 
             this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
                 if (isClosedWelcome) {
-                    this.dialogService.open(NewDrawingComponent);
+                    this.dialogService.openDialog(NewDrawingComponent);
                 }
             });
         } else {
-            this.dialogService.open(NewDrawingComponent);
+            this.dialogService.openDialog(NewDrawingComponent);
         }
     }
 

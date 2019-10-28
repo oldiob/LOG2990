@@ -2,7 +2,8 @@ import { async, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule, MatDialog, MatDialogModule, MatDialogRef, MatDividerModule } from '@angular/material';
+import { MatCheckboxModule, MatDialog, MatDialogModule,
+   MatDialogRef, MatDividerModule, MatSnackBarModule, MatSnackBarRef } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
@@ -32,6 +33,7 @@ describe('DialogService', () => {
         MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
+        MatSnackBarModule,
       ],
       declarations: [
         NewDrawingComponent,
@@ -39,6 +41,7 @@ describe('DialogService', () => {
       ],
       providers: [
         { provide: MatDialogRef },
+        { provide: MatSnackBarRef },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
@@ -67,7 +70,7 @@ describe('DialogService', () => {
   });
 
   it('#openNewDrawing should open NewDrawingComponent dialog', () => {
-    service.open(NewDrawingComponent);
+    service.openDialog(NewDrawingComponent);
     expect(openDialogSpy).toHaveBeenCalled();
   });
 

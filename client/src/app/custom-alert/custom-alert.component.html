@@ -1,7 +1,14 @@
-<div class="header" class="wrapper">{{data}}</div>
+<div class="wrapper">
+    <mat-icon>error</mat-icon>
 
-<div class="save-wrapper">
-    <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
-</div>
-<div class="background">
+    <span class="content">
+        <span class="title"> Invalid Drawing :</span>
+        {{data}}
+    </span>
+
+
+    <button class="button-dismiss" mat-icon-button (click)="onDismiss()">
+        <mat-icon>close</mat-icon>
+    </button>
+
 </div>

@@ -137,7 +137,7 @@ describe('ToolbarComponent', () => {
     it('should save image ', () => {
         spyOn(dialogService, 'open');
         component.saveImage();
-        expect(dialogService.open).toHaveBeenCalled();
+        expect(dialogService.openDialog).toHaveBeenCalled();
     });
 
     it('should return pencil when c is press on keyboard ', () => {

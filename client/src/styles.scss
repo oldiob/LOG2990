@@ -19,11 +19,11 @@ body {
   box-sizing: border-box;
 }
 
-.trend-dialog .mat-dialog-container{
+.trend-dialog .mat-dialog-container {
   overflow: hidden !important;
 }
 
-.mat-dialog-container  {
+.mat-dialog-container {
   background-color: lighten(#212749, 8%);
   padding: 0 !important;
   margin: 0;
@@ -35,6 +35,18 @@ body {
 
 .mat-menu-content {
   background-color: darken($color: #414d8f, $amount: 17);
+}
+
+.mat-snack-bar-container {
+  color: whitesmoke;
+  // background-color: #414d8f;
+  background-color: #d32f2f;
+  padding: 10px 16px !important;
+  width: 425px;
+}
+
+.mat-simple-snackbar-action {
+  background-color: #2639a4;
 }
 
 .slider {

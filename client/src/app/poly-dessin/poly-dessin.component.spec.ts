@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogModule, MatDialogRef, MatSnackBar } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -13,14 +13,14 @@ describe('PolyDessinComponent', () => {
     let fixture: ComponentFixture<PolyDessinComponent>;
     let dialogService: DialogService;
     const keys = 'abcdefghijklmnopQRSTUVWXYZ';
-    // tslint:disable-next-line:prefer-const
-    let dialog: MatDialog;
+    const dialog: MatDialog = TestBed.get(MatDialog);
+    const snackbar: MatSnackBar = TestBed.get(MatSnackBar);
     beforeEach(async(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
-    set: {
-            entryComponents: [EntryPointComponent],
-         },
-    });
+            set: {
+                entryComponents: [EntryPointComponent],
+            },
+        });
         TestBed.configureTestingModule({
             declarations: [PolyDessinComponent, EntryPointComponent],
             imports: [HttpClientModule, MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule],
@@ -34,7 +34,7 @@ describe('PolyDessinComponent', () => {
         fixture = TestBed.createComponent(PolyDessinComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        dialogService = new DialogService(dialog);
+        dialogService = new DialogService(dialog, snackbar);
         component.ngOnInit();
     });
 
@@ -53,17 +53,17 @@ describe('PolyDessinComponent', () => {
 
     it('should register keydown events', () => {
         for (const k of keys) {
-        const event = new KeyboardEvent('keydown', { key: k });
-        component.handleKeyboardEventDown(event);
-        expect(component.keyEvent).toBe(event);
-        expect(component.key).toEqual('');
+            const event = new KeyboardEvent('keydown', { key: k });
+            component.handleKeyboardEventDown(event);
+            expect(component.keyEvent).toBe(event);
+            expect(component.key).toEqual('');
         }
     });
 
     it('should open the dialog if it closed the entry dialog', () => {
         dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
             if (isClosedWelcome) {
-            expect(dialogService.openEntryPoint).toBeTruthy();
+                expect(dialogService.openEntryPoint).toBeTruthy();
             } else {
                 expect(dialogService.openEntryPoint).toBeTruthy();
             }
