@@ -9,11 +9,11 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 const REBASE = /.*.rebase$/;
 
 @Component({
-  selector: 'app-import',
-  templateUrl: './import.component.html',
-  styleUrls: ['./import.component.scss'],
+  selector: 'app-import-option',
+  templateUrl: './import-option.component.html',
+  styleUrls: ['./import-option.component.scss'],
 })
-export class ImportComponent implements OnInit {
+export class ImportOptionComponent implements OnInit {
 
     enableFile: boolean;
     enable: boolean;
@@ -26,7 +26,7 @@ export class ImportComponent implements OnInit {
     readFile: FileReader;
 
     constructor(
-        public dialogRef: MatDialogRef<ImportComponent>,
+        public dialogRef: MatDialogRef<ImportOptionComponent>,
         public http: HttpClient,
         private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,

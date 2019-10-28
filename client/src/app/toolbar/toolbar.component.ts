@@ -4,11 +4,12 @@ import { MatDialogRef } from '@angular/material';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ImportComponent } from '../import/import.component';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { ExportOptionComponent } from './export-option/export-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
+import { ImportOptionComponent } from './import-option/import-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
@@ -92,7 +93,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     openImportOption(): void {
-        this.openDialog(ImportComponent);
+        this.openDialog(ImportOptionComponent);
     }
 
     saveImage(): void {
@@ -100,6 +101,10 @@ export class ToolbarComponent implements OnInit {
         // saveFile('lol_file', fileData);
 
         this.openDialog(SaveOptionComponent);
+    }
+
+    openExportOption(): void {
+        this.openDialog(ExportOptionComponent);
     }
 
     private openDialog(component: ComponentType<any>): MatDialogRef<any> | null {

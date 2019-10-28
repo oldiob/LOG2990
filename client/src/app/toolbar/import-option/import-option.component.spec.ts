@@ -7,8 +7,7 @@ import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule,
          MatInputModule, MatSelectModule, MatTableModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { ImportComponent } from './import.component';
+import { ImportOptionComponent } from './import-option.component';
 
 let httpClientSpy: jasmine.SpyObj<HttpClient>;
 let mockRouter: { navigate: jasmine.Spy};
@@ -39,15 +38,15 @@ const modules: (typeof MatDialogModule)[] = [
             HttpClientModule,
 ];
 
-describe('ImportComponent', () => {
-  let component: ImportComponent;
-  let fixture: ComponentFixture<ImportComponent>;
+fdescribe('ImportOptionComponent', () => {
+  let component: ImportOptionComponent;
+  let fixture: ComponentFixture<ImportOptionComponent>;
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
     void TestBed.configureTestingModule({
       imports: [ modules ],
-      declarations: [ ImportComponent ],
+      declarations: [ ImportOptionComponent ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: matDialogdataSpy },
@@ -60,7 +59,7 @@ describe('ImportComponent', () => {
   });
 
   beforeEach(() => {
-        fixture = TestBed.createComponent(ImportComponent);
+        fixture = TestBed.createComponent(ImportOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         mockRouter = jasmine.createSpyObj('Router', ['navigate']);

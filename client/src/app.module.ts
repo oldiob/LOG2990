@@ -17,7 +17,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyInjector } from 'src/utils/injector';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
-import { ImportComponent } from './app/import/import.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { ConfirmationComponent } from './app/popups/confirmation/confirmation.component';
 import { CustomAlertComponent } from './app/popups/custom-alert/custom-alert.component';
@@ -29,8 +28,10 @@ import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
 import { ColorButtonComponent } from './app/toolbar/color-selection/color-button/color-button.component';
 import { ColorSelectionComponent } from './app/toolbar/color-selection/color-selection.component';
+import { ExportOptionComponent } from './app/toolbar/export-option/export-option.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
+import { ImportOptionComponent } from './app/toolbar/import-option/import-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
@@ -70,7 +71,8 @@ import { DOMRenderer } from './utils/dom-renderer';
         TextOptionComponent,
         ColorSelectionComponent,
         ConfirmationComponent,
-        ImportComponent,
+        ImportOptionComponent,
+        ExportOptionComponent,
     ],
     imports: [
         BrowserModule,
@@ -117,8 +119,9 @@ import { DOMRenderer } from './utils/dom-renderer';
         SaveOptionComponent,
         CustomAlertComponent,
         LoadDrawingComponent,
-        ImportComponent,
         ConfirmationComponent,
+        ImportOptionComponent,
+        ExportOptionComponent,
     ],
 })
 export class AppModule {
