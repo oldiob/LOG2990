@@ -7,13 +7,19 @@ import { MatSnackBarRef } from '@angular/material';
     styleUrls: ['./custom-alert.component.scss'],
 })
 export class CustomAlertComponent implements OnInit {
-    data: string;
+    title: string;
+    content: string;
+
+    isError: boolean;
+    isSuccess: boolean;
+
     constructor(private snackRef: MatSnackBarRef<CustomAlertComponent>) {
         //
     }
 
     ngOnInit() {
-        //
+        this.isError = false;
+        this.isSuccess = false;
     }
 
     onDismiss() {

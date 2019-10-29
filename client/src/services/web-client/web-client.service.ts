@@ -26,18 +26,32 @@ export class WebClientService {
     sendDrawing(drawing: Drawing) {
         if (!this.isDrawingValid(drawing)) {
             const snackRef = this.dialogService.openSnack(CustomAlertComponent);
-            snackRef.instance.data = 'Drawing not sent to server.';
+            snackRef.instance.title = 'Invalid drawing';
+            snackRef.instance.content = 'Drawing not sent to server.';
+            snackRef.instance.isError = true;
             return;
         }
         this.saving = true;
         const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
-        loadingDialogRef.componentInstance.data = 'Saving';
+        loadingDialogRef.componentInstance.content = 'Saving';
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe((res: Response) => {
                 if (res.status === 500) {
                     const snackRef = this.dialogService.openSnack(CustomAlertComponent);
-                    snackRef.instance.data = 'Server denied saving the drawing.';
+                    snackRef.instance.title = 'Invalid drawing';
+                    snackRef.instance.content = 'Server denied saving the drawing.';
+                    snackRef.instance.isError = true;
+
+                } else {
+                    this.saving = false;
+                    // loadingDialogRef.componentInstance.done();
+                    loadingDialogRef.close();
+                    const snackRef = this.dialogService.openSnack(CustomAlertComponent);
+                    snackRef.instance.title = 'Drawing saved';
+                    snackRef.instance.content = 'Drawing has been saved online.';
+                    snackRef.instance.isSuccess = true;
+
                 }
                 this.saving = false;
                 loadingDialogRef.close();
