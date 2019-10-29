@@ -128,6 +128,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         if (this.drawAreaService.isSaved) {
             populateDrawArea(this.svgService, drawing.holder);
             this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+            this.drawAreaService.save();
         }
     }
 
