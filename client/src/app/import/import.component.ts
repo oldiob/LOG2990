@@ -8,7 +8,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { populateDrawArea } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
 
-const REBASE = '[^ @]*.rebase';
+const REBASE = /.*.rebase$/;
 
 @Component({
     selector: 'app-import',
