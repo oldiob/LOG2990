@@ -7,6 +7,7 @@ import {
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -193,4 +194,17 @@ describe('ToolbarComponent', () => {
         expect(pressS.defaultPrevented).toBeFalsy();
     });
 
+    it('#undo should undo last command', () => {
+        spyOn(CmdService, 'undo');
+        component.undosEmpty = false;
+        component.undo();
+        expect(CmdService.undo).toHaveBeenCalled();
+    });
+
+    it('#redo should redo last command', () => {
+        spyOn(CmdService, 'redo');
+        component.redosEmpty = false;
+        component.redo();
+        expect(CmdService.redo).toHaveBeenCalled();
+    });
 });

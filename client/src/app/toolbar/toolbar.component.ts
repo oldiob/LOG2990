@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
-import { CmdService } from 'src/services/cmd/cmd.service';
+import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
@@ -48,6 +48,9 @@ export class ToolbarComponent implements OnInit {
     isDialogOpened: boolean;
     optionDisplayed: boolean;
 
+    undosEmpty: boolean;
+    redosEmpty: boolean;
+
     constructor(public dialogService: DialogService) {
         this.isDialogOpened = false;
     }
@@ -56,6 +59,13 @@ export class ToolbarComponent implements OnInit {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
+
+        CmdService.undosObservable.subscribe((undos: CmdInterface[]) => {
+            this.undosEmpty = (undos && undos.length) ? false : true;
+        });
+        CmdService.redosObservable.subscribe((redos: CmdInterface[]) => {
+            this.redosEmpty = (redos && redos.length) ? false : true;
+        });
     }
 
     selectOption(option: IOption<any>): void {
@@ -98,6 +108,17 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
+    undo(): void {
+        if (!this.undosEmpty) {
+            CmdService.undo();
+        }
+    }
+
+    redo(): void {
+        if (!this.redosEmpty) {
+            CmdService.redo();
+        }
+    }
 
     private getComposedKey(event: KeyboardEvent): string {
         let keys = '';
@@ -144,7 +165,7 @@ export class ToolbarComponent implements OnInit {
             2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
             3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
             'C-z': () => { CmdService.undo(); },
-            'C-S-z': () => { CmdService.redo(); }
+            'C-S-z': () => { CmdService.redo(); },
         };
 
         const keys: string = this.getComposedKey(event);
