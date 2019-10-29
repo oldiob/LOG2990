@@ -1,7 +1,12 @@
 <div class="wrapper">
-    <div class="message">Are you sure you to want abandon your unsaved work?</div>
+    <div class="header">
+        Abandon your unsaved work?
+    </div>
+    <div class="content">
+        Your changes will not be saved.
+    </div>
     <div class="button-wrapper">
-        <button color="primary" mat-raised-button mat-dialog-close (click)="onYes()">Yes</button>
-        <button color="secondary" mat-raised-button mat-dialog-close (click)="onNo()">No</button>
+        <button color="secondary" mat-raised-button mat-dialog-close (click)="onNo()">Cancel</button>
+        <button color="primary" mat-raised-button mat-dialog-close (click)="onYes()">Ok</button>
     </div>
 </div>
