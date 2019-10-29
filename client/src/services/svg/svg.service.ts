@@ -1,8 +1,9 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
-import { DOMRenderer } from '../../utils/dom-renderer';
 import { vectorPlus } from 'src/utils/math';
+import { DOMRenderer } from '../../utils/dom-renderer';
+import { DrawAreaService } from '../draw-area/draw-area.service';
 
 @Injectable({
     providedIn: 'root',
@@ -12,9 +13,7 @@ export class SVGService {
 
     objects: SVGInterface[] = [];
 
-    constructor() {
-        //
-    }
+    constructor(private drawAreaService?: DrawAreaService) { }
 
     findAt(x: number, y: number): SVGInterface | null {
         for (let i = this.objects.length - 1; i >= 0; --i) {
@@ -55,6 +54,9 @@ export class SVGService {
 
         this.objects.push(obj);
         DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
+        if (this.drawAreaService) {
+            this.drawAreaService.dirty();
+        }
     }
 
     removeObject(obj: SVGInterface | null) {

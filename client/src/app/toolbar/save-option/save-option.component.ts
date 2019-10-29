@@ -96,11 +96,6 @@ export class SaveOptionComponent implements OnInit {
         this.saveForm.controls.tags.setValue(this.tags);
     }
 
-    // TODO: Upload drawing (name: string, tag: string[], thumbnail: JPEG) to server
-    upload(drawing: Drawing) {
-        //
-    }
-
     onSubmit() {
         const drawAreaHolder: DrawAreaHolder = serializeDrawArea(this.svgService);
 
@@ -116,9 +111,6 @@ export class SaveOptionComponent implements OnInit {
             height: this.drawingHeight,
         };
 
-        this.drawAreaService.save(drawing);
-    }
-
-    onClose() {
+        this.drawAreaService.upload(drawing);
     }
 }

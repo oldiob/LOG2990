@@ -1,1 +1,7 @@
-<p>confirmation works!</p>
+<div class="wrapper">
+    <div class="message">Are you sure you to want abandon your unsaved work?</div>
+    <div class="button-wrapper">
+        <button color="primary" mat-raised-button mat-dialog-close (click)="onYes()">Yes</button>
+        <button color="secondary" mat-raised-button mat-dialog-close (click)="onNo()">No</button>
+    </div>
+</div>

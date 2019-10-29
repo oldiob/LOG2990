@@ -114,11 +114,21 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClick(event: MouseEvent, drawing: Drawing) {
-        if (!this.drawAreaService.isSavedDrawing) {
-            this.dialogService.openDialog(ConfirmationComponent);
+        if (!this.drawAreaService.isSaved) {
+            const dialogRef = this.dialogService.openDialog(ConfirmationComponent);
+            dialogRef.afterClosed().subscribe(() => {
+                this.loadOnDrawArea(drawing);
+            });
+        } else {
+            this.loadOnDrawArea(drawing);
         }
-        populateDrawArea(this.svgService, drawing.holder);
-        this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+    }
+
+    private loadOnDrawArea(drawing: Drawing) {
+        if (this.drawAreaService.isSaved) {
+            populateDrawArea(this.svgService, drawing.holder);
+            this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+        }
     }
 
     onDelete(drawing: Drawing) {

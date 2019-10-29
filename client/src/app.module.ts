@@ -113,6 +113,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         CustomAlertComponent,
         LoadDrawingComponent,
         ImportComponent,
+        ConfirmationComponent,
     ],
 })
 export class AppModule {

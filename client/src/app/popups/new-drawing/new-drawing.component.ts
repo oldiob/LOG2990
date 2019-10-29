@@ -42,7 +42,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isSavedDrawing = this.drawAreaService.isSavedDrawing;
+        this.isSavedDrawing = this.drawAreaService.isSaved;
         this.createForm();
         this.fetchDefaults();
         this.updateColorRGBA();
