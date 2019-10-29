@@ -76,3 +76,11 @@ a:active {
 .selected-toolbar-button {
     background-color: #414d8f;
 }
+
+.disable {
+    opacity: 0.3;
+}
+
+.disable:hover {
+    background-color: #212749 !important;
+}

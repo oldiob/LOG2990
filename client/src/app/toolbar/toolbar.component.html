@@ -4,10 +4,10 @@
       [class.selected-toolbar-button]="option === currentOption">
       <img class="toolbar-icon" [src]="getImage(option)" alt="icon">
     </a>
-    <a class="button" *ngIf="!undosEmpty" (click)="undo()">
+    <a class="button" [ngClass]="{'disable': undosEmpty}" (click)="undo()">
       <img class="toolbar-icon" src="../../../assets/images/undo.png" alt="icon">
     </a>
-    <a class="button" *ngIf="!redosEmpty" (click)="redo()">
+    <a class="button" [ngClass]="{'disable': redosEmpty}" (click)="redo()">
       <img class="toolbar-icon" src="../../../assets/images/redo.png" alt="icon">
     </a>
   </div>

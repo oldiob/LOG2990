@@ -2,7 +2,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
-import { CmdService } from 'src/services/cmd/cmd.service';
+import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
@@ -59,8 +59,13 @@ export class ToolbarComponent implements OnInit {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
-        this.undosEmpty = true;
-        this.redosEmpty = true;
+
+        CmdService.undosObservable.subscribe((undos: CmdInterface[]) => {
+            this.undosEmpty = (undos && undos.length) ? false : true;
+        });
+        CmdService.redosObservable.subscribe((redos: CmdInterface[]) => {
+            this.redosEmpty = (redos && redos.length) ? false : true;
+        });
     }
 
     selectOption(option: IOption<any>): void {
@@ -104,11 +109,15 @@ export class ToolbarComponent implements OnInit {
     }
 
     undo(): void {
-        CmdService.undo();
+        if (!this.undosEmpty) {
+            CmdService.undo();
+        }
     }
 
     redo(): void {
-        CmdService.redo();
+        if (!this.redosEmpty) {
+            CmdService.redo();
+        }
     }
 
     private getComposedKey(event: KeyboardEvent): string {
