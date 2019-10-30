@@ -27,6 +27,7 @@ export class SVGPen implements SVGInterface {
     line: any;
 
     cursor: number[];
+    oldWidth: number;
     points: number[][] = [];
     minWidth: number;
     maxWidth: number;
@@ -85,6 +86,50 @@ export class SVGPen implements SVGInterface {
         }
         const radius = this.lineWidth / 2;
 
+        if (distance > 1) {
+            const nbOfCirclesToAdd = distance / 1;
+            const radiusDifference = Math.abs(this.lineWidth / 2 - this.oldWidth / 2);
+            for (let i = 1; i <= nbOfCirclesToAdd; i++) {
+
+                if (this.cursor[0] > lastPoint[0]) {
+                    const tempX = lastPoint[0] + 1 * i;
+                    DOMRenderer.setAttribute(circle, 'cx', tempX.toString());
+                } else if (this.cursor[0] < lastPoint[0]) {
+                    const tempX = this.cursor[0] + 1 * i;
+                    DOMRenderer.setAttribute(circle, 'cx', tempX.toString());
+                } else {
+                    const tempX = this.cursor[0];
+                    DOMRenderer.setAttribute(circle, 'cx', tempX.toString());
+                }
+
+                if (this.cursor[1] > lastPoint[1]) {
+                    const tempY = lastPoint[1] + 1 * i;
+                    DOMRenderer.setAttribute(circle, 'cy', tempY.toString());
+                } else if (this.cursor[1] < lastPoint[1]) {
+                    const tempY = this.cursor[1] + 1 * i;
+                    DOMRenderer.setAttribute(circle, 'cy', tempY.toString());
+                } else {
+                    const tempY = this.cursor[1];
+                    DOMRenderer.setAttribute(circle, 'cy', tempY.toString());
+                }
+
+                if (this.lineWidth > this.oldWidth) {
+                    const tempRadius = (this.oldWidth / 2) + (radiusDifference / nbOfCirclesToAdd) * i;
+                    DOMRenderer.setAttribute(circle, 'r', tempRadius.toString());
+                } else if (this.lineWidth > this.oldWidth) {
+                    const tempRadius = (this.lineWidth / 2) + (radiusDifference / nbOfCirclesToAdd) * i;
+                    DOMRenderer.setAttribute(circle, 'r', tempRadius.toString());
+                } else {
+                    const tempRadius = this.lineWidth / 2;
+                    DOMRenderer.setAttribute(circle, 'r', tempRadius.toString());
+                }
+                const tempCurrentColor = this.polyline.attributes.stroke.nodeValue;
+                DOMRenderer.setAttribute(circle, 'fill', tempCurrentColor);
+                DOMRenderer.appendChild(this.element, circle);
+            }
+
+        }
+        this.setWidth(this.lineWidth);
         const currentColor = this.polyline.attributes.stroke.nodeValue;
 
         DOMRenderer.setAttribute(circle, 'cx', x.toString());
@@ -153,6 +198,7 @@ export class SVGPen implements SVGInterface {
         this.lineWidth = width;
         DOMRenderer.setAttribute(this.polyline, 'stroke-width', width.toString());
         DOMRenderer.setAttribute(this.line, 'stroke-width', width.toString());
+        this.oldWidth = width;
     }
 
     finish(): void {
