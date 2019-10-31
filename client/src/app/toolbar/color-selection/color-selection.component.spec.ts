@@ -1,26 +1,20 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef } from '@angular/material';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { ColorSelectionComponent } from './color-selection.component';
 
 describe('ColorSelectionComponent', () => {
     let component: ColorSelectionComponent;
     let fixture: ComponentFixture<ColorSelectionComponent>;
-    let service: PaletteService;
+    let paletteService: PaletteService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ColorSelectionComponent],
-            imports: [MatDialogModule],
-            providers: [{
-                provide: MatDialogRef,
-                useValue: {
-                    close: (dialogResult: any) => {
-                        //
-                    },
-                },
-            }],
+            imports: [MatDialogModule, MatSnackBarModule],
+            providers: [DialogService, PaletteService],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
@@ -30,7 +24,8 @@ describe('ColorSelectionComponent', () => {
         fixture = TestBed.createComponent(ColorSelectionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        service = TestBed.get(PaletteService);
+        paletteService = TestBed.get(PaletteService);
+        component.ngOnInit();
     });
 
     it('should create', () => {
@@ -38,9 +33,9 @@ describe('ColorSelectionComponent', () => {
     });
 
     it('#onSwap should swap colors', () => {
-        spyOn(service, 'swap');
+        spyOn(paletteService, 'swap');
         component.onSwap();
-        expect(service.swap).toHaveBeenCalled();
+        expect(paletteService.swap).toHaveBeenCalled();
     });
 
     it('#onOpen should open color button trough toggling isOpenPrimary or IsOpenSecondary', () => {

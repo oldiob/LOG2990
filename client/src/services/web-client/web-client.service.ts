@@ -45,7 +45,6 @@ export class WebClientService {
 
                 } else {
                     this.saving = false;
-                    // loadingDialogRef.componentInstance.done();
                     loadingDialogRef.close();
                     const snackRef = this.dialogService.openSnack(CustomAlertComponent);
                     snackRef.instance.title = 'Drawing saved';

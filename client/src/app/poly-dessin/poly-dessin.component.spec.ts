@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialog, MatDialogModule, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -12,9 +12,7 @@ describe('PolyDessinComponent', () => {
     let component: PolyDessinComponent;
     let fixture: ComponentFixture<PolyDessinComponent>;
     let dialogService: DialogService;
-    const keys = 'abcdefghijklmnopQRSTUVWXYZ';
-    const dialog: MatDialog = TestBed.get(MatDialog);
-    const snackbar: MatSnackBar = TestBed.get(MatSnackBar);
+
     beforeEach(async(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {
@@ -23,8 +21,9 @@ describe('PolyDessinComponent', () => {
         });
         TestBed.configureTestingModule({
             declarations: [PolyDessinComponent, EntryPointComponent],
-            imports: [HttpClientModule, MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule],
-            providers: [{ provide: MatDialogRef, useValue: {} }],
+            imports: [HttpClientModule, BrowserAnimationsModule, BrowserDynamicTestingModule, MatDialogModule, MatSnackBarModule],
+            providers: [DialogService,
+            ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
@@ -34,39 +33,18 @@ describe('PolyDessinComponent', () => {
         fixture = TestBed.createComponent(PolyDessinComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        dialogService = new DialogService(dialog, snackbar);
-        component.ngOnInit();
+        dialogService = TestBed.get(DialogService);
     });
 
     it('should create', () => {
+        component.ngOnInit();
         expect(component).toBeTruthy();
     });
 
-    it('should register keypress events', () => {
-        for (const k of keys) {
-            const event = new KeyboardEvent('keypress', { key: k });
-            component.handleKeyboardEvent(event);
-            expect(component.keyEvent).toBe(event);
-            expect(component.key).toEqual(event.key);
-        }
-    });
-
-    it('should register keydown events', () => {
-        for (const k of keys) {
-            const event = new KeyboardEvent('keydown', { key: k });
-            component.handleKeyboardEventDown(event);
-            expect(component.keyEvent).toBe(event);
-            expect(component.key).toEqual('');
-        }
-    });
-
     it('should open the dialog if it closed the entry dialog', () => {
-        dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
-            if (isClosedWelcome) {
-                expect(dialogService.openEntryPoint).toBeTruthy();
-            } else {
-                expect(dialogService.openEntryPoint).toBeTruthy();
-            }
-        });
+        spyOn(dialogService, 'openEntryPoint').and.callFake(() => { return; });
+        component.isShowWelcome = true;
+        component.ngOnInit();
+        expect(dialogService.openEntryPoint).toHaveBeenCalled();
     });
 });

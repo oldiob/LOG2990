@@ -63,12 +63,6 @@ describe('DialogService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#isClosedWelcomeObservable should get isClosedWelcome observable', () => {
-    service.isClosedWelcomeObservable.subscribe((isClosed) => {
-      expect(isClosed).toBeFalsy();
-    });
-  });
-
   it('#openNewDrawing should open NewDrawingComponent dialog', () => {
     service.openDialog(NewDrawingComponent);
     expect(openDialogSpy).toHaveBeenCalled();

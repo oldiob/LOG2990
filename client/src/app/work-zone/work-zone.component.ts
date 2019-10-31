@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 @Component({
@@ -9,9 +9,6 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 export class WorkZoneComponent implements OnInit {
 
   @ViewChild('workZone', { static: true }) workZone: ElementRef;
-
-  @Input() keyEvent: KeyboardEvent;
-  @Input() key: string;
 
   constructor(private workZoneService: WorkZoneService) { }
 

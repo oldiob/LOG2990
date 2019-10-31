@@ -9,24 +9,27 @@ import { EntryPointComponent } from './entry-point.component';
 describe('EntryPointComponent', () => {
   let component: EntryPointComponent;
   let fixture: ComponentFixture<EntryPointComponent>;
-  const mockDialogRefSpy: {close: jasmine.Spy} = {
+
+  const mockDialogRefSpy: { close: jasmine.Spy } = {
     close: jasmine.createSpy('close'),
   };
-  const windowSpy: {reload: jasmine.Spy} = {
+  const windowSpy: { reload: jasmine.Spy } = {
     reload: jasmine.createSpy('reload'),
   };
   const eventClick: MouseEvent = new MouseEvent('click');
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
-      MatDialogModule],
-      declarations: [ EntryPointComponent ],
-      providers: [{provide: MatDialogRef, useValue: mockDialogRefSpy},
-                 {provide: Window, useValue: windowSpy},
+        MatDialogModule],
+      declarations: [EntryPointComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: mockDialogRefSpy },
+        { provide: Window, useValue: windowSpy },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

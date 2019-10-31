@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { ConfirmationComponent } from './confirmation.component';
 
 describe('ConfirmationComponent', () => {
@@ -9,6 +11,7 @@ describe('ConfirmationComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ConfirmationComponent ],
+      imports: [MatDialogModule, MatSnackBarModule, HttpClientModule],
     })
     .compileComponents();
   }));

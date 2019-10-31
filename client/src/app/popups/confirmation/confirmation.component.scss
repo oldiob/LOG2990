@@ -1,10 +1,10 @@
 .wrapper {
-    width: 326px;
-    height: 163px;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 326px;
+  height: 188px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header {
@@ -13,12 +13,12 @@
 }
 
 content {
-    color: lightgrey;
+  color: lightgrey;
 }
 
 .button-wrapper {
-    display: flex;
-    width: 59%;
-    justify-content: space-between;
-    margin: 15px 0 0 auto;
+  display: flex;
+  width: 59%;
+  justify-content: space-between;
+  margin: 15px 0 0 auto;
 }

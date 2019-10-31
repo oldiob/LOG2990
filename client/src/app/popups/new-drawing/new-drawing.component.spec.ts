@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatCheckboxModule, MatDialogModule, MatDividerModule } from '@angular/material';
+import { MAT_DIALOG_DATA, MatCheckboxModule, MatDialogModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
@@ -28,7 +28,7 @@ describe('NewDrawingComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [MatDividerModule, MatCheckboxModule, BrowserAnimationsModule, BrowserDynamicTestingModule,
-                MatDialogModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+                MatDialogModule, FormsModule, ReactiveFormsModule, HttpClientModule, MatSnackBarModule],
             declarations: [NewDrawingComponent],
             providers: [SVGService, DrawAreaService,
                 { provide: MAT_DIALOG_DATA, useValue: [] },
