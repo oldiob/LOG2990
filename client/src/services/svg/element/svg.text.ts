@@ -3,10 +3,16 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class SVGText implements SVGInterface {
     element: any;
+    fontSize = '12px';
+    fontStyle = 'normal'; // normal, italic, bold or italic bold
+    fontFamily = 'Arial, Helvetica, sans-serif';
 
     constructor(x: number, y: number) {
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = 'a';
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         console.log('svg text works');
@@ -28,5 +34,17 @@ export class SVGText implements SVGInterface {
     }
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
+    }
+    setFontSize(size: number): void {
+        this.fontSize = size + 'px';
+        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+    }
+    setFont(font: string): void {
+        this.fontFamily = font;
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
+    }
+    setFontStyle(style: string): void {
+        this.fontStyle = style;
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
     }
 }
