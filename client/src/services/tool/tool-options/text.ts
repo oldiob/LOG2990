@@ -31,26 +31,42 @@ export class TextTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        //
         let current = '';
         if (this.element != null) {
-            if (event.key === 'Backspace') {
-                //
-            } else if (event.key === 'Shift') {
-                //
-            }
-
-
             current = this.element.element.innerHTML;
+            if (event.key === 'Backspace') {
+                current = current.substring(0, current.length - 1);
+            } else if (event.key === 'Enter') {
+                // current += '\n'; // alternate solution?
+                current += '<br>';
+            } else if (event.key === 'alt') {
+                //
+            } else {
 
-            current += event.key;
-            console.log(event.key);
+                current += event.key;
+                console.log(event.key);
+            }
 
             this.element.element.innerHTML = current;
         }
         return true;
     }
 
+    setFontSize(size: number) {
+        if (this.element != null) {
+            this.element.element.setFontSize(size);
+        }
+    }
+    setFontStyle(style: string) {
+        if (this.element != null) {
+            this.element.element.setFontStyle(style);
+        }
+    }
+    setFont(font: string) {
+        if (this.element != null) {
+            this.element.element.setFont(font);
+        }
+    }
     // onShowcase(x: number, y: number): SVGStamp | null {
     //     const previousElement = this.element;
 
