@@ -52,20 +52,23 @@ export class TextTool implements ITool {
         return true;
     }
 
-    setFontSize(size: number) {
+    setFontSize(size: number): void {
         if (this.element != null) {
             this.element.element.setFontSize(size);
         }
     }
-    setFontStyle(style: string) {
+    setFontStyle(style: string): void {
         if (this.element != null) {
             this.element.element.setFontStyle(style);
         }
     }
-    setFont(font: string) {
+    setFont(font: string): void {
         if (this.element != null) {
             this.element.element.setFont(font);
         }
+    }
+    finishEdit(): void {
+        this.element = null;
     }
     // onShowcase(x: number, y: number): SVGStamp | null {
     //     const previousElement = this.element;
