@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { ITool } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Injectable({
     providedIn: 'root',
@@ -28,6 +28,27 @@ export class TextTool implements ITool {
     }
     onReleased(event: MouseEvent): void {
         return;
+    }
+
+    onKeydown(event: KeyboardEvent): boolean {
+        //
+        let current = '';
+        if (this.element != null) {
+            if (event.key === 'Backspace') {
+                //
+            } else if (event.key === 'Shift') {
+                //
+            }
+
+
+            current = this.element.element.innerHTML;
+
+            current += event.key;
+            console.log(event.key);
+
+            this.element.element.innerHTML = current;
+        }
+        return true;
     }
 
     // onShowcase(x: number, y: number): SVGStamp | null {
