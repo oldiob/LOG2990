@@ -34,7 +34,7 @@ const modules: (typeof MatDialogModule)[] = [
             HttpClientModule,
 ];
 
-fdescribe('ImportComponent', () => {
+describe('ImportComponent', () => {
   let component: ImportComponent;
   let fixture: ComponentFixture<ImportComponent>;
 
