@@ -134,7 +134,7 @@ export class SaveOptionComponent implements OnInit {
             height: this.drawingHeight,
         };
 
-        this.validate(drawing.tags);
+        this.validate();
         if (this.isValidTags) {
             this.drawAreaService.upload(drawing);
         }
