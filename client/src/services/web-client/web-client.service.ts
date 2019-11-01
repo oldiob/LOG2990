@@ -35,13 +35,21 @@ export class WebClientService {
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe((res: Response) => {
-                if (res.status === 500) {
-                    const modalRef = this.dialogService.open(CustomAlertComponent);
-                    modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
-                }
                 this.saving = false;
                 loadingDialogRef.componentInstance.done();
-            });
+            },
+                (error) => {
+                    loadingDialogRef.close();
+                    if (error.status === 0) {
+                        this.saving = false;
+                        const modalRef = this.dialogService.open(CustomAlertComponent);
+                        modalRef.componentInstance.data = 'cannot reach server';
+                    } else if (error.status === 500) {
+                        const modalRef = this.dialogService.open(CustomAlertComponent);
+                        modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
+                    }
+                },
+            );
     }
 
     addTag(id: number, tag: string) {
