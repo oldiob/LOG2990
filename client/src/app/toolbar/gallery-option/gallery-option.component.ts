@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
+import { DialogService } from 'src/services/dialog/dialog.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -32,6 +34,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     endPage: number;
 
     constructor(
+        private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private webClientService: WebClientService) { }
@@ -51,7 +54,12 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
             this.drawings = savedDrawing;
             this.refresh();
-        });
+        },
+            (err) => {
+                const modalRef = this.dialogService.open(CustomAlertComponent);
+                modalRef.componentInstance.data = 'Cannot reach server';
+            },
+        );
 
     }
 
@@ -109,7 +117,12 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     onDelete(drawing: Drawing) {
         this.remove(drawing);
-        this.webClientService.deleteDrawing(drawing.id).subscribe((res: Response) => console.log(res));
+        this.webClientService.deleteDrawing(drawing.id).subscribe(
+            (res: Response) => { console.log(res); },
+            (err) => {
+                const modalRef = this.dialogService.open(CustomAlertComponent);
+                modalRef.componentInstance.data = 'Cannot reach server';
+            });
     }
 
     private remove(drawing: Drawing) {
