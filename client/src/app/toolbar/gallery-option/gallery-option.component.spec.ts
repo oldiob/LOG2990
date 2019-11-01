@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatMenuModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { GalleryOptionComponent } from './gallery-option.component';
 
@@ -13,9 +14,15 @@ describe('GalleryOptionComponent', () => {
   let filterInput: ElementRef<HTMLInputElement>;
   let filteredDrawings: Drawing[];
   beforeEach(async(() => {
+    TestBed.overrideModule(BrowserDynamicTestingModule, {
+      set: {
+              entryComponents: [CustomAlertComponent],
+            },
+      });
     TestBed.configureTestingModule({
-      declarations: [GalleryOptionComponent],
-      imports: [MatMenuModule, MatDialogModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
+      declarations: [GalleryOptionComponent, CustomAlertComponent],
+      imports: [ MatMenuModule, MatDialogModule,
+         BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
       .compileComponents();

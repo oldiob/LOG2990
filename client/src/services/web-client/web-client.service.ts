@@ -43,7 +43,7 @@ export class WebClientService {
                     if (error.status === 0) {
                         this.saving = false;
                         const modalRef = this.dialogService.open(CustomAlertComponent);
-                        modalRef.componentInstance.data = 'cannot reach server';
+                        modalRef.componentInstance.data = 'Cannot reach server';
                     } else if (error.status === 500) {
                         const modalRef = this.dialogService.open(CustomAlertComponent);
                         modalRef.componentInstance.data = 'Invalid drawing, server refused saving.';
@@ -56,6 +56,11 @@ export class WebClientService {
         this.http.post(`${this.CUSTOM_URL}/addtag`, { id, tag })
             .subscribe((res: Response) => {
                 console.log(res.body);
+            },
+            (error) => {
+                this.loading = false;
+                const modalRef = this.dialogService.open(CustomAlertComponent);
+                modalRef.componentInstance.data = 'Cannot reach server';
             });
     }
 
@@ -95,6 +100,11 @@ export class WebClientService {
             this.loading = false;
             loadingDialogRef.componentInstance.done();
             return drawings;
+        },
+        (error) => {
+            this.loading = false;
+            const modalRef = this.dialogService.open(CustomAlertComponent);
+            modalRef.componentInstance.data = 'Cannot reach server';
         });
         return drawings;
     }
