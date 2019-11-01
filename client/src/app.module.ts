@@ -17,6 +17,7 @@ import { ColorPickerComponent } from './app/color-picker/color-picker.component'
 import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
 import { EntryPointComponent } from './app/entry-point/entry-point.component';
+import { ImportComponent } from './app/import/import.component';
 import { LoadDrawingComponent } from './app/load-drawing/load-drawing.component';
 import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
@@ -64,6 +65,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         SelectorOptionComponent,
         GridOptionComponent,
         TextOptionComponent,
+        ImportComponent,
         ColorSelectionComponent,
     ],
     imports: [
@@ -107,6 +109,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         SaveOptionComponent,
         CustomAlertComponent,
         LoadDrawingComponent,
+        ImportComponent,
     ],
 })
 export class AppModule {
