@@ -1,11 +1,12 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { HttpClientModule } from '@angular/common/http';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, RendererFactory2 } from '@angular/core';
-import { Injector } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Injector, NgModule, RendererFactory2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-    MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatCardModule,
-    MatCheckboxModule, MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule
+    MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA,
+    MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule,
+    MatCardModule, MatCheckboxModule, MatDialogModule,
+    MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatSelectModule, MatTableModule
 } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +24,8 @@ import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
-import { ColorOptionComponent } from './app/toolbar/color-option/color-option.component';
+import { ColorButtonComponent } from './app/toolbar/color-selection/color-button/color-button.component';
+import { ColorSelectionComponent } from './app/toolbar/color-selection/color-selection.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
@@ -40,7 +42,7 @@ import { DOMRenderer } from './utils/dom-renderer';
 
 @NgModule({
     declarations: [
-        ColorOptionComponent,
+        ColorButtonComponent,
         DrawAreaComponent,
         EntryPointComponent,
         NewDrawingComponent,
@@ -64,6 +66,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         GridOptionComponent,
         TextOptionComponent,
         ImportComponent,
+        ColorSelectionComponent,
     ],
     imports: [
         BrowserModule,
@@ -82,6 +85,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         ReactiveFormsModule,
         MatChipsModule,
         MatIconModule,
+        MatMenuModule,
     ],
     exports: [
         MatDividerModule,

@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
-import { Collection, Db, MongoClient } from 'mongodb';
-import { ITool } from '../../../client/src/services/tool/tool-options/i-tool';
+import { Collection, Db, MongoClient, MongoError } from 'mongodb';
+import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
 
-const DB_URL = 'mongodb+srv://Admin:rebase8@rebase-67b9x.mongodb.net/admin';
+const DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
 
 @injectable()
 export class DataBaseService {
@@ -13,33 +13,48 @@ export class DataBaseService {
     // connect database with MongoDB Compass Community
     async connectDB(): Promise<MongoClient> {
         if (this.mongo !== undefined) { return this.mongo; }
-        this.mongo = await MongoClient.connect(DB_URL, {useNewUrlParser: true});
-        console.log('Connect');
+        this.mongo = await MongoClient.connect(DB_URL, {useNewUrlParser: true,
+                                                        useUnifiedTopology: true});
         return this.mongo;
     }
 
-    async addShape(shapeTool: ITool): Promise<void> {
+    async addDrawing(draw: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const shapes: Collection<ITool> = this.db.collection('Shape');
-        const shape: ITool = shapeTool;
-        shapes.insertOne(shape);
+        const drawings: Collection<Drawing> = this.db.collection('Drawing');
+        const drawing: Drawing = draw;
+        drawings.insertOne(drawing);
     }
 
-    async deleteShape(shapeTool: ITool): Promise<void> {
+    async deleteDrawing(draw: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const shapes: Collection<ITool> = this.db.collection('Shape');
-        const shape = shapeTool;
-        shapes.deleteOne(shape);
+        const drawings: Collection<Drawing> = this.db.collection('Drawing');
+        const drawing: Drawing = draw;
+        drawings.deleteOne(drawing);
+    }
+
+    async getAllDrawings(): Promise<Drawing[]> {
+        this.db = (await this.connectDB()).db('Rebase08');
+
+        return new Promise<Drawing[]>((
+            resolve: (value?: Drawing[] | PromiseLike<Drawing[]> | undefined) => void,
+            // tslint:disable-next-line:no-any
+            reject: (reason?: any) => void) => {
+
+            this.db.collection('Drawing').find().toArray((err: MongoError, result: Drawing[]) => {
+                err
+                 ? reject(err)
+                 : resolve(result);
+            });
+        });
 
     }
-    // update shape
-    /*async updateShape(shapeTool: ITool): Promise<void> {
+
+    async updateTags(draw: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const shapes: Collection<ITool> = this.db.collection('Shape');
-        const shape: ITool = shapeTool;
-        // set what you want to update $set color, epaisseur, etc.
-        shapes.findOneAndUpdate({id: shape.ID}, {$set: {}},
-                               {upsert: true});
-    }*/
+        const drawings: Collection<Drawing> = this.db.collection('Drawing');
+        const drawing: Drawing = draw;
+        drawings.findOneAndUpdate({id: drawing.id}, {$set: {tags: drawing.tags}},
+                                  {upsert: true});
+    }
 
 }

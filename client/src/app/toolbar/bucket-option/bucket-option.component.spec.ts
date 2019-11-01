@@ -43,9 +43,4 @@ describe('BucketOptionComponent', () => {
         expect(component.getFilesource(bucket)).toEqual(PATH + BUTTON);
     });
 
-    it('should swap primary and secondary color', () => {
-        component.onSwap();
-        expect(component.onSwap).toBeTruthy();
-    });
-
 });

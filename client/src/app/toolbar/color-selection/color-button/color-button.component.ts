@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 
 @Component({
-    selector: 'app-color-option',
-    templateUrl: './color-option.component.html',
-    styleUrls: ['./color-option.component.scss', '../toolbar-option.scss'],
+    selector: 'app-color-button',
+    templateUrl: './color-button.component.html',
+    styleUrls: ['./color-button.component.scss'],
 })
-export class ColorOptionComponent implements OnInit {
+export class ColorButtonComponent implements OnInit {
 
     alpha: number;
 
@@ -17,14 +17,15 @@ export class ColorOptionComponent implements OnInit {
 
     colorsHistory: Color[];
 
-    readonly DEFAULT_RED = 255;
-    readonly DEFAULT_GREEN = 255;
-    readonly DEFAULT_BLUE = 255;
-    readonly DEFAULT_ALPHA = 1;
-    readonly DEFAULT_COLOR_HEX = '#FFFFFF';
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+    hex: string;
 
-    isShowForm: boolean;
+    @Input() isShowForm: boolean;
     @Input() isPrimary: boolean;
+    @Output() open = new EventEmitter<boolean>();
 
     constructor(
         private paletteService: PaletteService,
@@ -33,17 +34,42 @@ export class ColorOptionComponent implements OnInit {
 
     ngOnInit(): void {
         this.isShowForm = false;
+        this.setupColors();
         this.createForm();
+    }
+
+    private setupColors() {
+        if (this.isPrimary) {
+            this.r = this.paletteService.primary.red;
+            this.g = this.paletteService.primary.green;
+            this.b = this.paletteService.primary.blue;
+            this.a = this.paletteService.primary.alpha;
+            this.hex =
+                '#' +
+                `${this.convertToHEX(this.r)}` +
+                `${this.convertToHEX(this.g)}` +
+                `${this.convertToHEX(this.b)}`;
+        } else {
+            this.r = this.paletteService.secondary.red;
+            this.g = this.paletteService.secondary.green;
+            this.b = this.paletteService.secondary.blue;
+            this.a = this.paletteService.secondary.alpha;
+            this.hex =
+                '#' +
+                `${this.convertToHEX(this.r)}` +
+                `${this.convertToHEX(this.g)}` +
+                `${this.convertToHEX(this.b)}`;
+        }
     }
 
     private createForm(): void {
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
         this.colorsForm = this.formBuilder.group({
-            red: [this.DEFAULT_RED, rgbaValidators],
-            green: [this.DEFAULT_GREEN, rgbaValidators],
-            blue: [this.DEFAULT_BLUE, rgbaValidators],
-            alpha: [this.DEFAULT_ALPHA, [Validators.min(0), Validators.max(1)]],
-            colorHEX: [this.DEFAULT_COLOR_HEX, [Validators.min(0), Validators.maxLength(7)]],
+            red: [this.r, rgbaValidators],
+            green: [this.g, rgbaValidators],
+            blue: [this.b, rgbaValidators],
+            alpha: [this.a, [Validators.min(0), Validators.max(1)]],
+            colorHEX: [this.hex, [Validators.min(0), Validators.maxLength(7)]],
         });
     }
 
@@ -53,6 +79,7 @@ export class ColorOptionComponent implements OnInit {
         this.colorsForm.controls.green.setValue(color.green);
         this.colorsForm.controls.blue.setValue(color.blue);
         this.updateColorHEX();
+        this.updateColorRGBA();
     }
 
     onMouseUp() {
@@ -102,7 +129,6 @@ export class ColorOptionComponent implements OnInit {
         this.colorsForm.controls.blue.setValue(BLUE);
         const FULL_ALPHA = 1;
         this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: FULL_ALPHA };
-        this.updatePalette();
     }
 
     private convertToDecimal(hex: string): number {
@@ -111,7 +137,6 @@ export class ColorOptionComponent implements OnInit {
 
     onColorRGBAChange(): void {
         this.updateColorHEX();
-        this.updatePalette();
     }
 
     private updateColorHEX(): void {
@@ -157,6 +182,7 @@ export class ColorOptionComponent implements OnInit {
 
     toggleForm(): void {
         this.isShowForm = !this.isShowForm;
+        this.open.emit(this.isShowForm);
         this.colorsHistory = this.paletteService.getHistory();
     }
 

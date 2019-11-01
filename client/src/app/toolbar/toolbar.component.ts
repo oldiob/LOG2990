@@ -2,13 +2,9 @@ import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
-import { CmdService } from 'src/services/cmd/cmd.service';
+import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { serializeDrawArea } from 'src/utils/element-parser';
-import { saveFile } from 'src/utils/filesystem';
-import { MyInjector } from 'src/utils/injector';
 import { ImportComponent } from '../import/import.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
@@ -17,6 +13,7 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
+import { SaveOptionComponent } from './save-option/save-option.component';
 
 declare type callback = () => void;
 
@@ -49,23 +46,34 @@ export class ToolbarComponent implements OnInit {
     options: IOption<any>[];
 
     currentOption: IOption<any>;
-    isDialogOpened = false;
+    isDialogOpened: boolean;
     optionDisplayed: boolean;
 
-    constructor(
-        public dialogService: DialogService) { }
+    undosEmpty: boolean;
+    redosEmpty: boolean;
+
+    constructor(public dialogService: DialogService) {
+        this.isDialogOpened = false;
+    }
 
     ngOnInit() {
         this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
-        this.isDialogOpened = false;
+
+        CmdService.undosObservable.subscribe((undos: CmdInterface[]) => {
+            this.undosEmpty = (undos && undos.length) ? false : true;
+        });
+        CmdService.redosObservable.subscribe((redos: CmdInterface[]) => {
+            this.redosEmpty = (redos && redos.length) ? false : true;
+        });
     }
 
     selectOption(option: IOption<any>): void {
         this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
         this.currentOption = option;
         this.currentOption.select();
+        this.dialogService.closeColorForms();
     }
 
     openGalleryOption(): void {
@@ -84,11 +92,10 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
+        //const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
+        //saveFile('lol_file', fileData);
 
-        saveFile('lol_file', fileData);
-
-        //this.openDialog(SaveOptionComponent);
+        this.openDialog(SaveOptionComponent);
     }
 
     private openDialog(component: ComponentType<any>): MatDialogRef<any> | null {
@@ -109,6 +116,17 @@ export class ToolbarComponent implements OnInit {
         return this.FILE_LOCATION + option.getImage();
     }
 
+    undo(): void {
+        if (!this.undosEmpty) {
+            CmdService.undo();
+        }
+    }
+
+    redo(): void {
+        if (!this.redosEmpty) {
+            CmdService.redo();
+        }
+    }
 
     private getComposedKey(event: KeyboardEvent): string {
         let keys = '';
@@ -130,7 +148,7 @@ export class ToolbarComponent implements OnInit {
         const kbd: { [id: string]: callback } = {
             'C-o': () => { this.newDrawingOption(); },
             'C-s': () => { this.saveImage(); },
-            'C-g': () => { this.openGalleryOption(); }
+            'C-g': () => { this.openGalleryOption(); },
         };
         const keys: string = this.getComposedKey(event);
         if (kbd[keys]) {
@@ -155,7 +173,7 @@ export class ToolbarComponent implements OnInit {
             2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
             3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
             'C-z': () => { CmdService.undo(); },
-            'C-S-z': () => { CmdService.redo(); }
+            'C-S-z': () => { CmdService.redo(); },
         };
 
         const keys: string = this.getComposedKey(event);

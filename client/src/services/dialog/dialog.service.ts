@@ -9,11 +9,16 @@ import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
 })
 export class DialogService {
     private isClosedWelcome = new BehaviorSubject<boolean>(false);
+    private isClosedColor = new BehaviorSubject<boolean>(false);
 
     constructor(private dialog: MatDialog) { }
 
     get isClosedWelcomeObservable(): Observable<boolean> {
         return this.isClosedWelcome.asObservable();
+    }
+
+    get isClosedColorObservable(): Observable<boolean> {
+        return this.isClosedColor.asObservable();
     }
 
     openEntryPoint(cookie: string): void {
@@ -31,4 +36,10 @@ export class DialogService {
     open(component: ComponentType<any>): MatDialogRef<any> {
         return this.dialog.open(component);
     }
+
+    closeColorForms(): void {
+        const IS_OPEN = false;
+        this.isClosedColor.next(IS_OPEN);
+    }
+
 }

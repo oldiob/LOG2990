@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -22,15 +21,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     tools: ITool[];
     currentTool: ITool;
 
-    readonly IS_PRIMARY = true;
-
-    isSelected: boolean;
-
-    primaryColor: string;
-    secondaryColor: string;
-
     constructor(
-        private paletteService: PaletteService,
         private toolService: ToolService,
         private bucket: BucketTool,
         public dropper: DropperTool) {
@@ -62,9 +53,5 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
-    }
-
-    onSwap(): void {
-        this.paletteService.swap();
     }
 }

@@ -1,0 +1,1980 @@
+[32m26 10 2019 00:29:23.916:INFO [karma-server]: [39mKarma v4.1.0 server started at http://0.0.0.0:9876/
+[32m26 10 2019 00:29:23.923:INFO [launcher]: [39mLaunching browsers Firefox with concurrency unlimited
+[32m26 10 2019 00:29:25.143:INFO [launcher]: [39mStarting browser Firefox
+[32m26 10 2019 00:29:31.681:INFO [Firefox 70.0.0 (Windows 10.0.0)]: [39mConnected on socket CQvLebqBB2T-f2kQAAAA with id 8704964
+Firefox 70.0.0 (Windows 10.0.0): Executed 0 of 312 SUCCESS (0 secs / 0 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 1 of 312 SUCCESS (0 secs / 0.003 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 2 of 312 SUCCESS (0 secs / 0.005 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 3 of 312 SUCCESS (0 secs / 0.005 secs)
+[33m26 10 2019 00:29:32.293:WARN [web-server]: [39m404: /assets/images/bucket.png
+[33m26 10 2019 00:29:32.294:WARN [web-server]: [39m404: /assets/images/dropper.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 4 of 312 SUCCESS (0 secs / 0.107 secs)
+[33m26 10 2019 00:29:32.340:WARN [web-server]: [39m404: /assets/images/bucket.png
+[33m26 10 2019 00:29:32.340:WARN [web-server]: [39m404: /assets/images/dropper.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 5 of 312 SUCCESS (0 secs / 0.148 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 6 of 312 SUCCESS (0 secs / 0.186 secs)
+[33m26 10 2019 00:29:32.406:WARN [web-server]: [39m404: /assets/images/bucket.png
+[33m26 10 2019 00:29:32.407:WARN [web-server]: [39m404: /assets/images/dropper.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 7 of 312 SUCCESS (0 secs / 0.213 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select grid option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4783)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4783:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 8 of 312 (1 FAILED) (0 secs / 0.675 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select grid option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4783)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4783:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return ellipse when 2 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4831)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4831:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 9 of 312 (2 FAILED) (0 secs / 1.011 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return ellipse when 2 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4831)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4831:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return pencil when c is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4801)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4801:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 10 of 312 (3 FAILED) (0 secs / 1.315 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return pencil when c is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4801)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4801:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select text option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4787)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4787:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 11 of 312 (4 FAILED) (0 secs / 1.59 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select text option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4787)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4787:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return dropper when i is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4821)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4821:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 12 of 312 (5 FAILED) (0 secs / 1.884 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return dropper when i is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4821)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4821:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should create FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	Expected undefined to be truthy.
+	<Jasmine>
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4764:27
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 13 of 312 (6 FAILED) (0 secs / 2.195 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should create FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	Expected undefined to be truthy.
+	<Jasmine>
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4764:27
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should save image  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4795)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4795:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 14 of 312 (7 FAILED) (0 secs / 2.448 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should save image  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4795)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4795:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should get image  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4791)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4791:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 15 of 312 (8 FAILED) (0 secs / 2.706 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should get image  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4791)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4791:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select shape option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4771)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4771:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 16 of 312 (9 FAILED) (0 secs / 2.954 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select shape option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4771)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4771:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return polygone when 3 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4836)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4836:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 17 of 312 (10 FAILED) (0 secs / 3.211 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return polygone when 3 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4836)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4836:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return rectangle when 1 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4826)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4826:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 18 of 312 (11 FAILED) (0 secs / 3.528 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return rectangle when 1 is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4826)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4826:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select selector option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4779)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4779:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 19 of 312 (12 FAILED) (0 secs / 3.776 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select selector option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4779)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4779:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select bucket option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4775)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4775:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 20 of 312 (13 FAILED) (0 secs / 4.009 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select bucket option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4775)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4775:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should not prevent default if S is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4841)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4841:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 21 of 312 (14 FAILED) (0 secs / 4.273 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should not prevent default if S is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4841)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4841:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return brush when w is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4806)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4806:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 22 of 312 (15 FAILED) (0 secs / 4.568 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return brush when w is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4806)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4806:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return line when l is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4816)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4816:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 23 of 312 (16 FAILED) (0 secs / 4.809 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return line when l is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4816)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4816:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select tool option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4767)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4767:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 24 of 312 (17 FAILED) (0 secs / 5.037 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should select tool option FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4767)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4767:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return bucket when b is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4811)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4811:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+Firefox 70.0.0 (Windows 10.0.0): Executed 25 of 312 (18 FAILED) (0 secs / 5.269 secs)
+Firefox 70.0.0 (Windows 10.0.0) ToolbarComponent should return bucket when b is press on keyboard  FAILED
+	TypeError: dialogService is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4737)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4737:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+	TypeError: component is undefined in http://localhost:9876/_karma_webpack_/main.js (line 4811)
+	./src/app/toolbar/toolbar.component.spec.ts/</<@http://localhost:9876/_karma_webpack_/main.js:4811:9
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone@http://localhost:9876/_karma_webpack_/vendor.js:176676:34
+	wrapTestInZone/<@http://localhost:9876/_karma_webpack_/vendor.js:176691:20
+	<Jasmine>
+	runInTestZone/</testZoneSpec</<@http://localhost:9876/_karma_webpack_/vendor.js:176997:21
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3483:26
+	./node_modules/zone.js/dist/zone-testing.js/</</ProxyZoneSpec.prototype.onInvoke@http://localhost:9876/_karma_webpack_/vendor.js:176423:39
+	invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3482:52
+	run@http://localhost:9876/_karma_webpack_/polyfills.js:3248:43
+	runInTestZone/</testZoneSpec<@http://localhost:9876/_karma_webpack_/vendor.js:176996:29
+	./node_modules/zone.js/dist/zone-testing.js/</</AsyncTestZoneSpec.prototype._finishCallbackIfDone/</<@http://localhost:9876/_karma_webpack_/vendor.js:176828:31
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3515:31
+	runTask@http://localhost:9876/_karma_webpack_/polyfills.js:3292:47
+	invokeTask@http://localhost:9876/_karma_webpack_/polyfills.js:3589:34
+	ZoneTask/this.invoke@http://localhost:9876/_karma_webpack_/polyfills.js:3578:48
+	timer@http://localhost:9876/_karma_webpack_/polyfills.js:5774:29
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 26 of 312 (18 FAILED) (0 secs / 5.27 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 27 of 312 (18 FAILED) (0 secs / 5.27 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 28 of 312 (18 FAILED) (0 secs / 5.27 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 29 of 312 (18 FAILED) (0 secs / 5.272 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 30 of 312 (18 FAILED) (0 secs / 5.272 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 31 of 312 (18 FAILED) (0 secs / 5.273 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 32 of 312 (18 FAILED) (0 secs / 5.273 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 33 of 312 (18 FAILED) (0 secs / 5.275 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 34 of 312 (18 FAILED) (0 secs / 5.275 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 35 of 312 (18 FAILED) (0 secs / 5.3 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 36 of 312 (18 FAILED) (0 secs / 5.322 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 37 of 312 (18 FAILED) (0 secs / 5.341 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 38 of 312 (18 FAILED) (0 secs / 5.342 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 39 of 312 (18 FAILED) (0 secs / 5.342 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 40 of 312 (18 FAILED) (0 secs / 5.353 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 41 of 312 (18 FAILED) (0 secs / 5.354 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 42 of 312 (18 FAILED) (0 secs / 5.354 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 43 of 312 (18 FAILED) (0 secs / 5.354 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 44 of 312 (18 FAILED) (0 secs / 5.355 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 45 of 312 (18 FAILED) (0 secs / 5.355 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 46 of 312 (18 FAILED) (0 secs / 5.355 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 47 of 312 (18 FAILED) (0 secs / 5.356 secs)
+[1A[2KERROR: 'Impossible state', 1
+Firefox 70.0.0 (Windows 10.0.0): Executed 47 of 312 (18 FAILED) (0 secs / 5.356 secs)
+ERROR: 'Impossible state', 1
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 48 of 312 (18 FAILED) (0 secs / 5.358 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 49 of 312 (18 FAILED) (0 secs / 5.358 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 50 of 312 (18 FAILED) (0 secs / 5.358 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 51 of 312 (18 FAILED) (0 secs / 5.36 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 52 of 312 (18 FAILED) (0 secs / 5.361 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 53 of 312 (18 FAILED) (0 secs / 5.361 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 54 of 312 (18 FAILED) (0 secs / 5.361 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 55 of 312 (18 FAILED) (0 secs / 5.378 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 56 of 312 (18 FAILED) (0 secs / 5.39 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 57 of 312 (18 FAILED) (0 secs / 5.401 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 58 of 312 (18 FAILED) (0 secs / 5.415 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 59 of 312 (18 FAILED) (0 secs / 5.415 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 60 of 312 (18 FAILED) (0 secs / 5.415 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 61 of 312 (18 FAILED) (0 secs / 5.415 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 62 of 312 (18 FAILED) (0 secs / 5.417 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 63 of 312 (18 FAILED) (0 secs / 5.419 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 64 of 312 (18 FAILED) (0 secs / 5.42 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 65 of 312 (18 FAILED) (0 secs / 5.42 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 66 of 312 (18 FAILED) (0 secs / 5.421 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 67 of 312 (18 FAILED) (0 secs / 5.421 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 68 of 312 (18 FAILED) (0 secs / 5.421 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 69 of 312 (18 FAILED) (0 secs / 5.423 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 70 of 312 (18 FAILED) (0 secs / 5.423 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 71 of 312 (18 FAILED) (0 secs / 5.424 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 72 of 312 (18 FAILED) (0 secs / 5.424 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 73 of 312 (18 FAILED) (0 secs / 5.425 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 74 of 312 (18 FAILED) (0 secs / 5.523 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 75 of 312 (18 FAILED) (0 secs / 5.639 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 76 of 312 (18 FAILED) (0 secs / 5.714 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 77 of 312 (18 FAILED) (0 secs / 5.788 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 78 of 312 (18 FAILED) (0 secs / 5.859 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 79 of 312 (18 FAILED) (0 secs / 5.931 secs)
+[1A[2KLOG: function () { ... }
+Firefox 70.0.0 (Windows 10.0.0): Executed 79 of 312 (18 FAILED) (0 secs / 5.931 secs)
+LOG: function () { ... }
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 80 of 312 (18 FAILED) (0 secs / 5.932 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 81 of 312 (18 FAILED) (0 secs / 5.935 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 82 of 312 (18 FAILED) (0 secs / 5.935 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 83 of 312 (18 FAILED) (0 secs / 5.935 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 84 of 312 (18 FAILED) (0 secs / 5.942 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 85 of 312 (18 FAILED) (0 secs / 5.942 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 86 of 312 (18 FAILED) (0 secs / 5.944 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 87 of 312 (18 FAILED) (0 secs / 5.945 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 88 of 312 (18 FAILED) (0 secs / 5.949 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 89 of 312 (18 FAILED) (0 secs / 5.949 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 90 of 312 (18 FAILED) (0 secs / 5.95 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 91 of 312 (18 FAILED) (0 secs / 5.95 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 92 of 312 (18 FAILED) (0 secs / 5.951 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 93 of 312 (18 FAILED) (0 secs / 5.951 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 94 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 95 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 96 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 97 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 98 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 99 of 312 (18 FAILED) (0 secs / 5.952 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 100 of 312 (18 FAILED) (0 secs / 5.954 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 101 of 312 (18 FAILED) (0 secs / 5.955 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 102 of 312 (18 FAILED) (0 secs / 5.957 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 103 of 312 (18 FAILED) (0 secs / 5.958 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 104 of 312 (18 FAILED) (0 secs / 5.959 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 105 of 312 (18 FAILED) (0 secs / 5.96 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 106 of 312 (18 FAILED) (0 secs / 5.96 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 107 of 312 (18 FAILED) (0 secs / 5.961 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 108 of 312 (18 FAILED) (0 secs / 5.961 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 109 of 312 (18 FAILED) (0 secs / 5.961 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 110 of 312 (18 FAILED) (0 secs / 5.961 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 111 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 112 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 113 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 114 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 115 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 116 of 312 (18 FAILED) (0 secs / 5.962 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 117 of 312 (18 FAILED) (0 secs / 5.963 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 118 of 312 (18 FAILED) (0 secs / 5.964 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 119 of 312 (18 FAILED) (0 secs / 5.964 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 120 of 312 (18 FAILED) (0 secs / 5.965 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 121 of 312 (18 FAILED) (0 secs / 5.965 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 122 of 312 (18 FAILED) (0 secs / 5.965 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 123 of 312 (18 FAILED) (0 secs / 5.965 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 124 of 312 (18 FAILED) (0 secs / 5.965 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 125 of 312 (18 FAILED) (0 secs / 5.966 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 126 of 312 (18 FAILED) (0 secs / 5.967 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 127 of 312 (18 FAILED) (0 secs / 5.967 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 128 of 312 (18 FAILED) (0 secs / 5.968 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 129 of 312 (18 FAILED) (0 secs / 5.968 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 130 of 312 (18 FAILED) (0 secs / 5.968 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 131 of 312 (18 FAILED) (0 secs / 5.968 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 132 of 312 (18 FAILED) (0 secs / 5.969 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 133 of 312 (18 FAILED) (0 secs / 5.969 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 134 of 312 (18 FAILED) (0 secs / 5.969 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 135 of 312 (18 FAILED) (0 secs / 5.969 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 136 of 312 (18 FAILED) (0 secs / 5.969 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 137 of 312 (18 FAILED) (0 secs / 5.97 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 138 of 312 (18 FAILED) (0 secs / 6.015 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 139 of 312 (18 FAILED) (0 secs / 6.026 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 140 of 312 (18 FAILED) (0 secs / 6.036 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 141 of 312 (18 FAILED) (0 secs / 6.045 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 142 of 312 (18 FAILED) (0 secs / 6.058 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 143 of 312 (18 FAILED) (0 secs / 6.058 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 144 of 312 (18 FAILED) (0 secs / 6.058 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 145 of 312 (18 FAILED) (0 secs / 6.058 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 146 of 312 (18 FAILED) (0 secs / 6.058 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 147 of 312 (18 FAILED) (0 secs / 6.059 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 148 of 312 (18 FAILED) (0 secs / 6.06 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 149 of 312 (18 FAILED) (0 secs / 6.06 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 150 of 312 (18 FAILED) (0 secs / 6.06 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 151 of 312 (18 FAILED) (0 secs / 6.07 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 152 of 312 (18 FAILED) (0 secs / 6.07 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 153 of 312 (18 FAILED) (0 secs / 6.07 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 154 of 312 (18 FAILED) (0 secs / 6.071 secs)
+[33m26 10 2019 00:29:38.496:WARN [web-server]: [39m404: /assets/images/rectangle.png
+[33m26 10 2019 00:29:38.497:WARN [web-server]: [39m404: /assets/images/ellipse.png
+[33m26 10 2019 00:29:38.497:WARN [web-server]: [39m404: /assets/images/polygon.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 155 of 312 (18 FAILED) (0 secs / 6.21 secs)
+[33m26 10 2019 00:29:38.630:WARN [web-server]: [39m404: /assets/images/rectangle.png
+[33m26 10 2019 00:29:38.631:WARN [web-server]: [39m404: /assets/images/ellipse.png
+[33m26 10 2019 00:29:38.631:WARN [web-server]: [39m404: /assets/images/polygon.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 156 of 312 (18 FAILED) (0 secs / 6.335 secs)
+[33m26 10 2019 00:29:38.760:WARN [web-server]: [39m404: /assets/images/rectangle.png
+[33m26 10 2019 00:29:38.761:WARN [web-server]: [39m404: /assets/images/ellipse.png
+[33m26 10 2019 00:29:38.762:WARN [web-server]: [39m404: /assets/images/polygon.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 157 of 312 (18 FAILED) (0 secs / 6.461 secs)
+[33m26 10 2019 00:29:38.883:WARN [web-server]: [39m404: /assets/images/rectangle.png
+[33m26 10 2019 00:29:38.884:WARN [web-server]: [39m404: /assets/images/ellipse.png
+[33m26 10 2019 00:29:38.884:WARN [web-server]: [39m404: /assets/images/polygon.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 158 of 312 (18 FAILED) (0 secs / 6.576 secs)
+[33m26 10 2019 00:29:39.003:WARN [web-server]: [39m404: /assets/images/rectangle.png
+[33m26 10 2019 00:29:39.004:WARN [web-server]: [39m404: /assets/images/ellipse.png
+[33m26 10 2019 00:29:39.004:WARN [web-server]: [39m404: /assets/images/polygon.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 159 of 312 (18 FAILED) (0 secs / 6.691 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 160 of 312 (18 FAILED) (0 secs / 6.693 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 161 of 312 (18 FAILED) (0 secs / 6.694 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 162 of 312 (18 FAILED) (0 secs / 6.7 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 163 of 312 (18 FAILED) (0 secs / 6.705 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 164 of 312 (18 FAILED) (0 secs / 6.711 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 165 of 312 (18 FAILED) (0 secs / 6.717 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 166 of 312 (18 FAILED) (0 secs / 6.723 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 167 of 312 (18 FAILED) (0 secs / 6.73 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 168 of 312 (18 FAILED) (0 secs / 6.736 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 169 of 312 (18 FAILED) (0 secs / 6.742 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 170 of 312 (18 FAILED) (0 secs / 6.748 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 171 of 312 (18 FAILED) (0 secs / 6.762 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 172 of 312 (18 FAILED) (0 secs / 6.768 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 173 of 312 (18 FAILED) (0 secs / 6.774 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 174 of 312 (18 FAILED) (0 secs / 6.775 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 175 of 312 (18 FAILED) (0 secs / 6.775 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 176 of 312 (18 FAILED) (0 secs / 6.775 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 177 of 312 (18 FAILED) (0 secs / 6.775 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 178 of 312 (18 FAILED) (0 secs / 6.775 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 179 of 312 (18 FAILED) (0 secs / 6.776 secs)
+[33m26 10 2019 00:29:39.128:WARN [web-server]: [39m404: /assets/images/selector.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 180 of 312 (18 FAILED) (0 secs / 6.789 secs)
+[33m26 10 2019 00:29:39.144:WARN [web-server]: [39m404: /assets/images/selector.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 181 of 312 (18 FAILED) (0 secs / 6.802 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 182 of 312 (18 FAILED) (0 secs / 6.815 secs)
+[33m26 10 2019 00:29:39.174:WARN [web-server]: [39m404: /assets/images/selector.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 183 of 312 (18 FAILED) (0 secs / 6.828 secs)
+[33m26 10 2019 00:29:39.189:WARN [web-server]: [39m404: /assets/images/selector.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 184 of 312 (18 FAILED) (0 secs / 6.842 secs)
+[33m26 10 2019 00:29:39.205:WARN [web-server]: [39m404: /assets/images/selector.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 185 of 312 (18 FAILED) (0 secs / 6.854 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 186 of 312 (18 FAILED) (0 secs / 6.855 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 187 of 312 (18 FAILED) (0 secs / 6.855 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 188 of 312 (18 FAILED) (0 secs / 6.856 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 189 of 312 (18 FAILED) (0 secs / 6.867 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 190 of 312 (18 FAILED) (0 secs / 6.869 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 191 of 312 (18 FAILED) (0 secs / 6.87 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 192 of 312 (18 FAILED) (0 secs / 6.87 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 193 of 312 (18 FAILED) (0 secs / 6.87 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 194 of 312 (18 FAILED) (0 secs / 6.872 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 195 of 312 (18 FAILED) (0 secs / 6.873 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 196 of 312 (18 FAILED) (0 secs / 6.874 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 197 of 312 (18 FAILED) (0 secs / 6.977 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 198 of 312 (18 FAILED) (0 secs / 6.99 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 199 of 312 (18 FAILED) (0 secs / 7.004 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 200 of 312 (18 FAILED) (0 secs / 7.004 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 201 of 312 (18 FAILED) (0 secs / 7.004 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 202 of 312 (18 FAILED) (0 secs / 7.005 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 203 of 312 (18 FAILED) (0 secs / 7.013 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 204 of 312 (18 FAILED) (0 secs / 7.038 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 205 of 312 (18 FAILED) (0 secs / 7.056 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 206 of 312 (18 FAILED) (0 secs / 7.086 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 207 of 312 (18 FAILED) (0 secs / 7.178 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 208 of 312 (18 FAILED) (0 secs / 7.301 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 209 of 312 (18 FAILED) (0 secs / 7.393 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 210 of 312 (18 FAILED) (0 secs / 7.478 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 211 of 312 (18 FAILED) (0 secs / 7.562 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 212 of 312 (18 FAILED) (0 secs / 7.644 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 213 of 312 (18 FAILED) (0 secs / 7.721 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 214 of 312 (18 FAILED) (0 secs / 7.804 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 215 of 312 (18 FAILED) (0 secs / 7.883 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 216 of 312 (18 FAILED) (0 secs / 7.971 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 217 of 312 (18 FAILED) (0 secs / 8.07 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 218 of 312 (18 FAILED) (0 secs / 8.168 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 219 of 312 (18 FAILED) (0 secs / 8.297 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 220 of 312 (18 FAILED) (0 secs / 8.376 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 221 of 312 (18 FAILED) (0 secs / 8.455 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 222 of 312 (18 FAILED) (0 secs / 8.54 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 223 of 312 (18 FAILED) (0 secs / 8.617 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 224 of 312 (18 FAILED) (0 secs / 8.691 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 225 of 312 (18 FAILED) (0 secs / 8.764 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 226 of 312 (18 FAILED) (0 secs / 8.841 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 227 of 312 (18 FAILED) (0 secs / 8.872 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 228 of 312 (18 FAILED) (0 secs / 8.888 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 229 of 312 (18 FAILED) (0 secs / 8.906 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 230 of 312 (18 FAILED) (0 secs / 8.925 secs)
+[33m26 10 2019 00:29:41.552:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.552:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 231 of 312 (18 FAILED) (0 secs / 8.939 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 232 of 312 (18 FAILED) (0 secs / 8.963 secs)
+[33m26 10 2019 00:29:41.590:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.591:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 233 of 312 (18 FAILED) (0 secs / 8.977 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 234 of 312 (18 FAILED) (0 secs / 8.994 secs)
+[33m26 10 2019 00:29:41.623:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.624:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 235 of 312 (18 FAILED) (0 secs / 9.006 secs)
+[33m26 10 2019 00:29:41.641:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.641:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 236 of 312 (18 FAILED) (0 secs / 9.019 secs)
+[33m26 10 2019 00:29:41.657:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.658:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 237 of 312 (18 FAILED) (0 secs / 9.031 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 238 of 312 (18 FAILED) (0 secs / 9.053 secs)
+[33m26 10 2019 00:29:41.693:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.693:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 239 of 312 (18 FAILED) (0 secs / 9.066 secs)
+[33m26 10 2019 00:29:41.709:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.710:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 240 of 312 (18 FAILED) (0 secs / 9.079 secs)
+[33m26 10 2019 00:29:41.728:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.729:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 241 of 312 (18 FAILED) (0 secs / 9.092 secs)
+[33m26 10 2019 00:29:41.743:WARN [web-server]: [39m404: /assets/images/swap.svg
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 242 of 312 (18 FAILED) (0 secs / 9.106 secs)
+[33m26 10 2019 00:29:41.759:WARN [web-server]: [39m404: /assets/images/swap.svg
+[33m26 10 2019 00:29:41.760:WARN [web-server]: [39m404: /assets/images/text.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 243 of 312 (18 FAILED) (0 secs / 9.12 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 244 of 312 (18 FAILED) (0 secs / 9.12 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 245 of 312 (18 FAILED) (0 secs / 9.121 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 246 of 312 (18 FAILED) (0 secs / 9.122 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 247 of 312 (18 FAILED) (0 secs / 9.122 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 248 of 312 (18 FAILED) (0 secs / 9.122 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 249 of 312 (18 FAILED) (0 secs / 9.122 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 250 of 312 (18 FAILED) (0 secs / 9.122 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 251 of 312 (18 FAILED) (0 secs / 9.124 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 252 of 312 (18 FAILED) (0 secs / 9.124 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 253 of 312 (18 FAILED) (0 secs / 9.138 secs)
+[33m26 10 2019 00:29:41.814:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 254 of 312 (18 FAILED) (0 secs / 9.165 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 255 of 312 (18 FAILED) (0 secs / 9.184 secs)
+[33m26 10 2019 00:29:41.852:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 256 of 312 (18 FAILED) (0 secs / 9.202 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 257 of 312 (18 FAILED) (0 secs / 9.221 secs)
+[33m26 10 2019 00:29:41.896:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 258 of 312 (18 FAILED) (0 secs / 9.245 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 259 of 312 (18 FAILED) (0 secs / 9.262 secs)
+[33m26 10 2019 00:29:41.917:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 260 of 312 (18 FAILED) (0 secs / 9.28 secs)
+[33m26 10 2019 00:29:41.955:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 261 of 312 (18 FAILED) (0 secs / 9.299 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 262 of 312 (18 FAILED) (0 secs / 9.317 secs)
+[33m26 10 2019 00:29:41.998:WARN [web-server]: [39m404: /assets/images/grid.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 263 of 312 (18 FAILED) (0 secs / 9.341 secs)
+[33m26 10 2019 00:29:42.020:WARN [web-server]: [39m404: /assets/images/swap.svg
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 264 of 312 (18 FAILED) (0 secs / 9.363 secs)
+[33m26 10 2019 00:29:42.170:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:42.170:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:42.170:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:42.171:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KERROR: 'Spec 'ToolOptionComponent should line type change on display' has no expectations.'
+Firefox 70.0.0 (Windows 10.0.0): Executed 264 of 312 (18 FAILED) (0 secs / 9.363 secs)
+ERROR: 'Spec 'ToolOptionComponent should line type change on display' has no expectations.'
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 265 of 312 (18 FAILED) (0 secs / 9.513 secs)
+[33m26 10 2019 00:29:42.324:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:42.324:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:42.325:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:42.325:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 266 of 312 (18 FAILED) (0 secs / 9.663 secs)
+[33m26 10 2019 00:29:42.529:WARN [web-server]: [39m404: /assets/images/pencil.png
+[1A[2KERROR: 'Spec 'ToolOptionComponent should jonction type change on display' has no expectations.'
+Firefox 70.0.0 (Windows 10.0.0): Executed 266 of 312 (18 FAILED) (0 secs / 9.663 secs)
+ERROR: 'Spec 'ToolOptionComponent should jonction type change on display' has no expectations.'
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 267 of 312 (18 FAILED) (0 secs / 9.868 secs)
+[33m26 10 2019 00:29:42.663:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:42.663:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:42.664:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:42.664:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 268 of 312 (18 FAILED) (0 secs / 9.997 secs)
+[33m26 10 2019 00:29:42.795:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:42.795:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:42.796:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:42.796:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 269 of 312 (18 FAILED) (0 secs / 10.124 secs)
+[33m26 10 2019 00:29:42.925:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:42.925:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:42.926:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:42.926:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 270 of 312 (18 FAILED) (0 secs / 10.249 secs)
+[33m26 10 2019 00:29:43.056:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:43.057:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:43.057:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:43.057:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 271 of 312 (18 FAILED) (0 secs / 10.376 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 272 of 312 (18 FAILED) (0 secs / 10.502 secs)
+[33m26 10 2019 00:29:43.311:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:43.312:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:43.312:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:43.313:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 273 of 312 (18 FAILED) (0 secs / 10.625 secs)
+[33m26 10 2019 00:29:43.438:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:43.439:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:43.439:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:43.439:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 274 of 312 (18 FAILED) (0 secs / 10.748 secs)
+[33m26 10 2019 00:29:43.567:WARN [web-server]: [39m404: /assets/images/pencil.png
+[33m26 10 2019 00:29:43.568:WARN [web-server]: [39m404: /assets/images/brush.png
+[33m26 10 2019 00:29:43.568:WARN [web-server]: [39m404: /assets/images/line.png
+[33m26 10 2019 00:29:43.568:WARN [web-server]: [39m404: /assets/images/stamp.png
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 275 of 312 (18 FAILED) (0 secs / 10.875 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 276 of 312 (18 FAILED) (0 secs / 10.913 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 277 of 312 (18 FAILED) (0 secs / 10.943 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 278 of 312 (18 FAILED) (0 secs / 10.979 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 279 of 312 (18 FAILED) (0 secs / 11.009 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 280 of 312 (18 FAILED) (0 secs / 11.05 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 281 of 312 (18 FAILED) (0 secs / 11.095 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 282 of 312 (18 FAILED) (0 secs / 11.142 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 283 of 312 (18 FAILED) (0 secs / 11.181 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 284 of 312 (18 FAILED) (0 secs / 11.225 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 285 of 312 (18 FAILED) (0 secs / 11.263 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 286 of 312 (18 FAILED) (0 secs / 11.306 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 287 of 312 (18 FAILED) (0 secs / 11.353 secs)
+[1A[2KLOG: 'world'
+Firefox 70.0.0 (Windows 10.0.0): Executed 287 of 312 (18 FAILED) (0 secs / 11.353 secs)
+LOG: 'world'
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 288 of 312 (18 FAILED) (0 secs / 11.424 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 289 of 312 (18 FAILED) (0 secs / 11.47 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 290 of 312 (18 FAILED) (0 secs / 11.509 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 291 of 312 (18 FAILED) (0 secs / 11.557 secs)
+[1A[2KLOG: Object{title: 'test', body: 'test'}
+Firefox 70.0.0 (Windows 10.0.0): Executed 291 of 312 (18 FAILED) (0 secs / 11.557 secs)
+LOG: Object{title: 'test', body: 'test'}
+[1A[2KLOG: Object{title: 'test', body: 'test'}
+Firefox 70.0.0 (Windows 10.0.0): Executed 291 of 312 (18 FAILED) (0 secs / 11.557 secs)
+LOG: Object{title: 'test', body: 'test'}
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 292 of 312 (18 FAILED) (0 secs / 11.602 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 293 of 312 (18 FAILED) (0 secs / 11.645 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 294 of 312 (18 FAILED) (0 secs / 11.687 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 295 of 312 (18 FAILED) (0 secs / 11.736 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 296 of 312 (18 FAILED) (0 secs / 11.772 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 297 of 312 (18 FAILED) (0 secs / 11.81 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 298 of 312 (18 FAILED) (0 secs / 11.849 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 299 of 312 (18 FAILED) (0 secs / 11.886 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 300 of 312 (18 FAILED) (0 secs / 11.99 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 301 of 312 (18 FAILED) (0 secs / 12.026 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 302 of 312 (18 FAILED) (0 secs / 12.064 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 303 of 312 (18 FAILED) (0 secs / 12.101 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 304 of 312 (18 FAILED) (0 secs / 12.143 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 305 of 312 (18 FAILED) (0 secs / 12.175 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 306 of 312 (18 FAILED) (0 secs / 12.175 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 307 of 312 (18 FAILED) (0 secs / 12.175 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 308 of 312 (18 FAILED) (0 secs / 12.176 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 309 of 312 (18 FAILED) (0 secs / 12.176 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 310 of 312 (18 FAILED) (0 secs / 12.177 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 311 of 312 (18 FAILED) (0 secs / 12.177 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 312 of 312 (18 FAILED) (0 secs / 12.186 secs)
+[1A[2KFirefox 70.0.0 (Windows 10.0.0): Executed 312 of 312 (18 FAILED) (12.882 secs / 12.186 secs)
+TOTAL: 18 FAILED, 294 SUCCESS
+TOTAL: 18 FAILED, 294 SUCCESS

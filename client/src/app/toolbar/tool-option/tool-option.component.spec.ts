@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/co
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
-         MatOptionModule, MatSelectModule } from '@angular/material';
+         MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LineTool } from 'src/services/tool/tool-options/line';
@@ -22,7 +22,7 @@ describe('ToolOptionComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MatSelectModule, MatDialogModule, FormsModule,
+            imports: [MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
                       BrowserAnimationsModule, BrowserDynamicTestingModule,
                       ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
                       MatOptionModule, MatFormFieldModule],
@@ -105,22 +105,20 @@ describe('ToolOptionComponent', () => {
         expect((component.currentTool as LineTool).junctionWidth).toEqual(junctionWidth);
         expect(showcase.display).toHaveBeenCalled();
     });
-    it('should swap primary and secondary color', () => {
-        component.onSwap();
-        expect(component.onSwap).toBeTruthy();
-    });
+
     it('should line type change on display', () => {
         component.onLineTypeChange();
         if (component.currentTool instanceof LineTool) {
-        expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
-        expect(showcase.display).toHaveBeenCalled();
+            expect(component.currentTool.lineType).toEqual(component.lineForm.controls.lineType.value);
+            expect(showcase.display).toHaveBeenCalled();
         }
     });
+
     it('should jonction type change on display', () => {
         component.onJunctionTypeChange();
         if (component.currentTool instanceof LineTool) {
-        expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
-        expect(showcase.display).toHaveBeenCalled();
+            expect(component.currentTool.junctionType).toEqual(component.junctionForm.controls.junctionType.value);
+            expect(showcase.display).toHaveBeenCalled();
         }
     });
 });

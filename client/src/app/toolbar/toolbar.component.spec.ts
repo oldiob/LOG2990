@@ -3,10 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule, MatCheckboxModule,
-    MatDialogModule, MatDialogRef, MatFormFieldModule, MatOptionModule, MatSelectModule
+    MatDialogModule, MatDialogRef, MatFormFieldModule, MatMenuModule, MatOptionModule, MatSelectModule
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -48,16 +49,16 @@ describe('ToolbarComponent', () => {
             },
         });
         TestBed.configureTestingModule({
-            imports: [MatSelectModule, MatDialogModule, FormsModule,
+            imports: [MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
                 MatOptionModule, MatFormFieldModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
                 GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
-            providers: [{ provide: DialogService, useValue: dialogService },
-            { provide: DrawAreaService, useValue: drawareaService },
-            { provide: MatDialogRef }],
+            providers: [DialogService,
+                { provide: DrawAreaService, useValue: drawareaService },
+                { provide: MatDialogRef }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
@@ -68,7 +69,7 @@ describe('ToolbarComponent', () => {
         DOMRenderer.renderer = renderer;
         drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
-        dialogService = jasmine.createSpyObj('DialogService', ['open']);
+        dialogService = TestBed.get(DialogService);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -91,7 +92,6 @@ describe('ToolbarComponent', () => {
         component.bucketOption.currentTool = bucketOption.currentTool;
         component.selectorOption = selectorOption;
         component.textOption = textOption;
-        component.dialogService = dialogService;
         component.ngOnInit();
     });
 
@@ -135,6 +135,7 @@ describe('ToolbarComponent', () => {
     });
 
     it('should save image ', () => {
+        spyOn(dialogService, 'open');
         component.saveImage();
         expect(dialogService.open).toHaveBeenCalled();
     });
@@ -193,4 +194,17 @@ describe('ToolbarComponent', () => {
         expect(pressS.defaultPrevented).toBeFalsy();
     });
 
+    it('#undo should undo last command', () => {
+        spyOn(CmdService, 'undo');
+        component.undosEmpty = false;
+        component.undo();
+        expect(CmdService.undo).toHaveBeenCalled();
+    });
+
+    it('#redo should redo last command', () => {
+        spyOn(CmdService, 'redo');
+        component.redosEmpty = false;
+        component.redo();
+        expect(CmdService.redo).toHaveBeenCalled();
+    });
 });
