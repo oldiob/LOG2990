@@ -21,6 +21,8 @@ export class SaveOptionComponent implements OnInit {
     removable: boolean;
     addOnBlur: boolean;
 
+    isValidTags: boolean;
+
     drawingHeight: number;
     drawingWidth: number;
     drawingBackgroundColor: string;
@@ -60,6 +62,7 @@ export class SaveOptionComponent implements OnInit {
         this.selectable = true;
         this.removable = true;
         this.addOnBlur = true;
+        this.isValidTags = true;
         this.tags = [];
         this.createForm();
     }
@@ -86,6 +89,7 @@ export class SaveOptionComponent implements OnInit {
             input.value = '';
         }
         this.saveForm.controls.tags.setValue(this.tags);
+        this.validate();
     }
 
     remove(tag: string): void {
@@ -94,6 +98,25 @@ export class SaveOptionComponent implements OnInit {
             this.tags.splice(index, 1);
         }
         this.saveForm.controls.tags.setValue(this.tags);
+        this.validate();
+    }
+
+    private validate(): void {
+        for (const tag of this.tags) {
+            if (!(/^[a-zA-Z]+$/.test(tag))) {
+                this.isValidTags = false;
+                return;
+            }
+        }
+        this.isValidTags = true;
+    }
+
+    getNameErrorMessage() {
+        return this.saveForm.controls.name.hasError('required') ? 'You must enter a name' : '';
+    }
+
+    getTagsErrorMessage() {
+        return this.saveForm.controls.name.hasError('required') ? 'You must enter valid tags' : '';
     }
 
     onSubmit() {
@@ -111,6 +134,9 @@ export class SaveOptionComponent implements OnInit {
             height: this.drawingHeight,
         };
 
-        this.drawAreaService.upload(drawing);
+        this.validate(drawing.tags);
+        if (this.isValidTags) {
+            this.drawAreaService.upload(drawing);
+        }
     }
 }
