@@ -21,26 +21,21 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     tools: ITool[];
     currentTool: ITool;
 
-    isShowPrimary: boolean;
-    isShowSecondary: boolean;
-    primaryColor: string;
-    secondaryColor: string;
+    currentFontSize: string;
+    currentFontFamily: string;
+    currentFontStyle: string;
 
-    readonly IS_PRIMARY = true;
-
-    constructor(
-        private paletteService: PaletteService,
-        private toolService: ToolService,
-        private text: TextTool) {
+    constructor(private toolService: ToolService, private text: TextTool) {
 
         this.tools = [text];
         this.currentTool = this.tools[0];
+        this.currentFontFamily = '';
+        this.currentFontSize = '';
+        this.currentFontStyle = '';
     }
 
     ngOnInit() {
         this.currentTool = this.text;
-        this.isShowPrimary = false;
-        this.isShowSecondary = false;
     }
 
     select() {
@@ -60,42 +55,19 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    togglePrimaryColorPicker() {
-        this.isShowSecondary = false;
-        this.isShowPrimary = !this.isShowPrimary;
+    selectFontSize(fontSize: string): void {
+        this.currentFontSize = fontSize;
+        this.text.fontSize = this.currentFontSize;
+        // this.showcase.display(this.currentTool);
     }
-
-    toggleSecondaryColorPicker() {
-        this.isShowPrimary = false;
-        this.isShowSecondary = !this.isShowSecondary;
+    selectFontStyle(fontStyle: string): void {
+        this.currentFontStyle = fontStyle;
+        this.text.fontStyle = this.currentFontStyle;
+        // this.showcase.display(this.currentTool);
     }
-
-    onSwap() {
-        this.paletteService.swap();
-        this.setPrimaryColor();
-        this.setSecondary();
+    selectFontFamily(fontFamily: string): void {
+        this.currentFontFamily = fontFamily;
+        this.text.fontFamily = this.currentFontFamily;
+        // this.showcase.display(this.currentTool);
     }
-
-    onColorPick() {
-        this.isShowPrimary ? this.setPrimaryColor() : this.setSecondary();
-        this.hideColorPicker();
-    }
-
-    hideColorPicker() {
-        this.isShowPrimary ? this.isShowPrimary = false
-            : this.isShowSecondary = false;
-    }
-
-    private setPrimaryColor() {
-        return {
-            'background-color': this.paletteService.getPrimary(),
-        };
-    }
-
-    private setSecondary() {
-        return {
-            'background-color': this.paletteService.getSecondary(),
-        };
-    }
-
 }
