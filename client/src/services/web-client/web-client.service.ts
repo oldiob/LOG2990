@@ -26,17 +26,17 @@ export class WebClientService {
     sendDrawing(drawing: Drawing) {
         this.saving = true;
         const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
-        loadingDialogRef.componentInstance.content = 'Saving';
+        loadingDialogRef.componentInstance.content = 'Saving Drawing';
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe(
                 (response: Response) => {
-                    // loadingDialogRef.close();
+                    loadingDialogRef.close();
                     this.saving = false;
                     this.alertSuccess();
                 },
                 (error: HttpErrorResponse) => {
-                    // loadingDialogRef.close();
+                    loadingDialogRef.close();
                     this.saving = false;
                     this.alertError(error);
                 },
