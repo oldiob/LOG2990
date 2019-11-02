@@ -67,7 +67,6 @@ describe('WebClientService', () => {
     });
 
     it('should send drawing', () => {
-        webClientService.isDrawingValid(drawing);
         webClientService.saving = true;
         httpClientSpy.post.and.returnValue(of(drawing));
         webClientService.sendDrawing(drawing);
@@ -119,41 +118,6 @@ describe('WebClientService', () => {
             expect(savedDrawing).toEqual(drawings);
         });
         expect(webClientService.getPreparedDrawing()).toEqual(drawings);
-    });
-
-    it('should return true if the drawing is valid', () => {
-        webClientService.isDrawingValid(drawing);
-        expect(webClientService.isDrawingValid(drawing)).toBeTruthy();
-    });
-
-    it('should return false if the drawing name is not valid', () => {
-        let invalidName = new Drawing();
-        invalidName = {
-            id: 17,
-            name: '',
-            tags: ['allo'],
-            holder: { entry: 'entry', elements: ['vide'] },
-            backgroundColor: '#ffffff',
-            width: 200,
-            height: 200,
-        };
-        webClientService.isDrawingValid(invalidName);
-        expect(webClientService.isDrawingValid(invalidName)).toBeFalsy();
-    });
-
-    it('should return false if the drawing tags is not valid', () => {
-        let invalidTags = new Drawing();
-        invalidTags = {
-            id: 17,
-            name: 'rebase',
-            tags: ['123'],
-            holder: { entry: 'entry', elements: ['vide'] },
-            backgroundColor: '#ffffff',
-            width: 200,
-            height: 200,
-        };
-        webClientService.isDrawingValid(invalidTags);
-        expect(webClientService.isDrawingValid(invalidTags)).toBeFalsy();
     });
 
 });

@@ -31,12 +31,12 @@ export class WebClientService {
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe(
                 (response: Response) => {
-                    loadingDialogRef.close();
+                    // loadingDialogRef.close();
                     this.saving = false;
                     this.alertSuccess();
                 },
                 (error: HttpErrorResponse) => {
-                    loadingDialogRef.close();
+                    // loadingDialogRef.close();
                     this.saving = false;
                     this.alertError(error);
                 },
