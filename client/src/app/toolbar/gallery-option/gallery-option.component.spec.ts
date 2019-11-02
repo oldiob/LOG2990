@@ -47,9 +47,7 @@ describe('GalleryOptionComponent', () => {
 
     fixture.detectChanges();
     filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['nativeElement', 'entry']);
-    dialogService = jasmine.createSpyObj('DialogService', ['enableKey', 'disableKey']);
     component.filterInput = filterInput;
-    component.dialogService = dialogService;
     component.ngOnInit();
   });
 
@@ -102,11 +100,6 @@ describe('GalleryOptionComponent', () => {
     component.page = 1;
     component.nextPage();
     expect(component.page).toEqual(component.nPages );
-  });
-
-  it('should close dialog', () => {
-    component.onClose();
-    expect(dialogService.enableKey).toHaveBeenCalled();
   });
 
 });
