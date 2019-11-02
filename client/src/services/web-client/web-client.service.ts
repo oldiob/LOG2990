@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -24,49 +24,43 @@ export class WebClientService {
         private http: HttpClient) { }
 
     sendDrawing(drawing: Drawing) {
-        if (!this.isDrawingValid(drawing)) {
-            const snackRef = this.dialogService.openSnack(CustomAlertComponent);
-            snackRef.instance.title = 'Invalid drawing';
-            snackRef.instance.content = 'Drawing not sent to server.';
-            snackRef.instance.isError = true;
-            return;
-        }
         this.saving = true;
         const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
         loadingDialogRef.componentInstance.content = 'Saving';
 
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
-            .subscribe((res: Response) => {
-                if (res.status === 500) {
-                    const snackRef = this.dialogService.openSnack(CustomAlertComponent);
-                    snackRef.instance.title = 'Invalid drawing';
-                    snackRef.instance.content = 'Server denied saving the drawing.';
-                    snackRef.instance.isError = true;
-
-                } else {
+            .subscribe(
+                (response: Response) => {
+                    loadingDialogRef.close();
                     this.saving = false;
+                    this.alertSuccess();
+                },
+                (error: HttpErrorResponse) => {
                     loadingDialogRef.close();
-                    const snackRef = this.dialogService.openSnack(CustomAlertComponent);
-                    snackRef.instance.title = 'Drawing saved';
-                    snackRef.instance.content = 'Drawing has been saved online.';
-                    snackRef.instance.isSuccess = true;
-
-                }
-                this.saving = false;
-                loadingDialogRef.close();
-            },
-                (error) => {
-                    loadingDialogRef.close();
-                    if (error.status === 0) {
-                        this.saving = false;
-                        const modalRef = this.dialogService.openSnack(CustomAlertComponent);
-                        modalRef.instance.data = 'cannot reach server';
-                    } else if (error.status === 500) {
-                        const modalRef = this.dialogService.openSnack(CustomAlertComponent);
-                        modalRef.instance.data = 'Invalid drawing, server refused saving.';
-                    }
+                    this.saving = false;
+                    this.alertError(error);
                 },
             );
+    }
+
+    private alertSuccess() {
+        const snackRef = this.dialogService.openSnack(CustomAlertComponent);
+        snackRef.instance.title = 'Drawing saved';
+        snackRef.instance.content = 'Drawing has been saved online';
+        snackRef.instance.isSuccess = true;
+    }
+
+    private alertError(error: HttpErrorResponse) {
+        const snackRef = this.dialogService.openSnack(CustomAlertComponent);
+        if (error.status === 0) {
+            snackRef.instance.title = 'Connexion Error';
+            snackRef.instance.content = 'Could not reach server';
+            snackRef.instance.isError = true;
+        } else if (error.status === 500) {
+            snackRef.instance.title = 'Invalid drawing';
+            snackRef.instance.content = 'Server denied saving the drawing';
+            snackRef.instance.isError = true;
+        }
     }
 
     addTag(id: number, tag: string) {
@@ -124,18 +118,6 @@ export class WebClientService {
             modalRef.componentInstance.data = 'Cannot reach server';
         });
         return drawings;
-    }
-
-    isDrawingValid(drawing: Drawing): boolean {
-        if (drawing.name === '') {
-            return false;
-        }
-        for (const tag of drawing.tags) {
-            if (!(/^[a-zA-Z]+$/.test(tag))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
