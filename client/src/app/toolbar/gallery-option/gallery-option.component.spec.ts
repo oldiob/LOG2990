@@ -56,15 +56,6 @@ describe('GalleryOptionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load', () => {
-    component.load();
-    component.drawings = [];
-    component.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
-      component.drawings = savedDrawing;
-      expect(component.drawings).toEqual(savedDrawing);
-    });
-  });
-
   it('should filter drawings', () => {
     const filterValue = 'filterTest';
     component.filter = filterValue;
