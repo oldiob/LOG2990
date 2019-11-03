@@ -29,7 +29,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     tagInput: string;
     isTagExists: boolean;
-    isLoaded: boolean;
+    isError: boolean;
+    isProgressing: boolean;
 
     readonly N_DRAWINGS_PER_PAGE = 8;
     page: number;
@@ -45,7 +46,9 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     ngOnInit() {
         this.isTagExists = true;
-        this.isLoaded = true;
+        this.isError = false;
+        this.isProgressing = true;
+
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
         this.filteredDrawings = this.drawings;
@@ -58,11 +61,13 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.webClientService.getAllDrawings().subscribe(
             (savedDrawing: Drawing[]) => {
                 this.drawings = savedDrawing;
-                this.isLoaded = true;
+                this.isError = false;
+                this.isProgressing = false;
                 this.refresh();
             },
             (error: HttpErrorResponse) => {
-                this.isLoaded = false;
+                this.isError = true;
+                this.isProgressing = false;
             },
         );
     }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
@@ -45,7 +45,7 @@ export class WebClientService {
     private alertSuccess() {
         const snackRef = this.dialogService.openSnack(CustomAlertComponent);
         snackRef.instance.title = 'Drawing saved';
-        snackRef.instance.content = 'Drawing has been saved online';
+        snackRef.instance.content = 'Drawing has been saved online!';
         snackRef.instance.isSuccess = true;
     }
 
@@ -53,15 +53,14 @@ export class WebClientService {
         if (error.status === 0) {
             const snackRef = this.dialogService.openSnack(CustomAlertComponent);
             snackRef.instance.title = 'Connexion Error';
-            snackRef.instance.content = 'Could not connect to server';
+            snackRef.instance.content = 'Could not connect to server.';
             snackRef.instance.isError = true;
         } else if (error.status === 500) {
             const snackRef = this.dialogService.openSnack(CustomAlertComponent);
             snackRef.instance.title = 'Invalid drawing';
-            snackRef.instance.content = 'Server denied saving the drawing';
+            snackRef.instance.content = 'Server denied saving the drawing.';
             snackRef.instance.isError = true;
         }
-        return throwError('An error occured. Please try again later.');
     }
 
     addTag(id: number, tag: string) {
