@@ -76,7 +76,6 @@ describe('ToolOptionComponent', () => {
     });
 
     it('should select emoji for stamp', () => {
-        component.selectStamp(component.currentPath);
         component.currentStamp = component.stamps[0];
         component.showcase.display(component.currentTool);
         expect(component.currentStamp).toEqual(component.stamps[0]);

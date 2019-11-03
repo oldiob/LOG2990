@@ -64,7 +64,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     imageStamp: any[];
     imageEmojis: string[];
     imagePaths: string[];
-    currentPath: string;
 
     lineForm: FormGroup;
     junctionForm: FormGroup;
@@ -89,8 +88,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             { png: './assets/images/emojis/051-shocked.png', base64: Base64.SHOCKED},
             { png: './assets/images/emojis/051-sick.png', base64: Base64.SICK},
         ];
-        this.currentPath = '';
+
         this.currentStamp = this.stamps[0];
+        this.stamp.currentPath = this.imageStamp[0].base64;
         this.stamp.stampTexture = this.currentStamp;
 
         this.currentTexture = this.textures[0];
@@ -128,8 +128,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     selectStamp(image: string): void {
-        this.currentPath = image;
-        this.stamp.currentPath = this.currentPath;
+        this.stamp.currentPath = image;
         this.showcase.display(this.currentTool);
     }
 
