@@ -25,6 +25,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     currentFontStyle: string;
     currentTextAlign: string;
     fontFamilies: any[];
+    imageTextAlign: any[];
 
     constructor(private toolService: ToolService, private text: TextTool) {
 
@@ -32,7 +33,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = this.tools[0];
         this.currentFontSize = '';
         this.currentFontStyle = '';
-        this.currentTextAlign = '';
+        this.imageTextAlign = [] = [
+            { png: './assets/images/left.png', textAlign: 'left'},
+            { png: './assets/images/center.png', textAlign: 'center'},
+            { png: './assets/images/right.png', textAlign: 'right'},
+        ];
         this.fontFamilies = [] = [
         {value: 0, fontFamily: 'Arial'},
         {value: 1, fontFamily: 'Times New Roman'},
