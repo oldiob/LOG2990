@@ -46,6 +46,7 @@
 }
 
 .drawing {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,6 +70,40 @@
 .drawing:hover {
   border: solid 1px #ececec79;
 }
+
+.drawing:hover .open {
+  display: block;
+  position: absolute;
+  margin: auto;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: solid 1px whitesmoke;
+  opacity: 1;
+}
+
+.drawing:hover .overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.458);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  display: none;
+
+}
+
+.open {
+  display: none;
+}
+
 
 .tag-not-found {
   margin: 25px;
