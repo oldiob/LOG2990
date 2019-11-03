@@ -11,6 +11,8 @@ import { ITool } from './i-tool';
 export class DropperTool implements ITool {
     element: null;
 
+    readonly tip: string;
+
     imageData: ImageData;
 
     loaded: boolean;
@@ -22,6 +24,7 @@ export class DropperTool implements ITool {
         private paletteService: PaletteService) {
         this.currentColor = new Color(0, 0, 0, 0);
         this.loaded = false;
+        this.tip = 'Pipette (I)';
     }
 
     loadImage() {

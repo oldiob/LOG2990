@@ -6,7 +6,11 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class GridTool implements ITool {
-    constructor(public grid: GridService) { }
+
+    readonly tip: string;
+    constructor(public grid: GridService) {
+        this.tip = 'Grid (G)';
+     }
 
     onPressed(event: MouseEvent): null { return null; }
     onMotion(event: MouseEvent): void {

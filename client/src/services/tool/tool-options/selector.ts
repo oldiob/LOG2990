@@ -17,6 +17,8 @@ export enum State {
 })
 export class SelectorTool implements ITool {
 
+    readonly tip: string;
+
     state: State = State.idle;
 
     anchor: Point = new Point();
@@ -39,6 +41,8 @@ export class SelectorTool implements ITool {
     policy = false;
 
     constructor(public svg: SVGService) {
+        this.tip = 'Selector (S)';
+
         this.boxElement = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(this.boxElement, 'fill', 'none');
         DOMRenderer.setAttribute(this.boxElement, 'stroke', 'black');

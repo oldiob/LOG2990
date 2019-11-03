@@ -15,6 +15,7 @@ export class EllipseTool extends AbsShapeTool {
         super();
         this.width = 5;
         this.traceType = TraceType.FillAndBorder;
+        this.tip = 'Ellipse (2)';
     }
 
     onPressed(event: MouseEvent): CmdSVG {

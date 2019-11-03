@@ -18,6 +18,7 @@ export class PolygonTool extends AbsShapeTool {
         this.width = 5;
         this.traceType = TraceType.FillAndBorder;
         this.nSides = 3;
+        this.tip = 'Polygone (3)';
     }
 
     onPressed(event: MouseEvent): CmdSVG {

@@ -17,6 +17,7 @@ export enum JunctionType {
 }
 
 export interface ITool {
+    readonly tip: string;
     width?: number;
 
     onPressed(event: MouseEvent): CmdInterface | null;

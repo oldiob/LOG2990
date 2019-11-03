@@ -12,6 +12,8 @@ import { ITool } from './i-tool';
 })
 export class EraserTool implements ITool {
 
+    readonly tip: string;
+
     activated: boolean;
     width: number;
 
@@ -23,6 +25,7 @@ export class EraserTool implements ITool {
     constructor(private svgService: SVGService) {
         this.activated = false;
         this.width = 64;
+        this.tip = 'Eraser (E)';
 
         this.container = DOMRenderer.createElement('g', 'svg');
     }

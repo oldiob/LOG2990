@@ -9,6 +9,7 @@ export enum TraceType {
 }
 
 export abstract class AbsShapeTool implements ITool {
+    tip: string;
     width: number;
     traceType: TraceType;
     element: AbsSVGShape | null = null;

@@ -16,6 +16,7 @@ export class RectangleTool extends AbsShapeTool {
         super();
         this.width = 5;
         this.traceType = TraceType.FillAndBorder;
+        this.tip = 'Rectangle (1)';
     }
 
     onPressed(event: MouseEvent): CmdSVG {

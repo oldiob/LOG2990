@@ -11,8 +11,12 @@ import { ITool } from './i-tool';
 })
 export class BucketTool implements ITool {
 
+    readonly tip: string;
+
     constructor(private svgService: SVGService,
-                private paletteService: PaletteService) { }
+                private paletteService: PaletteService) {
+        this.tip = 'Bucket (B)';
+    }
 
     onPressed(event: MouseEvent): CmdBucket | null {
         const x: number = event.svgX;
@@ -42,9 +46,9 @@ export class BucketTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-      //
-     }
+        //
+    }
     onReleased(event: MouseEvent): void {
-      //
-     }
+        //
+    }
 }
