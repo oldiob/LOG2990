@@ -28,6 +28,7 @@ export class CmdService {
         if (cmd) {
             cmd.execute();
             CmdService.redos.length = 0;
+            CmdService.nextRedo();
             CmdService.undos.push(cmd);
             CmdService.nextUndo();
         }
