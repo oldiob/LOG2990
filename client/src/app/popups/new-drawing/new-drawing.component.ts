@@ -49,7 +49,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     private createForm() {
-        const DEFAULT_BACKGROUND_RGBA: Color = new Color(
+        const defaultBackgroundColor = new Color(
             this.DEFAULT_RED,
             this.DEFAULT_GREEN,
             this.DEFAULT_BLUE,
@@ -63,7 +63,7 @@ export class NewDrawingComponent implements OnInit {
             height: [this.defaultHeight, dimentionsValidators],
             width: [this.defaultWidth, dimentionsValidators],
 
-            backgroundColor: [DEFAULT_BACKGROUND_RGBA],
+            backgroundColor: [defaultBackgroundColor],
             backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX],
 
             red: [this.DEFAULT_RED, rgbaValidators],
@@ -73,6 +73,7 @@ export class NewDrawingComponent implements OnInit {
 
             isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
         });
+        this.backgroundColor = defaultBackgroundColor.toString();
     }
 
     // Fetches default dimensions
@@ -150,10 +151,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     onSubmit() {
-        const width = this.width;
-        const height = this.height;
-        const bgColor = this.backgroundColor;
-        this.workZoneService.updateDrawAreaDimensions(width, height, bgColor);
+        this.workZoneService.updateDrawAreaDimensions(this.width, this.height, this.backgroundColor);
         this.drawAreaService.dirty();
         this.svgService.clearDrawArea();
         CmdService.reset();
