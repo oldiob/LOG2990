@@ -55,13 +55,15 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.fontFamilies = [] = [
         {value: 0, fontFamily: 'Arial'},
         {value: 1, fontFamily: 'Times New Roman'},
-        {value: 2, fontFamily: 'Roboto'},
-        {value: 3, fontFamily: 'Courrier New'},
-        {value: 4, fontFamily: 'Verdana'},
-        {value: 5, fontFamily: 'Garamond'},
-        {value: 6, fontFamily: 'Bookman'},
-        {value: 7, fontFamily: 'Comic Sans MS'},
-        {value: 8, fontFamily: 'Impact'},
+        {value: 2, fontFamily: 'Lucida Console'},
+        {value: 3, fontFamily: 'Verdana'},
+        {value: 4, fontFamily: 'Garamond'},
+        {value: 5, fontFamily: 'Comic Sans MS'},
+        {value: 6, fontFamily: 'Lucida Sans Unicode'},
+        {value: 7, fontFamily: 'Tahoma'},
+        {value: 8, fontFamily: 'Courier'},
+        {value: 9, fontFamily: 'Trebuchet MS'},
+        {value: 10, fontFamily: 'Palatino Linotype'},
         ];
         this.currentFontFamily = this.EMPTYSTRING;
     }
