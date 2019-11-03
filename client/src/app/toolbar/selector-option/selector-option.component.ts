@@ -13,7 +13,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    TOOL_TIP = 'Selector (S)';
+    TIP = 'Selector (S)';
     images = new Map<ITool, string>([
         [this.selector, 'selector.png'],
         [this.eraser, 'eraser.png'],

@@ -34,7 +34,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     JunctionType = JunctionType;
     Base64 = Base64;
 
-    TOOL_TIP = 'Tools';
+    TIP = 'Tools';
     images = new Map<ITool, string>([
         [this.pencil, 'pencil.png'],
         [this.brush, 'brush.png'],

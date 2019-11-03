@@ -4,7 +4,7 @@
       *ngFor="let option of options"
       (click)="selectOption(option)"
       [class.selected-toolbar-button]="option === currentOption"
-      matTooltip="{{option.TOOL_TIP}}"
+      matTooltip="{{option.TIP}}"
       matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" [src]="getImage(option)" alt="icon">

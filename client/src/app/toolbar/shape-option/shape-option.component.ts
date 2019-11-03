@@ -18,7 +18,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     TraceType = TraceType;
 
-    TOOL_TIP = 'Rectangle';
+    TIP = 'Rectangle';
     images = new Map<ITool, string>([
         [this.rectangleTool, 'rectangle.png'],
         [this.ellipseTool, 'ellipse.png'],
