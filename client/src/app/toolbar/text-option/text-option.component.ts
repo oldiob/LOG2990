@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { TextTool } from 'src/services/tool/tool-options/text';
@@ -24,14 +23,29 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     currentFontSize: string;
     currentFontFamily: string;
     currentFontStyle: string;
+    currentTextAlign: string;
+    fontFamilies: any[];
 
     constructor(private toolService: ToolService, private text: TextTool) {
 
         this.tools = [text];
         this.currentTool = this.tools[0];
-        this.currentFontFamily = '';
         this.currentFontSize = '';
         this.currentFontStyle = '';
+        this.currentTextAlign = '';
+        this.fontFamilies = [] = [
+        {value: 0, fontFamily: 'Arial'},
+        {value: 1, fontFamily: 'Times New Roman'},
+        {value: 2, fontFamily: 'Roboto'},
+        {value: 3, fontFamily: 'Courrier New'},
+        {value: 4, fontFamily: 'Verdana'},
+        {value: 5, fontFamily: 'Garamond'},
+        {value: 6, fontFamily: 'Bookman'},
+        {value: 7, fontFamily: 'Comic Sans MS'},
+        {value: 8, fontFamily: 'Impact'},
+        ];
+        this.currentFontFamily = this.fontFamilies[0];
+        this.text.fontFamily = this.currentFontFamily;
     }
 
     ngOnInit() {
@@ -58,16 +72,18 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectFontSize(fontSize: string): void {
         this.currentFontSize = fontSize;
         this.text.fontSize = this.currentFontSize;
-        // this.showcase.display(this.currentTool);
     }
     selectFontStyle(fontStyle: string): void {
         this.currentFontStyle = fontStyle;
         this.text.fontStyle = this.currentFontStyle;
-        // this.showcase.display(this.currentTool);
     }
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
         this.text.fontFamily = this.currentFontFamily;
-        // this.showcase.display(this.currentTool);
+        console.log(this.currentFontFamily);
+    }
+    selectTextAlign(textAlign: string): void {
+        this.currentTextAlign = textAlign;
+        this.text.textAlign = this.currentTextAlign;
     }
 }

@@ -13,15 +13,17 @@ export class TextTool implements ITool {
     fontSize: string;
     fontStyle: string;
     fontFamily: string;
+    textAlign: string;
     constructor() {
         this.tip = 'Text (T)';
         this.fontSize = '';
         this.fontStyle = '';
         this.fontFamily = '';
+        this.textAlign = '';
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        const text = new SVGText(event.svgX, event.svgY, this.fontSize, this.fontStyle, this.fontFamily);
+        const text = new SVGText(event.svgX, event.svgY, this.fontSize, this.fontStyle, this.fontFamily, this.textAlign);
         this.element = text;
         return new CmdSVG(this.element);
     }

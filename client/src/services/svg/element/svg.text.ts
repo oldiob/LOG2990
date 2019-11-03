@@ -7,12 +7,13 @@ export class SVGText implements SVGInterface {
     // fontStyle = 'normal'; // normal, italic, bold or italic bold
     // fontFamily = 'Arial, Helvetica, sans-serif';
 
-    constructor(x: number, y: number, fontSize: string, fontStyle: string, fontFamily: string) {
+    constructor(x: number, y: number, fontSize: string, fontStyle: string, fontFamily: string, textAlign: string) {
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = '';
         DOMRenderer.setAttribute(this.element, 'font-style', fontStyle);
         DOMRenderer.setAttribute(this.element, 'font-size', fontSize);
         DOMRenderer.setAttribute(this.element, 'font-family', fontFamily);
+        DOMRenderer.setAttribute(this.element, 'text-align', textAlign);
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
     }
