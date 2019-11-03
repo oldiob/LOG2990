@@ -1,7 +1,7 @@
-import { MyInjector } from 'src/utils/injector';
 import { CmdInterface } from 'src/services/cmd/cmd.service';
-import { SVGService } from 'src/services/svg/svg.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGService } from 'src/services/svg/svg.service';
+import { MyInjector } from 'src/utils/injector';
 
 export class CmdSVG implements CmdInterface {
 

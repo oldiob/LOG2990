@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { ITool } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Injectable({
     providedIn: 'root',
@@ -66,5 +66,7 @@ export class StampTool implements ITool {
         return action;
     }
 
-    onMotion(event: MouseEvent): void { }
+    onMotion(event: MouseEvent): void {
+      //
+     }
 }

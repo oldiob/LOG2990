@@ -1,5 +1,5 @@
-import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { AbsSVGShape } from 'src/services/svg/element/svg.abs-shape';
 import { ITool } from './i-tool';
 
 export enum TraceType {

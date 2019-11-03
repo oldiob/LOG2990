@@ -92,8 +92,8 @@ export class ToolbarComponent implements OnInit {
     }
 
     saveImage(): void {
-        //const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
-        //saveFile('lol_file', fileData);
+        // const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
+        // saveFile('lol_file', fileData);
 
         this.openDialog(SaveOptionComponent);
     }

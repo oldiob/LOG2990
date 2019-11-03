@@ -18,8 +18,7 @@ export class CmdBucket implements CmdInterface {
         if (this.primary) {
             this.prevColor = this.obj.getPrimary();
             this.obj.setPrimary(this.color);
-        }
-        else {
+        } else {
             this.prevColor = this.obj.getSecondary();
             this.obj.setSecondary(this.color);
         }
@@ -28,8 +27,7 @@ export class CmdBucket implements CmdInterface {
     undo(): void {
         if (this.primary) {
             this.obj.setPrimary(this.prevColor);
-        }
-        else {
+        } else {
             this.obj.setSecondary(this.prevColor);
         }
     }
@@ -37,8 +35,7 @@ export class CmdBucket implements CmdInterface {
     redo(): void {
         if (this.primary) {
             this.obj.setPrimary(this.color);
-        }
-        else {
+        } else {
             this.obj.setSecondary(this.color);
         }
     }

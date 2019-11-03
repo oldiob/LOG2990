@@ -92,10 +92,11 @@ export class SVGLine implements SVGInterface {
 
     getPrimary(): string {
         const child = this.element.children[0];
-        if (child.nodeName === 'circle')
+        if (child.nodeName === 'circle') {
             return child.getAttribute('fill');
-        else
+        } else {
             return child.getAttribute('stroke');
+        }
     }
 
     getSecondary(): string {

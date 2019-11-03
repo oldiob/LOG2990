@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
 import { AbsShapeTool, TraceType } from './abs-shape-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Injectable({
     providedIn: 'root',

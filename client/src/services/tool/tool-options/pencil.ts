@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { ITool } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PencilTool implements ITool {
     element: SVGPencil | null = null;
-    width: number = 5;
+    width = 5;
 
     constructor(private paletteService: PaletteService) { }
 

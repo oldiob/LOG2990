@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { PencilTool } from './pencil';
 import { MyInjector } from 'src/utils/injector';
+import { PencilTool } from './pencil';
 
 describe('PencilTool', () => {
 

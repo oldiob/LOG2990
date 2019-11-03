@@ -8,6 +8,7 @@ export class MyInjector {
     }
 
     static get(token: any): any {
+        // tslint:disable-next-line: deprecation
         return MyInjector.injector.get(token);
     }
 }
