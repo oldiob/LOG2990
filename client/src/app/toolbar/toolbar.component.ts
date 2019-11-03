@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ImportComponent } from '../import/import.component';
