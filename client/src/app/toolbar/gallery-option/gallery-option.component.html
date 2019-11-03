@@ -10,6 +10,9 @@
         <div class="tag-not-found" *ngIf="!isTagExists">
             "{{filterInput.value}}" tag does not exist
         </div>
+        <div class="tag-not-found" *ngIf="!isLoaded">
+            Connexion Error: Could not connect to server
+        </div>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
                 (click)="onClick($event, drawing)" mat-dialog-close>

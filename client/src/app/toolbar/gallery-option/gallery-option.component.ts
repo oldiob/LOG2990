@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationComponent } from 'src/app/popups/confirmation/confirmation.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -28,6 +29,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     tagInput: string;
     isTagExists: boolean;
+    isLoaded: boolean;
 
     readonly N_DRAWINGS_PER_PAGE = 8;
     page: number;
@@ -35,7 +37,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     endPage: number;
 
     constructor(
-        private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private webClientService: WebClientService,
@@ -44,6 +45,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     ngOnInit() {
         this.isTagExists = true;
+        this.isLoaded = true;
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
         this.filteredDrawings = this.drawings;
@@ -53,17 +55,16 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     load() {
         this.drawings = [];
-
-        this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
-            this.drawings = savedDrawing;
-            this.refresh();
-        },
-            (err) => {
-                const modalRef = this.dialogService.open(CustomAlertComponent);
-                modalRef.componentInstance.data = 'Cannot reach server';
+        this.webClientService.getAllDrawings().subscribe(
+            (savedDrawing: Drawing[]) => {
+                this.drawings = savedDrawing;
+                this.isLoaded = true;
+                this.refresh();
+            },
+            (error: HttpErrorResponse) => {
+                this.isLoaded = false;
             },
         );
-
     }
 
     filterDrawings(filterValue: string) {
@@ -134,12 +135,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     onDelete(drawing: Drawing) {
         this.remove(drawing);
-        this.webClientService.deleteDrawing(drawing.id).subscribe(
-            (res: Response) => { console.log(res); },
-            (err) => {
-                const modalRef = this.dialogService.open(CustomAlertComponent);
-                modalRef.componentInstance.data = 'Cannot reach server';
-            });
+        this.webClientService.deleteDrawing(drawing.id);
     }
 
     private remove(drawing: Drawing) {

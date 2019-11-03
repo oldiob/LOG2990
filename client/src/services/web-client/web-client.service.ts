@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
@@ -26,8 +26,7 @@ export class WebClientService {
     sendDrawing(drawing: Drawing) {
         this.saving = true;
         const loadingDialogRef = this.dialogService.openDialog(LoadDrawingComponent);
-        loadingDialogRef.componentInstance.content = 'Saving Drawing';
-
+        loadingDialogRef.componentInstance.content = `Saving "${drawing.name}" ...`;
         return this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe(
                 (response: Response) => {
@@ -51,16 +50,18 @@ export class WebClientService {
     }
 
     private alertError(error: HttpErrorResponse) {
-        const snackRef = this.dialogService.openSnack(CustomAlertComponent);
         if (error.status === 0) {
+            const snackRef = this.dialogService.openSnack(CustomAlertComponent);
             snackRef.instance.title = 'Connexion Error';
-            snackRef.instance.content = 'Could not reach server';
+            snackRef.instance.content = 'Could not connect to server';
             snackRef.instance.isError = true;
         } else if (error.status === 500) {
+            const snackRef = this.dialogService.openSnack(CustomAlertComponent);
             snackRef.instance.title = 'Invalid drawing';
             snackRef.instance.content = 'Server denied saving the drawing';
             snackRef.instance.isError = true;
         }
+        return throwError('An error occured. Please try again later.');
     }
 
     addTag(id: number, tag: string) {
@@ -68,11 +69,10 @@ export class WebClientService {
             .subscribe((res: Response) => {
                 console.log(res.body);
             },
-            (error) => {
-                this.loading = false;
-                const modalRef = this.dialogService.open(CustomAlertComponent);
-                modalRef.componentInstance.data = 'Cannot reach server';
-            });
+                (error: HttpErrorResponse) => {
+                    this.loading = false;
+                    this.alertError(error);
+                });
     }
 
     getDrawingCount(): Observable<number> {
@@ -81,7 +81,7 @@ export class WebClientService {
             catchError(this.handleError<number>('getDrawingCount')),
         );
     }
-    getAllDrawings() {
+    getAllDrawings(): Observable<any> {
         return this.http.get(`${this.CUSTOM_URL}/drawing/all`);
     }
     getDrawingsByID(id: number) {
@@ -96,7 +96,11 @@ export class WebClientService {
         return this.http.post(`${this.CUSTOM_URL}/drawing/bytags`, obj);
     }
     deleteDrawing(id: number) {
-        return this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${id}`);
+        return this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${id}`).subscribe(
+            (response: Response) => { console.log(response); },
+            (error: HttpErrorResponse) => {
+                this.alertError(error);
+            });
     }
 
     getPreparedDrawing(): Drawing[] {
@@ -112,11 +116,10 @@ export class WebClientService {
             loadingDialogRef.componentInstance.done();
             return drawings;
         },
-        (error) => {
-            this.loading = false;
-            const modalRef = this.dialogService.open(CustomAlertComponent);
-            modalRef.componentInstance.data = 'Cannot reach server';
-        });
+            (error: HttpErrorResponse) => {
+                this.loading = false;
+                this.alertError(error);
+            });
         return drawings;
     }
 
