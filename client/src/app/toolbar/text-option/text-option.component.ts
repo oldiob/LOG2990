@@ -63,8 +63,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         {value: 7, fontFamily: 'Comic Sans MS'},
         {value: 8, fontFamily: 'Impact'},
         ];
-        this.currentFontFamily = this.fontFamilies[0];
-        this.text.fontFamily = this.currentFontFamily;
+        this.currentFontFamily = this.EMPTYSTRING;
     }
 
     ngOnInit() {
@@ -98,14 +97,17 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.currentFontSize = fontSize;
         this.text.fontSize = this.currentFontSize;
     }
+
     selectFontStyle(fontStyle: string): void {
         this.currentFontStyle = fontStyle;
         this.text.fontStyle = this.currentFontStyle;
     }
+
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
         this.text.fontFamily = this.currentFontFamily;
     }
+
     selectTextAlign(textAlign: string): void {
         this.currentTextAlign = textAlign;
         this.text.textAlign = this.currentTextAlign;
