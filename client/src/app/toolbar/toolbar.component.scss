@@ -54,15 +54,20 @@
     transition: 0.3s;
 }
 
+.tooltip {
+    background-color: black;
+    color: white;
+}
+
 .options {
     width: 100%;
 }
 
-a:hover {
+.button:hover {
     background-color: darken($color: #414d8f, $amount: 4);
 }
 
-a:active {
+.button:active {
     background-color: darken($color: #414d8f, $amount: 8);
 }
 

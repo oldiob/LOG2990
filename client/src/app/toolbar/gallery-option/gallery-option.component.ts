@@ -19,6 +19,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     @ViewChild('filterInput', { static: true })
     filterInput: ElementRef<HTMLInputElement>;
 
+    TOOL_TIP: 'Gallery (Ctrl + E)';
     images: Map<string, string>;
 
     private filter: string;

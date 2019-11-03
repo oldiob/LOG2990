@@ -7,7 +7,8 @@ import {
     MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule,
     MatCardModule, MatCheckboxModule, MatDialogModule,
     MatDialogRef, MatDividerModule, MatFormFieldModule,
-    MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule, MatTableModule
+    MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule,
+    MatSnackBarModule, MatTableModule, MatTooltipModule
 } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -92,6 +93,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         MatSnackBarModule,
         MatProgressBarModule,
         MatProgressSpinnerModule,
+        MatTooltipModule,
     ],
     exports: [
         MatDividerModule,
