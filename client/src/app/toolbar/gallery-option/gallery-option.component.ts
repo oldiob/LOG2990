@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { CustomAlertComponent } from 'src/app/custom-alert/custom-alert.component';
+import { ConfirmationComponent } from 'src/app/popups/confirmation/confirmation.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -27,6 +29,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     tagInput: string;
     isTagExists: boolean;
+    isError: boolean;
+    isProgressing: boolean;
 
     readonly N_DRAWINGS_PER_PAGE = 8;
     page: number;
@@ -34,13 +38,17 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     endPage: number;
 
     constructor(
-        private dialogService: DialogService,
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
-        private webClientService: WebClientService) { }
+        private webClientService: WebClientService,
+        private drawAreaService: DrawAreaService,
+        private dialogService: DialogService) { }
 
     ngOnInit() {
         this.isTagExists = true;
+        this.isError = false;
+        this.isProgressing = true;
+
         this.filter = '';
         this.filterCallback = this.makeFilterCallback();
         this.filteredDrawings = this.drawings;
@@ -50,17 +58,18 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     load() {
         this.drawings = [];
-
-        this.webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
-            this.drawings = savedDrawing;
-            this.refresh();
-        },
-            (err) => {
-                const modalRef = this.dialogService.open(CustomAlertComponent);
-                modalRef.componentInstance.data = 'Cannot reach server';
+        this.webClientService.getAllDrawings().subscribe(
+            (savedDrawing: Drawing[]) => {
+                this.drawings = savedDrawing;
+                this.isError = false;
+                this.isProgressing = false;
+                this.refresh();
+            },
+            (error: HttpErrorResponse) => {
+                this.isError = true;
+                this.isProgressing = false;
             },
         );
-
     }
 
     filterDrawings(filterValue: string) {
@@ -111,18 +120,27 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     onClick(event: MouseEvent, drawing: Drawing) {
-        populateDrawArea(this.svgService, drawing.holder);
-        this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+        if (!this.drawAreaService.isSaved) {
+            const dialogRef = this.dialogService.openDialog(ConfirmationComponent);
+            dialogRef.afterClosed().subscribe(() => {
+                this.loadOnDrawArea(drawing);
+            });
+        } else {
+            this.loadOnDrawArea(drawing);
+        }
+    }
+
+    private loadOnDrawArea(drawing: Drawing) {
+        if (this.drawAreaService.isSaved) {
+            populateDrawArea(this.svgService, drawing.holder);
+            this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+            this.drawAreaService.save();
+        }
     }
 
     onDelete(drawing: Drawing) {
         this.remove(drawing);
-        this.webClientService.deleteDrawing(drawing.id).subscribe(
-            (res: Response) => { console.log(res); },
-            (err) => {
-                const modalRef = this.dialogService.open(CustomAlertComponent);
-                modalRef.componentInstance.data = 'Cannot reach server';
-            });
+        this.webClientService.deleteDrawing(drawing.id);
     }
 
     private remove(drawing: Drawing) {

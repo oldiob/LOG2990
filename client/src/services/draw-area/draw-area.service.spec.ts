@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadDrawingComponent } from 'src/app/load-drawing/load-drawing.component';
+import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
 import { Drawing } from '../draw-area/i-drawing';
 import { DrawAreaService } from './draw-area.service';
 
@@ -26,7 +26,7 @@ describe('DrawAreaService', () => {
             providers: [DrawAreaService],
         });
 
-        service = jasmine.createSpyObj('DrawAreaService', ['save', 'dirty']);
+        service = jasmine.createSpyObj('DrawAreaService', ['save', 'dirty', 'upload']);
 
         drawing = {
             id: 17,
@@ -44,12 +44,17 @@ describe('DrawAreaService', () => {
     });
 
     it('should save the drawing', () => {
-        service.save(drawing);
+        service.save();
         expect(service.save).toHaveBeenCalled();
     });
 
     it('should mark the drawing as dirty', () => {
         service.dirty();
         expect(service.dirty).toHaveBeenCalled();
+    });
+
+    it('should upload the drawing', () => {
+        service.upload(drawing);
+        expect(service.upload).toHaveBeenCalled();
     });
 });

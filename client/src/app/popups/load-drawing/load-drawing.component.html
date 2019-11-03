@@ -1,0 +1,7 @@
+<div class="wrapper">
+    <div *ngIf="!isDone" class="message">{{content}}</div>
+    <div *ngIf="isDone" class="message">Done {{content}}</div>
+    <button *ngIf="isDone" mat-raised-button mat-dialog-close>Close</button>
+    <mat-progress-bar class="spinner" color="accent" mode="indeterminate" bufferValue="100">
+    </mat-progress-bar>
+</div>

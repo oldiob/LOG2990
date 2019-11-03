@@ -1,19 +1,19 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ImportComponent } from '../import/import.component';
+import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
+import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { SaveOptionComponent } from './save-option/save-option.component';
 
 declare type callback = () => void;
 
@@ -100,7 +100,7 @@ export class ToolbarComponent implements OnInit {
 
     private openDialog(component: ComponentType<any>): MatDialogRef<any> | null {
         if (!this.isDialogOpened) {
-            const ref: any = this.dialogService.open(component);
+            const ref: any = this.dialogService.openDialog(component);
             if (ref) {
                 this.isDialogOpened = true;
                 ref.afterClosed().subscribe(() => {

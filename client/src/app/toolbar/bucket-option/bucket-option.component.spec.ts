@@ -1,5 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { BucketOptionComponent } from './bucket-option.component';
 
@@ -12,6 +14,7 @@ describe('BucketOptionComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [BucketOptionComponent],
+            imports: [MatDialogModule, MatSnackBarModule, HttpClientModule],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();

@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule, MatCheckboxModule,
-    MatDialogModule, MatDialogRef, MatFormFieldModule, MatMenuModule, MatOptionModule, MatSelectModule
+    MatDialogModule, MatDialogRef, MatFormFieldModule, MatMenuModule, MatOptionModule, MatSelectModule, MatSnackBarModule
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,7 +12,7 @@ import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { NewDrawingComponent } from '../new-drawing/new-drawing.component';
+import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
@@ -38,6 +38,10 @@ describe('ToolbarComponent', () => {
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
+
+    dialogService = jasmine.createSpyObj('DialogService', ['openDialog', 'closeColorForms']);
+    drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
+
     beforeEach(async(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {
@@ -52,12 +56,13 @@ describe('ToolbarComponent', () => {
             imports: [MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
-                MatOptionModule, MatFormFieldModule],
+                MatOptionModule, MatFormFieldModule, MatSnackBarModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
                 GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
-            providers: [DialogService,
+            providers: [
                 { provide: DrawAreaService, useValue: drawareaService },
+                { provide: DialogService, useValue: dialogService },
                 { provide: MatDialogRef }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
@@ -67,9 +72,7 @@ describe('ToolbarComponent', () => {
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
-        drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
-        dialogService = TestBed.get(DialogService);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
@@ -135,9 +138,8 @@ describe('ToolbarComponent', () => {
     });
 
     it('should save image ', () => {
-        spyOn(dialogService, 'open');
         component.saveImage();
-        expect(dialogService.open).toHaveBeenCalled();
+        expect(dialogService.openDialog).toHaveBeenCalled();
     });
 
     it('should return pencil when c is press on keyboard ', () => {

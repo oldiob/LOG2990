@@ -1,12 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild, Injector } from '@angular/core';
+import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { MyInjector } from 'src/utils/injector';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Component({
     selector: 'app-showcase',

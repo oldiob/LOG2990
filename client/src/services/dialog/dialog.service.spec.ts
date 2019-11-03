@@ -2,12 +2,13 @@ import { async, TestBed } from '@angular/core/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule, MatDialog, MatDialogModule, MatDialogRef, MatDividerModule } from '@angular/material';
+import { MatCheckboxModule, MatDialog, MatDialogModule,
+   MatDialogRef, MatDividerModule, MatSnackBarModule, MatSnackBarRef } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { EntryPointComponent } from 'src/app/entry-point/entry-point.component';
-import { NewDrawingComponent } from 'src/app/new-drawing/new-drawing.component';
+import { EntryPointComponent } from 'src/app/popups/entry-point/entry-point.component';
+import { NewDrawingComponent } from 'src/app/popups/new-drawing/new-drawing.component';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
@@ -32,6 +33,7 @@ describe('DialogService', () => {
         MatDialogModule,
         FormsModule,
         ReactiveFormsModule,
+        MatSnackBarModule,
       ],
       declarations: [
         NewDrawingComponent,
@@ -39,6 +41,7 @@ describe('DialogService', () => {
       ],
       providers: [
         { provide: MatDialogRef },
+        { provide: MatSnackBarRef },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
@@ -60,14 +63,8 @@ describe('DialogService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#isClosedWelcomeObservable should get isClosedWelcome observable', () => {
-    service.isClosedWelcomeObservable.subscribe((isClosed) => {
-      expect(isClosed).toBeFalsy();
-    });
-  });
-
   it('#openNewDrawing should open NewDrawingComponent dialog', () => {
-    service.open(NewDrawingComponent);
+    service.openDialog(NewDrawingComponent);
     expect(openDialogSpy).toHaveBeenCalled();
   });
 

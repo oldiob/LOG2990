@@ -7,9 +7,14 @@
     </mat-form-field>
 
     <div class="drawings">
-        <div class="tag-not-found" *ngIf="!isTagExists">
-            "{{filterInput.value}}" tag does not exist
+        <div class="tag-not-found" *ngIf="!isTagExists && !isError">
+            "{{filterInput.value}}" tag does not exist.
         </div>
+        <div class="tag-not-found" *ngIf="isError">
+            Connexion Error : Could not connect to server.
+        </div>
+        <mat-progress-spinner *ngIf="isProgressing" class="spinner" color="primary" mode="indeterminate">
+        </mat-progress-spinner>
         <div class="grid">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
                 (click)="onClick($event, drawing)" mat-dialog-close>
@@ -33,8 +38,8 @@
                     <mat-menu #addTag="matMenu">
                         <div class="add-tag-wrapper">
                             <input class="add-tag-input" type="text" [(ngModel)]="tagInput"
-                                (click)="stopEventPropagation($event)"
-                                (keyup.enter)="onAddTag(drawing)" placeholder="Enter tag name ..." autocomplete="off" autofocus>
+                                (click)="stopEventPropagation($event)" (keyup.enter)="onAddTag(drawing)"
+                                placeholder="Enter tag name ..." autocomplete="off" autofocus>
                             <button class="btn-add-tag" mat-flat-button color="primary" (click)="onAddTag(drawing)">Add
                                 Tag</button>
                         </div>

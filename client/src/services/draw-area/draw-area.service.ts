@@ -7,18 +7,22 @@ import { Drawing } from './i-drawing';
 })
 export class DrawAreaService {
 
-    isSavedDrawing: boolean;
+    isSaved: boolean;
     constructor(
         private webClientServer: WebClientService) {
-        this.isSavedDrawing = true;
+        this.isSaved = true;
     }
 
-    save(drawing: Drawing): void {
-        this.isSavedDrawing = true;
+    save(): void {
+        this.isSaved = true;
+    }
+
+    dirty(): void {
+        this.isSaved = false;
+    }
+
+    upload(drawing: Drawing): void {
+        this.isSaved = true;
         this.webClientServer.sendDrawing(drawing);
-    }
-
-    dirty() {
-        this.isSavedDrawing = false;
     }
 }

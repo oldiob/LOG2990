@@ -6,7 +6,8 @@ import {
     MAT_CHIPS_DEFAULT_OPTIONS, MAT_DIALOG_DATA,
     MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule,
     MatCardModule, MatCheckboxModule, MatDialogModule,
-    MatDialogRef, MatDividerModule, MatFormFieldModule, MatInputModule, MatMenuModule, MatSelectModule, MatTableModule
+    MatDialogRef, MatDividerModule, MatFormFieldModule,
+    MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule, MatTableModule
 } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,13 +15,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyInjector } from 'src/utils/injector';
 import { ColorPickerComponent } from './app/color-picker/color-picker.component';
-import { CustomAlertComponent } from './app/custom-alert/custom-alert.component';
 import { DrawAreaComponent } from './app/draw-area/draw-area.component';
-import { EntryPointComponent } from './app/entry-point/entry-point.component';
 import { ImportComponent } from './app/import/import.component';
-import { LoadDrawingComponent } from './app/load-drawing/load-drawing.component';
-import { NewDrawingComponent } from './app/new-drawing/new-drawing.component';
 import { PolyDessinComponent } from './app/poly-dessin/poly-dessin.component';
+import { ConfirmationComponent } from './app/popups/confirmation/confirmation.component';
+import { CustomAlertComponent } from './app/popups/custom-alert/custom-alert.component';
+import { EntryPointComponent } from './app/popups/entry-point/entry-point.component';
+import { LoadDrawingComponent } from './app/popups/load-drawing/load-drawing.component';
+import { NewDrawingComponent } from './app/popups/new-drawing/new-drawing.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
@@ -67,6 +69,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         TextOptionComponent,
         ImportComponent,
         ColorSelectionComponent,
+        ConfirmationComponent,
     ],
     imports: [
         BrowserModule,
@@ -86,6 +89,9 @@ import { DOMRenderer } from './utils/dom-renderer';
         MatChipsModule,
         MatIconModule,
         MatMenuModule,
+        MatSnackBarModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
     ],
     exports: [
         MatDividerModule,
@@ -110,6 +116,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         CustomAlertComponent,
         LoadDrawingComponent,
         ImportComponent,
+        ConfirmationComponent,
     ],
 })
 export class AppModule {

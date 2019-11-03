@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
-import { NewDrawingComponent } from './../new-drawing/new-drawing.component';
+import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 
 @Component({
     selector: 'app-poly-dessin',
@@ -11,36 +11,24 @@ export class PolyDessinComponent implements OnInit {
 
     constructor(private dialogService: DialogService) { }
 
-    keyEvent: KeyboardEvent;
-    key: string;
+    isShowWelcome: boolean;
 
     ngOnInit() {
         const IS_HIDDEN_WELCOME = 'false';
         const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
 
-        const IS_SHOW_WELCOME: boolean =
+        this.isShowWelcome =
             (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_HIDDEN_WELCOME);
-        if (IS_SHOW_WELCOME) {
+        if (this.isShowWelcome) {
             this.dialogService.openEntryPoint(WELCOME_DIALOG_COOKIE);
 
             this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
                 if (isClosedWelcome) {
-                    this.dialogService.open(NewDrawingComponent);
+                    this.dialogService.openDialog(NewDrawingComponent);
                 }
             });
         } else {
-            this.dialogService.open(NewDrawingComponent);
+            this.dialogService.openDialog(NewDrawingComponent);
         }
-    }
-
-    @HostListener('document:keypress', ['$event']) // need refactor
-    handleKeyboardEvent(event: KeyboardEvent) {
-        this.keyEvent = event;
-        this.key = this.keyEvent.key;
-    }
-    @HostListener('document:keydown', ['$event']) // need refactor
-    handleKeyboardEventDown(event: KeyboardEvent) {
-        this.keyEvent = event;
-        this.key = '';
     }
 }
