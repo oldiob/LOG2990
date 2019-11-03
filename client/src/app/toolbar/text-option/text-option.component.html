@@ -2,7 +2,6 @@
 
 <app-color-selection></app-color-selection>
 
-
 <div class="separation">
   <div class="tools">
     <div class="button"
@@ -15,4 +14,17 @@
       <img class="tool-icon" [src]="getFilesource(tool)">
     </div>
   </div>
+
+  <div  class="separation">
+    <form class="form" (ngSubmit)="onSubmit()">
+        <mat-form-field color="accent">
+            <mat-label class="trace-label">Font-Family</mat-label>
+            <mat-select (selectionChange)="selectFontFamily()" panelClass="trace-panel" [class.selected-tool]="fontFamily === currentFontFamily">
+                <mat-option *ngFor="let fontFamily of fontFamilies" [value]="fontFamily.value">
+                  {{fontFamily.fontFamily}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</div>
 </div>
