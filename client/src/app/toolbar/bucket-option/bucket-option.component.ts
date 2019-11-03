@@ -13,7 +13,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class BucketOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    TIP = 'Bucket (B)';
+    tip = 'Bucket (B)';
     images = new Map<ITool, string>([
         [this.bucket, 'bucket.png'],
         [this.dropper, 'dropper.png'],

@@ -13,7 +13,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    TIP = 'Grid (G)';
+    tip = 'Grid (G)';
 
     images = new Map<ITool, string>([
         [this.gridTool, 'grid.png'],

@@ -1,5 +1,5 @@
 export interface IOption<T> {
-    TIP: string;
+    readonly tip: string;
     images: Map<T, string>;
     select(): void;
     getImage(): string;
