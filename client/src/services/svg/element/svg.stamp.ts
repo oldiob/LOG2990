@@ -1,6 +1,6 @@
+import { vectorMinus, vectorModule } from 'src/utils/math';
 import { IStamp } from './stamp/i-stamp';
 import { SVGInterface } from './svg.interface';
-import { vectorMinus, vectorModule } from 'src/utils/math';
 
 export class SVGStamp implements SVGInterface {
     IMAGESIZE = 10;

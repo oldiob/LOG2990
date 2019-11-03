@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
-import { ITool } from './i-tool';
+import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { recreateElement } from 'src/utils/element-parser';
-import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',

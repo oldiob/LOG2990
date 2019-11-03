@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { SelectorTool } from 'src/services/tool/tool-options/selector';
 import { ToolService } from 'src/services/tool/tool.service';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-selector-option',

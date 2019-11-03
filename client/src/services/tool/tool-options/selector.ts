@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
@@ -84,7 +84,7 @@ export class SelectorTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
-        let cmd: CmdInterface | null = null;
+        const cmd: CmdInterface | null = null;
         switch (event.button) {
             case 0:
                 this.policy = false;
@@ -113,6 +113,7 @@ export class SelectorTool implements ITool {
                 this.state = State.selecting;
                 this.setAnchor(event.svgX, event.svgY);
             // Fallthrought!
+            // tslint:disable-next-line: no-switch-case-fall-through
             case State.selecting:
                 this.setCursor(event.svgX, event.svgY);
                 break;
@@ -126,9 +127,11 @@ export class SelectorTool implements ITool {
             case State.maybe:
                 this.selectAt(event.svgX, event.svgY);
             // Fallthrought !
+            // tslint:disable-next-line: no-switch-case-fall-through
             case State.selecting:
                 this.commit();
             // Fallthrought !
+            // tslint:disable-next-line: no-switch-case-fall-through
             default:
                 this.state = State.idle;
         }

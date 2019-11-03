@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { BrushTool } from './brush';
 import { MyInjector } from 'src/utils/injector';
+import { BrushTool } from './brush';
 
 describe('BrushTool', () => {
     let create: any;

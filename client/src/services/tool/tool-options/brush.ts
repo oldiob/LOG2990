@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
 import { ITool } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 @Injectable({
     providedIn: 'root',

@@ -46,7 +46,8 @@ export class SVGPolygon extends AbsSVGShape {
     protected isInside(x: number, y: number) {
 
         let inside = false;
-        for (let i = 0, j = this.actualPointsPosition.length - 1; i < this.actualPointsPosition.length; j = i++) {
+        let i = 0;
+        for (let j = this.actualPointsPosition.length - 1; i < this.actualPointsPosition.length; j = i++) {
             const x1 = this.actualPointsPosition[i][0];
             const y1 = this.actualPointsPosition[i][1];
             const x2 = this.actualPointsPosition[j][0];

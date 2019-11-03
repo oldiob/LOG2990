@@ -64,7 +64,7 @@ describe('GridOptionComponent', () => {
     component.getFilesource(grid);
     expect(component.getFilesource(grid)).toEqual(PATH + BUTTON);
   });
-  
+
   it('should draw grid if it is toggle', () => {
     component.isOn = true;
     component.toggleGrid();

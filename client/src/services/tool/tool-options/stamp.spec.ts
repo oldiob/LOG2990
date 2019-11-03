@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { StampTool } from './stamp';
 import { MyInjector } from 'src/utils/injector';
+import { StampTool } from './stamp';
 
 describe('StampTool', () => {
 

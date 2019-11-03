@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGLine } from 'src/services/svg/element/svg.line';
 import { ITool, JunctionType, LineType } from './i-tool';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 
 declare type callback = () => void;
 
