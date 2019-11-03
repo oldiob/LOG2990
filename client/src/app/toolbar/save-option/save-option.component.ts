@@ -76,6 +76,8 @@ export class SaveOptionComponent implements OnInit {
             name: [DEFAULT_NAME, validators],
             tags: [DEFAULT_TAG],
         });
+        this.saveForm.controls.name.setValue(DEFAULT_NAME);
+        this.saveForm.controls.tags.setValue(DEFAULT_TAG);
     }
 
     add(event: MatChipInputEvent): void {
