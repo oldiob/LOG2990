@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
+import { ShowcaseComponent } from '../showcase/showcase.component';
+import { WidthComponent } from '../width/width.component';
 
 @Component({
     selector: 'app-text-option',
@@ -11,6 +13,12 @@ import { ToolService } from 'src/services/tool/tool.service';
 })
 export class TextOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
+    EMPTYSTRING = '';
+    @ViewChild(ShowcaseComponent, { static: true })
+    showcase: ShowcaseComponent;
+
+    @ViewChild(WidthComponent, { static: true })
+    widthComponent: WidthComponent;
 
     tip = 'Text (T)';
     images = new Map<ITool, string>([
@@ -26,17 +34,23 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     currentTextAlign: string;
     fontFamilies: any[];
     imageTextAlign: any[];
+    imageFontStyle: any[];
 
     constructor(private toolService: ToolService, private text: TextTool) {
 
         this.tools = [text];
         this.currentTool = this.tools[0];
-        this.currentFontSize = '';
-        this.currentFontStyle = '';
+        this.currentFontSize = this.EMPTYSTRING;
+        this.currentFontStyle = this.EMPTYSTRING;
         this.imageTextAlign = [] = [
             { png: './assets/images/left.png', textAlign: 'left'},
             { png: './assets/images/center.png', textAlign: 'center'},
             { png: './assets/images/right.png', textAlign: 'right'},
+        ];
+        this.imageFontStyle = [] = [
+            { png: './assets/images/bold.png', fontStyle: 'bold'},
+            { png: './assets/images/normal.png', fontStyle: 'normal'},
+            { png: './assets/images/italic.png', fontStyle: 'italic'},
         ];
         this.fontFamilies = [] = [
         {value: 0, fontFamily: 'Arial'},
@@ -74,6 +88,12 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
+    setWidth(width: number): void {
+        if (this.currentTool.width !== null) {
+            this.currentTool.width = width;
+        }
+    }
+
     selectFontSize(fontSize: string): void {
         this.currentFontSize = fontSize;
         this.text.fontSize = this.currentFontSize;
@@ -85,7 +105,6 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
         this.text.fontFamily = this.currentFontFamily;
-        console.log(this.currentFontFamily);
     }
     selectTextAlign(textAlign: string): void {
         this.currentTextAlign = textAlign;

@@ -9,21 +9,33 @@ import { ITool } from './i-tool';
 export class TextTool implements ITool {
 
     readonly tip: string;
+    EMPTYSTRING = '';
+    INITIALSIZE = 15;
     element: SVGText | null = null;
     fontSize: string;
     fontStyle: string;
     fontFamily: string;
     textAlign: string;
+    width: number;
     constructor() {
         this.tip = 'Text (T)';
         this.fontSize = '';
         this.fontStyle = '';
         this.fontFamily = '';
         this.textAlign = '';
+        this.fontSize = this.EMPTYSTRING;
+        this.fontStyle = this.EMPTYSTRING;
+        this.fontFamily = this.EMPTYSTRING;
+        this.textAlign = this.EMPTYSTRING;
+        this.width = this.INITIALSIZE;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         const text = new SVGText(event.svgX, event.svgY, this.fontSize, this.fontStyle, this.fontFamily, this.textAlign);
+        text.setFontFamily(this.fontFamily);
+        text.setFontSize(this.width);
+        text.setTextAlign(this.textAlign);
+        text.setFontStyle(this.fontStyle);
         this.element = text;
         return new CmdSVG(this.element);
     }
@@ -36,7 +48,7 @@ export class TextTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        let current = '';
+        let current = this.EMPTYSTRING;
         if (this.element != null) {
             current = this.element.element.innerHTML;
             if (event.key === 'Backspace') {
