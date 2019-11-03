@@ -2,6 +2,9 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class SVGText implements SVGInterface {
+    EMPTYSTRING = '';
+    ITALIC = 'italic';
+    BOLD = 'bold';
     element: any;
 
     fontSize: string;
@@ -11,11 +14,11 @@ export class SVGText implements SVGInterface {
 
     constructor(x: number, y: number, fontSize: string, fontStyle: string, fontFamily: string, textAlign: string) {
         this.element = DOMRenderer.createElement('text', 'svg');
-        this.element.innerHTML = '';
-        DOMRenderer.setAttribute(this.element, 'font-style', fontStyle);
-        DOMRenderer.setAttribute(this.element, 'font-size', fontSize);
-        DOMRenderer.setAttribute(this.element, 'font-family', fontFamily);
-        DOMRenderer.setAttribute(this.element, 'text-align', textAlign);
+        this.element.innerHTML = this.EMPTYSTRING;
+        this.fontSize = fontSize;
+        this.fontFamily = fontFamily;
+        this.fontStyle = fontStyle;
+        this.fontTextAlign = textAlign;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
     }
@@ -47,7 +50,11 @@ export class SVGText implements SVGInterface {
     }
     setFontStyle(style: string): void {
         this.fontStyle = style;
-        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+        if (this.fontStyle === this.ITALIC) {
+            DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+        } else if (this.fontStyle === this.BOLD) {
+            DOMRenderer.setAttribute(this.element, 'font-weight', this.fontStyle);
+        }
     }
     setTextAlign(align: string): void {
         this.fontTextAlign = align;
