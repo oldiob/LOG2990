@@ -3,9 +3,11 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class SVGText implements SVGInterface {
     element: any;
-    // fontSize = '12px';
-    // fontStyle = 'normal'; // normal, italic, bold or italic bold
-    // fontFamily = 'Arial, Helvetica, sans-serif';
+
+    fontSize: string;
+    fontStyle: string;
+    fontFamily: string;
+    fontTextAlign: string;
 
     constructor(x: number, y: number, fontSize: string, fontStyle: string, fontFamily: string, textAlign: string) {
         this.element = DOMRenderer.createElement('text', 'svg');
@@ -35,16 +37,20 @@ export class SVGText implements SVGInterface {
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
     }
-    // setFontSize(size: number): void {
-    //     this.fontSize = size + 'px';
-    //     DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
-    // }
-    // setFont(font: string): void {
-    //     this.fontFamily = font;
-    //     DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
-    // }
-    // setFontStyle(style: string): void {
-    //     this.fontStyle = style;
-    //     DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
-    // }
+    setFontSize(size: number): void {
+        this.fontSize = size + 'px';
+        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+    }
+    setFontFamily(fontfamliy: string): void {
+        this.fontFamily = fontfamliy;
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
+    }
+    setFontStyle(style: string): void {
+        this.fontStyle = style;
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+    }
+    setTextAlign(align: string): void {
+        this.fontTextAlign = align;
+        DOMRenderer.setAttribute(this.element, 'text-align', this.fontTextAlign);
+    }
 }
