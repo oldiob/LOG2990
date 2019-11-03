@@ -49,8 +49,8 @@ export class ToolbarComponent implements OnInit {
     isDialogOpened: boolean;
     optionDisplayed: boolean;
 
-    undosEmpty: boolean;
-    redosEmpty: boolean;
+    isEmptyUndos: boolean;
+    isEmptyRedos: boolean;
 
     constructor(public dialogService: DialogService) {
         this.isDialogOpened = false;
@@ -61,11 +61,15 @@ export class ToolbarComponent implements OnInit {
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
 
-        CmdService.undosObservable.subscribe((undos: CmdInterface[]) => {
-            this.undosEmpty = (undos && undos.length) ? false : true;
+        this.subscribeUndoRedo();
+    }
+
+    private subscribeUndoRedo() {
+        CmdService.isEmptyUndosObservable.subscribe((isEmpty: boolean) => {
+            this.isEmptyUndos = isEmpty;
         });
-        CmdService.redosObservable.subscribe((redos: CmdInterface[]) => {
-            this.redosEmpty = (redos && redos.length) ? false : true;
+        CmdService.isEmptyRedosObservable.subscribe((isEmpty: boolean) => {
+            this.isEmptyRedos = isEmpty;
         });
     }
 
@@ -117,13 +121,13 @@ export class ToolbarComponent implements OnInit {
     }
 
     undo(): void {
-        if (!this.undosEmpty) {
+        if (!this.isEmptyUndos) {
             CmdService.undo();
         }
     }
 
     redo(): void {
-        if (!this.redosEmpty) {
+        if (!this.isEmptyRedos) {
             CmdService.redo();
         }
     }

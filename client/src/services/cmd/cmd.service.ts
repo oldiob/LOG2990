@@ -5,23 +5,24 @@ export class CmdService {
     static undos: CmdInterface[] = [];
     static redos: CmdInterface[] = [];
 
-    static undosSubject = new BehaviorSubject<CmdInterface[]>(CmdService.undos);
-    static redosSubject = new BehaviorSubject<CmdInterface[]>(CmdService.redos);
+    static isEmptyUndosSubject = new BehaviorSubject<boolean>(!CmdService.undos || !CmdService.undos.length);
 
-    static get undosObservable(): Observable<CmdInterface[]> {
-        return CmdService.undosSubject.asObservable();
+    static isEmptyRedosSubject = new BehaviorSubject<boolean>(!CmdService.redos || !CmdService.redos.length);
+
+    static get isEmptyUndosObservable(): Observable<boolean> {
+        return CmdService.isEmptyUndosSubject.asObservable();
     }
 
-    static get redosObservable(): Observable<CmdInterface[]> {
-        return CmdService.redosSubject.asObservable();
+    static get isEmptyRedosObservable(): Observable<boolean> {
+        return CmdService.isEmptyRedosSubject.asObservable();
     }
 
-    private static nextUndo() {
-        CmdService.undosSubject.next(CmdService.undos);
+    static nextUndo(): void {
+        CmdService.isEmptyUndosSubject.next(!CmdService.undos || !CmdService.undos.length);
     }
 
-    private static nextRedo() {
-        CmdService.redosSubject.next(CmdService.redos);
+    static nextRedo(): void {
+        CmdService.isEmptyRedosSubject.next(!CmdService.redos || !CmdService.redos.length);
     }
 
     static execute(cmd: CmdInterface | null) {
@@ -59,6 +60,8 @@ export class CmdService {
     static reset(): void {
         CmdService.redos.length = 0;
         CmdService.undos.length = 0;
+        CmdService.nextUndo();
+        CmdService.nextRedo();
     }
 }
 
