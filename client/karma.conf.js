@@ -29,5 +29,8 @@ module.exports = function (config) {
     autoWatch: true,
     singleRun: false,
     browsers: ['Chrome'],
+    proxies: {
+      '/assets/images/': 'src/assets/images/'
+    },
   });
 };
