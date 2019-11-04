@@ -12,7 +12,7 @@ export class TextTool implements ITool {
     readonly tip: string;
     TEXTTIP = 'Text (T)';
     EMPTYSTRING = '';
-    INITIALSIZE = 15;
+    INITIALSIZE = '15px';
     element: SVGText | null = null;
     fontSize: string;
     fontStyle: string;
@@ -26,13 +26,13 @@ export class TextTool implements ITool {
         this.fontStyle = this.EMPTYSTRING;
         this.fontFamily = this.EMPTYSTRING;
         this.textAlign = this.EMPTYSTRING;
-        this.width = this.INITIALSIZE;
+        this.fontSize = this.INITIALSIZE;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         this.text = new SVGText(event.svgX, event.svgY, this.fontSize, this.fontStyle, this.fontFamily, this.textAlign);
         this.text.setFontFamily(this.fontFamily);
-        this.text.setFontSize(this.width);
+        this.text.setFontSize(this.fontSize);
         this.text.setTextAlign(this.textAlign);
         this.text.setFontStyle(this.fontStyle);
         this.element = this.text;
@@ -65,19 +65,19 @@ export class TextTool implements ITool {
         return true;
     }
 
-    setFontSize(size: number): void {
+    setFontSize(size: string): void {
         if (this.element != null) {
-            this.element.element.setFontSize(size);
+            this.element.setFontSize(size);
         }
     }
     setFontStyle(style: string): void {
         if (this.element != null) {
-            this.element.element.setFontStyle(style);
+            this.element.setFontStyle(style);
         }
     }
     setFont(font: string): void {
         if (this.element != null) {
-            this.element.element.setFont(font);
+            this.element.setFontFamily(font);
         }
     }
     finishEdit(): void {

@@ -40,8 +40,8 @@ export class SVGText implements SVGInterface {
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
     }
-    setFontSize(size: number): void {
-        this.fontSize = size + 'px';
+    setFontSize(size: string): void {
+        this.fontSize = size;
         DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
     }
     setFontFamily(fontfamliy: string): void {
