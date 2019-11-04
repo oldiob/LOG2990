@@ -13,6 +13,9 @@ export class StampTool implements ITool {
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
     private readonly IMAGESIZE = 12.5;
+
+    readonly tip: string;
+
     element: SVGStamp | null = null;
     currentPath: string;
     width: number;
@@ -23,6 +26,7 @@ export class StampTool implements ITool {
         this.width = this.IMAGESIZE;
         this.angle = this.MIN_ANGLE;
         this.currentPath = '';
+        this.tip = 'Stamp';
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
@@ -67,6 +71,6 @@ export class StampTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-      //
-     }
+        //
+    }
 }

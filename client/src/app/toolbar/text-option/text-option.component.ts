@@ -13,6 +13,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class TextOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
+    tip = 'Text (T)';
     images = new Map<ITool, string>([
         [this.text, 'text.png'],
     ]);

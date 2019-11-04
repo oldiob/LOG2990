@@ -5,11 +5,12 @@ import { ITool } from './i-tool';
 })
 export class TextTool implements ITool {
 
+    readonly tip: string;
     width: number;
     angle: number;
 
     constructor() {
-        //
+        this.tip = 'Text (T)';
     }
 
     onPressed(event: MouseEvent): null {

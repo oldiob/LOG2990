@@ -11,11 +11,13 @@ import { ITool } from './i-tool';
 export class BrushTool implements ITool {
     element: SVGBrush | null;
 
+    readonly tip: string;
     width: number;
     texture: ITexture;
 
     constructor(private paletteService: PaletteService) {
         this.width = 5;
+        this.tip = 'Brush (W)';
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {

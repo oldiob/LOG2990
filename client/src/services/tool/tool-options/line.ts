@@ -12,11 +12,14 @@ declare type callback = () => void;
 export class LineTool implements ITool {
 
     element: SVGLine | null = null;
+    readonly tip: string;
     width = 1;
     junctionWidth = 12;
     lineType: LineType;
     junctionType: JunctionType;
-    constructor(private paletteService: PaletteService) { }
+    constructor(private paletteService: PaletteService) {
+        this.tip = 'Line (L)';
+    }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         if (this.element) {

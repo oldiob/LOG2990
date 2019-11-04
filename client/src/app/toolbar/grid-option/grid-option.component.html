@@ -4,10 +4,15 @@
 
 <div class="separation">
   <div class="tools">
-    <a *ngFor="let tool of tools" class="button" (click)="selectTool(tool)"
+    <div class="button" 
+      *ngFor="let tool of tools"
+      (click)="selectTool(tool)"
+      matTooltip="{{tool.tip}}"
+      matTooltipClass="tooltip"
+      matTooltipPosition="below"
       [class.selected-tool]="tool === currentTool">
       <img class="tool-icon" [src]="getFilesource(tool)">
-    </a>
+    </div>
   </div>
 </div>
 

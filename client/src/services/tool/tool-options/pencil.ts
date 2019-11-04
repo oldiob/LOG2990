@@ -10,8 +10,11 @@ import { ITool } from './i-tool';
 export class PencilTool implements ITool {
     element: SVGPencil | null = null;
     width = 5;
+    readonly tip: string;
 
-    constructor(private paletteService: PaletteService) { }
+    constructor(private paletteService: PaletteService) {
+        this.tip = 'Pencil (C)';
+     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         let cmd: CmdSVG | null = null;
