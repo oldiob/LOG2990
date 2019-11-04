@@ -9,6 +9,7 @@ export class SVGText implements SVGInterface {
 
     fontSize: string;
     fontStyle: string;
+    fontWeight: string;
     fontFamily: string;
     fontTextAlign: string;
 
@@ -50,11 +51,11 @@ export class SVGText implements SVGInterface {
     }
     setFontStyle(style: string): void {
         this.fontStyle = style;
-        if (this.fontStyle === this.ITALIC) {
-            DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
-        } else if (this.fontStyle === this.BOLD) {
-            DOMRenderer.setAttribute(this.element, 'font-weight', this.fontStyle);
-        }
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+    }
+    setFontWeight(weight: string): void {
+        this.fontWeight = weight;
+        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
     }
     setTextAlign(align: string): void {
         this.fontTextAlign = align;
