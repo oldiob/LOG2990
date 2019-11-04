@@ -13,8 +13,10 @@ export class DataBaseService {
     // connect database with MongoDB Compass Community
     async connectDB(): Promise<MongoClient> {
         if (this.mongo !== undefined) { return this.mongo; }
-        this.mongo = await MongoClient.connect(DB_URL, {useNewUrlParser: true,
-                                                        useUnifiedTopology: true});
+        this.mongo = await MongoClient.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         return this.mongo;
     }
 
@@ -25,11 +27,9 @@ export class DataBaseService {
         drawings.insertOne(drawing);
     }
 
-    async deleteDrawing(draw: Drawing): Promise<void> {
+    async deleteDrawing(currentID: number): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.deleteOne(drawing);
+        this.db.collection('Drawing').deleteOne({ id: { $eq: currentID } });
     }
 
     async getAllDrawings(): Promise<Drawing[]> {
@@ -42,19 +42,19 @@ export class DataBaseService {
 
             this.db.collection('Drawing').find().toArray((err: MongoError, result: Drawing[]) => {
                 err
-                 ? reject(err)
-                 : resolve(result);
+                    ? reject(err)
+                    : resolve(result);
             });
         });
-
     }
 
-    async updateTags(draw: Drawing): Promise<void> {
+    async updateTags(currentID: number, tag: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.findOneAndUpdate({id: drawing.id}, {$set: {tags: drawing.tags}},
-                                  {upsert: true});
+        this.db.collection('Drawing').findOneAndUpdate(
+            { id: currentID },
+            { $push: { tags: tag } },
+            { upsert: true },
+        );
     }
 
 }

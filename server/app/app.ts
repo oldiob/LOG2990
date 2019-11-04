@@ -4,7 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
-import { DrawingRoute } from './controllers/drawing.route';
+import { DrawingController } from './controllers/drawing.route';
 import Types from './types';
 
 @injectable()
@@ -14,7 +14,7 @@ export class Application {
     app: express.Application;
 
     constructor(
-        @inject(Types.DrawingRoute) private drawingRoute: DrawingRoute) {
+        @inject(Types.DrawingController) private drawingController: DrawingController) {
         this.app = express();
 
         this.config();
@@ -33,7 +33,7 @@ export class Application {
     }
 
     bindRoutes(): void {
-        this.app.use('/draw', this.drawingRoute.router);
+        this.app.use('/draw', this.drawingController.router);
         this.errorHandling();
     }
 
