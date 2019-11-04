@@ -62,7 +62,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         this.webClientService.getAllDrawings().subscribe(
             (savedDrawing: Drawing[]) => {
                 this.drawings = savedDrawing;
-                console.log(this.drawings);
                 this.isError = false;
                 this.isProgressing = false;
                 this.refresh();
@@ -159,7 +158,9 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     onAddTag(drawing: Drawing): void {
         this.addTag(drawing);
-        this.webClientService.addTag(drawing, this.tagInput);
+        if (drawing._id) {
+            this.webClientService.addTag(drawing._id, this.tagInput);
+        }
         this.tagInput = '';
     }
 

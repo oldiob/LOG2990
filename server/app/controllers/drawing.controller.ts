@@ -18,7 +18,7 @@ export class DrawingController {
     }
 
     private isDrawingValid(drawing: Drawing): boolean {
-        let isValid = drawing.name !== '';
+        let isValid = drawing.name !== '' && !drawing._id;
         for (const tag of drawing.tags) {
             if (!this.isTagValid(tag)) {
                 isValid = false;
@@ -45,14 +45,14 @@ export class DrawingController {
         });
 
         this.router.post('/addtag', async (req, res) => {
-            const drawing: Drawing = req.body.drawing;
+            const id: string = req.body.id;
             const tag: string = req.body.tag;
 
-            if (drawing && this.isTagValid(tag)) {
-                await this.database.updateTags(drawing, tag);
-                res.json('tag added');
+            if (id && this.isTagValid(tag)) {
+                await this.database.updateTags(id, tag);
+                res.json(`"${tag}" tag added!`);
             } else {
-                res.json('tag not added');
+                res.json(`"${tag}" NOT tag added.`);
             }
         });
 
@@ -64,13 +64,12 @@ export class DrawingController {
         });
 
         this.router.delete('/drawing/delete/:id', async (req: Request, res: Response) => {
-            const id: number = JSON.parse(req.params.id);
-            const INVALID_ID = -1;
-            if (id === INVALID_ID) {
-                res.status(500).json({ RESPONSE: 'Drawing not found.' });
-            } else {
+            const id: string = req.params.id;
+            if (id) {
                 await this.database.deleteDrawing(id);
                 res.status(200).json({ RESPONSE: 'Drawing has been deleted!' });
+            } else {
+                res.status(500).json({ RESPONSE: 'Drawing not found.' });
             }
         });
     }

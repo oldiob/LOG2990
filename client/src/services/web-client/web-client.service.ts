@@ -32,8 +32,8 @@ export class WebClientService {
             );
     }
 
-    addTag(drawing: Drawing, tag: string): void {
-        this.http.post(`${this.CUSTOM_URL}/addtag`, { drawing, tag })
+    addTag(id: string, tag: string): void {
+        this.http.post(`${this.CUSTOM_URL}/addtag`, { id, tag })
             .subscribe(
                 (res: Response) => console.log(res.body),
                 (error: HttpErrorResponse) => this.handleError(error),
@@ -58,7 +58,7 @@ export class WebClientService {
             this.dialogService.alertError(title, content);
         } else if (error.status === 500) {
             const title = 'Invalid drawing';
-            const content = 'Server denied saving the drawing.';
+            const content = 'Server received an invalid drawing.';
             this.dialogService.alertError(title, content);
         }
     }

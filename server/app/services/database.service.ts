@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Collection, Db, MongoClient, MongoError } from 'mongodb';
+import { Db, MongoClient, MongoError, ObjectID } from 'mongodb';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
 
 const DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
@@ -20,16 +20,14 @@ export class DataBaseService {
         return this.mongo;
     }
 
-    async addDrawing(draw: Drawing): Promise<void> {
+    async addDrawing(drawing: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.insertOne(drawing);
+        this.db.collection('Drawing').insertOne(drawing);
     }
 
-    async deleteDrawing(id: number): Promise<void> {
+    async deleteDrawing(id: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        this.db.collection('Drawing').deleteOne({ _id: id });
+        this.db.collection('Drawing').deleteOne({ _id: new ObjectID(id) });
     }
 
     async getAllDrawings(): Promise<Drawing[]> {
@@ -48,12 +46,11 @@ export class DataBaseService {
         });
     }
 
-    async updateTags(drawing: Drawing, tag: string): Promise<void> {
+    async updateTags(id: string, tag: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
         this.db.collection('Drawing').findOneAndUpdate(
-            { _id: drawing._id },
+            { _id: new ObjectID(id) },
             { $push: { tags: tag } },
-            { upsert: true },
         );
     }
 
