@@ -5,7 +5,6 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
     selector: 'app-text-option',
@@ -16,6 +15,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     EMPTYSTRING = '';
     DEFAULT_SIZE = '15px';
+    BOLD = 'bold';
+    NORMAL = 'normal';
+    ITALIC = 'italic';
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
@@ -36,6 +38,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     currentFontSize: string;
     currentFontFamily: string;
     currentFontStyle: string;
+    currentFontWeight: string;
     currentTextAlign: string;
     fontFamilies: any[];
     imageTextAlign: any[];
@@ -126,18 +129,26 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     toggleBold() {
         this.isBold = !this.isBold;
         if (this.isBold) {
-            this.text.setFontWeight('bold');
+            this.text.setFontWeight(this.BOLD);
+            this.currentFontWeight = this.BOLD;
+            this.text.fontWeigth = this.BOLD;
         } else {
-            this.text.setFontWeight('normal');
+            this.text.setFontWeight(this.NORMAL);
+            this.currentFontWeight = this.NORMAL;
+            this.text.fontWeigth = this.NORMAL;
         }
     }
 
     toggleItalic() {
         this.isItalic = !this.isItalic;
         if (this.isItalic) {
-            this.text.setFontStyle('italic');
+            this.text.setFontStyle(this.ITALIC);
+            this.currentFontStyle = this.ITALIC;
+            this.text.fontStyle = this.ITALIC;
         } else {
-            this.text.setFontStyle('normal');
+            this.text.setFontStyle(this.NORMAL);
+            this.currentFontStyle = this.NORMAL;
+            this.text.fontStyle = this.NORMAL;
         }
     }
 }
