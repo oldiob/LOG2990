@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Collection, Db, MongoClient, MongoError } from 'mongodb';
+import { Db, MongoClient, MongoError, ObjectID } from 'mongodb';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
 
 const DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
@@ -13,23 +13,21 @@ export class DataBaseService {
     // connect database with MongoDB Compass Community
     async connectDB(): Promise<MongoClient> {
         if (this.mongo !== undefined) { return this.mongo; }
-        this.mongo = await MongoClient.connect(DB_URL, {useNewUrlParser: true,
-                                                        useUnifiedTopology: true});
+        this.mongo = await MongoClient.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
         return this.mongo;
     }
 
-    async addDrawing(draw: Drawing): Promise<void> {
+    async addDrawing(drawing: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.insertOne(drawing);
+        this.db.collection('Drawing').insertOne(drawing);
     }
 
-    async deleteDrawing(draw: Drawing): Promise<void> {
+    async deleteDrawing(id: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.deleteOne(drawing);
+        this.db.collection('Drawing').deleteOne({ _id: new ObjectID(id) });
     }
 
     async getAllDrawings(): Promise<Drawing[]> {
@@ -42,19 +40,18 @@ export class DataBaseService {
 
             this.db.collection('Drawing').find().toArray((err: MongoError, result: Drawing[]) => {
                 err
-                 ? reject(err)
-                 : resolve(result);
+                    ? reject(err)
+                    : resolve(result);
             });
         });
-
     }
 
-    async updateTags(draw: Drawing): Promise<void> {
+    async updateTags(id: string, tag: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        const drawings: Collection<Drawing> = this.db.collection('Drawing');
-        const drawing: Drawing = draw;
-        drawings.findOneAndUpdate({id: drawing.id}, {$set: {tags: drawing.tags}},
-                                  {upsert: true});
+        this.db.collection('Drawing').findOneAndUpdate(
+            { _id: new ObjectID(id) },
+            { $push: { tags: tag } },
+        );
     }
 
 }

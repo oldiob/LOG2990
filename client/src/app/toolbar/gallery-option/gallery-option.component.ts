@@ -141,12 +141,12 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     onDelete(drawing: Drawing) {
         this.remove(drawing);
-        this.webClientService.deleteDrawing(drawing.id);
+        this.webClientService.deleteDrawing(drawing);
     }
 
     private remove(drawing: Drawing) {
         for (let i = 0; i < this.drawingsOnPage.length; i++) {
-            if (this.drawingsOnPage[i].id === drawing.id) {
+            if (this.drawingsOnPage[i]._id === drawing._id) {
                 this.drawingsOnPage.splice(i, 1);
             }
         }
@@ -158,13 +158,18 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     onAddTag(drawing: Drawing): void {
         this.addTag(drawing);
-        this.webClientService.addTag(drawing.id, this.tagInput);
+        if (drawing._id) {
+            this.webClientService.addTag(drawing._id, this.tagInput);
+        }
         this.tagInput = '';
     }
 
     private addTag(drawing: Drawing): void {
+        if (!drawing._id) {
+            return;
+        }
         const targetDrawing = this.drawingsOnPage.find((aDrawing: Drawing) => {
-            return aDrawing.id === drawing.id;
+            return aDrawing._id === drawing._id;
         });
         if (targetDrawing && this.tagInput) {
             targetDrawing.tags.push(this.tagInput);

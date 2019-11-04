@@ -33,7 +33,7 @@ describe('GalleryOptionComponent', () => {
     fixture = TestBed.createComponent(GalleryOptionComponent);
     component = fixture.componentInstance;
     filteredDrawings = [{
-      id: 17,
+      _id: '17',
 
       name: 'test',
       tags: ['allo'],
