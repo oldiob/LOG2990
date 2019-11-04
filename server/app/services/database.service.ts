@@ -27,9 +27,9 @@ export class DataBaseService {
         drawings.insertOne(drawing);
     }
 
-    async deleteDrawing(currentID: number): Promise<void> {
+    async deleteDrawing(id: number): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        this.db.collection('Drawing').deleteOne({ id: { $eq: currentID } });
+        this.db.collection('Drawing').deleteOne({ _id: id });
     }
 
     async getAllDrawings(): Promise<Drawing[]> {
@@ -48,10 +48,10 @@ export class DataBaseService {
         });
     }
 
-    async updateTags(currentID: number, tag: string): Promise<void> {
+    async updateTags(drawing: Drawing, tag: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
         this.db.collection('Drawing').findOneAndUpdate(
-            { id: currentID },
+            { _id: drawing._id },
             { $push: { tags: tag } },
             { upsert: true },
         );

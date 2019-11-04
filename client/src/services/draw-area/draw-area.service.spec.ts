@@ -29,7 +29,7 @@ describe('DrawAreaService', () => {
         service = jasmine.createSpyObj('DrawAreaService', ['save', 'dirty', 'upload']);
 
         drawing = {
-            id: 17,
+            _id: '17',
             name: 'test',
             tags: ['allo'],
             holder: { entry: 'entry', elements: ['empty'] },

@@ -42,7 +42,7 @@ describe('WebClientService', () => {
         }).compileComponents();
         webClientService = TestBed.get(WebClientService);
         drawing = {
-            id: 17,
+            _id: '17',
 
             name: 'test',
             tags: ['allo'],
@@ -70,9 +70,9 @@ describe('WebClientService', () => {
     });
 
     it('should delete drawing', () => {
-        const id = 1;
+        const id = '17';
         httpClientSpy.delete.and.returnValue(of(id));
-        webClientService.deleteDrawing(id);
+        webClientService.deleteDrawing(drawing);
         expect(httpClientSpy.delete.calls.count()).toEqual(CALL_COUNT);
     });
 

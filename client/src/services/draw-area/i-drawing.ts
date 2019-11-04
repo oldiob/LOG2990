@@ -1,7 +1,8 @@
 import { DrawAreaHolder } from './draw-area-holder';
 
 export class Drawing {
-    id: number;
+    // tslint:disable-next-line:variable-name
+    _id: string;
 
     name: string;
     tags: string[];

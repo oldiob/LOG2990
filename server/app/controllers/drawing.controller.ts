@@ -17,17 +17,6 @@ export class DrawingController {
         this.configureRouter();
     }
 
-    // TODO: Database should assign ID to drawings
-    private assignID(drawing: Drawing): number {
-        if (drawing.id === -1) {
-            const currentID = this.uniqueID;
-            this.uniqueID++;
-            drawing.id = currentID;
-            return currentID;
-        }
-        return -1;
-    }
-
     private isDrawingValid(drawing: Drawing): boolean {
         let isValid = drawing.name !== '';
         for (const tag of drawing.tags) {
@@ -48,7 +37,6 @@ export class DrawingController {
         this.router.post('/add', async (req, res) => {
             const drawing = req.body as Drawing;
             if (this.isDrawingValid(drawing)) {
-                this.assignID(drawing);
                 await this.database.addDrawing(drawing);
                 res.status(200).json({ RESPONSE: 'Drawing added to database!' });
             } else {
@@ -57,12 +45,11 @@ export class DrawingController {
         });
 
         this.router.post('/addtag', async (req, res) => {
-            const id: number = req.body.id;
+            const drawing: Drawing = req.body.drawing;
             const tag: string = req.body.tag;
-            const INVALID_ID = -1;
 
-            if (id !== INVALID_ID && this.isTagValid(tag)) {
-                await this.database.updateTags(id, tag);
+            if (drawing && this.isTagValid(tag)) {
+                await this.database.updateTags(drawing, tag);
                 res.json('tag added');
             } else {
                 res.json('tag not added');
@@ -77,7 +64,7 @@ export class DrawingController {
         });
 
         this.router.delete('/drawing/delete/:id', async (req: Request, res: Response) => {
-            const id = Number(req.params.id);
+            const id: number = JSON.parse(req.params.id);
             const INVALID_ID = -1;
             if (id === INVALID_ID) {
                 res.status(500).json({ RESPONSE: 'Drawing not found.' });
