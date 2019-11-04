@@ -178,6 +178,10 @@ export class ToolbarComponent implements OnInit {
             3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
             'C-z': () => { CmdService.undo(); },
             'C-S-z': () => { CmdService.redo(); },
+            g: () => this.gridOption.toggleGrid(),
+            '+': () => this.gridOption.addStep(),
+            'S-+': () => this.gridOption.addStep(),
+            '-': () => this.gridOption.reduceStep(),
         };
 
         const keys: string = this.getComposedKey(event);

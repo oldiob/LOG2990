@@ -25,7 +25,7 @@ describe('GridOptionComponent', () => {
 
   beforeEach(() => {
     ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
-    gridService = jasmine.createSpyObj('GridService', ['clear', 'draw', 'opacity', 'step']);
+    gridService = jasmine.createSpyObj('GridService', ['clear', 'draw', 'opacity', 'step', 'toggle']);
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
     fixture = TestBed.createComponent(GridOptionComponent);
@@ -68,13 +68,7 @@ describe('GridOptionComponent', () => {
   it('should draw grid if it is toggle', () => {
     component.isOn = true;
     component.toggleGrid();
-    expect(gridService.draw).toHaveBeenCalled();
-  });
-
-  it('should clear grid if it is not toggle', () => {
-    component.isOn = false;
-    component.toggleGrid();
-    expect(gridService.clear).toHaveBeenCalled();
+    expect(gridService.toggle).toHaveBeenCalled();
   });
 
   it('should opacity change' , () => {

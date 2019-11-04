@@ -1,4 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DOMRenderer } from '../../utils/dom-renderer';
 
 @Injectable({
@@ -16,9 +17,21 @@ export class GridService {
     mStep: number = GridService.DEFAULT_STEP;
     width: number;
     height: number;
+    isOn: boolean;
+    isOnSubject: BehaviorSubject<boolean>;
+    stepSubject: BehaviorSubject<number>;
 
     constructor() {
-        //
+        this.isOn = false;
+        this.isOnSubject = new BehaviorSubject<boolean>(this.isOn);
+        this.stepSubject = new BehaviorSubject<number>(this.mStep);
+    }
+
+    get isOnObservable(): Observable<boolean> {
+        return this.isOnSubject.asObservable();
+    }
+    get stepObservable(): Observable<number> {
+        return this.stepSubject.asObservable();
     }
 
     set step(step: number) {
@@ -26,6 +39,7 @@ export class GridService {
             if (step !== this.mStep) {
                 this.mStep = step;
                 this.draw();
+                this.stepSubject.next(this.mStep);
             }
         }
     }
@@ -68,12 +82,38 @@ export class GridService {
             DOMRenderer.setAttribute(line, 'stroke', 'black');
             DOMRenderer.appendChild(ctx, line);
         }
+        this.isOn = true;
+        this.isOnSubject.next(this.isOn);
     }
 
     clear(): void {
         const ctx: SVGElement = this.ref.nativeElement;
         while (ctx.firstChild) {
             ctx.removeChild(ctx.firstChild);
+        }
+        this.isOn = false;
+        this.isOnSubject.next(this.isOn);
+    }
+
+    toggle(): void {
+        if (!this.isOn) {
+            this.draw();
+        } else {
+            this.clear();
+        }
+    }
+
+    addStep(): void {
+        if (this.isOn) {
+            const STEP = 5;
+            this.step = this.mStep + STEP;
+        }
+    }
+
+    reduceStep(): void {
+        if (this.isOn) {
+            const STEP = 5;
+            this.step = this.mStep - STEP;
         }
     }
 }

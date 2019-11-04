@@ -35,8 +35,18 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     ngOnInit() {
         this.tools = [this.gridTool];
         this.currentTool = this.tools[0];
-        this.isOn = false;
         this.opacity = 1;
+
+        this.subscribeGrid();
+    }
+
+    private subscribeGrid() {
+        this.gridService.isOnObservable.subscribe((isOn: boolean) => {
+            this.isOn = isOn;
+        });
+        this.gridService.stepObservable.subscribe((step: number) => {
+            this.step = step;
+        });
     }
 
     select() {
@@ -53,11 +63,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     toggleGrid(): void {
-        if (this.isOn) {
-            this.gridService.draw();
-        } else {
-            this.gridService.clear();
-        }
+        this.gridService.toggle();
     }
 
     onOpacity(): void {
@@ -66,6 +72,14 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     onStep(): void {
         this.gridService.step = this.step;
+    }
+
+    addStep(): void {
+        this.gridService.addStep();
+    }
+
+    reduceStep(): void {
+        this.gridService.reduceStep();
     }
 
     getFilesource(tool: ITool): string {
