@@ -16,6 +16,7 @@ export class TextTool implements ITool {
     element: SVGText | null = null;
     fontSize: string;
     fontStyle: string;
+    fontWeigth: string;
     fontFamily: string;
     textAlign: string;
     width: number;
@@ -74,6 +75,11 @@ export class TextTool implements ITool {
         if (this.element != null) {
             this.element.setFontStyle(style);
         }
+    }
+    setFontWeight(weight: string): void {
+        if (this.element != null) {
+          this.element.setFontWeight(weight);
+    }
     }
     setFont(font: string): void {
         if (this.element != null) {

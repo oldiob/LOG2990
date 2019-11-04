@@ -5,6 +5,7 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
     selector: 'app-text-option',
@@ -29,6 +30,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     tools: ITool[];
     currentTool: ITool;
 
+    isBold = false;
+    isItalic = false;
+
     currentFontSize: string;
     currentFontFamily: string;
     currentFontStyle: string;
@@ -44,27 +48,27 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.currentFontSize = this.DEFAULT_SIZE;
         this.currentFontStyle = this.EMPTYSTRING;
         this.imageTextAlign = [] = [
-            { png: './assets/images/left.png', textAlign: 'left'},
-            { png: './assets/images/center.png', textAlign: 'center'},
-            { png: './assets/images/right.png', textAlign: 'right'},
+            { png: './assets/images/left.png', textAlign: 'left' },
+            { png: './assets/images/center.png', textAlign: 'center' },
+            { png: './assets/images/right.png', textAlign: 'right' },
         ];
         this.imageFontStyle = [] = [
-            { png: './assets/images/bold.png', fontStyle: 'bold'},
-            { png: './assets/images/normal.png', fontStyle: 'normal'},
-            { png: './assets/images/italic.png', fontStyle: 'italic'},
+            { png: './assets/images/bold.png', fontStyle: 'bold' },
+            { png: './assets/images/normal.png', fontStyle: 'normal' },
+            { png: './assets/images/italic.png', fontStyle: 'italic' },
         ];
         this.fontFamilies = [] = [
-        {value: 0, fontFamily: 'Arial'},
-        {value: 1, fontFamily: 'Times New Roman'},
-        {value: 2, fontFamily: 'Lucida Console'},
-        {value: 3, fontFamily: 'Verdana'},
-        {value: 4, fontFamily: 'Garamond'},
-        {value: 5, fontFamily: 'Comic Sans MS'},
-        {value: 6, fontFamily: 'Lucida Sans Unicode'},
-        {value: 7, fontFamily: 'Tahoma'},
-        {value: 8, fontFamily: 'Courier'},
-        {value: 9, fontFamily: 'Trebuchet MS'},
-        {value: 10, fontFamily: 'Palatino Linotype'},
+            { value: 0, fontFamily: 'Arial' },
+            { value: 1, fontFamily: 'Times New Roman' },
+            { value: 2, fontFamily: 'Lucida Console' },
+            { value: 3, fontFamily: 'Verdana' },
+            { value: 4, fontFamily: 'Garamond' },
+            { value: 5, fontFamily: 'Comic Sans MS' },
+            { value: 6, fontFamily: 'Lucida Sans Unicode' },
+            { value: 7, fontFamily: 'Tahoma' },
+            { value: 8, fontFamily: 'Courier' },
+            { value: 9, fontFamily: 'Trebuchet MS' },
+            { value: 10, fontFamily: 'Palatino Linotype' },
         ];
         this.currentFontFamily = this.EMPTYSTRING;
     }
@@ -117,5 +121,23 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectTextAlign(textAlign: string): void {
         this.currentTextAlign = textAlign;
         this.text.textAlign = this.currentTextAlign;
+    }
+
+    toggleBold() {
+        this.isBold = !this.isBold;
+        if (this.isBold) {
+            this.text.setFontWeight('bold');
+        } else {
+            this.text.setFontWeight('normal');
+        }
+    }
+
+    toggleItalic() {
+        this.isItalic = !this.isItalic;
+        if (this.isItalic) {
+            this.text.setFontStyle('italic');
+        } else {
+            this.text.setFontStyle('normal');
+        }
     }
 }

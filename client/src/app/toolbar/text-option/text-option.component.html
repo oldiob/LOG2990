@@ -23,6 +23,19 @@
   </div>
 
   <div class="separation">
+    <div class="button"
+    (click)="toggleBold()"
+    [class.selected-tool]="isBold">
+      <img class="tool-icon" src="../../../assets/images/bold.png">
+    </div>
+    <div class="button"
+    (click)="toggleItalic()"
+    [class.selected-tool]="isItalic">
+      <img class="tool-icon" src="../../../assets/images/italic.png">
+    </div>
+</div>
+
+  <div class="separation">
     <form class="form" (ngSubmit)="onSubmit()">
         <mat-form-field color="accent">
             <mat-label class="trace-label">Font-Family</mat-label>
