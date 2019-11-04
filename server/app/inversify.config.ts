@@ -1,6 +1,6 @@
 import {Container} from 'inversify';
 import {Application} from './app';
-import {DrawingController} from './controllers/drawing.route';
+import {DrawingController} from './controllers/drawing.controller';
 import {Server} from './server';
 import {DataBaseService} from './services/database.service';
 import Types from './types';

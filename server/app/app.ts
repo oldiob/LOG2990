@@ -4,7 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import { inject, injectable } from 'inversify';
 import * as logger from 'morgan';
-import { DrawingController } from './controllers/drawing.route';
+import { DrawingController } from './controllers/drawing.controller';
 import Types from './types';
 
 @injectable()
