@@ -14,6 +14,7 @@ import { WidthComponent } from '../width/width.component';
 export class TextOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
     EMPTYSTRING = '';
+    DEFAULT_SIZE = '15px';
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
@@ -40,7 +41,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
         this.tools = [text];
         this.currentTool = this.tools[0];
-        this.currentFontSize = this.EMPTYSTRING;
+        this.currentFontSize = this.DEFAULT_SIZE;
         this.currentFontStyle = this.EMPTYSTRING;
         this.imageTextAlign = [] = [
             { png: './assets/images/left.png', textAlign: 'left'},
@@ -97,16 +98,19 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     selectFontSize(fontSize: string): void {
         this.currentFontSize = fontSize;
+        this.text.setFontSize(fontSize);
         this.text.fontSize = this.currentFontSize;
     }
 
     selectFontStyle(fontStyle: string): void {
         this.currentFontStyle = fontStyle;
+        this.text.setFontStyle(fontStyle);
         this.text.fontStyle = this.currentFontStyle;
     }
 
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
+        this.text.setFont(fontFamily);
         this.text.fontFamily = this.currentFontFamily;
     }
 

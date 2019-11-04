@@ -19,7 +19,7 @@
 </div>
 
   <div class="separation">
-      <app-width [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+      <app-width [width]="currentTool.width" (widthEmmiter)="selectFontSize($event)"></app-width>
   </div>
 
   <div class="separation">
@@ -27,7 +27,7 @@
         <mat-form-field color="accent">
             <mat-label class="trace-label">Font-Family</mat-label>
             <mat-select panelClass="trace-panel">
-                <mat-option *ngFor="let fontFamily of fontFamilies"(click)="selectFontFamily(fontFamily.fontFamily)" 
+                <mat-option *ngFor="let fontFamily of fontFamilies"(click)="selectFontFamily(fontFamily.fontFamily)"
                   [value]="fontFamily.value" [class.selected-tool]="fontFamily.fontFamily === currentFontFamily">
                   {{fontFamily.fontFamily}}
                 </mat-option>
