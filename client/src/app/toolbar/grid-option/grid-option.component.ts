@@ -51,11 +51,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     toggleGrid(): void {
-        if (this.isOn) {
-            this.gridService.draw();
-        } else {
-            this.gridService.clear();
-        }
+        this.gridService.toggle();
     }
 
     onOpacity(): void {
@@ -64,6 +60,14 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     onStep(): void {
         this.gridService.step = this.step;
+    }
+
+    addStep(): void {
+        this.gridService.addStep();
+    }
+
+    reduceStep(): void {
+        this.gridService.reduceStep();
     }
 
     getFilesource(tool: ITool): string {

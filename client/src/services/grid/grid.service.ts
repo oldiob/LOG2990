@@ -16,9 +16,10 @@ export class GridService {
     mStep: number = GridService.DEFAULT_STEP;
     width: number;
     height: number;
+    isOn: boolean;
 
     constructor() {
-        //
+        this.isOn = false;
     }
 
     set step(step: number) {
@@ -68,6 +69,7 @@ export class GridService {
             DOMRenderer.setAttribute(line, 'stroke', 'black');
             DOMRenderer.appendChild(ctx, line);
         }
+        this.isOn = true;
     }
 
     clear(): void {
@@ -75,5 +77,24 @@ export class GridService {
         while (ctx.firstChild) {
             ctx.removeChild(ctx.firstChild);
         }
+        this.isOn = false;
+    }
+
+    toggle(): void {
+        if (!this.isOn) {
+            this.draw();
+        } else {
+            this.clear();
+        }
+    }
+
+    addStep(): void {
+        const STEP = 5;
+        this.step = this.mStep + STEP;
+    }
+
+    reduceStep(): void {
+        const STEP = 5;
+        this.step = this.mStep - STEP;
     }
 }

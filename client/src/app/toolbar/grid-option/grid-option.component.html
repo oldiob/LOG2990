@@ -29,6 +29,6 @@
 <div *ngIf="isOn" class="wrapper">
   <div class="label">Square Size</div>
   <div class="size">
-    <input type="range" [(ngModel)]="step" [min]="5" [max]="25" step="1" class="slider" (change)="onStep()">
+    <input type="range" [(ngModel)]="step" [min]="5" [max]="25" step="5" class="slider" (change)="onStep()">
   </div>
 </div>
