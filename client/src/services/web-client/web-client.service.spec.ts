@@ -58,16 +58,7 @@ describe('WebClientService', () => {
         expect(webClientService).toBeTruthy();
     });
 
-    it('should get the drawing count', () => {
-        webClientService.loading = true;
-        const expectedNumber = 8;
-        httpClientSpy.get.and.returnValue(of(expectedNumber));
-        webClientService.getDrawingCount();
-        expect(httpClientSpy.get.calls.count()).toEqual(CALL_COUNT);
-    });
-
     it('should send drawing', () => {
-        webClientService.saving = true;
         httpClientSpy.post.and.returnValue(of(drawing));
         webClientService.sendDrawing(drawing);
         expect(httpClientSpy.post.calls.count()).toEqual(CALL_COUNT);
@@ -78,46 +69,11 @@ describe('WebClientService', () => {
         expect(httpClientSpy.get.calls.count()).toEqual(CALL_COUNT);
     });
 
-    it('should get drawing by ID', () => {
-        const id = 1;
-        httpClientSpy.get.and.returnValue(of(id));
-        webClientService.getDrawingsByID(id);
-        expect(httpClientSpy.get.calls.count()).toEqual(CALL_COUNT);
-    });
-
-    it('should get drawing by tags', () => {
-        const tags = ['TestTags'];
-        const min = 1;
-        const max = 10;
-        const obj = {
-            tags,
-            min,
-            max,
-        };
-        httpClientSpy.post.and.returnValue(of(obj));
-        webClientService.getDrawingsByTags(tags, min, max);
-        expect(httpClientSpy.post.calls.count()).toEqual(CALL_COUNT);
-    });
-
     it('should delete drawing', () => {
         const id = 1;
         httpClientSpy.delete.and.returnValue(of(id));
         webClientService.deleteDrawing(id);
         expect(httpClientSpy.delete.calls.count()).toEqual(CALL_COUNT);
-    });
-
-    it('should get prepared drawing', () => {
-        httpClientSpy.get.and.returnValue(of(message));
-        webClientService.getPreparedDrawing();
-        let drawings: Drawing[] = [];
-        webClientService.getAllDrawings().subscribe((savedDrawing: Drawing[]) => {
-            drawings = savedDrawing;
-            webClientService.preparedDrawings = drawings;
-            webClientService.preparedReady = true;
-            webClientService.loading = false;
-            expect(savedDrawing).toEqual(drawings);
-        });
-        expect(webClientService.getPreparedDrawing()).toEqual(drawings);
     });
 
 });
