@@ -198,14 +198,14 @@ describe('ToolbarComponent', () => {
 
     it('#undo should undo last command', () => {
         spyOn(CmdService, 'undo');
-        component.undosEmpty = false;
+        component.isEmptyUndos = false;
         component.undo();
         expect(CmdService.undo).toHaveBeenCalled();
     });
 
     it('#redo should redo last command', () => {
         spyOn(CmdService, 'redo');
-        component.redosEmpty = false;
+        component.isEmptyRedos = false;
         component.redo();
         expect(CmdService.redo).toHaveBeenCalled();
     });
