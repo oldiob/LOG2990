@@ -60,4 +60,8 @@ export class SVGText implements SVGInterface {
         this.fontTextAlign = align;
         DOMRenderer.setAttribute(this.element, 'text-align', this.fontTextAlign);
     }
+
+    setLineBreak(): void {
+        DOMRenderer.setAttribute(this.element, 'dy', '1.2em');
+    }
 }
