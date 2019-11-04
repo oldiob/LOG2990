@@ -13,12 +13,13 @@ export class SVGText implements SVGInterface {
     fontFamily: string;
     fontTextAlign: string;
 
-    constructor(x: number, y: number, fontSize: string, fontStyle: string, fontFamily: string, textAlign: string) {
+    constructor(x: number, y: number, fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
         this.fontSize = fontSize;
         this.fontFamily = fontFamily;
         this.fontStyle = fontStyle;
+        this.fontWeight = fontWeight;
         this.fontTextAlign = textAlign;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
