@@ -176,6 +176,7 @@ export class ToolbarComponent implements OnInit {
             'C-S-z': () => { CmdService.redo(); },
             g: () => this.gridOption.toggleGrid(),
             '+': () => this.gridOption.addStep(),
+            'S-+': () => this.gridOption.addStep(),
             '-': () => this.gridOption.reduceStep(),
         };
 
