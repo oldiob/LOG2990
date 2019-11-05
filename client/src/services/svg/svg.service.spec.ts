@@ -96,7 +96,7 @@ describe('SVGService', () => {
     });
 
     it('should clear the draw area', () => {
-        service.clearDrawArea();
+        service.clearObjects();
         expect(elem.hasChildNodes).toHaveBeenCalled();
         expect(elem.removeChild).not.toHaveBeenCalled();
         expect(renderer.appendChild).toHaveBeenCalled();

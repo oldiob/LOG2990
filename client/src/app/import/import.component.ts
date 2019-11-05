@@ -3,10 +3,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Data } from '@angular/router';
-import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
-import { SVGService } from 'src/services/svg/svg.service';
-import { populateDrawArea } from 'src/utils/element-parser';
-import { MyInjector } from 'src/utils/injector';
+import { Drawing } from 'src/services/draw-area/i-drawing';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 const REBASE = /.*.rebase$/;
 
@@ -29,6 +27,7 @@ export class ImportComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<ImportComponent>,
         public http: HttpClient,
+        private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
         this.reader = new FileReader();
@@ -72,9 +71,9 @@ export class ImportComponent implements OnInit {
 
     submit(event: MouseEvent): void {
         this.checkButton();
-        const res: DrawAreaHolder = JSON.parse(this.reader.result as string);
-        Object.setPrototypeOf(res, DrawAreaHolder.prototype);
-        populateDrawArea(MyInjector.get(SVGService), res);
+        const res: Drawing = JSON.parse(this.reader.result as string);
+        Object.setPrototypeOf(res, Drawing.prototype);
+        this.workZoneService.setFromDrawing(res);
         this.close(new MouseEvent('click'));
     }
 

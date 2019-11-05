@@ -2,11 +2,9 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material';
-import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 import { Drawing } from 'src/services/draw-area/i-drawing';
-import { SVGService } from 'src/services/svg/svg.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-import { serializeDrawArea } from 'src/utils/element-parser';
+import { saveFile } from 'src/utils/filesystem';
 import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
 
 @Component({
@@ -20,12 +18,7 @@ export class SaveOptionComponent implements OnInit {
     selectable: boolean;
     removable: boolean;
     addOnBlur: boolean;
-
-    isValidTags: boolean;
-
-    drawingHeight: number;
-    drawingWidth: number;
-    drawingBackgroundColor: string;
+    isLocal: boolean;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     tags: string[];
@@ -34,27 +27,8 @@ export class SaveOptionComponent implements OnInit {
 
     constructor(
         private drawAreaService: DrawAreaService,
-        private svgService: SVGService,
         private formBuilder: FormBuilder,
-        workZoneService: WorkZoneService) {
-        workZoneService.currentHeight.subscribe(
-            (height): number => {
-                this.drawingHeight = height;
-                return height;
-            },
-        );
-        workZoneService.currentWidth.subscribe(
-            (width): number => {
-                this.drawingWidth = width;
-                return width;
-            },
-        );
-        workZoneService.currentBackgroundColor.subscribe(
-            (color): string => {
-                this.drawingBackgroundColor = color;
-                return color;
-            },
-        );
+        private workZoneService: WorkZoneService) {
     }
 
     ngOnInit() {
@@ -62,9 +36,9 @@ export class SaveOptionComponent implements OnInit {
         this.selectable = true;
         this.removable = true;
         this.addOnBlur = true;
-        this.isValidTags = true;
         this.tags = [];
         this.createForm();
+        this.isLocal = true;
     }
 
     private createForm(): void {
@@ -91,7 +65,6 @@ export class SaveOptionComponent implements OnInit {
             input.value = '';
         }
         this.saveForm.controls.tags.setValue(this.tags);
-        this.validate();
     }
 
     remove(tag: string): void {
@@ -100,17 +73,15 @@ export class SaveOptionComponent implements OnInit {
             this.tags.splice(index, 1);
         }
         this.saveForm.controls.tags.setValue(this.tags);
-        this.validate();
     }
 
-    private validate(): void {
+    private areFieldsValid(): boolean {
         for (const tag of this.tags) {
             if (!(/^[a-zA-Z]+$/.test(tag))) {
-                this.isValidTags = false;
-                return;
+                return false;
             }
         }
-        this.isValidTags = true;
+        return true;
     }
 
     getNameErrorMessage() {
@@ -122,23 +93,22 @@ export class SaveOptionComponent implements OnInit {
     }
 
     onSubmit() {
-        const drawAreaHolder: DrawAreaHolder = serializeDrawArea(this.svgService);
+        if (this.areFieldsValid()) {
+            const drawing: Drawing = this.workZoneService.getAsDrawing();
 
-        const drawing: Drawing = {
-            _id: null,
+            drawing._id = null;
+            drawing.name = this.saveForm.controls.name.value;
+            drawing.tags = this.saveForm.controls.tags.value;
 
-            name: this.saveForm.controls.name.value,
-            tags: this.saveForm.controls.tags.value,
-            holder: drawAreaHolder,
-
-            backgroundColor: this.drawingBackgroundColor,
-            width: this.drawingWidth,
-            height: this.drawingHeight,
-        };
-
-        this.validate();
-        if (this.isValidTags) {
-            this.drawAreaService.upload(drawing);
+            if (this.isLocal) {
+                saveFile(this.saveForm.controls.name.value, JSON.stringify(drawing));
+            } else {
+                this.drawAreaService.upload(drawing);
+            }
         }
+    }
+
+    toggleLocal() {
+        this.isLocal = !this.isLocal;
     }
 }

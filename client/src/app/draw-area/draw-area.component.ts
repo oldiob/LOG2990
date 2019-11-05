@@ -79,7 +79,7 @@ export class DrawAreaComponent implements OnInit {
 
         this.gridService.width = this.width;
         this.gridService.height = this.height;
-        this.svgService.clearDrawArea();
+        this.svgService.clearObjects();
     }
 
     setCurrentStyles() {
