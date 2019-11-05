@@ -171,9 +171,13 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
         const targetDrawing = this.drawingsOnPage.find((aDrawing: Drawing) => {
             return aDrawing._id === drawing._id;
         });
-        if (targetDrawing && this.tagInput) {
+        if (targetDrawing && this.tagInput && this.validate()) {
             targetDrawing.tags.push(this.tagInput);
         }
+    }
+
+    private validate(): boolean {
+        return (/^[a-zA-Z]+$/.test(this.tagInput));
     }
 
     stopEventPropagation(event: MouseEvent): void {
