@@ -82,7 +82,7 @@ export class SVGPen implements SVGInterface {
 
     setPrimary(color: string) {
         for (const child of this.element.children) {
-                DOMRenderer.setAttribute(child, 'fill', color);
+                DOMRenderer.setAttribute(child, 'stroke', color);
         }
         this.color = color;
     }
