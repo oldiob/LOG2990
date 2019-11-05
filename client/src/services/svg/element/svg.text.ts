@@ -35,9 +35,6 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
-        // this.currentSubElement.innerHTML = 'abs';
-        // DOMRenderer.setAttribute(this.element, 'white-space', 'pre-wrap');
-        // DOMRenderer.setAttribute(this.element, 'style', 'white-space: pre-wrap;');
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
