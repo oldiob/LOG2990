@@ -4,11 +4,9 @@ import { ConfirmationComponent } from 'src/app/popups/confirmation/confirmation.
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
 import { Drawing } from 'src/services/draw-area/i-drawing';
-import { SVGService } from 'src/services/svg/svg.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { WebClientService } from 'src/services/web-client/web-client.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-import { populateDrawArea } from 'src/utils/element-parser';
 
 @Component({
     selector: 'app-gallery-option',
