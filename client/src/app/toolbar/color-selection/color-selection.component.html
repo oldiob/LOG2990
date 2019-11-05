@@ -1,16 +1,20 @@
 <div class="buttons-wrapper">
-    <app-color-button 
-        [isPrimary]="IS_PRIMARY"
-        [isShowForm]="isOpenPrimary"
-        (open)="onOpen($event, IS_PRIMARY)">
-    </app-color-button>
-
+    <div class="colors-wrapper">
+        <app-color-button 
+            class="primary"
+            [isPrimary]="IS_PRIMARY"
+            [isShowForm]="isOpenPrimary"
+            (open)="onOpen($event, IS_PRIMARY)">
+        </app-color-button>
+        <app-color-button
+            class="secondary"
+            [isPrimary]="!IS_PRIMARY"
+            [isShowForm]="isOpenSecondary"
+            (open)="onOpen($event, !IS_PRIMARY)">
+        </app-color-button>
+    </div>
     <div class="swap" (click)="onSwap()">
         <img src="../../../assets/images/swap.svg" alt="swap">
     </div>
-    <app-color-button
-        [isPrimary]="!IS_PRIMARY"
-        [isShowForm]="isOpenSecondary"
-        (open)="onOpen($event, !IS_PRIMARY)">
-    </app-color-button>
+
 </div>
