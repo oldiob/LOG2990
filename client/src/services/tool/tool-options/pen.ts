@@ -33,11 +33,6 @@ export class PenTool implements ITool {
     }
 
     onReleased(event: MouseEvent): void {
-        if (!this.element) {
-            return;
-        }
-        this.element.anchors.pop();
-        this.element.anchors.pop();
         this.element = null;
         return;
     }
