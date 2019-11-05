@@ -16,7 +16,7 @@ export class WebClientService {
         private http: HttpClient) { }
 
     sendDrawing(drawing: Drawing) {
-        const modal = this.dialogService.alertLoading(drawing);
+        const modal = this.dialogService.alertLoading(drawing.name);
         this.http.post(`${this.CUSTOM_URL}/add`, drawing)
             .subscribe(
                 (response: Response) => {
