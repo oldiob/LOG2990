@@ -1,6 +1,11 @@
 <div class="btn-color-wrapper">
 
-    <button mat-raised-button class="button" (click)="toggleForm()"
+    <button class="button"
+        mat-raised-button
+        matTooltip="{{tip}}"
+        matTooltipClass="tooltip" 
+        matTooltipPosition="right"
+        (click)="toggleForm()"
         [ngStyle]="setColor()">
         </button>
     <div class="color1-picker" *ngIf="isShowForm">

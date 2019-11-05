@@ -10,6 +10,7 @@ import { Color } from 'src/utils/color';
 })
 export class ColorButtonComponent implements OnInit {
 
+    tip: string;
     alpha: number;
 
     currentColor: Color;
@@ -36,6 +37,15 @@ export class ColorButtonComponent implements OnInit {
         this.isShowForm = false;
         this.setupColors();
         this.createForm();
+        this.setTip();
+    }
+
+    private setTip() {
+        if (this.isPrimary) {
+            this.tip = 'Primary Color';
+        } else {
+            this.tip = 'Secondary Color';
+        }
     }
 
     private setupColors() {

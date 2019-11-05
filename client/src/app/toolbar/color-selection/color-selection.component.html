@@ -13,7 +13,11 @@
             (open)="onOpen($event, !IS_PRIMARY)">
         </app-color-button>
     </div>
-    <div class="swap" (click)="onSwap()">
+    <div class="swap"
+        matTooltip="Swap Colors"
+        matTooltipClass="tooltip" 
+        matTooltipPosition="below"
+        (click)="onSwap()">
         <img src="../../../assets/images/swap.svg" alt="swap">
     </div>
 
