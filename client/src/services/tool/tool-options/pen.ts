@@ -45,7 +45,6 @@ export class PenTool implements ITool {
     onMotion(event: MouseEvent): void {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY);
-            // this.onPressed(event);
         }
     }
 
