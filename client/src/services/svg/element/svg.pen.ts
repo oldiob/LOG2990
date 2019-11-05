@@ -35,19 +35,24 @@ export class SVGPen implements SVGInterface {
         const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
             Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
-        this.width = this.minWidth + this.maxWidth * ( 1 / (distance / 1));
+        this.width = this.minWidth + this.maxWidth * ( 3 / (distance / 1));
         if (this.width > this.maxWidth) {
             this.width = this.maxWidth;
         } else if (this.width < this.minWidth) {
             this.width = this.minWidth;
         }
-        const line = DOMRenderer.createElement('line', 'svg');
+        const line = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(line, 'stroke', this.color);
         DOMRenderer.setAttribute(line, 'stroke-width', this.width.toString());
-        DOMRenderer.setAttribute(line, 'x1', `${this.latestPoint[0]}`);
+        DOMRenderer.setAttribute(line, 'stroke-linecap', 'round');
+        DOMRenderer.setAttribute(line, 'stroke-linejoin', 'round');
+        /*DOMRenderer.setAttribute(line, 'x1', `${this.latestPoint[0]}`);
         DOMRenderer.setAttribute(line, 'y1', `${this.latestPoint[1]}`);
         DOMRenderer.setAttribute(line, 'x2', `${this.cursor[0]}`);
-        DOMRenderer.setAttribute(line, 'y2', `${this.cursor[1]}`);
+        DOMRenderer.setAttribute(line, 'y2', `${this.cursor[1]}`);*/
+        DOMRenderer.setAttribute(line,
+            'points',
+             `${this.latestPoint[0]},${this.latestPoint[1]},${this.cursor[0]},${this.cursor[1]}`);
         DOMRenderer.appendChild(this.element, line);
         this.latestPoint = this.cursor;
     }
