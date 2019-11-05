@@ -40,7 +40,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     constructor(
         private workZoneService: WorkZoneService,
-        private svgService: SVGService,
         private webClientService: WebClientService,
         private drawAreaService: DrawAreaService,
         private dialogService: DialogService) { }
@@ -133,8 +132,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     private loadOnDrawArea(drawing: Drawing) {
         if (this.drawAreaService.isSaved) {
-            populateDrawArea(this.svgService, drawing.holder);
-            this.workZoneService.updateDrawAreaDimensions(drawing.width, drawing.height, drawing.backgroundColor);
+            this.workZoneService.setLoadedDrawing(drawing);
             this.drawAreaService.save();
         }
     }

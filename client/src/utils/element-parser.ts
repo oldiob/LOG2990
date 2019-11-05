@@ -18,7 +18,7 @@ export const serializeDrawArea = (svgService: SVGService): DrawAreaHolder => {
 };
 
 export const populateDrawArea = (svgService: SVGService, holder: DrawAreaHolder): void => {
-    svgService.clearDrawArea();
+    svgService.clearObjects();
     for (const e of holder.elements) {
         svgService.addObject(deserializeSVG(e));
     }

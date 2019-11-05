@@ -53,7 +53,7 @@ export class ShowcaseComponent implements OnInit {
         DOMRenderer.setAttribute(this.entry.nativeElement, 'width', this.WIDTH.toString());
         DOMRenderer.setAttribute(this.entry.nativeElement, 'height', this.HEIGHT.toString());
 
-        this.service.clearDrawArea();
+        this.service.clearObjects();
 
         this.fakeInjector = new CustomInjector(this.service);
     }
@@ -76,7 +76,7 @@ export class ShowcaseComponent implements OnInit {
 
         let actionMade: CmdInterface | null = null;
 
-        this.service.clearDrawArea();
+        this.service.clearObjects();
         if (tool.onShowcase) {
             actionMade = tool.onShowcase(this.WIDTH, this.HEIGHT);
         } else {

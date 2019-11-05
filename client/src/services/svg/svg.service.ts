@@ -86,7 +86,7 @@ export class SVGService {
         DOMRenderer.removeChild(this.entry.nativeElement, element);
     }
 
-    clearDrawArea() {
+    clearObjects() {
         const ref = this.entry.nativeElement;
         while (ref.hasChildNodes()) {
             ref.removeChild(ref.firstChild);

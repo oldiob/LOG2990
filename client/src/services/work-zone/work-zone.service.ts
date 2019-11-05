@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Drawing } from '../draw-area/i-drawing';
+import { SVGService } from '../svg/svg.service';
+import { populateDrawArea } from 'src/utils/element-parser';
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +16,8 @@ export class WorkZoneService {
     // Work-area's maximum dimensions
     private maxWidth = new BehaviorSubject<number>(0);
     private maxHeight = new BehaviorSubject<number>(0);
+
+    constructor(private svgService: SVGService) {}
 
     get currentWidth(): Observable<number> {
         return this.width.asObservable();
@@ -30,7 +35,13 @@ export class WorkZoneService {
         return this.maxHeight.asObservable();
     }
 
-    updateDrawAreaDimensions(width: number, height: number, bgColor: string) {
+    setLoadedDrawing(drawing: Drawing) {
+        this.svgService.clearObjects();
+        populateDrawArea(this.svgService, drawing.holder);
+        this.updateDrawAreaProperties(drawing.width, drawing.height, drawing.backgroundColor);
+    }
+
+    updateDrawAreaProperties(width: number, height: number, bgColor: string) {
         this.width.next(width);
         this.height.next(height);
         this.backgroundColor.next(bgColor);
