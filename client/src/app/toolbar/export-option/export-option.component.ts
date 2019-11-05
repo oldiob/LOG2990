@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { SVGService } from 'src/services/svg/svg.service';
 import { serializeDrawArea } from 'src/utils/element-parser';
-import { saveFile } from 'src/utils/filesystem';
+import { saveFile, saveFileSVG} from 'src/utils/filesystem';
 import { MyInjector } from 'src/utils/injector';
 
 @Component({
@@ -23,7 +23,13 @@ export class ExportOptionComponent implements OnInit {
         const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
         saveFile('lol_file', fileData);
     }
-    close(event: MouseEvent): void {
+
+    saveSVG(): void {
+        const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
+        saveFileSVG('testSVG', fileData);
+    }
+
+    close(): void {
         this.dialogRef.close();
     }
 }

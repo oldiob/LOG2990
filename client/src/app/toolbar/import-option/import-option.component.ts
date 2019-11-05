@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -27,7 +26,6 @@ export class ImportOptionComponent implements OnInit {
 
     constructor(
         public dialogRef: MatDialogRef<ImportOptionComponent>,
-        public http: HttpClient,
         private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
@@ -71,7 +69,7 @@ export class ImportOptionComponent implements OnInit {
 
     submit(event: MouseEvent): void {
         this.checkButton();
-        const res: Drawing = JSON.parse(this.reader.result as string);
+        const res: Drawing = JSON.parse(this.readFile.result as string);
         Object.setPrototypeOf(res, Drawing.prototype);
         this.workZoneService.setFromDrawing(res);
         this.close(new MouseEvent('click'));
