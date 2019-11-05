@@ -34,6 +34,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     isBold = false;
     isItalic = false;
+    isAlignLeft = true;
+    isAlignCenter = false;
+    isAlignRight = false;
 
     currentFontSize: string;
     currentFontFamily: string;
@@ -122,8 +125,21 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     }
 
     selectTextAlign(textAlign: string): void {
-        this.currentTextAlign = textAlign;
-        this.text.textAlign = this.currentTextAlign;
+        this.disableAlign();
+        if (textAlign === 'start') {
+            this.isAlignLeft = true;
+        } else if (textAlign === 'middle') {
+            this.isAlignCenter = true;
+        } else if (textAlign === 'end') {
+            this.isAlignRight = true;
+        }
+        this.text.setTextAlign(textAlign);
+    }
+
+    disableAlign() {
+        this.isAlignLeft = false;
+        this.isAlignCenter = false;
+        this.isAlignRight = false;
     }
 
     toggleBold() {

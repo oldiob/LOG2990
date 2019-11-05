@@ -16,7 +16,7 @@ export class SVGText implements SVGInterface {
     fontStyle: string;
     fontWeight: string;
     fontFamily: string;
-    fontTextAlign: string;
+    fontTextAlign = 'left';
 
     constructor(x: number, y: number, fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
         this.element = DOMRenderer.createElement('text', 'svg');
@@ -33,6 +33,7 @@ export class SVGText implements SVGInterface {
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
+        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.fontTextAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
     }
@@ -72,7 +73,9 @@ export class SVGText implements SVGInterface {
     }
     setTextAlign(align: string): void {
         this.fontTextAlign = align;
-        DOMRenderer.setAttribute(this.element, 'text-align', this.fontTextAlign);
+        for (const subElement of this.subElements) {
+            DOMRenderer.setAttribute(subElement, 'text-anchor', align);
+        }
     }
 
     setLineBreak(): void {
@@ -80,7 +83,7 @@ export class SVGText implements SVGInterface {
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
-        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', 'start');
+        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.fontTextAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
