@@ -23,32 +23,41 @@
   </div>
 
   <div class="separation">
-    <div class="button"
-    (click)="toggleBold()"
-    [class.selected-tool]="isBold">
-      <img class="tool-icon" src="../../../assets/images/bold.png">
-    </div>
-    <div class="button"
-    (click)="toggleItalic()"
-    [class.selected-tool]="isItalic">
-      <img class="tool-icon" src="../../../assets/images/italic.png">
-    </div>
-    <div class="button"
-    (click)="selectTextAlign('start')"
-    [class.selected-tool]="isAlignLeft">
-      <img class="tool-icon" src="../../../assets/images/left.png">
-    </div>
-    <div class="button"
-    (click)="selectTextAlign('middle')"
-    [class.selected-tool]="isAlignCenter">
-      <img class="tool-icon" src="../../../assets/images/center.png">
-    </div>
-    <div class="button"
-    (click)="selectTextAlign('end')"
-    [class.selected-tool]="isAlignRight">
-      <img class="tool-icon" src="../../../assets/images/right.png">
-    </div>
-</div>
+    <div class="text">Font Style</div>
+      <div class="tools">
+        <div class="button"
+          (click)="toggleBold()"
+          [class.selected-tool]="isBold">
+            <img class="tool-icon" src="../../../assets/images/bold.png">
+        </div>
+        <div class="button"
+          (click)="toggleItalic()"
+          [class.selected-tool]="isItalic">
+            <img class="tool-icon" src="../../../assets/images/italic.png">
+        </div>
+      </div>
+  </div>
+  
+  <div class="separation">
+    <div class="text">Text Align</div>
+      <div class="tools">
+        <div class="button"
+        (click)="selectTextAlign('start')"
+        [class.selected-tool]="isAlignLeft">
+          <img class="tool-icon" src="../../../assets/images/left.png">
+        </div>
+        <div class="button"
+        (click)="selectTextAlign('middle')"
+        [class.selected-tool]="isAlignCenter">
+          <img class="tool-icon" src="../../../assets/images/center.png">
+        </div>
+        <div class="button"
+        (click)="selectTextAlign('end')"
+        [class.selected-tool]="isAlignRight">
+          <img class="tool-icon" src="../../../assets/images/right.png">
+          </div>
+        </div>
+  </div>
 
   <div class="separation">
     <form class="form" (ngSubmit)="onSubmit()">
@@ -62,24 +71,4 @@
             </mat-select>
         </mat-form-field>
     </form>
-</div>
-
-<div class="separation">
-    <div class="text">Text Align</div>
-    <div class="tools">
-        <div *ngFor="let image of imageTextAlign" class="button" (click)="selectTextAlign(image.textAlign)"
-            [class.selected-tool]="image.textAlign === currentTextAlign">
-            <img class="tool-icon" [src]="image.png">
-        </div>
-    </div>
-</div>
-
-<div class="separation">
-    <div class="text">Font Style</div>
-    <div class="tools">
-        <div *ngFor="let image of imageFontStyle" class="button" (click)="selectFontStyle(image.fontStyle)"
-            [class.selected-tool]="image.fontStyle === currentFontStyle">
-            <img class="tool-icon" [src]="image.png">
-        </div>
-    </div>
 </div>
