@@ -6,7 +6,7 @@
             autocomplete="off">
     </mat-form-field>
 
-    <div class="drawings">
+    <div class="alerts-wrapper" *ngIf="isProgressing || !isTagExists || isError">
         <div class="tag-not-found" *ngIf="!isTagExists && !isError">
             "{{filterInput.value}}" tag does not exist.
         </div>
@@ -14,9 +14,12 @@
             Connexion Error : Could not connect to server.
         </div>
         <div class="spinner">
-            <mat-progress-spinner *ngIf="isProgressing"color="primary" mode="indeterminate"></mat-progress-spinner>
+            <mat-progress-spinner *ngIf="isProgressing" color="primary" mode="indeterminate"></mat-progress-spinner>
         </div>
-        <div class="grid" *ngIf="!isProgressing">
+    </div>
+
+    <div class="drawings" *ngIf="!isProgressing && isTagExists && !isError">
+        <div class="grid">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
                 (click)="onClick($event, drawing)" mat-dialog-close>
                 <div class="overlay">
