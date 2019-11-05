@@ -13,8 +13,9 @@
         <div class="tag-not-found" *ngIf="isError">
             Connexion Error : Could not connect to server.
         </div>
-        <mat-progress-spinner *ngIf="isProgressing" class="spinner" color="primary" mode="indeterminate">
-        </mat-progress-spinner>
+        <div class="spinner">
+            <mat-progress-spinner *ngIf="isProgressing"color="primary" mode="indeterminate"></mat-progress-spinner>
+        </div>
         <div class="grid" *ngIf="!isProgressing">
             <div class="drawing" *ngFor="let drawing of drawingsOnPage; trackBy: index"
                 (click)="onClick($event, drawing)" mat-dialog-close>
