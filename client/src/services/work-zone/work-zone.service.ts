@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Drawing } from '../draw-area/i-drawing';
-import { SVGService } from '../svg/svg.service';
 import { populateDrawArea, serializeDrawArea } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
+import { Drawing } from '../draw-area/i-drawing';
+import { SVGService } from '../svg/svg.service';
 
 @Injectable({
     providedIn: 'root',

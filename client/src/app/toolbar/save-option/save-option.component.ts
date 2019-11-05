@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
-import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
 import { saveFile } from 'src/utils/filesystem';
+import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
 
 @Component({
     selector: 'app-save-option',
