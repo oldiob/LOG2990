@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { ITool } from './i-tool';
 
@@ -21,7 +22,7 @@ export class TextTool implements ITool {
     textAlign: string;
     width: number;
     text: SVGText;
-    constructor() {
+    constructor(private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
         this.fontSize = this.EMPTYSTRING;
         this.fontStyle = this.EMPTYSTRING;
@@ -37,6 +38,7 @@ export class TextTool implements ITool {
         this.text.setTextAlign(this.textAlign);
         this.text.setFontStyle(this.fontStyle);
         this.text.setFontWeight(this.fontWeigth);
+        this.text.setPrimary(this.paletteService.getPrimary());
         this.element = this.text;
         return new CmdSVG(this.element);
     }
