@@ -198,6 +198,7 @@ export class ColorButtonComponent implements OnInit {
 
     hideForm(): void {
         this.isShowForm = false;
+        this.open.emit(this.isShowForm);
     }
 
     setColor() {
