@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { DrawAreaService } from './../../../services/draw-area/draw-area.service';
+import { saveFile } from 'src/utils/filesystem';
 
 @Component({
     selector: 'app-save-option',
@@ -17,6 +18,7 @@ export class SaveOptionComponent implements OnInit {
     selectable: boolean;
     removable: boolean;
     addOnBlur: boolean;
+    isLocal: boolean;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     tags: string[];
@@ -36,6 +38,7 @@ export class SaveOptionComponent implements OnInit {
         this.addOnBlur = true;
         this.tags = [];
         this.createForm();
+        this.isLocal = true;
     }
 
     private createForm(): void {
@@ -94,10 +97,18 @@ export class SaveOptionComponent implements OnInit {
             const drawing: Drawing = this.workZoneService.getAsDrawing();
 
             drawing._id = null;
-            drawing.name = this.saveForm.controls.name.value,
-            drawing.tags = this.saveForm.controls.tags.value,
+            drawing.name = this.saveForm.controls.name.value;
+            drawing.tags = this.saveForm.controls.tags.value;
 
-            this.drawAreaService.upload(drawing);
+            if (this.isLocal) {
+                saveFile(this.saveForm.controls.name.value, JSON.stringify(drawing));
+            } else {
+                this.drawAreaService.upload(drawing);
+            }
         }
+    }
+
+    toggleLocal() {
+        this.isLocal = !this.isLocal;
     }
 }

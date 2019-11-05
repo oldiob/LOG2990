@@ -1,27 +1,35 @@
 <div class="header">Save</div>
 
 <div class="save-wrapper">
+    <label class="switch">
+        save localy lol
+        <input type="checkbox" [(ngModel)]="isLocal" (change)="toggleLocal()">
+        <span class="toggler round"></span>
+    </label>
     <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="name" color="accent">
             <input matInput placeholder="Name" formControlName="name">
             <mat-error *ngIf="saveForm.invalid">{{getNameErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <mat-form-field class="tags" color="accent">
-            <mat-chip-list #chipList aria-label="Tag selection">
-                <mat-chip class="tag" *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                    (removed)="remove(tag)">
-                    {{tag}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
+        <div *ngIf="!isLocal">
+            <mat-form-field class="tags" color="accent">
+                <mat-chip-list #chipList aria-label="Tag selection">
+                    <mat-chip class="tag" *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(tag)">
+                        {{tag}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
 
-                <input placeholder="New tag..." [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)">
+                    <input placeholder="New tag..." [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
                 </mat-chip-list>
                 <mat-error *ngIf="!areFieldsValid()">{{getTagsErrorMessage()}}</mat-error>
-        </mat-form-field>
-        
+            </mat-form-field>
+
+        </div>
+
         <div class="error" *ngIf="!areFieldsValid()">
             Invalid tag(s).
         </div>
