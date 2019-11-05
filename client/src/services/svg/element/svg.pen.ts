@@ -8,39 +8,32 @@ export class SVGPen implements SVGInterface {
     cursor: number[];
     width = 5;
     element: any;
-    polyline: any;
     line: any;
     circle: any;
     minWidth: number;
     maxWidth: number;
+    color: string;
+    firstPoint: number[];
 
-    lineStack: any[][] = [];
+    latestPoint: number[];
 
     constructor(x: number, y: number) {
         this.cursor = [x, y];
-        this.anchors.push(this.cursor);
-        this.polyline = DOMRenderer.createElement('polyline', 'svg');
-        DOMRenderer.setAttribute(this.polyline, 'fill', 'none');
-        this.line = DOMRenderer.createElement('line', 'svg');
-        DOMRenderer.setAttribute(this.line, 'fill', 'none');
-        DOMRenderer.setAttribute(this.line, 'stroke', '4');
+        this.anchors.push([x, y]);
+        this.firstPoint = [x, y];
+        this.latestPoint = [x, y];
         this.element = DOMRenderer.createElement('g', 'svg');
-        DOMRenderer.setAttribute(this.polyline, 'stroke', '4');
-        DOMRenderer.appendChild(this.element, this.polyline);
-        DOMRenderer.appendChild(this.element, this.line);
 
-        this.addLine();
     }
 
     private addLine(): void {
-        const currentPoint = this.anchors[this.anchors.length - 1];
-        let lastPoint = this.anchors[this.anchors.length - 1];
-        if (!lastPoint) {
-            lastPoint = this.cursor;
+
+        if (this.latestPoint === this.cursor) {
+            return;
         }
 
-        const distance = Math.sqrt(Math.pow(Math.abs(currentPoint[0] - lastPoint[0]), 2) +
-            Math.pow(Math.abs(currentPoint[1] - lastPoint[1]), 2));
+        const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
+            Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
         this.width = this.minWidth + this.maxWidth * ( 1 / (distance / 1));
         if (this.width > this.maxWidth) {
@@ -48,31 +41,19 @@ export class SVGPen implements SVGInterface {
         } else if (this.width < this.minWidth) {
             this.width = this.minWidth;
         }
-
-        let tempLine: any;
-
-        tempLine = DOMRenderer.createElement('line', 'svg');
-        DOMRenderer.setAttribute(tempLine, 'fill', 'none');
-        DOMRenderer.setAttribute(tempLine, 'stroke', '4');
-        DOMRenderer.setAttribute(tempLine, 'stroke-width', this.width.toString());
-        DOMRenderer.setAttribute(this.line, 'x1', `${lastPoint[0]}`);
-        DOMRenderer.setAttribute(this.line, 'y1', `${lastPoint[1]}`);
-        DOMRenderer.setAttribute(this.line, 'x2', `${currentPoint[0]}`);
-        DOMRenderer.setAttribute(this.line, 'y2', `${currentPoint[1]}`);
-        DOMRenderer.appendChild(this.element, tempLine);
-        this.lineStack.push(tempLine);
-        /*for (let i = 0; i < this.lineStack.length; i++) {
-            DOMRenderer.appendChild(this.element, this.lineStack[i]);
-        }*/
-        /*this.setWidth(this.width);
-        DOMRenderer.setAttribute(this.polyline,
-            'points',
-            this.anchors.map((point: number[]) => `${point[0]},${point[1]}`).join(' '));*/
+        const line = DOMRenderer.createElement('line', 'svg');
+        DOMRenderer.setAttribute(line, 'stroke', this.color);
+        DOMRenderer.setAttribute(line, 'stroke-width', this.width.toString());
+        DOMRenderer.setAttribute(line, 'x1', `${this.latestPoint[0]}`);
+        DOMRenderer.setAttribute(line, 'y1', `${this.latestPoint[1]}`);
+        DOMRenderer.setAttribute(line, 'x2', `${this.cursor[0]}`);
+        DOMRenderer.setAttribute(line, 'y2', `${this.cursor[1]}`);
+        DOMRenderer.appendChild(this.element, line);
+        this.latestPoint = this.cursor;
     }
 
     setWidth(width: number) {
         this.width = width;
-        DOMRenderer.setAttribute(this.polyline, 'stroke-width', width.toString());
         DOMRenderer.setAttribute(this.line, 'stroke-width', width.toString());
     }
 
@@ -96,12 +77,9 @@ export class SVGPen implements SVGInterface {
 
     setPrimary(color: string) {
         for (const child of this.element.children) {
-            if (child.nodeName === 'circle') {
                 DOMRenderer.setAttribute(child, 'fill', color);
-            } else {
-                DOMRenderer.setAttribute(child, 'stroke', color);
-            }
         }
+        this.color = color;
     }
 
     setSecondary(color: string) {
