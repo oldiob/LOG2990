@@ -19,17 +19,17 @@
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                     (matChipInputTokenEnd)="add($event)">
                 </mat-chip-list>
-                <mat-error *ngIf="!isValidTags">{{getTagsErrorMessage()}}</mat-error>
+                <mat-error *ngIf="!areFieldsValid()">{{getTagsErrorMessage()}}</mat-error>
         </mat-form-field>
         
-        <div class="error" *ngIf="!isValidTags">
+        <div class="error" *ngIf="!areFieldsValid()">
             Invalid tag(s).
         </div>
 
         <div class="button-wrapper">
             <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
             <button color="primary" mat-raised-button mat-dialog-close type="submit"
-                [disabled]="!isValidTags || !saveForm.valid">Save</button>
+                [disabled]="!areFieldsValid() || !saveForm.valid">Save</button>
         </div>
     </form>
 </div>
