@@ -50,7 +50,7 @@ export class SVGText implements SVGInterface {
         throw new Error('Method not implemented.');
     }
     setPrimary(color: string): void {
-        throw new Error('Method not implemented.');
+        DOMRenderer.setAttribute(this.element, 'fill', color);
     }
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
