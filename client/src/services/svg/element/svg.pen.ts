@@ -112,9 +112,4 @@ export class SVGPen implements SVGInterface {
         this.anchors.push([x, y]);
         this.addLine();
     }
-
-    popAnchor(): void {
-        this.anchors.pop();
-        this.addLine();
-    }
 }
