@@ -33,6 +33,21 @@
     [class.selected-tool]="isItalic">
       <img class="tool-icon" src="../../../assets/images/italic.png">
     </div>
+    <div class="button"
+    (click)="selectTextAlign('start')"
+    [class.selected-tool]="isAlignLeft">
+      <img class="tool-icon" src="../../../assets/images/left.png">
+    </div>
+    <div class="button"
+    (click)="selectTextAlign('middle')"
+    [class.selected-tool]="isAlignCenter">
+      <img class="tool-icon" src="../../../assets/images/center.png">
+    </div>
+    <div class="button"
+    (click)="selectTextAlign('end')"
+    [class.selected-tool]="isAlignRight">
+      <img class="tool-icon" src="../../../assets/images/right.png">
+    </div>
 </div>
 
   <div class="separation">
