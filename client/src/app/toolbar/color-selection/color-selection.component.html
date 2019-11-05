@@ -20,5 +20,6 @@
         (click)="onSwap()">
         <img src="../../../assets/images/swap.svg" alt="swap">
     </div>
-
 </div>
+
+<div class="background" *ngIf="isOpenPrimary || isOpenSecondary" (click)="close()"></div>
