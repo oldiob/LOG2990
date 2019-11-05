@@ -132,7 +132,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
     private loadOnDrawArea(drawing: Drawing) {
         if (this.drawAreaService.isSaved) {
-            this.workZoneService.setLoadedDrawing(drawing);
+            this.workZoneService.setFromDrawing(drawing);
             this.drawAreaService.save();
         }
     }

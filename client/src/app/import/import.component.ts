@@ -73,7 +73,7 @@ export class ImportComponent implements OnInit {
         this.checkButton();
         const res: Drawing = JSON.parse(this.reader.result as string);
         Object.setPrototypeOf(res, Drawing.prototype);
-        this.workZoneService.setLoadedDrawing(res);
+        this.workZoneService.setFromDrawing(res);
         this.close(new MouseEvent('click'));
     }
 

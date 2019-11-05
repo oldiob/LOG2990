@@ -54,7 +54,7 @@ describe('WorkZoneComponent', () => {
 const updateDimensions = (component: WorkZoneComponent, workZoneService: WorkZoneService) => {
   const width = component.workZone.nativeElement.offsetWidth;
   const height = component.workZone.nativeElement.offsetHeight;
-  workZoneService.updateInitialDimensions(width, height);
+  workZoneService.updateDimensions(width, height);
   workZoneService.currentMaxWidth.subscribe((currentWidth) => {
     expect(currentWidth).toBe(width);
   });

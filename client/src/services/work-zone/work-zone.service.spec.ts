@@ -48,7 +48,7 @@ describe('WorkZoneService', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({});
             service = TestBed.get(WorkZoneService);
-            service.updateInitialDimensions(WIDTH, HEIGHT);
+            service.updateMaxDimensions(WIDTH, HEIGHT);
         });
 
         it('should update draw area width', () => {
@@ -94,7 +94,7 @@ describe('WorkZoneService', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({});
             service = TestBed.get(WorkZoneService);
-            service.updateInitialDimensions(WIDTH, HEIGHT);
+            service.updateMaxDimensions(WIDTH, HEIGHT);
         });
 
         it('should give access to draw area default width', () => {
@@ -106,14 +106,6 @@ describe('WorkZoneService', () => {
         it('should give access to DrawArea default height', () => {
             service.currentMaxHeight.subscribe(
                 (currentMaxHeight) => expect(currentMaxHeight).toBe(HEIGHT),
-            );
-        });
-
-        it('should update the background color correctly', () => {
-            const color = `#${Math.floor(Math.random() * 0xFFFFFFFF).toString(16)}`;
-            service.updateBackgroundColor(color);
-            service.currentBackgroundColor.subscribe(
-                (currentBgColor) => expect(currentBgColor).toEqual(color),
             );
         });
 

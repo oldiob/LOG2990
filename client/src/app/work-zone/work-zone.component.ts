@@ -18,7 +18,7 @@ export class WorkZoneComponent implements OnInit {
     const HEIGHT_OFFSET = 5;
     const maxWidth = this.workZone.nativeElement.offsetWidth - WIDTH_OFFSET;
     const maxHeight = this.workZone.nativeElement.offsetHeight - HEIGHT_OFFSET;
-    this.workZoneService.updateInitialDimensions(maxWidth, maxHeight);
+    this.workZoneService.updateDimensions(maxWidth, maxHeight);
   }
 
   @HostListener('window:resize', ['$event'])
