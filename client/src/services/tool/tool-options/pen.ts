@@ -8,11 +8,15 @@ import { ITool} from './i-tool';
     providedIn: 'root',
 })
 export class PenTool implements ITool {
+    tip: string;
+    width?: number | undefined;
 
     element: SVGPen | null = null;
     minWidth = 0.5;
     maxWidth = 25;
-    constructor(private paletteService: PaletteService) { }
+    constructor(private paletteService: PaletteService) {
+        this.tip = 'Pen (?)';
+     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         if (this.element) {
