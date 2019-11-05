@@ -6,6 +6,11 @@ export class SVGText implements SVGInterface {
     ITALIC = 'italic';
     BOLD = 'bold';
     element: any;
+    currentSubElement: any;
+    previousSubElement: any;
+    isLastSubElement: true;
+    subElements: any = [];
+    currentX: string;
 
     fontSize: string;
     fontStyle: string;
@@ -23,6 +28,16 @@ export class SVGText implements SVGInterface {
         this.fontTextAlign = textAlign;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
+        this.currentX = x.toString();
+
+        this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
+        DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
+        DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
+        this.subElements.push(this.currentSubElement);
+        DOMRenderer.appendChild(this.element, this.currentSubElement);
+        // this.currentSubElement.innerHTML = 'abs';
+        // DOMRenderer.setAttribute(this.element, 'white-space', 'pre-wrap');
+        // DOMRenderer.setAttribute(this.element, 'style', 'white-space: pre-wrap;');
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
@@ -64,6 +79,13 @@ export class SVGText implements SVGInterface {
     }
 
     setLineBreak(): void {
-        DOMRenderer.setAttribute(this.element, 'dy', '1.2em');
+        this.previousSubElement = this.currentSubElement;
+        this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
+        DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
+        DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
+        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', 'start');
+        this.subElements.push(this.currentSubElement);
+        DOMRenderer.appendChild(this.element, this.currentSubElement);
+
     }
 }
