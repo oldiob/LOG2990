@@ -46,10 +46,6 @@ export class SVGPen implements SVGInterface {
         DOMRenderer.setAttribute(line, 'stroke-width', this.width.toString());
         DOMRenderer.setAttribute(line, 'stroke-linecap', 'round');
         DOMRenderer.setAttribute(line, 'stroke-linejoin', 'round');
-        /*DOMRenderer.setAttribute(line, 'x1', `${this.latestPoint[0]}`);
-        DOMRenderer.setAttribute(line, 'y1', `${this.latestPoint[1]}`);
-        DOMRenderer.setAttribute(line, 'x2', `${this.cursor[0]}`);
-        DOMRenderer.setAttribute(line, 'y2', `${this.cursor[1]}`);*/
         DOMRenderer.setAttribute(line,
             'points',
              `${this.latestPoint[0]},${this.latestPoint[1]},${this.cursor[0]},${this.cursor[1]}`);
