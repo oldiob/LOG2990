@@ -27,20 +27,14 @@ export class SVGPen implements SVGInterface {
     }
 
     private addLine(): void {
-
-        if (this.latestPoint === this.cursor) {
-            return;
-        }
-
         const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
             Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
         this.width = this.minWidth + this.maxWidth * ( 3 / (distance / 1));
         if (this.width > this.maxWidth) {
             this.width = this.maxWidth;
-        } else if (this.width < this.minWidth) {
-            this.width = this.minWidth;
         }
+
         const line = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(line, 'stroke', this.color);
         DOMRenderer.setAttribute(line, 'stroke-width', this.width.toString());
