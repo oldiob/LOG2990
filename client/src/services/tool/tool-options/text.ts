@@ -73,6 +73,9 @@ export class TextTool implements ITool {
                 func();
             } else {
                 current += event.key;
+                if (this.paletteService.swap) {
+                    this.text.setPrimary(this.paletteService.getPrimary());
+                }
                 this.element.currentSubElement.innerHTML = current;
             }
             //
@@ -86,31 +89,35 @@ export class TextTool implements ITool {
             this.element.setFontSize(size);
         }
     }
+
     setFontStyle(style: string): void {
         this.fontStyle = style;
         if (this.element != null) {
             this.element.setFontStyle(style);
         }
     }
+
     setFontWeight(weight: string): void {
-        console.log('bolded');
-        this.fontWeigth = weight;
-        if (this.element != null) {
+      this.fontWeigth = weight;
+      if (this.element != null) {
             this.element.setFontWeight(weight);
         }
     }
+
     setFont(font: string): void {
         this.fontFamily = font;
         if (this.element != null) {
             this.element.setFontFamily(font);
         }
     }
+
     setTextAlign(align: string): void {
         this.textAlign = align;
         if (this.element != null) {
             this.element.setTextAlign(align);
         }
     }
+
     finishEdit(): void {
         this.isEditing = false;
         this.keyService.setIsBlocking(false);
@@ -119,9 +126,10 @@ export class TextTool implements ITool {
     startEdit(): void {
       this.isEditing = true;
     }
-    // onShowcase(x: number, y: number): SVGStamp | null {
-    //     const previousElement = this.element;
 
+    // onShowcase(x: number, y: number): SVGText | null {
+
+    //     const previousElement = this.element;
     //     const mouseEvent: MouseEvent = new MouseEvent('', undefined);
     //     mouseEvent.svgX = x / 2.0;
     //     mouseEvent.svgY = y / 2.0;
