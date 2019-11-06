@@ -7,7 +7,7 @@
       matTooltip="{{option.tip}}"
       matTooltipClass="tooltip"
       matTooltipPosition="right">
-      <img class="toolbar-icon" [src]="getImage(option)" alt="icon">
+      <img class="toolbar-icon" [src]="getImage(option)" alt="icon" (click)="disableCurrentText(option)">
     </div>
     <div class="button" [ngClass]="{'disable': isEmptyUndos}" (click)="undo()"
       matTooltip="Undo (Ctrl + Z)"
@@ -24,7 +24,7 @@
   </div>
 
   <div class="options">
-    <div class="button" (click)="newDrawingOption()" 
+    <div class="button" (click)="newDrawingOption()"
       matTooltip="New Drawing (Ctrl + O)"
       matTooltipClass="tooltip"
       matTooltipPosition="right">

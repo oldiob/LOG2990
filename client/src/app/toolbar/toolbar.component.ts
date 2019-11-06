@@ -152,6 +152,11 @@ export class ToolbarComponent implements OnInit {
         return keys;
     }
 
+    disableCurrentText(option: IOption<any>) {
+        this.keyService.setIsDisableText(true);
+        this.keyService.setIsBlocking(false);
+    }
+
     @HostListener('window: keydown', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
         const keys: string = this.getComposedKey(event);

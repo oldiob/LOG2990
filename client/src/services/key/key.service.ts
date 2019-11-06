@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class KeyService {
   private isBlocking = false;
+  private isDisableText = false;
   constructor() {
     //
    }
@@ -15,5 +16,13 @@ export class KeyService {
 
   setIsBlocking(isBlocking: boolean) {
       this.isBlocking = isBlocking;
+  }
+
+  getIsDisableText() {
+      return this.isDisableText;
+  }
+
+  setIsDisableText(isDisableText: boolean) {
+      this.isDisableText = isDisableText;
   }
 }
