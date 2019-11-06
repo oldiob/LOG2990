@@ -80,6 +80,10 @@ export class SVGText implements SVGInterface {
             DOMRenderer.setAttribute(subElement, 'text-anchor', align);
         }
     }
+    setCurrentPlaceholder() {
+        DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
+        this.currentSubElement.innerHTML = 'i';
+    }
 
     setLineBreak(): void {
         this.previousSubElement = this.currentSubElement;
