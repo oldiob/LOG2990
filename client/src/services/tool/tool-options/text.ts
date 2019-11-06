@@ -23,7 +23,7 @@ export class TextTool implements ITool {
     width: number;
     text: SVGText;
 
-    isEditing = false;
+    isEditing: boolean;
 
     constructor(private keyService: KeyService, private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
@@ -32,6 +32,7 @@ export class TextTool implements ITool {
         this.fontFamily = this.EMPTYSTRING;
         this.textAlign = this.EMPTYSTRING;
         this.fontSize = this.INITIALSIZE;
+        this.isEditing = false;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
@@ -41,8 +42,7 @@ export class TextTool implements ITool {
         }
         if (!this.element) {
             this.startEdit();
-            this.text = new SVGText(this.keyService, event.svgX, event.svgY,
-                this.fontSize, this.fontStyle, this.fontWeigth, this.fontFamily, this.textAlign);
+            this.text = new SVGText(this.keyService, event.svgX, event.svgY);
             this.text.setFontFamily(this.fontFamily);
             this.text.setFontSize(this.fontSize);
             this.text.setTextAlign(this.textAlign);
@@ -88,6 +88,7 @@ export class TextTool implements ITool {
                 func();
             } else {
                 current += event.key;
+                // à changer pour un observable
                 if (this.paletteService.swap) {
                     this.text.setPrimary(this.paletteService.getPrimary());
                 }
@@ -143,7 +144,7 @@ export class TextTool implements ITool {
         this.keyService.setIsBlocking(true);
     }
     isLineEmpty(content: string): boolean {
-        if (content === '') {
+        if (content === this.EMPTYSTRING) {
             return true;
         }
         return false;

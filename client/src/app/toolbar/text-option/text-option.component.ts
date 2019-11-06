@@ -18,6 +18,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     BOLD = 'bold';
     NORMAL = 'normal';
     ITALIC = 'italic';
+    ALIGNLEFT = 'start';
+    ALIGNCENTER = 'middle';
+    ALIGNRIGHT = 'end';
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
@@ -99,11 +102,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     selectTextAlign(textAlign: string): void {
         this.disableAlign();
-        if (textAlign === 'start') {
+        if (textAlign === this.ALIGNLEFT) {
             this.isAlignLeft = true;
-        } else if (textAlign === 'middle') {
+        } else if (textAlign === this.ALIGNCENTER) {
             this.isAlignCenter = true;
-        } else if (textAlign === 'end') {
+        } else if (textAlign === this.ALIGNRIGHT) {
             this.isAlignRight = true;
         }
         this.text.setTextAlign(textAlign);
