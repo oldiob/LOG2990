@@ -1,3 +1,4 @@
+import { KeyService } from 'src/services/key/key.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
@@ -18,7 +19,9 @@ export class SVGText implements SVGInterface {
     fontFamily: string;
     fontTextAlign = 'left';
 
-    constructor(x: number, y: number, fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
+    constructor(keyService: KeyService, x: number, y: number,
+                fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
+        keyService.setIsBlocking(true);
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
         this.fontSize = fontSize;
