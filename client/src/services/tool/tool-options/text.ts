@@ -3,7 +3,7 @@ import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { ITool } from './i-tool';
-
+import { KeyService } from 'src/services/key/key.service';
 declare type callback = () => void;
 @Injectable({
     providedIn: 'root',
@@ -22,7 +22,10 @@ export class TextTool implements ITool {
     textAlign: string;
     width: number;
     text: SVGText;
-    constructor(private paletteService: PaletteService) {
+
+    isEditing = false;
+
+    constructor(private keyService: KeyService, private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
         this.fontSize = this.EMPTYSTRING;
         this.fontStyle = this.EMPTYSTRING;
@@ -32,15 +35,22 @@ export class TextTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        this.text = new SVGText(event.svgX, event.svgY, this.fontSize, this.fontStyle, this.fontWeigth, this.fontFamily, this.textAlign);
-        this.text.setFontFamily(this.fontFamily);
-        this.text.setFontSize(this.fontSize);
-        this.text.setTextAlign(this.textAlign);
-        this.text.setFontStyle(this.fontStyle);
-        this.text.setFontWeight(this.fontWeigth);
-        this.text.setPrimary(this.paletteService.getPrimary());
-        this.element = this.text;
-        return new CmdSVG(this.element);
+        if (!this.isEditing) {
+            this.startEdit();
+            this.text = new SVGText(this.keyService, event.svgX, event.svgY,
+                this.fontSize, this.fontStyle, this.fontWeigth, this.fontFamily, this.textAlign);
+            this.text.setFontFamily(this.fontFamily);
+            this.text.setFontSize(this.fontSize);
+            this.text.setTextAlign(this.textAlign);
+            this.text.setFontStyle(this.fontStyle);
+            this.text.setFontWeight(this.fontWeigth);
+            this.text.setPrimary(this.paletteService.getPrimary());
+            this.element = this.text;
+            return new CmdSVG(this.element);
+        } else if (this.isEditing) {
+            this.finishEdit();
+        }
+        return null;
     }
 
     onMotion(event: MouseEvent): void {
@@ -83,9 +93,9 @@ export class TextTool implements ITool {
         }
     }
     setFontWeight(weight: string): void {
-      console.log('bolded');
-      this.fontWeigth = weight;
-      if (this.element != null) {
+        console.log('bolded');
+        this.fontWeigth = weight;
+        if (this.element != null) {
             this.element.setFontWeight(weight);
         }
     }
@@ -102,7 +112,12 @@ export class TextTool implements ITool {
         }
     }
     finishEdit(): void {
+        this.isEditing = false;
+        this.keyService.setIsBlocking(false);
         this.element = null;
+    }
+    startEdit(): void {
+      this.isEditing = true;
     }
     // onShowcase(x: number, y: number): SVGStamp | null {
     //     const previousElement = this.element;
