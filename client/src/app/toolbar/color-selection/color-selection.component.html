@@ -1,17 +1,17 @@
 <div class="buttons-wrapper">
     <div class="colors-wrapper">
-        <app-color-button 
+        <app-palette-button 
             class="primary"
             [isPrimary]="IS_PRIMARY"
             [isShowForm]="isOpenPrimary"
             (open)="onOpen($event, IS_PRIMARY)">
-        </app-color-button>
-        <app-color-button
+        </app-palette-button>
+        <app-palette-button
             class="secondary"
             [isPrimary]="!IS_PRIMARY"
             [isShowForm]="isOpenSecondary"
             (open)="onOpen($event, !IS_PRIMARY)">
-        </app-color-button>
+        </app-palette-button>
     </div>
     <div class="swap"
         matTooltip="Swap Colors"

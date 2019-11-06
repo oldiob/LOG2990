@@ -1,28 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
-import { ColorButtonComponent } from './color-button.component';
+import { PaletteButtonComponent } from './palette-button.component';
 
-describe('ColorButtonComponent', () => {
-    let component: ColorButtonComponent;
-    let fixture: ComponentFixture<ColorButtonComponent>;
+describe('PaletteButtonComponent', () => {
+    let component: PaletteButtonComponent;
+    let fixture: ComponentFixture<PaletteButtonComponent>;
     let service: PaletteService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule],
-            declarations: [ColorButtonComponent],
-            providers: [PaletteService],
-            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+            declarations: [PaletteButtonComponent],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ColorButtonComponent);
+        fixture = TestBed.createComponent(PaletteButtonComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
         service = TestBed.get(PaletteService);
@@ -102,25 +97,21 @@ describe('ColorButtonComponent', () => {
     });
 
     it('#onMouseUp should update palette, hide Form and update color history', () => {
-        spyOn(component, 'updatePalette');
         spyOn(component, 'hideForm');
 
         component.onMouseUp();
 
-        expect(component.updatePalette).toHaveBeenCalled();
         expect(component.hideForm).toHaveBeenCalled();
         expect(component.colorsHistory).toEqual(service.getHistory());
     });
 
     it('#onOldColor should pick color, update palette and hide form', () => {
         spyOn(component, 'onColorPick');
-        spyOn(component, 'updatePalette');
         spyOn(component, 'hideForm');
         const color = new Color(255, 255, 255, 1);
         component.onOldColor(color);
 
         expect(component.onColorPick).toHaveBeenCalled();
-        expect(component.updatePalette).toHaveBeenCalled();
         expect(component.hideForm).toHaveBeenCalled();
     });
 
@@ -140,5 +131,4 @@ describe('ColorButtonComponent', () => {
         component.hideForm();
         expect(component.isShowForm).toBeFalsy();
     });
-
 });

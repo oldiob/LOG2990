@@ -26,8 +26,9 @@ import { NewDrawingComponent } from './app/popups/new-drawing/new-drawing.compon
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
-import { ColorButtonComponent } from './app/toolbar/color-selection/color-button/color-button.component';
+import { BackgroundButtonComponent } from './app/toolbar/color-selection/background-button/background-button.component';
 import { ColorSelectionComponent } from './app/toolbar/color-selection/color-selection.component';
+import { PaletteButtonComponent } from './app/toolbar/color-selection/palette-button/palette-button.component';
 import { ExportOptionComponent } from './app/toolbar/export-option/export-option.component';
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
@@ -46,7 +47,6 @@ import { DOMRenderer } from './utils/dom-renderer';
 
 @NgModule({
     declarations: [
-        ColorButtonComponent,
         DrawAreaComponent,
         EntryPointComponent,
         NewDrawingComponent,
@@ -71,8 +71,8 @@ import { DOMRenderer } from './utils/dom-renderer';
         TextOptionComponent,
         ColorSelectionComponent,
         ConfirmationComponent,
-        ImportOptionComponent,
-        ExportOptionComponent,
+        PaletteButtonComponent,
+        BackgroundButtonComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,14 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 
-@Component({
-    selector: 'app-color-button',
-    templateUrl: './color-button.component.html',
-    styleUrls: ['./color-button.component.scss'],
-})
-export class ColorButtonComponent implements OnInit {
+@Injectable()
+export abstract class AbsColorButton {
 
     tip: string;
     alpha: number;
@@ -25,54 +21,24 @@ export class ColorButtonComponent implements OnInit {
     hex: string;
 
     @Input() isShowForm: boolean;
-    @Input() isPrimary: boolean;
     @Output() open = new EventEmitter<boolean>();
 
     constructor(
-        private paletteService: PaletteService,
-        private formBuilder: FormBuilder) {
+        protected paletteService: PaletteService,
+        protected formBuilder: FormBuilder) {
     }
 
-    ngOnInit(): void {
-        this.isShowForm = false;
-        this.setupColors();
-        this.createForm();
-        this.setTip();
-    }
+    protected abstract setTip(): void;
 
-    private setTip() {
-        if (this.isPrimary) {
-            this.tip = 'Primary Color';
-        } else {
-            this.tip = 'Secondary Color';
-        }
-    }
+    protected abstract setupColors(): void;
 
-    private setupColors() {
-        if (this.isPrimary) {
-            this.r = this.paletteService.primary.red;
-            this.g = this.paletteService.primary.green;
-            this.b = this.paletteService.primary.blue;
-            this.a = this.paletteService.primary.alpha;
-            this.hex =
-                '#' +
-                `${this.convertToHEX(this.r)}` +
-                `${this.convertToHEX(this.g)}` +
-                `${this.convertToHEX(this.b)}`;
-        } else {
-            this.r = this.paletteService.secondary.red;
-            this.g = this.paletteService.secondary.green;
-            this.b = this.paletteService.secondary.blue;
-            this.a = this.paletteService.secondary.alpha;
-            this.hex =
-                '#' +
-                `${this.convertToHEX(this.r)}` +
-                `${this.convertToHEX(this.g)}` +
-                `${this.convertToHEX(this.b)}`;
-        }
-    }
+    protected abstract applyColor(): void;
 
-    private createForm(): void {
+    protected abstract onAlphaChange(): void;
+
+    protected abstract setColor(): {};
+
+    protected createForm(): void {
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
         this.colorsForm = this.formBuilder.group({
             red: [this.r, rgbaValidators],
@@ -93,33 +59,15 @@ export class ColorButtonComponent implements OnInit {
     }
 
     onMouseUp() {
-        this.updatePalette();
+        this.applyColor();
         this.hideForm();
         this.colorsHistory = this.paletteService.getHistory();
     }
 
     onOldColor(color: Color) {
         this.onColorPick(color);
-        this.updatePalette();
+        this.applyColor();
         this.hideForm();
-    }
-
-    updatePalette(): void {
-        if (this.isPrimary) {
-            this.paletteService.selectPrimary(
-                this.currentColor.red,
-                this.currentColor.green,
-                this.currentColor.blue,
-                this.currentColor.alpha,
-            );
-        } else {
-            this.paletteService.selectSecondary(
-                this.currentColor.red,
-                this.currentColor.green,
-                this.currentColor.blue,
-                this.currentColor.alpha,
-            );
-        }
     }
 
     onColorHEXChange(): void {
@@ -163,31 +111,12 @@ export class ColorButtonComponent implements OnInit {
         this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: ALPHA };
     }
 
-    private convertToHEX(rgb: number): string {
+    protected convertToHEX(rgb: number): string {
         let hexString = rgb.toString(16).toUpperCase();
         if (hexString.length < 2) {
             hexString = '0' + hexString;
         }
         return hexString;
-    }
-
-    onAlphaChange(): void {
-        if (this.isPrimary) {
-            this.currentColor = {
-                red: this.paletteService.primary.red,
-                green: this.paletteService.primary.green,
-                blue: this.paletteService.primary.blue,
-                alpha: this.colorsForm.controls.alpha.value,
-            };
-        } else {
-            this.currentColor = {
-                red: this.paletteService.secondary.red,
-                green: this.paletteService.secondary.green,
-                blue: this.paletteService.secondary.blue,
-                alpha: this.colorsForm.controls.alpha.value,
-            };
-        }
-        this.updatePalette();
     }
 
     toggleForm(): void {
@@ -199,19 +128,5 @@ export class ColorButtonComponent implements OnInit {
     hideForm(): void {
         this.isShowForm = false;
         this.open.emit(this.isShowForm);
-    }
-
-    setColor() {
-        let style = {};
-        if (this.isPrimary) {
-            style = {
-                'background-color': `${this.paletteService.getPrimary()}`,
-            };
-        } else {
-            style = {
-                'background-color': `${this.paletteService.getSecondary()}`,
-            };
-        }
-        return style;
     }
 }
