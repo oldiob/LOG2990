@@ -7,12 +7,42 @@
 }
 
 .swap {
-  --length: 50px;
-  height: var(--length);
-  width: var(--length);
+  position: absolute;
   align-self: center;
+  transform: translate(-35px, 30px) rotate(90deg);
 }
 
 .swap:hover {
   cursor: pointer;
+}
+
+.colors-wrapper {
+  position: relative;
+  height: 75px;
+  width: 75px;
+}
+
+.primary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+}
+
+.secondary {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  z-index: 3;
+}
+
+.background {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-9%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
 }
