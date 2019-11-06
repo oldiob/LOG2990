@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { KeyService } from 'src/services/key/key.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { ITool } from './i-tool';
-import { KeyService } from 'src/services/key/key.service';
 declare type callback = () => void;
 @Injectable({
     providedIn: 'root',
