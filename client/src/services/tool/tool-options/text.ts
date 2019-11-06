@@ -36,8 +36,8 @@ export class TextTool implements ITool {
 
     onPressed(event: MouseEvent): CmdSVG | null {
         if (this.keyService.getIsDisableText()) {
-          this.finishEdit();
-          this.keyService.setIsDisableText(false);
+            this.finishEdit();
+            this.keyService.setIsDisableText(false);
         }
         if (!this.element) {
             this.startEdit();
@@ -66,19 +66,22 @@ export class TextTool implements ITool {
 
     onKeydown(event: KeyboardEvent): boolean {
         if (this.keyService.getIsDisableText()) {
-          this.finishEdit();
-          this.keyService.setIsDisableText(false);
+            this.finishEdit();
+            this.keyService.setIsDisableText(false);
         }
         let current = this.EMPTYSTRING;
         if (this.element != null) {
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
                 Backspace: () => { if (this.element) { current = current.substring(0, current.length - 1); } },
-                Enter: () => { if (this.element) {
-                  if (this.isLineEmpty(current)) {
-                    this.text.setCurrentPlaceholder();
-                  }
-                  this.text.setLineBreak(); } },
+                Enter: () => {
+                    if (this.element) {
+                        if (this.isLineEmpty(current)) {
+                            this.text.setCurrentPlaceholder();
+                        }
+                        this.text.setLineBreak();
+                    }
+                },
             };
             if (event.key in actions) {
                 const func: callback = actions[event.key];
@@ -110,9 +113,8 @@ export class TextTool implements ITool {
     }
 
     setFontWeight(weight: string): void {
-        console.log('bolded');
         this.fontWeigth = weight;
-        if (this.element !== null) {
+        if (this.element != null) {
             this.element.setFontWeight(weight);
         }
     }
@@ -137,8 +139,8 @@ export class TextTool implements ITool {
         this.element = null;
     }
     startEdit(): void {
-      this.isEditing = true;
-      this.keyService.setIsBlocking(true);
+        this.isEditing = true;
+        this.keyService.setIsBlocking(true);
     }
     isLineEmpty(content: string): boolean {
         if (content === '') {

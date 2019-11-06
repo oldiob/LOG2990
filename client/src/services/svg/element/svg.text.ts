@@ -20,7 +20,7 @@ export class SVGText implements SVGInterface {
     fontTextAlign = 'left';
 
     constructor(keyService: KeyService, x: number, y: number,
-                fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
+        fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
         keyService.setIsBlocking(true);
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
