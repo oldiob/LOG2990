@@ -13,9 +13,9 @@ const downloadUrl = (fileName: string, url: string): void => {
 };
 
 export const saveFileSVG = (fileName: string, fileContent: string): any => {
-    const svg = document.createElement('svg');
-    svg.innerHTML = fileContent;
-    const dataBlob: any = new Blob([svg.innerHTML], { type: 'application/octet-stream' });
+    // const svg = document.createElement('svg');
+    // svg.innerHTML = fileContent;
+    const dataBlob: any = new Blob([fileContent], { type: 'application/octet-stream' });
     const url = window.URL.createObjectURL(dataBlob);
     downloadSVG(fileName, url);
 };

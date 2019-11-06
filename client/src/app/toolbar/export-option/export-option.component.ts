@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Drawing } from 'src/services/draw-area/i-drawing';
 import { SVGService } from 'src/services/svg/svg.service';
-import { serializeDrawArea } from 'src/utils/element-parser';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { saveFile, saveFileSVG} from 'src/utils/filesystem';
 import { MyInjector } from 'src/utils/injector';
 
@@ -12,21 +13,23 @@ import { MyInjector } from 'src/utils/injector';
 })
 export class ExportOptionComponent implements OnInit {
 
-    constructor(public dialogRef: MatDialogRef<ExportOptionComponent>) {
+    constructor(public dialogRef: MatDialogRef<ExportOptionComponent>,
+                private workZoneService: WorkZoneService) {
         //
     }
 
     ngOnInit(): void {
        //
     }
+    // à enlever plus tard (same as save)
     saveDraw(): void {
-        const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
-        saveFile('lol_file', fileData);
+        const drawing: Drawing = this.workZoneService.getAsDrawing();
+        saveFile('lol_file', JSON.stringify(drawing));
     }
 
     saveSVG(): void {
-        const fileData = JSON.stringify(serializeDrawArea(MyInjector.get(SVGService)));
-        saveFileSVG('testSVG', fileData);
+        const drawing: Drawing = this.workZoneService.getAsDrawing();
+        saveFileSVG('testSVG', JSON.stringify(drawing));
     }
 
     close(): void {

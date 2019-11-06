@@ -17,7 +17,6 @@ export class ImportOptionComponent implements OnInit {
     enableFile: boolean;
     enable: boolean;
 
-    importImage: HTMLImageElement;
     selectFile: HTMLInputElement;
 
     requiredForm: FormGroup;
@@ -31,7 +30,6 @@ export class ImportOptionComponent implements OnInit {
     ) {
         this.readFile = new FileReader();
         this.enableFile = false;
-        this.importImage = new Image();
     }
 
     protected validationMessages: { 'importImage': { type: string; message: string; }[] } = {
