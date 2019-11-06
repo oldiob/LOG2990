@@ -6,21 +6,17 @@ export class SVGPen implements SVGInterface {
 
     anchors: number[][] = [];
     cursor: number[];
-    width = 5;
+    width: number;
     element: any;
-    line: any;
-    circle: any;
     minWidth: number;
     maxWidth: number;
     color: string;
-    firstPoint: number[];
 
-    latestPoint: number[];
+    private latestPoint: number[];
 
     constructor(x: number, y: number) {
         this.cursor = [x, y];
         this.anchors.push([x, y]);
-        this.firstPoint = [x, y];
         this.latestPoint = [x, y];
         this.element = DOMRenderer.createElement('g', 'svg');
 
@@ -30,7 +26,7 @@ export class SVGPen implements SVGInterface {
         const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
             Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
-        this.width = this.minWidth + this.maxWidth * ( 3 / (distance / 1));
+        this.width = this.minWidth + this.maxWidth * ( 3 / distance);
         if (this.width > this.maxWidth) {
             this.width = this.maxWidth;
         }
@@ -45,11 +41,6 @@ export class SVGPen implements SVGInterface {
              `${this.latestPoint[0]},${this.latestPoint[1]},${this.cursor[0]},${this.cursor[1]}`);
         DOMRenderer.appendChild(this.element, line);
         this.latestPoint = this.cursor;
-    }
-
-    setWidth(width: number) {
-        this.width = width;
-        DOMRenderer.setAttribute(this.line, 'stroke-width', width.toString());
     }
 
     setMinWidth(minWidth: number): void {
