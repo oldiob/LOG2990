@@ -114,6 +114,12 @@ export class TextTool implements ITool {
         }
         return false;
     }
+    isLineEmpty(content: string): boolean {
+        if (content === '') {
+            return true;
+        }
+        return false;
+    }
 
     onShowcase(x: number, y: number): CmdSVG | null {
 
