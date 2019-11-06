@@ -13,22 +13,13 @@ export class SVGText implements SVGInterface {
     subElements: any = [];
     currentX: string;
 
-    fontSize: string;
-    fontStyle: string;
-    fontWeight: string;
-    fontFamily: string;
-    fontTextAlign = 'left';
+    fontTextAlign: string;
 
-    constructor(keyService: KeyService, x: number, y: number,
-        fontSize: string, fontStyle: string, fontWeight: string, fontFamily: string, textAlign: string) {
+    constructor(keyService: KeyService, x: number, y: number) {
+        this.fontTextAlign = this.EMPTYSTRING;
         keyService.setIsBlocking(true);
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
-        this.fontSize = fontSize;
-        this.fontFamily = fontFamily;
-        this.fontStyle = fontStyle;
-        this.fontWeight = fontWeight;
-        this.fontTextAlign = textAlign;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
@@ -59,20 +50,16 @@ export class SVGText implements SVGInterface {
         throw new Error('Method not implemented.');
     }
     setFontSize(size: string): void {
-        this.fontSize = size;
-        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+        DOMRenderer.setAttribute(this.element, 'font-size', size);
     }
     setFontFamily(fontfamliy: string): void {
-        this.fontFamily = fontfamliy;
-        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
+        DOMRenderer.setAttribute(this.element, 'font-family', fontfamliy);
     }
     setFontStyle(style: string): void {
-        this.fontStyle = style;
-        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+        DOMRenderer.setAttribute(this.element, 'font-style', style);
     }
     setFontWeight(weight: string): void {
-        this.fontWeight = weight;
-        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
+        DOMRenderer.setAttribute(this.element, 'font-weight', weight);
     }
     setTextAlign(align: string): void {
         this.fontTextAlign = align;
