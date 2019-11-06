@@ -152,7 +152,7 @@ export class ToolbarComponent implements OnInit {
         return keys;
     }
 
-    disableCurrentText(option: IOption<any>) {
+    disableCurrentText() {
         this.keyService.setIsDisableText(true);
         this.keyService.setIsBlocking(false);
     }
