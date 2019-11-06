@@ -35,7 +35,11 @@ export class TextTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        if (!this.isEditing) {
+        if (this.keyService.getIsDisableText()) {
+          this.finishEdit();
+          this.keyService.setIsDisableText(false);
+        }
+        if (!this.element) {
             this.startEdit();
             this.text = new SVGText(this.keyService, event.svgX, event.svgY,
                 this.fontSize, this.fontStyle, this.fontWeigth, this.fontFamily, this.textAlign);
@@ -47,7 +51,7 @@ export class TextTool implements ITool {
             this.text.setPrimary(this.paletteService.getPrimary());
             this.element = this.text;
             return new CmdSVG(this.element);
-        } else if (this.isEditing) {
+        } else if (this.element) {
             this.finishEdit();
         }
         return null;
@@ -61,8 +65,13 @@ export class TextTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
+        if (this.keyService.getIsDisableText()) {
+          this.finishEdit();
+          this.keyService.setIsDisableText(false);
+        }
         let current = this.EMPTYSTRING;
         if (this.element != null) {
+            console.log('in');
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
                 Backspace: () => { if (this.element) { current = current.substring(0, current.length - 1); } },
@@ -125,6 +134,7 @@ export class TextTool implements ITool {
     }
     startEdit(): void {
       this.isEditing = true;
+      this.keyService.setIsBlocking(true);
     }
 
     // onShowcase(x: number, y: number): SVGText | null {
