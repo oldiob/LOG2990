@@ -168,7 +168,7 @@ export class ToolbarComponent implements OnInit {
         const func: callback | undefined = kbd[keys];
         if (func) {
             event.preventDefault();
-            if (!this.isDialogOpened) {
+            if (!this.isDialogOpened ) {
                 func();
             }
         }
