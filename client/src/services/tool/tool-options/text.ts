@@ -94,7 +94,7 @@ export class TextTool implements ITool {
         }
     }
 
-    setFont(font: string): void {
+    setFontFamily(font: string): void {
         this.fontFamily = font;
         if (this.element != null) {
             this.element.setFontFamily(font);

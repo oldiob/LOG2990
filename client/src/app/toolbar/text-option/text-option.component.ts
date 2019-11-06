@@ -38,19 +38,15 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     isAlignCenter = false;
     isAlignRight = false;
 
-    currentFontSize: string;
     currentFontFamily: string;
-    currentFontStyle: string;
-    currentFontWeight: string;
-    currentTextAlign: string;
+
     fontFamilies: any[];
 
     constructor(private toolService: ToolService, private text: TextTool) {
 
         this.tools = [text];
         this.currentTool = this.tools[0];
-        this.currentFontSize = this.DEFAULT_SIZE;
-        this.currentFontStyle = this.EMPTYSTRING;
+
         this.fontFamilies = [] = [
             { value: 0, fontFamily: 'Arial' },
             { value: 1, fontFamily: 'Times New Roman' },
@@ -88,28 +84,17 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    setWidth(width: number): void {
-        if (this.currentTool.width !== null) {
-            this.currentTool.width = width;
-        }
-    }
-
     selectFontSize(fontSize: string): void {
-        this.currentFontSize = fontSize;
         this.text.setFontSize(fontSize);
-        this.text.fontSize = this.currentFontSize;
     }
 
     selectFontStyle(fontStyle: string): void {
-        this.currentFontStyle = fontStyle;
         this.text.setFontStyle(fontStyle);
-        this.text.fontStyle = this.currentFontStyle;
     }
 
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
-        this.text.setFont(fontFamily);
-        this.text.fontFamily = this.currentFontFamily;
+        this.text.setFontFamily(fontFamily);
     }
 
     selectTextAlign(textAlign: string): void {
@@ -134,12 +119,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.isBold = !this.isBold;
         if (this.isBold) {
             this.text.setFontWeight(this.BOLD);
-            this.currentFontWeight = this.BOLD;
-            this.text.fontWeigth = this.BOLD;
         } else {
             this.text.setFontWeight(this.NORMAL);
-            this.currentFontWeight = this.NORMAL;
-            this.text.fontWeigth = this.NORMAL;
         }
     }
 
@@ -147,12 +128,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.isItalic = !this.isItalic;
         if (this.isItalic) {
             this.text.setFontStyle(this.ITALIC);
-            this.currentFontStyle = this.ITALIC;
-            this.text.fontStyle = this.ITALIC;
         } else {
             this.text.setFontStyle(this.NORMAL);
-            this.currentFontStyle = this.NORMAL;
-            this.text.fontStyle = this.NORMAL;
         }
     }
 }
