@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { KeyService } from 'src/services/key/key.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ImportComponent } from '../import/import.component';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
@@ -14,7 +15,6 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-
 declare type callback = () => void;
 
 @Component({
@@ -52,7 +52,7 @@ export class ToolbarComponent implements OnInit {
     isEmptyUndos: boolean;
     isEmptyRedos: boolean;
 
-    constructor(public dialogService: DialogService) {
+    constructor(public keyService: KeyService, public dialogService: DialogService) {
         this.isDialogOpened = false;
     }
 
@@ -146,7 +146,7 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keydown', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
-        if (this.isDialogOpened) {
+        if (this.isDialogOpened || this.keyService.getIsBlocking()) {
             return;
         }
         const kbd: { [id: string]: callback } = {
@@ -164,7 +164,7 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keyup', ['$event'])
     onKeyUp(event: KeyboardEvent): void {
-        if (this.isDialogOpened) {
+        if (this.isDialogOpened || this.keyService.getIsBlocking()) {
             return;
         }
         const kbd: { [id: string]: callback } = {
