@@ -15,7 +15,7 @@ export class PenTool implements ITool {
     minWidth = 0.5;
     maxWidth = 25;
     constructor(private paletteService: PaletteService) {
-        this.tip = 'Pen (?)';
+        this.tip = 'Pen (Y)';
      }
 
     onPressed(event: MouseEvent): CmdSVG | null {

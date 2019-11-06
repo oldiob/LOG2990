@@ -61,13 +61,6 @@ describe('SVGPen', () => {
         expect(pen.getSecondary()).toEqual(temp);
     });
 
-    it('should set width', () => {
-        const width = Math.random() * 1000;
-        pen.setWidth(width);
-        expect(pen.width).toEqual(width);
-        expect(renderer.setAttribute).toHaveBeenCalled();
-    });
-
     it('should change the max width', () => {
         renderer.setAttribute.calls.reset();
         const width = Math.random() * 1000;
