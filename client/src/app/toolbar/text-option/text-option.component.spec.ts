@@ -26,6 +26,7 @@ describe('TextOptionComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     text = TestBed.get(TextTool);
+    component.currentTool = component.tools[0];
 });
 
   it('should create', () => {
@@ -54,6 +55,27 @@ describe('TextOptionComponent', () => {
   it('should return string to get file source and button image', () => {
     component.getFilesource(text);
     expect(component.getFilesource(text)).toEqual(PATH + BUTTON);
+  });
+
+  // it('should font size equal to 25', () => {
+  //   const fontSize = '25';
+  //   component.currentFontFamily = fontSize;
+  //   component.selectFontSize(fontSize);
+  //   expect(component.currentFontSize).toEqual(fontSize);
+  // });
+
+  it('should font style equal to bold', () => {
+    const fontStyle = component.BOLD;
+    text.setFontStyle(fontStyle);
+    component.selectFontStyle(fontStyle);
+    expect(text.fontStyle).toEqual(fontStyle);
+  });
+
+  it('should font family equal to arial', () => {
+    const fontFamily = component.fontFamilies[0];
+    component.currentFontFamily = fontFamily;
+    component.selectFontFamily(fontFamily);
+    expect(component.currentFontFamily).toEqual(fontFamily);
   });
 
 });
