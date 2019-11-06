@@ -71,11 +71,14 @@ export class TextTool implements ITool {
         }
         let current = this.EMPTYSTRING;
         if (this.element != null) {
-            console.log('in');
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
                 Backspace: () => { if (this.element) { current = current.substring(0, current.length - 1); } },
-                Enter: () => { if (this.element) { this.text.setLineBreak(); } },
+                Enter: () => { if (this.element) {
+                  if (this.isLineEmpty(current)) {
+                    this.text.setCurrentPlaceholder();
+                  }
+                  this.text.setLineBreak(); } },
             };
             if (event.key in actions) {
                 const func: callback = actions[event.key];
@@ -137,6 +140,13 @@ export class TextTool implements ITool {
       this.isEditing = true;
       this.keyService.setIsBlocking(true);
     }
+    isLineEmpty(content: string): boolean {
+        if (content === '') {
+            return true;
+        }
+        return false;
+    }
+
     // onShowcase(x: number, y: number): SVGText | null {
 
     //     const previousElement = this.element;
