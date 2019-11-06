@@ -57,12 +57,11 @@ describe('TextOptionComponent', () => {
     expect(component.getFilesource(text)).toEqual(PATH + BUTTON);
   });
 
-  // it('should font size equal to 25', () => {
-  //   const fontSize = '25';
-  //   component.currentFontFamily = fontSize;
-  //   component.selectFontSize(fontSize);
-  //   expect(component.currentFontSize).toEqual(fontSize);
-  // });
+  it('should font size equal to 15px', () => {
+    const fontSize = '15px';
+    component.selectFontSize(fontSize);
+    expect(text.fontSize).toEqual(fontSize);
+  });
 
   it('should font style equal to bold', () => {
     const fontStyle = component.BOLD;
@@ -76,6 +75,59 @@ describe('TextOptionComponent', () => {
     component.currentFontFamily = fontFamily;
     component.selectFontFamily(fontFamily);
     expect(component.currentFontFamily).toEqual(fontFamily);
+  });
+
+  it('should select text align equal to left', () => {
+    const textAlignLeft = component.ALIGNLEFT;
+    component.selectTextAlign(textAlignLeft);
+    expect(component.isAlignLeft).toBeTruthy();
+  });
+
+  it('should select text align equal to center', () => {
+    const textAlignCenter = component.ALIGNCENTER;
+    component.selectTextAlign(textAlignCenter);
+    expect(component.isAlignCenter).toBeTruthy();
+  });
+
+  it('should select text align equal to right', () => {
+    const textAlignRight = component.ALIGNRIGHT;
+    component.selectTextAlign(textAlignRight);
+    expect(component.isAlignRight).toBeTruthy();
+  });
+
+  it('should disable text align to false', () => {
+    component.disableAlign();
+    expect(component.isAlignLeft).toBeFalsy();
+    expect(component.isAlignCenter).toBeFalsy();
+    expect(component.isAlignRight).toBeFalsy();
+  });
+
+  it('should toggleBold text to bold', () => {
+    const bold = component.BOLD;
+    component.isBold = false;
+    component.toggleBold();
+    expect(text.fontWeigth).toEqual(bold);
+  });
+
+  it('should toggleItalic text to italic ', () => {
+    const italic = component.ITALIC;
+    component.isItalic = false;
+    component.toggleItalic();
+    expect(text.fontStyle).toEqual(italic);
+  });
+
+  it('should toggleBold text to normal', () => {
+    const normal = component.NORMAL;
+    component.isBold = true;
+    component.toggleBold();
+    expect(text.fontWeigth).toEqual(normal);
+  });
+
+  it('should toggleItalic text to normal ', () => {
+    const normal = component.NORMAL;
+    component.isItalic = true;
+    component.toggleItalic();
+    expect(text.fontStyle).toEqual(normal);
   });
 
 });
