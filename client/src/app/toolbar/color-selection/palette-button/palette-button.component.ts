@@ -31,7 +31,7 @@ export class PaletteButtonComponent
     }
 
     protected setupView(): void {
-        this.icon = 'color_lens';
+        this.icon = '';
         this.tip = this.isPrimaryColor ? this.tip = 'Primary Color'
             : this.isSecondaryColor ? this.tip = 'Secondary Color'
                 : '';
