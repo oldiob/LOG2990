@@ -1,14 +1,20 @@
 
-export const saveFile = (fileName: string, fileContent: string): any => {
-    const dataBlob: any = new Blob([fileContent], { type: 'text/plain' });
+export const saveFile = (fileName: string, fileContent: string, extension?: string): any => {
+    console.log(fileContent);
+    const dataBlob: any = new Blob([fileContent], { type: 'application/octet-stream' });
     const url = window.URL.createObjectURL(dataBlob);
-    downloadUrl(fileName, url);
+    downloadUrl(fileName, url, extension);
 };
 
-const downloadUrl = (fileName: string, url: string): void => {
+const downloadUrl = (fileName: string, url: string, extension?: string): void => {
+    let ext = 'rebase';
+    if (extension) {
+        ext = extension;
+    }
+
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${fileName}.rebase`;
+    a.download = `${fileName}.${ext}`;
     a.click();
 };
 
