@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { CmdService } from 'src/services/cmd/cmd.service';
+import { SVGService } from 'src/services/svg/svg.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGLine } from 'src/services/svg/element/svg.line';
 import { ITool, JunctionType, LineType } from './i-tool';
@@ -14,14 +16,16 @@ export class LineTool implements ITool {
     element: SVGLine | null = null;
     readonly tip: string;
     width = 1;
+    cmd: CmdSVG;
     junctionWidth = 12;
     lineType: LineType;
     junctionType: JunctionType;
-    constructor(private paletteService: PaletteService) {
+    constructor(private paletteService: PaletteService,
+        private svgService: SVGService) {
         this.tip = 'Line (L)';
     }
 
-    onPressed(event: MouseEvent): CmdSVG | null {
+    onPressed(event: MouseEvent): null {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
             return null;
@@ -32,7 +36,9 @@ export class LineTool implements ITool {
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
-        return new CmdSVG(this.element);
+        this.cmd = new CmdSVG(this.element);
+        this.svgService.addObject(this.element);
+        return null;
     }
 
     onReleased(event: MouseEvent): void {
@@ -47,8 +53,7 @@ export class LineTool implements ITool {
             } else {
                 this.element.finish();
             }
-            this.element = null;
-            return;
+            this.commit();
         }
     }
 
@@ -60,7 +65,7 @@ export class LineTool implements ITool {
 
     onKeyup(event: KeyboardEvent): boolean {
         const actions: { [id: string]: callback } = {
-            Escape: () => { if (this.element) { this.element.end(); this.element = null; } },
+            Escape: () => { this.abort(); },
             Backspace: () => { if (this.element) { this.element.popAnchor(); } },
         };
         if (event.key in actions) {
@@ -69,6 +74,22 @@ export class LineTool implements ITool {
             return true;
         }
         return false;
+    }
+
+    private abort(): void {
+        if (this.element) {
+            this.element.end();
+            this.element = null;
+        }
+    }
+
+    private commit(): void {
+        if (this.element) {
+            this.element.end();
+            this.svgService.removeObject(this.element);
+            CmdService.execute(this.cmd);
+            this.element = null;
+        }
     }
 
     onShowcase(x: number, y: number): CmdSVG | null {
