@@ -31,7 +31,7 @@ export class BackgroundButtonComponent
 
     protected setupView(): void {
         this.tip = 'Background Color';
-        this.icon = 'image';
+        this.icon = 'landscape';
     }
 
     protected setupColors(): void {
