@@ -1,13 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
-         MatMenuModule, MatOptionModule, MatSelectModule } from '@angular/material';
+import {
+    MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
+    MatMenuModule, MatOptionModule, MatSelectModule, MatSnackBarModule
+} from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { MyInjector } from 'src/utils/injector';
 import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
@@ -22,10 +26,10 @@ describe('ToolOptionComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
-                      BrowserAnimationsModule, BrowserDynamicTestingModule,
-                      ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
-                      MatOptionModule, MatFormFieldModule],
+            imports: [HttpClientModule, MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
+                BrowserAnimationsModule, BrowserDynamicTestingModule,
+                ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
+                MatOptionModule, MatFormFieldModule, MatSnackBarModule],
             declarations: [ToolOptionComponent, ShowcaseComponent, WidthComponent, AngleComponent, JunctionComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
@@ -35,6 +39,8 @@ describe('ToolOptionComponent', () => {
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
+        MyInjector.injector = jasmine.createSpyObj('Injector', ['get'])
+
 
         fixture = TestBed.createComponent(ToolOptionComponent);
         component = fixture.componentInstance;
