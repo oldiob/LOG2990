@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { CmdService } from 'src/services/cmd/cmd.service';
-import { SVGService } from 'src/services/svg/svg.service';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGLine } from 'src/services/svg/element/svg.line';
+import { SVGService } from 'src/services/svg/svg.service';
 import { ITool, JunctionType, LineType } from './i-tool';
 
 declare type callback = () => void;
@@ -20,8 +20,7 @@ export class LineTool implements ITool {
     junctionWidth = 12;
     lineType: LineType;
     junctionType: JunctionType;
-    constructor(private paletteService: PaletteService,
-        private svgService: SVGService) {
+    constructor(private paletteService: PaletteService, private svgService: SVGService) {
         this.tip = 'Line (L)';
     }
 
