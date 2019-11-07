@@ -26,11 +26,12 @@ export class BackgroundButtonComponent
         this.isSettingsShown = false;
         this.setupColors();
         this.createForm();
-        this.setTip();
+        this.setupView();
     }
 
-    protected setTip(): void {
+    protected setupView(): void {
         this.tip = 'Background Color';
+        this.icon = 'image';
     }
 
     protected setupColors(): void {
