@@ -13,21 +13,23 @@ export class SVGText implements SVGInterface {
     subElements: any = [];
     currentX: string;
 
-    fontTextAlign: string;
+    textAlign: string;
     fontFamily: string;
     fontStyle: string;
     fontSize: string;
     fontWeight: string;
 
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
-                fontSize: string, textAlign: string,
-                fontStyle: string, fontWeigth: string ) {
-        this.fontTextAlign = textAlign;
+                fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
+
+        this.textAlign = textAlign;
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
         this.fontStyle = fontStyle;
         this.fontWeight = fontWeigth;
+
         keyService.setIsBlocking(true);
+
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
@@ -38,14 +40,11 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
         DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
         DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
-        for (const subElement of this.subElements) {
-            DOMRenderer.setAttribute(subElement, 'text-anchor', this.fontTextAlign);
-        }
 
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
-        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.fontTextAlign);
+        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.textAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
@@ -85,9 +84,9 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
     }
     setTextAlign(align: string): void {
-        this.fontTextAlign = align;
+        this.textAlign = align;
         for (const subElement of this.subElements) {
-            DOMRenderer.setAttribute(subElement, 'text-anchor', this.fontTextAlign);
+            DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
         }
     }
     setCurrentPlaceholder() {
@@ -100,7 +99,7 @@ export class SVGText implements SVGInterface {
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
-        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.fontTextAlign);
+        DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.textAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
