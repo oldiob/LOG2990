@@ -30,6 +30,10 @@
   border: #262626 solid 1px;
 }
 
+.icon {
+  mix-blend-mode: exclusion;
+}
+
 .rgba-wrapper {
   width: 100%;
   display: block;
