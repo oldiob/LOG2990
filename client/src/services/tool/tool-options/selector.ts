@@ -27,14 +27,15 @@ export class SelectorTool implements ITool {
 
     boxElement: any;
     previewElement: any;
-    circleTL: any;
-    circleTR: any;
-    circleBL: any;
-    circleBR: any;
-    circleN: any;
-    circleO: any;
-    circleS: any;
-    circleW: any;
+    previewRect: any;
+    NW: any;
+    NE: any;
+    SW: any;
+    SE: any;
+    N: any;
+    E: any;
+    S: any;
+    W: any;
 
     selected: Set<SVGInterface> = new Set<SVGInterface>([]);
     selection: Set<SVGInterface> = new Set<SVGInterface>([]);
@@ -50,42 +51,54 @@ export class SelectorTool implements ITool {
         DOMRenderer.setAttribute(this.boxElement, 'stroke-width', '3');
         DOMRenderer.setAttribute(this.boxElement, 'stroke-dasharray', '4');
 
-        this.previewElement = DOMRenderer.createElement('rect', 'svg');
-        DOMRenderer.setAttribute(this.previewElement, 'fill', 'none');
-        DOMRenderer.setAttribute(this.previewElement, 'stroke', '#00F0FF');
-        DOMRenderer.setAttribute(this.previewElement, 'stroke-width', '2');
+        this.previewElement = DOMRenderer.createElement('g', 'svg');
 
-        this.circleTL = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleTL, 'r', '5');
-        DOMRenderer.setAttribute(this.circleTL, 'fill', '#00F0FF');
+        this.previewRect = DOMRenderer.createElement('rect', 'svg');
+        DOMRenderer.setAttribute(this.previewRect, 'fill', 'none');
+        DOMRenderer.setAttribute(this.previewRect, 'stroke', '#00F0FF');
+        DOMRenderer.setAttribute(this.previewRect, 'stroke-width', '2');
 
-        this.circleTR = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleTR, 'r', '5');
-        DOMRenderer.setAttribute(this.circleTR, 'fill', '#00F0FF');
+        this.NW = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.NW, 'r', '5');
+        DOMRenderer.setAttribute(this.NW, 'fill', '#00F0FF');
 
-        this.circleBL = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleBL, 'r', '5');
-        DOMRenderer.setAttribute(this.circleBL, 'fill', '#00F0FF');
+        this.NE = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.NE, 'r', '5');
+        DOMRenderer.setAttribute(this.NE, 'fill', '#00F0FF');
 
-        this.circleBR = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleBR, 'r', '5');
-        DOMRenderer.setAttribute(this.circleBR, 'fill', '#00F0FF');
+        this.SW = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.SW, 'r', '5');
+        DOMRenderer.setAttribute(this.SW, 'fill', '#00F0FF');
 
-        this.circleN = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleN, 'r', '5');
-        DOMRenderer.setAttribute(this.circleN, 'fill', '#00F0FF');
+        this.SE = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.SE, 'r', '5');
+        DOMRenderer.setAttribute(this.SE, 'fill', '#00F0FF');
 
-        this.circleO = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleO, 'r', '5');
-        DOMRenderer.setAttribute(this.circleO, 'fill', '#00F0FF');
+        this.N = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.N, 'r', '5');
+        DOMRenderer.setAttribute(this.N, 'fill', '#00F0FF');
 
-        this.circleS = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleS, 'r', '5');
-        DOMRenderer.setAttribute(this.circleS, 'fill', '#00F0FF');
+        this.E = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.E, 'r', '5');
+        DOMRenderer.setAttribute(this.E, 'fill', '#00F0FF');
 
-        this.circleW = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleW, 'r', '5');
-        DOMRenderer.setAttribute(this.circleW, 'fill', '#00F0FF');
+        this.S = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.S, 'r', '5');
+        DOMRenderer.setAttribute(this.S, 'fill', '#00F0FF');
+
+        this.W = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(this.W, 'r', '5');
+        DOMRenderer.setAttribute(this.W, 'fill', '#00F0FF');
+
+        DOMRenderer.appendChild(this.previewElement, this.previewRect);
+        DOMRenderer.appendChild(this.previewElement, this.NE);
+        DOMRenderer.appendChild(this.previewElement, this.NW);
+        DOMRenderer.appendChild(this.previewElement, this.SE);
+        DOMRenderer.appendChild(this.previewElement, this.SW);
+        DOMRenderer.appendChild(this.previewElement, this.N);
+        DOMRenderer.appendChild(this.previewElement, this.E);
+        DOMRenderer.appendChild(this.previewElement, this.S);
+        DOMRenderer.appendChild(this.previewElement, this.W);
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
@@ -210,44 +223,36 @@ export class SelectorTool implements ITool {
             y2 = Math.max(y2, rect.y + rect.height);
         });
         this.svg.removeElement(this.previewElement);
-        DOMRenderer.setAttribute(this.previewElement, 'x', x1.toString());
-        DOMRenderer.setAttribute(this.previewElement, 'y', y1.toString());
-        DOMRenderer.setAttribute(this.previewElement, 'width', (x2 - x1).toString());
-        DOMRenderer.setAttribute(this.previewElement, 'height', (y2 - y1).toString());
+        DOMRenderer.setAttribute(this.previewRect, 'x', x1.toString());
+        DOMRenderer.setAttribute(this.previewRect, 'y', y1.toString());
+        DOMRenderer.setAttribute(this.previewRect, 'width', (x2 - x1).toString());
+        DOMRenderer.setAttribute(this.previewRect, 'height', (y2 - y1).toString());
 
-        DOMRenderer.setAttribute(this.circleTL, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleTL, 'cy', y1.toString());
+        DOMRenderer.setAttribute(this.NW, 'cx', x1.toString());
+        DOMRenderer.setAttribute(this.NW, 'cy', y1.toString());
 
-        DOMRenderer.setAttribute(this.circleBR, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleBR, 'cy', y2.toString());
+        DOMRenderer.setAttribute(this.SE, 'cx', x2.toString());
+        DOMRenderer.setAttribute(this.SE, 'cy', y2.toString());
 
-        DOMRenderer.setAttribute(this.circleBL, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleBL, 'cy', y2.toString());
+        DOMRenderer.setAttribute(this.SW, 'cx', x1.toString());
+        DOMRenderer.setAttribute(this.SW, 'cy', y2.toString());
 
-        DOMRenderer.setAttribute(this.circleTR, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleTR, 'cy', y1.toString());
+        DOMRenderer.setAttribute(this.NE, 'cx', x2.toString());
+        DOMRenderer.setAttribute(this.NE, 'cy', y1.toString());
 
-        DOMRenderer.setAttribute(this.circleN, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.circleN, 'cy', y1.toString());
+        DOMRenderer.setAttribute(this.N, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
+        DOMRenderer.setAttribute(this.N, 'cy', y1.toString());
 
-        DOMRenderer.setAttribute(this.circleO, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleO, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttribute(this.E, 'cx', x1.toString());
+        DOMRenderer.setAttribute(this.E, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
 
-        DOMRenderer.setAttribute(this.circleS, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.circleS, 'cy', y2.toString());
+        DOMRenderer.setAttribute(this.S, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
+        DOMRenderer.setAttribute(this.S, 'cy', y2.toString());
 
-        DOMRenderer.setAttribute(this.circleW, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleW, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttribute(this.W, 'cx', x2.toString());
+        DOMRenderer.setAttribute(this.W, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
 
         this.svg.addElement(this.previewElement);
-        this.svg.addElement(this.circleTR);
-        this.svg.addElement(this.circleTL);
-        this.svg.addElement(this.circleBR);
-        this.svg.addElement(this.circleBL);
-        this.svg.addElement(this.circleN);
-        this.svg.addElement(this.circleO);
-        this.svg.addElement(this.circleS);
-        this.svg.addElement(this.circleW);
     }
 
     private selectAt(x: number, y: number) {
