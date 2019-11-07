@@ -5,20 +5,29 @@ import { MyInjector } from 'src/utils/injector';
 
 export class CmdSVG implements CmdInterface {
 
-    obj: SVGInterface;
+    obj: SVGInterface[] = [];
     svg: SVGService;
 
-    constructor(obj: SVGInterface) {
-        this.obj = obj;
+    constructor(obj: SVGInterface | SVGInterface[]) {
+        if (obj instanceof Array) {
+            this.obj = obj;
+        }
+        else {
+            this.obj = [obj];
+        }
         this.svg = MyInjector.get(SVGService);
     }
 
     execute(): void {
-        this.svg.addObject(this.obj);
+        this.obj.forEach((obj) => {
+            this.svg.addObject(obj);
+        });
     }
 
     undo(): void {
-        this.svg.removeObject(this.obj);
+        this.obj.forEach((obj) => {
+            this.svg.removeObject(obj);
+        });
     }
 
     redo(): void {
