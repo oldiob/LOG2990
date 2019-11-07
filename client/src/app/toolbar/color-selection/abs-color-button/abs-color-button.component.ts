@@ -7,6 +7,7 @@ import { ColorButtonType } from '../color-button-type';
 @Injectable()
 export abstract class AbsColorButton {
 
+    icon: string;
     tip: string;
 
     currentColor: Color;
@@ -28,7 +29,7 @@ export abstract class AbsColorButton {
         protected formBuilder: FormBuilder) {
     }
 
-    protected abstract setTip(): void;
+    protected abstract setupView(): void;
 
     protected abstract setupColors(): void;
 

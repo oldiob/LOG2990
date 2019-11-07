@@ -7,6 +7,7 @@
         matTooltipPosition="right"
         (click)="toggleForm()"
         [ngStyle]="setColor()">
+        <mat-icon>{{icon}}</mat-icon>
     </button>
     <div class="color1-picker" *ngIf="isSettingsShown">
         <div class="form-wrapper">

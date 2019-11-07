@@ -118,10 +118,10 @@ class MockColorButton extends AbsColorButton {
         this.isSettingsShown = false;
         this.setupColors();
         this.createForm();
-        this.setTip();
+        this.setupView();
     }
 
-    protected setTip(): void {
+    protected setupView(): void {
         this.tip = 'Mock Color';
     }
 
