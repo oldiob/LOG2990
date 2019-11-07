@@ -12,15 +12,14 @@
             [isSettingsShown]="isSecondaryButtonOpened"
             (open)="onOpen($event, ColorButtonType.SecondaryColor)">
         </app-palette-button>
+        <div class="swap"
+            matTooltip="Swap Colors"
+            matTooltipClass="tooltip" 
+            matTooltipPosition="below"
+            (click)="onSwap()">
+            <img src="../../../assets/images/swap.svg" alt="swap">
+        </div>
     </div>
-    <div class="swap"
-        matTooltip="Swap Colors"
-        matTooltipClass="tooltip" 
-        matTooltipPosition="below"
-        (click)="onSwap()">
-        <img src="../../../assets/images/swap.svg" alt="swap">
-    </div>
-</div>
     <div class="background-wrapper">
         <app-background-button
             class="background-color"
@@ -29,5 +28,6 @@
             (open)="onOpen($event, ColorButtonType.BackgroundColor)">
         </app-background-button>
     </div>
+</div>
 
 <div class="background" *ngIf="isPrimaryButtonOpened || isSecondaryButtonOpened || isBackgroundButtonOpened" (mousedown)="close()"></div>

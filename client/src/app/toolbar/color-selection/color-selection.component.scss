@@ -9,7 +9,7 @@
 .swap {
   position: absolute;
   align-self: center;
-  transform: translate(-35px, 30px) rotate(90deg);
+  transform: translate(-1px, 53px) rotate(90deg);
 }
 
 .swap:hover {
@@ -35,6 +35,15 @@
   top: 30%;
   left: 30%;
   z-index: 3;
+}
+
+.background-wrapper {
+  height: 50px;
+  width: 50px;
+}
+
+.background-color {
+  transform: translate(-25px, -25px);
 }
 
 .background {

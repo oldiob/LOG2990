@@ -43,12 +43,6 @@ export class ColorSelectionComponent implements OnInit {
         } else {
             this.closeButton(type);
         }
-        console.log('type: ', ColorButtonType[type]);
-        console.log('isSettingsShown: ', isSettingsShown);
-        console.log('isPrimaryButtonOpened: ', this.isPrimaryButtonOpened);
-        console.log('isSecondaryButtonOpened: ', this.isSecondaryButtonOpened);
-        console.log('isBackgroundButtonOpened: ', this.isBackgroundButtonOpened);
-        console.log('\n');
     }
 
     private openButton(type: ColorButtonType) {
