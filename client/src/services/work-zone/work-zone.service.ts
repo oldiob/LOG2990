@@ -14,41 +14,40 @@ export class WorkZoneService {
     private heightValue: number;
     private backgroundColorValue: string;
 
-    // Work-area's dimensions
-    private width: BehaviorSubject<number>;
-    private height: BehaviorSubject<number>;
-    private backgroundColor: BehaviorSubject<string>;
+    private widthSubject: BehaviorSubject<number>;
+    private heightSubject: BehaviorSubject<number>;
+    private backgroundColorSubject: BehaviorSubject<string>;
 
-    private maxWidth: BehaviorSubject<number>;
-    private maxHeight: BehaviorSubject<number>;
+    private maxWidthSubject: BehaviorSubject<number>;
+    private maxHeightSubject: BehaviorSubject<number>;
 
     constructor() {
         this.widthValue = 0;
         this.heightValue = 0;
         this.backgroundColorValue = '#ffffffff';
 
-        this.width = new BehaviorSubject<number>(this.widthValue);
-        this.height = new BehaviorSubject<number>(this.heightValue);
-        this.backgroundColor = new BehaviorSubject<string>(this.backgroundColorValue);
+        this.widthSubject = new BehaviorSubject<number>(this.widthValue);
+        this.heightSubject = new BehaviorSubject<number>(this.heightValue);
+        this.backgroundColorSubject = new BehaviorSubject<string>(this.backgroundColorValue);
 
-        this.maxWidth = new BehaviorSubject<number>(this.widthValue);
-        this.maxHeight = new BehaviorSubject<number>(this.heightValue);
+        this.maxWidthSubject = new BehaviorSubject<number>(this.widthValue);
+        this.maxHeightSubject = new BehaviorSubject<number>(this.heightValue);
     }
 
     get currentWidth(): Observable<number> {
-        return this.width.asObservable();
+        return this.widthSubject.asObservable();
     }
     get currentHeight(): Observable<number> {
-        return this.height.asObservable();
+        return this.heightSubject.asObservable();
     }
     get currentBackgroundColor(): Observable<string> {
-        return this.backgroundColor.asObservable();
+        return this.backgroundColorSubject.asObservable();
     }
     get currentMaxWidth(): Observable<number> {
-        return this.maxWidth.asObservable();
+        return this.maxWidthSubject.asObservable();
     }
     get currentMaxHeight(): Observable<number> {
-        return this.maxHeight.asObservable();
+        return this.maxHeightSubject.asObservable();
     }
 
     setFromDrawing(drawing: Drawing): void {
@@ -73,9 +72,9 @@ export class WorkZoneService {
     }
 
     updateDrawAreaProperties(width: number, height: number, bgColor: string) {
-        this.width.next(width);
-        this.height.next(height);
-        this.backgroundColor.next(bgColor);
+        this.widthSubject.next(width);
+        this.heightSubject.next(height);
+        this.backgroundColorSubject.next(bgColor);
 
         this.widthValue = width;
         this.heightValue = height;
@@ -84,11 +83,11 @@ export class WorkZoneService {
 
     // Updates Work Zone initial dimensions values
     updateMaxDimensions(maxWidth: number, maxHeight: number): void {
-        this.maxWidth.next(maxWidth);
-        this.maxHeight.next(maxHeight);
+        this.maxWidthSubject.next(maxWidth);
+        this.maxHeightSubject.next(maxHeight);
     }
 
     updateBackgroundColor(color: string): void {
-        this.backgroundColor.next(color);
+        this.backgroundColorSubject.next(color);
     }
 }
