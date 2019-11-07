@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { SVGService } from 'src/services/svg/svg.service';
-import { saveFile } from 'src/utils/filesystem';
+import { exportImage } from 'src/utils/filesystem';
 
 @Component({
     selector: 'app-export-option',
@@ -20,7 +20,7 @@ export class ExportOptionComponent implements OnInit {
     }
 
     saveSVG(): void {
-        saveFile('testSVG', JSON.stringify(this.svgService.entry.nativeElement.outerHTML), 'svg');
+        exportImage('lmao', this.svgService.entry, 'bmp');//  saveFile('testSVG', this.svgService.entry.nativeElement.outerHTML, 'png');
     }
 
     close(): void {

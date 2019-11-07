@@ -3,6 +3,26 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Prototypes } from './prototypes';
+import { ElementRef } from '@angular/core';
+
+export const svgToImage = (entry: ElementRef, fn: CallableFunction): void => {
+    const canvas = DOMRenderer.createElement('canvas');
+
+    DOMRenderer.setAttribute(canvas, 'width',
+        entry.nativeElement.attributes.width.nodeValue);
+    DOMRenderer.setAttribute(canvas, 'height',
+        entry.nativeElement.attributes.height.nodeValue);
+
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+
+    const svgOuterHTML = entry.nativeElement.outerHTML;
+    console.log(svgOuterHTML);
+
+    const svgImage: HTMLImageElement = new Image();
+
+    svgImage.onload = () => fn(svgImage, ctx, canvas);
+    svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
+};
 
 export const serializeDrawArea = (svgService: SVGService): DrawAreaHolder => {
     const holder = new DrawAreaHolder();
