@@ -1,6 +1,7 @@
 import { KeyService } from 'src/services/key/key.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { PaletteService } from 'src/services/palette/palette.service';
 
 export class SVGText implements SVGInterface {
     EMPTYSTRING = '';
@@ -14,9 +15,19 @@ export class SVGText implements SVGInterface {
     currentX: string;
 
     fontTextAlign: string;
+    fontFamily: string;
+    fontStyle: string;
+    fontSize: string;
+    fontWeight: string;
 
-    constructor(keyService: KeyService, x: number, y: number) {
-        this.fontTextAlign = this.EMPTYSTRING;
+    constructor(keyService: KeyService, paletteService: PaletteService, x: number, y: number, fontFamily: string, 
+                fontSize: string, textAlign: string,
+                fontStyle: string, fontWeigth: string ) {
+        this.fontTextAlign = textAlign;
+        this.fontFamily = fontFamily;
+        this.fontSize = fontSize;
+        this.fontStyle = fontStyle;
+        this.fontWeight = fontWeigth;
         keyService.setIsBlocking(true);
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
@@ -24,12 +35,21 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
 
+        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
+        for (const subElement of this.subElements) {
+            DOMRenderer.setAttribute(subElement, 'text-anchor', this.fontTextAlign);
+        }
+
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
         DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.fontTextAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
+
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
@@ -50,21 +70,25 @@ export class SVGText implements SVGInterface {
         throw new Error('Method not implemented.');
     }
     setFontSize(size: string): void {
-        DOMRenderer.setAttribute(this.element, 'font-size', size);
+        this.fontSize = size;
+        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
     }
-    setFontFamily(fontfamliy: string): void {
-        DOMRenderer.setAttribute(this.element, 'font-family', fontfamliy);
+    setFontFamily(fontfamily: string): void {
+        this.fontFamily = fontfamily;
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
     }
     setFontStyle(style: string): void {
-        DOMRenderer.setAttribute(this.element, 'font-style', style);
+        this.fontStyle = style;
+        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
     }
     setFontWeight(weight: string): void {
-        DOMRenderer.setAttribute(this.element, 'font-weight', weight);
+        this.fontWeight = weight;
+        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
     }
     setTextAlign(align: string): void {
         this.fontTextAlign = align;
         for (const subElement of this.subElements) {
-            DOMRenderer.setAttribute(subElement, 'text-anchor', align);
+            DOMRenderer.setAttribute(subElement, 'text-anchor', this.fontTextAlign);
         }
     }
     setCurrentPlaceholder() {

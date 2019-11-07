@@ -25,7 +25,7 @@ export class TextTool implements ITool {
 
     isEditing: boolean;
 
-    constructor(private keyService: KeyService, private paletteService: PaletteService) {
+    constructor(private keyService: KeyService,  private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
         this.fontSize = this.EMPTYSTRING;
         this.fontStyle = this.EMPTYSTRING;
@@ -42,7 +42,8 @@ export class TextTool implements ITool {
         }
         if (!this.element) {
             this.startEdit();
-            this.text = new SVGText(this.keyService, event.svgX, event.svgY);
+            this.text = new SVGText(this.keyService, this.paletteService, event.svgX, event.svgY, this.fontFamily, 
+                                    this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
             this.text.setFontFamily(this.fontFamily);
             this.text.setFontSize(this.fontSize);
             this.text.setTextAlign(this.textAlign);
@@ -89,7 +90,7 @@ export class TextTool implements ITool {
             } else {
                 current += event.key;
                 // à changer pour un observable
-                this.text.setPrimary(this.paletteService.getPrimary());
+                // this.text.setPrimary(this.paletteService.getPrimary());
                 this.element.currentSubElement.innerHTML = current;
             }
             //
@@ -97,40 +98,40 @@ export class TextTool implements ITool {
         return true;
     }
 
-    setFontSize(size: string): void {
-        this.fontStyle = size;
-        if (this.element != null) {
-            this.element.setFontSize(size);
-        }
-    }
+    // setFontSize(size: string): void {
+    //     this.fontStyle = size;
+    //     if (this.element != null) {
+    //         this.element.setFontSize(size);
+    //     }
+    // }
 
-    setFontStyle(style: string): void {
-        this.fontStyle = style;
-        if (this.element != null) {
-            this.element.setFontStyle(style);
-        }
-    }
+    // setFontStyle(style: string): void {
+    //     this.fontStyle = style;
+    //     if (this.element != null) {
+    //         this.element.setFontStyle(style);
+    //     }
+    // }
 
-    setFontWeight(weight: string): void {
-        this.fontWeigth = weight;
-        if (this.element != null) {
-            this.element.setFontWeight(weight);
-        }
-    }
+    // setFontWeight(weight: string): void {
+    //     this.fontWeigth = weight;
+    //     if (this.element != null) {
+    //         this.element.setFontWeight(weight);
+    //     }
+    // }
 
-    setFontFamily(font: string): void {
-        this.fontFamily = font;
-        if (this.element != null) {
-            this.element.setFontFamily(font);
-        }
-    }
+    // setFontFamily(font: string): void {
+    //     this.fontFamily = font;
+    //     if (this.element != null) {
+    //         this.element.setFontFamily(font);
+    //     }
+    // }
 
-    setTextAlign(align: string): void {
-        this.textAlign = align;
-        if (this.element != null) {
-            this.element.setTextAlign(align);
-        }
-    }
+    // setTextAlign(align: string): void {
+    //     this.textAlign = align;
+    //     if (this.element != null) {
+    //         this.element.setTextAlign(align);
+    //     }
+    // }
 
     finishEdit(): void {
         this.isEditing = false;
