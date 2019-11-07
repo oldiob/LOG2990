@@ -85,20 +85,20 @@ fdescribe('AbsColorButton', () => {
     });
 
     it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
-        component.isShowForm = true;
+        component.isSettingsShown = true;
         spyOn(component.open, 'emit');
 
         component.toggleForm();
 
-        expect(component.isShowForm).toBeFalsy();
+        expect(component.isSettingsShown).toBeFalsy();
         expect(component.open.emit).toHaveBeenCalled();
         expect(component.colorsHistory).toEqual(service.getHistory());
     });
 
     it('#hideForm should put isShowForm to false', () => {
-        component.isShowForm = true;
+        component.isSettingsShown = true;
         component.hideForm();
-        expect(component.isShowForm).toBeFalsy();
+        expect(component.isSettingsShown).toBeFalsy();
     });
 
 });
@@ -115,7 +115,7 @@ class MockColorButton extends AbsColorButton {
     }
 
     initialize(): void {
-        this.isShowForm = false;
+        this.isSettingsShown = false;
         this.setupColors();
         this.createForm();
         this.setTip();

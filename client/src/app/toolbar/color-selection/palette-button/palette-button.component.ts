@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
+import { ColorButtonType } from '../color-button-type';
 
 @Component({
     selector: 'app-palette-button',
@@ -11,7 +12,8 @@ import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 export class PaletteButtonComponent
     extends AbsColorButton implements OnInit {
 
-    @Input() isPrimary: boolean;
+    private isPrimaryColor: boolean;
+    private isSecondaryColor: boolean;
 
     constructor(
         protected paletteService: PaletteService,
@@ -20,53 +22,61 @@ export class PaletteButtonComponent
     }
 
     ngOnInit(): void {
-        this.isShowForm = false;
+        this.isPrimaryColor = this.type === ColorButtonType.PrimaryColor;
+        this.isSecondaryColor = this.type === ColorButtonType.SecondaryColor;
+        this.isSettingsShown = false;
         this.setupColors();
         this.createForm();
         this.setTip();
     }
 
     protected setTip(): void {
-        if (this.isPrimary) {
-            this.tip = 'Primary Color';
-        } else {
-            this.tip = 'Secondary Color';
+        this.tip = this.isPrimaryColor ? this.tip = 'Primary Color'
+            : this.isSecondaryColor ? this.tip = 'Secondary Color'
+                : '';
+    }
+
+    protected setupColors(): void {
+        if (this.isPrimaryColor) {
+            this.setupPrimaryColor();
+        } else if (this.isSecondaryColor) {
+            this.setupSecondaryColor();
         }
     }
 
-    protected setupColors() {
-        if (this.isPrimary) {
-            this.r = this.paletteService.primary.red;
-            this.g = this.paletteService.primary.green;
-            this.b = this.paletteService.primary.blue;
-            this.a = this.paletteService.primary.alpha;
-            this.hex =
-                '#' +
-                `${this.convertToHEX(this.r)}` +
-                `${this.convertToHEX(this.g)}` +
-                `${this.convertToHEX(this.b)}`;
-        } else {
-            this.r = this.paletteService.secondary.red;
-            this.g = this.paletteService.secondary.green;
-            this.b = this.paletteService.secondary.blue;
-            this.a = this.paletteService.secondary.alpha;
-            this.hex =
-                '#' +
-                `${this.convertToHEX(this.r)}` +
-                `${this.convertToHEX(this.g)}` +
-                `${this.convertToHEX(this.b)}`;
-        }
+    private setupSecondaryColor(): void {
+        this.r = this.paletteService.secondary.red;
+        this.g = this.paletteService.secondary.green;
+        this.b = this.paletteService.secondary.blue;
+        this.a = this.paletteService.secondary.alpha;
+        this.hex =
+            '#' +
+            `${this.convertToHEX(this.r)}` +
+            `${this.convertToHEX(this.g)}` +
+            `${this.convertToHEX(this.b)}`;
+    }
+
+    private setupPrimaryColor(): void {
+        this.r = this.paletteService.primary.red;
+        this.g = this.paletteService.primary.green;
+        this.b = this.paletteService.primary.blue;
+        this.a = this.paletteService.primary.alpha;
+        this.hex =
+            '#' +
+            `${this.convertToHEX(this.r)}` +
+            `${this.convertToHEX(this.g)}` +
+            `${this.convertToHEX(this.b)}`;
     }
 
     protected applyColor(): void {
-        if (this.isPrimary) {
+        if (this.isPrimaryColor) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
                 this.currentColor.green,
                 this.currentColor.blue,
                 this.currentColor.alpha,
             );
-        } else {
+        } else if (this.isSecondaryColor) {
             this.paletteService.selectSecondary(
                 this.currentColor.red,
                 this.currentColor.green,
@@ -77,14 +87,14 @@ export class PaletteButtonComponent
     }
 
     onAlphaChange(): void {
-        if (this.isPrimary) {
+        if (this.isPrimaryColor) {
             this.currentColor = {
                 red: this.paletteService.primary.red,
                 green: this.paletteService.primary.green,
                 blue: this.paletteService.primary.blue,
                 alpha: this.colorsForm.controls.alpha.value,
             };
-        } else {
+        } else if (this.isSecondaryColor) {
             this.currentColor = {
                 red: this.paletteService.secondary.red,
                 green: this.paletteService.secondary.green,
@@ -96,16 +106,15 @@ export class PaletteButtonComponent
     }
 
     setColor(): {} {
-        let style = {};
-        if (this.isPrimary) {
-            style = {
-                'background-color': `${this.paletteService.getPrimary()}`,
-            };
-        } else {
-            style = {
-                'background-color': `${this.paletteService.getSecondary()}`,
-            };
-        }
-        return style;
+        const primaryColorStyle = {
+            'background-color': `${this.paletteService.getPrimary()}`,
+        };
+        const secondaryColorStyle = {
+            'background-color': `${this.paletteService.getSecondary()}`,
+        };
+
+        return this.isPrimaryColor ? primaryColorStyle
+            : this.isSecondaryColor ? secondaryColorStyle
+                : {};
     }
 }

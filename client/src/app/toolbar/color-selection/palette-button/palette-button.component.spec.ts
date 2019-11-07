@@ -39,24 +39,28 @@ describe('PaletteButtonComponent', () => {
 
     it('#onColorHEXChange should update RGBA color', () => {
         const primary = new Color(30, 30, 30, 1);
-        component.isPrimary = true;
+        (component as any).isPrimaryColor = true;
+        (component as any).isSecondaryColor = false;
         component.onColorHEXChange();
         expect(service.getPrimary()).toBe(primary.toString());
 
         const secondary = new Color(170, 170, 170, 1);
-        component.isPrimary = false;
+        (component as any).isPrimaryColor = false;
+        (component as any).isSecondaryColor = true;
         component.onColorHEXChange();
         expect(service.getSecondary()).toBe(secondary.toString());
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
         const primary = new Color(30, 30, 30, 1);
-        component.isPrimary = true;
+        (component as any).isPrimaryColor = true;
+        (component as any).isSecondaryColor = false;
         component.onColorRGBAChange();
         expect(service.getPrimary()).toBe(primary.toString());
 
         const secondary = new Color(170, 170, 170, 1);
-        component.isPrimary = false;
+        (component as any).isPrimaryColor = false;
+        (component as any).isSecondaryColor = true;
         component.onColorRGBAChange();
         expect(service.getSecondary()).toBe(secondary.toString());
     });
@@ -65,7 +69,8 @@ describe('PaletteButtonComponent', () => {
         const ALPHA = 0.3;
         component.colorsForm.controls.alpha.setValue(ALPHA);
 
-        component.isPrimary = true;
+        (component as any).isPrimaryColor = true;
+        (component as any).isSecondaryColor = false;
         component.currentColor = {
             red: service.primary.red,
             green: service.primary.green,
@@ -75,7 +80,8 @@ describe('PaletteButtonComponent', () => {
         component.onAlphaChange();
         expect(service.primary.alpha).toBe(component.currentColor.alpha);
 
-        component.isPrimary = false;
+        (component as any).isPrimaryColor = false;
+        (component as any).isSecondaryColor = true;
         component.currentColor = {
             red: service.secondary.red,
             green: service.secondary.green,
@@ -87,13 +93,15 @@ describe('PaletteButtonComponent', () => {
     });
 
     it('#setColor should set background color', () => {
-        component.isPrimary = true;
+        (component as any).isPrimaryColor = true;
+        (component as any).isSecondaryColor = false;
         const backgroundColorString1 = component.setColor();
         expect(backgroundColorString1).toEqual({
             'background-color': `${service.getPrimary()}`,
         });
 
-        component.isPrimary = false;
+        (component as any).isPrimaryColor = false;
+        (component as any).isSecondaryColor = true;
         const backgroundColorString2 = component.setColor();
         expect(backgroundColorString2).toEqual({
             'background-color': `${service.getSecondary()}`,
@@ -120,19 +128,19 @@ describe('PaletteButtonComponent', () => {
     });
 
     it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
-        component.isShowForm = true;
+        component.isSettingsShown = true;
         spyOn(component.open, 'emit');
 
         component.toggleForm();
 
-        expect(component.isShowForm).toBeFalsy();
+        expect(component.isSettingsShown).toBeFalsy();
         expect(component.open.emit).toHaveBeenCalled();
         expect(component.colorsHistory).toEqual(service.getHistory());
     });
 
     it('#hideForm should put isShowForm to false', () => {
-        component.isShowForm = true;
+        component.isSettingsShown = true;
         component.hideForm();
-        expect(component.isShowForm).toBeFalsy();
+        expect(component.isSettingsShown).toBeFalsy();
     });
 });
