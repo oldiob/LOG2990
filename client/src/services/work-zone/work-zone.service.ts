@@ -87,4 +87,8 @@ export class WorkZoneService {
         this.maxWidth.next(maxWidth);
         this.maxHeight.next(maxHeight);
     }
+
+    updateBackgroundColor(color: string): void {
+        this.backgroundColor.next(color);
+    }
 }

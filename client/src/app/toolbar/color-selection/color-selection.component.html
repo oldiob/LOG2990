@@ -1,13 +1,13 @@
 <div class="buttons-wrapper">
     <div class="colors-wrapper">
         <app-palette-button 
-            class="primary"
+            class="primary-color"
             [type]="ColorButtonType.PrimaryColor"
             [isSettingsShown]="isPrimaryButtonOpened"
             (open)="onOpen($event, ColorButtonType.PrimaryColor)">
         </app-palette-button>
         <app-palette-button
-            class="secondary"
+            class="secondary-color"
             [type]="ColorButtonType.SecondaryColor"
             [isSettingsShown]="isSecondaryButtonOpened"
             (open)="onOpen($event, ColorButtonType.SecondaryColor)">
@@ -21,11 +21,13 @@
         <img src="../../../assets/images/swap.svg" alt="swap">
     </div>
 </div>
-    <!-- <div class="background-wrapper">
+    <div class="background-wrapper">
         <app-background-button
+            class="background-color"
+            [type]="ColorButtonType.BackgroundColor"
             [isSettingsShown]="isBackgroundButtonOpened"
-            (open)="onOpen($event, !IS_PRIMARY)">
+            (open)="onOpen($event, ColorButtonType.BackgroundColor)">
         </app-background-button>
-    </div> -->
+    </div>
 
 <div class="background" *ngIf="isPrimaryButtonOpened || isSecondaryButtonOpened || isBackgroundButtonOpened" (mousedown)="close()"></div>
