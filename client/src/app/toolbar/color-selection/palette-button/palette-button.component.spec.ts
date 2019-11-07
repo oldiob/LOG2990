@@ -1,5 +1,6 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { PaletteButtonComponent } from './palette-button.component';
@@ -11,7 +12,10 @@ describe('PaletteButtonComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [FormsModule, ReactiveFormsModule],
+            providers: [PaletteService],
             declarations: [PaletteButtonComponent],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
     }));
