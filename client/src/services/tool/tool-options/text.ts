@@ -22,7 +22,7 @@ export class TextTool implements ITool {
     fontFamily: string;
     textAlign: string;
     width: number;
-    text: SVGText;
+    // text: SVGText;
 
     isEditing: boolean;
 
@@ -43,15 +43,20 @@ export class TextTool implements ITool {
         }
         if (!this.element) {
             this.startEdit();
-            this.text = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
+            this.element = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
                                     this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
             // this.text.setFontFamily(this.fontFamily);
             // this.text.setFontSize(this.fontSize);
             // this.text.setTextAlign(this.textAlign);
             // this.text.setFontStyle(this.fontStyle);
             // this.text.setFontWeight(this.fontWeigth);
-            this.paletteService.primaryObs$.subscribe((color: Color) => this.text.setPrimary(color.toString()));
-            this.element = this.text;
+            this.paletteService.primaryObs$.subscribe((color: Color) => {
+                if (this.element !== null) {
+                    console.log('CALLED', this.element);
+                    this.element.setPrimary(color.toString());
+                }
+            });
+
             return new CmdSVG(this.element);
         } else if (this.element) {
             this.finishEdit();
@@ -64,6 +69,11 @@ export class TextTool implements ITool {
     }
     onReleased(event: MouseEvent): void {
         return;
+    }
+
+    onUnSelect(): void {
+        this.element = null;
+        console.log('CALLED UNSELECT', this.element);
     }
 
     onKeydown(event: KeyboardEvent): boolean {
@@ -79,9 +89,9 @@ export class TextTool implements ITool {
                 Enter: () => {
                     if (this.element) {
                         if (this.isLineEmpty(current)) {
-                            this.text.setCurrentPlaceholder();
+                            this.element.setCurrentPlaceholder();
                         }
-                        this.text.setLineBreak();
+                        this.element.setLineBreak();
                     }
                 },
             };

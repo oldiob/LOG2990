@@ -14,19 +14,19 @@ export class SVGText implements SVGInterface {
     currentX: string;
 
     textAlign: string;
-    fontFamily: string;
-    fontStyle: string;
-    fontSize: string;
-    fontWeight: string;
+    // fontFamily: string;
+    // fontStyle: string;
+    // fontSize: string;
+    // fontWeight: string;
 
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
 
         this.textAlign = textAlign;
-        this.fontFamily = fontFamily;
-        this.fontSize = fontSize;
-        this.fontStyle = fontStyle;
-        this.fontWeight = fontWeigth;
+        // this.fontFamily = fontFamily;
+        // this.fontSize = fontSize;
+        // this.fontStyle = fontStyle;
+        // this.fontWeight = fontWeigth;
 
         keyService.setIsBlocking(true);
 
@@ -36,10 +36,10 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
 
-        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
-        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
-        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
-        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
+        DOMRenderer.setAttribute(this.element, 'font-size', fontSize);
+        DOMRenderer.setAttribute(this.element, 'font-family', fontFamily );
+        DOMRenderer.setAttribute(this.element, 'font-style', fontStyle);
+        DOMRenderer.setAttribute(this.element, 'font-weight', fontWeigth);
 
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
         DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
