@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { SelectorTool } from 'src/services/tool/tool-options/selector';
+import { CmdCut } from 'src/services/cmd/cmd.cut';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
-import { CmdService } from 'src/services/cmd/cmd.service';
-import { CmdCut } from 'src/services/cmd/cmd.cut';
+import { SelectorTool } from 'src/services/tool/tool-options/selector';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ClipboardService {
 
-    static OFFSET: number = 30;
+    static OFFSET = 30;
 
     obj: SVGInterface[] = [];
-    offset: number = 0;
+    offset = 0;
 
     constructor(public selector: SelectorTool, public svg: SVGService) { }
 
     copy(): void {
         this.obj = Array.from(this.selector.selected).map((obj) => {
-            let tmp: SVGInterface = Object.create(obj);
+            const tmp: SVGInterface = Object.create(obj);
             tmp.element = obj.element.cloneNode(true);
             return tmp;
         });
@@ -37,7 +37,7 @@ export class ClipboardService {
     paste(): void {
         this.offset += ClipboardService.OFFSET;
         const toPaste: SVGInterface[] = this.obj.map((obj) => {
-            let tmp: SVGInterface = Object.create(obj);
+            const tmp: SVGInterface = Object.create(obj);
             tmp.element = obj.element.cloneNode(true);
             if (tmp.move) {
                 tmp.move(this.offset, this.offset);

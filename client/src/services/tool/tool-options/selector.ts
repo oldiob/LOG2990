@@ -268,8 +268,7 @@ export class SelectorTool implements ITool {
         this.selected = this.computeSelection();
         if (this.selected.size) {
             this.state = State.selected;
-        }
-        else {
+        } else {
             this.state = State.idle;
         }
         this.renderPreview(this.selected);

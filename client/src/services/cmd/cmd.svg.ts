@@ -11,8 +11,7 @@ export class CmdSVG implements CmdInterface {
     constructor(obj: SVGInterface | SVGInterface[]) {
         if (obj instanceof Array) {
             this.obj = obj;
-        }
-        else {
+        } else {
             this.obj = [obj];
         }
         this.svg = MyInjector.get(SVGService);

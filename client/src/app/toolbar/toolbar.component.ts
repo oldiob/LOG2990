@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -14,7 +15,6 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 
 declare type callback = () => void;
 
@@ -54,7 +54,7 @@ export class ToolbarComponent implements OnInit {
     isEmptyRedos: boolean;
 
     constructor(public dialogService: DialogService,
-        public clipboard: ClipboardService) {
+                public clipboard: ClipboardService) {
         this.isDialogOpened = false;
     }
 
@@ -186,7 +186,7 @@ export class ToolbarComponent implements OnInit {
             '-': () => this.gridOption.reduceStep(),
             'C-x': () => { this.clipboard.cut(); },
             'C-c': () => { this.clipboard.copy(); },
-            'C-v': () => { this.clipboard.paste(); }
+            'C-v': () => { this.clipboard.paste(); },
         };
 
         const keys: string = this.getComposedKey(event);
