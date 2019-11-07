@@ -67,28 +67,28 @@ export class SVGText implements SVGInterface {
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
     }
-    setFontSize(size: string): void {
-        this.fontSize = size;
-        DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
-    }
-    setFontFamily(fontfamily: string): void {
-        this.fontFamily = fontfamily;
-        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
-    }
-    setFontStyle(style: string): void {
-        this.fontStyle = style;
-        DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
-    }
-    setFontWeight(weight: string): void {
-        this.fontWeight = weight;
-        DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
-    }
-    setTextAlign(align: string): void {
-        this.textAlign = align;
-        for (const subElement of this.subElements) {
-            DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
-        }
-    }
+    // setFontSize(size: string): void {
+    //     this.fontSize = size;
+    //     DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize);
+    // }
+    // setFontFamily(fontfamily: string): void {
+    //     this.fontFamily = fontfamily;
+    //     DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
+    // }
+    // setFontStyle(style: string): void {
+    //     this.fontStyle = style;
+    //     DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
+    // }
+    // setFontWeight(weight: string): void {
+    //     this.fontWeight = weight;
+    //     DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
+    // }
+    // setTextAlign(align: string): void {
+    //     this.textAlign = align;
+    //     for (const subElement of this.subElements) {
+    //         DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
+    //     }
+    // }
     setCurrentPlaceholder() {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
         this.currentSubElement.innerHTML = 'i';
