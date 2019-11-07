@@ -7,16 +7,18 @@ describe('LineTool', () => {
     let element: any;
     let renderer: any;
     let paletteService: any;
+    let svgService: any;
     let line: LineTool;
     let event: MouseEvent;
 
     beforeEach(() => {
         element = jasmine.createSpyObj('SVGLine', ['setPrimary', 'setWidth', 'isAt', 'isIn', 'addAnchor',
-        'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor']);
+            'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+        svgService = jasmine.createSpyObj('SVGService', ['addObject', 'removeObject']);
         DOMRenderer.renderer = renderer;
-        line = new LineTool(paletteService);
+        line = new LineTool(paletteService, svgService);
         line.junctionType = JunctionType.Round;
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
