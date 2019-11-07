@@ -88,19 +88,22 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     }
 
     selectFontSize(fontSize: string): void {
-        // this.text.setFontSize(fontSize);
-        this.text.fontSize = fontSize;
+        if (this.text.element !== null) {
+            this.text.element.setFontSize(fontSize);
+        }
     }
 
     selectFontStyle(fontStyle: string): void {
-        // this.text.setFontStyle(fontStyle);
-        this.text.fontStyle = fontStyle;
+        if (this.text.element !== null) {
+            this.text.element.setFontStyle(fontStyle);
+        }
     }
 
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
-        // this.text.setFontFamily(fontFamily);
-        this.text.fontFamily = fontFamily;
+        if (this.text.element !== null) {
+            this.text.element.setFontFamily(fontFamily);
+        }
     }
 
     selectTextAlign(textAlign: string): void {
@@ -112,8 +115,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         } else if (textAlign === this.ALIGNRIGHT) {
             this.isAlignRight = true;
         }
-        // this.text.setTextAlign(textAlign);
-        this.text.textAlign = textAlign;
+        if (this.text.element !== null) {
+            this.text.element.setTextAlign(textAlign);
+        }
     }
 
     disableAlign() {
@@ -124,23 +128,23 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     toggleBold() {
         this.isBold = !this.isBold;
-        if (this.isBold) {
-            // this.text.setFontWeight(this.BOLD);
-            this.text.fontWeigth = this.BOLD;
-        } else {
-            // this.text.setFontWeight(this.NORMAL);
-            this.text.fontWeigth = this.NORMAL;
+        if (this.text.element !== null) {
+            if (this.isBold) {
+                this.text.element.setFontWeight(this.BOLD);
+            } else {
+                this.text.element.setFontWeight(this.NORMAL);
+            }
         }
     }
 
     toggleItalic() {
         this.isItalic = !this.isItalic;
-        if (this.isItalic) {
-            // this.text.setFontStyle(this.ITALIC);
-            this.text.fontStyle = this.ITALIC;
-        } else {
-            // this.text.setFontStyle(this.NORMAL);
-            this.text.fontStyle = this.NORMAL;
-        }
+        if (this.text.element !== null) {
+            if (this.isItalic) {
+                this.text.element.setFontWeight(this.ITALIC);
+            } else {
+                this.text.element.setFontWeight(this.NORMAL);
+            }
     }
+}
 }

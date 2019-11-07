@@ -45,14 +45,8 @@ export class TextTool implements ITool {
             this.startEdit();
             this.element = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
                                     this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
-            // this.text.setFontFamily(this.fontFamily);
-            // this.text.setFontSize(this.fontSize);
-            // this.text.setTextAlign(this.textAlign);
-            // this.text.setFontStyle(this.fontStyle);
-            // this.text.setFontWeight(this.fontWeigth);
             this.paletteService.primaryObs$.subscribe((color: Color) => {
                 if (this.element !== null) {
-                    console.log('CALLED', this.element);
                     this.element.setPrimary(color.toString());
                 }
             });
@@ -73,7 +67,6 @@ export class TextTool implements ITool {
 
     onUnSelect(): void {
         this.element = null;
-        console.log('CALLED UNSELECT', this.element);
     }
 
     onKeydown(event: KeyboardEvent): boolean {
