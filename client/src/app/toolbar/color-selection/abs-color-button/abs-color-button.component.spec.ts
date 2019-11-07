@@ -1,11 +1,126 @@
 
+import { CUSTOM_ELEMENTS_SCHEMA, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { AbsColorButton } from './abs-color-button.component';
 
+fdescribe('AbsColorButton', () => {
+    let service: PaletteService;
+    let component: MockColorButton;
+    let formBuilder: FormBuilder;
+
+    const RED = 255;
+    const GREEN = 255;
+    const BLUE = 255;
+    const ALPHA = 1;
+    const HEX = '#ffffff';
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, ReactiveFormsModule],
+            providers: [PaletteService],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        service = TestBed.get(PaletteService);
+        formBuilder = TestBed.get(FormBuilder);
+        component = new MockColorButton(service, formBuilder);
+
+        component.currentColor = new Color(RED, GREEN, BLUE, ALPHA);
+        component.colorsForm.controls.red.setValue(RED);
+        component.colorsForm.controls.green.setValue(GREEN);
+        component.colorsForm.controls.blue.setValue(BLUE);
+        component.colorsForm.controls.alpha.setValue(ALPHA);
+        component.colorsForm.controls.colorHEX.setValue(HEX);
+
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('#onColorPick update current color', () => {
+        const aColor = new Color(255, 255, 255, 1);
+        component.onColorPick(aColor);
+        expect(component.currentColor).toEqual(aColor);
+    });
+
+    it('#onColorHEXChange should update RGBA color', () => {
+        component.onColorHEXChange();
+        const color = new Color(RED, GREEN, BLUE, ALPHA);
+        expect(component.currentColor).toEqual(color);
+    });
+
+    it('#onColorRGBAChange should update HEX color', () => {
+
+        component.onColorRGBAChange();
+        const color = new Color(RED, GREEN, BLUE, ALPHA);
+        expect(component.currentColor).toEqual(color);
+    });
+
+    it('#onMouseUp should update palette, hide Form and update color history', () => {
+        spyOn(component, 'hideForm');
+        spyOn(component as any, 'applyColor');
+
+        component.onMouseUp();
+
+        expect(component.hideForm).toHaveBeenCalled();
+        expect((component as any).applyColor).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#onOldColor should pick color, update palette and hide form', () => {
+        spyOn(component, 'onColorPick');
+        spyOn(component, 'hideForm');
+        const color = new Color(255, 255, 255, 1);
+        component.onOldColor(color);
+
+        expect(component.onColorPick).toHaveBeenCalled();
+        expect(component.hideForm).toHaveBeenCalled();
+    });
+
+    it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
+        component.isShowForm = true;
+        spyOn(component.open, 'emit');
+
+        component.toggleForm();
+
+        expect(component.isShowForm).toBeFalsy();
+        expect(component.open.emit).toHaveBeenCalled();
+        expect(component.colorsHistory).toEqual(service.getHistory());
+    });
+
+    it('#hideForm should put isShowForm to false', () => {
+        component.isShowForm = true;
+        component.hideForm();
+        expect(component.isShowForm).toBeFalsy();
+    });
+
+});
+
+@Injectable()
 class MockColorButton extends AbsColorButton {
+    appliedColor: Color;
+
+    constructor(
+        protected paletteService: PaletteService,
+        protected formBuilder: FormBuilder) {
+        super(paletteService, formBuilder);
+        this.initialize();
+    }
+
+    initialize(): void {
+        this.isShowForm = false;
+        this.setupColors();
+        this.createForm();
+        this.setTip();
+    }
+
     protected setTip(): void {
         this.tip = 'Mock Color';
     }
@@ -15,7 +130,12 @@ class MockColorButton extends AbsColorButton {
     }
 
     protected applyColor(): void {
-        //
+        this.appliedColor = new Color(
+            this.currentColor.red,
+            this.currentColor.green,
+            this.currentColor.blue,
+            this.currentColor.alpha,
+        );
     }
 
     protected onAlphaChange(): void {
@@ -26,104 +146,3 @@ class MockColorButton extends AbsColorButton {
         return {};
     }
 }
-
-describe('AbsColorButton', () => {
-    let service: PaletteService;
-    let colorButton: MockColorButton;
-    let formBuilder: FormBuilder;
-
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule],
-            providers: [PaletteService],
-        })
-            .compileComponents();
-    }));
-
-    beforeEach(() => {
-        service = TestBed.get(PaletteService);
-        formBuilder = TestBed.get(FormBuilder);
-        colorButton = new MockColorButton(service, formBuilder);
-    });
-
-    it('should create', () => {
-        expect(colorButton).toBeTruthy();
-    });
-
-    it('#onColorPick update current color', () => {
-        const aColor = { red: 255, green: 255, blue: 255, alpha: 1 };
-        colorButton.onColorPick(aColor);
-        expect(colorButton.currentColor).toEqual(aColor);
-    });
-
-    it('#onColorHEXChange should update RGBA color', () => {
-        const RED = 30;
-        const GREEN = 30;
-        const BLUE = 30;
-        const ALPHA = 1;
-
-        colorButton.colorsForm.controls.red.setValue(RED);
-        colorButton.colorsForm.controls.green.setValue(GREEN);
-        colorButton.colorsForm.controls.blue.setValue(BLUE);
-        colorButton.colorsForm.controls.alpha.setValue(ALPHA);
-
-        colorButton.onColorHEXChange();
-        expect(service.getPrimary()).toBe(
-            new Color(RED, GREEN, BLUE, ALPHA).toString(),
-        );
-    });
-
-    it('#onColorRGBAChange should update HEX color', () => {
-        const RED = 30;
-        const GREEN = 30;
-        const BLUE = 30;
-        const ALPHA = 1;
-
-        colorButton.colorsForm.controls.red.setValue(RED);
-        colorButton.colorsForm.controls.green.setValue(GREEN);
-        colorButton.colorsForm.controls.blue.setValue(BLUE);
-        colorButton.colorsForm.controls.alpha.setValue(ALPHA);
-
-        colorButton.onColorRGBAChange();
-        expect(service.getPrimary()).toBe(
-            new Color(RED, GREEN, BLUE, ALPHA).toString(),
-        );
-    });
-
-    it('#onMouseUp should update palette, hide Form and update color history', () => {
-        spyOn(colorButton, 'hideForm');
-
-        colorButton.onMouseUp();
-
-        expect(colorButton.hideForm).toHaveBeenCalled();
-        expect(colorButton.colorsHistory).toEqual(service.getHistory());
-    });
-
-    it('#onOldColor should pick color, update palette and hide form', () => {
-        spyOn(colorButton, 'onColorPick');
-        spyOn(colorButton, 'hideForm');
-        const color = new Color(255, 255, 255, 1);
-        colorButton.onOldColor(color);
-
-        expect(colorButton.onColorPick).toHaveBeenCalled();
-        expect(colorButton.hideForm).toHaveBeenCalled();
-    });
-
-    it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
-        colorButton.isShowForm = true;
-        spyOn(colorButton.open, 'emit');
-
-        colorButton.toggleForm();
-
-        expect(colorButton.isShowForm).toBeFalsy();
-        expect(colorButton.open.emit).toHaveBeenCalled();
-        expect(colorButton.colorsHistory).toEqual(service.getHistory());
-    });
-
-    it('#hideForm should put isShowForm to false', () => {
-        colorButton.isShowForm = true;
-        colorButton.hideForm();
-        expect(colorButton.isShowForm).toBeFalsy();
-    });
-
-});

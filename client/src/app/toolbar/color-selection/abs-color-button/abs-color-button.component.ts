@@ -7,11 +7,9 @@ import { Color } from 'src/utils/color';
 export abstract class AbsColorButton {
 
     tip: string;
-    alpha: number;
 
     currentColor: Color;
     colorsForm: FormGroup;
-
     colorsHistory: Color[];
 
     r: number;
@@ -75,18 +73,18 @@ export abstract class AbsColorButton {
     }
 
     private updateColorRGBA() {
-        const RED
+        const red
             = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(1, 3));
-        const GREEN
+        const green
             = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(3, 5));
-        const BLUE
+        const blue
             = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(5, 7));
 
-        this.colorsForm.controls.red.setValue(RED);
-        this.colorsForm.controls.green.setValue(GREEN);
-        this.colorsForm.controls.blue.setValue(BLUE);
+        this.colorsForm.controls.red.setValue(red);
+        this.colorsForm.controls.green.setValue(green);
+        this.colorsForm.controls.blue.setValue(blue);
         const FULL_ALPHA = 1;
-        this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: FULL_ALPHA };
+        this.currentColor = new Color(red, green, blue, FULL_ALPHA);
     }
 
     private convertToDecimal(hex: string): number {
@@ -98,17 +96,17 @@ export abstract class AbsColorButton {
     }
 
     private updateColorHEX(): void {
-        const RED = this.colorsForm.controls.red.value;
-        const GREEN = this.colorsForm.controls.green.value;
-        const BLUE = this.colorsForm.controls.blue.value;
-        const ALPHA = this.colorsForm.controls.alpha.value;
+        const red = this.colorsForm.controls.red.value;
+        const green = this.colorsForm.controls.green.value;
+        const blue = this.colorsForm.controls.blue.value;
+        const alpha = this.colorsForm.controls.alpha.value;
         const colorHEX =
             '#' +
-            `${this.convertToHEX(RED)}` +
-            `${this.convertToHEX(GREEN)}` +
-            `${this.convertToHEX(BLUE)}`;
+            `${this.convertToHEX(red)}` +
+            `${this.convertToHEX(green)}` +
+            `${this.convertToHEX(blue)}`;
         this.colorsForm.controls.colorHEX.setValue(colorHEX);
-        this.currentColor = { red: RED, green: GREEN, blue: BLUE, alpha: ALPHA };
+        this.currentColor = new Color(red, green, blue, alpha);
     }
 
     protected convertToHEX(rgb: number): string {
