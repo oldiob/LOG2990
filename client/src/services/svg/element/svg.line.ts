@@ -160,16 +160,15 @@ export class SVGLine implements SVGInterface {
     lineLoop(): void {
         this.anchors.push([this.cursor[0], this.cursor[1]]);
         this.anchors.push([this.anchors[0][0], this.anchors[0][1]]);
-        this.end();
     }
 
     finish(): void {
         this.anchors.push([this.cursor[0], this.cursor[1]]);
-        this.end();
     }
 
     end(): void {
         DOMRenderer.removeChild(this.line.parentNode, this.line);
+        DOMRenderer.removeChild(this.element.parentNode, this.element);
         this.renderAnchors();
     }
 
