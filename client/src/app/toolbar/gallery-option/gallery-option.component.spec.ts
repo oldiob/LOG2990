@@ -4,9 +4,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatMenuModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { Drawing } from 'src/services/draw-area/i-drawing';
+import { WebClientService } from 'src/services/web-client/web-client.service';
 import { GalleryOptionComponent } from './gallery-option.component';
 
 describe('GalleryOptionComponent', () => {
@@ -14,6 +14,7 @@ describe('GalleryOptionComponent', () => {
   let fixture: ComponentFixture<GalleryOptionComponent>;
   let filterInput: ElementRef<HTMLInputElement>;
   let filteredDrawings: Drawing[];
+  let webClientService: WebClientService;
   beforeEach(async(() => {
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
@@ -46,6 +47,8 @@ describe('GalleryOptionComponent', () => {
     component.filteredDrawings = filteredDrawings;
 
     fixture.detectChanges();
+    webClientService = jasmine.createSpyObj('WebClientService', ['deleteDrawing', 'getAllDrawings']);
+    (component as any).webClientService = webClientService;
     filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['nativeElement', 'entry']);
     component.filterInput = filterInput;
     component.ngOnInit();
@@ -53,6 +56,11 @@ describe('GalleryOptionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should delete the drawing', () => {
+    component.onDelete(component.drawings[0]);
+    expect(webClientService.deleteDrawing).toHaveBeenCalled();
   });
 
   it('should filter drawings', () => {
@@ -77,6 +85,10 @@ describe('GalleryOptionComponent', () => {
   it('should get gallery image', () => {
     const IMAGE = '../../../assets/images/gallery.png';
     expect(component.getImage()).toEqual(IMAGE);
+  });
+
+  it('should stop event propagation', () => {
+    expect(component.stopEventPropagation(new MouseEvent('click'))).toEqual(new MouseEvent('click').stopPropagation() );
   });
 
   it('should go to the previous page', () => {

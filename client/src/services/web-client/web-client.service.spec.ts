@@ -9,7 +9,6 @@ import { of } from 'rxjs';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
 import { Message } from '../../../../common/communication/message';
-import { DialogService } from '../dialog/dialog.service';
 import { Drawing } from '../draw-area/i-drawing';
 import { WebClientService } from './web-client.service';
 
@@ -35,7 +34,7 @@ describe('WebClientService', () => {
             declarations: [LoadDrawingComponent, CustomAlertComponent],
             imports: [
                 HttpClientModule, MatDialogModule, MatSnackBarModule, BrowserAnimationsModule, BrowserDynamicTestingModule, RouterModule],
-            providers: [WebClientService, DialogService,
+            providers: [WebClientService,
                 { provide: HttpClient, useValue: httpClientSpy },
             ],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -61,6 +60,13 @@ describe('WebClientService', () => {
     it('should send drawing', () => {
         httpClientSpy.post.and.returnValue(of(drawing));
         webClientService.sendDrawing(drawing);
+        expect(httpClientSpy.post.calls.count()).toEqual(CALL_COUNT);
+    });
+
+    it('should add tag', () => {
+        const id = '1';
+        const tag = 'test';
+        webClientService.addTag(id, tag);
         expect(httpClientSpy.post.calls.count()).toEqual(CALL_COUNT);
     });
 

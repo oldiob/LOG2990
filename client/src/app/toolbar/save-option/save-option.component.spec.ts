@@ -30,4 +30,19 @@ describe('SaveOptionComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should get name error message', () => {
+        component.saveForm.controls.name.setValue('');
+        expect(component.getNameErrorMessage()).toBe('You must enter a name');
+    });
+
+    it('should get tags error message', () => {
+        component.saveForm.controls.name.setValue('');
+        expect(component.getTagsErrorMessage()).toBe('You must enter valid tags');
+    });
+
+    it('should toggle to save locally', () => {
+        component.toggleLocal();
+        expect(component.isLocal).toBeFalsy();
+    });
 });
