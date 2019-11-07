@@ -23,7 +23,6 @@ export class BackgroundButtonComponent
     }
 
     ngOnInit() {
-        this.backgroundColor = new Color(this.r, this.g, this.b, this.a);
         this.isSettingsShown = false;
         this.setupColors();
         this.createForm();
@@ -44,6 +43,8 @@ export class BackgroundButtonComponent
             `${this.convertToHEX(this.r)}` +
             `${this.convertToHEX(this.g)}` +
             `${this.convertToHEX(this.b)}`;
+
+        this.backgroundColor = new Color(this.r, this.g, this.b, this.a);
     }
 
     protected applyColor(): void {
