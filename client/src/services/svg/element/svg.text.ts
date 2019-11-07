@@ -1,7 +1,6 @@
 import { KeyService } from 'src/services/key/key.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { PaletteService } from 'src/services/palette/palette.service';
 
 export class SVGText implements SVGInterface {
     EMPTYSTRING = '';
@@ -20,7 +19,7 @@ export class SVGText implements SVGInterface {
     fontSize: string;
     fontWeight: string;
 
-    constructor(keyService: KeyService, paletteService: PaletteService, x: number, y: number, fontFamily: string, 
+    constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string,
                 fontStyle: string, fontWeigth: string ) {
         this.fontTextAlign = textAlign;

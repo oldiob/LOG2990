@@ -3,6 +3,7 @@ import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { KeyService } from 'src/services/key/key.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
+import { Color } from 'src/utils/color';
 import { ITool } from './i-tool';
 declare type callback = () => void;
 @Injectable({
@@ -42,14 +43,14 @@ export class TextTool implements ITool {
         }
         if (!this.element) {
             this.startEdit();
-            this.text = new SVGText(this.keyService, this.paletteService, event.svgX, event.svgY, this.fontFamily, 
+            this.text = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
                                     this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
-            this.text.setFontFamily(this.fontFamily);
-            this.text.setFontSize(this.fontSize);
-            this.text.setTextAlign(this.textAlign);
-            this.text.setFontStyle(this.fontStyle);
-            this.text.setFontWeight(this.fontWeigth);
-            this.text.setPrimary(this.paletteService.getPrimary());
+            // this.text.setFontFamily(this.fontFamily);
+            // this.text.setFontSize(this.fontSize);
+            // this.text.setTextAlign(this.textAlign);
+            // this.text.setFontStyle(this.fontStyle);
+            // this.text.setFontWeight(this.fontWeigth);
+            this.paletteService.primaryObs$.subscribe((color: Color) => this.text.setPrimary(color.toString()));
             this.element = this.text;
             return new CmdSVG(this.element);
         } else if (this.element) {
@@ -89,11 +90,9 @@ export class TextTool implements ITool {
                 func();
             } else {
                 current += event.key;
-                // à changer pour un observable
-                // this.text.setPrimary(this.paletteService.getPrimary());
                 this.element.currentSubElement.innerHTML = current;
             }
-            //
+            this.element.currentSubElement.innerHTML = current;
         }
         return true;
     }
