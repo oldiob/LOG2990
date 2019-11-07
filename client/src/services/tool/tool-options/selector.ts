@@ -10,6 +10,7 @@ export enum State {
     idle = 0,
     maybe,
     selecting,
+    selected,
 }
 
 @Injectable({
@@ -105,6 +106,9 @@ export class SelectorTool implements ITool {
             case State.idle:
                 this.state = State.maybe;
                 break;
+            case State.selected:
+                this.state = State.maybe;
+                break;
             default:
                 this.state = State.idle;
         }
@@ -134,8 +138,7 @@ export class SelectorTool implements ITool {
             // tslint:disable-next-line: no-switch-case-fall-through
             case State.selecting:
                 this.commit();
-            // Fallthrought !
-            // tslint:disable-next-line: no-switch-case-fall-through
+                break;
             default:
                 this.state = State.idle;
         }
@@ -258,6 +261,12 @@ export class SelectorTool implements ITool {
 
     private commit() {
         this.selected = this.computeSelection();
+        if (this.selected.size) {
+            this.state = State.selected;
+        }
+        else {
+            this.state = State.idle;
+        }
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
     }
