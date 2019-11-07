@@ -89,9 +89,7 @@ export class TextTool implements ITool {
             } else {
                 current += event.key;
                 // à changer pour un observable
-                if (this.paletteService.swap) {
-                    this.text.setPrimary(this.paletteService.getPrimary());
-                }
+                this.text.setPrimary(this.paletteService.getPrimary());
                 this.element.currentSubElement.innerHTML = current;
             }
             //
