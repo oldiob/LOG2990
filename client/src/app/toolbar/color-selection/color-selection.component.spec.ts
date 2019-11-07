@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { ColorButtonType } from './color-button-type';
 import { ColorSelectionComponent } from './color-selection.component';
 
 describe('ColorSelectionComponent', () => {
@@ -41,24 +42,29 @@ describe('ColorSelectionComponent', () => {
     it('#onOpen should open color button trough toggling isOpenPrimary or IsOpenSecondary', () => {
         const IS_SHOW_FORM = true;
 
-        let isPrimary = true;
-        component.onOpen(IS_SHOW_FORM, isPrimary);
-        expect(component.isOpenPrimary).toBeTruthy();
-        expect(component.isOpenSecondary).toBeFalsy();
+        component.onOpen(IS_SHOW_FORM, ColorButtonType.PrimaryColor);
+        expect(component.isPrimaryButtonOpened).toBeTruthy();
+        expect(component.isSecondaryButtonOpened).toBeFalsy();
+        expect(component.isBackgroundButtonOpened).toBeFalsy();
 
-        isPrimary = false;
-        component.onOpen(IS_SHOW_FORM, isPrimary);
-        expect(component.isOpenPrimary).toBeFalsy();
-        expect(component.isOpenSecondary).toBeTruthy();
-        // ! TEST FAILS HERE
+        component.onOpen(IS_SHOW_FORM, ColorButtonType.SecondaryColor);
+        expect(component.isPrimaryButtonOpened).toBeFalsy();
+        expect(component.isSecondaryButtonOpened).toBeTruthy();
+        expect(component.isBackgroundButtonOpened).toBeFalsy();
+
+        component.onOpen(IS_SHOW_FORM, ColorButtonType.BackgroundColor);
+        expect(component.isPrimaryButtonOpened).toBeFalsy();
+        expect(component.isSecondaryButtonOpened).toBeFalsy();
+        expect(component.isBackgroundButtonOpened).toBeTruthy();
+
     });
 
     it('#close should close color buttons through toggling isOpenPrimary or IsOpenSecondary', () => {
-        component.isOpenPrimary = true;
-        component.isOpenSecondary = true;
+        component.isPrimaryButtonOpened = true;
+        component.isSecondaryButtonOpened = true;
         component.close();
-        expect(component.isOpenPrimary).toBeFalsy();
-        expect(component.isOpenSecondary).toBeFalsy();
+        expect(component.isPrimaryButtonOpened).toBeFalsy();
+        expect(component.isSecondaryButtonOpened).toBeFalsy();
     });
 
 });

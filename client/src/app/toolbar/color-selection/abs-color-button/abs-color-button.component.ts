@@ -2,6 +2,7 @@ import { EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
+import { ColorButtonType } from '../color-button-type';
 
 @Injectable()
 export abstract class AbsColorButton {
@@ -18,7 +19,8 @@ export abstract class AbsColorButton {
     a: number;
     hex: string;
 
-    @Input() isShowForm: boolean;
+    @Input() type: ColorButtonType;
+    @Input() isSettingsShown: boolean;
     @Output() open = new EventEmitter<boolean>();
 
     constructor(
@@ -118,13 +120,13 @@ export abstract class AbsColorButton {
     }
 
     toggleForm(): void {
-        this.isShowForm = !this.isShowForm;
-        this.open.emit(this.isShowForm);
+        this.isSettingsShown = !this.isSettingsShown;
+        this.open.emit(this.isSettingsShown);
         this.colorsHistory = this.paletteService.getHistory();
     }
 
     hideForm(): void {
-        this.isShowForm = false;
-        this.open.emit(this.isShowForm);
+        this.isSettingsShown = false;
+        this.open.emit(this.isSettingsShown);
     }
 }
