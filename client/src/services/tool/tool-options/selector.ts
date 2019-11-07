@@ -275,4 +275,19 @@ export class SelectorTool implements ITool {
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
     }
+
+    selectAll() {
+        this.selected = new Set<SVGInterface>(this.svg.objects);
+        this.renderPreview(this.selected);
+        this.svg.removeElement(this.boxElement);
+        this.state = State.selected;
+    }
+
+    reset() {
+        this.selected.clear();
+        this.selection.clear();
+        this.svg.removeElement(this.boxElement);
+        this.svg.removeElement(this.previewElement);
+        this.state = State.idle;
+    }
 }
