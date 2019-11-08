@@ -14,9 +14,7 @@ export class CmdDup implements CmdInterface {
         this.obj = objects.map((obj) => {
             const tmp: SVGAbstract = Object.create(obj);
             tmp.element = obj.element.cloneNode(true);
-            if (tmp.move) {
-                tmp.move(this.offset, this.offset);
-            }
+            tmp.translate(this.offset, this.offset);
             return tmp;
         });
         this.svg = MyInjector.get(SVGService);
