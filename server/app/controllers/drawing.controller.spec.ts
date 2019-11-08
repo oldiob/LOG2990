@@ -6,7 +6,6 @@ import { DrawingController } from './drawing.controller';
 describe('DrawingRoutes :', () => {
     let drawingController: DrawingController;
     let database: DataBaseService;
-    let invalidID: Drawing;
     let validDrawing: Drawing;
     let invalidName: Drawing;
     let invalidTags: Drawing;
@@ -18,15 +17,6 @@ describe('DrawingRoutes :', () => {
       backgroundColor: '#ffffff',
       width: 200,
       height: 200,
-    };
-    invalidID = {
-        _id: '-1',
-        name: 'test',
-        tags: ['allo'],
-        holder: { entry: 'entry', elements: ['vide'] },
-        backgroundColor: '#ffffff',
-        width: 200,
-        height: 200,
     };
     validDrawing = {
         _id: '17',
@@ -46,10 +36,28 @@ describe('DrawingRoutes :', () => {
           width: 200,
           height: 200,
     };
+//     router = Router();
     database = new DataBaseService();
     drawingController = new DrawingController(database);
 
-    it('should create', () => {
-        expect(drawingController.).true;
+    describe('isDrawingValid function:', () =>  {
+        it('should return false if the drawing name is not valid', () => {
+                (drawingController as any).isDrawingValid(invalidName);
+                expect( (drawingController as any).isDrawingValid(invalidName)).equal(false);
+        });
+
     });
+
+    describe('isTagValid function:', () =>  {
+        it('should return false if the drawing tags is not valid', () => {
+                (drawingController as any).isTagValid(invalidTags);
+                expect( (drawingController as any).isTagValid(invalidTags)).equal(false);
+        });
+
+        it('should return true if the drawing tags is valid', () => {
+                (drawingController as any).isTagValid(validDrawing);
+                expect( (drawingController as any).isTagValid(validDrawing.tags)).equal(true);
+        });
+    });
+
 });
