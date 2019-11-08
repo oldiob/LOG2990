@@ -18,7 +18,7 @@ export class SVGText implements SVGInterface {
 
     constructor(keyService: KeyService, x: number, y: number) {
         this.fontTextAlign = this.EMPTYSTRING;
-        keyService.setIsBlocking(true);
+        keyService.disableShortcut();
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());

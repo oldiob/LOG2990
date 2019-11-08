@@ -145,13 +145,13 @@ export class ToolbarComponent implements OnInit {
     }
 
     disableCurrentText() {
-        this.keyService.setIsDisableText(true);
-        this.keyService.setIsBlocking(false);
+        this.keyService.disableTextEdit();
+        this.keyService.enableShortcut();
     }
 
     @HostListener('window: keydown', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
-        if (this.isDialogOpened || this.keyService.getIsBlocking()) {
+        if (this.isDialogOpened || !this.keyService.isKeysEnabled) {
             return;
         }
         const kbd: { [id: string]: callback } = {
@@ -169,7 +169,7 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keyup', ['$event'])
     onKeyUp(event: KeyboardEvent): void {
-        if (this.isDialogOpened || this.keyService.getIsBlocking()) {
+        if (this.isDialogOpened || !this.keyService.isKeysEnabled) {
             return;
         }
         const kbd: { [id: string]: callback } = {
