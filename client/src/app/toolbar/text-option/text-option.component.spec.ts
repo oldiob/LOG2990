@@ -1,7 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SVGText } from 'src/services/svg/element/svg.text';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ShowcaseComponent } from '../showcase/showcase.component';
 import { TextOptionComponent } from './text-option.component';
 
 describe('TextOptionComponent', () => {
@@ -9,17 +11,20 @@ describe('TextOptionComponent', () => {
   let fixture: ComponentFixture<TextOptionComponent>;
   let text: TextTool;
   let renderer: Renderer2;
+  let element: SVGText | null;
+  let showcase: ShowcaseComponent;
   const BUTTON = 'text.png';
   const PATH  = '../../../../assets/images/';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextOptionComponent ],
+      declarations: [ TextOptionComponent, ShowcaseComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    element = jasmine.createSpyObj('SVGText', ['setFontWeight', 'setFontStyle', 'setTextAlign', 'setFontSize', 'setFontFamily']);
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
     fixture = TestBed.createComponent(TextOptionComponent);
@@ -27,6 +32,9 @@ describe('TextOptionComponent', () => {
     fixture.detectChanges();
     text = TestBed.get(TextTool);
     component.currentTool = component.tools[0];
+    showcase = jasmine.createSpyObj('ShowcaseComponent', ['showcase', 'display']);
+    component.showcase = showcase;
+    text.element = element;
 });
 
   it('should create', () => {
@@ -61,13 +69,9 @@ describe('TextOptionComponent', () => {
     const fontSize = '15px';
     component.selectFontSize(fontSize);
     expect(text.fontSize).toEqual(fontSize);
-  });
-
-  it('should font style equal to bold', () => {
-    const fontStyle = component.BOLD;
-    text.setFontStyle(fontStyle);
-    component.selectFontStyle(fontStyle);
-    expect(text.fontStyle).toEqual(fontStyle);
+    if (text.element !== null) {
+      expect(text.element.setFontSize).toHaveBeenCalled();
+    }
   });
 
   it('should font family equal to arial', () => {
@@ -75,6 +79,9 @@ describe('TextOptionComponent', () => {
     component.currentFontFamily = fontFamily;
     component.selectFontFamily(fontFamily);
     expect(component.currentFontFamily).toEqual(fontFamily);
+    if (text.element !== null) {
+      expect(text.element.setFontFamily).toHaveBeenCalled();
+    }
   });
 
   it('should select text align equal to left', () => {
@@ -107,6 +114,9 @@ describe('TextOptionComponent', () => {
     component.isBold = false;
     component.toggleBold();
     expect(text.fontWeigth).toEqual(bold);
+    if (text.element !== null) {
+    expect(text.element.setFontWeight).toHaveBeenCalled();
+    }
   });
 
   it('should toggleItalic text to italic ', () => {

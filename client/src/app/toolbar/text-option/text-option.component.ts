@@ -6,12 +6,41 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
 
+export enum FontFamilyValue {
+    Arial = 0,
+    TimesNewRoman = 1,
+    LucidaConsole = 2,
+    Verdana = 3,
+    Garamond = 4,
+    ComicSansMS = 5,
+    LucidaSansUnicode = 6,
+    Tahoma = 7,
+    Courier = 8,
+    TrebuchetMS = 9,
+    Palatino = 10,
+}
+
+export enum FontFamilyType {
+    Arial = 'Arial',
+    TimesNewRoman = 'Times New Roman',
+    LucidaConsole = 'Lucida Console',
+    Verdana = 'Verdana',
+    Garamond = 'Garamond',
+    ComicSansMS = 'Comic Sans MS',
+    LucidaSansUnicode = 'Lucida Sans Unicode',
+    Tahoma = 'Tahoma',
+    Courier = 'Courier',
+    TrebuchetMS = 'Trebuchet MS',
+    Palatino = 'Palatino Linotype',
+}
 @Component({
     selector: 'app-text-option',
     templateUrl: './text-option.component.html',
     styleUrls: ['./text-option.component.scss', '../toolbar-option.scss'],
 })
+
 export class TextOptionComponent implements OnInit, IOption<ITool> {
+
     private readonly FILE_LOCATION = '../../../../assets/images/';
     EMPTYSTRING = '';
     DEFAULT_SIZE = '15px';
@@ -51,17 +80,17 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = this.tools[0];
 
         this.fontFamilies = [] = [
-            { value: 0, fontFamily: 'Arial' },
-            { value: 1, fontFamily: 'Times New Roman' },
-            { value: 2, fontFamily: 'Lucida Console' },
-            { value: 3, fontFamily: 'Verdana' },
-            { value: 4, fontFamily: 'Garamond' },
-            { value: 5, fontFamily: 'Comic Sans MS' },
-            { value: 6, fontFamily: 'Lucida Sans Unicode' },
-            { value: 7, fontFamily: 'Tahoma' },
-            { value: 8, fontFamily: 'Courier' },
-            { value: 9, fontFamily: 'Trebuchet MS' },
-            { value: 10, fontFamily: 'Palatino Linotype' },
+            { value: FontFamilyValue.Arial, fontFamily: FontFamilyType.Arial },
+            { value: FontFamilyValue.TimesNewRoman, fontFamily: FontFamilyType.TimesNewRoman },
+            { value: FontFamilyValue.LucidaConsole, fontFamily: FontFamilyType.LucidaConsole },
+            { value: FontFamilyValue.Verdana, fontFamily: FontFamilyType.Verdana },
+            { value: FontFamilyValue.Garamond, fontFamily: FontFamilyType.Garamond },
+            { value: FontFamilyValue.ComicSansMS, fontFamily: FontFamilyType.ComicSansMS },
+            { value: FontFamilyValue.LucidaSansUnicode, fontFamily: FontFamilyType.LucidaSansUnicode },
+            { value: FontFamilyValue.Tahoma, fontFamily: FontFamilyType.Tahoma },
+            { value: FontFamilyValue.Courier, fontFamily: FontFamilyType.Courier },
+            { value: FontFamilyValue.TrebuchetMS, fontFamily: FontFamilyType.TrebuchetMS},
+            { value: FontFamilyValue.Palatino, fontFamily: FontFamilyType.Palatino },
         ];
         this.currentFontFamily = this.EMPTYSTRING;
     }
@@ -89,19 +118,15 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     }
 
     selectFontSize(fontSize: string): void {
+        this.text.fontSize = fontSize;
         if (this.text.element !== null) {
             this.text.element.setFontSize(fontSize);
         }
     }
 
-    selectFontStyle(fontStyle: string): void {
-        if (this.text.element !== null) {
-            this.text.element.setFontStyle(fontStyle);
-        }
-    }
-
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
+        this.text.fontFamily = this.currentFontFamily;
         if (this.text.element !== null) {
             this.text.element.setFontFamily(fontFamily);
         }
@@ -132,8 +157,10 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             if (this.isBold) {
                 this.text.element.setFontWeight(this.BOLD);
+                this.text.fontWeigth = this.BOLD;
             } else {
                 this.text.element.setFontWeight(this.NORMAL);
+                this.text.fontWeigth = this.NORMAL;
             }
         }
     }
@@ -143,9 +170,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             if (this.isItalic) {
                 this.text.element.setFontStyle(this.ITALIC);
+                this.text.fontStyle = this.ITALIC;
             } else {
                 this.text.element.setFontStyle(this.NORMAL);
+                this.text.fontStyle = this.NORMAL;
             }
+        }
     }
-}
 }

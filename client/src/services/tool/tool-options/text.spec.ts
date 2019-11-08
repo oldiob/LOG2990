@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { KeyService } from 'src/services/key/key.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGText } from 'src/services/svg/element/svg.text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { TextTool } from './text';
@@ -12,18 +13,25 @@ describe('TextTool', () => {
     let paletteService: PaletteService;
     let text: TextTool;
     let event: MouseEvent;
+    let element: SVGText;
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         DOMRenderer.renderer = renderer;
         keyService = TestBed.get(KeyService);
         paletteService = TestBed.get(PaletteService);
+        element = jasmine.createSpyObj('SVGText', ['currentSubElement', 'setPrimary', 'setLineBreak', 'setCurrentPlaceholder']);
         text = new TextTool(keyService, paletteService);
+        text.element = element;
         event = new MouseEvent('mousedown');
     });
 
     it('should create', () => {
         expect(text).toBeTruthy();
+    });
+
+    it('should create text field', () => {
+        expect(text.onPressed(event)).toBeNull();
     });
 
     it('should return undefined onMotion', () => {
@@ -34,49 +42,23 @@ describe('TextTool', () => {
         expect(text.onReleased(event)).toBeUndefined();
     });
 
-    it('should set font size at 15px', () => {
-        const fontSize = '15px';
-        text.setFontSize(fontSize);
-        if (text.element != null) {
-            text.element.setFontSize(fontSize);
-        }
-        expect(text.fontSize).toEqual(fontSize);
+    it('should set element text to null when it select an another tool', () => {
+        text.onUnSelect();
+        expect(text.element).toEqual(null);
     });
 
-    it('should set font family to arial', () => {
-        const fontFamilyArial = 'Arial';
-        text.setFontFamily(fontFamilyArial);
-        if (text.element != null) {
-            text.element.setFontFamily(fontFamilyArial);
-        }
-        expect(text.fontFamily).toEqual(fontFamilyArial);
+    it('should return true if a keydown', () => {
+        const testText: object = {
+            key: 'Rebase',
+        };
+        text.onKeydown(testText as KeyboardEvent);
+        expect(text.onKeydown(testText as KeyboardEvent)).toBeTruthy();
     });
 
-    it('should set font style to italic', () => {
-        const fontStyleItalic = 'italic';
-        text.setFontStyle(fontStyleItalic);
-        if (text.element != null) {
-            text.element.setFontStyle(fontStyleItalic);
-        }
-        expect(text.fontStyle).toEqual(fontStyleItalic);
-    });
-
-    it('should set font weight to bold', () => {
-        const fontWeightBold = 'bold';
-        text.setFontWeight(fontWeightBold);
-        if (text.element != null) {
-            text.element.setFontWeight(fontWeightBold);
-        }
-        expect(text.fontWeigth).toEqual(fontWeightBold);
-    });
-
-    it('should set text align to center', () => {
-        const textAlignCenter = 'middle';
-        text.setTextAlign(textAlignCenter);
-        if (text.element != null) {
-        text.element.setTextAlign(textAlignCenter);
-        }
-        expect(text.textAlign).toEqual(textAlignCenter);
+    it('should return Enter if a keydown', () => {
+        const enter = new KeyboardEvent('keydown', { key: 'Enter' });
+        text.onKeydown(enter);
+        expect(text.onKeydown(enter)).toBeTruthy();
     });
 
     it('should finish editing', () => {
@@ -102,5 +84,10 @@ describe('TextTool', () => {
     it('should return false if the line is not empty', () => {
         const content = 'Test';
         expect(text.isLineEmpty(content)).toBeFalsy();
+    });
+
+    it('should show a preview of text', () => {
+        text.onShowcase(event.svgX, event.svgY);
+        expect(text.onShowcase(event.svgX, event.svgY)).toBeNull();
     });
 });

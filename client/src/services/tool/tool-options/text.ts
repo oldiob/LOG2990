@@ -77,7 +77,6 @@ export class TextTool implements ITool {
         if (this.element !== null) {
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
-                Backspace: () => { if (this.element) { current = current.substring(0, current.length - 1); } },
                 Enter: () => {
                     if (this.element) {
                         if (this.isLineEmpty(current)) {
@@ -94,7 +93,6 @@ export class TextTool implements ITool {
                 current += event.key;
                 this.element.currentSubElement.innerHTML = current;
             }
-            //
         }
         return true;
     }
