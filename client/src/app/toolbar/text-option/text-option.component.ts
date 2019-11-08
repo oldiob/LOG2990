@@ -5,34 +5,8 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
+import { TextFormat } from './TextFormat';
 
-export enum FontFamilyValue {
-    Arial = 0,
-    TimesNewRoman = 1,
-    LucidaConsole = 2,
-    Verdana = 3,
-    Garamond = 4,
-    ComicSansMS = 5,
-    LucidaSansUnicode = 6,
-    Tahoma = 7,
-    Courier = 8,
-    TrebuchetMS = 9,
-    Palatino = 10,
-}
-
-export enum FontFamilyType {
-    Arial = 'Arial',
-    TimesNewRoman = 'Times New Roman',
-    LucidaConsole = 'Lucida Console',
-    Verdana = 'Verdana',
-    Garamond = 'Garamond',
-    ComicSansMS = 'Comic Sans MS',
-    LucidaSansUnicode = 'Lucida Sans Unicode',
-    Tahoma = 'Tahoma',
-    Courier = 'Courier',
-    TrebuchetMS = 'Trebuchet MS',
-    Palatino = 'Palatino Linotype',
-}
 @Component({
     selector: 'app-text-option',
     templateUrl: './text-option.component.html',
@@ -40,16 +14,23 @@ export enum FontFamilyType {
 })
 
 export class TextOptionComponent implements OnInit, IOption<ITool> {
+    fonts = [
+        'Arial',
+        'Times New Roman',
+        'Lucida Console',
+        'Verdana',
+        'Garamond',
+        'Comic Sans MS',
+        'Lucida Sans Unicode',
+        'Tahoma',
+        'Courier',
+        'Trebuchet MS',
+        'Palatino Linotype',
+    ];
 
     private readonly FILE_LOCATION = '../../../../assets/images/';
-    EMPTYSTRING = '';
     DEFAULT_SIZE = '15px';
-    BOLD = 'bold';
-    NORMAL = 'normal';
-    ITALIC = 'italic';
-    ALIGNLEFT = 'start';
-    ALIGNCENTER = 'middle';
-    ALIGNRIGHT = 'end';
+
     @ViewChild(ShowcaseComponent, { static: true })
     showcase: ShowcaseComponent;
 
@@ -75,24 +56,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     fontFamilies: any[];
 
     constructor(private toolService: ToolService, private text: TextTool) {
-
         this.tools = [text];
         this.currentTool = this.tools[0];
 
-        this.fontFamilies = [] = [
-            { value: FontFamilyValue.Arial, fontFamily: FontFamilyType.Arial },
-            { value: FontFamilyValue.TimesNewRoman, fontFamily: FontFamilyType.TimesNewRoman },
-            { value: FontFamilyValue.LucidaConsole, fontFamily: FontFamilyType.LucidaConsole },
-            { value: FontFamilyValue.Verdana, fontFamily: FontFamilyType.Verdana },
-            { value: FontFamilyValue.Garamond, fontFamily: FontFamilyType.Garamond },
-            { value: FontFamilyValue.ComicSansMS, fontFamily: FontFamilyType.ComicSansMS },
-            { value: FontFamilyValue.LucidaSansUnicode, fontFamily: FontFamilyType.LucidaSansUnicode },
-            { value: FontFamilyValue.Tahoma, fontFamily: FontFamilyType.Tahoma },
-            { value: FontFamilyValue.Courier, fontFamily: FontFamilyType.Courier },
-            { value: FontFamilyValue.TrebuchetMS, fontFamily: FontFamilyType.TrebuchetMS},
-            { value: FontFamilyValue.Palatino, fontFamily: FontFamilyType.Palatino },
-        ];
-        this.currentFontFamily = this.EMPTYSTRING;
+        const NO_FONT = '';
+        this.currentFontFamily = NO_FONT;
     }
 
     ngOnInit() {
@@ -134,11 +102,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     selectTextAlign(textAlign: string): void {
         this.disableAlign();
-        if (textAlign === this.ALIGNLEFT) {
+        if (textAlign === TextFormat.ALIGNLEFT) {
             this.isAlignLeft = true;
-        } else if (textAlign === this.ALIGNCENTER) {
+        } else if (textAlign === TextFormat.ALIGNCENTER) {
             this.isAlignCenter = true;
-        } else if (textAlign === this.ALIGNRIGHT) {
+        } else if (textAlign === TextFormat.ALIGNRIGHT) {
             this.isAlignRight = true;
         }
         if (this.text.element !== null) {
@@ -156,11 +124,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.isBold = !this.isBold;
         if (this.text.element !== null) {
             if (this.isBold) {
-                this.text.element.setFontWeight(this.BOLD);
-                this.text.fontWeigth = this.BOLD;
+                this.text.element.setFontWeight(TextFormat.BOLD);
+                this.text.fontWeigth = TextFormat.BOLD;
             } else {
-                this.text.element.setFontWeight(this.NORMAL);
-                this.text.fontWeigth = this.NORMAL;
+                this.text.element.setFontWeight(TextFormat.NORMAL);
+                this.text.fontWeigth = TextFormat.NORMAL;
             }
         }
     }
@@ -169,11 +137,11 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.isItalic = !this.isItalic;
         if (this.text.element !== null) {
             if (this.isItalic) {
-                this.text.element.setFontStyle(this.ITALIC);
-                this.text.fontStyle = this.ITALIC;
+                this.text.element.setFontStyle(TextFormat.ITALIC);
+                this.text.fontStyle = TextFormat.ITALIC;
             } else {
-                this.text.element.setFontStyle(this.NORMAL);
-                this.text.fontStyle = this.NORMAL;
+                this.text.element.setFontStyle(TextFormat.NORMAL);
+                this.text.fontStyle = TextFormat.NORMAL;
             }
         }
     }

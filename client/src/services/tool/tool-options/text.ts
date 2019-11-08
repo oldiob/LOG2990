@@ -33,6 +33,8 @@ export class TextTool implements ITool {
         this.textAlign = this.EMPTYSTRING;
         this.fontSize = this.INITIALSIZE;
         this.isEditing = false;
+        const DEFAULT_WIDTH = 15;
+        this.width = DEFAULT_WIDTH;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {

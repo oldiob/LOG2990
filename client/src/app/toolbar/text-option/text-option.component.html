@@ -64,10 +64,11 @@
       <div class="tools">
         <form class="form" (ngSubmit)="onSubmit()">
             <mat-form-field color="accent">
-                <mat-select [value]="0" panelClass="trace-panel">
-                    <mat-option *ngFor="let fontFamily of fontFamilies"(click)="selectFontFamily(fontFamily.fontFamily)"
-                      [value]="fontFamily.value" [class.selected-tool]="fontFamily.fontFamily === currentFontFamily">
-                      {{fontFamily.fontFamily}}
+                <mat-select [value]="fonts[0]" panelClass="trace-panel">
+                    <mat-option *ngFor="let font of fonts" 
+                      (click)="selectFontFamily(font)"
+                      [value]="font" [class.selected-tool]="font === currentFontFamily">
+                      {{font}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
