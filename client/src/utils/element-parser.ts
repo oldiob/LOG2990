@@ -1,9 +1,9 @@
+import { ElementRef } from '@angular/core';
 import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Prototypes } from './prototypes';
-import { ElementRef } from '@angular/core';
 
 export const svgToImage = (entry: ElementRef, fn: CallableFunction): void => {
     const canvas = DOMRenderer.createElement('canvas');

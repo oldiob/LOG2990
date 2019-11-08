@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
-import { ITool } from './i-tool';
 import { svgToImage } from 'src/utils/element-parser';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
