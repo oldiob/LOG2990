@@ -197,7 +197,12 @@ export class SVGService {
     getInRect(rect: Rect): Set<SVGAbstract> {
         const matches: Set<SVGAbstract> = new Set<SVGAbstract>([]);
         this.objects.forEach((obj) => {
-            const box: any = obj.element.getBBox();
+            const box: any = obj.element.getBoundingClientRect();
+            const shiftedRect = this.entry.nativeElement.getBoundingClientRect();
+
+            box.x -= shiftedRect.left;
+            box.y -= shiftedRect.top;
+
             if (rect.intersect(new Rect(box.x, box.y, box.x + box.width, box.y + box.height))) {
                 matches.add(obj);
             }

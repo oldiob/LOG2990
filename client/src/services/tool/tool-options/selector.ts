@@ -208,7 +208,11 @@ export class SelectorTool implements ITool {
     }
 
     private doSelection() {
-        const rect = new Rect(this.anchor.x, this.anchor.y, this.cursor.x, this.cursor.y);
+        const rect = new Rect(
+            this.anchor.x,
+            this.anchor.y,
+            this.cursor.x,
+            this.cursor.y);
         this.selection = this.svg.getInRect(rect);
         this.renderPreview(this.computeSelection());
     }
@@ -218,8 +222,13 @@ export class SelectorTool implements ITool {
         let y1 = Infinity;
         let x2 = -Infinity;
         let y2 = -Infinity;
+        const entryPositions = this.svg.entry.nativeElement.getBoundingClientRect();
         toRender.forEach((obj) => {
-            const rect: any = obj.element.getBBox();
+            const rect: any = obj.element.getBoundingClientRect();
+
+            rect.x -= entryPositions.left;
+            rect.y -= entryPositions.top;
+
             x1 = Math.min(x1, rect.x);
             y1 = Math.min(y1, rect.y);
             x2 = Math.max(x2, rect.x + rect.width);

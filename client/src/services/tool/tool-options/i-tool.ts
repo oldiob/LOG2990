@@ -1,7 +1,7 @@
 import { CmdInterface } from '../../cmd/cmd.service';
 
 /**
- * Implementations of this interface should return raw SVGInterface with
+ * Implementations of this interface should return raw SVGAbstract with
  * position elements without color, thickness or texture.
  */
 
