@@ -1,16 +1,12 @@
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule,
          MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
          MatInputModule, MatSelectModule, MatTableModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { ImportComponent } from './import.component';
+import { ImportOptionComponent } from './import-option.component';
 
-let httpClientSpy: jasmine.SpyObj<HttpClient>;
-let mockRouter: { navigate: jasmine.Spy};
 const mockDialogRef: {close: jasmine.Spy} = {
   close: jasmine.createSpy('close'),
 };
@@ -31,23 +27,19 @@ const modules: (typeof MatDialogModule)[] = [
             BrowserAnimationsModule,
             FormsModule,
             ReactiveFormsModule,
-            HttpClientModule,
 ];
 
-describe('ImportComponent', () => {
-  let component: ImportComponent;
-  let fixture: ComponentFixture<ImportComponent>;
+describe('ImportOptionComponent', () => {
+  let component: ImportOptionComponent;
+  let fixture: ComponentFixture<ImportOptionComponent>;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
     void TestBed.configureTestingModule({
       imports: [ modules ],
-      declarations: [ ImportComponent ],
+      declarations: [ ImportOptionComponent ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: MAT_DIALOG_DATA, useValue: matDialogdataSpy },
-        { provide: Router, useValue: mockRouter},
-        { provide: HttpClient, useValue: httpClientSpy},
       ],
     })
         .compileComponents();
@@ -55,10 +47,9 @@ describe('ImportComponent', () => {
   });
 
   beforeEach(() => {
-        fixture = TestBed.createComponent(ImportComponent);
+        fixture = TestBed.createComponent(ImportOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     });
 
   it('should create', () => {
@@ -69,4 +60,5 @@ describe('ImportComponent', () => {
         component.close(event);
         void expect(mockDialogRef.close).toHaveBeenCalled();
     });
+
 });

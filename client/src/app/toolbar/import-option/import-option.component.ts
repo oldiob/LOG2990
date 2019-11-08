@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
@@ -9,11 +8,11 @@ import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 const REBASE = /.*.rebase$/;
 
 @Component({
-    selector: 'app-import',
-    templateUrl: './import.component.html',
-    styleUrls: ['./import.component.scss'],
+  selector: 'app-import-option',
+  templateUrl: './import-option.component.html',
+  styleUrls: ['./import-option.component.scss'],
 })
-export class ImportComponent implements OnInit {
+export class ImportOptionComponent implements OnInit {
 
     enableFile: boolean;
     enable: boolean;
@@ -22,15 +21,14 @@ export class ImportComponent implements OnInit {
 
     requiredForm: FormGroup;
     importFile: File;
-    reader: FileReader;
+    readFile: FileReader;
 
     constructor(
-        public dialogRef: MatDialogRef<ImportComponent>,
-        public http: HttpClient,
+        public dialogRef: MatDialogRef<ImportOptionComponent>,
         private workZoneService: WorkZoneService,
         @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
-        this.reader = new FileReader();
+        this.readFile = new FileReader();
         this.enableFile = false;
     }
 
@@ -51,27 +49,25 @@ export class ImportComponent implements OnInit {
         });
     }
 
-    getFile(event: Event): void {
-        this.selectFile = event.currentTarget as HTMLInputElement;
-        if (this.selectFile.files !== null) {
-            this.importFile = this.selectFile.files[0];
-        }
-
-        this.reader.onload = () => {
-            this.enableFile = true;
-            this.checkButton();
-        };
-
-        this.reader.readAsText(this.importFile);
+    getFile(event: KeyboardEvent): void {
+            this.selectFile = event.currentTarget as HTMLInputElement;
+            if (this.selectFile.files !== null) {
+                this.importFile = this.selectFile.files[0];
+            }
+            this.readFile.onload = () => {
+                    this.enableFile = true;
+                    this.checkButton();
+            };
+            this.readFile.readAsText(this.importFile);
     }
 
     checkButton(): void {
-        this.enable = (this.requiredForm.valid && this.enableFile);
+        this.enable = ( this.requiredForm.valid && this.enableFile);
     }
 
     submit(event: MouseEvent): void {
         this.checkButton();
-        const res: Drawing = JSON.parse(this.reader.result as string);
+        const res: Drawing = JSON.parse(this.readFile.result as string);
         Object.setPrototypeOf(res, Drawing.prototype);
         this.workZoneService.setFromDrawing(res);
         this.close(new MouseEvent('click'));

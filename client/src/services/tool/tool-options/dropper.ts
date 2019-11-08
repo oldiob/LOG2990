@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
-import { DOMRenderer } from 'src/utils/dom-renderer';
+import { svgToImage } from 'src/utils/element-parser';
 import { ITool } from './i-tool';
 
 @Injectable({
@@ -30,29 +30,14 @@ export class DropperTool implements ITool {
     loadImage() {
         this.loaded = false;
 
-        const canvas = DOMRenderer.createElement('canvas');
-
-        DOMRenderer.setAttribute(canvas, 'width',
-            this.svgService.entry.nativeElement.attributes.width.nodeValue);
-        DOMRenderer.setAttribute(canvas, 'height',
-            this.svgService.entry.nativeElement.attributes.height.nodeValue);
-
-        const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
-
-        const svgOuterHTML = this.svgService.entry.nativeElement.outerHTML;
-
-        const svgImage: HTMLImageElement = new Image();
-        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
-        DOMRenderer.appendChild(canvas, svgImage);
-
-        const setColor = (): void => {
+        const setColor = (svgImage: any, ctx: any): void => {
             ctx.drawImage(svgImage, 0, 0);
             this.imageData = ctx.getImageData(0, 0, svgImage.width, svgImage.height);
 
             this.loaded = true;
         };
 
-        svgImage.onload = setColor;
+        svgToImage(this.svgService.entry, setColor);
     }
 
     onPressed(event: MouseEvent): null {
