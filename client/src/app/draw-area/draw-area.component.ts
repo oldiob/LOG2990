@@ -5,6 +5,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
+import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
 @Component({
@@ -29,7 +30,7 @@ export class DrawAreaComponent implements OnInit {
     mouseY: number;
     height: number;
     width: number;
-    backgroundColor = '#ffffffff';
+    backgroundColor: Color;
     currentStyles: {
         height: string; width: string;
         'background-color': string;
@@ -47,8 +48,8 @@ export class DrawAreaComponent implements OnInit {
         private toolService: ToolService,
         private gridService: GridService) {
 
-            this.currentCursor = 'crosshair';
-            this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
+        this.currentCursor = 'crosshair';
+        this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -74,7 +75,7 @@ export class DrawAreaComponent implements OnInit {
 
         );
         this.workZoneService.currentBackgroundColor.subscribe(
-            (backgroundColor: string) => this.backgroundColor = backgroundColor,
+            (backgroundColor: Color) => this.backgroundColor = backgroundColor,
         );
 
         this.gridService.width = this.width;
@@ -107,7 +108,7 @@ export class DrawAreaComponent implements OnInit {
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
-            'background-color': `${this.backgroundColor}`,
+            'background-color': `${this.backgroundColor.toString()}`,
             cursor: this.currentCursor,
         };
     }
