@@ -13,6 +13,18 @@ export enum State {
     selected,
 }
 
+enum Compass {
+    N,
+    E,
+    S,
+    W,
+    NW,
+    NE,
+    SW,
+    SE,
+    MAX,
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -28,14 +40,7 @@ export class SelectorTool implements ITool {
     boxElement: any;
     previewElement: any;
     previewRect: any;
-    NW: any;
-    NE: any;
-    SW: any;
-    SE: any;
-    N: any;
-    E: any;
-    S: any;
-    W: any;
+    points: any[] = new Array(Compass.MAX);
 
     selected: Set<SVGInterface> = new Set<SVGInterface>([]);
     selection: Set<SVGInterface> = new Set<SVGInterface>([]);
@@ -45,60 +50,30 @@ export class SelectorTool implements ITool {
     constructor(public svg: SVGService) {
         this.tip = 'Selector (S)';
 
-        this.boxElement = DOMRenderer.createElement('polyline', 'svg');
-        DOMRenderer.setAttribute(this.boxElement, 'fill', 'none');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke', 'black');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke-width', '3');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke-dasharray', '4');
+        this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
+            fill: 'none',
+            stroke: 'black',
+            'stroke-width': '3',
+            'stroke-dasharray': '4',
+        });
 
         this.previewElement = DOMRenderer.createElement('g', 'svg');
-
-        this.previewRect = DOMRenderer.createElement('rect', 'svg');
-        DOMRenderer.setAttribute(this.previewRect, 'fill', 'none');
-        DOMRenderer.setAttribute(this.previewRect, 'stroke', '#00F0FF');
-        DOMRenderer.setAttribute(this.previewRect, 'stroke-width', '2');
-
-        this.NW = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.NW, 'r', '5');
-        DOMRenderer.setAttribute(this.NW, 'fill', '#00F0FF');
-
-        this.NE = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.NE, 'r', '5');
-        DOMRenderer.setAttribute(this.NE, 'fill', '#00F0FF');
-
-        this.SW = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.SW, 'r', '5');
-        DOMRenderer.setAttribute(this.SW, 'fill', '#00F0FF');
-
-        this.SE = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.SE, 'r', '5');
-        DOMRenderer.setAttribute(this.SE, 'fill', '#00F0FF');
-
-        this.N = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.N, 'r', '5');
-        DOMRenderer.setAttribute(this.N, 'fill', '#00F0FF');
-
-        this.E = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.E, 'r', '5');
-        DOMRenderer.setAttribute(this.E, 'fill', '#00F0FF');
-
-        this.S = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.S, 'r', '5');
-        DOMRenderer.setAttribute(this.S, 'fill', '#00F0FF');
-
-        this.W = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.W, 'r', '5');
-        DOMRenderer.setAttribute(this.W, 'fill', '#00F0FF');
-
+        this.previewRect = DOMRenderer.createElement('rect', 'svg', {
+            fill: 'none',
+            stroke: '#00F0FF',
+            'stroke-width': '2',
+        });
         DOMRenderer.appendChild(this.previewElement, this.previewRect);
-        DOMRenderer.appendChild(this.previewElement, this.NE);
-        DOMRenderer.appendChild(this.previewElement, this.NW);
-        DOMRenderer.appendChild(this.previewElement, this.SE);
-        DOMRenderer.appendChild(this.previewElement, this.SW);
-        DOMRenderer.appendChild(this.previewElement, this.N);
-        DOMRenderer.appendChild(this.previewElement, this.E);
-        DOMRenderer.appendChild(this.previewElement, this.S);
-        DOMRenderer.appendChild(this.previewElement, this.W);
+
+        for (let i = 0; i < Compass.MAX; ++i) {
+            const point: any = DOMRenderer.createElement('circle', 'svg', {
+                fill: '#00F0FF',
+                r: '5',
+            });
+            DOMRenderer.appendChild(this.previewElement, point);
+            this.points[i] = point;
+        }
+
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
@@ -223,34 +198,53 @@ export class SelectorTool implements ITool {
             y2 = Math.max(y2, rect.y + rect.height);
         });
         this.svg.removeElement(this.previewElement);
-        DOMRenderer.setAttribute(this.previewRect, 'x', x1.toString());
-        DOMRenderer.setAttribute(this.previewRect, 'y', y1.toString());
-        DOMRenderer.setAttribute(this.previewRect, 'width', (x2 - x1).toString());
-        DOMRenderer.setAttribute(this.previewRect, 'height', (y2 - y1).toString());
 
-        DOMRenderer.setAttribute(this.NW, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.NW, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.previewRect, {
+            x: x1.toString(),
+            y: y1.toString(),
+            width: (x2 - x1).toString(),
+            height: (y2 - y1).toString(),
+        });
 
-        DOMRenderer.setAttribute(this.SE, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.SE, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.NW], {
+            cx: x1.toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.SW, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.SW, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.SE], {
+            cx: x2.toString(),
+            cy: y2.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.NE, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.NE, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.points[Compass.SW], {
+            cx: x1.toString(),
+            cy: y2.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.N, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.N, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.points[Compass.NE], {
+            cx: x2.toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.E, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.E, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttributes(this.points[Compass.N], {
+            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.S, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.S, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.E], {
+            cx: x1.toString(),
+            cy: ((Math.abs(y2) + Math.abs(y1)) / 2).toString(),
+        });
 
-        DOMRenderer.setAttribute(this.W, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.W, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttributes(this.points[Compass.S], {
+            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
+            cy: y2.toString(),
+        });
+
+        DOMRenderer.setAttributes(this.points[Compass.W], {
+            cx: x2.toString(),
+            cy: y2.toString(),
+        });
 
         this.svg.addElement(this.previewElement);
     }
