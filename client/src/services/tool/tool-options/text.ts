@@ -40,9 +40,9 @@ export class TextTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        if (this.keyService.getIsDisableText()) {
+        if (!this.keyService.isTextEnabled) {
             this.finishEdit();
-            this.keyService.setIsDisableText(false);
+            this.keyService.enableTextEdit();
         }
         if (!this.element) {
             this.startEdit();
@@ -76,9 +76,9 @@ export class TextTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        if (this.keyService.getIsDisableText()) {
+        if (!this.keyService.isTextEnabled) {
             this.finishEdit();
-            this.keyService.setIsDisableText(false);
+            this.keyService.enableTextEdit();
         }
         let current = this.UNSET;
         if (this.element != null) {
@@ -110,12 +110,12 @@ export class TextTool implements ITool {
 
     finishEdit(): void {
         this.isEditing = false;
-        this.keyService.setIsBlocking(false);
+        this.keyService.enableShortcut();
         this.element = null;
     }
     startEdit(): void {
         this.isEditing = true;
-        this.keyService.setIsBlocking(true);
+        this.keyService.disableShortcut();
     }
     isLineEmpty(content: string): boolean {
         if (content === this.UNSET) {
