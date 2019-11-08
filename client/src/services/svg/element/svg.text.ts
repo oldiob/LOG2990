@@ -3,6 +3,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 
 export class SVGText implements SVGInterface {
+    isNewElement = true;
     EMPTYSTRING = '';
     ITALIC = 'italic';
     BOLD = 'bold';
@@ -47,7 +48,8 @@ export class SVGText implements SVGInterface {
         DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.textAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
-
+        this.currentSubElement.innerHTML = 'Enter text...';
+        this.isNewElement = true;
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');

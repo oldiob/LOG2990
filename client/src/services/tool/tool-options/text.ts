@@ -55,6 +55,9 @@ export class TextTool implements ITool {
 
             return new CmdSVG(this.element);
         } else if (this.element) {
+            if (this.element.isNewElement) {
+              this.element.currentSubElement.innerHTML = '';
+            }
             this.finishEdit();
         }
         return null;
@@ -77,7 +80,11 @@ export class TextTool implements ITool {
             this.keyService.setIsDisableText(false);
         }
         let current = this.UNSET;
-        if (this.element !== null) {
+        if (this.element != null) {
+            if (this.element.isNewElement) {
+              this.element.currentSubElement.innerHTML = '';
+              this.element.isNewElement = false;
+            }
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
                 Enter: () => {
