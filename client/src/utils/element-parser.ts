@@ -16,7 +16,6 @@ export const svgToImage = (entry: ElementRef, fn: CallableFunction): void => {
     const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
 
     const svgOuterHTML = entry.nativeElement.outerHTML;
-    console.log(svgOuterHTML);
 
     const svgImage: HTMLImageElement = new Image();
 

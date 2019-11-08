@@ -23,11 +23,11 @@ const downloadUrl = (fileName: string, url: string, extension?: string): void =>
 
 export const exportImage = (fileName: string, entry: ElementRef, type: string): void => {
 
-    const fun = (img: HTMLImageElement, ctx: CanvasRenderingContext2D, canvas: any): void => {
+    const convert = (img: HTMLImageElement, ctx: CanvasRenderingContext2D, canvas: any): void => {
         ctx.drawImage(img, 0, 0);
         const url = canvas.toDataURL(`image/${type}`).replace(`image/${type}`, 'image/octet-stream');
         downloadUrl(fileName, url, type);
     };
 
-    svgToImage(entry, fun);
+    svgToImage(entry, convert);
 };
