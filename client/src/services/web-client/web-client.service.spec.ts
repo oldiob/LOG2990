@@ -8,9 +8,13 @@ import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
-import { Message } from '../../../../common/communication/message';
 import { Drawing } from '../draw-area/i-drawing';
 import { WebClientService } from './web-client.service';
+
+export class Message {
+    title: string;
+    body: string;
+}
 
 describe('WebClientService', () => {
     let webClientService: WebClientService;
