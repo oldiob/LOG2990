@@ -1,7 +1,7 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { AbsColorButton } from './abs-color-button.component';
@@ -10,7 +10,6 @@ describe('AbsColorButton', () => {
     let service: PaletteService;
     let component: MockColorButton;
     let formBuilder: FormBuilder;
-
     const RED = 255;
     const GREEN = 255;
     const BLUE = 255;
@@ -20,7 +19,7 @@ describe('AbsColorButton', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            providers: [PaletteService],
+            providers: [PaletteService, FormBuilder, FormControl],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
@@ -30,13 +29,14 @@ describe('AbsColorButton', () => {
         service = TestBed.get(PaletteService);
         formBuilder = TestBed.get(FormBuilder);
         component = new MockColorButton(service, formBuilder);
-
         component.currentColor = new Color(RED, GREEN, BLUE, ALPHA);
-        component.colorsForm.controls.red.setValue(RED);
-        component.colorsForm.controls.green.setValue(GREEN);
-        component.colorsForm.controls.blue.setValue(BLUE);
-        component.colorsForm.controls.alpha.setValue(ALPHA);
-        component.colorsForm.controls.colorHEX.setValue(HEX);
+        component.colorsForm = formBuilder.group({
+            red: [RED],
+            green: [GREEN],
+            blue: [BLUE],
+            alpha: [ALPHA],
+            colorHEX: [HEX],
+        });
 
     });
 
@@ -57,7 +57,6 @@ describe('AbsColorButton', () => {
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
-
         component.onColorRGBAChange();
         const color = new Color(RED, GREEN, BLUE, ALPHA);
         expect(component.currentColor).toEqual(color);
@@ -111,14 +110,6 @@ class MockColorButton extends AbsColorButton {
         protected paletteService: PaletteService,
         protected formBuilder: FormBuilder) {
         super(paletteService, formBuilder);
-        this.initialize();
-    }
-
-    initialize(): void {
-        this.isSettingsShown = false;
-        this.setupColors();
-        this.createForm();
-        this.setupView();
     }
 
     protected setupView(): void {
