@@ -1,5 +1,5 @@
-import { SelectorTool, State } from './selector';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SelectorTool, State } from './selector';
 
 fdescribe('SelectorTool', () => {
 
