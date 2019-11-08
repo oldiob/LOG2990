@@ -146,6 +146,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     setMaxWidth(maxWidth: number): void {
         if (this.currentTool instanceof PenTool) {
+            if (maxWidth < this.currentTool.minWidth) {
+                maxWidth += 1;
+                if (maxWidth > 25 ) {
+                    maxWidth = 25;
+                }
+            }
             this.currentTool.maxWidth = maxWidth;
             this.showcase.display(this.currentTool);
         }
@@ -153,6 +159,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     setMinWidth(minWidth: number): void {
         if (this.currentTool instanceof PenTool) {
+            if (minWidth > this.currentTool.maxWidth) {
+                minWidth -= 1;
+                if (minWidth < 0.5 ) {
+                    minWidth = 0.5;
+                }
+            }
             this.currentTool.minWidth = minWidth;
             this.showcase.display(this.currentTool);
         }
