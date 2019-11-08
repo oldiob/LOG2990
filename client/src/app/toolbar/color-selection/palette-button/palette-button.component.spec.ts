@@ -10,6 +10,12 @@ describe('PaletteButtonComponent', () => {
     let fixture: ComponentFixture<PaletteButtonComponent>;
     let service: PaletteService;
 
+    const RED = 255;
+    const GREEN = 255;
+    const BLUE = 255;
+    const ALPHA = 1;
+    const HEX = '#ffffff';
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
@@ -25,6 +31,13 @@ describe('PaletteButtonComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         service = TestBed.get(PaletteService);
+
+        component.currentColor = new Color(RED, GREEN, BLUE, ALPHA);
+        component.colorsForm.controls.red.setValue(RED);
+        component.colorsForm.controls.green.setValue(GREEN);
+        component.colorsForm.controls.blue.setValue(BLUE);
+        component.colorsForm.controls.alpha.setValue(ALPHA);
+        component.colorsForm.controls.colorHEX.setValue(HEX);
     });
 
     it('should create', () => {
@@ -32,7 +45,7 @@ describe('PaletteButtonComponent', () => {
     });
 
     it('#onColorPick update current color', () => {
-        const aColor = { red: 255, green: 255, blue: 255, alpha: 1 };
+        const aColor = new Color(255, 255, 255, 1);
         component.onColorPick(aColor);
         expect(component.currentColor).toEqual(aColor);
     });
@@ -42,13 +55,13 @@ describe('PaletteButtonComponent', () => {
         (component as any).isPrimaryColor = true;
         (component as any).isSecondaryColor = false;
         component.onColorHEXChange();
-        expect(service.getPrimary()).toBe(primary.toString());
+        expect(service.primary).toEqual(primary);
 
         const secondary = new Color(170, 170, 170, 1);
         (component as any).isPrimaryColor = false;
         (component as any).isSecondaryColor = true;
         component.onColorHEXChange();
-        expect(service.getSecondary()).toBe(secondary.toString());
+        expect(service.secondary).toEqual(secondary);
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
@@ -56,38 +69,37 @@ describe('PaletteButtonComponent', () => {
         (component as any).isPrimaryColor = true;
         (component as any).isSecondaryColor = false;
         component.onColorRGBAChange();
-        expect(service.getPrimary()).toBe(primary.toString());
+        expect(service.primary).toEqual(primary);
 
         const secondary = new Color(170, 170, 170, 1);
         (component as any).isPrimaryColor = false;
         (component as any).isSecondaryColor = true;
         component.onColorRGBAChange();
-        expect(service.getSecondary()).toBe(secondary.toString());
+        expect(service.secondary).toEqual(secondary);
     });
 
     it('#onAlphaChange should update alpha', () => {
-        const ALPHA = 0.3;
         component.colorsForm.controls.alpha.setValue(ALPHA);
 
         (component as any).isPrimaryColor = true;
         (component as any).isSecondaryColor = false;
-        component.currentColor = {
-            red: service.primary.red,
-            green: service.primary.green,
-            blue: service.primary.blue,
-            alpha: component.colorsForm.controls.alpha.value,
-        };
+        component.currentColor = new Color(
+            service.primary.red,
+            service.primary.green,
+            service.primary.blue,
+            component.colorsForm.controls.alpha.value,
+        );
         component.onAlphaChange();
         expect(service.primary.alpha).toBe(component.currentColor.alpha);
 
         (component as any).isPrimaryColor = false;
         (component as any).isSecondaryColor = true;
-        component.currentColor = {
-            red: service.secondary.red,
-            green: service.secondary.green,
-            blue: service.secondary.blue,
-            alpha: component.colorsForm.controls.alpha.value,
-        };
+        component.currentColor = new Color(
+            service.secondary.red,
+            service.secondary.green,
+            service.secondary.blue,
+            component.colorsForm.controls.alpha.value,
+        );
         component.onAlphaChange();
         expect(service.secondary.alpha).toBe(component.currentColor.alpha);
     });

@@ -70,9 +70,10 @@ describe('NewDrawingComponent', () => {
     });
 
     it('should change background color form control', () => {
-        const BACKGROUND_COLOR = '#CCCCCC';
-        component.chooseBgColor(BACKGROUND_COLOR);
-        expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR);
+        const backgroundColor = new Color(255, 255, 255, 1);
+        component.chooseBackgroundColor(backgroundColor);
+        expect(component.backgroundColor).toBe(backgroundColor);
+        expect(component.backgroundColorHEX).toBe(backgroundColor.toHex());
 
     });
 
@@ -97,12 +98,11 @@ describe('NewDrawingComponent', () => {
     });
 
     it('should update HEX to RGBA', () => {
-        const BACKGROUND_COLOR_HEX = '#FFFFFF';
-        const BACKGROUND_COLOR_RGBA = 'rgba(255, 255, 255, 1)';
-        component.chooseBgColor(BACKGROUND_COLOR_HEX);
+        const backgroundColor = new Color(255, 255, 255, 1);
+        component.chooseBackgroundColor(backgroundColor);
         component.onColorRGBAChange();
         component.onColorHEXChange();
-        expect(component.newDrawingFrom.controls.backgroundColor.value).toBe(BACKGROUND_COLOR_RGBA);
+        expect(component.backgroundColor).toBe(backgroundColor);
     });
 
     it('should not get width error message', () => {
