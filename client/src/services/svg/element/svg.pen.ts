@@ -37,6 +37,8 @@ export class SVGPen extends SVGAbstract {
             } else {
                 this.width++;
             }
+        } else {
+            this.width = tempWidth;
         }
         if (this.width > this.maxWidth) {
             this.width = this.maxWidth;
