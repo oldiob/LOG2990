@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { CmdDup } from 'src/services/cmd/cmd.dup';
+import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
+
+declare type callback = () => void;
 
 export enum State {
     idle = 0,
@@ -29,6 +32,10 @@ enum Compass {
     providedIn: 'root',
 })
 export class SelectorTool implements ITool {
+
+    static BASE_OFFSET = 30;
+
+    dupOffset: number = SelectorTool.BASE_OFFSET;
 
     readonly tip: string;
 
@@ -130,6 +137,27 @@ export class SelectorTool implements ITool {
             default:
                 this.state = State.idle;
         }
+    }
+
+    onKeydown(event: KeyboardEvent): boolean {
+        const kbd: { [id: string]: callback } = {
+            'C-a': () => this.selectAll(),
+            'C-d': () => {
+                CmdService.execute(new CmdDup(Array.from(this.selected), this.dupOffset));
+                this.dupOffset += SelectorTool.BASE_OFFSET;
+            },
+        };
+        let keys = '';
+        if (event.ctrlKey) {
+            keys += 'C-';
+        }
+        keys += event.key.toLowerCase();
+        if (kbd[keys]) {
+            const func: callback = kbd[keys];
+            func();
+            return true;
+        }
+        return false;
     }
 
     private setAnchor(x: number, y: number) {
@@ -282,5 +310,6 @@ export class SelectorTool implements ITool {
         this.svg.removeElement(this.boxElement);
         this.svg.removeElement(this.previewElement);
         this.state = State.idle;
+        this.dupOffset = SelectorTool.BASE_OFFSET;
     }
 }
