@@ -1,14 +1,14 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { async, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { PaletteButtonComponent } from './palette-button.component';
 
 describe('PaletteButtonComponent', () => {
     let component: PaletteButtonComponent;
-    let fixture: ComponentFixture<PaletteButtonComponent>;
     let service: PaletteService;
+    let formBuilder: FormBuilder;
 
     const RED = 255;
     const GREEN = 255;
@@ -19,7 +19,7 @@ describe('PaletteButtonComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            providers: [PaletteService],
+            providers: [PaletteService, FormBuilder],
             declarations: [PaletteButtonComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
@@ -27,12 +27,18 @@ describe('PaletteButtonComponent', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PaletteButtonComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
         service = TestBed.get(PaletteService);
-
+        component = new PaletteButtonComponent(service, formBuilder);
+        formBuilder = TestBed.get(FormBuilder);
         component.currentColor = new Color(RED, GREEN, BLUE, ALPHA);
+        component.colorsForm = formBuilder.group({
+            red: [RED],
+            green: [GREEN],
+            blue: [BLUE],
+            alpha: [ALPHA],
+            colorHEX: [HEX],
+        });
+
         component.colorsForm.controls.red.setValue(RED);
         component.colorsForm.controls.green.setValue(GREEN);
         component.colorsForm.controls.blue.setValue(BLUE);

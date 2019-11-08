@@ -1,7 +1,7 @@
 
 import { CUSTOM_ELEMENTS_SCHEMA, Injectable, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { AbsColorButton } from './abs-color-button.component';
@@ -19,7 +19,7 @@ describe('AbsColorButton', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ReactiveFormsModule],
-            providers: [PaletteService, FormBuilder, FormControl],
+            providers: [PaletteService, FormBuilder],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
             .compileComponents();
