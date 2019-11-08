@@ -1,5 +1,5 @@
-import { vectorMinus, vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { vectorMinus, vectorPlus } from 'src/utils/math';
 
 export abstract class SVGAbstract {
     private translation: number[];
