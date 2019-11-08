@@ -43,7 +43,6 @@ describe('NewDrawingComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         svgService = TestBed.get(SVGService);
-        // drawAreaService = new DrawAreaService();
         workZoneService = new WorkZoneService();
         svgService.entry = entry;
         component.ngOnInit();
@@ -60,13 +59,13 @@ describe('NewDrawingComponent', () => {
     it('#createForm should create a width, height and background color form input', () => {
         expect(component.newDrawingFrom.contains('width')).toBeTruthy();
         expect(component.newDrawingFrom.contains('height')).toBeTruthy();
-        expect(component.newDrawingFrom.contains('backgroundColor')).toBeTruthy();
+        expect(component.newDrawingFrom.contains('backgroundColorHEX')).toBeTruthy();
     });
 
     it('should get width, height and background form input values', () => {
-        expect(component.width).toBe(component.newDrawingFrom.controls.width.value);
-        expect(component.height).toBe(component.newDrawingFrom.controls.height.value);
-        expect(component.backgroundColor).toBe(component.newDrawingFrom.controls.backgroundColor.value);
+        expect(component.width).toEqual(component.newDrawingFrom.controls.width.value);
+        expect(component.height).toEqual(component.newDrawingFrom.controls.height.value);
+        expect(component.backgroundColorHEX).toEqual(component.newDrawingFrom.controls.backgroundColorHEX.value);
     });
 
     it('should change background color form control', () => {
@@ -74,7 +73,6 @@ describe('NewDrawingComponent', () => {
         component.chooseBackgroundColor(backgroundColor);
         expect(component.backgroundColor).toBe(backgroundColor);
         expect(component.backgroundColorHEX).toBe(backgroundColor.toHex());
-
     });
 
     it('should fetch default dimensions from work zone service and update its default dimensions', () => {
@@ -102,7 +100,7 @@ describe('NewDrawingComponent', () => {
         component.chooseBackgroundColor(backgroundColor);
         component.onColorRGBAChange();
         component.onColorHEXChange();
-        expect(component.backgroundColor).toBe(backgroundColor);
+        expect(component.backgroundColor).toEqual(backgroundColor);
     });
 
     it('should not get width error message', () => {
