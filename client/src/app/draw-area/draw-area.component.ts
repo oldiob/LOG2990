@@ -47,8 +47,8 @@ export class DrawAreaComponent implements OnInit {
         private toolService: ToolService,
         private gridService: GridService) {
 
-            this.currentCursor = 'crosshair';
-            this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
+        this.currentCursor = 'crosshair';
+        this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -165,7 +165,9 @@ export class DrawAreaComponent implements OnInit {
     @HostListener('window:keydown', ['$event'])
     onKeyPressed(event: KeyboardEvent): void {
         if (this.toolService.currentTool.onKeydown) {
-            this.toolService.currentTool.onKeydown(event);
+            if (this.toolService.currentTool.onKeydown(event)) {
+                event.preventDefault();
+            }
         }
     }
 

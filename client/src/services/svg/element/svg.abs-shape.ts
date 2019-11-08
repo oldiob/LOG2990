@@ -156,4 +156,11 @@ export abstract class AbsSVGShape implements SVGInterface {
                 break;
         }
     }
+
+    move(x: number, y: number) {
+        this.startingPoint[0] += x;
+        this.startingPoint[1] += y;
+        this.setCursor(this.endingPoint[0] + x, this.endingPoint[1] + y, false);
+        this.release();
+    }
 }

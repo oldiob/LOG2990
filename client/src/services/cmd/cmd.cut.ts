@@ -3,7 +3,7 @@ import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { MyInjector } from 'src/utils/injector';
 
-export class CmdSVG implements CmdInterface {
+export class CmdCut implements CmdInterface {
 
     obj: SVGInterface[] = [];
     svg: SVGService;
@@ -19,13 +19,13 @@ export class CmdSVG implements CmdInterface {
 
     execute(): void {
         this.obj.forEach((obj) => {
-            this.svg.addObject(obj);
+            this.svg.removeObject(obj);
         });
     }
 
     undo(): void {
         this.obj.forEach((obj) => {
-            this.svg.removeObject(obj);
+            this.svg.addObject(obj);
         });
     }
 

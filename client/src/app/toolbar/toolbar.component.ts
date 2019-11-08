@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -52,7 +53,8 @@ export class ToolbarComponent implements OnInit {
     isEmptyUndos: boolean;
     isEmptyRedos: boolean;
 
-    constructor(public dialogService: DialogService) {
+    constructor(public dialogService: DialogService,
+                public clipboard: ClipboardService) {
         this.isDialogOpened = false;
     }
 
@@ -183,6 +185,9 @@ export class ToolbarComponent implements OnInit {
             '+': () => this.gridOption.addStep(),
             'S-+': () => this.gridOption.addStep(),
             '-': () => this.gridOption.reduceStep(),
+            'C-x': () => this.clipboard.cut(),
+            'C-c': () => this.clipboard.copy(),
+            'C-v': () => this.clipboard.paste(),
         };
 
         const keys: string = this.getComposedKey(event);

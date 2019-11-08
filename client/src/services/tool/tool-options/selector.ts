@@ -10,6 +10,19 @@ export enum State {
     idle = 0,
     maybe,
     selecting,
+    selected,
+}
+
+enum Compass {
+    N,
+    E,
+    S,
+    W,
+    NW,
+    NE,
+    SW,
+    SE,
+    MAX,
 }
 
 @Injectable({
@@ -26,14 +39,8 @@ export class SelectorTool implements ITool {
 
     boxElement: any;
     previewElement: any;
-    circleTL: any;
-    circleTR: any;
-    circleBL: any;
-    circleBR: any;
-    circleN: any;
-    circleO: any;
-    circleS: any;
-    circleW: any;
+    previewRect: any;
+    points: any[] = new Array(Compass.MAX);
 
     selected: Set<SVGInterface> = new Set<SVGInterface>([]);
     selection: Set<SVGInterface> = new Set<SVGInterface>([]);
@@ -43,48 +50,30 @@ export class SelectorTool implements ITool {
     constructor(public svg: SVGService) {
         this.tip = 'Selector (S)';
 
-        this.boxElement = DOMRenderer.createElement('polyline', 'svg');
-        DOMRenderer.setAttribute(this.boxElement, 'fill', 'none');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke', 'black');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke-width', '3');
-        DOMRenderer.setAttribute(this.boxElement, 'stroke-dasharray', '4');
+        this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
+            fill: 'none',
+            stroke: 'black',
+            'stroke-width': '3',
+            'stroke-dasharray': '4',
+        });
 
-        this.previewElement = DOMRenderer.createElement('rect', 'svg');
-        DOMRenderer.setAttribute(this.previewElement, 'fill', 'none');
-        DOMRenderer.setAttribute(this.previewElement, 'stroke', '#00F0FF');
-        DOMRenderer.setAttribute(this.previewElement, 'stroke-width', '2');
+        this.previewElement = DOMRenderer.createElement('g', 'svg');
+        this.previewRect = DOMRenderer.createElement('rect', 'svg', {
+            fill: 'none',
+            stroke: '#00F0FF',
+            'stroke-width': '2',
+        });
+        DOMRenderer.appendChild(this.previewElement, this.previewRect);
 
-        this.circleTL = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleTL, 'r', '5');
-        DOMRenderer.setAttribute(this.circleTL, 'fill', '#00F0FF');
+        for (let i = 0; i < Compass.MAX; ++i) {
+            const point: any = DOMRenderer.createElement('circle', 'svg', {
+                fill: '#00F0FF',
+                r: '5',
+            });
+            DOMRenderer.appendChild(this.previewElement, point);
+            this.points[i] = point;
+        }
 
-        this.circleTR = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleTR, 'r', '5');
-        DOMRenderer.setAttribute(this.circleTR, 'fill', '#00F0FF');
-
-        this.circleBL = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleBL, 'r', '5');
-        DOMRenderer.setAttribute(this.circleBL, 'fill', '#00F0FF');
-
-        this.circleBR = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleBR, 'r', '5');
-        DOMRenderer.setAttribute(this.circleBR, 'fill', '#00F0FF');
-
-        this.circleN = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleN, 'r', '5');
-        DOMRenderer.setAttribute(this.circleN, 'fill', '#00F0FF');
-
-        this.circleO = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleO, 'r', '5');
-        DOMRenderer.setAttribute(this.circleO, 'fill', '#00F0FF');
-
-        this.circleS = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleS, 'r', '5');
-        DOMRenderer.setAttribute(this.circleS, 'fill', '#00F0FF');
-
-        this.circleW = DOMRenderer.createElement('circle', 'svg');
-        DOMRenderer.setAttribute(this.circleW, 'r', '5');
-        DOMRenderer.setAttribute(this.circleW, 'fill', '#00F0FF');
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
@@ -103,6 +92,9 @@ export class SelectorTool implements ITool {
         }
         switch (this.state) {
             case State.idle:
+                this.state = State.maybe;
+                break;
+            case State.selected:
                 this.state = State.maybe;
                 break;
             default:
@@ -134,8 +126,7 @@ export class SelectorTool implements ITool {
             // tslint:disable-next-line: no-switch-case-fall-through
             case State.selecting:
                 this.commit();
-            // Fallthrought !
-            // tslint:disable-next-line: no-switch-case-fall-through
+                break;
             default:
                 this.state = State.idle;
         }
@@ -207,44 +198,55 @@ export class SelectorTool implements ITool {
             y2 = Math.max(y2, rect.y + rect.height);
         });
         this.svg.removeElement(this.previewElement);
-        DOMRenderer.setAttribute(this.previewElement, 'x', x1.toString());
-        DOMRenderer.setAttribute(this.previewElement, 'y', y1.toString());
-        DOMRenderer.setAttribute(this.previewElement, 'width', (x2 - x1).toString());
-        DOMRenderer.setAttribute(this.previewElement, 'height', (y2 - y1).toString());
 
-        DOMRenderer.setAttribute(this.circleTL, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleTL, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.previewRect, {
+            x: x1.toString(),
+            y: y1.toString(),
+            width: (x2 - x1).toString(),
+            height: (y2 - y1).toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleBR, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleBR, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.NW], {
+            cx: x1.toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleBL, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleBL, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.SE], {
+            cx: x2.toString(),
+            cy: y2.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleTR, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleTR, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.points[Compass.SW], {
+            cx: x1.toString(),
+            cy: y2.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleN, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.circleN, 'cy', y1.toString());
+        DOMRenderer.setAttributes(this.points[Compass.NE], {
+            cx: x2.toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleO, 'cx', x1.toString());
-        DOMRenderer.setAttribute(this.circleO, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttributes(this.points[Compass.N], {
+            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
+            cy: y1.toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleS, 'cx', ((Math.abs(x2) + Math.abs(x1)) / 2).toString());
-        DOMRenderer.setAttribute(this.circleS, 'cy', y2.toString());
+        DOMRenderer.setAttributes(this.points[Compass.E], {
+            cx: x1.toString(),
+            cy: ((Math.abs(y2) + Math.abs(y1)) / 2).toString(),
+        });
 
-        DOMRenderer.setAttribute(this.circleW, 'cx', x2.toString());
-        DOMRenderer.setAttribute(this.circleW, 'cy', ((Math.abs(y2) + Math.abs(y1)) / 2).toString());
+        DOMRenderer.setAttributes(this.points[Compass.S], {
+            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
+            cy: y2.toString(),
+        });
+
+        DOMRenderer.setAttributes(this.points[Compass.W], {
+            cx: x2.toString(),
+            cy: y2.toString(),
+        });
 
         this.svg.addElement(this.previewElement);
-        this.svg.addElement(this.circleTR);
-        this.svg.addElement(this.circleTL);
-        this.svg.addElement(this.circleBR);
-        this.svg.addElement(this.circleBL);
-        this.svg.addElement(this.circleN);
-        this.svg.addElement(this.circleO);
-        this.svg.addElement(this.circleS);
-        this.svg.addElement(this.circleW);
     }
 
     private selectAt(x: number, y: number) {
@@ -258,7 +260,27 @@ export class SelectorTool implements ITool {
 
     private commit() {
         this.selected = this.computeSelection();
+        if (this.selected.size) {
+            this.state = State.selected;
+        } else {
+            this.state = State.idle;
+        }
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
+    }
+
+    selectAll() {
+        this.selected = new Set<SVGInterface>(this.svg.objects);
+        this.renderPreview(this.selected);
+        this.svg.removeElement(this.boxElement);
+        this.state = State.selected;
+    }
+
+    reset() {
+        this.selected.clear();
+        this.selection.clear();
+        this.svg.removeElement(this.boxElement);
+        this.svg.removeElement(this.previewElement);
+        this.state = State.idle;
     }
 }

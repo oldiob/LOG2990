@@ -9,12 +9,22 @@ export class DOMRenderer {
         }
     }
 
-    static createElement(name: string, namespace?: string | undefined): any {
-        return DOMRenderer.renderer.createElement(name, namespace);
+    static createElement(name: string, namespace?: string | undefined, attrs?: { [id: string]: string }): any {
+        const ret: any = DOMRenderer.renderer.createElement(name, namespace);
+        if (attrs) {
+            DOMRenderer.setAttributes(ret, attrs);
+        }
+        return ret;
     }
 
     static setAttribute(el: any, name: string, value: string, namespace?: string | null | undefined): void {
         return DOMRenderer.renderer.setAttribute(el, name, value, namespace);
+    }
+
+    static setAttributes(el: any, attrs: { [id: string]: string }, namespace?: string | null | undefined): void {
+        for (const key of Object.keys(attrs)) {
+            DOMRenderer.setAttribute(el, key, attrs[key], namespace);
+        }
     }
 
     static appendChild(parent: any, newChild: any): void {
