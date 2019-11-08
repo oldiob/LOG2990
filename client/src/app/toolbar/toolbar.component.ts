@@ -184,9 +184,9 @@ export class ToolbarComponent implements OnInit {
             '+': () => this.gridOption.addStep(),
             'S-+': () => this.gridOption.addStep(),
             '-': () => this.gridOption.reduceStep(),
-            'C-x': () => { this.clipboard.cut(); },
-            'C-c': () => { this.clipboard.copy(); },
-            'C-v': () => { this.clipboard.paste(); },
+            'C-x': () => this.clipboard.cut(),
+            'C-c': () => this.clipboard.copy(),
+            'C-v': () => this.clipboard.paste(),
         };
 
         const keys: string = this.getComposedKey(event);
