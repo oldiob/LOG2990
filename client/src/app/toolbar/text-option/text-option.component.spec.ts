@@ -5,6 +5,7 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { TextOptionComponent } from './text-option.component';
+import { TextFormat } from './TextFormat';
 
 describe('TextOptionComponent', () => {
   let component: TextOptionComponent;
@@ -75,7 +76,7 @@ describe('TextOptionComponent', () => {
   });
 
   it('should font family equal to arial', () => {
-    const fontFamily = component.fontFamilies[0];
+    const fontFamily = component.fonts[0];
     component.currentFontFamily = fontFamily;
     component.selectFontFamily(fontFamily);
     expect(component.currentFontFamily).toEqual(fontFamily);
@@ -85,19 +86,19 @@ describe('TextOptionComponent', () => {
   });
 
   it('should select text align equal to left', () => {
-    const textAlignLeft = component.ALIGNLEFT;
+    const textAlignLeft = TextFormat.ALIGNLEFT;
     component.selectTextAlign(textAlignLeft);
     expect(component.isAlignLeft).toBeTruthy();
   });
 
   it('should select text align equal to center', () => {
-    const textAlignCenter = component.ALIGNCENTER;
+    const textAlignCenter = TextFormat.ALIGNCENTER;
     component.selectTextAlign(textAlignCenter);
     expect(component.isAlignCenter).toBeTruthy();
   });
 
   it('should select text align equal to right', () => {
-    const textAlignRight = component.ALIGNRIGHT;
+    const textAlignRight = TextFormat.ALIGNRIGHT;
     component.selectTextAlign(textAlignRight);
     expect(component.isAlignRight).toBeTruthy();
   });
@@ -110,7 +111,7 @@ describe('TextOptionComponent', () => {
   });
 
   it('should toggleBold text to bold', () => {
-    const bold = component.BOLD;
+    const bold = TextFormat.BOLD;
     component.isBold = false;
     component.toggleBold();
     expect(text.fontWeigth).toEqual(bold);
@@ -120,21 +121,21 @@ describe('TextOptionComponent', () => {
   });
 
   it('should toggleItalic text to italic ', () => {
-    const italic = component.ITALIC;
+    const italic = TextFormat.ITALIC;
     component.isItalic = false;
     component.toggleItalic();
     expect(text.fontStyle).toEqual(italic);
   });
 
   it('should toggleBold text to normal', () => {
-    const normal = component.NORMAL;
+    const normal = TextFormat.NORMAL;
     component.isBold = true;
     component.toggleBold();
     expect(text.fontWeigth).toEqual(normal);
   });
 
   it('should toggleItalic text to normal ', () => {
-    const normal = component.NORMAL;
+    const normal = TextFormat.NORMAL;
     component.isItalic = true;
     component.toggleItalic();
     expect(text.fontStyle).toEqual(normal);
