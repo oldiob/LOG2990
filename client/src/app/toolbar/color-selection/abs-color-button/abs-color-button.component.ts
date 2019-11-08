@@ -14,11 +14,7 @@ export abstract class AbsColorButton {
     colorsForm: FormGroup;
     colorsHistory: Color[];
 
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-    hex: string;
+    defaultColor: Color;
 
     @Input() type: ColorButtonType;
     @Input() isSettingsShown: boolean;
@@ -42,21 +38,25 @@ export abstract class AbsColorButton {
     protected createForm(): void {
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
         this.colorsForm = this.formBuilder.group({
-            red: [this.r, rgbaValidators],
-            green: [this.g, rgbaValidators],
-            blue: [this.b, rgbaValidators],
-            alpha: [this.a, [Validators.min(0), Validators.max(1)]],
-            colorHEX: [this.hex, [Validators.min(0), Validators.maxLength(7)]],
+            red: [this.currentColor.red, rgbaValidators],
+            green: [this.currentColor.green, rgbaValidators],
+            blue: [this.currentColor.blue, rgbaValidators],
+            alpha: [this.currentColor.alpha, [Validators.min(0), Validators.max(1)]],
+            colorHEX: [this.currentColor.toHex(), [Validators.min(0), Validators.maxLength(7)]],
         });
+    }
+
+    protected updateForm() {
+        this.colorsForm.controls.red.setValue(this.currentColor.red);
+        this.colorsForm.controls.green.setValue(this.currentColor.green);
+        this.colorsForm.controls.blue.setValue(this.currentColor.blue);
+        this.colorsForm.controls.alpha.setValue(this.currentColor.alpha);
+        this.colorsForm.controls.colorHEX.setValue(this.currentColor.toHex());
     }
 
     onColorPick(color: Color): void {
         this.currentColor = color;
-        this.colorsForm.controls.red.setValue(color.red);
-        this.colorsForm.controls.green.setValue(color.green);
-        this.colorsForm.controls.blue.setValue(color.blue);
-        this.updateColorHEX();
-        this.updateColorRGBA();
+        this.updateForm();
     }
 
     onMouseUp() {
@@ -72,52 +72,18 @@ export abstract class AbsColorButton {
     }
 
     onColorHEXChange(): void {
-        this.updateColorRGBA();
-    }
-
-    private updateColorRGBA() {
-        const red
-            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(1, 3));
-        const green
-            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(3, 5));
-        const blue
-            = this.convertToDecimal(this.colorsForm.controls.colorHEX.value.substring(5, 7));
-
-        this.colorsForm.controls.red.setValue(red);
-        this.colorsForm.controls.green.setValue(green);
-        this.colorsForm.controls.blue.setValue(blue);
-        const FULL_ALPHA = 1;
-        this.currentColor = new Color(red, green, blue, FULL_ALPHA);
-    }
-
-    private convertToDecimal(hex: string): number {
-        return parseInt(hex, 16);
+        this.currentColor = Color.getColorFromHex(this.colorsForm.controls.colorHEX.value);
+        this.updateForm();
     }
 
     onColorRGBAChange(): void {
-        this.updateColorHEX();
-    }
-
-    private updateColorHEX(): void {
-        const red = this.colorsForm.controls.red.value;
-        const green = this.colorsForm.controls.green.value;
-        const blue = this.colorsForm.controls.blue.value;
-        const alpha = this.colorsForm.controls.alpha.value;
-        const colorHEX =
-            '#' +
-            `${this.convertToHEX(red)}` +
-            `${this.convertToHEX(green)}` +
-            `${this.convertToHEX(blue)}`;
-        this.colorsForm.controls.colorHEX.setValue(colorHEX);
-        this.currentColor = new Color(red, green, blue, alpha);
-    }
-
-    protected convertToHEX(rgb: number): string {
-        let hexString = rgb.toString(16).toUpperCase();
-        if (hexString.length < 2) {
-            hexString = '0' + hexString;
-        }
-        return hexString;
+        this.currentColor = new Color(
+            this.colorsForm.controls.red.value,
+            this.colorsForm.controls.green.value,
+            this.colorsForm.controls.blue.value,
+            this.colorsForm.controls.alpha.value,
+        );
+        this.colorsForm.controls.colorHEX.setValue(this.currentColor.toHex());
     }
 
     toggleForm(): void {

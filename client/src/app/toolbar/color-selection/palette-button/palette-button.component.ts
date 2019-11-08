@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { Color } from 'src/utils/color';
 import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 import { ColorButtonType } from '../color-button-type';
 
@@ -39,37 +40,14 @@ export class PaletteButtonComponent
 
     protected setupColors(): void {
         if (this.isPrimaryColor) {
-            this.setupPrimaryColor();
+            this.currentColor = this.paletteService.primary;
         } else if (this.isSecondaryColor) {
-            this.setupSecondaryColor();
+            this.currentColor = this.paletteService.secondary;
         }
     }
 
-    private setupSecondaryColor(): void {
-        this.r = this.paletteService.secondary.red;
-        this.g = this.paletteService.secondary.green;
-        this.b = this.paletteService.secondary.blue;
-        this.a = this.paletteService.secondary.alpha;
-        this.hex =
-            '#' +
-            `${this.convertToHEX(this.r)}` +
-            `${this.convertToHEX(this.g)}` +
-            `${this.convertToHEX(this.b)}`;
-    }
-
-    private setupPrimaryColor(): void {
-        this.r = this.paletteService.primary.red;
-        this.g = this.paletteService.primary.green;
-        this.b = this.paletteService.primary.blue;
-        this.a = this.paletteService.primary.alpha;
-        this.hex =
-            '#' +
-            `${this.convertToHEX(this.r)}` +
-            `${this.convertToHEX(this.g)}` +
-            `${this.convertToHEX(this.b)}`;
-    }
-
     protected applyColor(): void {
+        Color.getColorFromHex(this.colorsForm.controls.colorHEX.value);
         if (this.isPrimaryColor) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
@@ -88,21 +66,7 @@ export class PaletteButtonComponent
     }
 
     onAlphaChange(): void {
-        if (this.isPrimaryColor) {
-            this.currentColor = {
-                red: this.paletteService.primary.red,
-                green: this.paletteService.primary.green,
-                blue: this.paletteService.primary.blue,
-                alpha: this.colorsForm.controls.alpha.value,
-            };
-        } else if (this.isSecondaryColor) {
-            this.currentColor = {
-                red: this.paletteService.secondary.red,
-                green: this.paletteService.secondary.green,
-                blue: this.paletteService.secondary.blue,
-                alpha: this.colorsForm.controls.alpha.value,
-            };
-        }
+        this.currentColor.alpha = this.colorsForm.controls.alpha.value;
         this.applyColor();
     }
 
