@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
@@ -49,8 +49,8 @@ export class SelectorTool implements ITool {
     previewRect: any;
     points: any[] = new Array(Compass.MAX);
 
-    selected: Set<SVGInterface> = new Set<SVGInterface>([]);
-    selection: Set<SVGInterface> = new Set<SVGInterface>([]);
+    selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
+    selection: Set<SVGAbstract> = new Set<SVGAbstract>([]);
 
     policy = false;
 
@@ -183,24 +183,24 @@ export class SelectorTool implements ITool {
         this.doSelection();
     }
 
-    private union(A: Set<SVGInterface>, B: Set<SVGInterface>): Set<SVGInterface> {
+    private union(A: Set<SVGAbstract>, B: Set<SVGAbstract>): Set<SVGAbstract> {
         const union: any = [];
         A.forEach((v) => union.push(v));
         B.forEach((v) => union.push(v));
-        return new Set<SVGInterface>(union);
+        return new Set<SVGAbstract>(union);
     }
 
-    private diff(A: Set<SVGInterface>, B: Set<SVGInterface>): Set<SVGInterface> {
+    private diff(A: Set<SVGAbstract>, B: Set<SVGAbstract>): Set<SVGAbstract> {
         const diff: any = [];
         A.forEach((v) => {
             if (!B.has(v)) {
                 diff.push(v);
             }
         });
-        return new Set<SVGInterface>(diff);
+        return new Set<SVGAbstract>(diff);
     }
 
-    private computeSelection(): Set<SVGInterface> {
+    private computeSelection(): Set<SVGAbstract> {
         if (!this.policy) {
             return this.selection;
         }
@@ -213,7 +213,7 @@ export class SelectorTool implements ITool {
         this.renderPreview(this.computeSelection());
     }
 
-    private renderPreview(toRender: Set<SVGInterface>) {
+    private renderPreview(toRender: Set<SVGAbstract>) {
         let x1 = Infinity;
         let y1 = Infinity;
         let x2 = -Infinity;
@@ -278,7 +278,7 @@ export class SelectorTool implements ITool {
     }
 
     private selectAt(x: number, y: number) {
-        const target: SVGInterface | null = this.svg.findAt(x, y);
+        const target: SVGAbstract | null = this.svg.findAt(x, y);
         if (target) {
             this.selection = new Set([target]);
         } else {
@@ -298,7 +298,7 @@ export class SelectorTool implements ITool {
     }
 
     selectAll() {
-        this.selected = new Set<SVGInterface>(this.svg.objects);
+        this.selected = new Set<SVGAbstract>(this.svg.objects);
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
         this.state = State.selected;

@@ -1,14 +1,14 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 
 export class CmdBucket implements CmdInterface {
 
-    obj: SVGInterface;
+    obj: SVGAbstract;
     primary: boolean;
     color: string;
     prevColor: string;
 
-    constructor(obj: SVGInterface, color: string, primary: boolean) {
+    constructor(obj: SVGAbstract, color: string, primary: boolean) {
         this.obj = obj;
         this.color = color;
         this.primary = primary;

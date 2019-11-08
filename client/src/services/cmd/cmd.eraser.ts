@@ -1,11 +1,11 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { MyInjector } from 'src/utils/injector';
 
 export class CmdEraser implements CmdInterface {
 
-    objs: SVGInterface[];
+    objs: SVGAbstract[];
     svg: SVGService;
     areErased: boolean;
 
@@ -16,7 +16,7 @@ export class CmdEraser implements CmdInterface {
         this.areErased = true;
     }
 
-    eraseObject(obj: SVGInterface | null): void {
+    eraseObject(obj: SVGAbstract | null): void {
         if (obj !== null) {
             this.objs.push(obj);
             this.svg.removeObject(obj);

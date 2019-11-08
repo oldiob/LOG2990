@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CmdBucket } from 'src/services/cmd/cmd.bucket';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
 import { ITool } from './i-tool';
@@ -38,7 +38,7 @@ export class BucketTool implements ITool {
             default:
                 return null;
         }
-        const obj: SVGInterface | null = this.svgService.findAt(x, y);
+        const obj: SVGAbstract | null = this.svgService.findAt(x, y);
         if (!obj) {
             return null;
         }

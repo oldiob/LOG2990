@@ -1,5 +1,5 @@
 import { DOMRenderer } from '../../utils/dom-renderer';
-import { SVGInterface } from './element/svg.interface';
+import { SVGAbstract } from './element/svg.interface';
 import { SVGService } from './svg.service';
 
 describe('SVGService', () => {
@@ -69,8 +69,8 @@ describe('SVGService', () => {
     });
 
     it('should iterate over all objects and return the one in circle (x,y, r) or null', () => {
-        let actualList: (SVGInterface | null)[] = service.findIn(X, Y, R);
-        let expectedList: (SVGInterface | null)[] = [];
+        let actualList: (SVGAbstract | null)[] = service.findIn(X, Y, R);
+        let expectedList: (SVGAbstract | null)[] = [];
 
         actualList.forEach((element) => expectedList.push(null));
         expect(actualList).toEqual(expectedList);
@@ -78,7 +78,7 @@ describe('SVGService', () => {
         service.addObject(objIn);
         actualList = service.findIn(X, Y, R);
 
-        let foundElement: SVGInterface | null = null;
+        let foundElement: SVGAbstract | null = null;
         actualList = actualList.filter((element) => {
             if (element === objIn) {
                 foundElement = element;

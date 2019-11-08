@@ -1,8 +1,8 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 
-export class SVGPen implements SVGInterface {
+export class SVGPen extends SVGAbstract {
 
     anchors: number[][] = [];
     cursor: number[];
@@ -15,6 +15,8 @@ export class SVGPen implements SVGInterface {
     private latestPoint: number[];
 
     constructor(x: number, y: number) {
+        super();
+
         this.cursor = [x, y];
         this.anchors.push([x, y]);
         this.latestPoint = [x, y];
@@ -72,7 +74,7 @@ export class SVGPen implements SVGInterface {
         // NO OP
     }
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         const additionnalWidth = 10.0;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {
@@ -86,7 +88,7 @@ export class SVGPen implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.width;
         this.width += r;
-        const isInside = this.isAt(x, y);
+        const isInside = this.isAtAdjusted(x, y);
         this.width = tempWidth;
 
         return isInside;

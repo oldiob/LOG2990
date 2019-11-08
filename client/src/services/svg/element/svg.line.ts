@@ -1,9 +1,9 @@
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 
-export class SVGLine implements SVGInterface {
+export class SVGLine extends SVGAbstract {
 
     anchors: number[][] = [];
     cursor: number[];
@@ -14,6 +14,8 @@ export class SVGLine implements SVGInterface {
     line: any;
     circle: any;
     constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
+        super();
+
         this.cursor = [x, y];
         this.anchors.push(this.cursor);
         this.polyline = DOMRenderer.createElement('polyline', 'svg');
@@ -117,7 +119,7 @@ export class SVGLine implements SVGInterface {
         // NO OP
     }
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         const additionnalWidth = 10.0;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {
@@ -131,7 +133,7 @@ export class SVGLine implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.width;
         this.width += r;
-        const isInside = this.isAt(x, y);
+        const isInside = this.isAtAdjusted(x, y);
         this.width = tempWidth;
 
         return isInside;
