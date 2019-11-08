@@ -81,6 +81,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+        this.showcase.display(this.currentTool);
     }
 
     getFilesource(tool: ITool): string {
@@ -141,9 +142,9 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.isItalic = !this.isItalic;
         if (this.text.element !== null) {
             if (this.isItalic) {
-                this.text.element.setFontWeight(this.ITALIC);
+                this.text.element.setFontStyle(this.ITALIC);
             } else {
-                this.text.element.setFontWeight(this.NORMAL);
+                this.text.element.setFontStyle(this.NORMAL);
             }
     }
 }

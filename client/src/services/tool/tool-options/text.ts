@@ -22,7 +22,6 @@ export class TextTool implements ITool {
     fontFamily: string;
     textAlign: string;
     width: number;
-    // text: SVGText;
 
     isEditing: boolean;
 
@@ -100,41 +99,6 @@ export class TextTool implements ITool {
         return true;
     }
 
-    // setFontSize(size: string): void {
-    //     this.fontStyle = size;
-    //     if (this.element != null) {
-    //         this.element.setFontSize(size);
-    //     }
-    // }
-
-    // setFontStyle(style: string): void {
-    //     this.fontStyle = style;
-    //     if (this.element != null) {
-    //         this.element.setFontStyle(style);
-    //     }
-    // }
-
-    // setFontWeight(weight: string): void {
-    //     this.fontWeigth = weight;
-    //     if (this.element != null) {
-    //         this.element.setFontWeight(weight);
-    //     }
-    // }
-
-    // setFontFamily(font: string): void {
-    //     this.fontFamily = font;
-    //     if (this.element != null) {
-    //         this.element.setFontFamily(font);
-    //     }
-    // }
-
-    // setTextAlign(align: string): void {
-    //     this.textAlign = align;
-    //     if (this.element != null) {
-    //         this.element.setTextAlign(align);
-    //     }
-    // }
-
     finishEdit(): void {
         this.isEditing = false;
         this.keyService.setIsBlocking(false);
@@ -151,17 +115,20 @@ export class TextTool implements ITool {
         return false;
     }
 
-    // onShowcase(x: number, y: number): SVGText | null {
+    onShowcase(x: number, y: number): CmdSVG | null {
 
-    //     const previousElement = this.element;
-    //     const mouseEvent: MouseEvent = new MouseEvent('', undefined);
-    //     mouseEvent.svgX = x / 2.0;
-    //     mouseEvent.svgY = y / 2.0;
+        const previousElement = this.element;
+        const mouseEvent: MouseEvent = new MouseEvent('', undefined);
+        mouseEvent.svgX = x / 2.0;
+        mouseEvent.svgY = y / 2.0;
 
-    //     const element = this.onPressed(mouseEvent);
-    //     this.onReleased(mouseEvent);
+        const element = this.onPressed(mouseEvent);
 
-    //     this.element = previousElement;
-    //     return element;
-    // }
+        const textShowcase: object = {
+            key: 'Rebase',
+        };
+        this.onKeydown(textShowcase as KeyboardEvent);
+        this.element = previousElement;
+        return element;
+    }
 }
