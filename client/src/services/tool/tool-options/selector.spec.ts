@@ -1,4 +1,5 @@
 import { SelectorTool, State } from './selector';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 fdescribe('SelectorTool', () => {
 
@@ -6,6 +7,9 @@ fdescribe('SelectorTool', () => {
     let svg: any;
 
     beforeEach(() => {
+        const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
+        DOMRenderer.renderer = renderer;
+
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
