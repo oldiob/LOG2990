@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
+import { Color } from 'src/utils/color';
 import { WorkZoneService } from './work-zone.service';
 
 describe('WorkZoneService', () => {
     const WIDTH = 10;
     const HEIGHT = 10;
-    const BACKGROUND_COLOR = '#000000';
+    const BACKGROUND_COLOR = new Color(255, 255, 255, 1);
 
     let service: WorkZoneService;
 

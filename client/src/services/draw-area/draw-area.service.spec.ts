@@ -4,6 +4,7 @@ import { MatDialogModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
+import { Color } from 'src/utils/color';
 import { Drawing } from '../draw-area/i-drawing';
 import { DrawAreaService } from './draw-area.service';
 
@@ -33,7 +34,7 @@ describe('DrawAreaService', () => {
             name: 'test',
             tags: ['allo'],
             holder: { entry: 'entry', elements: ['empty'] },
-            backgroundColor: '#ffffff',
+            backgroundColor: new Color(255, 255, 255, 1),
             width: 200,
             height: 200,
         };

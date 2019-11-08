@@ -6,7 +6,7 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
 import { AbsColorButton } from './abs-color-button.component';
 
-fdescribe('AbsColorButton', () => {
+describe('AbsColorButton', () => {
     let service: PaletteService;
     let component: MockColorButton;
     let formBuilder: FormBuilder;
