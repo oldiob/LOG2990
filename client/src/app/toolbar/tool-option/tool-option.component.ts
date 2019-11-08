@@ -31,6 +31,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     MIN_ANGLE = 0;
     MAX_ANGLE = 360;
     MULTI_15 = 15;
+    MAX_WIDTH = 25;
+    MIN_WIDTH = 0.5;
     LineType = LineType;
     JunctionType = JunctionType;
     Base64 = Base64;
@@ -147,9 +149,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     setMaxWidth(maxWidth: number): void {
         if (this.currentTool instanceof PenTool) {
             if (maxWidth < this.currentTool.minWidth) {
-                maxWidth += 1;
-                if (maxWidth > 25 ) {
-                    maxWidth = 25;
+                maxWidth++;
+                if (maxWidth > this.MAX_WIDTH ) {
+                    maxWidth = this.MAX_WIDTH;
                 }
             }
             this.currentTool.maxWidth = maxWidth;
@@ -160,9 +162,9 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     setMinWidth(minWidth: number): void {
         if (this.currentTool instanceof PenTool) {
             if (minWidth > this.currentTool.maxWidth) {
-                minWidth -= 1;
-                if (minWidth < 0.5 ) {
-                    minWidth = 0.5;
+                minWidth--;
+                if (minWidth < this.MIN_WIDTH ) {
+                    minWidth = this.MIN_WIDTH;
                 }
             }
             this.currentTool.minWidth = minWidth;
