@@ -13,7 +13,7 @@ export class TextTool implements ITool {
 
     readonly tip: string;
     TEXTTIP = 'Text (T)';
-    EMPTYSTRING = '';
+    UNSET = '';
     INITIALSIZE = '15px';
     element: SVGText | null = null;
     fontSize: string;
@@ -27,10 +27,10 @@ export class TextTool implements ITool {
 
     constructor(private keyService: KeyService,  private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
-        this.fontSize = this.EMPTYSTRING;
-        this.fontStyle = this.EMPTYSTRING;
-        this.fontFamily = this.EMPTYSTRING;
-        this.textAlign = this.EMPTYSTRING;
+        this.fontWeigth = this.UNSET;
+        this.fontStyle = this.UNSET;
+        this.fontFamily = this.UNSET;
+        this.textAlign = this.UNSET;
         this.fontSize = this.INITIALSIZE;
         this.isEditing = false;
         const DEFAULT_WIDTH = 15;
@@ -75,7 +75,7 @@ export class TextTool implements ITool {
             this.finishEdit();
             this.keyService.setIsDisableText(false);
         }
-        let current = this.EMPTYSTRING;
+        let current = this.UNSET;
         if (this.element !== null) {
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
@@ -109,7 +109,7 @@ export class TextTool implements ITool {
         this.keyService.setIsBlocking(true);
     }
     isLineEmpty(content: string): boolean {
-        if (content === this.EMPTYSTRING) {
+        if (content === this.UNSET) {
             return true;
         }
         return false;
