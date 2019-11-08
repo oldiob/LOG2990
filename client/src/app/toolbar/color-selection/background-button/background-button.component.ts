@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
+import { Color } from 'src/utils/color';
 import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 
 @Component({
@@ -12,8 +13,6 @@ import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 export class BackgroundButtonComponent
     extends AbsColorButton implements OnInit {
 
-    backgroundColor: string;
-
     constructor(
         protected paletteService: PaletteService,
         protected formBuilder: FormBuilder,
@@ -23,8 +22,9 @@ export class BackgroundButtonComponent
 
     ngOnInit() {
         this.isSettingsShown = false;
-        this.createForm();
         this.setupColors();
+        this.createForm();
+        this.updateForm();
         this.setupView();
     }
 
@@ -34,18 +34,27 @@ export class BackgroundButtonComponent
     }
 
     protected setupColors(): void {
-        this.backgroundColor = '#FFFFFF';
         this.workZoneService.currentBackgroundColor.subscribe(
-            (backgroundColor: string) => {
-                this.backgroundColor = backgroundColor;
+            (backgroundColor: Color) => {
+                this.currentColor = backgroundColor;
+                console.log(this.currentColor);
+                if (this.colorsForm) {
+                    this.updateForm();
+                }
             });
     }
 
     protected applyColor(): void {
         this.workZoneService.updateBackgroundColor(
-            this.currentColor.toString(),
+            this.currentColor,
         );
-        this.backgroundColor = this.currentColor.toString();
+    }
+
+    onMouseUp() {
+        this.paletteService.previous.add(this.currentColor);
+        this.applyColor();
+        this.hideForm();
+        this.colorsHistory = this.paletteService.getHistory();
     }
 
     protected onAlphaChange(): void {
@@ -55,7 +64,7 @@ export class BackgroundButtonComponent
 
     protected setColor(): {} {
         return {
-            'background-color': `${this.backgroundColor}`,
+            'background-color': `${this.currentColor.toString()}`,
         };
     }
 }
