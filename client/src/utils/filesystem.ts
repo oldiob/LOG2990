@@ -2,7 +2,7 @@ import { ElementRef } from '@angular/core';
 import { svgToImage } from './element-parser';
 
 export const saveFile = (fileName: string, fileContent: string, extension?: string): any => {
-    console.log(fileContent);
+
     const dataBlob: any = new Blob([fileContent], { type: 'image/png' });
     const url = window.URL.createObjectURL(dataBlob);
 
