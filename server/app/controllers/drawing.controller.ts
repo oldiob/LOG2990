@@ -10,6 +10,9 @@ export class DrawingController {
     router: Router;
     drawings: Drawing[];
     uniqueID: number;
+    isValid: boolean;
+    id: string;
+    tag: string;
 
     constructor(@inject(Types.DataBaseService) private database: DataBaseService) {
         this.drawings = [];
@@ -18,13 +21,13 @@ export class DrawingController {
     }
 
     private isDrawingValid(drawing: Drawing): boolean {
-        let isValid = drawing.name !== '' && !drawing._id;
+        this.isValid = drawing.name !== '' && !drawing._id;
         for (const tag of drawing.tags) {
             if (!this.isTagValid(tag)) {
-                isValid = false;
+                this.isValid = false;
             }
         }
-        return isValid;
+        return  this.isValid;
     }
 
     private isTagValid(tag: string): boolean {
@@ -45,28 +48,28 @@ export class DrawingController {
         });
 
         this.router.post('/addtag', async (req, res) => {
-            const id: string = req.body.id;
-            const tag: string = req.body.tag;
+            this.id = req.body.id;
+            this.tag  = req.body.tag;
 
-            if (id && this.isTagValid(tag)) {
-                await this.database.updateTags(id, tag);
-                res.json(`"${tag}" tag added!`);
+            if (this.id && this.isTagValid(this.tag)) {
+                await this.database.updateTags(this.id, this.tag);
+                res.json(`"${this.tag}" tag added!`);
             } else {
-                res.json(`"${tag}" NOT tag added.`);
+                res.json(`"${this.tag}" NOT tag added.`);
             }
         });
 
         this.router.get('/drawing/all', async (req, res) => {
-            let drawings: Drawing[] = [];
+            this.drawings = [];
             await this.database.getAllDrawings()
-                .then((onlineDrawings: Drawing[]) => drawings = onlineDrawings);
-            res.json(drawings);
+                .then((onlineDrawings: Drawing[]) => this.drawings = onlineDrawings);
+            res.json(this.drawings);
         });
 
         this.router.delete('/drawing/delete/:id', async (req: Request, res: Response) => {
-            const id: string = req.params.id;
-            if (id) {
-                await this.database.deleteDrawing(id);
+            this.id = req.params.id;
+            if (this.id) {
+                await this.database.deleteDrawing(this.id);
                 res.status(200).json({ RESPONSE: 'Drawing has been deleted!' });
             } else {
                 res.status(500).json({ RESPONSE: 'Drawing not found.' });
