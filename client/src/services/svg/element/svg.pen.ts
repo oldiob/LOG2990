@@ -11,8 +11,8 @@ export class SVGPen extends SVGAbstract {
     minWidth: number;
     maxWidth: number;
     color: string;
-
-    TWO_PIXELS = 2;
+    THRESHOLD: number;
+    WIDTH_RATIO_NUMBER: number;
 
     private latestPoint: number[];
 
@@ -23,6 +23,8 @@ export class SVGPen extends SVGAbstract {
         this.anchors.push([x, y]);
         this.latestPoint = [x, y];
         this.element = DOMRenderer.createElement('g', 'svg');
+        this.THRESHOLD = 2;
+        this.WIDTH_RATIO_NUMBER = 3;
 
     }
 
@@ -30,8 +32,8 @@ export class SVGPen extends SVGAbstract {
         const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
             Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
-        const tempWidth = this.minWidth + this.maxWidth * ( 3 / distance);
-        if (Math.abs(this.width - tempWidth) > this.TWO_PIXELS) {
+        const tempWidth = this.minWidth + this.maxWidth * ( this.WIDTH_RATIO_NUMBER / distance);
+        if (Math.abs(this.width - tempWidth) > this.THRESHOLD) {
             if (this.width > tempWidth) {
                 this.width--;
             } else {
