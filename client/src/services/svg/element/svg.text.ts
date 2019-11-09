@@ -29,7 +29,7 @@ export class SVGText implements SVGInterface {
         this.fontStyle = fontStyle;
         this.fontWeight = fontWeigth;
 
-        keyService.disableShortcut();
+        keyService.disableKeys();
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
         DOMRenderer.setAttribute(this.element, 'x', x.toString());

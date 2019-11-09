@@ -4,17 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class KeyService {
-  isKeysEnabled = true;
+  isShortcutsEnabled = true;
   isTextEnabled = true;
   constructor() {
     //
    }
 
-  disableShortcut() {
-      this.isKeysEnabled = false;
+  disableKeys() {
+      this.isShortcutsEnabled = false;
   }
-  enableShortcut() {
-      this.isKeysEnabled = true;
+  enableKeys() {
+      this.isShortcutsEnabled = true;
   }
   enableTextEdit() {
       this.isTextEnabled = true;

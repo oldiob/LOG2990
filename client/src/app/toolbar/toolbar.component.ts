@@ -154,7 +154,7 @@ export class ToolbarComponent implements OnInit {
 
     disableCurrentText() {
         this.keyService.disableTextEdit();
-        this.keyService.enableShortcut();
+        this.keyService.enableKeys();
     }
 
     @HostListener('window: keydown', ['$event'])
@@ -168,7 +168,7 @@ export class ToolbarComponent implements OnInit {
         const func: callback | undefined = kbd[keys];
         if (func) {
             event.preventDefault();
-            if (!this.isDialogOpened  || this.keyService.isKeysEnabled ) {
+            if (!this.isDialogOpened  || this.keyService.isShortcutsEnabled ) {
                 func();
             }
         }
@@ -176,7 +176,7 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keyup', ['$event'])
     onKeyUp(event: KeyboardEvent): void {
-        if (this.isDialogOpened || !this.keyService.isKeysEnabled) {
+        if (this.isDialogOpened || !this.keyService.isShortcutsEnabled) {
             return;
         }
         const kbd: { [id: string]: callback } = {

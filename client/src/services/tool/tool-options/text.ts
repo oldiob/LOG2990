@@ -108,12 +108,12 @@ export class TextTool implements ITool {
 
     finishEdit(): void {
         this.isEditing = false;
-        this.keyService.enableShortcut();
+        this.keyService.enableKeys();
         this.element = null;
     }
     startEdit(): void {
         this.isEditing = true;
-        this.keyService.disableShortcut();
+        this.keyService.disableKeys();
     }
     isLineEmpty(content: string): boolean {
         if (content === this.UNSET) {
