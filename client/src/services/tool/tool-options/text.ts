@@ -5,8 +5,6 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { Color } from 'src/utils/color';
 import { ITool } from './i-tool';
-import { Color } from 'src/utils/color';
-import { ITool } from './i-tool';
 declare type callback = () => void;
 @Injectable({
     providedIn: 'root',
@@ -119,12 +117,6 @@ export class TextTool implements ITool {
     }
     isLineEmpty(content: string): boolean {
         if (content === this.UNSET) {
-            return true;
-        }
-        return false;
-    }
-    isLineEmpty(content: string): boolean {
-        if (content === '') {
             return true;
         }
         return false;
