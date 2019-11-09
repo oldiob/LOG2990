@@ -37,7 +37,6 @@ export class BackgroundButtonComponent
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: Color) => {
                 this.currentColor = backgroundColor;
-                console.log(this.currentColor);
                 if (this.colorsForm) {
                     this.updateForm();
                 }

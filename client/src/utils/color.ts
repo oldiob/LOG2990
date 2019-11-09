@@ -22,7 +22,6 @@ export class Color {
         const blue = Color.convertToDecimal(hex.substring(5, 7));
         const FULL_ALPHA = 1;
         color = new Color(red, green, blue, FULL_ALPHA);
-        console.log(hex.length);
 
         if (hex.length > 7) {
             const alpha = Color.convertToDecimal(hex.substring(7, 9));

@@ -73,6 +73,8 @@ import { DOMRenderer } from './utils/dom-renderer';
         ConfirmationComponent,
         PaletteButtonComponent,
         BackgroundButtonComponent,
+        ImportOptionComponent,
+        ExportOptionComponent,
     ],
     imports: [
         BrowserModule,

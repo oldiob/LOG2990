@@ -47,8 +47,6 @@ export class GridService {
     set opacity(opacity: number) {
         if (GridService.MIN_OPACITY <= opacity &&
             opacity <= GridService.MAX_OPACITY) {
-            console.log(this.ref.nativeElement);
-
             DOMRenderer.setAttribute(this.ref.nativeElement, 'stroke-opacity', `${opacity}`);
         }
     }
