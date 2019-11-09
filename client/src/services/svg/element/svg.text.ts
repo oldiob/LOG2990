@@ -52,7 +52,7 @@ export class SVGText extends SVGAbstract {
 
     }
     isAtAdjusted(x: number, y: number): boolean {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
