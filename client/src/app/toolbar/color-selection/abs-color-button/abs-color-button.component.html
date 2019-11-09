@@ -1,5 +1,6 @@
 <div class="btn-color-wrapper">
 
+    
     <button class="button"
         mat-raised-button
         matTooltip="{{tip}}"
@@ -7,8 +8,10 @@
         matTooltipPosition="right"
         (click)="toggleForm()"
         [ngStyle]="setColor()">
+        <mat-icon class="icon">{{icon}}</mat-icon>
+        
     </button>
-    <div class="color1-picker" *ngIf="isShowForm">
+    <div class="color1-picker" *ngIf="isSettingsShown">
         <div class="form-wrapper">
             <div class="color-picker-wrapper">
                 <color-picker class="color-picker" (color)="onColorPick($event)" (mouseup)="onMouseUp()">
@@ -58,7 +61,7 @@
                     </div>
                 </div>
                 <div class="ok-wrapper">
-                    <button class="ok" mat-flat-button (click)="hideForm()" color="primary">OK</button>
+                    <button class="ok" mat-flat-button (click)="onMouseUp()" color="primary">OK</button>
                 </div>
             </form>
         </div>

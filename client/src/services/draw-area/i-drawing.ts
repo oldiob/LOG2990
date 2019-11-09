@@ -1,3 +1,4 @@
+import { Color } from '../../utils/color';
 import { DrawAreaHolder } from './draw-area-holder';
 
 export class Drawing {
@@ -8,7 +9,7 @@ export class Drawing {
     tags: string[];
     holder: DrawAreaHolder;
 
-    backgroundColor: string;
+    backgroundColor: Color;
     width: number;
     height: number;
 }

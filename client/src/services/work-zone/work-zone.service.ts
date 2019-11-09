@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Color } from 'src/utils/color';
 import { populateDrawArea, serializeDrawArea } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
 import { Drawing } from '../draw-area/i-drawing';
@@ -12,43 +13,47 @@ export class WorkZoneService {
 
     private widthValue: number;
     private heightValue: number;
-    private backgroundColorValue: string;
+    private backgroundColorValue: Color;
 
-    // Work-area's dimensions
-    private width: BehaviorSubject<number>;
-    private height: BehaviorSubject<number>;
-    private backgroundColor: BehaviorSubject<string>;
+    private widthSubject: BehaviorSubject<number>;
+    private heightSubject: BehaviorSubject<number>;
+    private backgroundColorSubject: BehaviorSubject<Color>;
 
-    private maxWidth: BehaviorSubject<number>;
-    private maxHeight: BehaviorSubject<number>;
+    private maxWidthSubject: BehaviorSubject<number>;
+    private maxHeightSubject: BehaviorSubject<number>;
 
     constructor() {
         this.widthValue = 0;
         this.heightValue = 0;
-        this.backgroundColorValue = '#ffffffff';
 
-        this.width = new BehaviorSubject<number>(this.widthValue);
-        this.height = new BehaviorSubject<number>(this.heightValue);
-        this.backgroundColor = new BehaviorSubject<string>(this.backgroundColorValue);
+        const RED = 255;
+        const GREEN = 255;
+        const BLUE = 255;
+        const ALPHA = 1;
+        this.backgroundColorValue = new Color(RED, GREEN, BLUE, ALPHA);
 
-        this.maxWidth = new BehaviorSubject<number>(this.widthValue);
-        this.maxHeight = new BehaviorSubject<number>(this.heightValue);
+        this.widthSubject = new BehaviorSubject<number>(this.widthValue);
+        this.heightSubject = new BehaviorSubject<number>(this.heightValue);
+        this.backgroundColorSubject = new BehaviorSubject<Color>(this.backgroundColorValue);
+
+        this.maxWidthSubject = new BehaviorSubject<number>(this.widthValue);
+        this.maxHeightSubject = new BehaviorSubject<number>(this.heightValue);
     }
 
     get currentWidth(): Observable<number> {
-        return this.width.asObservable();
+        return this.widthSubject.asObservable();
     }
     get currentHeight(): Observable<number> {
-        return this.height.asObservable();
+        return this.heightSubject.asObservable();
     }
-    get currentBackgroundColor(): Observable<string> {
-        return this.backgroundColor.asObservable();
+    get currentBackgroundColor(): Observable<Color> {
+        return this.backgroundColorSubject.asObservable();
     }
     get currentMaxWidth(): Observable<number> {
-        return this.maxWidth.asObservable();
+        return this.maxWidthSubject.asObservable();
     }
     get currentMaxHeight(): Observable<number> {
-        return this.maxHeight.asObservable();
+        return this.maxHeightSubject.asObservable();
     }
 
     setFromDrawing(drawing: Drawing): void {
@@ -72,19 +77,23 @@ export class WorkZoneService {
         return drawing;
     }
 
-    updateDrawAreaProperties(width: number, height: number, bgColor: string) {
-        this.width.next(width);
-        this.height.next(height);
-        this.backgroundColor.next(bgColor);
+    updateDrawAreaProperties(width: number, height: number, backgroundColor: Color) {
+        this.widthSubject.next(width);
+        this.heightSubject.next(height);
+        this.backgroundColorSubject.next(backgroundColor);
 
         this.widthValue = width;
         this.heightValue = height;
-        this.backgroundColorValue = bgColor;
+        this.backgroundColorValue = backgroundColor;
     }
 
     // Updates Work Zone initial dimensions values
     updateMaxDimensions(maxWidth: number, maxHeight: number): void {
-        this.maxWidth.next(maxWidth);
-        this.maxHeight.next(maxHeight);
+        this.maxWidthSubject.next(maxWidth);
+        this.maxHeightSubject.next(maxHeight);
+    }
+
+    updateBackgroundColor(color: Color): void {
+        this.backgroundColorSubject.next(color);
     }
 }

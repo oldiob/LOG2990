@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { ColorButtonType } from './color-button-type';
 
 @Component({
     selector: 'app-color-selection',
@@ -8,26 +9,27 @@ import { PaletteService } from 'src/services/palette/palette.service';
     styleUrls: ['./color-selection.component.scss'],
 })
 export class ColorSelectionComponent implements OnInit {
+    readonly ColorButtonType = ColorButtonType;
 
-    readonly IS_PRIMARY = true;
-
-    isOpenPrimary: boolean;
-    isOpenSecondary: boolean;
+    isPrimaryButtonOpened: boolean;
+    isSecondaryButtonOpened: boolean;
+    isBackgroundButtonOpened: boolean;
 
     constructor(
         private dialogService: DialogService,
         private paletteService: PaletteService) { }
 
     ngOnInit() {
-        this.isOpenPrimary = false;
-        this.isOpenSecondary = false;
+        this.isPrimaryButtonOpened = false;
+        this.isSecondaryButtonOpened = false;
+        this.isBackgroundButtonOpened = false;
         this.listenToClose();
     }
 
     private listenToClose() {
         this.dialogService.isClosedColorObservable.subscribe((isOpen: boolean) => {
-            this.isOpenPrimary = isOpen;
-            this.isOpenSecondary = isOpen;
+            this.isPrimaryButtonOpened = isOpen;
+            this.isSecondaryButtonOpened = isOpen;
         });
     }
 
@@ -35,23 +37,56 @@ export class ColorSelectionComponent implements OnInit {
         this.paletteService.swap();
     }
 
-    onOpen(isShowForm: boolean, isPrimary: boolean): void {
-        if (isShowForm && isPrimary) {
-            this.isOpenPrimary = true;
-            this.isOpenSecondary = false;
-        } else if (isShowForm && !isPrimary) {
-            this.isOpenPrimary = false;
-            this.isOpenSecondary = true;
-        } else if (!isShowForm && isPrimary) {
-            this.isOpenPrimary = false;
+    onOpen(isSettingsShown: boolean, type: ColorButtonType): void {
+        if (isSettingsShown) {
+            this.openButton(type);
         } else {
-            this.isOpenSecondary = false;
+            this.closeButton(type);
+        }
+    }
+
+    private openButton(type: ColorButtonType) {
+        switch (type) {
+            case ColorButtonType.PrimaryColor:
+                this.isPrimaryButtonOpened = true;
+                this.isSecondaryButtonOpened = false;
+                this.isBackgroundButtonOpened = false;
+                break;
+            case ColorButtonType.SecondaryColor:
+                this.isPrimaryButtonOpened = false;
+                this.isSecondaryButtonOpened = true;
+                this.isBackgroundButtonOpened = false;
+                break;
+            case ColorButtonType.BackgroundColor:
+                this.isPrimaryButtonOpened = false;
+                this.isSecondaryButtonOpened = false;
+                this.isBackgroundButtonOpened = true;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private closeButton(type: ColorButtonType) {
+        switch (type) {
+            case ColorButtonType.PrimaryColor:
+                this.isPrimaryButtonOpened = false;
+                break;
+            case ColorButtonType.SecondaryColor:
+                this.isSecondaryButtonOpened = false;
+                break;
+            case ColorButtonType.BackgroundColor:
+                this.isBackgroundButtonOpened = false;
+                break;
+            default:
+                break;
         }
     }
 
     close() {
-        this.isOpenPrimary = false;
-        this.isOpenSecondary = false;
+        this.isPrimaryButtonOpened = false;
+        this.isSecondaryButtonOpened = false;
+        this.isBackgroundButtonOpened = false;
     }
 
 }

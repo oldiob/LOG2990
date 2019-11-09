@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { Drawing } from 'src/services/draw-area/i-drawing';
+import { Color } from 'src/utils/color';
 import { GalleryOptionComponent } from './gallery-option.component';
 
 describe('GalleryOptionComponent', () => {
@@ -18,9 +19,9 @@ describe('GalleryOptionComponent', () => {
   beforeEach(async(() => {
     TestBed.overrideModule(BrowserDynamicTestingModule, {
       set: {
-              entryComponents: [CustomAlertComponent],
-            },
-      });
+        entryComponents: [CustomAlertComponent],
+      },
+    });
     TestBed.configureTestingModule({
       declarations: [GalleryOptionComponent, CustomAlertComponent],
       imports: [MatMenuModule, MatDialogModule, MatSnackBarModule, BrowserAnimationsModule, BrowserDynamicTestingModule, HttpClientModule],
@@ -39,7 +40,7 @@ describe('GalleryOptionComponent', () => {
       tags: ['allo'],
       holder: { entry: 'entry', elements: ['vide'] },
 
-      backgroundColor: '#ffffff',
+      backgroundColor: new Color(255, 255, 255, 1),
       width: 200,
       height: 200,
     }];

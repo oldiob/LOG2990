@@ -1,25 +1,33 @@
 <div class="buttons-wrapper">
     <div class="colors-wrapper">
-        <app-color-button 
-            class="primary"
-            [isPrimary]="IS_PRIMARY"
-            [isShowForm]="isOpenPrimary"
-            (open)="onOpen($event, IS_PRIMARY)">
-        </app-color-button>
-        <app-color-button
-            class="secondary"
-            [isPrimary]="!IS_PRIMARY"
-            [isShowForm]="isOpenSecondary"
-            (open)="onOpen($event, !IS_PRIMARY)">
-        </app-color-button>
+        <app-palette-button 
+            class="primary-color"
+            [type]="ColorButtonType.PrimaryColor"
+            [isSettingsShown]="isPrimaryButtonOpened"
+            (open)="onOpen($event, ColorButtonType.PrimaryColor)">
+        </app-palette-button>
+        <app-palette-button
+            class="secondary-color"
+            [type]="ColorButtonType.SecondaryColor"
+            [isSettingsShown]="isSecondaryButtonOpened"
+            (open)="onOpen($event, ColorButtonType.SecondaryColor)">
+        </app-palette-button>
+        <div class="swap"
+            matTooltip="Swap Colors"
+            matTooltipClass="tooltip" 
+            matTooltipPosition="below"
+            (click)="onSwap()">
+            <img src="../../../assets/images/swap.svg" alt="swap">
+        </div>
     </div>
-    <div class="swap"
-        matTooltip="Swap Colors"
-        matTooltipClass="tooltip" 
-        matTooltipPosition="below"
-        (click)="onSwap()">
-        <img src="../../../assets/images/swap.svg" alt="swap">
+    <div class="background-wrapper">
+        <app-background-button
+            class="background-color"
+            [type]="ColorButtonType.BackgroundColor"
+            [isSettingsShown]="isBackgroundButtonOpened"
+            (open)="onOpen($event, ColorButtonType.BackgroundColor)">
+        </app-background-button>
     </div>
 </div>
 
-<div class="background" *ngIf="isOpenPrimary || isOpenSecondary" (mousedown)="close()"></div>
+<div class="background" *ngIf="isPrimaryButtonOpened || isSecondaryButtonOpened || isBackgroundButtonOpened" (mousedown)="close()"></div>

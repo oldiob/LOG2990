@@ -20,17 +20,21 @@ export class NewDrawingComponent implements OnInit {
     readonly DEFAULT_BLUE = 255;
     readonly DEFAULT_ALPHA = 1;
 
+    backgroundColor: Color;
+
     isSavedDrawing: boolean;
     displaySaveError: boolean;
     isShowColorPicker: boolean;
 
     defaultWidth: number;
     defaultHeight: number;
-    color: Color;
+
     newDrawingFrom: FormGroup;
 
     private widthSubscription: Subscription;
     private heightSubscription: Subscription;
+
+    colorChoices: Color[];
 
     constructor(
         private svgService: SVGService,
@@ -46,15 +50,23 @@ export class NewDrawingComponent implements OnInit {
         this.createForm();
         this.fetchDefaults();
         this.updateColorRGBA();
+        this.setupColorChoices();
+    }
+
+    private setupColorChoices() {
+        this.colorChoices = [
+            new Color(255, 255, 255, 1),
+            new Color(255, 92, 92, 1),
+            new Color(55, 96, 255, 1),
+            new Color(57, 229, 255, 1),
+            new Color(85, 233, 188, 1),
+            new Color(163, 255, 135, 1),
+            new Color(255, 255, 121, 1),
+            new Color(255, 158, 102, 1),
+        ];
     }
 
     private createForm() {
-        const defaultBackgroundColor = new Color(
-            this.DEFAULT_RED,
-            this.DEFAULT_GREEN,
-            this.DEFAULT_BLUE,
-            this.DEFAULT_ALPHA);
-
         // Form to create new work zone to draw
         const rgbaValidators = [Validators.min(0), Validators.max(255)];
         const dimentionsValidators = [Validators.min(0), Validators.required];
@@ -63,7 +75,6 @@ export class NewDrawingComponent implements OnInit {
             height: [this.defaultHeight, dimentionsValidators],
             width: [this.defaultWidth, dimentionsValidators],
 
-            backgroundColor: [defaultBackgroundColor],
             backgroundColorHEX: [this.DEFAULT_BACKGROUND_HEX],
 
             red: [this.DEFAULT_RED, rgbaValidators],
@@ -73,7 +84,12 @@ export class NewDrawingComponent implements OnInit {
 
             isOverrideOldDrawing: [this.isSavedDrawing, Validators.requiredTrue],
         });
-        this.backgroundColor = defaultBackgroundColor.toString();
+        this.backgroundColor = new Color(
+            this.DEFAULT_RED,
+            this.DEFAULT_GREEN,
+            this.DEFAULT_BLUE,
+            this.DEFAULT_ALPHA,
+        );
     }
 
     // Fetches default dimensions
@@ -97,12 +113,7 @@ export class NewDrawingComponent implements OnInit {
     get height() {
         return this.newDrawingFrom.controls.height.value;
     }
-    get backgroundColor() {
-        return this.newDrawingFrom.controls.backgroundColor.value;
-    }
-    set backgroundColor(color: string) {
-        this.newDrawingFrom.controls.backgroundColor.setValue(color);
-    }
+
     get backgroundColorHEX() {
         return this.newDrawingFrom.controls.backgroundColorHEX.value;
     }
@@ -142,7 +153,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     onColorPick(color: Color) {
-        this.backgroundColor = color.toString();
+        this.backgroundColor = color;
         this.newDrawingFrom.controls.red.setValue(color.red);
         this.newDrawingFrom.controls.green.setValue(color.green);
         this.newDrawingFrom.controls.blue.setValue(color.blue);
@@ -163,21 +174,18 @@ export class NewDrawingComponent implements OnInit {
     }
 
     private updateColorHEX() {
-        this.backgroundColorHEX =
-            '#' + `${this.convertToHEX(this.red)}` + `${this.convertToHEX(this.green)}` + `${this.convertToHEX(this.blue)}`;
-    }
-
-    private convertToHEX(rgb: number): string {
-        let hexString = rgb.toString(16).toUpperCase();
-        if (hexString.length < 2) {
-            hexString = '0' + hexString;
-        }
-        return hexString;
+        const FULL_ALPHA = 1;
+        const color = new Color(
+            this.red,
+            this.green,
+            this.blue,
+            FULL_ALPHA,
+        );
+        this.backgroundColorHEX = color.toHex();
     }
 
     private updateBackgroudColor() {
-        const color: Color = new Color(this.red, this.blue, this.green, this.alpha);
-        this.backgroundColor = color.toString();
+        this.backgroundColor = new Color(this.red, this.blue, this.green, this.alpha);
     }
 
     onColorHEXChange() {
@@ -186,25 +194,15 @@ export class NewDrawingComponent implements OnInit {
     }
 
     private updateColorRGBA() {
-        const RED
-            = this.convertToDecimal(this.backgroundColorHEX.substring(1, 3));
-        const GREEN
-            = this.convertToDecimal(this.backgroundColorHEX.substring(3, 5));
-        const BLUE
-            = this.convertToDecimal(this.backgroundColorHEX.substring(5, 7));
-
-        this.newDrawingFrom.controls.red.setValue(RED);
-        this.newDrawingFrom.controls.green.setValue(GREEN);
-        this.newDrawingFrom.controls.blue.setValue(BLUE);
+        const color: Color = Color.getColorFromHex(this.backgroundColorHEX);
+        this.newDrawingFrom.controls.red.setValue(color.red);
+        this.newDrawingFrom.controls.green.setValue(color.green);
+        this.newDrawingFrom.controls.blue.setValue(color.blue);
     }
 
-    private convertToDecimal(hex: string): number {
-        return parseInt(hex, 16);
-    }
-
-    chooseBgColor(bgColorHEX: string) {
-        this.backgroundColor = bgColorHEX;
-        this.backgroundColorHEX = bgColorHEX;
+    chooseBackgroundColor(color: Color) {
+        this.backgroundColor = color;
+        this.backgroundColorHEX = color.toHex();
         this.updateColorRGBA();
     }
 
