@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
@@ -18,7 +18,7 @@ export class EraserTool implements ITool {
     width: number;
 
     container: any | null;
-    objectsOnHold: (SVGInterface | null)[] = [];
+    objectsOnHold: (SVGAbstract | null)[] = [];
 
     cmd: CmdEraser;
 

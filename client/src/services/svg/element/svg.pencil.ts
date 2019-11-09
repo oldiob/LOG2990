@@ -1,8 +1,8 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
-import { SVGInterface } from './svg.interface';
+import { SVGAbstract } from './svg.interface';
 
-export class SVGPencil implements SVGInterface {
+export class SVGPencil extends SVGAbstract {
     element: any;
 
     points: number[][] = [];
@@ -10,6 +10,8 @@ export class SVGPencil implements SVGInterface {
     lineWidth = 1;
 
     constructor() {
+        super();
+
         this.element = DOMRenderer.createElement('polyline', 'svg');
 
         DOMRenderer.setAttribute(this.element, 'fill', 'none');
@@ -17,7 +19,7 @@ export class SVGPencil implements SVGInterface {
         DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
     }
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         const WIDTH_MARGIN = 10.0;
         const width: number = this.lineWidth + WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {

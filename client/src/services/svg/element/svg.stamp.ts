@@ -1,8 +1,8 @@
 import { vectorMinus, vectorModule } from 'src/utils/math';
 import { IStamp } from './stamp/i-stamp';
-import { SVGInterface } from './svg.interface';
+import { SVGAbstract } from './svg.interface';
 
-export class SVGStamp implements SVGInterface {
+export class SVGStamp extends SVGAbstract {
     IMAGESIZE = 10;
     element: any;
     previousX = 0;
@@ -18,6 +18,8 @@ export class SVGStamp implements SVGInterface {
     imagePaths: string;
 
     constructor(x: number, y: number, width: number, stamp: IStamp, angle: number, imagePath: string) {
+        super();
+
         this.lineWidth = width * this.IMAGESIZE;
         this.angles = angle;
         this.stampTexture = stamp;
@@ -28,7 +30,7 @@ export class SVGStamp implements SVGInterface {
         this.stampTexture.addPoint(this, x, y);
     }
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         const vectorTo: number[] = vectorMinus([x, y], this.position);
         return vectorModule(vectorTo) <= this.lineWidth;
     }

@@ -1,14 +1,14 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { MyInjector } from 'src/utils/injector';
 
 export class CmdSVG implements CmdInterface {
 
-    obj: SVGInterface[] = [];
+    obj: SVGAbstract[] = [];
     svg: SVGService;
 
-    constructor(obj: SVGInterface | SVGInterface[]) {
+    constructor(obj: SVGAbstract | SVGAbstract[]) {
         if (obj instanceof Array) {
             this.obj = obj;
         } else {

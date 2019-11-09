@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
 import { vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
@@ -11,11 +11,11 @@ import { DrawAreaService } from '../draw-area/draw-area.service';
 export class SVGService {
     entry: ElementRef;
 
-    objects: SVGInterface[] = [];
+    objects: SVGAbstract[] = [];
 
     constructor(private drawAreaService?: DrawAreaService) { }
 
-    findAt(x: number, y: number): SVGInterface | null {
+    findAt(x: number, y: number): SVGAbstract | null {
         for (let i = this.objects.length - 1; i >= 0; --i) {
             if (this.objects[i].isAt(x, y)) {
                 return this.objects[i];
@@ -24,8 +24,8 @@ export class SVGService {
         return null;
     }
 
-    findIn(x: number, y: number, r: number): (SVGInterface | null)[] {
-        const elements: (SVGInterface | null)[] = [];
+    findIn(x: number, y: number, r: number): (SVGAbstract | null)[] {
+        const elements: (SVGAbstract | null)[] = [];
 
         const DISTANCE = 2.0;
 
@@ -37,14 +37,14 @@ export class SVGService {
             const findAtPosition = vectorPlus(circleCenter, pointOffset);
             const elementFound = this.findAt(findAtPosition[0], findAtPosition[1]);
 
-            if (!elements.find((element: SVGInterface | null) => element === elementFound)) {
+            if (!elements.find((element: SVGAbstract | null) => element === elementFound)) {
                 elements.push(elementFound);
             }
         }
         return elements;
     }
 
-    addObject(obj: SVGInterface | null) {
+    addObject(obj: SVGAbstract | null) {
         if (obj === null) {
             return;
         }
@@ -59,7 +59,7 @@ export class SVGService {
         }
     }
 
-    removeObject(obj: SVGInterface | null) {
+    removeObject(obj: SVGAbstract | null) {
         if (obj === null || obj.element === null) {
             return;
         }
@@ -194,10 +194,15 @@ export class SVGService {
         return filterTurbulence;
     }
 
-    getInRect(rect: Rect): Set<SVGInterface> {
-        const matches: Set<SVGInterface> = new Set<SVGInterface>([]);
+    getInRect(rect: Rect): Set<SVGAbstract> {
+        const matches: Set<SVGAbstract> = new Set<SVGAbstract>([]);
         this.objects.forEach((obj) => {
-            const box: any = obj.element.getBBox();
+            const box: any = obj.element.getBoundingClientRect();
+            const shiftedRect = this.entry.nativeElement.getBoundingClientRect();
+
+            box.x -= shiftedRect.left;
+            box.y -= shiftedRect.top;
+
             if (rect.intersect(new Rect(box.x, box.y, box.x + box.width, box.y + box.height))) {
                 matches.add(obj);
             }

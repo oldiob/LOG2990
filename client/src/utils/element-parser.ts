@@ -1,6 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Prototypes } from './prototypes';
@@ -43,7 +43,7 @@ export const populateDrawArea = (svgService: SVGService, holder: DrawAreaHolder)
     }
 };
 
-const serializeSVG = (element: SVGInterface): string => {
+const serializeSVG = (element: SVGAbstract): string => {
     const holder = new ElementHolder();
 
     holder.type = element.constructor.name;
@@ -56,7 +56,7 @@ const serializeSVG = (element: SVGInterface): string => {
 const deserializeSVG = (json: string): any => {
     const element: any = JSON.parse(json);
 
-    const svgElement: SVGInterface = element.elementData;
+    const svgElement: SVGAbstract = element.elementData;
     Object.setPrototypeOf(svgElement, Prototypes.get(element.type));
 
     const fakeElement = new DOMParser().parseFromString(element.svgData, 'image/svg+xml').children[0];
@@ -86,6 +86,6 @@ export const recreateElement = (fakeElement: any): any => {
 // tslint:disable-next-line: max-classes-per-file
 class ElementHolder {
     type: string;
-    elementData: SVGInterface;
+    elementData: SVGAbstract;
     svgData: string;
 }

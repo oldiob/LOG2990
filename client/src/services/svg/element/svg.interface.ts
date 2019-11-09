@@ -1,14 +1,34 @@
-export interface SVGInterface {
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { vectorMinus, vectorPlus } from 'src/utils/math';
+
+export abstract class SVGAbstract {
+    private translation: number[];
+
     element: any;
 
-    isAt(x: number, y: number): boolean;
-    isIn(x: number, y: number, r: number): boolean;
+    constructor() {
+        this.translation = [0, 0];
+    }
+
+    abstract isIn(x: number, y: number, r: number): boolean;
     isInRect?(x: number, y: number, w: number, h: number): boolean;
     moveTo?(x: number, y: number): void;
-    move?(x: number, y: number): void;
 
-    getPrimary(): string;
-    getSecondary(): string;
-    setPrimary(color: string): void;
-    setSecondary(color: string): void;
+    abstract getPrimary(): string;
+    abstract getSecondary(): string;
+    abstract setPrimary(color: string): void;
+    abstract setSecondary(color: string): void;
+
+    isAt(x: number, y: number): boolean {
+        const adjustedXY = vectorMinus([x, y], this.translation);
+        return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
+    }
+
+    translate(x: number, y: number): void {
+        this.translation = vectorPlus(this.translation, [x, y]);
+
+        DOMRenderer.setAttribute(this.element, 'transform', `translate(${this.translation[0]} ${this.translation[1]})`);
+    }
+
+    protected abstract isAtAdjusted(x: number, y: number): boolean;
 }

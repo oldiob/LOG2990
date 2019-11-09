@@ -1,9 +1,9 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
-import { SVGInterface } from './svg.interface';
+import { SVGAbstract } from './svg.interface';
 import { ITexture } from './texture/i-texture';
 
-export class SVGBrush implements SVGInterface {
+export class SVGBrush extends SVGAbstract {
     element: any;
 
     previousX = 0;
@@ -16,6 +16,8 @@ export class SVGBrush implements SVGInterface {
     texture: ITexture;
 
     constructor(width: number, texture: ITexture) {
+        super();
+
         this.points = [];
         this.lineWidth = width;
         this.texture = texture;
@@ -23,7 +25,7 @@ export class SVGBrush implements SVGInterface {
         this.texture.create(this);
     }
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         const additionnalWidth = 10.0;
         const width: number = this.lineWidth + additionnalWidth;
         for (let i = 0; i < this.points.length - 1; i++) {
@@ -37,7 +39,7 @@ export class SVGBrush implements SVGInterface {
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.lineWidth;
         this.lineWidth += r;
-        const isInside = this.isAt(x, y);
+        const isInside = this.isAtAdjusted(x, y);
         this.lineWidth = tempWidth;
 
         return isInside;

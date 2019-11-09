@@ -1,9 +1,9 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
-import { SVGInterface } from './svg.interface';
+import { SVGAbstract } from './svg.interface';
 
-export abstract class AbsSVGShape implements SVGInterface {
+export abstract class AbsSVGShape extends SVGAbstract {
     element: any;
 
     startingPoint: number[];
@@ -21,6 +21,8 @@ export abstract class AbsSVGShape implements SVGInterface {
     secondary: string;
 
     constructor(x: number, y: number, traceType: TraceType) {
+        super();
+
         this.startingPoint = [x, y];
         this.endingPoint = [x, y];
         this.size = [0, 0];
@@ -43,7 +45,7 @@ export abstract class AbsSVGShape implements SVGInterface {
     protected abstract isInside(x: number, y: number): boolean;
     protected abstract isAtBorder(x: number, y: number): boolean;
 
-    isAt(x: number, y: number): boolean {
+    isAtAdjusted(x: number, y: number): boolean {
         let inside = false;
         let atBorder = false;
 
@@ -61,7 +63,7 @@ export abstract class AbsSVGShape implements SVGInterface {
         const tempSize = this.size;
         this.pointSize += r;
         this.size = vectorPlus(tempSize, [r / 2, r / 2]);
-        const isInside = this.isAt(x, y);
+        const isInside = this.isAtAdjusted(x, y);
         this.pointSize = tempWidth;
         this.size = tempSize;
         return isInside;
@@ -155,12 +157,5 @@ export abstract class AbsSVGShape implements SVGInterface {
                 this.strokeOpacity = 1;
                 break;
         }
-    }
-
-    move(x: number, y: number) {
-        this.startingPoint[0] += x;
-        this.startingPoint[1] += y;
-        this.setCursor(this.endingPoint[0] + x, this.endingPoint[1] + y, false);
-        this.release();
     }
 }

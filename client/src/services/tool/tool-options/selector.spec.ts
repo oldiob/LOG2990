@@ -1,12 +1,22 @@
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SelectorTool, State } from './selector';
 
-describe('SelectorTool', () => {
+fdescribe('SelectorTool', () => {
 
     let tool: SelectorTool;
     let svg: any;
 
     beforeEach(() => {
-        svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt']);
+        const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
+        DOMRenderer.renderer = renderer;
+
+        svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
+
+        const entry = jasmine.createSpyObj('any', ['nativeElement']);
+        const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
+        svg.entry = entry;
+        entry.nativeElement = nativeElement;
+
         svg.getInRect.and.returnValue(new Set<any>([]));
         svg.findAt.and.returnValue(new Set<any>([]));
         tool = new SelectorTool(svg);
