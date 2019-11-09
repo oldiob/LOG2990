@@ -37,7 +37,7 @@
         </div>
       </div>
   </div>
-  
+
   <div class="separation">
     <div class="text">Text Align</div>
       <div class="tools">
@@ -65,7 +65,7 @@
         <form class="form" (ngSubmit)="onSubmit()">
             <mat-form-field color="accent">
                 <mat-select [value]="fonts[0]" panelClass="trace-panel">
-                    <mat-option *ngFor="let font of fonts" 
+                    <mat-option *ngFor="let font of fonts"
                       (click)="selectFontFamily(font)"
                       [value]="font" [class.selected-tool]="font === currentFontFamily">
                       {{font}}
