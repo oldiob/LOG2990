@@ -48,7 +48,7 @@ export class PaletteService {
 
     set secondary(color: Color) {
         this.mSecondary = color;
-        this.primarySubject.next(this.mSecondary);
+        this.secondarySubject.next(this.mSecondary);
     }
     get secondary(): Color {
         return this.mSecondary;

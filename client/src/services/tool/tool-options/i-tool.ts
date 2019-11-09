@@ -28,6 +28,9 @@ export interface ITool {
     onKeyup?(event: KeyboardEvent): boolean;
     onWheel?(event: WheelEvent): boolean;
 
+    onSelect?(): void;
+    onUnSelect?(): void;
+
     onShowcase?(width: number, height: number): CmdInterface | null;
 }
 

@@ -1,19 +1,12 @@
-<div class="buttons-wrapper">
-  <app-color-option [isPrimary]="IS_PRIMARY">
-  </app-color-option>
+<div class="title">Text</div>
 
-  <div class="swap" (click)="onSwap()">
-    <img src="../../../assets/images/swap.svg" alt="swap">
-  </div>
+<app-color-selection></app-color-selection>
 
-  <app-color-option [isPrimary]="!IS_PRIMARY">
-  </app-color-option>
-</div>
-
+<app-showcase></app-showcase>
 
 <div class="separation">
   <div class="tools">
-    <div class="button" 
+    <div class="button"
       *ngFor="let tool of tools"
       (click)="selectTool(tool)"
       matTooltip="{{tool.tip}}"
@@ -23,4 +16,62 @@
       <img class="tool-icon" [src]="getFilesource(tool)">
     </div>
   </div>
+</div>
+
+  <div class="separation">
+      <app-width [title]="'Font Size'" [width]="currentTool.width" (widthEmmiter)="selectFontSize($event)"></app-width>
+  </div>
+
+  <div class="separation">
+    <div class="text">Font Style</div>
+      <div class="tools">
+        <div class="button"
+          (click)="toggleBold()"
+          [class.selected-tool]="isBold">
+            <img class="tool-icon" src="../../../assets/images/bold.png">
+        </div>
+        <div class="button"
+          (click)="toggleItalic()"
+          [class.selected-tool]="isItalic">
+            <img class="tool-icon" src="../../../assets/images/italic.png">
+        </div>
+      </div>
+  </div>
+  
+  <div class="separation">
+    <div class="text">Text Align</div>
+      <div class="tools">
+        <div class="button"
+        (click)="selectTextAlign('start')"
+        [class.selected-tool]="isAlignLeft">
+          <img class="tool-icon" src="../../../assets/images/left.png">
+        </div>
+        <div class="button"
+        (click)="selectTextAlign('middle')"
+        [class.selected-tool]="isAlignCenter">
+          <img class="tool-icon" src="../../../assets/images/center.png">
+        </div>
+        <div class="button"
+        (click)="selectTextAlign('end')"
+        [class.selected-tool]="isAlignRight">
+          <img class="tool-icon" src="../../../assets/images/right.png">
+          </div>
+        </div>
+  </div>
+
+  <div class="separation">
+      <div class="text">Font Family</div>
+      <div class="tools">
+        <form class="form" (ngSubmit)="onSubmit()">
+            <mat-form-field color="accent">
+                <mat-select [value]="fonts[0]" panelClass="trace-panel">
+                    <mat-option *ngFor="let font of fonts" 
+                      (click)="selectFontFamily(font)"
+                      [value]="font" [class.selected-tool]="font === currentFontFamily">
+                      {{font}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+      </div>
 </div>

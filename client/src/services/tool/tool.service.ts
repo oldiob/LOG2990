@@ -5,5 +5,17 @@ import { ITool } from './tool-options/i-tool';
     providedIn: 'root',
 })
 export class ToolService {
-    currentTool: ITool;
+    private mCurrentTool: ITool;
+
+    set currentTool(tool: ITool) {
+        if (this.mCurrentTool !== undefined && this.mCurrentTool.onUnSelect) {
+            this.mCurrentTool.onUnSelect();
+        }
+
+        this.mCurrentTool = tool;
+    }
+
+    get currentTool(): ITool {
+        return this.mCurrentTool;
+    }
 }

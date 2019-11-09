@@ -20,7 +20,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     tip: 'Gallery (Ctrl + E)';
     images: Map<string, string>;
 
-    private filter: string;
+    filter: string;
     private filterCallback: (drawing: Drawing) => boolean;
     drawings: Drawing[];
     filteredDrawings: Drawing[];
@@ -35,7 +35,7 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     page: number;
     beginPage: number;
     endPage: number;
-
+    nPages: number;
     constructor(
         private workZoneService: WorkZoneService,
         private webClientService: WebClientService,
@@ -188,8 +188,8 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
     }
 
     nextPage(): void {
-        const nPages = Math.ceil(this.filteredDrawings.length / this.N_DRAWINGS_PER_PAGE);
-        if (this.page < nPages) {
+        this.nPages = Math.ceil(this.filteredDrawings.length / this.N_DRAWINGS_PER_PAGE);
+        if (this.page < this.nPages) {
             this.page++;
             this.refresh();
         }

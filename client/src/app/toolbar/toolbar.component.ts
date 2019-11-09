@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material';
 import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { KeyService } from 'src/services/key/key.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
@@ -16,7 +17,6 @@ import { SelectorOptionComponent } from './selector-option/selector-option.compo
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
-
 declare type callback = () => void;
 
 @Component({
@@ -55,7 +55,8 @@ export class ToolbarComponent implements OnInit {
     isEmptyRedos: boolean;
 
     constructor(public dialogService: DialogService,
-                public clipboard: ClipboardService) {
+                public clipboard: ClipboardService,
+                public keyService: KeyService) {
         this.isDialogOpened = false;
     }
 
@@ -151,6 +152,11 @@ export class ToolbarComponent implements OnInit {
         return keys;
     }
 
+    disableCurrentText() {
+        this.keyService.setIsDisableText(true);
+        this.keyService.setIsBlocking(false);
+    }
+
     @HostListener('window: keydown', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
         const keys: string = this.getComposedKey(event);
@@ -170,7 +176,7 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keyup', ['$event'])
     onKeyUp(event: KeyboardEvent): void {
-        if (this.isDialogOpened) {
+        if (this.isDialogOpened || this.keyService.getIsBlocking()) {
             return;
         }
         const kbd: { [id: string]: callback } = {
