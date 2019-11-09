@@ -153,19 +153,18 @@ export class ToolbarComponent implements OnInit {
 
     @HostListener('window: keydown', ['$event'])
     onKeyDown(event: KeyboardEvent): void {
-        if (this.isDialogOpened) {
-            return;
-        }
+        const keys: string = this.getComposedKey(event);
         const kbd: { [id: string]: callback } = {
             'C-o': () => { this.newDrawingOption(); },
             'C-s': () => { this.saveImage(); },
             'C-g': () => { this.openGalleryOption(); },
         };
-        const keys: string = this.getComposedKey(event);
-        if (kbd[keys]) {
+        const func: callback | undefined = kbd[keys];
+        if (func) {
             event.preventDefault();
-            const func: callback = kbd[keys];
-            func();
+            if (!this.isDialogOpened) {
+                func();
+            }
         }
     }
 
