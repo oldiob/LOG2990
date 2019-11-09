@@ -62,18 +62,18 @@ describe('TextTool', () => {
     });
 
     it('should finish editing', () => {
-        spyOn(keyService, 'setIsBlocking');
+        spyOn(keyService, 'enableShortcut');
         text.finishEdit();
         expect(text.isEditing).toBeFalsy();
-        expect(keyService.setIsBlocking).toHaveBeenCalledWith(false);
+        expect(keyService.enableShortcut).toHaveBeenCalled();
         expect(text.element).toBeNull();
     });
 
     it('should start editing', () => {
-        spyOn(keyService, 'setIsBlocking');
+        spyOn(keyService, 'disableShortcut');
         text.startEdit();
         expect(text.isEditing).toBeTruthy();
-        expect(keyService.setIsBlocking).toHaveBeenCalledWith(true);
+        expect(keyService.disableShortcut).toHaveBeenCalled();
     });
 
     it('should return true if the line is empty', () => {
