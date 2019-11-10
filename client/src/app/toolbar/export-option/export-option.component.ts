@@ -58,7 +58,7 @@ export class ExportOptionComponent implements OnInit {
         this.checkButton();
         switch (this.option) {
             case this.selectExport[0]:
-                this.saveAsBMP();
+                this.saveAsSVG();
                 break;
             case this.selectExport[1]:
                 this.saveAsPNG();
