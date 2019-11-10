@@ -57,7 +57,7 @@
                     <span class="history-label">History</span>
                     <div class="old-colors">
                         <div class="old-color" *ngFor="let color of colorsHistory"
-                            [ngStyle]="{'background-color': color.toString()}" (click)="onOldColor(color)"></div>
+                            [ngStyle]="{'background-color': color.toRGBA()}" (click)="onOldColor(color)"></div>
                     </div>
                 </div>
                 <div class="ok-wrapper">
