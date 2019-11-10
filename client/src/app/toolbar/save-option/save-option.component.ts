@@ -18,7 +18,7 @@ export class SaveOptionComponent implements OnInit {
     selectable: boolean;
     removable: boolean;
     addOnBlur: boolean;
-    isLocal: boolean;
+    isOnline: boolean;
 
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     tags: string[];
@@ -38,7 +38,7 @@ export class SaveOptionComponent implements OnInit {
         this.addOnBlur = true;
         this.tags = [];
         this.createForm();
-        this.isLocal = true;
+        this.isOnline = false;
     }
 
     private createForm(): void {
@@ -100,7 +100,7 @@ export class SaveOptionComponent implements OnInit {
             drawing.name = this.saveForm.controls.name.value;
             drawing.tags = this.saveForm.controls.tags.value;
 
-            if (this.isLocal) {
+            if (!this.isOnline) {
                 saveFile(this.saveForm.controls.name.value, JSON.stringify(drawing));
             } else {
                 this.drawAreaService.upload(drawing);
@@ -108,7 +108,7 @@ export class SaveOptionComponent implements OnInit {
         }
     }
 
-    toggleLocal() {
-        this.isLocal = !this.isLocal;
+    toggleOnline() {
+        this.isOnline = !this.isOnline;
     }
 }
