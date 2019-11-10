@@ -4,25 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class KeyService {
-  private isBlocking = false;
-  private isDisableText = false;
+  isShortcutsEnabled = true;
+  isTextEnabled = true;
   constructor() {
     //
    }
 
-  getIsBlocking() {
-      return this.isBlocking;
+  disableKeys() {
+      this.isShortcutsEnabled = false;
   }
-
-  setIsBlocking(isBlocking: boolean) {
-      this.isBlocking = isBlocking;
+  enableKeys() {
+      this.isShortcutsEnabled = true;
   }
-
-  getIsDisableText() {
-      return this.isDisableText;
+  enableTextEdit() {
+      this.isTextEnabled = true;
   }
-
-  setIsDisableText(isDisableText: boolean) {
-      this.isDisableText = isDisableText;
+  disableTextEdit() {
+      this.isTextEnabled = false;
   }
 }
