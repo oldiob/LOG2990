@@ -1,23 +1,26 @@
 import { assert, expect } from 'chai';
 import { Router } from 'express';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
+import { Color } from '../../../client/src/utils/color';
 import { DataBaseService } from '../services/database.service';
 import { DrawingController } from './drawing.controller';
 
 describe('DrawingRoutes :', () => {
-    let drawingController: DrawingController;
-    let database: DataBaseService;
-    let router: Router;
+    const database: DataBaseService = new DataBaseService();
+    const drawingController: DrawingController = new DrawingController(database);
+    const router: Router = Router();
     let validDrawing: Drawing;
     let invalidName: Drawing;
     let invalidTags: Drawing;
     let invalidID: Drawing;
+    let color: Color;
+    color = new Color(255, 255, 255, 1);
     invalidTags = {
       _id: '17',
       name: 'rebase',
       tags: ['123'],
       holder: { entry: 'entry', elements: ['vide'] },
-      backgroundColor: '#ffffff',
+      backgroundColor: color,
       width: 200,
       height: 200,
     };
@@ -26,7 +29,7 @@ describe('DrawingRoutes :', () => {
         name: 'test',
         tags: ['allo'],
         holder: { entry: 'entry', elements: ['vide'] },
-        backgroundColor: '#fffffff',
+        backgroundColor: color,
         width: 200,
         height: 200,
         };
@@ -35,7 +38,7 @@ describe('DrawingRoutes :', () => {
           name: '',
           tags: ['allo'],
           holder: { entry: 'entry', elements: ['vide'] },
-          backgroundColor: '#ffffff',
+          backgroundColor: color,
           width: 200,
           height: 200,
     };
@@ -44,13 +47,10 @@ describe('DrawingRoutes :', () => {
         name: 'rebase',
         tags: ['123'],
         holder: { entry: 'entry', elements: ['vide'] },
-        backgroundColor: '#ffffff',
+        backgroundColor: color,
         width: 200,
         height: 200,
       };
-    router = Router();
-    database = new DataBaseService();
-    drawingController = new DrawingController(database);
 
     describe ('DrawingController function : ', () => {
         it('should complete this test', (done) => {
@@ -161,8 +161,8 @@ describe('DrawingRoutes :', () => {
             });
             describe('router.get(/drawing/all) function:', () =>  {
 
-                it('should get all drawing in the database', () => {
-                    const drawings = database.getAllDrawings();
+                it('should get all drawing', () => {
+                    const drawings = [validDrawing];
                     (drawingController as any).configureRouter();
                     router.get('/drawing/all', async (req, res) => {
                             expect(res.json).equal(drawings);
