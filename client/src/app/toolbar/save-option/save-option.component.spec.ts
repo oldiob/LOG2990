@@ -43,6 +43,6 @@ describe('SaveOptionComponent', () => {
 
     it('should toggle to save locally', () => {
         component.toggleOnline();
-        expect(component.isOnline).toBeFalsy();
+        expect(component.isOnline).toBeTruthy();
     });
 });
