@@ -137,7 +137,7 @@ export class ColorPickerComponent implements OnInit {
             pixel.data[2],
             (pixel.data[3] / 255));
 
-        this.pickedColor = color.toString();
+        this.pickedColor = color.toRGBA();
         this.color.emit(color);
     }
 }

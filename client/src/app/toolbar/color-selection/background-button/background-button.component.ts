@@ -63,7 +63,7 @@ export class BackgroundButtonComponent
 
     protected setColor(): {} {
         return {
-            'background-color': `${this.currentColor.toString()}`,
+            'background-color': `${this.currentColor.toRGBA()}`,
         };
     }
 }

@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="separation text"
-        [ngStyle]="{'background-color': dropper.currentColor.toString(), 'height' : '100px', 'border': '2px solid #aaaaaa'}">
-        {{ dropper.currentColor.toString() }}
+        [ngStyle]="{'background-color': dropper.currentColor.toRGBA(), 'height' : '100px', 'border': '2px solid #aaaaaa'}">
+        {{ dropper.currentColor.toRGBA() }}
     </div>
 </div>

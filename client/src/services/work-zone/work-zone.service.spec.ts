@@ -23,7 +23,7 @@ describe('WorkZoneService', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({});
             service = TestBed.get(WorkZoneService);
-            service.updateDrawAreaProperties(WIDTH, HEIGHT, backgroundColor.toString());
+            service.updateDrawAreaProperties(WIDTH, HEIGHT, backgroundColor.toRGBA());
         });
 
         it('should update draw area width', () => {
@@ -69,7 +69,7 @@ describe('WorkZoneService', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({});
             service = TestBed.get(WorkZoneService);
-            service.updateDrawAreaProperties(WIDTH, HEIGHT, backgroundColor.toString());
+            service.updateDrawAreaProperties(WIDTH, HEIGHT, backgroundColor.toRGBA());
         });
 
         it('should give access to DrawArea current width', () => {

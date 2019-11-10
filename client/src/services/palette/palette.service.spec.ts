@@ -51,9 +51,9 @@ describe('PaletteService', () => {
         const SECONDARY = PaletteService.DEFAULT_SECONDARY;
 
         expect(service.getPrimary())
-            .toEqual(PRIMARY.toString());
+            .toEqual(PRIMARY.toRGBA());
         expect(service.getSecondary())
-            .toEqual(SECONDARY.toString());
+            .toEqual(SECONDARY.toRGBA());
         const history: Color[] = service.getHistory();
         history.forEach((value: Color) => expect(value)
             .toEqual(PaletteService.DEFAULT_MEMSET));

@@ -42,7 +42,7 @@ export class Color {
         return new Color(red, green, blue, alpha);
     }
 
-    toString(): string {
+    toRGBA(): string {
         return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
     }
 

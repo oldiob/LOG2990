@@ -162,7 +162,7 @@ export class NewDrawingComponent implements OnInit {
     }
 
     onSubmit() {
-        this.workZoneService.updateDrawAreaProperties(this.width, this.height, this.backgroundColor.toString());
+        this.workZoneService.updateDrawAreaProperties(this.width, this.height, this.backgroundColor.toRGBA());
         this.drawAreaService.dirty();
         this.svgService.clearObjects();
         CmdService.reset();

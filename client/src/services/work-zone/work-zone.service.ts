@@ -71,7 +71,7 @@ export class WorkZoneService {
 
         drawing.width = this.widthValue;
         drawing.height = this.heightValue;
-        drawing.backgroundColor = this.backgroundColorValue.toString();
+        drawing.backgroundColor = this.backgroundColorValue.toRGBA();
         drawing.holder = serializeDrawArea(svgService);
 
         return drawing;

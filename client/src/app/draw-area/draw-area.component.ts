@@ -108,7 +108,7 @@ export class DrawAreaComponent implements OnInit {
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
-            'background-color': `${this.backgroundColor.toString()}`,
+            'background-color': `${this.backgroundColor.toRGBA()}`,
             cursor: this.currentCursor,
         };
     }
