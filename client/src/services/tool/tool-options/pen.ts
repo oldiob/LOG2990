@@ -28,6 +28,7 @@ export class PenTool implements ITool {
         this.element = pen;
         this.element.setMinWidth(this.minWidth);
         this.element.setMaxWidth(this.maxWidth);
+        this.element.setWidth(this.maxWidth);
         this.element.setPrimary(this.paletteService.getPrimary());
         this.element.addAnchor(event.svgX, event.svgY);
         return new CmdSVG(this.element);
