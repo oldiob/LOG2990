@@ -1,7 +1,6 @@
 import { assert, expect } from 'chai';
 import { Router } from 'express';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-import { Color } from '../../../client/src/utils/color';
 import { DataBaseService } from '../services/database.service';
 import { DrawingController } from './drawing.controller';
 
@@ -13,8 +12,7 @@ describe('DrawingRoutes :', () => {
     let invalidName: Drawing;
     let invalidTags: Drawing;
     let invalidID: Drawing;
-    let color: Color;
-    color = new Color(255, 255, 255, 1);
+    const color = 'rgba(255, 255, 255, 1)';
     invalidTags = {
       _id: '17',
       name: 'rebase',
