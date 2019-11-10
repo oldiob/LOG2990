@@ -1,18 +1,30 @@
-<div class="header">Save</div>
+<div class="header" *ngIf="!isOnline">Save
+    <span class="offline">Offline</span>
+</div>
+<div class="header" *ngIf="isOnline">Save
+    <span class="online">Online</span>
+</div>
 
-<div class="save-wrapper">
+<div class="wrapper">
+    <div class="offline" *ngIf="!isOnline">
+        <mat-icon>cloud_off</mat-icon>
+    </div>
+    <div class="online" *ngIf="isOnline">
+        <mat-icon>cloud</mat-icon>
+    </div>
     <label class="switch">
-        save localy lol
-        <input type="checkbox" [(ngModel)]="isLocal" (change)="toggleLocal()">
+        <input type="checkbox" [(ngModel)]="isOnline" (click)="toggleOnline()">
         <span class="toggler round"></span>
     </label>
-    <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+</div>
+<div class="save-wrapper">
+    <form class="form" [formGroup]="saveForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="name" color="accent">
             <input matInput placeholder="Name" formControlName="name">
             <mat-error *ngIf="saveForm.invalid">{{getNameErrorMessage()}}</mat-error>
         </mat-form-field>
 
-        <div *ngIf="!isLocal">
+        <div *ngIf="isOnline">
             <mat-form-field class="tags" color="accent">
                 <mat-chip-list #chipList aria-label="Tag selection">
                     <mat-chip class="tag" *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
@@ -33,7 +45,6 @@
         <div class="error" *ngIf="!areFieldsValid()">
             Invalid tag(s).
         </div>
-
         <div class="button-wrapper">
             <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
             <button color="primary" mat-raised-button mat-dialog-close type="submit"

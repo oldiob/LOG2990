@@ -11,10 +11,21 @@
   box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
+.offline {
+  color: gray;
+}
+
+.online {
+  color: #43a047;
+}
+
 .save-wrapper {
-  height: 100%;
   width: 414px;
-  padding: 38px;
+  padding: 0 38px 38px;
+}
+
+.name {
+  align-self: baseline;
 }
 
 .tag {
@@ -46,4 +57,25 @@
 
 .error {
   color: rgb(255, 74, 74);
+}
+
+.form {
+  min-height: 183px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.switch {
+  background-color: #414d8f;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 116px;
+  margin: 30px 30px 0 auto;
 }
