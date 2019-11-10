@@ -1,8 +1,9 @@
 import { KeyService } from 'src/services/key/key.service';
-import { SVGInterface } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { SVGAbstract } from './svg.interface';
 
-export class SVGText implements SVGInterface {
+export class SVGText extends SVGAbstract {
+
     EMPTYSTRING = '';
     ITALIC = 'italic';
     BOLD = 'bold';
@@ -22,6 +23,7 @@ export class SVGText implements SVGInterface {
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
 
+        super();
         this.textAlign = textAlign;
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
@@ -48,6 +50,9 @@ export class SVGText implements SVGInterface {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
+    }
+    isAtAdjusted(x: number, y: number): boolean {
+        throw new Error('Method not implemented.');
     }
     isAt(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
