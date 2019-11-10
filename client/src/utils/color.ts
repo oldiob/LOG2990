@@ -31,6 +31,17 @@ export class Color {
         return color;
     }
 
+    static getColorFromRGBA(rgba: string): Color {
+        const regex = /^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?([0-9]*\.[0-9]+|[0-9]+)[\s+]?/i;
+        const matches = rgba.match(regex) as RegExpMatchArray;
+        const BASE = 10;
+        const red = parseInt(matches[1], BASE);
+        const green = parseInt(matches[2], BASE);
+        const blue = parseInt(matches[3], BASE);
+        const alpha = parseInt(matches[4], BASE);
+        return new Color(red, green, blue, alpha);
+    }
+
     toString(): string {
         return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
     }

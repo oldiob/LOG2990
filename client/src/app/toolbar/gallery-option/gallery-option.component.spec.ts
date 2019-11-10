@@ -7,7 +7,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WebClientService } from 'src/services/web-client/web-client.service';
-import { Color } from 'src/utils/color';
 import { GalleryOptionComponent } from './gallery-option.component';
 
 describe('GalleryOptionComponent', () => {
@@ -40,7 +39,7 @@ describe('GalleryOptionComponent', () => {
       tags: ['allo'],
       holder: { entry: 'entry', elements: ['vide'] },
 
-      backgroundColor: new Color(255, 255, 255, 1),
+      backgroundColor: 'rgba(255, 255, 255, 1)',
       width: 200,
       height: 200,
     }];
