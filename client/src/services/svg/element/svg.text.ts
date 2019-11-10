@@ -3,7 +3,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGAbstract } from './svg.interface';
 
 export class SVGText extends SVGAbstract {
-
+    isNewElement = true;
     EMPTYSTRING = '';
     ITALIC = 'italic';
     BOLD = 'bold';
@@ -30,7 +30,7 @@ export class SVGText extends SVGAbstract {
         this.fontStyle = fontStyle;
         this.fontWeight = fontWeigth;
 
-        keyService.setIsBlocking(true);
+        keyService.disableKeys();
 
         this.element = DOMRenderer.createElement('text', 'svg');
         this.element.innerHTML = this.EMPTYSTRING;
@@ -50,6 +50,8 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
+        this.currentSubElement.innerHTML = 'Enter text...';
+        this.isNewElement = true;
     }
     isAtAdjusted(x: number, y: number): boolean {
         throw new Error('Method not implemented.');

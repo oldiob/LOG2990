@@ -62,18 +62,18 @@ describe('TextTool', () => {
     });
 
     it('should finish editing', () => {
-        spyOn(keyService, 'setIsBlocking');
+        spyOn(keyService, 'enableKeys');
         text.finishEdit();
         expect(text.isEditing).toBeFalsy();
-        expect(keyService.setIsBlocking).toHaveBeenCalledWith(false);
+        expect(keyService.enableKeys).toHaveBeenCalled();
         expect(text.element).toBeNull();
     });
 
     it('should start editing', () => {
-        spyOn(keyService, 'setIsBlocking');
+        spyOn(keyService, 'disableKeys');
         text.startEdit();
         expect(text.isEditing).toBeTruthy();
-        expect(keyService.setIsBlocking).toHaveBeenCalledWith(true);
+        expect(keyService.disableKeys).toHaveBeenCalled();
     });
 
     it('should return true if the line is empty', () => {

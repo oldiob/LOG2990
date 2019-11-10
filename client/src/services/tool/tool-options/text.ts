@@ -38,9 +38,9 @@ export class TextTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        if (this.keyService.getIsDisableText()) {
+        if (!this.keyService.isTextEnabled) {
             this.finishEdit();
-            this.keyService.setIsDisableText(false);
+            this.keyService.enableTextEdit();
         }
         if (!this.element) {
             this.startEdit();
@@ -54,6 +54,9 @@ export class TextTool implements ITool {
 
             return new CmdSVG(this.element);
         } else if (this.element) {
+            if (this.element.isNewElement) {
+                this.element.currentSubElement.innerHTML = '';
+              }
             this.finishEdit();
         }
         return null;
@@ -71,12 +74,16 @@ export class TextTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        if (this.keyService.getIsDisableText()) {
+        if (!this.keyService.isTextEnabled) {
             this.finishEdit();
-            this.keyService.setIsDisableText(false);
+            this.keyService.enableTextEdit();
         }
         let current = this.UNSET;
         if (this.element !== null) {
+            if (this.element.isNewElement) {
+                this.element.currentSubElement.innerHTML = '';
+                this.element.isNewElement = false;
+            }
             current = this.element.currentSubElement.innerHTML;
             const actions: { [id: string]: callback } = {
                 Enter: () => {
@@ -101,12 +108,12 @@ export class TextTool implements ITool {
 
     finishEdit(): void {
         this.isEditing = false;
-        this.keyService.setIsBlocking(false);
+        this.keyService.enableKeys();
         this.element = null;
     }
     startEdit(): void {
         this.isEditing = true;
-        this.keyService.setIsBlocking(true);
+        this.keyService.disableKeys();
     }
     isLineEmpty(content: string): boolean {
         if (content === this.UNSET) {

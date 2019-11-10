@@ -1,7 +1,7 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SelectorTool, State } from './selector';
 
-fdescribe('SelectorTool', () => {
+describe('SelectorTool', () => {
 
     let tool: SelectorTool;
     let svg: any;
