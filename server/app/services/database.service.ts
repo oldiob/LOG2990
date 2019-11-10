@@ -1,9 +1,8 @@
 import { injectable } from 'inversify';
 import { Db, MongoClient, MongoError, ObjectID } from 'mongodb';
+import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-
 const DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
-
 @injectable()
 export class DataBaseService {
 
