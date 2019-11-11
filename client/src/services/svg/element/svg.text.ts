@@ -4,10 +4,10 @@ import { SVGAbstract } from './svg.interface';
 
 export class SVGText extends SVGAbstract {
     isNewElement = true;
-    EMPTYSTRING = '';
+    UNSET = '';
     ITALIC = 'italic';
     BOLD = 'bold';
-    SPOTTEXT = 'Enter text...';
+    SPOT_TEXT = 'Enter text...';
     INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
     element: any;
     currentSubElement: any;
@@ -36,7 +36,7 @@ export class SVGText extends SVGAbstract {
         keyService.disableKeys();
 
         this.element = DOMRenderer.createElement('text', 'svg');
-        DOMRenderer.setAttribute(this.element, 'innerHTML', this.EMPTYSTRING);
+        DOMRenderer.setAttribute(this.element, 'innerHTML', this.UNSET);
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
@@ -53,7 +53,7 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
-        this.currentSubElement.innerHTML = this.SPOTTEXT;
+        this.currentSubElement.innerHTML = this.SPOT_TEXT;
         this.isNewElement = true;
     }
     isAtAdjusted(x: number, y: number): boolean {
@@ -119,7 +119,7 @@ export class SVGText extends SVGAbstract {
       if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
           this.removeLine();
       } else {
-          if (this.currentSubElement.innerHTML === this.EMPTYSTRING) {
+          if (this.currentSubElement.innerHTML === this.UNSET) {
             this.removeLine();
           } else {
             this.content = this.currentSubElement.innerHTML;
