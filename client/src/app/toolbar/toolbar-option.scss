@@ -46,21 +46,21 @@
   margin: 10px 10px 0 10px;
   border-radius: 50%;
 
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 
   justify-content: center;
   align-items: center;
   display: flex;
-  
+
   transition: 0.3s;
 }
 
 .tool-icon {
-    --length: 23px;
-    display: block;
-    height: var(--length);
-    width: var(--length);
+  --length: 18px;
+  display: block;
+  height: var(--length);
+  width: var(--length);
 }
 
 .selected-tool {
