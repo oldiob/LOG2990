@@ -12,6 +12,7 @@ fdescribe('EraserTool', () => {
     let event: MouseEvent;
     let container: any | null;
     let children: any;
+    let objectsOnHold: any;
     let spySVGAbstract;
 
     beforeEach(() => {
@@ -21,11 +22,13 @@ fdescribe('EraserTool', () => {
         container = jasmine.createSpyObj('any | null', ['children']);
         spySVGAbstract = jasmine.createSpyObj('SVGAbstract', ['forEach']);
         spyOn(svgService, 'findIn').and.returnValue(spySVGAbstract);
+        objectsOnHold = [];
         DOMRenderer.renderer = renderer;
         eraser = new EraserTool(svgService);
         (eraser as any).svgService = svgService;
         eraser.container = container;
         children = [];
+        eraser.objectsOnHold = objectsOnHold;
         eraser.container.children = children;
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
