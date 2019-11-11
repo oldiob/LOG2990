@@ -96,6 +96,7 @@ export class WorkZoneService {
     }
 
     updateBackgroundColor(color: Color): void {
+        this.backgroundColorValue = color;
         this.backgroundColorSubject.next(color);
     }
 }
