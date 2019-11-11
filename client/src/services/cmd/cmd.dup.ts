@@ -5,9 +5,9 @@ import { MyInjector } from 'src/utils/injector';
 
 export class CmdDup implements CmdInterface {
 
-    obj: SVGAbstract[] = [];
-    svg: SVGService;
-    offset: number;
+    private obj: SVGAbstract[] = [];
+    private svg: SVGService;
+    private offset: number;
 
     constructor(objects: SVGAbstract[], offset: number) {
         this.offset = offset;
