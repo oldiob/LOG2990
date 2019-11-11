@@ -15,6 +15,7 @@ export class TextTool implements ITool {
     TEXTTIP = 'Text (T)';
     UNSET = '';
     INITIALSIZE = '15px';
+    SHOWCASE_DEFAULT = 'Rebase';
     element: SVGText | null = null;
     fontSize: string;
     fontStyle: string;
@@ -25,7 +26,7 @@ export class TextTool implements ITool {
 
     isEditing: boolean;
 
-    constructor(private keyService: KeyService,  private paletteService: PaletteService) {
+    constructor(private keyService: KeyService, private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
         this.fontWeigth = this.UNSET;
         this.fontStyle = this.UNSET;
@@ -45,7 +46,7 @@ export class TextTool implements ITool {
         if (!this.element) {
             this.startEdit();
             this.element = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
-                                    this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
+                this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
             this.paletteService.primaryObs$.subscribe((color: Color) => {
                 if (this.element !== null) {
                     this.element.setPrimary(color.toRGBA());
@@ -55,8 +56,8 @@ export class TextTool implements ITool {
             return new CmdSVG(this.element);
         } else if (this.element) {
             if (this.element.isNewElement) {
-                this.element.currentSubElement.innerHTML = '';
-              }
+                this.element.currentSubElement.innerHTML = this.UNSET;
+            }
             this.finishEdit();
         }
         return null;
@@ -81,7 +82,7 @@ export class TextTool implements ITool {
         let current = this.UNSET;
         if (this.element !== null) {
             if (this.element.isNewElement) {
-                this.element.currentSubElement.innerHTML = '';
+                this.element.currentSubElement.innerHTML = this.UNSET;
                 this.element.isNewElement = false;
             }
             current = this.element.currentSubElement.innerHTML;
@@ -95,9 +96,9 @@ export class TextTool implements ITool {
                     }
                 },
                 Backspace: () => {
-                  if (this.element) {
-                    this.element.removeCharacter();
-                  }
+                    if (this.element) {
+                        this.element.removeCharacter();
+                    }
                 },
             };
             if (event.key in actions) {
@@ -137,7 +138,7 @@ export class TextTool implements ITool {
         const element = this.onPressed(mouseEvent);
 
         const textShowcase: object = {
-            key: 'Rebase',
+            key: this.SHOWCASE_DEFAULT,
         };
         this.onKeydown(textShowcase as KeyboardEvent);
         this.element = previousElement;
