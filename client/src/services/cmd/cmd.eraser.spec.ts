@@ -3,11 +3,11 @@ import { async, TestBed } from '@angular/core/testing';
 import { MyInjector } from 'src/utils/injector';
 import {CmdEraser} from './cmd.eraser';
 
-fdescribe('cmdEraser', () => {
+describe('cmdEraser', () => {
     let cmdEraser: CmdEraser;
-    const spyObj = jasmine.createSpyObj('SVGAbstract', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
+    /*const spyObj = jasmine.createSpyObj('SVGAbstract', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
                                                         'setPrimary', 'setSecondary', 'setWidth', 'addPoint',
-                                                        'pointsAttribute']);
+                                                        'pointsAttribute']);*/
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
