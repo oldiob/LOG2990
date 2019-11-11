@@ -7,6 +7,7 @@ export class SVGText extends SVGAbstract {
     EMPTYSTRING = '';
     ITALIC = 'italic';
     BOLD = 'bold';
+    INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
     element: any;
     currentSubElement: any;
     previousSubElement: any;
@@ -98,7 +99,7 @@ export class SVGText extends SVGAbstract {
     }
     setCurrentPlaceholder() {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
-        this.currentSubElement.innerHTML = 'i';
+        this.currentSubElement.innerHTML = this.INVISIBLE_LINE_VALUE;
     }
 
     setLineBreak(): void {
@@ -110,5 +111,26 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
+    }
+
+    removeCharacter(): void {
+      if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
+          this.removeLine();
+      } else {
+          if (this.currentSubElement.innerHTML === '') {
+            this.removeLine();
+          } else {
+            let content: string = this.currentSubElement.innerHTML;
+            content = content.substring(0, content.length - 1);
+            this.currentSubElement.innerHTML = content;
+          }
+      }
+    }
+    removeLine() {
+      if (this.subElements.length > 1) {
+          DOMRenderer.removeChild(this.element, this.currentSubElement);
+          this.subElements.pop();
+          this.currentSubElement = this.subElements[this.subElements.length - 1];
+      }
     }
 }

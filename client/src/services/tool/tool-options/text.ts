@@ -94,6 +94,11 @@ export class TextTool implements ITool {
                         this.element.setLineBreak();
                     }
                 },
+                Backspace: () => {
+                  if (this.element) {
+                    this.element.removeCharacter();
+                  }
+                },
             };
             if (event.key in actions) {
                 const func: callback = actions[event.key];
