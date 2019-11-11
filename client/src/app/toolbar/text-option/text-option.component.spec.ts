@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { ShowcaseComponent } from '../showcase/showcase.component';
+import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { TextOptionComponent } from './text-option.component';
 import { TextFormat } from './TextFormat';
 

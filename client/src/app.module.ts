@@ -24,7 +24,7 @@ import { EntryPointComponent } from './app/popups/entry-point/entry-point.compon
 import { LoadDrawingComponent } from './app/popups/load-drawing/load-drawing.component';
 import { NewDrawingComponent } from './app/popups/new-drawing/new-drawing.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
-import { AngleComponent } from './app/toolbar/angle/angle.component';
+import { AngleComponent } from './app/toolbar/subcomponent/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
 import { ClipboardOptionComponent } from './app/toolbar/clipboard-option/clipboard-option.component';
 import { BackgroundButtonComponent } from './app/toolbar/color-selection/background-button/background-button.component';
@@ -38,11 +38,11 @@ import { JunctionComponent } from './app/toolbar/junction-width/junction-width.c
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';
-import { ShowcaseComponent } from './app/toolbar/showcase/showcase.component';
+import { ShowcaseComponent } from './app/toolbar/subcomponent/showcase/showcase.component';
 import { TextOptionComponent } from './app/toolbar/text-option/text-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
-import { WidthComponent } from './app/toolbar/width/width.component';
+import { WidthComponent } from './app/toolbar/subcomponent/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { DOMRenderer } from './utils/dom-renderer';
 

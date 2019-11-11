@@ -21,7 +21,7 @@ import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
 import { SelectorOptionComponent } from './selector-option/selector-option.component';
 import { ShapeOptionComponent } from './shape-option/shape-option.component';
-import { ShowcaseComponent } from './showcase/showcase.component';
+import { ShowcaseComponent } from './subcomponent/showcase/showcase.component';
 import { TextOptionComponent } from './text-option/text-option.component';
 import { ToolOptionComponent } from './tool-option/tool-option.component';
 import { ToolbarComponent } from './toolbar.component';
