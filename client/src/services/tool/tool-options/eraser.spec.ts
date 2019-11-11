@@ -1,24 +1,28 @@
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { EraserTool } from './eraser';
 
 fdescribe('EraserTool', () => {
     let renderer: any;
-    let svgService: any;
+    let svgService: SVGService;
     let eraser: EraserTool;
     let event: MouseEvent;
-    /*const spyObj = jasmine.createSpyObj('SVGPencil', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
-                                                        'setPrimary', 'setSecondary', 'setWidth', 'addPoint',
-                                                        'pointsAttribute']);*/
+    let container: any | null;
+    let children: any;
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        svgService = jasmine.createSpyObj('SVGService', ['getPrimary', 'getSecondary']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'removeChild', 'appendChild']);
+        svgService = jasmine.createSpyObj('SVGService', ['getPrimary', 'getSecondary', 'entry']);
+        container = jasmine.createSpyObj('any | null', ['children']);
         DOMRenderer.renderer = renderer;
         eraser = new EraserTool(svgService);
-
+        (eraser as any).svgService = svgService;
+        eraser.container = container;
+        children = [];
+        eraser.container.children = children;
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
         event.svgY = Math.floor(Math.random() * 1000);
@@ -35,7 +39,6 @@ fdescribe('EraserTool', () => {
         eraser.activated = false;
         eraser.onPressed(event);
         expect(eraser.onPressed(event)).toEqual(tempCmd);
-        // expect(e)
     });
 
     it('On release should accomplish all task correctly', () => {
