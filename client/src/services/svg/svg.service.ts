@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorPlus, vectorMultiply, vectorMinus, vectorModule } from 'src/utils/math';
+import { vectorMinus, vectorModule, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
 import { DrawAreaService } from '../draw-area/draw-area.service';
 

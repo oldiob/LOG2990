@@ -2,11 +2,11 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-draw-area',

@@ -9,6 +9,7 @@ import { OpacityTexture } from 'src/services/svg/element/texture/opacity';
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
@@ -20,7 +21,6 @@ import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-tool-option',
