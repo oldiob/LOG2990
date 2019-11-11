@@ -14,13 +14,13 @@ export class EraserTool implements ITool {
 
     readonly tip: string;
 
-    activated: boolean;
+    private activated: boolean;
     private mWidth: number;
 
-    container: any | null;
-    objectsOnHold: (SVGAbstract | null)[] = [];
+    private container: any | null;
+    private objectsOnHold: (SVGAbstract | null)[] = [];
 
-    cmd: CmdEraser;
+    private cmd: CmdEraser;
 
     private surroundingRectangle: any | null;
 
@@ -65,11 +65,9 @@ export class EraserTool implements ITool {
         const x: number = event.svgX;
         const y: number = event.svgY;
 
-        console.log(this.surroundingRectangle);
         if (this.surroundingRectangle === null) {
             this.createSurroundingRectangle(x, y);
         }
-
         this.moveSurroundingRectangle(x, y);
 
         this.flushContainer();
@@ -84,6 +82,7 @@ export class EraserTool implements ITool {
                 }
             }
         }
+
     }
 
     private createFake(fakeElement: any): any {
@@ -109,18 +108,22 @@ export class EraserTool implements ITool {
     }
 
     onLeave(): void {
-        DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
-        this.surroundingRectangle = null;
+        if (this.surroundingRectangle !== null) {
+            DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
+            this.surroundingRectangle = null;
+        }
     }
 
     private createSurroundingRectangle(x: number, y: number) {
-        if (this.surroundingRectangle !== null) {
-            this.onLeave();
-        }
+        this.onLeave();
 
         this.surroundingRectangle = DOMRenderer.createElement('rect', 'svg');
         this.moveSurroundingRectangle(x, y);
         this.width = this.mWidth;
+
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'fill', 'white');
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke-width', '1');
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke', 'black');
 
         DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
     }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { SelectorTool } from 'src/services/tool/tool-options/selector';
@@ -16,7 +15,6 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     tip = 'Selector (S)';
     images = new Map<ITool, string>([
         [this.selector, 'selector.png'],
-        [this.eraser, 'eraser.png'],
     ]);
 
     tools: ITool[];
@@ -24,10 +22,9 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
-        private selector: SelectorTool,
-        private eraser: EraserTool) {
+        private selector: SelectorTool) {
 
-        this.tools = [selector, eraser];
+        this.tools = [selector];
         this.currentTool = this.tools[0];
         this.select();
     }

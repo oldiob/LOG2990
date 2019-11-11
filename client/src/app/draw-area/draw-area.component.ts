@@ -6,6 +6,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-draw-area',
@@ -36,6 +37,9 @@ export class DrawAreaComponent implements OnInit {
         cursor: string
     };
 
+    currentCursor: string;
+    oldTool: object;
+
     isMouseDown = false;
     isOnceWhileDown = true;
     constructor(
@@ -43,6 +47,8 @@ export class DrawAreaComponent implements OnInit {
         private svgService: SVGService,
         private toolService: ToolService,
         private gridService: GridService) {
+        this.currentCursor = 'crosshair';
+        this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -83,11 +89,26 @@ export class DrawAreaComponent implements OnInit {
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
 
+        const newTool = Object.getPrototypeOf(this.toolService.currentTool);
+
+        if (this.oldTool !== newTool) {
+            if (newTool === EraserTool.prototype) {
+                const radius = this.toolService.currentTool.width;
+                if (radius) {
+                    this.currentCursor = 'none';
+                }
+            } else {
+                this.currentCursor = 'crosshair';
+            }
+        }
+
+        this.oldTool = newTool;
+
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor.toRGBA()}`,
-            cursor: 'crosshair',
+            cursor: this.currentCursor,
         };
     }
 

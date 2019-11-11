@@ -20,6 +20,7 @@ import { AngleComponent } from '../angle/angle.component';
 import { JunctionComponent } from '../junction-width/junction-width.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { WidthComponent } from '../width/width.component';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 
 @Component({
     selector: 'app-tool-option',
@@ -44,6 +45,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.line, 'line.png'],
         [this.stamp, 'stamp.png'],
         [this.pen, 'pen.png'],
+        [this.eraser, 'eraser.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -81,7 +83,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public brush: BrushTool,
         public line: LineTool,
         public stamp: StampTool,
-        public pen: PenTool) {
+        public pen: PenTool,
+        public eraser: EraserTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -103,7 +106,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, pen];
+        this.tools = [pencil, brush, line, stamp, pen, eraser];
         this.currentTool = this.tools[0];
     }
 
