@@ -5,7 +5,7 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { WidthComponent } from '../subcomponent/width/width.component';
-import { TextFormat } from './TextFormat';
+import { TextFormat } from './text-format';
 
 @Component({
     selector: 'app-text-option',

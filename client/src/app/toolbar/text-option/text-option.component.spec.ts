@@ -5,7 +5,7 @@ import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { TextOptionComponent } from './text-option.component';
-import { TextFormat } from './TextFormat';
+import { TextFormat } from './text-format';
 
 describe('TextOptionComponent', () => {
   let component: TextOptionComponent;
