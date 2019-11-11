@@ -2,8 +2,7 @@ import { KeyService } from 'src/services/key/key.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGText } from './svg.text';
 
-fdescribe('SVGText', () => {
-    jasmine.getEnv().allowRespy(true);
+describe('SVGText', () => {
     let svgText: SVGText;
     let currentSubElement: any;
     let keyService: KeyService;
@@ -16,7 +15,7 @@ fdescribe('SVGText', () => {
     const fontWeight = 'bold';
 
     beforeEach(() => {
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
         DOMRenderer.renderer = renderer;
         currentSubElement = jasmine.createSpyObj('any', ['innerHTML']);
         keyService = new KeyService();
@@ -31,34 +30,44 @@ fdescribe('SVGText', () => {
     });
 
     it('should set primary color properly', () => {
-      spyOn(svgText, 'setPrimary');
-      svgText.setPrimary('000000');
-      expect(renderer.setAttribute).toHaveBeenCalled();
+        spyOn(svgText, 'setPrimary');
+        svgText.setPrimary('ffffff');
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should set font size properly', () => {
-      expect(renderer.setAttribute).toHaveBeenCalled();
+        svgText.setFontSize(fontSize);
+        expect(svgText.fontSize).toEqual(fontSize);
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should set font family properly', () => {
-      expect(renderer.setAttribute).toHaveBeenCalled();
+        svgText.setFontFamily(fontFamily);
+        expect(svgText.fontFamily).toEqual(fontFamily);
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should set font style properly', () => {
-      expect(renderer.setAttribute).toHaveBeenCalled();
+        svgText.setFontStyle(fontStyle);
+        expect(svgText.fontStyle).toEqual(fontStyle);
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
     it('should set font weight properly', () => {
-      expect(renderer.setAttribute).toHaveBeenCalled();
+        svgText.setFontWeight(fontWeight);
+        expect(svgText.fontWeight).toEqual(fontWeight);
+        expect(renderer.setAttribute).toHaveBeenCalled();
     });
 
-    // it('should set text align properly', () => {
-    //   expect(renderer.setAttribute).toHaveBeenCalledTimes(svgText.subElements.length);
-    // });
+    it('should set text align properly', () => {
+        svgText.setTextAlign(textAlign);
+        expect(svgText.textAlign).toEqual(textAlign);
+        expect(renderer.setAttribute).toHaveBeenCalled();
+    });
 
     it('should create a placeholder properly', () => {
         svgText.setCurrentPlaceholder();
-        expect(svgText.currentSubElement.innerHTML).toBe('i');
+        expect(svgText.currentSubElement.innerHTML).toBe(svgText.INVISIBLE_LINE_VALUE);
     });
 
     it('should create line break properly', () => {
@@ -67,4 +76,33 @@ fdescribe('SVGText', () => {
         expect(renderer.appendChild).toHaveBeenCalled();
     });
 
+    it('should remove character if the character is i', () => {
+        spyOn(svgText, 'removeLine');
+        svgText.currentSubElement.innerHTML = svgText.INVISIBLE_LINE_VALUE;
+        svgText.removeCharacter();
+        expect(svgText.removeLine).toHaveBeenCalled();
+    });
+
+    it('should remove character if the character is empty', () => {
+        spyOn(svgText, 'removeLine');
+        svgText.currentSubElement.innerHTML = svgText.EMPTYSTRING;
+        svgText.removeCharacter();
+        expect(svgText.removeLine).toHaveBeenCalled();
+    });
+
+    it('should remove character if the character is not empty', () => {
+        svgText.currentSubElement.innerHTML = svgText.SPOTTEXT;
+        svgText.content = svgText.currentSubElement.innerHTML;
+        svgText.content = svgText.content.substring(0, svgText.content.length - 1);
+        svgText.removeCharacter();
+        expect(svgText.currentSubElement.innerHTML).toEqual('Enter text..');
+    });
+
+    it('should remove line', () => {
+        svgText.subElements = [svgText.SPOTTEXT, svgText.BOLD];
+        spyOn(svgText.subElements, 'pop');
+        svgText.removeLine();
+        expect(svgText.subElements.pop).toHaveBeenCalled();
+        expect(renderer.removeChild).toHaveBeenCalled();
+    });
 });

@@ -7,6 +7,7 @@ export class SVGText extends SVGAbstract {
     EMPTYSTRING = '';
     ITALIC = 'italic';
     BOLD = 'bold';
+    SPOTTEXT = 'Enter text...';
     INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
     element: any;
     currentSubElement: any;
@@ -20,6 +21,7 @@ export class SVGText extends SVGAbstract {
     fontStyle: string;
     fontSize: string;
     fontWeight: string;
+    content: string;
 
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
@@ -51,7 +53,7 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
-        this.currentSubElement.innerHTML = 'Enter text...';
+        this.currentSubElement.innerHTML = this.SPOTTEXT;
         this.isNewElement = true;
     }
     isAtAdjusted(x: number, y: number): boolean {
@@ -117,12 +119,12 @@ export class SVGText extends SVGAbstract {
       if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
           this.removeLine();
       } else {
-          if (this.currentSubElement.innerHTML === '') {
+          if (this.currentSubElement.innerHTML === this.EMPTYSTRING) {
             this.removeLine();
           } else {
-            let content: string = this.currentSubElement.innerHTML;
-            content = content.substring(0, content.length - 1);
-            this.currentSubElement.innerHTML = content;
+            this.content = this.currentSubElement.innerHTML;
+            this.content = this.content.substring(0, this.content.length - 1);
+            this.currentSubElement.innerHTML = this.content;
           }
       }
     }
