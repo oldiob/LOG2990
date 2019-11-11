@@ -60,9 +60,6 @@ export class SVGText extends SVGAbstract {
     isAtAdjusted(x: number, y: number): boolean {
         return false;
     }
-    isAt(x: number, y: number): boolean {
-        return false;
-    }
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
@@ -116,16 +113,17 @@ export class SVGText extends SVGAbstract {
     }
 
     removeCharacter(): void {
-        if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
-            this.removeLine();
-        } else {
-            if (this.currentSubElement.innerHTML === this.UNSET) {
+        switch (this.currentSubElement.innerHTML) {
+            case this.INVISIBLE_LINE_VALUE:
                 this.removeLine();
-            } else {
+                break;
+            case this.UNSET:
+                this.removeLine();
+                break;
+            default:
                 this.content = this.currentSubElement.innerHTML;
                 this.content = this.content.substring(0, this.content.length - 1);
                 this.currentSubElement.innerHTML = this.content;
-            }
         }
     }
     removeLine(): void {
