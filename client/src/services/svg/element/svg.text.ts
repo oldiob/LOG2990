@@ -4,9 +4,11 @@ import { SVGAbstract } from './svg.interface';
 
 export class SVGText extends SVGAbstract {
     isNewElement = true;
-    EMPTYSTRING = '';
+    UNSET = '';
     ITALIC = 'italic';
     BOLD = 'bold';
+    SPOT_TEXT = 'Enter text...';
+    INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
     element: any;
     currentSubElement: any;
     previousSubElement: any;
@@ -19,6 +21,7 @@ export class SVGText extends SVGAbstract {
     fontStyle: string;
     fontSize: string;
     fontWeight: string;
+    content: string;
 
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
@@ -33,7 +36,7 @@ export class SVGText extends SVGAbstract {
         keyService.disableKeys();
 
         this.element = DOMRenderer.createElement('text', 'svg');
-        this.element.innerHTML = this.EMPTYSTRING;
+        DOMRenderer.setAttribute(this.element, 'innerHTML', this.UNSET);
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
@@ -50,7 +53,7 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
-        this.currentSubElement.innerHTML = 'Enter text...';
+        this.currentSubElement.innerHTML = this.SPOT_TEXT;
         this.isNewElement = true;
     }
     isAtAdjusted(x: number, y: number): boolean {
@@ -98,7 +101,7 @@ export class SVGText extends SVGAbstract {
     }
     setCurrentPlaceholder() {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
-        this.currentSubElement.innerHTML = 'i';
+        this.currentSubElement.innerHTML = this.INVISIBLE_LINE_VALUE;
     }
 
     setLineBreak(): void {
@@ -110,5 +113,26 @@ export class SVGText extends SVGAbstract {
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
 
+    }
+
+    removeCharacter(): void {
+      if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
+          this.removeLine();
+      } else {
+          if (this.currentSubElement.innerHTML === this.UNSET) {
+            this.removeLine();
+          } else {
+            this.content = this.currentSubElement.innerHTML;
+            this.content = this.content.substring(0, this.content.length - 1);
+            this.currentSubElement.innerHTML = this.content;
+          }
+      }
+    }
+    removeLine() {
+      if (this.subElements.length > 1) {
+          DOMRenderer.removeChild(this.element, this.currentSubElement);
+          this.subElements.pop();
+          this.currentSubElement = this.subElements[this.subElements.length - 1];
+      }
     }
 }
