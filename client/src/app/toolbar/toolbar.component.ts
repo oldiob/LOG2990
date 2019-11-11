@@ -216,7 +216,6 @@ export class ToolbarComponent implements OnInit {
     }
 
     private selectToolFromOption(option: IOption<any>, toolNumber: number) {
-        console.log(option);
         if (this.currentOption !== option) {
             this.selectOption(option);
         }
