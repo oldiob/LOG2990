@@ -85,13 +85,13 @@ describe('SVGText', () => {
 
     it('should remove character if the character is empty', () => {
         spyOn(svgText, 'removeLine');
-        svgText.currentSubElement.innerHTML = svgText.EMPTYSTRING;
+        svgText.currentSubElement.innerHTML = svgText.UNSET;
         svgText.removeCharacter();
         expect(svgText.removeLine).toHaveBeenCalled();
     });
 
     it('should remove character if the character is not empty', () => {
-        svgText.currentSubElement.innerHTML = svgText.SPOTTEXT;
+        svgText.currentSubElement.innerHTML = svgText.SPOT_TEXT;
         svgText.content = svgText.currentSubElement.innerHTML;
         svgText.content = svgText.content.substring(0, svgText.content.length - 1);
         svgText.removeCharacter();
@@ -99,7 +99,7 @@ describe('SVGText', () => {
     });
 
     it('should remove line', () => {
-        svgText.subElements = [svgText.SPOTTEXT, svgText.BOLD];
+        svgText.subElements = [svgText.SPOT_TEXT, svgText.BOLD];
         spyOn(svgText.subElements, 'pop');
         svgText.removeLine();
         expect(svgText.subElements.pop).toHaveBeenCalled();
