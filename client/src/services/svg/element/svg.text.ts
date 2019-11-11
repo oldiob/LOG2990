@@ -33,7 +33,7 @@ export class SVGText extends SVGAbstract {
         keyService.disableKeys();
 
         this.element = DOMRenderer.createElement('text', 'svg');
-        this.element.innerHTML = this.EMPTYSTRING;
+        DOMRenderer.setAttribute(this.element, 'innerHTML', this.EMPTYSTRING);
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
         this.currentX = x.toString();
