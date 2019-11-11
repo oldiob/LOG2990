@@ -135,7 +135,9 @@ export class DrawAreaComponent implements OnInit {
         //
     }
     onMouseLeave(event: MouseEvent): void {
-        //
+        if (this.toolService.currentTool.onLeave) {
+            this.toolService.currentTool.onLeave();
+        }
     }
     onDrag(): void {
         //

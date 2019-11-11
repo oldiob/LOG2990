@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorPlus } from 'src/utils/math';
+import { vectorPlus, vectorMultiply, vectorMinus, vectorModule } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
 import { DrawAreaService } from '../draw-area/draw-area.service';
 
@@ -45,7 +45,35 @@ export class SVGService {
     }
 
     inRectangle(x: number, y: number, width: number, height: number): (SVGAbstract | null)[] {
-        return [];
+        const elements: (SVGAbstract | null)[] = [];
+        const SPACING = 2.0;
+
+        const halfWidth = width / 2.0;
+        const halfHeight = height / 2.0;
+
+        const corners = [
+            [x - halfWidth, y - halfHeight], [x + halfWidth, y - halfHeight],
+            [x + halfWidth, y + halfHeight], [x - halfWidth, y + halfHeight]];
+
+        for (let i = 0; i < corners.length; i++) {
+            const begin = corners[i];
+            const end = corners[(i + 1) % corners.length];
+            let unitVector = vectorMinus(end, begin);
+            const moduleLen = vectorModule(unitVector);
+            unitVector = vectorMultiply(unitVector, 1.0 / moduleLen);
+
+            for (let count = 0; count < moduleLen; count += SPACING) {
+                const point = vectorPlus(begin, vectorMultiply(unitVector, count));
+
+                const elementFound = this.findAt(point[0], point[1]);
+
+                if (!elements.find((element: SVGAbstract | null) => element === elementFound)) {
+                    elements.push(elementFound);
+                }
+            }
+        }
+
+        return elements;
     }
 
     addObject(obj: SVGAbstract | null) {
