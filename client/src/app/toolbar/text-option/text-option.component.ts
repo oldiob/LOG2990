@@ -3,8 +3,8 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
-import { ShowcaseComponent } from '../showcase/showcase.component';
-import { WidthComponent } from '../width/width.component';
+import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
+import { WidthComponent } from '../subcomponent/width/width.component';
 import { TextFormat } from './TextFormat';
 
 @Component({
