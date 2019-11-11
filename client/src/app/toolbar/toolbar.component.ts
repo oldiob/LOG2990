@@ -78,7 +78,11 @@ export class ToolbarComponent implements OnInit {
     }
 
     selectOption(option: IOption<any>): void {
-        this.optionDisplayed = this.optionDisplayed === true ? this.currentOption !== option : true;
+        if (this.optionDisplayed) {
+            this.optionDisplayed = this.currentOption !== option;
+        } else {
+            this.optionDisplayed = true;
+        }
         this.currentOption = option;
         this.currentOption.select();
         this.dialogService.closeColorForms();
@@ -164,6 +168,7 @@ export class ToolbarComponent implements OnInit {
             'C-o': () => { this.newDrawingOption(); },
             'C-s': () => { this.saveImage(); },
             'C-g': () => { this.openGalleryOption(); },
+            'C-e': () => { this.openExportOption(); },
         };
         const func: callback | undefined = kbd[keys];
         if (func) {
@@ -180,15 +185,18 @@ export class ToolbarComponent implements OnInit {
             return;
         }
         const kbd: { [id: string]: callback } = {
-            c: () => { this.toolOption.selectTool(this.toolOption.tools[0]); },
-            w: () => { this.toolOption.selectTool(this.toolOption.tools[1]); },
-            l: () => { this.toolOption.selectTool(this.toolOption.tools[2]); },
-            b: () => { this.bucketOption.selectTool(this.bucketOption.tools[0]); },
-            i: () => { this.bucketOption.selectTool(this.bucketOption.tools[1]); },
-            y: () => { this.toolOption.selectTool(this.toolOption.tools[4]); },
-            1: () => { this.shapeOption.selectTool(this.shapeOption.tools[0]); },
-            2: () => { this.shapeOption.selectTool(this.shapeOption.tools[1]); },
-            3: () => { this.shapeOption.selectTool(this.shapeOption.tools[2]); },
+            c: () => this.selectToolFromOption(this.toolOption, 0),
+            w: () => this.selectToolFromOption(this.toolOption, 1),
+            l: () => this.selectToolFromOption(this.toolOption, 2),
+            b: () => this.selectToolFromOption(this.bucketOption, 0),
+            i: () => this.selectToolFromOption(this.bucketOption, 1),
+            y: () => this.selectToolFromOption(this.toolOption, 4),
+            e: () => this.selectToolFromOption(this.toolOption, 5),
+            s: () => this.selectToolFromOption(this.selectorOption, 0),
+            t: () => this.selectToolFromOption(this.textOption, 0),
+            1: () => this.selectToolFromOption(this.shapeOption, 0),
+            2: () => this.selectToolFromOption(this.shapeOption, 1),
+            3: () => this.selectToolFromOption(this.shapeOption, 2),
             'C-z': () => { CmdService.undo(); },
             'C-S-z': () => { CmdService.redo(); },
             g: () => this.gridOption.toggleGrid(),
@@ -205,5 +213,13 @@ export class ToolbarComponent implements OnInit {
             const func: callback = kbd[keys];
             func();
         }
+    }
+
+    private selectToolFromOption(option: IOption<any>, toolNumber: number) {
+        if (this.currentOption !== option) {
+            this.selectOption(option);
+        }
+        this.optionDisplayed = true;
+        (option as any).selectTool((option as any).tools[toolNumber]);
     }
 }
