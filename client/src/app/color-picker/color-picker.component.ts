@@ -87,7 +87,7 @@ export class ColorPickerComponent implements OnInit {
         DOMRenderer.setStyle(this.picker, 'pointer-events', 'none');
         DOMRenderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
         DOMRenderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
-        DOMRenderer.setStyle(this.picker, 'background-color', this.pickedColor.toString());
+        DOMRenderer.setStyle(this.picker, 'background-color', this.pickedColor);
     }
 
     private makeColorPallette() {
@@ -137,7 +137,7 @@ export class ColorPickerComponent implements OnInit {
             pixel.data[2],
             (pixel.data[3] / 255));
 
-        this.pickedColor = color.toString();
+        this.pickedColor = color.toRGBA();
         this.color.emit(color);
     }
 }

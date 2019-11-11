@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { of } from 'rxjs';
 import { CustomAlertComponent } from 'src/app/popups/custom-alert/custom-alert.component';
 import { LoadDrawingComponent } from 'src/app/popups/load-drawing/load-drawing.component';
-import { Color } from 'src/utils/color';
 import { Message } from '../../../../common/communication/message';
 import { Drawing } from '../draw-area/i-drawing';
 import { WebClientService } from './web-client.service';
@@ -48,7 +47,7 @@ describe('WebClientService', () => {
             tags: ['allo'],
             holder: { entry: 'entry', elements: ['vide'] },
 
-            backgroundColor: new Color(255, 255, 255, 1),
+            backgroundColor: 'rgba(255, 255, 255, 1)',
             width: 200,
             height: 200,
         };

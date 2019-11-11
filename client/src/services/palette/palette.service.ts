@@ -73,11 +73,11 @@ export class PaletteService {
     }
 
     getPrimary(): string {
-        return this.primary.toString();
+        return this.primary.toRGBA();
     }
 
     getSecondary(): string {
-        return this.secondary.toString();
+        return this.secondary.toRGBA();
     }
 
     getHistory(): Color[] {

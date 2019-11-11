@@ -71,20 +71,22 @@ export class WorkZoneService {
 
         drawing.width = this.widthValue;
         drawing.height = this.heightValue;
-        drawing.backgroundColor = this.backgroundColorValue;
+        drawing.backgroundColor = this.backgroundColorValue.toRGBA();
         drawing.holder = serializeDrawArea(svgService);
 
         return drawing;
     }
 
-    updateDrawAreaProperties(width: number, height: number, backgroundColor: Color) {
+    updateDrawAreaProperties(width: number, height: number, backgroundColor: string) {
+        const color: Color = Color.getColorFromRGBA(backgroundColor);
+
         this.widthSubject.next(width);
         this.heightSubject.next(height);
-        this.backgroundColorSubject.next(backgroundColor);
+        this.backgroundColorSubject.next(color);
 
         this.widthValue = width;
         this.heightValue = height;
-        this.backgroundColorValue = backgroundColor;
+        this.backgroundColorValue = color;
     }
 
     // Updates Work Zone initial dimensions values

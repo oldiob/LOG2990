@@ -48,7 +48,7 @@ export class TextTool implements ITool {
                                     this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
             this.paletteService.primaryObs$.subscribe((color: Color) => {
                 if (this.element !== null) {
-                    this.element.setPrimary(color.toString());
+                    this.element.setPrimary(color.toRGBA());
                 }
             });
 
