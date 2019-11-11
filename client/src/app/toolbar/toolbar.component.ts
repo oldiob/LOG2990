@@ -55,8 +55,8 @@ export class ToolbarComponent implements OnInit {
     isEmptyRedos: boolean;
 
     constructor(public dialogService: DialogService,
-        public clipboard: ClipboardService,
-        public keyService: KeyService) {
+                public clipboard: ClipboardService,
+                public keyService: KeyService) {
         this.isDialogOpened = false;
     }
 
