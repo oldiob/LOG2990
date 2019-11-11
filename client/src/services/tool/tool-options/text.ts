@@ -12,10 +12,10 @@ declare type callback = () => void;
 export class TextTool implements ITool {
 
     readonly tip: string;
-    TEXTTIP = 'Text (T)';
-    UNSET = '';
-    INITIALSIZE = '15px';
-    SHOWCASE_DEFAULT = 'Rebase';
+    private TEXTTIP = 'Text (T)';
+    private UNSET = '';
+    private INITIALSIZE = '15px';
+    private SHOWCASE_DEFAULT = 'Rebase';
     element: SVGText | null = null;
     fontSize: string;
     fontStyle: string;
