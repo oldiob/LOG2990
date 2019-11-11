@@ -44,6 +44,10 @@ export class SVGService {
         return elements;
     }
 
+    inRectangle(x: number, y: number, width: number, height: number): (SVGAbstract | null)[] {
+        return [];
+    }
+
     addObject(obj: SVGAbstract | null) {
         if (obj === null) {
             return;

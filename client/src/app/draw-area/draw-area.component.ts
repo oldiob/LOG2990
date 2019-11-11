@@ -2,7 +2,6 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
@@ -37,9 +36,6 @@ export class DrawAreaComponent implements OnInit {
         cursor: string
     };
 
-    currentCursor: string;
-    oldTool: object;
-
     isMouseDown = false;
     isOnceWhileDown = true;
     constructor(
@@ -47,9 +43,6 @@ export class DrawAreaComponent implements OnInit {
         private svgService: SVGService,
         private toolService: ToolService,
         private gridService: GridService) {
-
-        this.currentCursor = 'crosshair';
-        this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -90,26 +83,11 @@ export class DrawAreaComponent implements OnInit {
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
 
-        const newTool = Object.getPrototypeOf(this.toolService.currentTool);
-
-        if (this.oldTool !== newTool) {
-            if (newTool === EraserTool.prototype) {
-                const radius = this.toolService.currentTool.width;
-                if (radius) {
-                    this.currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
-                }
-            } else {
-                this.currentCursor = 'crosshair';
-            }
-        }
-
-        this.oldTool = newTool;
-
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor.toRGBA()}`,
-            cursor: this.currentCursor,
+            cursor: 'crosshair',
         };
     }
 
