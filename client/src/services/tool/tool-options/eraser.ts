@@ -14,20 +14,37 @@ export class EraserTool implements ITool {
 
     readonly tip: string;
 
-    activated: boolean;
-    width: number;
+    private activated: boolean;
+    private mWidth: number;
 
-    container: any | null;
-    objectsOnHold: (SVGAbstract | null)[] = [];
+    private container: any | null;
+    private objectsOnHold: (SVGAbstract | null)[] = [];
 
-    cmd: CmdEraser;
+    private cmd: CmdEraser;
+
+    private surroundingRectangle: any | null;
 
     constructor(private svgService: SVGService) {
+        this.surroundingRectangle = null;
+
         this.activated = false;
         this.width = 64;
         this.tip = 'Eraser (E)';
 
         this.container = DOMRenderer.createElement('g', 'svg');
+    }
+
+    set width(width: number) {
+        if (this.surroundingRectangle !== null) {
+            DOMRenderer.setAttribute(this.surroundingRectangle, 'width', width.toString());
+            DOMRenderer.setAttribute(this.surroundingRectangle, 'height', width.toString());
+        }
+
+        this.mWidth = width;
+    }
+
+    get width(): number {
+        return this.mWidth;
     }
 
     onPressed(event: MouseEvent): CmdEraser {
@@ -48,8 +65,13 @@ export class EraserTool implements ITool {
         const x: number = event.svgX;
         const y: number = event.svgY;
 
+        if (this.surroundingRectangle === null) {
+            this.createSurroundingRectangle(x, y);
+        }
+        this.moveSurroundingRectangle(x, y);
+
         this.flushContainer();
-        this.objectsOnHold = this.svgService.findIn(x, y, this.width);
+        this.objectsOnHold = this.svgService.inRectangle(x, y, this.width, this.width);
 
         if (this.activated) {
             this.deleteAll();
@@ -60,6 +82,7 @@ export class EraserTool implements ITool {
                 }
             }
         }
+
     }
 
     private createFake(fakeElement: any): any {
@@ -82,5 +105,32 @@ export class EraserTool implements ITool {
         this.objectsOnHold.forEach((obj) => {
             this.cmd.eraseObject(obj);
         });
+    }
+
+    onLeave(): void {
+        if (this.surroundingRectangle !== null) {
+            DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
+            this.surroundingRectangle = null;
+        }
+    }
+
+    private createSurroundingRectangle(x: number, y: number) {
+        this.onLeave();
+
+        this.surroundingRectangle = DOMRenderer.createElement('rect', 'svg');
+        this.moveSurroundingRectangle(x, y);
+        this.width = this.mWidth;
+
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'fill', 'white');
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke-width', '1');
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke', 'black');
+
+        DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
+    }
+
+    private moveSurroundingRectangle(x: number, y: number) {
+        const halfWidth = this.width / 2.0;
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'x', (x - halfWidth).toString());
+        DOMRenderer.setAttribute(this.surroundingRectangle, 'y', (y - halfWidth).toString());
     }
 }

@@ -31,6 +31,8 @@ export interface ITool {
     onSelect?(): void;
     onUnSelect?(): void;
 
+    onLeave?(): void;
+
     onShowcase?(width: number, height: number): CmdInterface | null;
 }
 

@@ -9,6 +9,7 @@ import { OpacityTexture } from 'src/services/svg/element/texture/opacity';
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
+import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
@@ -44,6 +45,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.line, 'line.png'],
         [this.stamp, 'stamp.png'],
         [this.pen, 'pen.png'],
+        [this.eraser, 'eraser.png'],
     ]);
 
     @ViewChild(ShowcaseComponent, { static: true })
@@ -81,7 +83,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public brush: BrushTool,
         public line: LineTool,
         public stamp: StampTool,
-        public pen: PenTool) {
+        public pen: PenTool,
+        public eraser: EraserTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -103,7 +106,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, pen];
+        this.tools = [pencil, brush, line, stamp, pen, eraser];
         this.currentTool = this.tools[0];
     }
 

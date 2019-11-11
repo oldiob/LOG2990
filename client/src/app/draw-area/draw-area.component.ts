@@ -47,7 +47,6 @@ export class DrawAreaComponent implements OnInit {
         private svgService: SVGService,
         private toolService: ToolService,
         private gridService: GridService) {
-
         this.currentCursor = 'crosshair';
         this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
@@ -96,7 +95,7 @@ export class DrawAreaComponent implements OnInit {
             if (newTool === EraserTool.prototype) {
                 const radius = this.toolService.currentTool.width;
                 if (radius) {
-                    this.currentCursor = `url(./../assets/cursors/circle-${2 * radius}.png) ${radius} ${radius}, auto`;
+                    this.currentCursor = 'none';
                 }
             } else {
                 this.currentCursor = 'crosshair';
@@ -157,7 +156,9 @@ export class DrawAreaComponent implements OnInit {
         //
     }
     onMouseLeave(event: MouseEvent): void {
-        //
+        if (this.toolService.currentTool.onLeave) {
+            this.toolService.currentTool.onLeave();
+        }
     }
     onDrag(): void {
         //
