@@ -90,4 +90,8 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
 
         ShowcaseSignal.emit();
     }
+
+    updateShowcase(): void {
+        ShowcaseSignal.emit();
+    }
 }

@@ -45,6 +45,8 @@ export class DropperTool implements ITool {
             return null;
         }
 
+        console.log('CALLED');
+
         if (event.button === 0) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
@@ -84,5 +86,9 @@ export class DropperTool implements ITool {
             imageData.data[pixelIndex + 1],
             imageData.data[pixelIndex + 2],
             imageData.data[pixelIndex + 3]];
+    }
+
+    onShowcase(): null {
+        return null;
     }
 }
