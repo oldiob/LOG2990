@@ -11,7 +11,6 @@ export class SVGLine extends SVGAbstract {
     junctionWidth = 5;
     element: any;
     polyline: any;
-    line: any;
     circle: any;
     constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
         super();
@@ -20,9 +19,6 @@ export class SVGLine extends SVGAbstract {
         this.anchors.push(this.cursor);
         this.polyline = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(this.polyline, 'fill', 'none');
-        this.line = DOMRenderer.createElement('line', 'svg');
-        DOMRenderer.setAttribute(this.line, 'fill', 'none');
-        DOMRenderer.setAttribute(this.line, 'stroke-dasharray', '4');
         this.element = DOMRenderer.createElement('g', 'svg');
         switch (lineType) {
             case LineType.FullLine:
@@ -59,25 +55,12 @@ export class SVGLine extends SVGAbstract {
 
                 break;
         }
-        DOMRenderer.appendChild(this.element, this.line);
 
         this.fullRender();
     }
 
     private fullRender(): void {
         this.renderAnchors();
-        this.renderCursor();
-    }
-
-    private renderCursor(): void {
-        let lastPoint = this.anchors[this.anchors.length - 1];
-        if (!lastPoint) {
-            lastPoint = this.cursor;
-        }
-        DOMRenderer.setAttribute(this.line, 'x1', `${lastPoint[0]}`);
-        DOMRenderer.setAttribute(this.line, 'y1', `${lastPoint[1]}`);
-        DOMRenderer.setAttribute(this.line, 'x2', `${this.cursor[0]}`);
-        DOMRenderer.setAttribute(this.line, 'y2', `${this.cursor[1]}`);
     }
 
     private renderAnchors(): void {
@@ -89,7 +72,6 @@ export class SVGLine extends SVGAbstract {
     setWidth(width: number) {
         this.width = width;
         DOMRenderer.setAttribute(this.polyline, 'stroke-width', width.toString());
-        DOMRenderer.setAttribute(this.line, 'stroke-width', width.toString());
     }
 
     getPrimary(): string {
@@ -156,7 +138,8 @@ export class SVGLine extends SVGAbstract {
 
     setCursor(x: number, y: number): void {
         this.cursor = [x, y];
-        this.renderCursor();
+        this.anchors[this.anchors.length - 1] = this.cursor;
+        this.renderAnchors();
     }
 
     lineLoop(): void {
@@ -169,7 +152,6 @@ export class SVGLine extends SVGAbstract {
     }
 
     end(): void {
-        DOMRenderer.removeChild(this.line.parentNode, this.line);
         DOMRenderer.removeChild(this.element.parentNode, this.element);
         this.renderAnchors();
     }

@@ -28,13 +28,13 @@ export class LineTool implements ITool {
         if (this.element) {
             this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
             return null;
-
         }
         const line = new SVGLine(event.svgX, event.svgY, this.junctionWidth, this.lineType,
             this.junctionType);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;
+        this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
         this.cmd = new CmdSVG(this.element);
         this.svgService.addObject(this.element);
         return null;
