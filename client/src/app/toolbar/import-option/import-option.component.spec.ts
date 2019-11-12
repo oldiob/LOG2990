@@ -1,16 +1,16 @@
 
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule,
          MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
-         MatInputModule, MatSelectModule, MatTableModule} from '@angular/material';
+         MatInputModule, MatSelectModule, MatSnackBarModule, MatTableModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImportOptionComponent } from './import-option.component';
 
 const mockDialogRef: {close: jasmine.Spy} = {
   close: jasmine.createSpy('close'),
 };
-const event: MouseEvent = new MouseEvent('click');
 const matDialogdataSpy: jasmine.Spy = jasmine.createSpy('MAT_DIALOG_DATA');
 
 const modules: (typeof MatDialogModule)[] = [
@@ -27,6 +27,8 @@ const modules: (typeof MatDialogModule)[] = [
             BrowserAnimationsModule,
             FormsModule,
             ReactiveFormsModule,
+            MatSnackBarModule,
+            HttpClientModule,
 ];
 
 describe('ImportOptionComponent', () => {
@@ -55,10 +57,4 @@ describe('ImportOptionComponent', () => {
   it('should create', () => {
         void expect(component).toBeTruthy();
     });
-
-  it('should close a dialog when it is clicked', () => {
-        component.close(event);
-        void expect(mockDialogRef.close).toHaveBeenCalled();
-    });
-
 });
