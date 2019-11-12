@@ -11,8 +11,10 @@ export class SVGPen extends SVGAbstract {
     minWidth: number;
     maxWidth: number;
     color: string;
-    THRESHOLD: number;
-    WIDTH_RATIO_NUMBER: number;
+
+    private THRESHOLD = 2;
+    private WIDTH_RATIO_NUMBER = 3;
+    private EXTRA_WIDTH_VALUE = 10.0;
 
     private latestPoint: number[];
 
@@ -23,16 +25,13 @@ export class SVGPen extends SVGAbstract {
         this.anchors.push([x, y]);
         this.latestPoint = [x, y];
         this.element = DOMRenderer.createElement('g', 'svg');
-        this.THRESHOLD = 2;
-        this.WIDTH_RATIO_NUMBER = 3;
-
     }
 
     private addLine(): void {
         const distance = Math.sqrt(Math.pow(Math.abs(this.cursor[0] - this.latestPoint[0]), 2) +
             Math.pow(Math.abs(this.cursor[1] - this.latestPoint[1]), 2));
 
-        const tempWidth = this.minWidth + this.maxWidth * ( this.WIDTH_RATIO_NUMBER / distance);
+        const tempWidth = this.minWidth + this.maxWidth * (this.WIDTH_RATIO_NUMBER / distance);
         if (Math.abs(this.width - tempWidth) > this.THRESHOLD) {
             if (this.width > tempWidth) {
                 this.width--;
@@ -53,7 +52,7 @@ export class SVGPen extends SVGAbstract {
         DOMRenderer.setAttribute(line, 'stroke-linejoin', 'round');
         DOMRenderer.setAttribute(line,
             'points',
-             `${this.latestPoint[0]},${this.latestPoint[1]},${this.cursor[0]},${this.cursor[1]}`);
+            `${this.latestPoint[0]},${this.latestPoint[1]},${this.cursor[0]},${this.cursor[1]}`);
         DOMRenderer.appendChild(this.element, line);
         this.latestPoint = this.cursor;
     }
@@ -73,7 +72,6 @@ export class SVGPen extends SVGAbstract {
     getPrimary(): string {
         const child = this.element.children[0];
         return child.getAttribute('stroke');
-
     }
 
     getSecondary(): string {
@@ -82,7 +80,7 @@ export class SVGPen extends SVGAbstract {
 
     setPrimary(color: string) {
         for (const child of this.element.children) {
-                DOMRenderer.setAttribute(child, 'stroke', color);
+            DOMRenderer.setAttribute(child, 'stroke', color);
         }
         this.color = color;
     }
@@ -92,7 +90,7 @@ export class SVGPen extends SVGAbstract {
     }
 
     isAtAdjusted(x: number, y: number): boolean {
-        const additionnalWidth = 10.0;
+        const additionnalWidth = this.EXTRA_WIDTH_VALUE;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {
             if (isAtLine([x, y], this.anchors[i], this.anchors[i + 1], width)) {
