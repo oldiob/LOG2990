@@ -41,7 +41,6 @@ import { JunctionComponent } from './app/toolbar/subcomponent/junction-width/jun
 import { LineToolComponent } from './app/toolbar/subcomponent/line-tool/line-tool.component';
 import { ShowcaseComponent } from './app/toolbar/subcomponent/showcase/showcase.component';
 import { StampComponent } from './app/toolbar/subcomponent/stamp/stamp.component';
-import { TextureComponent } from './app/toolbar/subcomponent/texture/texture.component';
 import { WidthComponent } from './app/toolbar/subcomponent/width/width.component';
 import { TextOptionComponent } from './app/toolbar/text-option/text-option.component';
 import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.component';
@@ -82,7 +81,6 @@ import { DOMRenderer } from './utils/dom-renderer';
         ClipboardOptionComponent,
         LineToolComponent,
         StampComponent,
-        TextureComponent,
     ],
     imports: [
         BrowserModule,
