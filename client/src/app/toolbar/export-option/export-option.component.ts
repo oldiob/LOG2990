@@ -44,10 +44,6 @@ export class ExportOptionComponent implements OnInit {
         return this.exportForm.controls.name.hasError('required') ? 'You must enter a name' : '';
     }
 
-    getExportErrorMessage() {
-        return this.exportForm.controls.export.hasError('required') ? 'You must select an export format' : '';
-    }
-
     checkButton(): void {
         this.isEnabled = this.exportForm.valid;
     }
