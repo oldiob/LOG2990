@@ -5,16 +5,17 @@ import { MatChipInputEvent, MatChipsModule,
          MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { MyInjector } from 'src/utils/injector';
 import { SaveOptionComponent } from './save-option.component';
-// import { Drawing } from 'src/services/draw-area/i-drawing';
 
-fdescribe('SaveOptionComponent', () => {
+describe('SaveOptionComponent', () => {
     let component: SaveOptionComponent;
     let fixture: ComponentFixture<SaveOptionComponent>;
     let workZoneService: WorkZoneService;
-    // const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+    let validDrawing: Drawing;
+    const color = 'rgba(255, 255, 255, 1)';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -33,6 +34,16 @@ fdescribe('SaveOptionComponent', () => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         workZoneService = jasmine.createSpyObj('WorkZoneService', ['getAsDrawing']);
         (component as any).workZoneService = workZoneService;
+        validDrawing = {
+            _id: '17',
+            name: 'test',
+            tags: ['allo'],
+            holder: { entry: 'entry', elements: ['vide'] },
+            backgroundColor: color,
+            width: 200,
+            height: 200,
+        };
+        spyOn(workZoneService, 'getAsDrawing').and.returnValue(validDrawing);
         component.ngOnInit();
     });
 
@@ -92,16 +103,12 @@ fdescribe('SaveOptionComponent', () => {
         expect(component.getTagsErrorMessage()).toBe('You must enter valid tags');
     });
 
-    // it('should on submit upload drawing', () => {
-    //     component.tags = ['test'];
-    //     (component as any).areFieldsValid();
-    //     // const drawingTest = (component as any).drawing;
-    //     const drawingTest: Drawing = (component as any).workZoneService.getAsDrawing();
-    //     // (component as any).workZoneService.getAsDrawing() = drawingTest;
-    //     drawingTest._id = workZoneService.getAsDrawing()._id;
-    //     component.onSubmit();
-    //     expect((component as any).drawing).toEqual(drawingTest);
-    // });
+    it('should on submit upload drawing', () => {
+        component.tags = ['test'];
+        (component as any).areFieldsValid();
+        component.isOnline = false;
+        expect(component.onSubmit()).toBeUndefined();
+    });
 
     it('should toggle to save locally', () => {
         component.toggleOnline();
