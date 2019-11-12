@@ -5,8 +5,8 @@ import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
+import { vectorMultiply, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
-import { vectorPlus, vectorMultiply } from 'src/utils/math';
 
 declare type callback = () => void;
 
@@ -219,20 +219,20 @@ export class SelectorTool implements ITool {
     }
 
     nextOffset(currentOffset: number[]): number[] {
-        const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]); 
+        const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]);
         let finalOffset: number[];
 
-        // 0: correct 
+        // 0: correct
         // +1: outside on the right
         // +2: outside on the bottom
         let outsideState = 0;
 
-        let currentXSteps = newOffset[0] / SelectorTool.BASE_OFFSET;
-        let currentYSteps = newOffset[1] / SelectorTool.BASE_OFFSET;
+        const currentXSteps = newOffset[0] / SelectorTool.BASE_OFFSET;
+        const currentYSteps = newOffset[1] / SelectorTool.BASE_OFFSET;
 
         const baseHorizontalSteps = currentXSteps - currentYSteps;
- 
-        this.selected.forEach(object => {
+
+        this.selected.forEach((object) => {
             object.translate(newOffset[0], newOffset[1]);
             const state = this.elementState(object);
             if (outsideState !== 0) {
@@ -270,8 +270,7 @@ export class SelectorTool implements ITool {
         let currentState = 0;
         if (right > entryPositions.right) {
             currentState = 1;
-        }
-        else if (bottom > entryPositions.bottom) {
+        } else if (bottom > entryPositions.bottom) {
             currentState = 2;
         }
 
