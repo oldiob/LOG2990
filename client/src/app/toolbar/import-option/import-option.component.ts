@@ -1,7 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Data } from '@angular/router';
 import { ConfirmationComponent } from 'src/app/popups/confirmation/confirmation.component';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
@@ -27,11 +25,9 @@ export class ImportOptionComponent implements OnInit {
     readFile: FileReader;
 
     constructor(
-        public dialogRef: MatDialogRef<ImportOptionComponent>,
         private workZoneService: WorkZoneService,
         private drawAreaService: DrawAreaService,
         private dialogService: DialogService,
-        @Inject(MAT_DIALOG_DATA) public data: Data,
     ) {
         this.readFile = new FileReader();
         this.enableFile = false;

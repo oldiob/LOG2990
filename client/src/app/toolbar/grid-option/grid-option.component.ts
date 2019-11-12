@@ -28,7 +28,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
-        public gridService: GridService,
+        private gridService: GridService,
         private gridTool: GridTool) {
     }
 

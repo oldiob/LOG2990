@@ -55,14 +55,13 @@ export class ToolbarComponent implements OnInit {
     isDialogOpened: boolean;
     optionDisplayed: boolean;
 
-    isEmptyUndos: boolean;
-    isEmptyRedos: boolean;
-    component: ClipboardOptionComponent;
+    isUndosEmpty: boolean;
+    isRedosEmpty: boolean;
 
     constructor(
-        public dialogService: DialogService,
-        public clipboard: ClipboardService,
-        public keyService: KeyService) {
+        private dialogService: DialogService,
+        private clipboard: ClipboardService,
+        private keyService: KeyService) {
         this.isDialogOpened = false;
     }
 
@@ -77,10 +76,10 @@ export class ToolbarComponent implements OnInit {
 
     private subscribeUndoRedo() {
         CmdService.isEmptyUndosObservable.subscribe((isEmpty: boolean) => {
-            this.isEmptyUndos = isEmpty;
+            this.isUndosEmpty = isEmpty;
         });
         CmdService.isEmptyRedosObservable.subscribe((isEmpty: boolean) => {
-            this.isEmptyRedos = isEmpty;
+            this.isRedosEmpty = isEmpty;
         });
     }
 
@@ -137,13 +136,13 @@ export class ToolbarComponent implements OnInit {
     }
 
     undo(): void {
-        if (!this.isEmptyUndos) {
+        if (!this.isUndosEmpty) {
             CmdService.undo();
         }
     }
 
     redo(): void {
-        if (!this.isEmptyRedos) {
+        if (!this.isRedosEmpty) {
             CmdService.redo();
         }
     }
