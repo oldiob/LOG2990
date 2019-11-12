@@ -62,60 +62,60 @@ describe('ExportOptionComponent', () => {
 
     it('should return true if the form is valid', () => {
         component.checkButton();
-        expect(component.enable).toBeTruthy();
+        expect(component.isEnabled).toBeTruthy();
     });
 
     it('should return false if the form is not valid', () => {
         component.exportForm.controls.name.setValue('');
         component.exportForm.controls.export.setValue('');
         component.checkButton();
-        expect(component.enable).toBeFalsy();
+        expect(component.isEnabled).toBeFalsy();
     });
 
     it('should on click select svg', () => {
-        component.onClick(component.selectExport[0]);
-        expect(component.selectExport[0]).toEqual(selectExportTest[0]);
+        component.onClick(component.exportTypes[0]);
+        expect(component.exportTypes[0]).toEqual(selectExportTest[0]);
     });
 
     it('should on click select png', () => {
-        component.onClick(component.selectExport[1]);
-        expect(component.selectExport[1]).toEqual(selectExportTest[1]);
+        component.onClick(component.exportTypes[1]);
+        expect(component.exportTypes[1]).toEqual(selectExportTest[1]);
     });
 
     it('should on click select jpg', () => {
-        component.onClick(component.selectExport[2]);
-        expect(component.selectExport[2]).toEqual(selectExportTest[2]);
+        component.onClick(component.exportTypes[2]);
+        expect(component.exportTypes[2]).toEqual(selectExportTest[2]);
     });
 
     it('should on click select bmp', () => {
-        component.onClick(component.selectExport[3]);
-        expect(component.selectExport[3]).toEqual(selectExportTest[3]);
+        component.onClick(component.exportTypes[3]);
+        expect(component.exportTypes[3]).toEqual(selectExportTest[3]);
     });
 
     it('should submit save as svg', () => {
         spyOn(component, 'saveAsSVG');
-        component.option = component.selectExport[0];
+        component.selectedExport = component.exportTypes[0];
         component.submit();
         expect(component.saveAsSVG).toHaveBeenCalled();
     });
 
     it('should submit save as png', () => {
         spyOn(component, 'saveAsPNG');
-        component.option = component.selectExport[1];
+        component.selectedExport = component.exportTypes[1];
         component.submit();
         expect(component.saveAsPNG).toHaveBeenCalled();
     });
 
     it('should submit save as jpg', () => {
         spyOn(component, 'saveAsJPG');
-        component.option = component.selectExport[2];
+        component.selectedExport = component.exportTypes[2];
         component.submit();
         expect(component.saveAsJPG).toHaveBeenCalled();
     });
 
     it('should submit save as bmp', () => {
         spyOn(component, 'saveAsBMP');
-        component.option = component.selectExport[3];
+        component.selectedExport = component.exportTypes[3];
         component.submit();
         expect(component.saveAsBMP).toHaveBeenCalled();
     });

@@ -1,22 +1,22 @@
-<div class="header"> Export</div>
-<mat-divider></mat-divider>
+<div class="header">Export</div>
+
 <div class="export-wrapper">
     <form [formGroup]="exportForm">
         <mat-form-field class="name" color="accent">
             <input matInput placeholder="Name" formControlName="name" required>
             <mat-error *ngIf="exportForm.invalid">{{getNameErrorMessage()}}</mat-error>
         </mat-form-field>
-    <div class="button-wrapper" *ngFor="let exportType of selectExport">
-          <input [checked]="exportType === option" type="radio" value="exportType" name="export" formControlName="export" 
-          (click)="checkButton()" (click)="onClick(exportType)" required>
-          <mat-error *ngIf="exportForm.invalid">{{getExportErrorMessage()}}</mat-error>
-          <label class="button-wrapper" for="exportType">{{exportType}}</label>
-    </div>
-    <div class="button-wrapper">
-        <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
-        <button color="primary" mat-raised-button mat-dialog-close type="submit" (click)="submit()"
-            [disabled]="!enable" >Export</button>
-    </div>
-</form>
-<div class="background"></div>
+
+        <div class="button-wrapper" *ngFor="let exportType of exportTypes">
+            <input type="radio" name="export" (click)="onClick(exportType)">
+            <label class="button-wrapper" for="exportType">{{exportType}}</label>
+        </div>
+        <mat-error *ngIf="exportForm.invalid">{{getExportErrorMessage()}}</mat-error>
+        <div class="button-wrapper">
+            <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
+            <button color="primary" mat-raised-button mat-dialog-close type="submit" (click)="submit()"
+                [disabled]="!isEnabled">Export</button>
+        </div>
+    </form>
+    <div class="background"></div>
 </div>

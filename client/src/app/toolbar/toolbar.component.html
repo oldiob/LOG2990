@@ -48,8 +48,11 @@
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/import.png" (click)="disableCurrentText()">
     </div>
-    <a class="button" (click)="openExportOption()">
-      <img class="toolbar-icon" src="../../../assets/images/export.png">
+    <a class="button" (click)="openExportOption()"
+      matTooltip="Export (Ctrl + E)"
+      matTooltipClass="tooltip"
+      matTooltipPosition="right">
+      <img class="toolbar-icon" src="../../../assets/images/export.png" (click)="disableCurrentText()">
     </a>
   </div>
 </div>
