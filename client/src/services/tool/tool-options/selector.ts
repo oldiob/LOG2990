@@ -367,7 +367,7 @@ export class SelectorTool implements ITool {
 
         DOMRenderer.setAttributes(this.points[Compass.W], {
             cx: x2.toString(),
-            cy: y2.toString(),
+            cy: ((Math.abs(y1) + Math.abs(y2)) / 2).toString(),
         });
 
         this.svg.addElement(this.previewElement);
