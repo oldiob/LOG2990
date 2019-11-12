@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
-import { Base64, IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
 import { CircleTexture } from 'src/services/svg/element/texture/circle';
 import { ITexture } from 'src/services/svg/element/texture/i-texture';
@@ -17,9 +16,6 @@ import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
-import { AngleComponent } from '../subcomponent/angle/angle.component';
-import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
-import { WidthComponent } from '../subcomponent/width/width.component';
 
 @Component({
     selector: 'app-tool-option',
@@ -28,12 +24,8 @@ import { WidthComponent } from '../subcomponent/width/width.component';
 })
 export class ToolOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
-    MIN_ANGLE = 0;
-    MAX_ANGLE = 360;
-    MULTI_15 = 15;
     MAX_WIDTH = 25;
     MIN_WIDTH = 0.5;
-    Base64 = Base64;
 
     tip = 'Tools';
     images = new Map<ITool, string>([
@@ -45,27 +37,11 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.eraser, 'eraser.png'],
     ]);
 
-    @ViewChild(ShowcaseComponent, { static: true })
-    showcase: ShowcaseComponent;
-
-    @ViewChild(WidthComponent, { static: true })
-    widthComponent: WidthComponent;
-
-    @ViewChild(AngleComponent, { static: true })
-    angleComponent: AngleComponent;
-
     textures: ITexture[];
     currentTexture: ITexture;
 
     tools: ITool[];
     currentTool: ITool;
-
-    stamps: IStamp[];
-    currentStamp: IStamp;
-
-    imageStamp: any[];
-    imageEmojis: string[];
-    imagePaths: string[];
 
     constructor(
         private toolService: ToolService,
@@ -76,28 +52,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public pen: PenTool,
         public eraser: EraserTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
-        this.stamps = [new EmojiStamp()];
 
-        this.imageStamp = [] = [
-            { png: './assets/images/emojis/angel.png', base64: Base64.ANGEL },
-            { png: './assets/images/emojis/angry.png', base64: Base64.ANGRY },
-            { png: './assets/images/emojis/cool-1.png', base64: Base64.COOL },
-            { png: './assets/images/emojis/crying-1.png', base64: Base64.CRY },
-            { png: './assets/images/emojis/kiss-1.png', base64: Base64.KISS },
-            { png: './assets/images/emojis/laughing-1.png', base64: Base64.LAUGH },
-            { png: './assets/images/emojis/shocked.png', base64: Base64.SHOCKED },
-            { png: './assets/images/emojis/sick.png', base64: Base64.SICK },
-        ];
-
-        this.currentStamp = this.stamps[0];
-        this.stamp.currentPath = this.imageStamp[0].base64;
-        this.stamp.stampTexture = this.currentStamp;
+        stamp.stampTexture = new EmojiStamp();
 
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
         this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.eraser];
-        this.currentTool = this.tools[0];
+        this.selectTool(this.tools[0]);
     }
 
     ngOnInit(): void {
@@ -121,11 +83,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = texture;
         this.brush.texture = this.currentTexture;
 
-        ShowcaseSignal.emit();
-    }
-
-    selectStamp(image: string): void {
-        this.stamp.currentPath = image;
         ShowcaseSignal.emit();
     }
 

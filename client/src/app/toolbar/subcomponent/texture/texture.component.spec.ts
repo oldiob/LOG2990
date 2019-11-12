@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LineToolComponent } from './line-tool.component';
+import { TextureComponent } from './texture.component';
 
-describe('LineToolComponent', () => {
-  let component: LineToolComponent;
-  let fixture: ComponentFixture<LineToolComponent>;
+describe('TextureComponent', () => {
+  let component: TextureComponent;
+  let fixture: ComponentFixture<TextureComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LineToolComponent ],
+      declarations: [ TextureComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LineToolComponent);
+    fixture = TestBed.createComponent(TextureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

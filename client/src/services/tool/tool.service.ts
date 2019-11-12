@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ITool } from './tool-options/i-tool';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
+import { ITool } from './tool-options/i-tool';
 
 @Injectable({
     providedIn: 'root',

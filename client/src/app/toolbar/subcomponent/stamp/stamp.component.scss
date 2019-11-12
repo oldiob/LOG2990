@@ -1,0 +1,17 @@
+.stamp {
+    width: auto;
+    height: 40px;
+    padding: 10px 10px 10px 0;
+    cursor: pointer;
+}
+
+
+.toolsEmo {
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    margin-right: 10%;
+    margin-left: 10%;
+    padding: 15px;
+}

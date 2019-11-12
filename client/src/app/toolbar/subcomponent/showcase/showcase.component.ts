@@ -3,9 +3,9 @@ import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { ToolService } from 'src/services/tool/tool.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
-import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
