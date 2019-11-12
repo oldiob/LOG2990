@@ -8,6 +8,7 @@ import { KeyService } from 'src/services/key/key.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { ClipboardOptionComponent } from './clipboard-option/clipboard-option.component';
 import { ExportOptionComponent } from './export-option/export-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
@@ -45,6 +46,9 @@ export class ToolbarComponent implements OnInit {
     @ViewChild(TextOptionComponent, { static: true })
     textOption: TextOptionComponent;
 
+    @ViewChild(ClipboardOptionComponent, { static: true })
+    clipboardOption: ClipboardOptionComponent;
+
     options: IOption<any>[];
 
     currentOption: IOption<any>;
@@ -53,15 +57,18 @@ export class ToolbarComponent implements OnInit {
 
     isEmptyUndos: boolean;
     isEmptyRedos: boolean;
+    component: ClipboardOptionComponent;
 
-    constructor(public dialogService: DialogService,
-                public clipboard: ClipboardService,
-                public keyService: KeyService) {
+    constructor(
+        public dialogService: DialogService,
+        public clipboard: ClipboardService,
+        public keyService: KeyService) {
         this.isDialogOpened = false;
     }
 
     ngOnInit() {
-        this.options = [this.toolOption, this.shapeOption, this.bucketOption, this.selectorOption, this.gridOption, this.textOption];
+        this.options = [this.toolOption, this.shapeOption,
+        this.bucketOption, this.selectorOption, this.gridOption, this.textOption, this.clipboardOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
 
