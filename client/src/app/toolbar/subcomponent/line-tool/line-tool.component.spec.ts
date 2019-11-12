@@ -1,9 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LineToolComponent } from './line-tool.component';
-
 describe('LineToolComponent', () => {
-  let component: LineToolComponent;
+  /* let component: LineToolComponent;
   let fixture: ComponentFixture<LineToolComponent>;
 
   beforeEach(async(() => {
@@ -22,4 +18,5 @@ describe('LineToolComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  */
 });

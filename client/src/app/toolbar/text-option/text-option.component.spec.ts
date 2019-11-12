@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { TextFormat } from './text-format';
 import { TextOptionComponent } from './text-option.component';
 
@@ -13,12 +12,11 @@ describe('TextOptionComponent', () => {
   let text: TextTool;
   let renderer: Renderer2;
   let element: SVGText | null;
-  let showcase: ShowcaseComponent;
   const BUTTON = 'text.png';
   const PATH  = '../../../../assets/images/';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextOptionComponent, ShowcaseComponent ],
+      declarations: [ TextOptionComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
     })
     .compileComponents();
@@ -33,8 +31,6 @@ describe('TextOptionComponent', () => {
     fixture.detectChanges();
     text = TestBed.get(TextTool);
     component.currentTool = component.tools[0];
-    showcase = jasmine.createSpyObj('ShowcaseComponent', ['showcase', 'display']);
-    component.showcase = showcase;
     text.element = element;
 });
 
