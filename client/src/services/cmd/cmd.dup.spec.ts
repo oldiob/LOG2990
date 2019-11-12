@@ -25,14 +25,14 @@ describe('CmdDup', () => {
         obj = new MockSVG();
         injector.get.and.returnValue(svg);
         MyInjector.injector = injector;
-        cmd = new CmdDup(new Array<SVGAbstract>(N).fill(obj as SVGAbstract), offset);
+        cmd = new CmdDup(new Array<SVGAbstract>(N).fill(obj as SVGAbstract), [offset, offset]);
     });
 
     it('should construct', () => {
         expect(cmd).toBeTruthy();
         expect(svg.addObject).not.toHaveBeenCalled();
         expect(svg.removeObject).not.toHaveBeenCalled();
-        expect((cmd as any).offset).toEqual(offset);
+        expect((cmd as any).offset).toEqual([offset, offset]);
     });
 
     it('should call addObject on svg service when executed', () => {
