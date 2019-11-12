@@ -1,4 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { StampTool } from 'src/services/tool/tool-options/stamp';
+import { ToolService } from 'src/services/tool/tool.service';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-angle',
@@ -11,10 +15,7 @@ export class AngleComponent implements OnInit {
 
     private mAngle: number;
 
-    @Output()
-    angleEmmiter: EventEmitter<number> = new EventEmitter<number>();
-
-    constructor() {
+    constructor(private toolService: ToolService) {
         this.mAngle = 0.0;
     }
 
@@ -23,14 +24,24 @@ export class AngleComponent implements OnInit {
     }
 
     get angle(): number {
+        const currentTool: ITool = this.toolService.currentTool;
+        if (currentTool instanceof StampTool) {
+            this.mAngle = currentTool.angle;
+            ShowcaseSignal.emit();
+        }
+
         return this.mAngle;
     }
 
-    @Input()
     set angle(angle: number) {
         if (angle <= this.MAX_ANGLE && angle >= this.MIN_ANGLE ) {
             this.mAngle = angle;
         }
-        this.angleEmmiter.emit(this.mAngle);
+
+        const currentTool: ITool = this.toolService.currentTool;
+        if (currentTool instanceof StampTool) {
+            currentTool.angle = angle;
+            ShowcaseSignal.emit();
+        }
     }
 }

@@ -128,7 +128,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-        ShowcaseSignal.emit();
     }
 
     selectTexture(texture: ITexture): void {
@@ -147,7 +146,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
             ShowcaseSignal.emit();
-
         }
     }
 
@@ -161,7 +159,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             }
             this.currentTool.maxWidth = maxWidth;
             ShowcaseSignal.emit();
-
         }
     }
 
@@ -175,7 +172,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
             }
             this.currentTool.minWidth = minWidth;
             ShowcaseSignal.emit();
-
         }
     }
 
@@ -183,16 +179,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         if (this.currentTool instanceof LineTool) {
             this.currentTool.junctionWidth = width;
             ShowcaseSignal.emit();
-
-        }
-    }
-
-    setAngle(angle: number): void {
-        // dumbass temporary solution
-        if (this.currentTool instanceof StampTool) {
-            this.currentTool.angle = angle;
-            ShowcaseSignal.emit();
-
         }
     }
 
