@@ -5,6 +5,7 @@
         <div class="clipboard-action" *ngFor="let action of actions">
             <button class="clipboard-button"
                 color="primary"
+                [ngClass]="{'disable': !isSelectorActive}"
                 mat-raised-button
                 matTooltip={{action.tip}}
                 matTooltipClass="tooltip"

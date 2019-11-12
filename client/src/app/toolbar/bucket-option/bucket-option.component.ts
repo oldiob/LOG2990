@@ -25,7 +25,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     constructor(
         private toolService: ToolService,
         private bucket: BucketTool,
-        public dropper: DropperTool) {
+        private dropper: DropperTool) {
 
         this.tools = [bucket, dropper];
         this.currentTool = this.tools[0];

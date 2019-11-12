@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -21,27 +21,13 @@ export class DrawAreaComponent implements OnInit {
     @ViewChild('gridContainer', { static: true })
     grid: ElementRef;
 
-    @Input()
-    key: string;
+    private height: number;
+    private width: number;
+    private backgroundColor: Color;
 
-    svgElements: string[];
+    private currentCursor: string;
+    private oldTool: object;
 
-    mouseX: number;
-    mouseY: number;
-    height: number;
-    width: number;
-    backgroundColor: Color;
-    currentStyles: {
-        height: string; width: string;
-        'background-color': string;
-        cursor: string
-    };
-
-    currentCursor: string;
-    oldTool: object;
-
-    isMouseDown = false;
-    isOnceWhileDown = true;
     constructor(
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
@@ -55,7 +41,6 @@ export class DrawAreaComponent implements OnInit {
         this.svgService.entry = this.svg;
         this.gridService.ref = this.grid;
 
-        // Subscribes to WorkZoneService observables
         this.workZoneService.currentWidth.subscribe(
             (width: number) => {
                 this.width = width;

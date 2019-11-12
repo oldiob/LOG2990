@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-entry-point',
@@ -8,8 +8,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 })
 export class EntryPointComponent implements OnInit {
   pressHide = false;
-  constructor(public dialogRef: MatDialogRef<EntryPointComponent>,
-              public dialog: MatDialog) { }
+  constructor(private dialogRef: MatDialogRef<EntryPointComponent>) { }
 
   ngOnInit() {
     //

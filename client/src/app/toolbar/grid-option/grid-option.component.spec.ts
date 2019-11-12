@@ -32,8 +32,8 @@ describe('GridOptionComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     grid = TestBed.get(GridTool);
-    component.gridService = gridService;
-    component.gridService.ref = ref;
+    (component as any).gridService = gridService;
+    (component as any).gridService.ref = ref;
 
 });
 
