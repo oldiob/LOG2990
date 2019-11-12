@@ -6,6 +6,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
+import { vectorPlus, vectorMultiply } from 'src/utils/math';
 
 declare type callback = () => void;
 
@@ -35,7 +36,7 @@ export class SelectorTool implements ITool {
 
     static BASE_OFFSET = 30;
 
-    dupOffset: number = SelectorTool.BASE_OFFSET;
+    dupOffset: number[] = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
 
     readonly tip: string;
 
@@ -143,8 +144,8 @@ export class SelectorTool implements ITool {
         const kbd: { [id: string]: callback } = {
             'C-a': () => this.selectAll(),
             'C-d': () => {
+                this.dupOffset = this.nextOffset(this.dupOffset);
                 CmdService.execute(new CmdDup(Array.from(this.selected), this.dupOffset));
-                this.dupOffset += SelectorTool.BASE_OFFSET;
             },
         };
         let keys = '';
@@ -215,6 +216,66 @@ export class SelectorTool implements ITool {
             this.cursor.y);
         this.selection = this.svg.getInRect(rect);
         this.renderPreview(this.computeSelection());
+    }
+
+    nextOffset(currentOffset: number[]): number[] {
+        const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]); 
+        let finalOffset: number[];
+
+        // 0: correct 
+        // +1: outside on the right
+        // +2: outside on the bottom
+        let outsideState = 0;
+
+        let currentXSteps = newOffset[0] / SelectorTool.BASE_OFFSET;
+        let currentYSteps = newOffset[1] / SelectorTool.BASE_OFFSET;
+
+        const baseHorizontalSteps = currentXSteps - currentYSteps;
+ 
+        this.selected.forEach(object => {
+            object.translate(newOffset[0], newOffset[1]);
+            const state = this.elementState(object);
+            if (outsideState !== 0) {
+                outsideState = Math.min(outsideState, state);
+            } else {
+                outsideState = state;
+            }
+            object.translate(-newOffset[0], -newOffset[1]);
+        });
+        switch (outsideState) {
+            case 1:
+                finalOffset = vectorMultiply([-1, -1], SelectorTool.BASE_OFFSET);
+                break;
+            case 2:
+                console.log('baseHorizontalSteps', baseHorizontalSteps);
+                finalOffset = vectorMultiply([baseHorizontalSteps + 1, 0], SelectorTool.BASE_OFFSET);
+                break;
+            default:
+                finalOffset = newOffset;
+        }
+
+        return finalOffset;
+    }
+
+    private elementState(element: SVGAbstract): number {
+        const entryPositions = this.svg.entry.nativeElement.getBoundingClientRect();
+        const rect: any = element.element.getBoundingClientRect();
+
+        rect.x -= entryPositions.left;
+        rect.y -= entryPositions.top;
+
+        const right = rect.right - entryPositions.left;
+        const bottom = rect.bottom - entryPositions.top;
+
+        let currentState = 0;
+        if (right > entryPositions.right) {
+            currentState = 1;
+        }
+        else if (bottom > entryPositions.bottom) {
+            currentState = 2;
+        }
+
+        return currentState;
     }
 
     private renderPreview(toRender: Set<SVGAbstract>) {
@@ -319,6 +380,6 @@ export class SelectorTool implements ITool {
         this.svg.removeElement(this.boxElement);
         this.svg.removeElement(this.previewElement);
         this.state = State.idle;
-        this.dupOffset = SelectorTool.BASE_OFFSET;
+        this.dupOffset = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
     }
 }
