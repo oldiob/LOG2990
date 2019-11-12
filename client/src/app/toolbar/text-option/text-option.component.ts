@@ -67,7 +67,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = this.text;
     }
 
-    select() {
+    select(): void {
         this.selectTool(this.currentTool);
     }
 
@@ -114,13 +114,13 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         }
     }
 
-    disableAlign() {
+    disableAlign(): void {
         this.isAlignLeft = false;
         this.isAlignCenter = false;
         this.isAlignRight = false;
     }
 
-    toggleBold() {
+    toggleBold(): void {
         this.isBold = !this.isBold;
         if (this.text.element !== null) {
             if (this.isBold) {
@@ -133,7 +133,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         }
     }
 
-    toggleItalic() {
+    toggleItalic(): void {
         this.isItalic = !this.isItalic;
         if (this.text.element !== null) {
             if (this.isItalic) {

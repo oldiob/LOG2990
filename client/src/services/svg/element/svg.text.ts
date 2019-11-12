@@ -9,6 +9,7 @@ export class SVGText extends SVGAbstract {
     BOLD = 'bold';
     SPOT_TEXT = 'Enter text...';
     INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
+    VERTICAL_SPACE = '1em';
     element: any;
     currentSubElement: any;
     previousSubElement: any;
@@ -24,7 +25,7 @@ export class SVGText extends SVGAbstract {
     content: string;
 
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
-                fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string ) {
+                fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string) {
 
         super();
         this.textAlign = textAlign;
@@ -42,12 +43,12 @@ export class SVGText extends SVGAbstract {
         this.currentX = x.toString();
 
         DOMRenderer.setAttribute(this.element, 'font-size', fontSize);
-        DOMRenderer.setAttribute(this.element, 'font-family', fontFamily );
+        DOMRenderer.setAttribute(this.element, 'font-family', fontFamily);
         DOMRenderer.setAttribute(this.element, 'font-style', fontStyle);
         DOMRenderer.setAttribute(this.element, 'font-weight', fontWeigth);
 
         this.currentSubElement = DOMRenderer.createElement('tspan', 'svg');
-        DOMRenderer.setAttribute(this.currentSubElement, 'dy', '1em');
+        DOMRenderer.setAttribute(this.currentSubElement, 'dy', this.VERTICAL_SPACE);
         DOMRenderer.setAttribute(this.currentSubElement, 'x', this.currentX);
         DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.textAlign);
         this.subElements.push(this.currentSubElement);
@@ -57,25 +58,22 @@ export class SVGText extends SVGAbstract {
         this.isNewElement = true;
     }
     isAtAdjusted(x: number, y: number): boolean {
-        throw new Error('Method not implemented.');
-    }
-    isAt(x: number, y: number): boolean {
-        throw new Error('Method not implemented.');
+        return false;
     }
     isIn(x: number, y: number, r: number): boolean {
-        throw new Error('Method not implemented.');
+        return false;
     }
     getPrimary(): string {
-        throw new Error('Method not implemented.');
+        return '';
     }
     getSecondary(): string {
-        throw new Error('Method not implemented.');
+        return '';
     }
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'fill', color);
     }
     setSecondary(color: string): void {
-        throw new Error('Method not implemented.');
+        //
     }
     setFontSize(size: string): void {
         this.fontSize = size;
@@ -83,7 +81,7 @@ export class SVGText extends SVGAbstract {
     }
     setFontFamily(fontfamily: string): void {
         this.fontFamily = fontfamily;
-        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily );
+        DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
     }
     setFontStyle(style: string): void {
         this.fontStyle = style;
@@ -99,7 +97,7 @@ export class SVGText extends SVGAbstract {
             DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
         }
     }
-    setCurrentPlaceholder() {
+    setCurrentPlaceholder(): void {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
         this.currentSubElement.innerHTML = this.INVISIBLE_LINE_VALUE;
     }
@@ -112,27 +110,27 @@ export class SVGText extends SVGAbstract {
         DOMRenderer.setAttribute(this.currentSubElement, 'text-anchor', this.textAlign);
         this.subElements.push(this.currentSubElement);
         DOMRenderer.appendChild(this.element, this.currentSubElement);
-
     }
 
     removeCharacter(): void {
-      if (this.currentSubElement.innerHTML === this.INVISIBLE_LINE_VALUE) {
-          this.removeLine();
-      } else {
-          if (this.currentSubElement.innerHTML === this.UNSET) {
-            this.removeLine();
-          } else {
-            this.content = this.currentSubElement.innerHTML;
-            this.content = this.content.substring(0, this.content.length - 1);
-            this.currentSubElement.innerHTML = this.content;
-          }
-      }
+        switch (this.currentSubElement.innerHTML) {
+            case this.INVISIBLE_LINE_VALUE:
+                this.removeLine();
+                break;
+            case this.UNSET:
+                this.removeLine();
+                break;
+            default:
+                this.content = this.currentSubElement.innerHTML;
+                this.content = this.content.substring(0, this.content.length - 1);
+                this.currentSubElement.innerHTML = this.content;
+        }
     }
-    removeLine() {
-      if (this.subElements.length > 1) {
-          DOMRenderer.removeChild(this.element, this.currentSubElement);
-          this.subElements.pop();
-          this.currentSubElement = this.subElements[this.subElements.length - 1];
-      }
+    removeLine(): void {
+        if (this.subElements.length > 1) {
+            DOMRenderer.removeChild(this.element, this.currentSubElement);
+            this.subElements.pop();
+            this.currentSubElement = this.subElements[this.subElements.length - 1];
+        }
     }
 }
