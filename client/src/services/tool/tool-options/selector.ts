@@ -154,7 +154,6 @@ export class SelectorTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
-        console.log(event);
         const kbd: { [id: string]: callback } = {
             'C-a': () => this.selectAll(),
             'C-d': () => this.duplicate(),
@@ -274,7 +273,6 @@ export class SelectorTool implements ITool {
                 finalOffset = vectorMultiply([-1, -1], SelectorTool.BASE_OFFSET);
                 break;
             case 2:
-                console.log('baseHorizontalSteps', baseHorizontalSteps);
                 finalOffset = vectorMultiply([baseHorizontalSteps + 1, 0], SelectorTool.BASE_OFFSET);
                 break;
             default:

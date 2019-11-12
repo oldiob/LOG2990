@@ -45,8 +45,6 @@ export class DropperTool implements ITool {
             return null;
         }
 
-        console.log('CALLED');
-
         if (event.button === 0) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,

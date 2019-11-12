@@ -39,7 +39,6 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
     private subscribeSelector() {
         this.selector.isSelectedObservable.subscribe((isSelected: boolean) => {
             this.isSelectorActive = isSelected;
-            console.log(this.isSelectorActive);
         });
     }
 
