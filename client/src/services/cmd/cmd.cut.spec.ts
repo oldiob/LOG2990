@@ -9,7 +9,7 @@ class MockSVG {
     }
 }
 
-fdescribe('CmdCut', () => {
+describe('CmdCut', () => {
 
     let cmd: CmdCut;
     let obj: any;
