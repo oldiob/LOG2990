@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmojiStamp } from 'src/services/svg/element/stamp/emoji';
 import { Base64, IStamp } from 'src/services/svg/element/stamp/i-stamp';
 import { BlurTexture } from 'src/services/svg/element/texture/blur';
@@ -74,18 +73,14 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     imageEmojis: string[];
     imagePaths: string[];
 
-    lineForm: FormGroup;
-    junctionForm: FormGroup;
-
     constructor(
         private toolService: ToolService,
-        private formBuilder: FormBuilder,
-        private pencil: PencilTool,
-        private brush: BrushTool,
-        private line: LineTool,
-        private stamp: StampTool,
-        private pen: PenTool,
-        private eraser: EraserTool) {
+        public pencil: PencilTool,
+        public brush: BrushTool,
+        public line: LineTool,
+        public stamp: StampTool,
+        public pen: PenTool,
+        public eraser: EraserTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -112,8 +107,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     ngOnInit(): void {
-        this.createJunctionForm();
-        this.createLineForm();
         ShowcaseSignal.emit();
     }
 
@@ -186,37 +179,4 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
-    onLineTypeChange(): void {
-        if (this.currentTool instanceof LineTool) {
-            this.currentTool.lineType = this.lineForm.controls.lineType.value;
-            ShowcaseSignal.emit();
-
-        }
-    }
-
-    onJunctionTypeChange(): void {
-        if (this.currentTool instanceof LineTool) {
-            this.currentTool.junctionType = this.junctionForm.controls.junctionType.value;
-            ShowcaseSignal.emit();
-
-        }
-    }
-
-    private createLineForm(): void {
-        const DEFAULT_LINE_TYPE = LineType.FullLine;
-        const validators = [Validators.min(0), Validators.required];
-
-        this.lineForm = this.formBuilder.group({
-            lineType: [DEFAULT_LINE_TYPE, validators],
-        });
-    }
-
-    private createJunctionForm(): void {
-        const DEFAULT_JUNCTION_TYPE = JunctionType.Angle;
-        const validators = [Validators.min(0), Validators.required];
-
-        this.junctionForm = this.formBuilder.group({
-            junctionType: [DEFAULT_JUNCTION_TYPE, validators],
-        });
-    }
 }
