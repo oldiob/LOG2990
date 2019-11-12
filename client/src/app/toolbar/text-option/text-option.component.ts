@@ -3,7 +3,7 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { TextTool } from 'src/services/tool/tool-options/text';
 import { ToolService } from 'src/services/tool/tool.service';
-import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { WidthComponent } from '../subcomponent/width/width.component';
 import { TextFormat } from './text-format';
 
@@ -30,9 +30,6 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     private readonly FILE_LOCATION = '../../../../assets/images/';
     DEFAULT_SIZE = '15px';
-
-    @ViewChild(ShowcaseComponent, { static: true })
-    showcase: ShowcaseComponent;
 
     @ViewChild(WidthComponent, { static: true })
     widthComponent: WidthComponent;
@@ -89,6 +86,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             this.text.element.setFontSize(fontSize);
         }
+
+        ShowcaseSignal.emit();
     }
 
     selectFontFamily(fontFamily: string): void {
@@ -97,6 +96,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             this.text.element.setFontFamily(fontFamily);
         }
+
+        ShowcaseSignal.emit();
     }
 
     selectTextAlign(textAlign: string): void {
@@ -111,6 +112,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             this.text.element.setTextAlign(textAlign);
         }
+
+        ShowcaseSignal.emit();
     }
 
     disableAlign(): void {
@@ -129,6 +132,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
                 this.text.element.setFontWeight(TextFormat.NORMAL);
                 this.text.fontWeigth = TextFormat.NORMAL;
             }
+            ShowcaseSignal.emit();
         }
     }
 
@@ -142,6 +146,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
                 this.text.element.setFontStyle(TextFormat.NORMAL);
                 this.text.fontStyle = TextFormat.NORMAL;
             }
+            ShowcaseSignal.emit();
         }
     }
 }

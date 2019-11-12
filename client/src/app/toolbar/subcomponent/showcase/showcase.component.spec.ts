@@ -39,21 +39,11 @@ describe('ShowcaseComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should create the SVG object', () => {
-        // const tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
-        // component.display(tool);
-
-        // expect(tool.onPressed).toHaveBeenCalled();
-        // expect(tool.onMotion).toHaveBeenCalled();
-        // expect(tool.onReleased).toHaveBeenCalled();
-        // expect(svgService.addObject).toHaveBeenCalled();
-    });
-
     it('should return if service is undefined', () => {
         const tool = jasmine.createSpyObj('ITool', ['onPressed', 'onMotion', 'onReleased']);
 
         component.service = null;
-        component.display(tool);
+        component.display();
 
         expect(tool.onPressed).toHaveBeenCalledTimes(0);
         expect(tool.onMotion).toHaveBeenCalledTimes(0);

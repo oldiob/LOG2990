@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbsShapeTool, TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { EllipseTool } from 'src/services/tool/tool-options/ellipse';
@@ -8,7 +8,6 @@ import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
-import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 
 @Component({
     selector: 'app-shape-option',
@@ -25,9 +24,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         [this.ellipseTool, 'ellipse.png'],
         [this.polygonTool, 'polygon.png'],
     ]);
-
-    @ViewChild(ShowcaseComponent, { static: true })
-    showcase: ShowcaseComponent;
 
     tools: AbsShapeTool[];
     currentTool: AbsShapeTool;
