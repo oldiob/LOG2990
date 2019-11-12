@@ -67,7 +67,6 @@ export class SVGLine extends SVGAbstract {
         DOMRenderer.setAttribute(this.polyline,
             'points',
             this.anchors.map((point: number[]) => `${point[0]},${point[1]}`).join(' '));
-        console.log(this.polyline);
     }
 
     setWidth(width: number) {
