@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
+import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -141,12 +142,12 @@ export class SelectorTool implements ITool {
     }
 
     onKeydown(event: KeyboardEvent): boolean {
+        console.log(event);
         const kbd: { [id: string]: callback } = {
             'C-a': () => this.selectAll(),
-            'C-d': () => {
-                this.dupOffset = this.nextOffset(this.dupOffset);
-                CmdService.execute(new CmdDup(Array.from(this.selected), this.dupOffset));
-            },
+            'C-d': () => this.duplicate(),
+            delete: () => this.erase(),
+
         };
         let keys = '';
         if (event.ctrlKey) {
@@ -159,6 +160,20 @@ export class SelectorTool implements ITool {
             return true;
         }
         return false;
+    }
+
+    duplicate(): void {
+        this.dupOffset = this.nextOffset(this.dupOffset);
+        CmdService.execute(new CmdDup(Array.from(this.selected), this.dupOffset));
+    }
+
+    erase(): void {
+        const cmd: CmdEraser = new CmdEraser();
+        this.selected.forEach((obj) => {
+            cmd.eraseObject(obj);
+        });
+        CmdService.execute(cmd);
+        this.reset();
     }
 
     private setAnchor(x: number, y: number) {
