@@ -10,12 +10,12 @@ describe('ClipboardOptionComponent', () => {
     let component: ClipboardOptionComponent;
     let fixture: ComponentFixture<ClipboardOptionComponent>;
     let renderer: Renderer2;
-
-    const spyCLipboard = jasmine.createSpyObj('ClipboardService', ['copy', 'paste', 'cut']);
-    renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
-    DOMRenderer.renderer = renderer;
+    let spyClipboard: any;
 
     beforeEach(async(() => {
+        spyClipboard = jasmine.createSpyObj('ClipboardService', ['copy', 'paste', 'cut']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
+        DOMRenderer.renderer = renderer;
         TestBed.configureTestingModule({
             declarations: [ClipboardOptionComponent],
             imports: [MatDialogModule, MatSnackBarModule, HttpClientModule],
@@ -29,7 +29,7 @@ describe('ClipboardOptionComponent', () => {
         fixture = TestBed.createComponent(ClipboardOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        (component as any).clipboard = spyCLipboard;
+        (component as any).clipboard = spyClipboard;
     });
 
     it('should create', () => {

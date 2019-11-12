@@ -8,8 +8,8 @@ import { Drawing } from './i-drawing';
 export class DrawAreaService {
 
     isSaved: boolean;
-    constructor(
-        private webClientServer: WebClientService) {
+
+    constructor(private webClientServer: WebClientService) {
         this.isSaved = true;
     }
 
