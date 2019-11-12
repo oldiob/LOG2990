@@ -3,7 +3,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { MyInjector } from 'src/utils/injector';
 import {CmdEraser} from './cmd.eraser';
 
-fdescribe('cmdEraser', () => {
+describe('cmdEraser', () => {
     let cmdEraser: CmdEraser;
     let spyObj: any;
     let svgService: any;

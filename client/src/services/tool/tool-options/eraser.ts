@@ -78,13 +78,13 @@ export class EraserTool implements ITool {
         } else {
             for (const obj of this.objectsOnHold) {
                 if (obj !== null && obj.element) {
-                    DOMRenderer.appendChild(this.container, this.createFake(obj.element));
+                    DOMRenderer.appendChild(this.container, this.createFakeElement(obj.element));
                 }
             }
         }
     }
 
-    private createFake(fakeElement: any): any {
+    private createFakeElement(fakeElement: any): any {
         const filter = DOMRenderer.createElement('g', 'svg');
         DOMRenderer.setAttribute(filter, 'filter', 'url(#erase)');
         DOMRenderer.appendChild(filter, recreateElement(fakeElement));
