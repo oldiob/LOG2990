@@ -23,12 +23,24 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
 
     actions: ClipboardAction[];
 
-    constructor(private clipboard: ClipboardService,
-                private selector: SelectorTool) { }
+    isSelectorActive: boolean;
+
+    constructor(
+        private clipboard: ClipboardService,
+        private selector: SelectorTool) { }
 
     ngOnInit() {
-        this.setupActions();
+        this.isSelectorActive = false;
         this.tip = 'Clipboard';
+        this.setupActions();
+        this.subscribeSelector();
+    }
+
+    private subscribeSelector() {
+        this.selector.isSelectedObservable.subscribe((isSelected: boolean) => {
+            this.isSelectorActive = isSelected;
+            console.log(this.isSelectorActive);
+        });
     }
 
     private setupActions() {
