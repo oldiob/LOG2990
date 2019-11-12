@@ -9,13 +9,15 @@ import { exportImage, saveFile } from 'src/utils/filesystem';
     styleUrls: ['./export-option.component.scss'],
 })
 export class ExportOptionComponent implements OnInit {
-    option = 'svg';
+    tip = 'Export (Ctrl + E)';
+    selectedExport: string;
     exportForm: FormGroup;
-    selectExport: string[];
-    enable: boolean;
+    exportTypes: string[];
+    isEnabled: boolean;
     constructor(private formBuilder: FormBuilder, private svgService: SVGService) {
-        this.selectExport = ['svg', 'png', 'jpg', 'bmp'];
-        this.enable = false;
+        this.selectedExport = 'svg';
+        this.exportTypes = ['svg', 'png', 'jpg', 'bmp'];
+        this.isEnabled = false;
     }
 
     ngOnInit(): void {
@@ -23,50 +25,47 @@ export class ExportOptionComponent implements OnInit {
     }
 
     saveAsSVG(): void {
-        saveFile(this.exportForm.controls.name.value, this.svgService.entry.nativeElement.outerHTML, this.selectExport[0]);
+        saveFile(this.exportForm.controls.name.value, this.svgService.entry.nativeElement.outerHTML, this.exportTypes[0]);
     }
 
     saveAsPNG(): void {
-        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.selectExport[1]);
+        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.exportTypes[1]);
     }
 
     saveAsJPG(): void {
-        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.selectExport[2]);
+        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.exportTypes[2]);
     }
 
     saveAsBMP(): void {
-        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.selectExport[3]);
+        exportImage(this.exportForm.controls.name.value, this.svgService.entry, this.exportTypes[3]);
     }
 
     getNameErrorMessage() {
         return this.exportForm.controls.name.hasError('required') ? 'You must enter a name' : '';
     }
 
-    getExportErrorMessage() {
-        return this.exportForm.controls.export.hasError('required') ? 'You must select an export format' : '';
-    }
-
     checkButton(): void {
-        this.enable =  this.exportForm.valid;
+        this.isEnabled = this.exportForm.valid;
     }
 
     onClick(exportType: string) {
-        this.option = exportType;
+        this.checkButton();
+        this.selectedExport = exportType;
     }
 
     submit(): void {
         this.checkButton();
-        switch (this.option) {
-            case this.selectExport[0]:
+        switch (this.selectedExport) {
+            case this.exportTypes[0]:
                 this.saveAsSVG();
                 break;
-            case this.selectExport[1]:
+            case this.exportTypes[1]:
                 this.saveAsPNG();
                 break;
-            case this.selectExport[2]:
+            case this.exportTypes[2]:
                 this.saveAsJPG();
                 break;
-            case this.selectExport[3]:
+            case this.exportTypes[3]:
                 this.saveAsBMP();
                 break;
         }
@@ -74,14 +73,11 @@ export class ExportOptionComponent implements OnInit {
 
     private createExportForm(): void {
         const DEFAULT_NAME = 'Untitled';
-        const DEFAULT_EXPORT = this.selectExport[0];
         const validators = [Validators.required];
 
         this.exportForm = this.formBuilder.group({
             name: [DEFAULT_NAME, validators],
-            export: [DEFAULT_EXPORT, validators],
         });
         this.exportForm.controls.name.setValue(DEFAULT_NAME);
-        this.exportForm.controls.export.setValue(DEFAULT_EXPORT);
     }
 }

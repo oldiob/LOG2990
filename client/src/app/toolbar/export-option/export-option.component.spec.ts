@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,8 @@ describe('ExportOptionComponent', () => {
     let fixture: ComponentFixture<ExportOptionComponent>;
     let selectExportTest: string[];
     const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+    let formBuilder: FormBuilder;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -28,9 +30,18 @@ describe('ExportOptionComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ExportOptionComponent);
         component = fixture.componentInstance;
+        formBuilder = TestBed.get(FormBuilder);
         fixture.detectChanges();
+        (component as any).formbuilder = formBuilder;
         selectExportTest = ['svg', 'png', 'jpg', 'bmp'];
         (component as any).svgService.entry = entry;
+
+        const DEFAULT_NAME = 'Untitled';
+        const validators = [Validators.required];
+        component.exportForm = (component as any).formBuilder.group({
+            name: [DEFAULT_NAME, validators],
+        });
+        component.exportForm.controls.name.setValue(DEFAULT_NAME);
     });
 
     it('should create', () => {
@@ -46,84 +57,73 @@ describe('ExportOptionComponent', () => {
         expect(component.getNameErrorMessage()).toBe('');
     });
 
-    it('should not get export error message', () => {
-        expect(component.getExportErrorMessage()).toBe('');
-    });
-
     it('should get name error message', () => {
         component.exportForm.controls.name.setValue('');
         expect(component.getNameErrorMessage()).toBe('You must enter a name');
     });
 
-    it('should get export error message', () => {
-        component.exportForm.controls.export.setValue('');
-        expect(component.getExportErrorMessage()).toBe('You must select an export format');
-    });
-
     it('should return true if the form is valid', () => {
         component.checkButton();
-        expect(component.enable).toBeTruthy();
+        expect(component.isEnabled).toBeTruthy();
     });
 
     it('should return false if the form is not valid', () => {
         component.exportForm.controls.name.setValue('');
-        component.exportForm.controls.export.setValue('');
         component.checkButton();
-        expect(component.enable).toBeFalsy();
+        expect(component.isEnabled).toBeFalsy();
     });
 
     it('should on click select svg', () => {
-        component.onClick(component.selectExport[0]);
-        expect(component.selectExport[0]).toEqual(selectExportTest[0]);
+        component.onClick(component.exportTypes[0]);
+        expect(component.exportTypes[0]).toEqual(selectExportTest[0]);
     });
 
     it('should on click select png', () => {
-        component.onClick(component.selectExport[1]);
-        expect(component.selectExport[1]).toEqual(selectExportTest[1]);
+        component.onClick(component.exportTypes[1]);
+        expect(component.exportTypes[1]).toEqual(selectExportTest[1]);
     });
 
     it('should on click select jpg', () => {
-        component.onClick(component.selectExport[2]);
-        expect(component.selectExport[2]).toEqual(selectExportTest[2]);
+        component.onClick(component.exportTypes[2]);
+        expect(component.exportTypes[2]).toEqual(selectExportTest[2]);
     });
 
     it('should on click select bmp', () => {
-        component.onClick(component.selectExport[3]);
-        expect(component.selectExport[3]).toEqual(selectExportTest[3]);
+        component.onClick(component.exportTypes[3]);
+        expect(component.exportTypes[3]).toEqual(selectExportTest[3]);
     });
 
     it('should submit save as svg', () => {
         spyOn(component, 'saveAsSVG');
-        component.option = component.selectExport[0];
+        component.selectedExport = component.exportTypes[0];
         component.submit();
         expect(component.saveAsSVG).toHaveBeenCalled();
     });
 
     it('should submit save as png', () => {
         spyOn(component, 'saveAsPNG');
-        component.option = component.selectExport[1];
+        component.selectedExport = component.exportTypes[1];
         component.submit();
         expect(component.saveAsPNG).toHaveBeenCalled();
     });
 
     it('should submit save as jpg', () => {
         spyOn(component, 'saveAsJPG');
-        component.option = component.selectExport[2];
+        component.selectedExport = component.exportTypes[2];
         component.submit();
         expect(component.saveAsJPG).toHaveBeenCalled();
     });
 
     it('should submit save as bmp', () => {
         spyOn(component, 'saveAsBMP');
-        component.option = component.selectExport[3];
+        component.selectedExport = component.exportTypes[3];
         component.submit();
         expect(component.saveAsBMP).toHaveBeenCalled();
     });
 
-    it('should create a name and export form input', () => {
+    it('should create a name form input', () => {
         (component as any).createExportForm();
         expect(component.exportForm.contains('name')).toBeTruthy();
-        expect(component.exportForm.contains('export')).toBeTruthy();
     });
 
 });
