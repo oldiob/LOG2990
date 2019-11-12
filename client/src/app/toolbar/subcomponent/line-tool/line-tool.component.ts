@@ -28,7 +28,6 @@ export class LineToolComponent implements OnInit {
     onLineTypeChange(): void {
         const currentTool: ITool = this.toolService.currentTool;
         if (currentTool instanceof LineTool) {
-            console.log('LINE TYPE LOL', currentTool, this.lineForm.controls.lineType.value);
             currentTool.lineType = this.lineForm.controls.lineType.value;
             ShowcaseSignal.emit();
 

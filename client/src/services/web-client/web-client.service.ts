@@ -35,7 +35,6 @@ export class WebClientService {
     addTag(id: string, tag: string): void {
         this.http.post(`${this.CUSTOM_URL}/addtag`, { id, tag })
             .subscribe(
-                (res: Response) => console.log(res.body),
                 (error: HttpErrorResponse) => this.handleError(error),
             );
     }
@@ -46,7 +45,6 @@ export class WebClientService {
 
     deleteDrawing(drawing: Drawing): void {
         this.http.delete(`${this.CUSTOM_URL}/drawing/delete/${drawing._id}`).subscribe(
-            (response: Response) => console.log(response),
             (error: HttpErrorResponse) => this.handleError(error),
         );
     }
