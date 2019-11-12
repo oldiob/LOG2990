@@ -1,17 +1,20 @@
 import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule, MatDialogModule,
-         MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import { MatChipInputEvent, MatChipsModule,
+         MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { MyInjector } from 'src/utils/injector';
 import { SaveOptionComponent } from './save-option.component';
+// import { Drawing } from 'src/services/draw-area/i-drawing';
 
-describe('SaveOptionComponent', () => {
+fdescribe('SaveOptionComponent', () => {
     let component: SaveOptionComponent;
     let fixture: ComponentFixture<SaveOptionComponent>;
-
+    let workZoneService: WorkZoneService;
+    // const entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -28,6 +31,9 @@ describe('SaveOptionComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
+        workZoneService = jasmine.createSpyObj('WorkZoneService', ['getAsDrawing']);
+        (component as any).workZoneService = workZoneService;
+        component.ngOnInit();
     });
 
     it('should create', () => {
@@ -38,6 +44,16 @@ describe('SaveOptionComponent', () => {
         (component as any).createForm();
         expect(component.saveForm.controls.name.value).toEqual('Untitled');
         expect(component.saveForm.controls.tags.value).toEqual([]);
+    });
+
+    it('should add tag', () => {
+        const inputTest = (component as any).input as HTMLInputElement;
+        const valueTest = (component as any).value;
+        const event: MatChipInputEvent = {
+            input: inputTest,
+            value: valueTest,
+        };
+        component.add(event);
     });
 
     it('should remove tag', () => {
@@ -75,6 +91,17 @@ describe('SaveOptionComponent', () => {
         component.saveForm.controls.name.setValue('');
         expect(component.getTagsErrorMessage()).toBe('You must enter valid tags');
     });
+
+    // it('should on submit upload drawing', () => {
+    //     component.tags = ['test'];
+    //     (component as any).areFieldsValid();
+    //     // const drawingTest = (component as any).drawing;
+    //     const drawingTest: Drawing = (component as any).workZoneService.getAsDrawing();
+    //     // (component as any).workZoneService.getAsDrawing() = drawingTest;
+    //     drawingTest._id = workZoneService.getAsDrawing()._id;
+    //     component.onSubmit();
+    //     expect((component as any).drawing).toEqual(drawingTest);
+    // });
 
     it('should toggle to save locally', () => {
         component.toggleOnline();
