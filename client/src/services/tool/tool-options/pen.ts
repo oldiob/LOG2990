@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGPen } from 'src/services/svg/element/svg.pen';
-import { ITool} from './i-tool';
+import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PenTool implements ITool {
-    tip: string;
+    readonly tip: string;
     width?: number | undefined;
 
     element: SVGPen | null = null;
@@ -16,7 +16,7 @@ export class PenTool implements ITool {
     maxWidth = 25;
     constructor(private paletteService: PaletteService) {
         this.tip = 'Pen (Y)';
-     }
+    }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         if (this.element) {
