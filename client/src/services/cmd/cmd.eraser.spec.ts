@@ -3,11 +3,10 @@ import { async, TestBed } from '@angular/core/testing';
 import { MyInjector } from 'src/utils/injector';
 import {CmdEraser} from './cmd.eraser';
 
-describe('cmdEraser', () => {
+fdescribe('cmdEraser', () => {
     let cmdEraser: CmdEraser;
-    /*const spyObj = jasmine.createSpyObj('SVGAbstract', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
-                                                        'setPrimary', 'setSecondary', 'setWidth', 'addPoint',
-                                                        'pointsAttribute']);*/
+    let spyObj: any;
+    let svgService: any;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -18,38 +17,41 @@ describe('cmdEraser', () => {
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         cmdEraser = new CmdEraser();
+        spyObj = jasmine.createSpyObj('SVGAbstract', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
+                                                        'setPrimary', 'setSecondary', 'setWidth', 'addPoint',
+                                                        'pointsAttribute']);
+        svgService = jasmine.createSpyObj('SVGService', ['getPrimary', 'getSecondary', 'entry', 'addObject', 'removeObject']);
+        cmdEraser.svg = svgService;
       });
 
     it('should be created', () => {
       expect(cmdEraser).toBeTruthy();
     });
 
-    /*it ('should accomplish task correctly if parameter isnt null', () => {
-        //const obj = new SVGPencil();
-        cmdEraser.svg.addObject(spyObj);
+    it ('should accomplish task correctly if parameter isnt null', () => {
         cmdEraser.eraseObject(spyObj);
-        expect(cmdEraser.objs.length).toEqual(1);
-    });*/
+        expect(cmdEraser.objs).toBeTruthy();
+    });
 
-    it('execute should accomplish its task correctly if areEqual is false', () => {
+    it('execute put areEqual to true if areEqual is false', () => {
         cmdEraser.areErased = false;
         cmdEraser.execute();
         expect(cmdEraser.areErased).toEqual(true);
     });
 
-    it('execute should not do anything if areEqual is true', () => {
+    it('execute should change areEqual if areEqual is true', () => {
         cmdEraser.areErased = true;
         cmdEraser.execute();
         expect(cmdEraser.areErased).toEqual(true);
     });
 
-    it('undo should accomplish its task correctly if areEqual is true', () => {
+    it('undo should change areErased to false if areEqual is true', () => {
         cmdEraser.areErased = true;
         cmdEraser.undo();
         expect(cmdEraser.areErased).toEqual(false);
     });
 
-    it('undo should not do anything if areEqual is false', () => {
+    it('undo should not change areEqual if areEqual is false', () => {
         cmdEraser.areErased = false;
         cmdEraser.undo();
         expect(cmdEraser.areErased).toEqual(false);
