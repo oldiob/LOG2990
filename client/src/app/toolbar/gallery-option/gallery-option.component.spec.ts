@@ -9,7 +9,7 @@ import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WebClientService } from 'src/services/web-client/web-client.service';
 import { GalleryOptionComponent } from './gallery-option.component';
 
-describe('GalleryOptionComponent', () => {
+fdescribe('GalleryOptionComponent', () => {
   let component: GalleryOptionComponent;
   let fixture: ComponentFixture<GalleryOptionComponent>;
   let filterInput: ElementRef<HTMLInputElement>;
@@ -47,7 +47,7 @@ describe('GalleryOptionComponent', () => {
     component.filteredDrawings = filteredDrawings;
 
     fixture.detectChanges();
-    webClientService = jasmine.createSpyObj('WebClientService', ['deleteDrawing', 'getAllDrawings']);
+    webClientService = jasmine.createSpyObj('WebClientService', ['deleteDrawing', 'getAllDrawings', 'addTag']);
     (component as any).webClientService = webClientService;
     filterInput = jasmine.createSpyObj('ElementRef<HTMLInputElement>', ['nativeElement', 'entry']);
     component.filterInput = filterInput;
@@ -103,6 +103,50 @@ describe('GalleryOptionComponent', () => {
     component.page = 1;
     component.nextPage();
     expect(component.page).toEqual(component.nPages );
+  });
+
+  it('should filter the page when endPage ends up lower then the lenght of filteredDrawings', () => {
+    for (let i = 0; i < 9; i++) {
+      const tempDrawing = new Drawing();
+      component.filteredDrawings.push(tempDrawing);
+    }
+    component.page = 1;
+    component.filterPage();
+    expect(component.beginPage).toEqual(0);
+    expect(component.endPage).toEqual(8);
+
+  });
+
+  it('should filter the page when endPage ends up greater then the lenght of filteredDrawings', () => {
+    for (let i = 0; i < 9; i++) {
+      const tempDrawing = new Drawing();
+      component.filteredDrawings.push(tempDrawing);
+    }
+    component.page = 2;
+    component.filterPage();
+    expect(component.endPage).toEqual(filteredDrawings.length);
+
+  });
+
+  it('onAddTag should return right away from addTag if drawing parameter has no id', () => {
+    const tempDrawing = new Drawing();
+    tempDrawing._id = null;
+    const tempString = '';
+    component.onAddTag(tempDrawing);
+    expect(component.tagInput).toEqual(tempString);
+  });
+
+  it('onAddTag should call webClientService.addTag if drawing parameter has an id', () => {
+    const tempDrawing = new Drawing();
+    tempDrawing._id = '4';
+    component.onAddTag(tempDrawing);
+    expect(webClientService.addTag).toHaveBeenCalled();
+  });
+
+  it('load page should call subscribe', () => {
+    component.page = 1;
+    component.load();
+    expect(component.page).toEqual(1);
   });
 
 });
