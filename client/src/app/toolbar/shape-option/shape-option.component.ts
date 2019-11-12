@@ -7,8 +7,8 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
-import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
+import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 
 @Component({
     selector: 'app-shape-option',

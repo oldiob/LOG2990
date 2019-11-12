@@ -27,15 +27,12 @@ export class StampTool implements ITool {
         this.angle = this.MIN_ANGLE;
         this.currentPath = '';
         this.tip = 'Stamp';
+        this.angle = 0;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        let cmd: CmdSVG | null = null;
-        if (!this.element) {
-            this.element = new SVGStamp(event.svgX, event.svgY, this.width, this.stampTexture, this.angle, this.currentPath);
-            cmd = new CmdSVG(this.element);
-        }
-        return cmd;
+        this.element = new SVGStamp(event.svgX, event.svgY, this.width, this.stampTexture, this.angle, this.currentPath);
+        return new CmdSVG(this.element);
     }
 
     onReleased(event: MouseEvent): void {
