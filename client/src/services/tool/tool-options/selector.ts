@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
@@ -56,6 +57,9 @@ export class SelectorTool implements ITool {
 
     policy = false;
 
+    private isSelected: boolean;
+    private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
+
     constructor(private svg: SVGService) {
         this.tip = 'Selector (S)';
 
@@ -83,6 +87,14 @@ export class SelectorTool implements ITool {
             this.points[i] = point;
         }
 
+    }
+
+    get isSelectedObservable(): Observable<boolean> {
+        return this.isSelectedSubject.asObservable();
+    }
+
+    private nextIsSelected(): void {
+        this.isSelectedSubject.next(this.isSelected);
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
@@ -379,6 +391,9 @@ export class SelectorTool implements ITool {
         }
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
+
+        this.isSelected = Boolean(this.selected.size);
+        this.nextIsSelected();
     }
 
     selectAll() {
@@ -386,6 +401,9 @@ export class SelectorTool implements ITool {
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
         this.state = State.selected;
+
+        this.isSelected = true;
+        this.nextIsSelected();
     }
 
     reset() {
@@ -395,5 +413,8 @@ export class SelectorTool implements ITool {
         this.svg.removeElement(this.previewElement);
         this.state = State.idle;
         this.dupOffset = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
+
+        this.isSelected = false;
+        this.nextIsSelected();
     }
 }
