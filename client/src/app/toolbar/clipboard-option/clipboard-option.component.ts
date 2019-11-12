@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { SelectorTool } from 'src/services/tool/tool-options/selector';
 
 interface ClipboardAction {
     tip: string;
@@ -22,7 +23,8 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
 
     actions: ClipboardAction[];
 
-    constructor(private clipboard: ClipboardService) { }
+    constructor(private clipboard: ClipboardService,
+                private selector: SelectorTool) { }
 
     ngOnInit() {
         this.setupActions();
@@ -49,17 +51,17 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
             {
                 tip: 'Duplicate (Ctrl + D)',
                 icon: this.FILE_LOCATION + 'clipboard/duplicate.png',
-                action: () => { /* To be implemented*/ },
+                action: () => { this.selector.duplicate(); },
             },
             {
                 tip: 'Delete (Delete)',
                 icon: this.FILE_LOCATION + 'clipboard/delete.png',
-                action: () => { /* To be implemented*/ },
+                action: () => { this.selector.erase(); },
             },
             {
                 tip: 'Select-All (Ctrl + A)',
                 icon: this.FILE_LOCATION + 'clipboard/select-all.png',
-                action: () => { /* To be implemented*/ },
+                action: () => { this.selector.selectAll(); },
             },
         ];
     }
