@@ -17,11 +17,11 @@ import { PenTool } from 'src/services/tool/tool-options/pen';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
-import { AngleComponent } from '../subcomponent/angle/angle.component';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { JunctionComponent } from '../junction-width/junction-width.component';
+import { AngleComponent } from '../subcomponent/angle/angle.component';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { WidthComponent } from '../subcomponent/width/width.component';
-import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-tool-option',
