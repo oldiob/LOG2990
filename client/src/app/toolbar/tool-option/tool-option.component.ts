@@ -79,12 +79,12 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     constructor(
         private toolService: ToolService,
         private formBuilder: FormBuilder,
-        public pencil: PencilTool,
-        public brush: BrushTool,
-        public line: LineTool,
-        public stamp: StampTool,
-        public pen: PenTool,
-        public eraser: EraserTool) {
+        private pencil: PencilTool,
+        private brush: BrushTool,
+        private line: LineTool,
+        private stamp: StampTool,
+        private pen: PenTool,
+        private eraser: EraserTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
         this.stamps = [new EmojiStamp()];
 
@@ -106,7 +106,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [pencil, brush, line, stamp, pen, eraser];
+        this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.eraser];
         this.currentTool = this.tools[0];
     }
 

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { GridService } from 'src/services/grid/grid.service';
 import { ITool } from './i-tool';
 
 @Injectable({
@@ -8,7 +7,7 @@ import { ITool } from './i-tool';
 export class GridTool implements ITool {
 
     readonly tip: string;
-    constructor(public grid: GridService) {
+    constructor() {
         this.tip = 'Grid (G)';
      }
 

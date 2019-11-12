@@ -55,7 +55,7 @@ export class SelectorTool implements ITool {
 
     policy = false;
 
-    constructor(public svg: SVGService) {
+    constructor(private svg: SVGService) {
         this.tip = 'Selector (S)';
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
