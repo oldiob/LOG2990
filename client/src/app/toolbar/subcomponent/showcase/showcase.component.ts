@@ -1,12 +1,12 @@
 import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
-import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
-import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
+import { ToolService } from 'src/services/tool/tool.service';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-showcase',
@@ -28,8 +28,6 @@ export class ShowcaseComponent implements OnInit {
 
     readonly STEP = 0.5;
 
-    private currentTool: ITool;
-
     @ViewChild('svgContainer', { static: true })
     entry: ElementRef;
 
@@ -38,12 +36,11 @@ export class ShowcaseComponent implements OnInit {
 
     fakeInjector: Injector;
 
-    constructor(palette: PaletteService) {
+    constructor(private toolService: ToolService) {
         this.mouseEvent = new MouseEvent('', undefined);
         this.service = null;
 
-        palette.primaryObs$.subscribe((color: Color) => this.displayCurrent());
-        palette.secondaryObs$.subscribe((color: Color) => this.displayCurrent());
+        ShowcaseSignal.observable.subscribe(() => this.display());
     }
 
     ngOnInit() {
@@ -58,13 +55,7 @@ export class ShowcaseComponent implements OnInit {
         this.fakeInjector = new CustomInjector(this.service);
     }
 
-    private displayCurrent() {
-        if (this.currentTool) {
-            this.display(this.currentTool);
-        }
-    }
-
-    display(tool: ITool) {
+    display() {
         if (this.service == null) {
             return;
         }
@@ -72,15 +63,13 @@ export class ShowcaseComponent implements OnInit {
         const realInjector = MyInjector.injector;
         MyInjector.injector = this.fakeInjector;
 
-        this.currentTool = tool;
-
         let actionMade: CmdInterface | null = null;
 
         this.service.clearObjects();
-        if (tool.onShowcase) {
-            actionMade = tool.onShowcase(this.WIDTH, this.HEIGHT);
+        if (this.toolService.currentTool.onShowcase) {
+            actionMade = this.toolService.currentTool.onShowcase(this.WIDTH, this.HEIGHT);
         } else {
-            actionMade = this.sinShowcase(tool);
+            actionMade = this.sinShowcase(this.toolService.currentTool);
         }
 
         if (actionMade !== null) {

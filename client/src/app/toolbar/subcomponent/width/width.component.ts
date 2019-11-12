@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'app-width',
     templateUrl: './width.component.html',
-    styleUrls: ['./width.component.scss', '../toolbar-option.scss'],
+    styleUrls: ['./width.component.scss', '../../toolbar-option.scss'],
 })
 export class WidthComponent implements OnInit {
     readonly MAX_WIDTH: number = 25.0;
@@ -17,7 +17,7 @@ export class WidthComponent implements OnInit {
     @Output()
     widthEmmiter: EventEmitter<number> = new EventEmitter<number>();
 
-    constructor() {
+    constructor(private current: ElementRef) {
         this.mWidth = 5.0;
     }
 
@@ -31,6 +31,7 @@ export class WidthComponent implements OnInit {
 
     @Input()
     set width(width: number) {
+        console.log(this.current.nativeElement.offsetParent);
         if (width <= this.MAX_WIDTH && width >= this.MIN_WIDTH ) {
             this.mWidth = width;
         }
