@@ -42,9 +42,8 @@
     </div>
 </div>
 
-<div *ngIf="currentTool === stamp" class="separation">
-    <app-angle [angle]="currentTool.angle" (angleEmmiter)="setAngle($event)"></app-angle>
-</div>
+<app-angle *ngIf="currentTool === stamp" class="separation"></app-angle>
+
 <div *ngIf="currentTool === stamp" class="separation">
     <div class="text">Stamp</div>
     <div class="toolsEmo">

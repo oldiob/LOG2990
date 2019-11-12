@@ -55,7 +55,6 @@ describe('ShapeOptionComponent', () => {
     it('should select rectangle tool and expect showcase to display', () => {
         component.selectTool(component.currentTool);
         component.currentTool = component.tools[0];
-        component.showcase.display(component.currentTool);
         expect(showcase.display).toHaveBeenCalled();
     });
 

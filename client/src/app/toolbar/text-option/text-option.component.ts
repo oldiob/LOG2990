@@ -78,7 +78,6 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-        this.showcase.display(this.currentTool);
     }
 
     getFilesource(tool: ITool): string {

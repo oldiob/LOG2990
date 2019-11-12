@@ -8,6 +8,7 @@ import { PolygonTool } from 'src/services/tool/tool-options/polygon';
 import { RectangleTool } from 'src/services/tool/tool-options/rectangle';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-shape-option',
@@ -45,7 +46,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [this.rectangleTool, this.ellipseTool, this.polygonTool];
         this.currentTool = this.tools[0];
         this.createForm();
-        this.updateShowcase();
+        ShowcaseSignal.emit();
     }
 
     select() {
@@ -60,7 +61,6 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
 
-        this.updateShowcase();
         if (this.currentTool instanceof PolygonTool) {
             this.isPolygon = true;
         } else {
@@ -85,17 +85,13 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     setWidth(width: number): void {
         if (this.currentTool.width !== null) {
             this.currentTool.width = width;
-            this.updateShowcase();
+            ShowcaseSignal.emit();
         }
     }
 
     onTraceTypeChange(): void {
         this.currentTool.traceType = this.shapeForm.controls.traceType.value;
 
-        this.updateShowcase();
-    }
-
-    updateShowcase(): void {
-        this.showcase.display(this.currentTool);
+        ShowcaseSignal.emit();
     }
 }
