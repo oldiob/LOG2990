@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Color } from 'src/utils/color';
 import { RingBuffer } from 'src/utils/ring-buffer';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Injectable({
     providedIn: 'root',
@@ -64,12 +65,16 @@ export class PaletteService {
         const previous: Color = this.primary;
         this.primary = new Color(r, g, b, a);
         this.previous.add(previous);
+
+        ShowcaseSignal.emit();
     }
 
     selectSecondary(r: number, g: number, b: number, a: number) {
         const previous: Color = this.secondary;
         this.secondary = new Color(r, g, b, a);
         this.previous.add(previous);
+
+        ShowcaseSignal.emit();
     }
 
     getPrimary(): string {
