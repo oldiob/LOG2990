@@ -9,7 +9,7 @@ import { Drawing } from 'src/services/draw-area/i-drawing';
 import { WebClientService } from 'src/services/web-client/web-client.service';
 import { GalleryOptionComponent } from './gallery-option.component';
 
-fdescribe('GalleryOptionComponent', () => {
+describe('GalleryOptionComponent', () => {
   let component: GalleryOptionComponent;
   let fixture: ComponentFixture<GalleryOptionComponent>;
   let filterInput: ElementRef<HTMLInputElement>;
@@ -141,12 +141,6 @@ fdescribe('GalleryOptionComponent', () => {
     tempDrawing._id = '4';
     component.onAddTag(tempDrawing);
     expect(webClientService.addTag).toHaveBeenCalled();
-  });
-
-  it('load page should call subscribe', () => {
-    component.page = 1;
-    component.load();
-    expect(component.page).toEqual(1);
   });
 
 });
