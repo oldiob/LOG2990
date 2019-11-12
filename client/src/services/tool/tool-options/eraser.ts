@@ -14,7 +14,7 @@ export class EraserTool implements ITool {
 
     readonly tip: string;
 
-    private activated: boolean;
+    private isActivated: boolean;
     private mWidth: number;
 
     private container: any | null;
@@ -27,7 +27,7 @@ export class EraserTool implements ITool {
     constructor(private svgService: SVGService) {
         this.surroundingRectangle = null;
 
-        this.activated = false;
+        this.isActivated = false;
         this.width = 64;
         this.tip = 'Eraser (E)';
 
@@ -50,7 +50,7 @@ export class EraserTool implements ITool {
     onPressed(event: MouseEvent): CmdEraser {
         this.cmd = new CmdEraser();
 
-        this.activated = true;
+        this.isActivated = true;
         this.deleteAll();
         this.flushContainer();
 
@@ -58,7 +58,7 @@ export class EraserTool implements ITool {
     }
 
     onReleased(event: MouseEvent): void {
-        this.activated = false;
+        this.isActivated = false;
     }
 
     onMotion(event: MouseEvent): void {
@@ -73,7 +73,7 @@ export class EraserTool implements ITool {
         this.flushContainer();
         this.objectsOnHold = this.svgService.inRectangle(x, y, this.width, this.width);
 
-        if (this.activated) {
+        if (this.isActivated) {
             this.deleteAll();
         } else {
             for (const obj of this.objectsOnHold) {

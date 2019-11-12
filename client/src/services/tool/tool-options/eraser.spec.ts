@@ -42,19 +42,19 @@ describe('EraserTool', () => {
 
     it('OnPressed should equal to a new CmdEraser', () => {
         const tempCmd = new CmdEraser();
-        (eraser as any).activated = false;
+        (eraser as any).isActivated = false;
         eraser.onPressed(event);
         expect(eraser.onPressed(event)).toEqual(tempCmd);
     });
 
-    it('On release should turn activated to false', () => {
-        (eraser as any).activated = true;
+    it('On release should turn isActivated to false', () => {
+        (eraser as any).isActivated = true;
         eraser.onReleased(event);
-        expect((eraser as any).activated).toEqual(false);
+        expect((eraser as any).isActivated).toEqual(false);
     });
 
-    it('On motion should call deleteAll if activated is equal to true', () => {
-        (eraser as any).activated = true;
+    it('On motion should call deleteAll if isActivated is equal to true', () => {
+        (eraser as any).isActivated = true;
         eraser.onMotion(event);
         expect((eraser as any).objectsOnHold.length).toBeUndefined();
     });
