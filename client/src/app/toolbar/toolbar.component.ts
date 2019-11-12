@@ -47,7 +47,7 @@ export class ToolbarComponent implements OnInit {
     textOption: TextOptionComponent;
 
     @ViewChild(ClipboardOptionComponent, { static: true })
-    clipboardOption: TextOptionComponent;
+    clipboardOption: ClipboardOptionComponent;
 
     options: IOption<any>[];
 
@@ -57,6 +57,7 @@ export class ToolbarComponent implements OnInit {
 
     isEmptyUndos: boolean;
     isEmptyRedos: boolean;
+    component: ClipboardOptionComponent;
 
     constructor(
         public dialogService: DialogService,

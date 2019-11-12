@@ -7,6 +7,7 @@ import {
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
 import { DrawAreaService } from 'src/services/draw-area/draw-area.service';
@@ -14,6 +15,7 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
+import { ClipboardOptionComponent } from './clipboard-option/clipboard-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
@@ -35,12 +37,15 @@ describe('ToolbarComponent', () => {
     let selectorOption: SelectorOptionComponent;
     let textOption: TextOptionComponent;
     let gridOption: GridOptionComponent;
+    let clipboardOption: ClipboardOptionComponent;
+    let clipboardService: ClipboardService;
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
 
     dialogService = jasmine.createSpyObj('DialogService', ['openDialog', 'closeColorForms']);
     drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
+    clipboardService = jasmine.createSpyObj('ClipboardService', ['copy', 'paste', 'cut']);
 
     beforeEach(async(() => {
         TestBed.overrideModule(BrowserDynamicTestingModule, {
@@ -59,10 +64,11 @@ describe('ToolbarComponent', () => {
                 MatOptionModule, MatFormFieldModule, MatSnackBarModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
-                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
+                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent, ClipboardOptionComponent],
             providers: [
                 { provide: DrawAreaService, useValue: drawareaService },
                 { provide: DialogService, useValue: dialogService },
+                { provide: ClipboardService, useValue: clipboardService },
                 { provide: MatDialogRef }],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
@@ -78,6 +84,7 @@ describe('ToolbarComponent', () => {
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         selectorOption = jasmine.createSpyObj('SelectorOptionComponent', ['selectTool', 'tools']);
+        clipboardOption = jasmine.createSpyObj('ClipboardOptionComponent', ['select', 'getImage']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
         options = jasmine.createSpyObj('IOption<any>[]', ['images', 'select', 'getImage']);
         fixture = TestBed.createComponent(ToolbarComponent);
@@ -95,6 +102,7 @@ describe('ToolbarComponent', () => {
         component.bucketOption.currentTool = bucketOption.currentTool;
         component.selectorOption = selectorOption;
         component.textOption = textOption;
+        component.clipboardOption = clipboardOption;
         component.ngOnInit();
     });
 

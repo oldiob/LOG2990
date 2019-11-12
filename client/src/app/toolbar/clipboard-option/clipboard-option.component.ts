@@ -3,14 +3,6 @@ import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 
-enum Actions {
-    Copy = 0,
-    Paste = 1,
-    Cut = 2,
-    Duplicate = 3,
-    Delete = 4,
-}
-
 interface ClipboardAction {
     tip: string;
     icon: string;
@@ -25,47 +17,51 @@ interface ClipboardAction {
 export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    tip = 'Clipboard';
-    images = new Map<ITool, string>([]);
-    Actions = Actions;
+    tip: string;
+    images: Map<ITool, string>;
 
-    actions: ClipboardAction[] = [
-        {
-            tip: 'Copy (Ctrl + C)',
-            icon: this.FILE_LOCATION + 'clipboard/copy.png',
-            action: () => { this.clipboard.copy(); },
-        },
-        {
-            tip: 'Paste (Ctrl + V)',
-            icon: this.FILE_LOCATION + 'clipboard/paste.png',
-            action: () => { this.clipboard.paste(); },
-        },
-        {
-            tip: 'Cut (Ctrl + X)',
-            icon: this.FILE_LOCATION + 'clipboard/cut.png',
-            action: () => { this.clipboard.cut(); },
-        },
-        {
-            tip: 'Duplicate (Ctrl + D)',
-            icon: this.FILE_LOCATION + 'clipboard/duplicate.png',
-            action: () => { /* To be implemented */ },
-        },
-        {
-            tip: 'Delete (Delete)',
-            icon: this.FILE_LOCATION + 'clipboard/delete.png',
-            action: () => { /* To be implemented */ },
-        },
-        {
-            tip: 'Select-All (Ctrl + A)', icon:
-            this.FILE_LOCATION + 'clipboard/select-all.png',
-            action: () => { /* To be implemented */ },
-        },
-    ];
+    actions: ClipboardAction[];
 
     constructor(private clipboard: ClipboardService) { }
 
     ngOnInit() {
-        //
+        this.setupActions();
+        this.tip = 'Clipboard';
+    }
+
+    private setupActions() {
+        this.actions = [
+            {
+                tip: 'Copy (Ctrl + C)',
+                icon: this.FILE_LOCATION + 'clipboard/copy.png',
+                action: () => { this.clipboard.copy(); },
+            },
+            {
+                tip: 'Paste (Ctrl + V)',
+                icon: this.FILE_LOCATION + 'clipboard/paste.png',
+                action: () => { this.clipboard.paste(); },
+            },
+            {
+                tip: 'Cut (Ctrl + X)',
+                icon: this.FILE_LOCATION + 'clipboard/cut.png',
+                action: () => { this.clipboard.cut(); },
+            },
+            {
+                tip: 'Duplicate (Ctrl + D)',
+                icon: this.FILE_LOCATION + 'clipboard/duplicate.png',
+                action: () => { /* To be implemented*/ },
+            },
+            {
+                tip: 'Delete (Delete)',
+                icon: this.FILE_LOCATION + 'clipboard/delete.png',
+                action: () => { /* To be implemented*/ },
+            },
+            {
+                tip: 'Select-All (Ctrl + A)',
+                icon: this.FILE_LOCATION + 'clipboard/select-all.png',
+                action: () => { /* To be implemented*/ },
+            },
+        ];
     }
 
     select() {

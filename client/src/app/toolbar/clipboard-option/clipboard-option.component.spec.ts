@@ -1,25 +1,38 @@
+import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { ClipboardService } from 'src/services/clipboard/clipboard.service';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { ClipboardOptionComponent } from './clipboard-option.component';
 
 describe('ClipboardOptionComponent', () => {
-  let component: ClipboardOptionComponent;
-  let fixture: ComponentFixture<ClipboardOptionComponent>;
+    let component: ClipboardOptionComponent;
+    let fixture: ComponentFixture<ClipboardOptionComponent>;
+    let renderer: Renderer2;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ClipboardOptionComponent ],
-    })
-    .compileComponents();
-  }));
+    const spyCLipboard = jasmine.createSpyObj('ClipboardService', ['copy', 'paste', 'cut']);
+    renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
+    DOMRenderer.renderer = renderer;
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ClipboardOptionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ClipboardOptionComponent],
+            imports: [MatDialogModule, MatSnackBarModule, HttpClientModule],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+            providers: [ClipboardService],
+        })
+            .compileComponents();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ClipboardOptionComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        (component as any).clipboard = spyCLipboard;
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
