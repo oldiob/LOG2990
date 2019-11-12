@@ -28,8 +28,8 @@
       <label>
         <span class="field-label">Background Color</span>
         <mat-form-field color="accent" class="field">
-          <input maxlength="7" matInput type="text" formControlName="backgroundColorHEX" (change)="onColorHEXChange()"
-            value="{{DEFAULT_BACKGROUND_HEX}}" autocomplete=off>
+          <input maxlength="7" matInput type="text" formControlName="hex" (change)="onColorHEXChange()"
+            value="{{DEFAULT_HEX}}" autocomplete=off>
         </mat-form-field>
         <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor.toRGBA()}"></div>
       </label>
@@ -59,7 +59,7 @@
       </label>
 
 
-      <color-picker *ngIf="isShowColorPicker" (color)="onColorPick($event)"></color-picker>
+      <color-picker *ngIf="isColorPickerShown" (color)="onColorPick($event)"></color-picker>
 
 
       <div class="color-palette">
@@ -77,7 +77,7 @@
           </div>
         </div>
       </div>
-      <mat-error *ngIf="!isSavedDrawing">{{getSaveErrorMessage()}}
+      <mat-error *ngIf="!isDrawingSaved">{{getSaveErrorMessage()}}
         <mat-checkbox class="override-drawing" formControlName="isOverrideOldDrawing">Yes</mat-checkbox>
 
       </mat-error>

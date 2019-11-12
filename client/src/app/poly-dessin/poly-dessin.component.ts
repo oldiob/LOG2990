@@ -11,15 +11,15 @@ export class PolyDessinComponent implements OnInit {
 
     constructor(private dialogService: DialogService) { }
 
-    isShowWelcome: boolean;
+    isWelcomeShown: boolean;
 
     ngOnInit() {
-        const IS_HIDDEN_WELCOME = 'false';
+        const IS_WELCOME_HIDDEN = 'false';
         const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
 
-        this.isShowWelcome =
-            (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_HIDDEN_WELCOME);
-        if (this.isShowWelcome) {
+        this.isWelcomeShown =
+            (!sessionStorage.getItem(WELCOME_DIALOG_COOKIE) || sessionStorage.getItem(WELCOME_DIALOG_COOKIE) === IS_WELCOME_HIDDEN);
+        if (this.isWelcomeShown) {
             this.dialogService.openEntryPoint(WELCOME_DIALOG_COOKIE);
 
             this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {

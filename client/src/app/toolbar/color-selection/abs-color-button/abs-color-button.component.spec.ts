@@ -83,7 +83,7 @@ describe('AbsColorButton', () => {
         expect(component.hideForm).toHaveBeenCalled();
     });
 
-    it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
+    it('#toggleForm should toggle form, emit isSettingsShown and update color history', () => {
         component.isSettingsShown = true;
         spyOn(component.open, 'emit');
 
@@ -94,7 +94,7 @@ describe('AbsColorButton', () => {
         expect(component.colorsHistory).toEqual(service.getHistory());
     });
 
-    it('#hideForm should put isShowForm to false', () => {
+    it('#hideForm should put isSettingsShown to false', () => {
         component.isSettingsShown = true;
         component.hideForm();
         expect(component.isSettingsShown).toBeFalsy();

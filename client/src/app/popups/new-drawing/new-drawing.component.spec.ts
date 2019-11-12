@@ -59,20 +59,20 @@ describe('NewDrawingComponent', () => {
     it('#createForm should create a width, height and background color form input', () => {
         expect(component.newDrawingFrom.contains('width')).toBeTruthy();
         expect(component.newDrawingFrom.contains('height')).toBeTruthy();
-        expect(component.newDrawingFrom.contains('backgroundColorHEX')).toBeTruthy();
+        expect(component.newDrawingFrom.contains('hex')).toBeTruthy();
     });
 
     it('should get width, height and background form input values', () => {
         expect(component.width).toEqual(component.newDrawingFrom.controls.width.value);
         expect(component.height).toEqual(component.newDrawingFrom.controls.height.value);
-        expect(component.backgroundColorHEX).toEqual(component.newDrawingFrom.controls.backgroundColorHEX.value);
+        expect(component.hex).toEqual(component.newDrawingFrom.controls.hex.value);
     });
 
     it('should change background color form control', () => {
         const backgroundColor = new Color(255, 255, 255, 1);
         component.chooseBackgroundColor(backgroundColor);
         expect(component.backgroundColor).toBe(backgroundColor);
-        expect(component.backgroundColorHEX).toBe(backgroundColor.toHex());
+        expect(component.hex).toBe(backgroundColor.toHex());
     });
 
     it('should fetch default dimensions from work zone service and update its default dimensions', () => {
@@ -129,7 +129,7 @@ describe('NewDrawingComponent', () => {
 
     it('should be true if it shows color picker', () => {
         component.showColorPicker();
-        expect(component.isShowColorPicker).toBe(true);
+        expect(component.isColorPickerShown).toBe(true);
     });
 
     it('should be true if it shows color picker', () => {
