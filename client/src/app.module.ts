@@ -26,6 +26,7 @@ import { NewDrawingComponent } from './app/popups/new-drawing/new-drawing.compon
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { AngleComponent } from './app/toolbar/angle/angle.component';
 import { BucketOptionComponent } from './app/toolbar/bucket-option/bucket-option.component';
+import { ClipboardOptionComponent } from './app/toolbar/clipboard-option/clipboard-option.component';
 import { BackgroundButtonComponent } from './app/toolbar/color-selection/background-button/background-button.component';
 import { ColorSelectionComponent } from './app/toolbar/color-selection/color-selection.component';
 import { PaletteButtonComponent } from './app/toolbar/color-selection/palette-button/palette-button.component';
@@ -75,6 +76,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         BackgroundButtonComponent,
         ImportOptionComponent,
         ExportOptionComponent,
+        ClipboardOptionComponent,
     ],
     imports: [
         BrowserModule,

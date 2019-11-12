@@ -1,0 +1,17 @@
+<app-color-selection></app-color-selection>
+
+<div class="separation">
+    <div class="clipboard">
+        <div class="clipboard-action" *ngFor="let action of actions">
+            <button class="clipboard-button"
+                color="primary"
+                mat-raised-button
+                matTooltip={{action.tip}}
+                matTooltipClass="tooltip"
+                matTooltipPosition="below"
+                (click)="action.action()">
+                <img class="icon" src="{{action.icon}}" alt="clipboard icon">
+            </button>
+        </div>
+    </div>
+</div>
