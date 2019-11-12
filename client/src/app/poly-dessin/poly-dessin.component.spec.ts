@@ -43,7 +43,7 @@ describe('PolyDessinComponent', () => {
 
     it('should open the dialog if it closed the entry dialog', () => {
         spyOn(dialogService, 'openEntryPoint').and.callFake(() => { return; });
-        component.isShowWelcome = true;
+        component.isWelcomeShown = true;
         component.ngOnInit();
         expect(dialogService.openEntryPoint).toHaveBeenCalled();
     });

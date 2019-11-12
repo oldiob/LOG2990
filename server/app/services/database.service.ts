@@ -9,7 +9,6 @@ export class DataBaseService {
     private mongo: MongoClient;
     private db: Db;
 
-    // connect database with MongoDB Compass Community
     async connectDB(): Promise<MongoClient> {
         if (this.mongo !== undefined) { return this.mongo; }
         this.mongo = await MongoClient.connect(DB_URL, {
@@ -34,7 +33,6 @@ export class DataBaseService {
 
         return new Promise<Drawing[]>((
             resolve: (value?: Drawing[] | PromiseLike<Drawing[]> | undefined) => void,
-            // tslint:disable-next-line:no-any
             reject: (reason?: any) => void) => {
 
             this.db.collection('Drawing').find().toArray((err: MongoError, result: Drawing[]) => {
