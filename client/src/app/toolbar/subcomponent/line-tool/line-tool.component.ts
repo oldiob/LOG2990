@@ -12,6 +12,9 @@ import { ShowcaseSignal } from 'src/utils/showcase-signal';
 })
 export class LineToolComponent implements OnInit {
 
+    LineType = LineType;
+    JunctionType = JunctionType;
+
     lineForm: FormGroup;
     junctionForm: FormGroup;
 
@@ -25,6 +28,7 @@ export class LineToolComponent implements OnInit {
     onLineTypeChange(): void {
         const currentTool: ITool = this.toolService.currentTool;
         if (currentTool instanceof LineTool) {
+            console.log('LINE TYPE LOL', currentTool, this.lineForm.controls.lineType.value);
             currentTool.lineType = this.lineForm.controls.lineType.value;
             ShowcaseSignal.emit();
 
@@ -35,6 +39,14 @@ export class LineToolComponent implements OnInit {
         const currentTool: ITool = this.toolService.currentTool;
         if (currentTool instanceof LineTool) {
             currentTool.junctionType = this.junctionForm.controls.junctionType.value;
+            ShowcaseSignal.emit();
+        }
+    }
+
+    setJunctionWidth(width: number): void {
+        const currentTool: ITool = this.toolService.currentTool;
+        if (currentTool instanceof LineTool) {
+            currentTool.junctionWidth = width;
             ShowcaseSignal.emit();
         }
     }

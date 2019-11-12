@@ -1,5 +1,4 @@
-<form class="form" [formGroup]="lineForm" (ngSubmit)="onSubmit()">
-
+<form class="form" [formGroup]="lineForm">
     <mat-form-field color="accent">
         <mat-label class="trace-label">Pattern Type</mat-label>
         <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType">
@@ -15,7 +14,7 @@
         </mat-select>
     </mat-form-field>
 </form>
-<form class="form" [formGroup]="junctionForm" (ngSubmit)="onSubmit()">
+<form class="form" [formGroup]="junctionForm">
     <mat-form-field color="accent">
         <mat-label class="trace-label">Junction Type</mat-label>
         <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel" formControlName="junctionType">
@@ -31,3 +30,7 @@
         </mat-select>
     </mat-form-field>
 </form>
+<div *ngIf="toolService.currentTool.junctionType === 2" class="separation">
+    <app-junction [junctionWidth]="toolService.currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)">
+    </app-junction>
+</div>

@@ -28,10 +28,6 @@
     <app-width [title]="'Max Width'" [width]="currentTool.maxWidth" (widthEmmiter)="setMaxWidth($event)"></app-width>
 </div>
 
-<div *ngIf="currentTool.junctionType === 2" class="separation">
-    <app-junction [junctionWidth]="currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)">
-    </app-junction>
-</div>
 <div *ngIf="currentTool === brush" class="separation">
     <div class="text">Textures</div>
     <div class="tools">

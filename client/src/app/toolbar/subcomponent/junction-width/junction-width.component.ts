@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
     selector: 'app-junction',
     templateUrl: './junction-width.component.html',
-    styleUrls: [ './junction-width.component.scss'],
+    styleUrls: [ './junction-width.component.scss', '../../toolbar-option.scss'],
 })
 export class JunctionComponent implements OnInit {
     readonly MAX_WIDTH: number = 25.0;
