@@ -1,47 +1,59 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { Renderer2 } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef, MatSnackBarModule } from '@angular/material';
-import { CmdService } from 'src/services/cmd/cmd.service';
-import { SVGService } from 'src/services/svg/svg.service';
-import { SelectorTool } from 'src/services/tool/tool-options/selector';
-import { ClipboardService } from './clipboard.service';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
+import { ClipboardService } from 'src/services/clipboard/clipboard.service';
+import { DOMRenderer } from 'src/utils/dom-renderer';
+import { MyInjector } from 'src/utils/injector';
+import { CmdService } from '../cmd/cmd.service';
 
-fdescribe('ClipboardService', () => {
-    let selector: SelectorTool;
-    let svg: SVGService;
+describe('ClipboardService', () => {
+    let service: ClipboardService;
+    let renderer: Renderer2;
+    let spyClipboard: any;
+    let entry: any;
+    let elem: any;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [MatDialogModule, MatSnackBarModule],
-            providers: [
-                { provide: MatDialogRef },
-                { provide: HttpClient },
-                { provide: selector},
-                { provide: svg}, ],
+            imports: [MatDialogModule, MatSnackBarModule, HttpClientModule],
+            // schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+            providers: [ClipboardService],
         })
             .compileComponents();
     }));
-    beforeEach(() => {
-      selector = jasmine.createSpyObj('SelectorTool', ['selected', 'nextOffset', 'reset']);
-      TestBed.configureTestingModule({}); });
 
-    it('should be created', () => {
-        const service: ClipboardService = TestBed.get(ClipboardService);
+    beforeEach(() => {
+        spyClipboard = jasmine.createSpyObj('ClipboardService', ['copy', 'paste', 'cut']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
+        MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
+        DOMRenderer.renderer = renderer;
+        service = TestBed.get(ClipboardService);
+        (service as any).clipboard = spyClipboard;
+        elem = jasmine.createSpyObj('any', ['hasChildNodes', 'appendChild', 'removeChild', 'firstChild']);
+        entry = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+        entry.nativeElement = elem;
+        service.svg.entry = entry;
+    });
+
+    it('should create', () => {
         expect(service).toBeTruthy();
     });
+
     it('should copy correctly', () => {
-        const service: ClipboardService = TestBed.get(ClipboardService);
         service.copy();
         expect(service.offset).toEqual([0, 0]);
     });
+
     it('should cut correctly', () => {
-        const service: ClipboardService = TestBed.get(ClipboardService);
+        spyOn(service.selector, 'reset');
         service.cut();
-        expect(selector.reset).toHaveBeenCalled();
+        expect(service.selector.reset).toHaveBeenCalled();
         expect(service.offset).toEqual([0, 0]);
     });
+
     it('should paste correctly', () => {
         spyOn(CmdService, 'execute');
-        const service: ClipboardService = TestBed.get(ClipboardService);
         service.paste();
         expect(CmdService.execute).toHaveBeenCalled();
     });
