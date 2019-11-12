@@ -63,7 +63,7 @@ export class ImportOptionComponent implements OnInit {
     }
 
     checkButton(): void {
-        this.enable = (this.requiredForm.valid && this.enableFile);
+        this.enable = this.requiredForm.valid && this.enableFile;
     }
 
     submit(event: MouseEvent): void {
@@ -82,8 +82,12 @@ export class ImportOptionComponent implements OnInit {
     }
 
     private importOnArea() {
-        const res: Drawing = JSON.parse(this.readFile.result as string);
-        Object.setPrototypeOf(res, Drawing.prototype);
-        this.workZoneService.setFromDrawing(res);
+        try {
+            const res: Drawing = JSON.parse(this.readFile.result as string);
+            Object.setPrototypeOf(res, Drawing.prototype);
+            this.workZoneService.setFromDrawing(res);
+        } catch (SyntaxError) {
+            console.error(SyntaxError.message);
+        }
     }
 }

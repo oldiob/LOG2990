@@ -1,60 +1,48 @@
-
-import { HttpClientModule } from '@angular/common/http';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatButtonModule, MatCardModule, MatCheckboxModule,
-         MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
-         MatInputModule, MatSelectModule, MatSnackBarModule, MatTableModule} from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImportOptionComponent } from './import-option.component';
 
-const mockDialogRef: {close: jasmine.Spy} = {
-  close: jasmine.createSpy('close'),
-};
-const matDialogdataSpy: jasmine.Spy = jasmine.createSpy('MAT_DIALOG_DATA');
-
-const modules: (typeof MatDialogModule)[] = [
-            MatDialogModule,
-            MatDividerModule,
-            MatTableModule,
-            MatInputModule,
-            MatSelectModule,
-            MatFormFieldModule,
-            MatCardModule,
-            MatDialogModule,
-            MatButtonModule,
-            MatCheckboxModule,
-            BrowserAnimationsModule,
-            FormsModule,
-            ReactiveFormsModule,
-            MatSnackBarModule,
-            HttpClientModule,
-];
-
 describe('ImportOptionComponent', () => {
-  let component: ImportOptionComponent;
-  let fixture: ComponentFixture<ImportOptionComponent>;
+    let component: any;
+    let work: any;
+    let draw: any;
+    let dialog: any;
+    let dialogRef: any;
 
-  beforeEach(() => {
-    void TestBed.configureTestingModule({
-      imports: [ modules ],
-      declarations: [ ImportOptionComponent ],
-      providers: [
-        { provide: MatDialogRef, useValue: mockDialogRef },
-        { provide: MAT_DIALOG_DATA, useValue: matDialogdataSpy },
-      ],
-    })
-        .compileComponents();
-
-  });
-
-  beforeEach(() => {
-        fixture = TestBed.createComponent(ImportOptionComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+    beforeEach(() => {
+        work = jasmine.createSpyObj('WorkZoneService', ['setFromDrawing']);
+        draw = jasmine.createSpyObj('DrawAreaService', ['isSaved', 'save']);
+        draw.isSaved = false;
+        dialog = jasmine.createSpyObj('DialogService', ['openDialog']);
+        dialogRef = jasmine.createSpyObj('DialogRef', ['afterClosed']);
+        dialogRef.afterClosed.and.returnValue(jasmine.createSpyObj('any', ['subscribe']));
+        dialog.openDialog.and.returnValue(dialogRef);
+        component = new ImportOptionComponent(work, draw, dialog);
+        component.ngOnInit();
     });
 
-  it('should create', () => {
-        void expect(component).toBeTruthy();
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+
+    it('should be enable if the form is valid and file is enable', () => {
+        component.checkButton();
+        expect(component.enable).toEqual(component.requiredForm.valid && component.enableFile);
+    });
+
+    it('should get file on keyboard event', () => {
+        return; // TODO
+    });
+
+    it('should submit with a dialog', () => {
+        draw.isSaved = false;
+        component.submit(new MouseEvent('click'));
+        expect(dialog.openDialog).toHaveBeenCalled();
+    });
+
+    it('should submit without a dialog', () => {
+        draw.isSaved = true;
+        spyOn(component, 'importOnArea');
+        component.submit(new MouseEvent('click'));
+        expect(component.importOnArea).toHaveBeenCalled();
+        expect(draw.save).toHaveBeenCalled();
     });
 });
