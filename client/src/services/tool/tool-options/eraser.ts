@@ -82,7 +82,6 @@ export class EraserTool implements ITool {
                 }
             }
         }
-
     }
 
     private createFake(fakeElement: any): any {
@@ -93,7 +92,7 @@ export class EraserTool implements ITool {
         return filter;
     }
 
-    private flushContainer() {
+    private flushContainer(): void {
         DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.container);
         for (const child of this.container.children) {
             DOMRenderer.removeChild(this.container, child);
@@ -101,7 +100,7 @@ export class EraserTool implements ITool {
         DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.container);
     }
 
-    private deleteAll() {
+    private deleteAll(): void {
         this.objectsOnHold.forEach((obj) => {
             this.cmd.eraseObject(obj);
         });
@@ -114,7 +113,7 @@ export class EraserTool implements ITool {
         }
     }
 
-    private createSurroundingRectangle(x: number, y: number) {
+    private createSurroundingRectangle(x: number, y: number): void {
         this.onLeave();
 
         this.surroundingRectangle = DOMRenderer.createElement('rect', 'svg');
@@ -128,7 +127,7 @@ export class EraserTool implements ITool {
         DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
     }
 
-    private moveSurroundingRectangle(x: number, y: number) {
+    private moveSurroundingRectangle(x: number, y: number): void {
         const halfWidth = this.width / 2.0;
         DOMRenderer.setAttribute(this.surroundingRectangle, 'x', (x - halfWidth).toString());
         DOMRenderer.setAttribute(this.surroundingRectangle, 'y', (y - halfWidth).toString());
