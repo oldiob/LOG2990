@@ -5,6 +5,8 @@ import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
 import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
+import { SVGText } from 'src/services/svg/element/svg.text';
+import { SVGPen } from 'src/services/svg/element/svg.pen';
 
 export class Prototypes {
     private static mPrototypes: Map<string, object> | null = null;
@@ -35,4 +37,6 @@ const listOfPrototypes = [
     SVGEllipse.prototype,
     SVGStamp.prototype,
     SVGPolygon.prototype,
+    SVGText.prototype,
+    SVGPen.prototype,
 ];
