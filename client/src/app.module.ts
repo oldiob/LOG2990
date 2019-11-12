@@ -34,7 +34,7 @@ import { ExportOptionComponent } from './app/toolbar/export-option/export-option
 import { GalleryOptionComponent } from './app/toolbar/gallery-option/gallery-option.component';
 import { GridOptionComponent } from './app/toolbar/grid-option/grid-option.component';
 import { ImportOptionComponent } from './app/toolbar/import-option/import-option.component';
-import { JunctionComponent } from './app/toolbar/junction-width/junction-width.component';
+import { JunctionComponent } from './app/toolbar/subcomponent/junction-width/junction-width.component';
 import { SaveOptionComponent } from './app/toolbar/save-option/save-option.component';
 import { SelectorOptionComponent } from './app/toolbar/selector-option/selector-option.component';
 import { ShapeOptionComponent } from './app/toolbar/shape-option/shape-option.component';

@@ -13,7 +13,7 @@ import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { AngleComponent } from '../subcomponent/angle/angle.component';
-import { JunctionComponent } from '../junction-width/junction-width.component';
+import { JunctionComponent } from '../subcomponent/junction-width/junction-width.component';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { WidthComponent } from '../subcomponent/width/width.component';
 import { ToolOptionComponent } from './tool-option.component';

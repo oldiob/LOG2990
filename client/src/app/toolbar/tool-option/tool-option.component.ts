@@ -10,14 +10,13 @@ import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
-import { ITool, JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
+import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PenTool } from 'src/services/tool/tool-options/pen';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
-import { JunctionComponent } from '../junction-width/junction-width.component';
 import { AngleComponent } from '../subcomponent/angle/angle.component';
 import { ShowcaseComponent } from '../subcomponent/showcase/showcase.component';
 import { WidthComponent } from '../subcomponent/width/width.component';
@@ -34,8 +33,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     MULTI_15 = 15;
     MAX_WIDTH = 25;
     MIN_WIDTH = 0.5;
-    LineType = LineType;
-    JunctionType = JunctionType;
     Base64 = Base64;
 
     tip = 'Tools';
@@ -56,9 +53,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     @ViewChild(AngleComponent, { static: true })
     angleComponent: AngleComponent;
-
-    @ViewChild(JunctionComponent, { static: true })
-    junctionComponent: JunctionComponent;
 
     textures: ITexture[];
     currentTexture: ITexture;
@@ -164,13 +158,6 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
                 }
             }
             this.currentTool.minWidth = minWidth;
-            ShowcaseSignal.emit();
-        }
-    }
-
-    setJunctionWidth(width: number): void {
-        if (this.currentTool instanceof LineTool) {
-            this.currentTool.junctionWidth = width;
             ShowcaseSignal.emit();
         }
     }
