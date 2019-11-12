@@ -14,7 +14,7 @@ export class BucketTool implements ITool {
     readonly tip: string;
 
     constructor(private svgService: SVGService,
-        private paletteService: PaletteService) {
+                private paletteService: PaletteService) {
         this.tip = 'Bucket (B)';
     }
 
