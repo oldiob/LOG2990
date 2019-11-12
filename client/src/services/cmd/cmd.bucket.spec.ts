@@ -1,6 +1,6 @@
 import { CmdBucket } from './cmd.bucket';
 
-fdescribe('CmdBucket', () => {
+describe('CmdBucket', () => {
 
     let cmd: CmdBucket;
     let svgAbstract: any;
