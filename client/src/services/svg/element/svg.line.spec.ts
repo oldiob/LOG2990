@@ -82,9 +82,9 @@ describe('SVGLine', () => {
     });
 
     it('should renderer full line with angle junction', () => {
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(10);
-        expect(renderer.createElement).toHaveBeenCalledTimes(3);
-        expect(renderer.appendChild).toHaveBeenCalledTimes(3);
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(4);
+        expect(renderer.createElement).toHaveBeenCalledTimes(2);
+        expect(renderer.appendChild).toHaveBeenCalledTimes(2);
     });
 
     it('should popAnchor last element', () => {
