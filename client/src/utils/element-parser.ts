@@ -69,18 +69,22 @@ const deserializeSVG = (json: string): any => {
 /**
  * The parsed elements dont keep their namespace, we need to recreate their attributes and children.
  */
-export const recreateElement = (fakeElement: any): any => {
-    const realElement = DOMRenderer.createElement(fakeElement.nodeName, 'svg');
+export const recreateElement = (realElement: any): any => {
+    const fakeElement = DOMRenderer.createElement(realElement.nodeName, 'svg');
 
-    for (const attribute of fakeElement.attributes) {
-        DOMRenderer.setAttribute(realElement, attribute.nodeName, attribute.nodeValue);
+    for (const attribute of realElement.attributes) {
+        DOMRenderer.setAttribute(fakeElement, attribute.nodeName, attribute.nodeValue);
     }
 
-    for (const child of fakeElement.children) {
-        DOMRenderer.appendChild(realElement, recreateElement(child));
+    if (realElement.children.length !== 0) {
+        for (const child of realElement.children) {
+            DOMRenderer.appendChild(fakeElement, recreateElement(child));
+        }
+    } else {
+        fakeElement.innerHTML = realElement.innerHTML;
     }
 
-    return realElement;
+    return fakeElement;
 };
 
 // tslint:disable-next-line: max-classes-per-file
