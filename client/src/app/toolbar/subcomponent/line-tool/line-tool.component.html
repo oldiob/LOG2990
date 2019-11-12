@@ -1,0 +1,33 @@
+<form class="form" [formGroup]="lineForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field color="accent">
+        <mat-label class="trace-label">Pattern Type</mat-label>
+        <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType">
+            <mat-option [value]="LineType.FullLine">
+                Full Line
+            </mat-option>
+            <mat-option [value]="LineType.DashLine">
+                Dash Line
+            </mat-option>
+            <mat-option [value]="LineType.DotLine">
+                Dot Line
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+<form class="form" [formGroup]="junctionForm" (ngSubmit)="onSubmit()">
+    <mat-form-field color="accent">
+        <mat-label class="trace-label">Junction Type</mat-label>
+        <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel" formControlName="junctionType">
+            <mat-option [value]="JunctionType.Angle">
+                Angle
+            </mat-option>
+            <mat-option [value]="JunctionType.Round">
+                Round
+            </mat-option>
+            <mat-option [value]="JunctionType.Dot">
+                Dot
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

@@ -45,6 +45,7 @@ import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WidthComponent } from './app/toolbar/subcomponent/width/width.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { DOMRenderer } from './utils/dom-renderer';
+import { LineToolComponent } from './app/toolbar/subcomponent/line-tool/line-tool.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         ImportOptionComponent,
         ExportOptionComponent,
         ClipboardOptionComponent,
+        LineToolComponent,
     ],
     imports: [
         BrowserModule,
