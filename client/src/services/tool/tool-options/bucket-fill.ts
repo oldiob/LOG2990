@@ -1,4 +1,5 @@
-import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { SVGService } from 'src/services/svg/svg.service';
 import { svgToImage } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
@@ -10,27 +11,30 @@ export class BucketFillTool implements ITool {
 
     private isLoaded: boolean;
     private imageData: ImageData;
-    colorDifferenceTolerance: number;
+    colorToleranceDelta: number;
 
     constructor() {
         this.width = 0;
         this.isLoaded = false;
-        this.colorDifferenceTolerance = 0;
+        this.colorToleranceDelta = 0;
     }
 
-    onPressed(event: MouseEvent): CmdInterface | null {
+    onPressed(event: MouseEvent): CmdSVG | null {
         if (!this.isLoaded) {
             return null;
         }
 
-
-        return null;
+        const bucketFill = new SVGBucketFill(this.imageData, this.colorToleranceDelta);
+        const command = new CmdSVG(bucketFill);
+        return command;
     }
+
     onMotion(event: MouseEvent): void {
         return;
     }
+
     onReleased(event: MouseEvent): void {
-        throw new Error('Method not implemented.');
+        return;
     }
 
     onSelect() {
