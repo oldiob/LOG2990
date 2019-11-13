@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { BucketOptionComponent } from './bucket-option.component';
 
 describe('BucketOptionComponent', () => {
@@ -21,6 +22,11 @@ describe('BucketOptionComponent', () => {
     }));
 
     beforeEach(() => {
+        const renderer = jasmine.createSpyObj('Renderer2',
+            ['createElement', 'appendChild', 'setAttribute',
+                'setAttributes', 'setStyle', 'removeChild']);
+        DOMRenderer.renderer = renderer;
+
         fixture = TestBed.createComponent(BucketOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

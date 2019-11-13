@@ -3,6 +3,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { Color } from 'src/utils/color';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { PaletteButtonComponent } from './palette-button.component';
 
 describe('PaletteButtonComponent', () => {
@@ -27,6 +28,11 @@ describe('PaletteButtonComponent', () => {
     }));
 
     beforeEach(() => {
+        const renderer = jasmine.createSpyObj('Renderer2',
+            ['createElement', 'appendChild', 'setAttribute',
+                'setAttributes', 'setStyle', 'removeChild']);
+        DOMRenderer.renderer = renderer;
+
         service = TestBed.get(PaletteService);
         component = new PaletteButtonComponent(service, formBuilder);
         formBuilder = TestBed.get(FormBuilder);
