@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Subject } from 'rxjs';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { ShowcaseComponent } from './showcase.component';
 
 describe('ShowcaseComponent', () => {
@@ -10,6 +12,7 @@ describe('ShowcaseComponent', () => {
     let entry: any;
     let mouseEvent: any;
     let renderer;
+    let subjectSpy: Subject<null>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -19,6 +22,9 @@ describe('ShowcaseComponent', () => {
     }));
 
     beforeEach(() => {
+        subjectSpy = jasmine.createSpyObj('Subject<null>', ['next']);
+        (ShowcaseSignal as any).subject = subjectSpy;
+
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
 
@@ -26,7 +32,7 @@ describe('ShowcaseComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
 
-        svgService = jasmine.createSpyObj('SVGService', ['entry', 'clearDrawArea', 'addObject']);
+        svgService = jasmine.createSpyObj('SVGService', ['entry', 'clearDrawArea', 'addObject', 'clearObjects']);
         entry = jasmine.createSpyObj('ElementRef', ['']);
         mouseEvent = jasmine.createSpyObj('MouseEvent', ['svgX', 'svgY']);
 

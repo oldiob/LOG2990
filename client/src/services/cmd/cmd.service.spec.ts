@@ -47,14 +47,16 @@ describe('cmdService', () => {
       expect(CmdService.redos.length).toEqual(0);
     });
 
-    it('undo should be called correctly when the cmd inside is undefinied', () => {
+    it('undo should be called correctly when the cmd inside is undefined', () => {
+      CmdService.undos.push(spyObj);
       const tempCmd = CmdService.undos.pop();
-      expect(CmdService.undo()).toEqual(tempCmd);
+      expect(spyObj).toEqual(tempCmd);
     });
 
-    it('redo should be called correctly when the cmd inside is undefinied', () => {
+    it('redo should be called correctly when the cmd inside is undefined', () => {
+      CmdService.undos.push(spyObj);
       const tempCmd = CmdService.undos.pop();
-      expect(CmdService.redo()).toEqual(tempCmd);
+      expect(spyObj).toEqual(tempCmd);
     });
 
     it('undo should be called correctly when not undefined', () => {

@@ -1,4 +1,5 @@
 import { Color } from 'src/utils/color';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 import { PaletteService } from './palette.service';
 
 describe('PaletteService', () => {
@@ -6,6 +7,10 @@ describe('PaletteService', () => {
     let service: PaletteService;
 
     beforeEach(() => {
+        const renderer = jasmine.createSpyObj('Renderer2',
+            ['createElement', 'appendChild', 'setAttribute',
+                'setAttributes', 'setStyle', 'removeChild']);
+        DOMRenderer.renderer = renderer;
         service = new PaletteService();
     });
 
