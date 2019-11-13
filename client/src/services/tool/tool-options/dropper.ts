@@ -4,6 +4,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { svgToImage } from 'src/utils/element-parser';
 import { ITool } from './i-tool';
+import { MyInjector } from 'src/utils/injector';
 
 @Injectable({
     providedIn: 'root',
@@ -13,35 +14,34 @@ export class DropperTool implements ITool {
 
     readonly tip: string;
 
-    imageData: ImageData;
+    private imageData: ImageData;
 
-    loaded: boolean;
+    private isLoaded: boolean;
 
-    currentColor: Color;
+    private currentColor: Color;
 
     constructor(
-        private svgService: SVGService,
         private paletteService: PaletteService) {
         this.currentColor = new Color(0, 0, 0, 0);
-        this.loaded = false;
+        this.isLoaded = false;
         this.tip = 'Pipette (I)';
     }
 
-    loadImage() {
-        this.loaded = false;
+    onSelect() {
+        this.isLoaded = false;
 
-        const setColor = (svgImage: any, ctx: any): void => {
+        const createImageData = (svgImage: HTMLImageElement, ctx: CanvasRenderingContext2D): void => {
             ctx.drawImage(svgImage, 0, 0);
             this.imageData = ctx.getImageData(0, 0, svgImage.width, svgImage.height);
 
-            this.loaded = true;
+            this.isLoaded = true;
         };
 
-        svgToImage(this.svgService.entry, setColor);
+        svgToImage(MyInjector.get(SVGService).entry, createImageData);
     }
 
     onPressed(event: MouseEvent): null {
-        if (!this.loaded) {
+        if (!this.isLoaded) {
             return null;
         }
 
@@ -62,7 +62,7 @@ export class DropperTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        if (!this.loaded) {
+        if (!this.isLoaded) {
             return;
         }
 
