@@ -5,6 +5,7 @@ import { Color } from 'src/utils/color';
 import { svgToImage } from 'src/utils/element-parser';
 import { ITool } from './i-tool';
 import { MyInjector } from 'src/utils/injector';
+import { getPixelData } from 'src/utils/misc';
 
 @Injectable({
     providedIn: 'root',
@@ -66,24 +67,10 @@ export class DropperTool implements ITool {
             return;
         }
 
-        const pixelData = this.getPixelData(this.imageData, event.svgX, event.svgY);
-
-        this.currentColor.red = pixelData[0];
-        this.currentColor.green = pixelData[1];
-        this.currentColor.blue = pixelData[2];
-        this.currentColor.alpha = pixelData[3];
+        this.currentColor = getPixelData(this.imageData, event.svgX, event.svgY);
     }
     onReleased(event: MouseEvent): void {
         return;
-    }
-
-    getPixelData(imageData: ImageData, x: number, y: number) {
-        const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
-        return [
-            imageData.data[pixelIndex + 0],
-            imageData.data[pixelIndex + 1],
-            imageData.data[pixelIndex + 2],
-            imageData.data[pixelIndex + 3]];
     }
 
     onShowcase(): null {

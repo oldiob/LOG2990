@@ -4,9 +4,12 @@ export class SVGBucketFill extends SVGAbstract {
 
     element: any;
 
+    private points: number[][];
+
     constructor(image: ImageData, tolerance: number) {
         super();
 
+        this.points = this.createPoints(image, tolerance);
     }
 
     isIn(x: number, y: number, r: number): boolean {
@@ -30,4 +33,13 @@ export class SVGBucketFill extends SVGAbstract {
         return false;
     }
 
+    private createPoints(image: ImageData, tolerance: number) {
+        return [];
+    }
+}
+
+interface Pixel {
+    position: number[];
+    childIndex: number;
+    children: Pixel[];
 }
