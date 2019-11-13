@@ -20,12 +20,12 @@ export class DataBaseService {
 
     async addDrawing(drawing: Drawing): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        this.db.collection('Drawing').insertOne(drawing);
+        this.db.collection('DrawingTest').insertOne(drawing);
     }
 
     async deleteDrawing(id: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        this.db.collection('Drawing').deleteOne({ _id: new ObjectID(id) });
+        this.db.collection('DrawingTest').deleteOne({ _id: new ObjectID(id) });
     }
 
     async getAllDrawings(): Promise<Drawing[]> {
@@ -35,7 +35,7 @@ export class DataBaseService {
             resolve: (value?: Drawing[] | PromiseLike<Drawing[]> | undefined) => void,
             reject: (reason?: any) => void) => {
 
-            this.db.collection('Drawing').find().toArray((err: MongoError, result: Drawing[]) => {
+            this.db.collection('DrawingTest').find().toArray((err: MongoError, result: Drawing[]) => {
                 err
                     ? reject(err)
                     : resolve(result);
@@ -45,7 +45,7 @@ export class DataBaseService {
 
     async updateTags(id: string, tag: string): Promise<void> {
         this.db = (await this.connectDB()).db('Rebase08');
-        this.db.collection('Drawing').findOneAndUpdate(
+        this.db.collection('DrawingTest').findOneAndUpdate(
             { _id: new ObjectID(id) },
             { $push: { tags: tag } },
         );
