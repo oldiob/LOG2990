@@ -5,6 +5,8 @@ import { ITool } from './i-tool';
 export class TextTool implements ITool {
   tip: string;
   width?: number | undefined;
+  rate: number;
+  diameter: number;
 
   element: SVGAirbrush | null = null;
 
@@ -14,14 +16,17 @@ export class TextTool implements ITool {
   }
   onPressed(event: MouseEvent): CmdSVG | null {
     this.element = new SVGAirbrush(event.svgX, event.svgY);
+    this.element.spree(this.rate, this.diameter, event.svgX, event.svgY);
 
     return new CmdSVG(this.element);
   }
   onMotion(event: MouseEvent): void {
-    throw new Error('Method not implemented.');
+    if (this.element) {
+      this.element.spree(this.rate, this.diameter, event.svgX, event.svgY);
+    }
   }
   onReleased(event: MouseEvent): void {
-    throw new Error('Method not implemented.');
+    this.element = null;
   }
 
 }

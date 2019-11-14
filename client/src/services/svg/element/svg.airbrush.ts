@@ -12,7 +12,14 @@ export class SVGAirbrush extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
 
     }
-
+    spree(rate: number, diameter: number, x: number, y: number): void {
+      for (let i = 0; i < rate; i++) {
+        const point = DOMRenderer.createElement('circle', 'svg');
+        DOMRenderer.setAttribute(point, 'x', x.toString());
+        DOMRenderer.setAttribute(point, 'y', y.toString());
+        DOMRenderer.appendChild(this.element, point);
+      }
+    }
     isIn(x: number, y: number, r: number): boolean {
       throw new Error('Method not implemented.');
     }
