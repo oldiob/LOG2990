@@ -2,7 +2,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
 import { SVGAbstract } from './svg.interface';
 
-export class SVGInk extends SVGAbstract {
+export class SVGCalligraphy extends SVGAbstract {
     element: any;
 
     points: number[][] = [];
