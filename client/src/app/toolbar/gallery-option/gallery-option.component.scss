@@ -58,6 +58,9 @@
   font-size: 1rem;
   font-weight: bold;
   height: auto;
+  width: 139px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .drawing {
@@ -65,7 +68,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 
   height: auto;
   margin: 25px 25px 0 25px;
@@ -73,7 +75,7 @@
 
   -webkit-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 7px 5px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
 
   background-color: darken($color: #414d8f, $amount: 17);
   border: solid 1px #ececec1f;
@@ -83,7 +85,10 @@
 }
 
 .drawing:hover {
-  border: solid 1px #ececec79;
+  transform: translate(0, -10px);
+  -webkit-box-shadow: 1px 7px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 7px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 7px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 .drawing:hover .open {
@@ -95,19 +100,20 @@
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
-  border: solid 1px whitesmoke;
+  // border: solid 1px whitesmoke;
   opacity: 1;
+  background-color: rgba(11, 25, 94, 0.298);
 }
 
 .drawing:hover .overlay {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.458);
-  border-radius: 5px;
-  height: 100%;
+  background-color: rgba(37, 66, 212, 0.458);
+  height: 102px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translate(0, 55px);
 }
 
 .overlay {
@@ -149,8 +155,21 @@
   background-color: #6f7bbe;
   border-radius: 10px;
   margin: 0 7px 7px 0;
-  word-break: break-word;
+  max-width: 175px;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tags {
+  overflow: hidden;
+  display: -webkit-inline-box;
+  display: ruby;
+  width: 100%;
+  min-height: 53px;
+}
+
+.tags:hover {
+  display: flex;
 }
 
 .svg-wrapper {
