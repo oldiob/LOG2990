@@ -11,6 +11,7 @@ import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { InkTool } from 'src/services/tool/tool-options/ink';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PenTool } from 'src/services/tool/tool-options/pen';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
@@ -37,6 +38,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.pen, 'pen.png'],
         [this.eraser, 'eraser.png'],
         [this.airbrush, 'airbrush.png'],
+        [this.calligraphy, 'ink.png'],
     ]);
 
     textures: ITexture[];
@@ -53,7 +55,8 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public line: LineTool,
         public stamp: StampTool,
         public pen: PenTool,
-        public eraser: EraserTool) {
+        public eraser: EraserTool,
+        public calligraphy: CalligraphyTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
 
         stamp.stampTexture = new EmojiStamp();
@@ -61,7 +64,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.eraser, this.airbrush];
+        this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.calligraphy, this.eraser, this.airbrush];
         this.selectTool(this.tools[0]);
     }
 
