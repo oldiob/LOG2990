@@ -30,26 +30,14 @@ export class BreadthFirst {
         }
     }
 
-    private incrementParent(pixel: Pixel) {
-        let currentPixel = pixel;
-        while (currentPixel.parent !== null && currentPixel.parent.childIndex < currentPixel.parent.children.length) {
-            currentPixel.parent.childIndex++;
-            currentPixel = currentPixel.parent;
-
-            if (currentPixel.childIndex < currentPixel.children.length) {
-                return;
-            }
-        }
-    }
-
     private createFirstPixel(position: number[]): Pixel {
-        const firstPixel = this.createPixel(position, null);
+        const firstPixel = this.createPixel(position);
         this.populatePixel(firstPixel);
         return firstPixel;
     }
 
-    private createPixel(pos: number[], p: Pixel | null): Pixel {
-        const pixel: Pixel = { position: pos, childIndex: 0, children: [], parent: p };
+    private createPixel(pos: number[]): Pixel {
+        const pixel: Pixel = { position: pos, children: [] };
         this.allPixels.push(pixel);
         return pixel;
     }
@@ -59,7 +47,7 @@ export class BreadthFirst {
             for (let y = -1; y <= 1; y += 2) {
                 const childPosition = vectorPlus(pixel.position, [x, y]);
                 if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
-                    pixel.children.push(this.createPixel(childPosition, pixel));
+                    pixel.children.push(this.createPixel(childPosition));
                 }
             }
         }
@@ -91,24 +79,9 @@ export class BreadthFirst {
 
         return doesExist;
     }
-
-    private isFilled(): boolean {
-        let filled = true;
-
-        this.allPixels.forEach((pixel: Pixel) => {
-            if (pixel.childIndex < pixel.children.length) {
-                filled = false;
-                return;
-            }
-        });
-
-        return filled;
-    }
 }
 
 interface Pixel {
     position: number[];
-    childIndex: number;
     children: Pixel[];
-    parent: Pixel | null;
 }
