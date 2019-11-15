@@ -45,4 +45,8 @@
     <app-stamp></app-stamp>
 </div>
 
+<div *ngIf="currentTool === calligraphy">
+    <app-angle class="separation"></app-angle>   
+</div>
+
 <app-line-tool *ngIf="currentTool === line"></app-line-tool>

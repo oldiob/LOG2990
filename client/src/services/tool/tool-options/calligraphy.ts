@@ -8,39 +8,40 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class CalligraphyTool implements ITool {
-    element: SVGCalligraphy | null = null;
-    width = 5;
     readonly tip: string;
+    width: number;
 
+    element: SVGCalligraphy | null = null;
+    minWidth = 0.5;
+    maxWidth = 25;
     constructor(private paletteService: PaletteService) {
         this.tip = 'Calligraphy (P)';
-     }
+    }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        let cmd: CmdSVG | null = null;
-        if (!this.element) {
-            const x = event.svgX;
-            const y = event.svgY;
-            this.element = new SVGCalligraphy();
-            this.element.setWidth(this.width);
-            this.element.addPoint(x, y);
-            this.element.addPoint(x, y);
-
-            this.element.setPrimary(this.paletteService.getPrimary());
-
-            cmd = new CmdSVG(this.element);
-        }
-        return cmd;
-    }
-    onMotion(event: MouseEvent): void {
         if (this.element) {
-            const x = event.svgX;
-            const y = event.svgY;
-            this.element.addPoint(x, y);
+            this.element.addAnchor(event.svgX, event.svgY);
+            return null;
+
         }
+        const calligraphy = new SVGCalligraphy(event.svgX, event.svgY);
+        this.element = calligraphy;
+
+        this.element.setWidth(this.maxWidth);
+        this.element.setPrimary(this.paletteService.getPrimary());
+        this.element.addAnchor(event.svgX, event.svgY);
+        return new CmdSVG(this.element);
     }
+
     onReleased(event: MouseEvent): void {
         this.element = null;
+        return;
+    }
+
+    onMotion(event: MouseEvent): void {
+        if (this.element) {
+            this.element.addAnchor(event.svgX, event.svgY);
+        }
     }
 
 }

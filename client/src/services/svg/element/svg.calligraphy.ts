@@ -1,72 +1,82 @@
+import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
-import { SVGAbstract } from './svg.interface';
 
 export class SVGCalligraphy extends SVGAbstract {
+
+    anchors: number[][] = [];
+    cursor: number[];
+    width: number;
     element: any;
+    color: string;
 
-    points: number[][] = [];
+    private latestPoint: number[];
 
-    lineWidth = 1;
-
-    constructor() {
+    constructor(x: number, y: number) {
         super();
-
-        this.element = DOMRenderer.createElement('polyline', 'svg');
-
-        DOMRenderer.setAttribute(this.element, 'fill', 'none');
-        DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
-        DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
+        this.cursor = [x, y];
+        // this.anchors.push([x, y]);
+        this.latestPoint = [x, y];
+        this.element = DOMRenderer.createElement('g', 'svg');
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
-        const WIDTH_MARGIN = 10.0;
-        const width: number = this.lineWidth + WIDTH_MARGIN;
-        for (let i = 0; i < this.points.length - 1; i++) {
-            if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
-                return true;
-            }
-        }
+    private addLine(): void {
+        const calligraphy = DOMRenderer.createElement('polyline', 'svg');
+        DOMRenderer.setAttribute(calligraphy, 'fill', this.color);
+        DOMRenderer.setAttribute(calligraphy, 'stroke', this.color);
+        DOMRenderer.setAttribute(calligraphy, 'stroke-width', this.width.toString());
 
-        return false;
+        DOMRenderer.setAttribute(calligraphy, 'points', `${this.latestPoint[0]}, ${this.latestPoint[1]},
+                                                         ${this.cursor[0] + 10}, ${this.cursor[1] - 10}`);
+        DOMRenderer.appendChild(this.element, calligraphy);
+        this.latestPoint = this.cursor;
     }
-    isIn(x: number, y: number, r: number): boolean {
-        const tempWidth = this.lineWidth;
-        this.lineWidth += r;
-        const isInside = this.isAt(x, y);
-        this.lineWidth = tempWidth;
 
-        return isInside;
+    setWidth(width: number): void {
+        this.width = width;
     }
 
     getPrimary(): string {
-        return this.element.getAttribute('stroke');
+        const child = this.element.children[0];
+        return child.getAttribute('stroke');
     }
 
     getSecondary(): string {
         return '';
     }
 
-    setPrimary(color: string): void {
-        DOMRenderer.setAttribute(this.element, 'stroke', color);
+    setPrimary(color: string) {
+        for (const child of this.element.children) {
+            DOMRenderer.setAttribute(child, 'stroke', color);
+        }
+        this.color = color;
     }
 
-    setSecondary(color: string): void {
+    setSecondary(color: string) {
         // NO OP
     }
 
-    setWidth(width: number): void {
-        this.lineWidth = width;
-        DOMRenderer.setAttribute(this.element, 'stroke-width', width.toString());
+    isAtAdjusted(x: number, y: number): boolean {
+        for (let i = 0; i < this.anchors.length - 1; i++) {
+            if (isAtLine([x, y], this.anchors[i], this.anchors[i + 1], this.width)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    addPoint(x: number, y: number): void {
-        this.points.push([x, y]);
-        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
+    isIn(x: number, y: number, r: number): boolean {
+        const tempWidth = this.width;
+        this.width += r;
+        const isInside = this.isAtAdjusted(x, y);
+        this.width = tempWidth;
+
+        return isInside;
     }
 
-    // [[1, 2], [3, 4]] -> 1,2 3,4
-    private pointsAttribute(): string {
-        return this.points.map((e) => `${e[0]},${e[1]}`).join(' ');
+    addAnchor(x: number, y: number): void {
+        this.cursor = [x, y ];
+        // this.anchors.push([x , y]);
+        this.addLine();
     }
 }
