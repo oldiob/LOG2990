@@ -63,4 +63,8 @@ export class AirbrushTool implements ITool {
         this.element = null;
     }
 
+    setRate(rate: number) {
+      this.rate = rate;
+    }
+
 }

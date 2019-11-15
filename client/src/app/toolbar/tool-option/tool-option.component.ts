@@ -126,4 +126,11 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 
+    setRate(rate: number): void {
+      if (this.currentTool instanceof AirbrushTool) {
+        this.currentTool.setRate(rate);
+        }
+      ShowcaseSignal.emit();
+    }
+
 }
