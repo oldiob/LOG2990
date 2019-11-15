@@ -20,7 +20,7 @@ const setPixelData = (array: number[], color: Color, positions: number[][], widt
     }
 };
 
-export const getImageData = (positions: number[][], color: Color, width: number, height: number): HTMLCanvasElement => {
+export const generateImageData = (positions: number[][], color: Color, width: number, height: number): string => {
     const array: number[] = createArray(width, height);
 
     setPixelData(array, color, positions, width, height);
@@ -36,9 +36,8 @@ export const getImageData = (positions: number[][], color: Color, width: number,
         height.toString());
 
     const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
-
     ctx.putImageData(image, 0, 0);
-    return canvas;
+    return canvas.toDataURL();
 };
 
 const createArray = (width: number, height: number): number[] => {

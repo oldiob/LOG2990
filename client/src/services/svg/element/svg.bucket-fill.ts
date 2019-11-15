@@ -1,15 +1,13 @@
-import { SVGAbstract } from './svg.interface';
 import { BreadthFirst } from 'src/utils/breadth-first';
-import { getImageData } from 'src/utils/misc';
 import { Color } from 'src/utils/color';
-import { vectorMinus } from 'src/utils/math';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { vectorMinus } from 'src/utils/math';
+import { generateImageData } from 'src/utils/misc';
+import { SVGAbstract } from './svg.interface';
 
 export class SVGBucketFill extends SVGAbstract {
 
     element: any;
-
-    private canvas: HTMLCanvasElement;
 
     private position: number[];
     private size: number[];
@@ -18,13 +16,13 @@ export class SVGBucketFill extends SVGAbstract {
         super();
 
         const breadthFirst = new BreadthFirst(position, image, tolerance);
-        let pixelPositions: number[][] = breadthFirst.positions;
+        const pixelPositions: number[][] = breadthFirst.positions;
         this.findDimensions(pixelPositions);
         this.normalizedPositions(pixelPositions);
-        this.canvas = getImageData(pixelPositions, color, this.size[0], this.size[1]);
+        const canvasHref = generateImageData(pixelPositions, color, this.size[0], this.size[1]);
 
         this.element = DOMRenderer.createElement('image', 'svg');
-        DOMRenderer.setAttribute(this.element, 'href', this.canvas.toDataURL());
+        DOMRenderer.setAttribute(this.element, 'href', canvasHref);
         DOMRenderer.setAttribute(this.element, 'width', this.size[0].toString());
         DOMRenderer.setAttribute(this.element, 'height', this.size[1].toString());
         DOMRenderer.setAttribute(this.element, 'x', this.position[0].toString());

@@ -15,6 +15,9 @@ export class BreadthFirst {
 
         this.positions = [];
 
+        position[0] = Math.round(position[0]);
+        position[1] = Math.round(position[1]);
+
         this.firstPixel = this.createPixel(position);
 
         this.fillPixels();
@@ -59,9 +62,20 @@ export class BreadthFirst {
     }
 
     private populatePixel(pixel: Pixel): void {
-        const xyRange = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+        const xyRange = [];
+        for (let x = -1; x <= 1; x++) {
+            for (let y = -1; y <= 1; y++) {
+                if (x === 0 && y === 0) {
+                    continue;
+                }
+
+                xyRange.push([x, y]);
+            }
+        }
         xyRange.forEach((delta: number[]) => {
             const childPosition = vectorPlus(pixel.position, delta);
+            childPosition[0] = Math.round(childPosition[0]);
+            childPosition[1] = Math.round(childPosition[1]);
             if (this.isPositionAcceptable(childPosition)) {
                 pixel.children.push(this.createPixel(childPosition));
             }
@@ -85,8 +99,8 @@ export class BreadthFirst {
     }
 
     private isPositionInRange(position: number[]) {
-        return  position[0] > 0 && position[0] < this.image.width &&
-                position[1] > 0 && position[1] < this.image.height;
+        return position[0] > 0 && position[0] < this.image.width &&
+            position[1] > 0 && position[1] < this.image.height;
     }
 
     private isPositionCovered(position: number[]) {
