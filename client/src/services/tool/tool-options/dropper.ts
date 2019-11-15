@@ -16,9 +16,7 @@ export class DropperTool implements ITool {
     readonly tip: string;
 
     private imageData: ImageData;
-
     private isLoaded: boolean;
-
     private currentColor: Color;
 
     constructor(

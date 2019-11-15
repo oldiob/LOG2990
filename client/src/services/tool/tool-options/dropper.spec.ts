@@ -1,22 +1,19 @@
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { DropperTool } from './dropper';
 
 describe('DropperTool', () => {
 
-    let svgService: SVGService;
     let paletteService: PaletteService;
 
     let dropper: DropperTool;
 
     beforeEach(() => {
-        svgService = jasmine.createSpyObj('SVGService', ['entry']);
         paletteService = jasmine.createSpyObj('PaletteService', ['selectPrimary', 'selectSecondary']);
 
-        dropper = new DropperTool(svgService, paletteService);
+        dropper = new DropperTool(paletteService);
 
-        dropper.loaded = true;
+        (dropper as any).isLoaded = true;
     });
 
     it('should exists', () => {
@@ -24,16 +21,17 @@ describe('DropperTool', () => {
     });
 
     it('should return if not loaded', () => {
-        dropper.loaded = false;
+        (dropper as any).isLoaded = false;
 
         const mouse = new MouseEvent('', undefined);
         dropper.onPressed(mouse);
         expect(paletteService.selectPrimary).toHaveBeenCalledTimes(0);
         expect(paletteService.selectSecondary).toHaveBeenCalledTimes(0);
 
-        const spy = spyOn(dropper, 'getPixelData');
+        const colorBefore = (dropper as any).currentColor;
+
         dropper.onMotion(mouse);
-        expect(spy).toHaveBeenCalledTimes(0);
+        expect((dropper as any).currentColor).toBe(colorBefore);
     });
 
     it('shoud load correct image data', () => {
@@ -42,20 +40,21 @@ describe('DropperTool', () => {
         imageData.height = 1;
         imageData.data = [1, 2, 3, 4, 5, 6, 7, 8];
 
-        dropper.imageData = imageData;
+        (dropper as any).imageData  = imageData;
+        (dropper as any).isLoaded  = true;
 
         const mouse = new MouseEvent('', undefined);
         mouse.svgX = 0;
         mouse.svgY = 0;
 
         dropper.onMotion(mouse);
-        expect(dropper.currentColor).toEqual(new Color(1, 2, 3, 4));
+        expect((dropper as any).currentColor).toEqual(new Color(1, 2, 3, 4));
 
         mouse.svgX = 1;
         mouse.svgY = 0;
 
         dropper.onMotion(mouse);
-        expect(dropper.currentColor).toEqual(new Color(5, 6, 7, 8));
+        expect((dropper as any).currentColor).toEqual(new Color(5, 6, 7, 8));
     });
 
 });

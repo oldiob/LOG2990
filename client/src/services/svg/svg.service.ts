@@ -80,13 +80,14 @@ export class SVGService {
         if (obj === null) {
             return;
         }
+        if (obj.element === null) {
+            return;
+        }
 
-        if (obj.element) {
-            this.objects.push(obj);
-            DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
-            if (this.drawAreaService) {
-                this.drawAreaService.dirty();
-            }
+        this.objects.push(obj);
+        DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
+        if (this.drawAreaService) {
+            this.drawAreaService.dirty();
         }
     }
 

@@ -21,8 +21,7 @@ export class BucketFillTool implements ITool {
     constructor(private palette: PaletteService) {
         this.width = 0;
         this.isLoaded = false;
-        this.colorToleranceDelta = 0.65;
-
+        this.colorToleranceDelta = 0;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
