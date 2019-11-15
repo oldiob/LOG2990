@@ -1,18 +1,33 @@
 import { getPixelData } from './misc';
 import { vectorPlus } from './math';
 import { Queue } from './queue';
+import { Color } from './color';
 
 export class BreadthFirst {
 
-    private allPixels: Pixel[];
+    positions: number[][];
     private firstPixel: Pixel;
-    corners: number[][];
+
+    private covered: boolean[][];
 
     constructor(position: number[], private image: ImageData, private tolerance: number) {
-        this.allPixels = [];
+        this.initEmptyCovered();
+
+        this.positions = [];
+
         this.firstPixel = this.createPixel(position);
 
         this.fillPixels();
+    }
+
+    private initEmptyCovered(): void {
+        this.covered = [];
+        for (let x = 0; x < this.image.width; x++) {
+            this.covered.push([]);
+            for (let y = 0; y < this.image.height; y++) {
+                this.covered[x].push(false);
+            }
+        }
     }
 
     private fillPixels(): void {
@@ -38,35 +53,28 @@ export class BreadthFirst {
 
     private createPixel(pos: number[]): Pixel {
         const pixel: Pixel = { position: pos, children: [] };
-        this.allPixels.push(pixel);
+        this.positions.push(pos);
+        this.covered[pos[0]][pos[1]] = true;
         return pixel;
     }
 
-    private populatePixel(pixel: Pixel): Pixel {
-        let x = 0;
-
-        let y = 0;
-        for (x = -1; x <= 1; x += 2) {
-            const childPosition = vectorPlus(pixel.position, [x, y]);
-            if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
+    private populatePixel(pixel: Pixel): void {
+        const xyRange = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+        xyRange.forEach((delta: number[]) => {
+            const childPosition = vectorPlus(pixel.position, delta);
+            if (this.isPositionAcceptable(childPosition)) {
                 pixel.children.push(this.createPixel(childPosition));
             }
-        }
-
-        x = 0;
-        for (y = -1; y <= 1; y += 2) {
-            const childPosition = vectorPlus(pixel.position, [x, y]);
-            if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
-                pixel.children.push(this.createPixel(childPosition));
-            }
-        }
-
-        return pixel;
+        });
     }
 
     private isPositionAcceptable(position: number[]) {
-        const positionColor = getPixelData(this.image, position[0], position[1]);
-        const startingColor = getPixelData(this.image, this.firstPixel.position[0], this.firstPixel.position[1]);
+        return this.isRightColor(position) && this.isPositionInRange(position) && !this.isPositionCovered(position);
+    }
+
+    private isRightColor(position: number[]) {
+        const positionColor: Color = getPixelData(this.image, position[0], position[1]);
+        const startingColor: Color = getPixelData(this.image, this.firstPixel.position[0], this.firstPixel.position[1]);
 
         const positionSum = positionColor.red + positionColor.blue + positionColor.green + positionColor.alpha;
         const startingSum = startingColor.red + startingColor.blue + startingColor.green + startingColor.alpha;
@@ -76,17 +84,13 @@ export class BreadthFirst {
         return startingSum * this.tolerance >= delta;
     }
 
+    private isPositionInRange(position: number[]) {
+        return  position[0] > 0 && position[0] < this.image.width &&
+                position[1] > 0 && position[1] < this.image.height;
+    }
+
     private isPositionCovered(position: number[]) {
-        let doesExist = false;
-
-        this.allPixels.forEach((pixel: Pixel) => {
-            if (pixel.position[0] === position[0] && pixel.position[1] === position[1]) {
-                doesExist = true;
-                return;
-            }
-        });
-
-        return doesExist;
+        return this.covered[position[0]][position[1]];
     }
 }
 

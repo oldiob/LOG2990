@@ -5,6 +5,7 @@ import { svgToImage } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
 import { ITool } from './i-tool';
 import { Injectable } from '@angular/core';
+import { PaletteService } from 'src/services/palette/palette.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,10 +18,11 @@ export class BucketFillTool implements ITool {
     private imageData: ImageData;
     colorToleranceDelta: number;
 
-    constructor() {
+    constructor(private palette: PaletteService) {
         this.width = 0;
         this.isLoaded = false;
         this.colorToleranceDelta = 0;
+
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
@@ -30,7 +32,7 @@ export class BucketFillTool implements ITool {
 
         const x = event.svgX;
         const y = event. svgY;
-        const bucketFill = new SVGBucketFill([x, y], this.imageData, this.colorToleranceDelta);
+        const bucketFill = new SVGBucketFill([x, y], this.palette.primary, this.imageData, this.colorToleranceDelta);
         const command = new CmdSVG(bucketFill);
         return command;
     }
