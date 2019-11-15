@@ -12,6 +12,7 @@ export class AirbrushTool implements ITool {
 
     readonly DEFAULT_RATE = 15;
     readonly DEFAULT_DIAMETER = 30;
+    readonly CALL_RATE = 15;
 
     currentX: number;
     currentY: number;
@@ -34,23 +35,24 @@ export class AirbrushTool implements ITool {
         if (this.width === undefined) {
             this.width = this.DEFAULT_DIAMETER;
         }
-        this.element = new SVGAirbrush(event.svgX, event.svgY);
-        this.element.spree(this.rate, this.width, event.svgX, event.svgY);
+        this.element = new SVGAirbrush(this.currentX, this.currentY);
+        this.element.spree(this.rate, this.width, this.currentX, this.currentY);
 
         this.fonction = setInterval(() => {
-          if (this.width === undefined) {
-            this.width = this.DEFAULT_DIAMETER;
-          }
-          if (this.element) {
-          this.element.spree(this.rate, this.width, this.currentX, this.currentY);
-          }
-      }, 15);
+            if (this.width === undefined) {
+                this.width = this.DEFAULT_DIAMETER;
+            }
+            if (this.element) {
+                this.element.spree(this.rate, this.width, this.currentX, this.currentY);
+            }
+        }, this.CALL_RATE);
 
         return new CmdSVG(this.element);
     }
     onMotion(event: MouseEvent): void {
         this.currentX = event.svgX;
         this.currentY = event.svgY;
+
         if (this.width === undefined) {
             this.width = this.DEFAULT_DIAMETER;
         }
@@ -64,7 +66,6 @@ export class AirbrushTool implements ITool {
     }
 
     setRate(rate: number) {
-      this.rate = rate;
+        this.rate = rate;
     }
-
 }
