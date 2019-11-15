@@ -39,7 +39,7 @@
 </div>
 
 <div *ngIf="currentTool === airbrush" class="separation">
-  <app-width [title]="'Spree Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
+    <app-width [title]="'Spree Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
 </div>
 
 <div *ngIf="currentTool === stamp">

@@ -127,10 +127,10 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
     }
 
     setRate(rate: number): void {
-      if (this.currentTool instanceof AirbrushTool) {
-        this.currentTool.setRate(rate);
+        if (this.currentTool instanceof AirbrushTool) {
+            this.currentTool.setRate(rate);
         }
-      ShowcaseSignal.emit();
+        ShowcaseSignal.emit();
     }
 
 }
