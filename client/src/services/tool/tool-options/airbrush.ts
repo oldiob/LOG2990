@@ -3,40 +3,64 @@ import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGAirbrush } from 'src/services/svg/element/svg.airbrush';
 import { ITool } from './i-tool';
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 
 export class AirbrushTool implements ITool {
-  tip: string;
-  width?: number | undefined;
+    tip: string;
+    width?: number | undefined;
 
-  readonly DEFAULT_RATE = 15;
-  readonly DEFAULT_DIAMETER = 30;
+    readonly DEFAULT_RATE = 15;
+    readonly DEFAULT_DIAMETER = 30;
 
-  rate: number;
-  diameter: number;
+    currentX: number;
+    currentY: number;
 
-  element: SVGAirbrush | null = null;
+    rate: number;
+    diameter: number;
 
-  constructor() {
-      const DEFAULT_WIDTH = 15;
-      this.width = DEFAULT_WIDTH;
-      this.rate = this.DEFAULT_RATE;
-      this.diameter = this.DEFAULT_DIAMETER;
-  }
-  onPressed(event: MouseEvent): CmdSVG | null {
-    this.element = new SVGAirbrush(event.svgX, event.svgY);
-    this.element.spree(this.rate, this.diameter, event.svgX, event.svgY);
+    element: SVGAirbrush | null = null;
 
-    return new CmdSVG(this.element);
-  }
-  onMotion(event: MouseEvent): void {
-    if (this.element) {
-      this.element.spree(this.rate, this.diameter, event.svgX, event.svgY);
+    fonction: any;
+
+    constructor() {
+        this.width = this.DEFAULT_DIAMETER;
+        this.rate = this.DEFAULT_RATE;
+        this.diameter = this.DEFAULT_DIAMETER;
     }
-  }
-  onReleased(event: MouseEvent): void {
-    this.element = null;
-  }
+    onPressed(event: MouseEvent): CmdSVG | null {
+        this.currentX = event.svgX;
+        this.currentY = event.svgY;
+        if (this.width === undefined) {
+            this.width = this.DEFAULT_DIAMETER;
+        }
+        this.element = new SVGAirbrush(event.svgX, event.svgY);
+        this.element.spree(this.rate, this.width, event.svgX, event.svgY);
+
+        this.fonction = setInterval(() => {
+          if (this.width === undefined) {
+            this.width = this.DEFAULT_DIAMETER;
+          }
+          if (this.element) {
+          this.element.spree(this.rate, this.width, this.currentX, this.currentY);
+          }
+      }, 15);
+
+        return new CmdSVG(this.element);
+    }
+    onMotion(event: MouseEvent): void {
+        this.currentX = event.svgX;
+        this.currentY = event.svgY;
+        if (this.width === undefined) {
+            this.width = this.DEFAULT_DIAMETER;
+        }
+        if (this.element) {
+            this.element.spree(this.rate, this.width, event.svgX, event.svgY);
+        }
+    }
+    onReleased(event: MouseEvent): void {
+        clearTimeout(this.fonction);
+        this.element = null;
+    }
 
 }

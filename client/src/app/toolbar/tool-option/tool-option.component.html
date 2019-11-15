@@ -4,12 +4,12 @@
 
 <div class="separation">
     <div class="tools">
-        <div class="button" 
-            *ngFor="let tool of tools" 
+        <div class="button"
+            *ngFor="let tool of tools"
             (click)="selectTool(tool)"
             matTooltip="{{tool.tip}}"
-            matTooltipClass="tooltip" 
-            matTooltipPosition="below" 
+            matTooltipClass="tooltip"
+            matTooltipPosition="below"
             [class.selected-tool]="tool === currentTool">
             <img class="tool-icon" [src]="getFilesource(tool)">
         </div>
@@ -38,9 +38,13 @@
     </div>
 </div>
 
+<div *ngIf="currentTool === airbrush" class="separation">
+  <div class="text">Spree Rate</div>
+</div>
+
 <div *ngIf="currentTool === stamp">
     <app-angle class="separation"></app-angle>
-    <app-stamp class="separation"></app-stamp>    
+    <app-stamp class="separation"></app-stamp>
 </div>
 
 <app-line-tool *ngIf="currentTool === line"></app-line-tool>
