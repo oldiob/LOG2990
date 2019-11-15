@@ -17,6 +17,7 @@ export enum State {
     maybe,
     selecting,
     selected,
+    moving,
 }
 
 enum Compass {
@@ -28,6 +29,7 @@ enum Compass {
     NE,
     SW,
     SE,
+    C,
     MAX,
 }
 
@@ -50,18 +52,24 @@ export class SelectorTool implements ITool {
     boxElement: any;
     previewElement: any;
     previewRect: any;
-    points: any[] = new Array(Compass.MAX);
+    points: SVGCircleElement[] = new Array(Compass.MAX);
 
     selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
     selection: Set<SVGAbstract> = new Set<SVGAbstract>([]);
 
     policy = false;
 
+    source: number[];
+    offset: number[];
+
     private isSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
 
     constructor(private svg: SVGService) {
         this.tip = 'Selector (S)';
+        this.offset = [];
+
+        this.source = [0, 0];
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
             fill: 'none',
@@ -81,7 +89,7 @@ export class SelectorTool implements ITool {
         for (let i = 0; i < Compass.MAX; ++i) {
             const point: any = DOMRenderer.createElement('circle', 'svg', {
                 fill: '#00F0FF',
-                r: '5',
+                r: '10',
             });
             DOMRenderer.appendChild(this.previewElement, point);
             this.points[i] = point;
@@ -116,7 +124,15 @@ export class SelectorTool implements ITool {
                 this.state = State.maybe;
                 break;
             case State.selected:
-                this.state = State.maybe;
+                if (event.target === this.points[Compass.C]) {
+                    this.source[0] = event.svgX;
+                    this.source[1] = event.svgY;
+                    this.state = State.moving;
+                    console.log('selected');
+
+                } else {
+                    this.state = State.maybe;
+                }
                 break;
             default:
                 this.state = State.idle;
@@ -134,6 +150,16 @@ export class SelectorTool implements ITool {
             case State.selecting:
                 this.setCursor(event.svgX, event.svgY);
                 break;
+            case State.moving:
+                this.offset[0] = this.source[0] - event.svgX;
+                this.offset[1] = this.source[1] - event.svgY;
+                console.log(this.offset);
+                this.selected.forEach((svg: SVGAbstract) => {
+                    svg.translate(-this.offset[0], -this.offset[1]);
+                });
+                this.source[0] = event.svgX;
+                this.source[1] = event.svgY;
+                break;
             default:
             // NO OP
         }
@@ -148,9 +174,14 @@ export class SelectorTool implements ITool {
             case State.selecting:
                 this.commit();
                 break;
+            case State.moving:
+                this.commit();
+                break;
             default:
                 this.state = State.idle;
         }
+        console.log(this.state);
+
     }
 
     onKeydown(event: KeyboardEvent): boolean {
@@ -366,6 +397,11 @@ export class SelectorTool implements ITool {
         DOMRenderer.setAttributes(this.points[Compass.W], {
             cx: x2.toString(),
             cy: ((Math.abs(y1) + Math.abs(y2)) / 2).toString(),
+        });
+
+        DOMRenderer.setAttributes(this.points[Compass.C], {
+            cx: ((x1 + x2) / 2).toString(),
+            cy: ((y1 + y2) / 2).toString(),
         });
 
         this.svg.addElement(this.previewElement);
