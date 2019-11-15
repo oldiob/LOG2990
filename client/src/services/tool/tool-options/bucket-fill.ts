@@ -1,11 +1,11 @@
+import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { SVGService } from 'src/services/svg/svg.service';
 import { svgToImage } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
 import { ITool } from './i-tool';
-import { Injectable } from '@angular/core';
-import { PaletteService } from 'src/services/palette/palette.service';
 
 @Injectable({
     providedIn: 'root',

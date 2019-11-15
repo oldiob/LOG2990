@@ -1,7 +1,7 @@
-import { getPixelData } from './misc';
-import { vectorPlus } from './math';
-import { Queue } from './queue';
 import { Color } from './color';
+import { vectorPlus } from './math';
+import { getPixelData } from './misc';
+import { Queue } from './queue';
 
 export class BreadthFirst {
 
