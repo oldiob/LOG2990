@@ -6,6 +6,7 @@ import { ITexture } from 'src/services/svg/element/texture/i-texture';
 import { OpacityTexture } from 'src/services/svg/element/texture/opacity';
 import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect';
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
+import { AirbrushTool } from 'src/services/tool/tool-options/airbrush';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
@@ -35,6 +36,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         [this.stamp, 'stamp.png'],
         [this.pen, 'pen.png'],
         [this.eraser, 'eraser.png'],
+        [this.airbrush, 'airbrush.png'],
     ]);
 
     textures: ITexture[];
@@ -45,6 +47,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
+        public airbrush: AirbrushTool,
         public pencil: PencilTool,
         public brush: BrushTool,
         public line: LineTool,
@@ -58,7 +61,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;
 
-        this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.eraser];
+        this.tools = [this.pencil, this.brush, this.line, this.stamp, this.pen, this.eraser, this.airbrush];
         this.selectTool(this.tools[0]);
     }
 
@@ -121,6 +124,13 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
 
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
+    }
+
+    setRate(rate: number): void {
+        if (this.currentTool instanceof AirbrushTool) {
+            this.currentTool.setRate(rate);
+        }
+        ShowcaseSignal.emit();
     }
 
 }
