@@ -46,10 +46,6 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-
-        if (this.currentTool instanceof DropperTool) {
-            this.dropper.loadImage();
-        }
     }
 
     getFilesource(tool: ITool): string {

@@ -3,6 +3,8 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { svgToImage } from 'src/utils/element-parser';
+import { MyInjector } from 'src/utils/injector';
+import { getPixelData } from 'src/utils/misc';
 import { ITool } from './i-tool';
 
 @Injectable({
@@ -13,35 +15,32 @@ export class DropperTool implements ITool {
 
     readonly tip: string;
 
-    imageData: ImageData;
-
-    loaded: boolean;
-
-    currentColor: Color;
+    private imageData: ImageData;
+    private isLoaded: boolean;
+    private currentColor: Color;
 
     constructor(
-        private svgService: SVGService,
         private paletteService: PaletteService) {
         this.currentColor = new Color(0, 0, 0, 0);
-        this.loaded = false;
+        this.isLoaded = false;
         this.tip = 'Pipette (I)';
     }
 
-    loadImage() {
-        this.loaded = false;
+    onSelect() {
+        this.isLoaded = false;
 
-        const setColor = (svgImage: any, ctx: any): void => {
+        const createImageData = (svgImage: HTMLImageElement, ctx: CanvasRenderingContext2D): void => {
             ctx.drawImage(svgImage, 0, 0);
             this.imageData = ctx.getImageData(0, 0, svgImage.width, svgImage.height);
 
-            this.loaded = true;
+            this.isLoaded = true;
         };
 
-        svgToImage(this.svgService.entry, setColor);
+        svgToImage(MyInjector.get(SVGService).entry, createImageData);
     }
 
     onPressed(event: MouseEvent): null {
-        if (!this.loaded) {
+        if (!this.isLoaded) {
             return null;
         }
 
@@ -62,28 +61,14 @@ export class DropperTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
-        if (!this.loaded) {
+        if (!this.isLoaded) {
             return;
         }
 
-        const pixelData = this.getPixelData(this.imageData, event.svgX, event.svgY);
-
-        this.currentColor.red = pixelData[0];
-        this.currentColor.green = pixelData[1];
-        this.currentColor.blue = pixelData[2];
-        this.currentColor.alpha = pixelData[3];
+        this.currentColor = getPixelData(this.imageData, event.svgX, event.svgY);
     }
     onReleased(event: MouseEvent): void {
         return;
-    }
-
-    getPixelData(imageData: ImageData, x: number, y: number) {
-        const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
-        return [
-            imageData.data[pixelIndex + 0],
-            imageData.data[pixelIndex + 1],
-            imageData.data[pixelIndex + 2],
-            imageData.data[pixelIndex + 3]];
     }
 
     onShowcase(): null {
