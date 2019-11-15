@@ -18,26 +18,21 @@ export class BreadthFirst {
     private fillPixels(): void {
 
         const toFill: Queue<Pixel> = new Queue<Pixel>();
+
         toFill.push(this.firstPixel);
 
-        console.log('First', toFill);
         while (true) {
             const pixelToFill: Pixel | null = toFill.next();
-            console.log('After Next', toFill);
 
             if (pixelToFill === null) {
-                break;
+                return;
             }
 
-            console.log('Unpopulated', pixelToFill);
             this.populatePixel(pixelToFill);
-            console.log('Populated', pixelToFill);
 
             pixelToFill.children.forEach((child: Pixel) => {
                 toFill.push(child);
             });
-
-            console.log('After Fill', toFill);
         }
     }
 
@@ -48,12 +43,21 @@ export class BreadthFirst {
     }
 
     private populatePixel(pixel: Pixel): Pixel {
-        for (let x = -1; x <= 1; x += 2) {
-            for (let y = -1; y <= 1; y += 2) {
-                const childPosition = vectorPlus(pixel.position, [x, y]);
-                if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
-                    pixel.children.push(this.createPixel(childPosition));
-                }
+        let x = 0;
+
+        let y = 0;
+        for (x = -1; x <= 1; x += 2) {
+            const childPosition = vectorPlus(pixel.position, [x, y]);
+            if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
+                pixel.children.push(this.createPixel(childPosition));
+            }
+        }
+
+        x = 0;
+        for (y = -1; y <= 1; y += 2) {
+            const childPosition = vectorPlus(pixel.position, [x, y]);
+            if (this.isPositionAcceptable(childPosition) && !this.isPositionCovered(childPosition)) {
+                pixel.children.push(this.createPixel(childPosition));
             }
         }
 
@@ -67,7 +71,7 @@ export class BreadthFirst {
         const positionSum = positionColor.red + positionColor.blue + positionColor.green + positionColor.alpha;
         const startingSum = startingColor.red + startingColor.blue + startingColor.green + startingColor.alpha;
 
-        const delta = positionSum - startingSum;
+        const delta = Math.abs(positionSum - startingSum);
 
         return startingSum * this.tolerance >= delta;
     }
@@ -76,7 +80,7 @@ export class BreadthFirst {
         let doesExist = false;
 
         this.allPixels.forEach((pixel: Pixel) => {
-            if (pixel.position === position) {
+            if (pixel.position[0] === position[0] && pixel.position[1] === position[1]) {
                 doesExist = true;
                 return;
             }

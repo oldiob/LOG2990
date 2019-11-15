@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { BucketFillTool } from 'src/services/tool/tool-options/bucket-fill';
 import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
@@ -24,7 +24,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
-        private bucket: BucketTool,
+        private bucket: BucketFillTool,
         private dropper: DropperTool) {
 
         this.tools = [bucket, dropper];
@@ -46,10 +46,6 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: ITool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
-
-        if (this.currentTool instanceof DropperTool) {
-            this.dropper.loadImage();
-        }
     }
 
     getFilesource(tool: ITool): string {

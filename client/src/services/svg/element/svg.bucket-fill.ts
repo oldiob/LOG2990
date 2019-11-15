@@ -1,4 +1,5 @@
 import { SVGAbstract } from './svg.interface';
+import { BreadthFirst } from 'src/utils/breadth-first';
 
 export class SVGBucketFill extends SVGAbstract {
 
@@ -9,7 +10,7 @@ export class SVGBucketFill extends SVGAbstract {
     constructor(position: number[], image: ImageData, tolerance: number) {
         super();
 
-        this.points = this.createPoints(position, image, tolerance);
+        const breadthFirst = new BreadthFirst(position, image, tolerance);
     }
 
     isIn(x: number, y: number, r: number): boolean {

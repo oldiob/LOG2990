@@ -4,7 +4,11 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { svgToImage } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
 import { ITool } from './i-tool';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+    providedIn: 'root',
+})
 export class BucketFillTool implements ITool {
     readonly tip: string = 'Bucket';
     width: number;
@@ -24,7 +28,9 @@ export class BucketFillTool implements ITool {
             return null;
         }
 
-        const bucketFill = new SVGBucketFill(this.imageData, this.colorToleranceDelta);
+        const x = event.svgX;
+        const y = event. svgY;
+        const bucketFill = new SVGBucketFill([x, y], this.imageData, this.colorToleranceDelta);
         const command = new CmdSVG(bucketFill);
         return command;
     }
