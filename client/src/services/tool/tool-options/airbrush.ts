@@ -1,12 +1,16 @@
+import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGAirbrush } from 'src/services/svg/element/svg.airbrush';
 import { ITool } from './i-tool';
+@Injectable({
+  providedIn: 'root',
+})
 
-export class TextTool implements ITool {
+export class AirbrushTool implements ITool {
   tip: string;
   width?: number | undefined;
 
-  readonly DEFAULT_RATE = 50;
+  readonly DEFAULT_RATE = 15;
   readonly DEFAULT_DIAMETER = 30;
 
   rate: number;

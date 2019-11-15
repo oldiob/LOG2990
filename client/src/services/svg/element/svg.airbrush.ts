@@ -18,8 +18,9 @@ export class SVGAirbrush extends SVGAbstract {
         for (let i = 0; i < rate; i++) {
             const point = this.getRandomPointCercle(x, y, diameter);
             const singlePoint = DOMRenderer.createElement('circle', 'svg');
-            DOMRenderer.setAttribute(singlePoint, 'x', point.x.toString());
-            DOMRenderer.setAttribute(singlePoint, 'y', point.y.toString());
+            DOMRenderer.setAttribute(singlePoint, 'cx', point.x.toString());
+            DOMRenderer.setAttribute(singlePoint, 'cy', point.y.toString());
+            DOMRenderer.setAttribute(singlePoint, 'r', (1).toString());
             DOMRenderer.appendChild(this.element, singlePoint);
         }
     }
