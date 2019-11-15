@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
@@ -59,17 +59,11 @@ export class SelectorTool implements ITool {
 
     policy = false;
 
-    source: number[];
-    offset: number[];
-
     private isSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
 
     constructor(private svg: SVGService) {
         this.tip = 'Selector (S)';
-        this.offset = [];
-
-        this.source = [0, 0];
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
             fill: 'none',
@@ -125,11 +119,7 @@ export class SelectorTool implements ITool {
                 break;
             case State.selected:
                 if (event.target === this.points[Compass.C]) {
-                    this.source[0] = event.svgX;
-                    this.source[1] = event.svgY;
                     this.state = State.moving;
-                    console.log('selected');
-
                 } else {
                     this.state = State.maybe;
                 }
@@ -152,13 +142,9 @@ export class SelectorTool implements ITool {
                 break;
             case State.moving:
                 DOMRenderer.setAttribute(this.previewElement, 'opacity', '0');
-                this.offset[0] = this.source[0] - event.svgX;
-                this.offset[1] = this.source[1] - event.svgY;
                 this.selected.forEach((svg: SVGAbstract) => {
                     svg.setPosition(event.svgX, event.svgY);
                 });
-                this.source[0] = event.svgX;
-                this.source[1] = event.svgY;
                 break;
             default:
             // NO OP
