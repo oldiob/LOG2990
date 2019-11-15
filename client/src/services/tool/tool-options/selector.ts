@@ -151,9 +151,9 @@ export class SelectorTool implements ITool {
                 this.setCursor(event.svgX, event.svgY);
                 break;
             case State.moving:
+                DOMRenderer.setAttribute(this.previewElement, 'opacity', '0');
                 this.offset[0] = this.source[0] - event.svgX;
                 this.offset[1] = this.source[1] - event.svgY;
-                console.log(this.offset);
                 this.selected.forEach((svg: SVGAbstract) => {
                     svg.translate(-this.offset[0], -this.offset[1]);
                 });
@@ -175,6 +175,7 @@ export class SelectorTool implements ITool {
                 this.commit();
                 break;
             case State.moving:
+                DOMRenderer.setAttribute(this.previewElement, 'opacity', '1');
                 this.commit();
                 break;
             default:

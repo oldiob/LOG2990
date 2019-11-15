@@ -24,11 +24,6 @@ export abstract class SVGAbstract {
         return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
     }
 
-    setPosition(x: number, y: number) {
-        this.translation = [0, 0];
-        this.translate(x, y);
-    }
-
     translate(x: number, y: number): void {
         this.translation = vectorPlus(this.translation, [x, y]);
 
