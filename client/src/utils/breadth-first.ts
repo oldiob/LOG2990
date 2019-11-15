@@ -1,5 +1,6 @@
 import { getPixelData } from './misc';
 import { vectorPlus } from './math';
+import { Queue } from './queue';
 
 export class BreadthFirst {
 
@@ -9,31 +10,35 @@ export class BreadthFirst {
 
     constructor(position: number[], private image: ImageData, private tolerance: number) {
         this.allPixels = [];
-        this.firstPixel = this.createFirstPixel(position);
-        this.corners = this.createCorners(position);
-    }
-
-    private createCorners(position: number[]): number[][] {
-        const corners: number[][] = [];
+        this.firstPixel = this.createPixel(position);
 
         this.fillPixels();
-
-        return corners;
     }
 
     private fillPixels(): void {
+
+        const toFill: Queue<Pixel> = new Queue<Pixel>();
+        toFill.push(this.firstPixel);
+
+        console.log('First', toFill);
         while (true) {
-            let currentPixel = this.firstPixel;
-            let layerToFill = 1;
+            const pixelToFill: Pixel | null = toFill.next();
+            console.log('After Next', toFill);
 
-            
+            if (pixelToFill === null) {
+                break;
+            }
+
+            console.log('Unpopulated', pixelToFill);
+            this.populatePixel(pixelToFill);
+            console.log('Populated', pixelToFill);
+
+            pixelToFill.children.forEach((child: Pixel) => {
+                toFill.push(child);
+            });
+
+            console.log('After Fill', toFill);
         }
-    }
-
-    private createFirstPixel(position: number[]): Pixel {
-        const firstPixel = this.createPixel(position);
-        this.populatePixel(firstPixel);
-        return firstPixel;
     }
 
     private createPixel(pos: number[]): Pixel {
