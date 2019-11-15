@@ -36,14 +36,14 @@ export class AirbrushTool implements ITool {
             this.width = this.DEFAULT_DIAMETER;
         }
         this.element = new SVGAirbrush(this.currentX, this.currentY);
-        this.element.spree(this.rate, this.width, this.currentX, this.currentY);
+        this.element.spray(this.rate, this.width, this.currentX, this.currentY);
 
         this.fonction = setInterval(() => {
             if (this.width === undefined) {
                 this.width = this.DEFAULT_DIAMETER;
             }
             if (this.element) {
-                this.element.spree(this.rate, this.width, this.currentX, this.currentY);
+                this.element.spray(this.rate, this.width, this.currentX, this.currentY);
             }
         }, this.CALL_RATE);
 
@@ -57,7 +57,7 @@ export class AirbrushTool implements ITool {
             this.width = this.DEFAULT_DIAMETER;
         }
         if (this.element) {
-            this.element.spree(this.rate, this.width, event.svgX, event.svgY);
+            this.element.spray(this.rate, this.width, event.svgX, event.svgY);
         }
     }
     onReleased(event: MouseEvent): void {
