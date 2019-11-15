@@ -1,5 +1,5 @@
 import { DOMRenderer } from '../../utils/dom-renderer';
-import { SVGAbstract } from './element/svg.interface';
+import { SVGAbstract } from './element/svg.abstract';
 import { SVGService } from './svg.service';
 
 describe('SVGService', () => {

@@ -1,6 +1,6 @@
 import { vectorMinus, vectorModule } from 'src/utils/math';
 import { IStamp } from './stamp/i-stamp';
-import { SVGAbstract } from './svg.interface';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGStamp extends SVGAbstract {
     IMAGESIZE = 10;

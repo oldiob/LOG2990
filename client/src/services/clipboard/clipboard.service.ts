@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CmdCut } from 'src/services/cmd/cmd.cut';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorTool } from 'src/services/tool/tool-options/selector';
 

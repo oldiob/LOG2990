@@ -155,7 +155,7 @@ export class SelectorTool implements ITool {
                 this.offset[0] = this.source[0] - event.svgX;
                 this.offset[1] = this.source[1] - event.svgY;
                 this.selected.forEach((svg: SVGAbstract) => {
-                    svg.translate(-this.offset[0], -this.offset[1]);
+                    svg.setPosition(event.svgX, event.svgY);
                 });
                 this.source[0] = event.svgX;
                 this.source[1] = event.svgY;
@@ -315,11 +315,8 @@ export class SelectorTool implements ITool {
     }
 
     private elementState(element: SVGAbstract): number {
-        const entryPositions = this.svg.entry.nativeElement.getBoundingClientRect();
-        const rect: any = element.element.getBoundingClientRect();
-
-        rect.x -= entryPositions.left;
-        rect.y -= entryPositions.top;
+        const rect: DOMRect = this.svg.getElementRect(element.element);
+        const entryPositions: DOMRect = this.svg.entry.nativeElement.getBoundingClientRect();
 
         const right = rect.right - entryPositions.left;
         const bottom = rect.bottom - entryPositions.top;

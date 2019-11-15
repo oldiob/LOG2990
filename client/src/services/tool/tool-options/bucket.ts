@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CmdBucket } from 'src/services/cmd/cmd.bucket';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 
 import { ITool } from './i-tool';
