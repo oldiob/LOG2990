@@ -47,6 +47,7 @@ import { ToolOptionComponent } from './app/toolbar/tool-option/tool-option.compo
 import { ToolbarComponent } from './app/toolbar/toolbar.component';
 import { WorkZoneComponent } from './app/work-zone/work-zone.component';
 import { DOMRenderer } from './utils/dom-renderer';
+import { AirbrushOptionComponent } from './app/toolbar/airbrush-option/airbrush-option.component';
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { DOMRenderer } from './utils/dom-renderer';
         ClipboardOptionComponent,
         LineToolComponent,
         StampComponent,
+        AirbrushOptionComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { SVGAbstract } from './svg.interface';
 import { Point } from 'src/utils/geo-primitives';
+import { SVGAbstract } from './svg.interface';
 
 export class SVGAirbrush extends SVGAbstract {
     element: any;
@@ -44,7 +44,7 @@ export class SVGAirbrush extends SVGAbstract {
         throw new Error('Method not implemented.');
     }
     setPrimary(color: string): void {
-        throw new Error('Method not implemented.');
+        DOMRenderer.setAttribute(this.element, 'fill', color);
     }
     setSecondary(color: string): void {
         throw new Error('Method not implemented.');
