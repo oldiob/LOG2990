@@ -1,4 +1,5 @@
-import { Color } from "./color";
+import { Color } from './color';
+import { DOMRenderer } from './dom-renderer';
 
 export const getPixelData = (imageData: ImageData, x: number, y: number): Color => {
     const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
@@ -9,40 +10,43 @@ export const getPixelData = (imageData: ImageData, x: number, y: number): Color 
         imageData.data[pixelIndex + 3]);
 };
 
-const setPixelData = (imageData: ImageData, color: Color, x: number, y: number): void => {
-    const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
-    imageData.data[pixelIndex + 0] = color.red;
-    imageData.data[pixelIndex + 1] = color.green;
-    imageData.data[pixelIndex + 2] = color.blue;
-    imageData.data[pixelIndex + 3] = color.alpha;
+const setPixelData = (array: number[], color: Color, positions: number[][], width: number, height: number): void => {
+    for (const pos of positions) {
+        const pixelIndex: number = Math.round((pos[1] * width + pos[0]) * 4);
+        array[pixelIndex + 0] = color.red;
+        array[pixelIndex + 1] = color.green;
+        array[pixelIndex + 2] = color.blue;
+        array[pixelIndex + 3] = 255;
+    }
 };
 
-export const getImageData = (positions: number[][], color: Color): ImageData => {
-    const xRange = [Infinity, -Infinity];
-    const yRange = [Infinity, -Infinity];
+export const getImageData = (positions: number[][], color: Color, width: number, height: number): HTMLCanvasElement => {
+    const array: number[] = createArray(width, height);
 
-    positions.forEach((pos: number[]) => {
-        if (pos[0] < xRange[0]) {
-            xRange[0] = pos[0];
-        }
-        if (pos[0] > xRange[1]) {
-            xRange[1] = pos[0];
-        }
-        if (pos[1] < yRange[0]) {
-            yRange[0] = pos[1];
-        }
-        if (pos[1] > yRange[1]) {
-            yRange[1] = pos[1];
-        }
-    });
+    setPixelData(array, color, positions, width, height);
 
-    const image: ImageData = new ImageData(xRange[1] - xRange[0], yRange[1] - yRange[0]);
+    const uint8Array = Uint8ClampedArray.from(array);
+    const image: ImageData = new ImageData(uint8Array, width, height);
 
-    setPixelData(image, color, 0, 0);
+    const canvas = DOMRenderer.createElement('canvas');
 
-    positions.forEach((pos: number[]) => {
-        setPixelData(image, color, pos[0] - xRange[0], pos[1] - yRange[0]);
-    });
+    DOMRenderer.setAttribute(canvas, 'width',
+        width.toString());
+    DOMRenderer.setAttribute(canvas, 'height',
+        height.toString());
 
-    return image;
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+
+    ctx.putImageData(image, 0, 0);
+    return canvas;
+};
+
+const createArray = (width: number, height: number): number[] => {
+    const iterableNumberArray: number[] = [];
+
+    const size: number = width * height * 4;
+    for (let i = 0; i < size; i++) {
+        iterableNumberArray.push(0);
+    }
+    return iterableNumberArray;
 };

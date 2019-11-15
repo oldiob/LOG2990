@@ -57,4 +57,8 @@ export class BucketFillTool implements ITool {
 
         svgToImage(MyInjector.get(SVGService).entry, createImageData);
     }
+
+    onShowcase(): null {
+        return null;
+    }
 }
