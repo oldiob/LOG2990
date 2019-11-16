@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { vectorMinus, vectorPlus, vectorMultiply } from 'src/utils/math';
 import { MyInjector } from 'src/utils/injector';
+import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { SVGService } from '../svg.service';
 
 export abstract class SVGAbstract {

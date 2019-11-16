@@ -9,6 +9,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { vectorMultiply, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
+import { SVGComposite } from 'src/services/svg/element/svg.composite';
 
 declare type callback = () => void;
 
@@ -142,9 +143,13 @@ export class SelectorTool implements ITool {
                 break;
             case State.moving:
                 DOMRenderer.setAttribute(this.previewElement, 'opacity', '0');
+                const composite = new SVGComposite();
                 this.selected.forEach((svg: SVGAbstract) => {
-                    svg.position = [event.svgX, event.svgY];
+                    composite.addChild(svg);
                 });
+
+                composite.position = [event.svgX, event.svgY];
+
                 break;
             default:
             // NO OP
