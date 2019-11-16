@@ -419,6 +419,10 @@ export class SelectorTool implements ITool {
         this.nextIsSelected();
     }
 
+    onUnSelect(): void {
+        this.reset();
+    }
+
     selectAll() {
         this.selected = new Set<SVGAbstract>(this.svg.objects);
         this.renderPreview(this.selected);

@@ -111,11 +111,15 @@ export class SVGService {
     }
 
     addElement(element: any) {
-        DOMRenderer.appendChild(this.entry.nativeElement, element);
+        if (this.entry) {
+            DOMRenderer.appendChild(this.entry.nativeElement, element);
+        }
     }
 
     removeElement(element: any) {
-        DOMRenderer.removeChild(this.entry.nativeElement, element);
+        if (this.entry) {
+            DOMRenderer.removeChild(this.entry.nativeElement, element);
+        }
     }
 
     getElementRect(element: any): DOMRect {
