@@ -55,5 +55,9 @@ export abstract class SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'transform', `translate(${this.translation[0]} ${this.translation[1]})`);
     }
 
+    get domRect(): DOMRect {
+        return MyInjector.get(SVGService).getElementRect(this.element);
+    }
+
     protected abstract isAtAdjusted(x: number, y: number): boolean;
 }

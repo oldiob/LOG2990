@@ -301,7 +301,7 @@ export class SelectorTool implements ITool {
     }
 
     private elementState(element: SVGAbstract): number {
-        const rect: DOMRect = this.svg.getElementRect(element.element);
+        const rect: DOMRect = element.domRect;
         const entryPositions: DOMRect = this.svg.entry.nativeElement.getBoundingClientRect();
 
         const right = rect.right - entryPositions.left;
