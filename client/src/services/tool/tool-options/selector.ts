@@ -143,7 +143,7 @@ export class SelectorTool implements ITool {
             case State.moving:
                 DOMRenderer.setAttribute(this.previewElement, 'opacity', '0');
                 this.selected.forEach((svg: SVGAbstract) => {
-                    svg.setPosition(event.svgX, event.svgY);
+                    svg.position = [event.svgX, event.svgY];
                 });
                 break;
             default:

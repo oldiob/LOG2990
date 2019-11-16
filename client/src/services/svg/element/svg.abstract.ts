@@ -1,5 +1,5 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { vectorMinus, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorPlus, vectorMultiply } from 'src/utils/math';
 import { MyInjector } from 'src/utils/injector';
 import { SVGService } from '../svg.service';
 
@@ -22,21 +22,31 @@ export abstract class SVGAbstract {
     abstract setPrimary(color: string): void;
     abstract setSecondary(color: string): void;
 
-    isAt(x: number, y: number): boolean {
-        const adjustedXY = vectorMinus([x, y], this.translation);
-        return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
+    set position(newPosition: number[]) {
+        this.setupRealPosition();
+
+        this.translation = [0, 0];
+        const toTranslate = vectorMinus(newPosition, this.realPosition);
+        this.translate(toTranslate[0], toTranslate[1]);
     }
 
-    setPosition(x: number, y: number): void {
+    get position() {
+        this.setupRealPosition();
+
+        return vectorPlus(this.realPosition, this.translation);
+    }
+
+    private setupRealPosition() {
         if (this.realPosition.length === 0) {
             const svgService: SVGService = MyInjector.get(SVGService);
             const rect: DOMRect = svgService.getElementRect(this.element);
-            this.realPosition = [rect.x + rect.width / 2, rect.y + rect.height / 2];
+            this.realPosition = vectorPlus([rect.x, rect.y], vectorMultiply([rect.width, rect.height], 0.5));
         }
+    }
 
-        this.translation = [0, 0];
-        const toTranslate = vectorMinus([x, y], this.realPosition);
-        this.translate(toTranslate[0], toTranslate[1]);
+    isAt(x: number, y: number): boolean {
+        const adjustedXY = vectorMinus([x, y], this.translation);
+        return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
     }
 
     translate(x: number, y: number): void {
