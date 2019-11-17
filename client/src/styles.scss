@@ -31,6 +31,7 @@ body {
 
 .mat-select-panel {
   background: rgb(64, 76, 144);
+  width: 50%;
 }
 
 .mat-menu-content {
@@ -53,6 +54,10 @@ body {
   color: white;
   font-size: 1rem;
   padding: 10px 15px;
+}
+
+.mat-form-field {
+  width: 50%;
 }
 
 /* Slider Styles */
