@@ -3,13 +3,13 @@ import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { vectorMinus } from 'src/utils/math';
 import { generateImageData } from 'src/utils/misc';
-import { SVGAbstract } from './svg.interface';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGBucketFill extends SVGAbstract {
 
     element: any;
 
-    private position: number[];
+    position: number[];
     private size: number[];
 
     constructor(position: number[], color: Color, image: ImageData, tolerance: number) {

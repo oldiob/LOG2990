@@ -1,7 +1,7 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
-import { SVGAbstract } from './svg.interface';
+import { SVGAbstract } from './svg.abstract';
 
 export abstract class AbsSVGShape extends SVGAbstract {
     element: any;
@@ -101,7 +101,9 @@ export abstract class AbsSVGShape extends SVGAbstract {
     }
 
     abstract setCursor(x: number, y: number, isShift: boolean): void;
-    abstract release(): void;
+    release(): void {
+        this.removePerimeter();
+    }
 
     protected updateCoordinates(x: number, y: number, isShift: boolean) {
         this.endingPoint = [x, y];
@@ -136,6 +138,10 @@ export abstract class AbsSVGShape extends SVGAbstract {
 
     hidePerimeter() {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
+    }
+
+    removePerimeter() {
+        DOMRenderer.removeChild(this.element, this.element.children[0]);
     }
 
     abstract onShift(isShift: boolean): void;

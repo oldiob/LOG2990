@@ -1,4 +1,4 @@
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { MyInjector } from 'src/utils/injector';
 import { CmdSVG } from './cmd.svg';
 

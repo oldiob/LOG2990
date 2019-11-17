@@ -57,7 +57,7 @@ export class SVGRectangle extends AbsSVGShape {
     }
 
     release() {
-        this.hidePerimeter();
+        super.release();
     }
 
     onShift(isShift: boolean) {

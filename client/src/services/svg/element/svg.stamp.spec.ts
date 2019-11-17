@@ -1,10 +1,13 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { MyInjector } from 'src/utils/injector';
+import { SVGService } from '../svg.service';
 import { IStamp } from './stamp/i-stamp';
 import { SVGStamp } from './svg.stamp';
 
 describe('SVGStamp', () => {
 
     let renderer: any;
+    let injector: any;
     let stamp: SVGStamp;
     let imagePath: string;
     let angle: number;
@@ -13,6 +16,8 @@ describe('SVGStamp', () => {
     let Y: number;
     let C: string;
     let width: number;
+    let svgService: SVGService;
+    let domRect: DOMRect;
 
     beforeEach(() => {
         X = Math.random() * 1000;
@@ -24,9 +29,18 @@ describe('SVGStamp', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         DOMRenderer.renderer = renderer;
 
+        svgService = jasmine.createSpyObj('SVGService', ['getElementRect']);
+        domRect = jasmine.createSpyObj('DOMRect', ['children']);
+        spyOn(svgService, 'getElementRect').and.returnValue(domRect);
+
+        injector = jasmine.createSpyObj('MyInjector', ['init', 'get']);
+        MyInjector.injector = injector;
+        spyOn(injector, 'get').and.returnValue(svgService);
+
         Istamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
         stamp = new SVGStamp(-100, -100, width, Istamp, angle, imagePath);
         stamp.imagePaths = imagePath;
+
     });
 
     it('should create', () => {

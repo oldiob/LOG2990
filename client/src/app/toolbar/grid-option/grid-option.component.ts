@@ -4,13 +4,14 @@ import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
+import { Compass } from 'src/utils/compass';
 @Component({
     selector: 'app-grid-option',
     templateUrl: './grid-option.component.html',
     styleUrls: ['../toolbar-option.scss', './grid-option.component.scss'],
 })
 export class GridOptionComponent implements OnInit, IOption<ITool> {
-
+    Compass = Compass;
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
     tip = 'Grid (G)';
@@ -19,12 +20,26 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         [this.gridTool, 'grid.png'],
     ]);
 
+    readonly directions = new Map<Compass, string>([
+        [Compass.C, 'Center'],
+        [Compass.N, 'North'],
+        [Compass.E, 'East'],
+        [Compass.S, 'South'],
+        [Compass.W, 'West'],
+        [Compass.NW, 'North West'],
+        [Compass.NE, 'North East'],
+        [Compass.SW, 'South West'],
+        [Compass.SE, 'South East'],
+    ]);
+
     tools: ITool[];
     currentTool: ITool;
 
     isOn: boolean;
+    isMagnetOn: boolean;
     opacity: number;
     step: number;
+    anchor: Compass;
 
     constructor(
         private toolService: ToolService,
@@ -36,6 +51,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [this.gridTool];
         this.currentTool = this.tools[0];
         this.opacity = 1;
+        this.isMagnetOn = false;
 
         this.subscribeGrid();
     }
@@ -63,7 +79,16 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     toggleGrid(): void {
-        this.gridService.toggle();
+        this.gridService.toggleGrid();
+    }
+
+    toggleMagnet(): void {
+        this.gridService.toggleMagnet();
+        this.isMagnetOn = this.gridService.isMagnetOn;
+    }
+
+    onAnchor(): void {
+        this.gridService.anchor = this.anchor;
     }
 
     onOpacity(): void {

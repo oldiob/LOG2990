@@ -1,4 +1,4 @@
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { JunctionType, LineType } from 'src/services/tool/tool-options/i-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';

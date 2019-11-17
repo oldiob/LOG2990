@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { Rect } from 'src/utils/geo-primitives';
 import { vectorMinus, vectorModule, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
@@ -111,11 +111,25 @@ export class SVGService {
     }
 
     addElement(element: any) {
-        DOMRenderer.appendChild(this.entry.nativeElement, element);
+        if (this.entry) {
+            DOMRenderer.appendChild(this.entry.nativeElement, element);
+        }
     }
 
     removeElement(element: any) {
-        DOMRenderer.removeChild(this.entry.nativeElement, element);
+        if (this.entry) {
+            DOMRenderer.removeChild(this.entry.nativeElement, element);
+        }
+    }
+
+    getElementRect(element: any): DOMRect {
+        const entryPositions = this.entry.nativeElement.getBoundingClientRect();
+        const rect: DOMRect = element.getBoundingClientRect();
+
+        rect.x -= entryPositions.left;
+        rect.y -= entryPositions.top;
+
+        return rect;
     }
 
     clearObjects() {
@@ -232,11 +246,7 @@ export class SVGService {
         const MIN_WIDTH = 5.0;
 
         this.objects.forEach((obj) => {
-            const box: any = obj.element.getBoundingClientRect();
-            const shiftedRect = this.entry.nativeElement.getBoundingClientRect();
-
-            box.x -= shiftedRect.left;
-            box.y -= shiftedRect.top;
+            const box: any = this.getElementRect(obj.element);
 
             if (box.width === 0 || box.height === 0) {
                 box.x -= MIN_WIDTH / 2;

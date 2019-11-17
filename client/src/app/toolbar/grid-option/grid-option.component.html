@@ -1,39 +1,58 @@
-<div class="title">Grid</div>
-
 <app-color-selection></app-color-selection>
 
 <div class="separation">
-  <div class="tools">
-    <div class="button" 
-      *ngFor="let tool of tools"
-      (click)="selectTool(tool)"
-      matTooltip="{{tool.tip}}"
-      matTooltipClass="tooltip"
-      matTooltipPosition="below"
-      [class.selected-tool]="tool === currentTool">
-      <img class="tool-icon" [src]="getFilesource(tool)">
+    <div class="tools">
+        <div class="button" *ngFor="let tool of tools" (click)="selectTool(tool)" matTooltip="{{tool.tip}}"
+            matTooltipClass="tooltip" matTooltipPosition="below" [class.selected-tool]="tool === currentTool">
+            <img class="tool-icon" [src]="getFilesource(tool)">
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="wrapper">
-  <div class="label">Grid Toggle</div>
-  <label class="switch">
-    <input type="checkbox" [(ngModel)]="isOn" (change)="toggleGrid()">
-    <span class="toggler round"></span>
-  </label>
+    <div class="label">Grid Toggle</div>
+    <label class="switch">
+        <input type="checkbox" [(ngModel)]="isOn" (change)="toggleGrid()">
+        <span class="toggler round"></span>
+    </label>
 </div>
 
 <div *ngIf="isOn" class="wrapper">
-  <div class="label">Opacity</div>
-  <div class="opacity">
-    <input type="range" [(ngModel)]="opacity" [min]="0.1" [max]="1" step="0.1" class="slider" (change)="onOpacity()">
-  </div>
+    <div class="label">Opacity</div>
+    <div class="label">{{ opacity }}</div>
+    <div class="opacity">
+        <input type="range" [(ngModel)]="opacity" [min]="0.1" [max]="1" step="0.1" class="slider"
+            (change)="onOpacity()">
+    </div>
 </div>
 
-<div *ngIf="isOn" class="wrapper">
-  <div class="label">Square Size</div>
-  <div class="size">
-    <input type="range" [(ngModel)]="step" [min]="5" [max]="25" step="5" class="slider" (change)="onStep()">
-  </div>
+<div *ngIf="isOn || isMagnetOn" class="wrapper">
+    <div class="label">Square Size</div>
+    <div class="label">{{ step }}</div>
+    <div class="size">
+        <input type="range" [(ngModel)]="step" [min]="5" [max]="25" step="5" class="slider" (change)="onStep()">
+    </div>
+</div>
+
+<div class="wrapper magnet-wrapper">
+    <div class="label">Magnet Toggle</div>
+    <label class="switch">
+        <input type="checkbox" [(ngModel)]="isMagnetOn" (change)="toggleMagnet()">
+        <span class="toggler round"></span>
+    </label>
+</div>
+
+<div *ngIf="isMagnetOn" class="wrapper magnet">
+    <div class="label">Magnetism</div>
+    <div class="label">{{ directions[anchor] }}</div>
+
+    <mat-form-field color="accent">
+        <mat-label class="magnet-label">Anchor Point</mat-label>
+        <mat-select (selectionChange)="onAnchor()" panelClass="trace-panel" [(ngModel)]="anchor">
+            <mat-option *ngFor="let direction of directions | keyvalue" [value]="direction.key">
+                {{direction.value}}
+            </mat-option>
+        </mat-select>
+
+    </mat-form-field>
 </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';

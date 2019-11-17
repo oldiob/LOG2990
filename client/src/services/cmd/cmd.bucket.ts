@@ -1,5 +1,5 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 
 export class CmdBucket implements CmdInterface {
 

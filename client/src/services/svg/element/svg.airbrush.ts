@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point } from 'src/utils/geo-primitives';
-import { SVGAbstract } from './svg.interface';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGAirbrush extends SVGAbstract {
     element: any;

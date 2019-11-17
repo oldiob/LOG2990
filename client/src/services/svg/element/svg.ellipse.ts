@@ -50,7 +50,7 @@ export class SVGEllipse extends AbsSVGShape {
     }
 
     release() {
-        this.hidePerimeter();
+        super.release();
     }
 
     onShift(isShift: boolean) {

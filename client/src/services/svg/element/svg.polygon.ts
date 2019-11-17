@@ -62,7 +62,7 @@ export class SVGPolygon extends AbsSVGShape {
     }
 
     release() {
-        this.hidePerimeter();
+        super.release();
     }
 
     onShift(isShift: boolean) {

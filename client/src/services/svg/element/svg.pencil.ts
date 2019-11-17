@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
-import { SVGAbstract } from './svg.interface';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGPencil extends SVGAbstract {
     element: any;
