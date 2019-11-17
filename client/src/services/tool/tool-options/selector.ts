@@ -3,13 +3,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
+import { GridService } from 'src/services/grid/grid.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
+import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { vectorMultiply, vectorPlus } from 'src/utils/math';
+import { Compass } from '../../../utils/compass';
 import { ITool } from './i-tool';
-import { SVGComposite } from 'src/services/svg/element/svg.composite';
 
 declare type callback = () => void;
 
@@ -19,19 +21,6 @@ export enum State {
     selecting,
     selected,
     moving,
-}
-
-enum Compass {
-    N,
-    E,
-    S,
-    W,
-    NW,
-    NE,
-    SW,
-    SE,
-    C,
-    MAX,
 }
 
 @Injectable({
@@ -50,9 +39,9 @@ export class SelectorTool implements ITool {
     anchor: Point = new Point();
     cursor: Point = new Point();
 
-    boxElement: any;
-    previewElement: any;
-    previewRect: any;
+    boxElement: SVGPolylineElement;
+    previewElement: SVGGElement;
+    previewRect: SVGRectElement;
     points: SVGCircleElement[] = new Array(Compass.MAX);
 
     selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
@@ -63,7 +52,7 @@ export class SelectorTool implements ITool {
     private isSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
 
-    constructor(private svg: SVGService) {
+    constructor(private svg: SVGService, private grid: GridService) {
         this.tip = 'Selector (S)';
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
@@ -147,8 +136,11 @@ export class SelectorTool implements ITool {
                 this.selected.forEach((svg: SVGAbstract) => {
                     composite.addChild(svg);
                 });
-
-                composite.position = [event.svgX, event.svgY];
+                const distance = new Point(
+                    this.previewRect.width.baseVal.value / 2,
+                    this.previewRect.height.baseVal.value / 2,
+                );
+                composite.position = this.grid.snapOnGrid(event, distance);
 
                 break;
             default:
@@ -172,8 +164,6 @@ export class SelectorTool implements ITool {
             default:
                 this.state = State.idle;
         }
-        console.log(this.state);
-
     }
 
     onKeydown(event: KeyboardEvent): boolean {

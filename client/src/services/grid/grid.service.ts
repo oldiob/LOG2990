@@ -1,5 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Compass } from 'src/utils/compass';
+import { Point } from 'src/utils/geo-primitives';
 import { DOMRenderer } from '../../utils/dom-renderer';
 
 @Injectable({
@@ -14,6 +16,7 @@ export class GridService {
     static readonly MAX_OPACITY = 1.0;
 
     ref: ElementRef;
+    anchor: Compass;
     mStep: number = GridService.DEFAULT_STEP;
     width: number;
     height: number;
@@ -25,6 +28,7 @@ export class GridService {
         this.isOn = false;
         this.isOnSubject = new BehaviorSubject<boolean>(this.isOn);
         this.stepSubject = new BehaviorSubject<number>(this.mStep);
+        this.anchor = Compass.C;
     }
 
     get isOnObservable(): Observable<boolean> {
@@ -113,5 +117,40 @@ export class GridService {
             const STEP = 5;
             this.step = this.mStep - STEP;
         }
+    }
+
+    snapOnGrid(event: MouseEvent, distance: Point) {
+        const anchors: Point[] = new Array(Compass.MAX);
+
+        const LEFT = -1;
+        const RIGHT = 1;
+        const CENTER = 0;
+        const TOP = -1;
+        const BOTTOM = 1;
+        const direction = new Point(LEFT, BOTTOM);
+
+        for (let i = 0; i < Compass.MAX; ++i) {
+            const isWest = (i === Compass.NW) || (i === Compass.W) || (i === Compass.SW);
+            const isEast = (i === Compass.NE) || (i === Compass.E) || (i === Compass.SE);
+            const isNorth = (i === Compass.NW) || (i === Compass.N) || (i === Compass.NE);
+            const isSouth = (i === Compass.SW) || (i === Compass.S) || (i === Compass.SE);
+
+            direction.x = isWest ? LEFT : isEast ? RIGHT : CENTER;
+            direction.y = isNorth ? TOP : isSouth ? BOTTOM : CENTER;
+
+            anchors[i] = new Point(
+                event.svgX + direction.x * distance.x,
+                event.svgY + direction.y * distance.y,
+            );
+        }
+        const offset = this.getRectOffset(anchors);
+
+        return [event.svgX + offset.x, event.svgY + offset.y];
+    }
+
+    private getRectOffset(anchors: Point[]) {
+        return new Point(
+            Math.ceil(anchors[this.anchor].x / this.mStep) * this.mStep - anchors[this.anchor].x,
+            Math.ceil(anchors[this.anchor].y / this.mStep) * this.mStep - anchors[this.anchor].y);
     }
 }
