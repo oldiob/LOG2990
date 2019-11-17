@@ -162,7 +162,7 @@ export class GridService {
 
     private getRectOffset(anchors: Point[]) {
         return new Point(
-            Math.ceil(anchors[this.anchor].x / this.mStep) * this.mStep - anchors[this.anchor].x,
-            Math.ceil(anchors[this.anchor].y / this.mStep) * this.mStep - anchors[this.anchor].y);
+            Math.round(anchors[this.anchor].x / this.mStep) * this.mStep - anchors[this.anchor].x,
+            Math.round(anchors[this.anchor].y / this.mStep) * this.mStep - anchors[this.anchor].y);
     }
 }
