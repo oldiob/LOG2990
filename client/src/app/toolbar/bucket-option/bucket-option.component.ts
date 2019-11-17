@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { ColorApplicatorTool } from 'src/services/tool/tool-options/color-applicator';
 import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
+import { BucketTool } from 'src/services/tool/tool-options/bucket';
 
 @Component({
     selector: 'app-bucket-option',
@@ -15,6 +16,7 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     tip = 'Bucket (B)';
     images = new Map<ITool, string>([
+        [this.colorApplicator, 'color-applicator.png'],
         [this.bucket, 'bucket.png'],
         [this.dropper, 'dropper.png'],
     ]);
@@ -24,15 +26,16 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
+        private colorApplicator: ColorApplicatorTool,
         private bucket: BucketTool,
         private dropper: DropperTool) {
 
-        this.tools = [bucket, dropper];
+        this.tools = [colorApplicator, bucket, dropper];
         this.currentTool = this.tools[0];
     }
 
     ngOnInit() {
-        this.currentTool = this.bucket;
+        this.currentTool = this.colorApplicator;
     }
 
     select() {

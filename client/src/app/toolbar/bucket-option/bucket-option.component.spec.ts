@@ -2,15 +2,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatSnackBarModule } from '@angular/material';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
+import { ColorApplicatorTool } from 'src/services/tool/tool-options/color-applicator';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { BucketOptionComponent } from './bucket-option.component';
 
 describe('BucketOptionComponent', () => {
     let component: BucketOptionComponent;
     let fixture: ComponentFixture<BucketOptionComponent>;
-    let bucket: BucketTool;
-    const BUTTON = 'bucket.png';
+    let colorApplicator: ColorApplicatorTool;
+    const BUTTON = 'color-applicator.png';
     const PATH = '../../../../assets/images/';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -30,7 +30,7 @@ describe('BucketOptionComponent', () => {
         fixture = TestBed.createComponent(BucketOptionComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        bucket = TestBed.get(BucketTool);
+        colorApplicator = TestBed.get(ColorApplicatorTool);
         component.ngOnInit();
     });
 
@@ -39,17 +39,17 @@ describe('BucketOptionComponent', () => {
     });
 
     it('should bucket be the current tool', () => {
-        expect(component.currentTool).toBe(bucket);
+        expect(component.currentTool).toBe(colorApplicator);
     });
 
     it('should select bucket tool', () => {
         component.selectTool(component.currentTool);
-        expect(component.currentTool).toEqual(bucket);
+        expect(component.currentTool).toEqual(colorApplicator);
     });
 
     it('should return string to get file source and button image', () => {
-        component.getFilesource(bucket);
-        expect(component.getFilesource(bucket)).toEqual(PATH + BUTTON);
+        component.getFilesource(colorApplicator);
+        expect(component.getFilesource(colorApplicator)).toEqual(PATH + BUTTON);
     });
 
 });

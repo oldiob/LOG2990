@@ -1,4 +1,4 @@
-import { BucketTool } from './bucket';
+import { ColorApplicatorTool } from './color-applicator';
 
 describe('BucketTool', () => {
 
@@ -8,7 +8,7 @@ describe('BucketTool', () => {
     let SVGAbstract: any;
     let svgService: any;
     let paletteService: any;
-    let bucket: BucketTool;
+    let bucket: ColorApplicatorTool;
     const left: MouseEvent = new MouseEvent('mousedown', { button: 0 });
     const right: MouseEvent = new MouseEvent('mousedown', { button: 2 });
 
@@ -22,7 +22,7 @@ describe('BucketTool', () => {
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
         paletteService.getPrimary.and.returnValue(PRIMARY);
         paletteService.getSecondary.and.returnValue(SECONDARY);
-        bucket = new BucketTool(svgService, paletteService);
+        bucket = new ColorApplicatorTool(svgService, paletteService);
         left.svgX = Math.floor(Math.random() * 1000);
         left.svgY = Math.floor(Math.random() * 1000);
         right.svgX = Math.floor(Math.random() * 1000);
