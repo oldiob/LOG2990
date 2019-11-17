@@ -68,7 +68,7 @@ describe('GridOptionComponent', () => {
   it('should draw grid if it is toggle', () => {
     component.isOn = true;
     component.toggleGrid();
-    expect(gridService.toggle).toHaveBeenCalled();
+    expect(gridService.toggleGrid).toHaveBeenCalled();
   });
 
   it('should opacity change' , () => {

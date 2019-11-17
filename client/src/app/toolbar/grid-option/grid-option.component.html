@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div *ngIf="isOn" class="wrapper">
+<div *ngIf="isOn || isMagnetOn" class="wrapper">
     <div class="label">Square Size</div>
     <div class="label">{{ step }}</div>
     <div class="size">
@@ -34,7 +34,15 @@
     </div>
 </div>
 
-<div *ngIf="isOn" class="wrapper">
+<div class="wrapper magnet-wrapper">
+    <div class="label">Magnet Toggle</div>
+    <label class="switch">
+        <input type="checkbox" [(ngModel)]="isMagnetOn" (change)="toggleMagnet()">
+        <span class="toggler round"></span>
+    </label>
+</div>
+
+<div *ngIf="isMagnetOn" class="wrapper magnet">
     <div class="label">Magnetism</div>
     <div class="label">{{ directions[anchor] }}</div>
 

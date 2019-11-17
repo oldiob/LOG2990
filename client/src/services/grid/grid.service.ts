@@ -17,9 +17,10 @@ export class GridService {
 
     ref: ElementRef;
     anchor: Compass;
-    mStep: number = GridService.DEFAULT_STEP;
+    private mStep: number = GridService.DEFAULT_STEP;
     width: number;
     height: number;
+    isMagnetOn: boolean;
     isOn: boolean;
     isOnSubject: BehaviorSubject<boolean>;
     stepSubject: BehaviorSubject<number>;
@@ -28,6 +29,7 @@ export class GridService {
         this.isOn = false;
         this.isOnSubject = new BehaviorSubject<boolean>(this.isOn);
         this.stepSubject = new BehaviorSubject<number>(this.mStep);
+        this.isMagnetOn = false;
         this.anchor = Compass.C;
     }
 
@@ -42,7 +44,9 @@ export class GridService {
         if (GridService.MIN_STEP <= step && step <= GridService.MAX_STEP) {
             if (step !== this.mStep) {
                 this.mStep = step;
-                this.draw();
+                if (this.isOn) {
+                    this.draw();
+                }
                 this.stepSubject.next(this.mStep);
             }
         }
@@ -97,12 +101,16 @@ export class GridService {
         this.isOnSubject.next(this.isOn);
     }
 
-    toggle(): void {
+    toggleGrid(): void {
         if (!this.isOn) {
             this.draw();
         } else {
             this.clear();
         }
+    }
+
+    toggleMagnet(): void {
+        this.isMagnetOn = !this.isMagnetOn;
     }
 
     addStep(): void {
@@ -120,6 +128,10 @@ export class GridService {
     }
 
     snapOnGrid(event: MouseEvent, distance: Point) {
+        if (!this.isMagnetOn) {
+            return [event.svgX, event.svgY];
+        }
+
         const anchors: Point[] = new Array(Compass.MAX);
 
         const LEFT = -1;

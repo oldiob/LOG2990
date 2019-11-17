@@ -51,6 +51,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.tools = [this.gridTool];
         this.currentTool = this.tools[0];
         this.opacity = 1;
+        this.isMagnetOn = false;
 
         this.subscribeGrid();
     }
@@ -78,7 +79,12 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     toggleGrid(): void {
-        this.gridService.toggle();
+        this.gridService.toggleGrid();
+    }
+
+    toggleMagnet(): void {
+        this.gridService.toggleMagnet();
+        this.isMagnetOn = this.gridService.isMagnetOn;
     }
 
     onAnchor(): void {
