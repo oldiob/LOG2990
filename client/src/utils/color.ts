@@ -11,6 +11,29 @@ export class Color {
     blue: number;
     alpha: number;
 
+    static getAverageColor(colors: Color[]): Color {
+        const averageColor = new Color(0, 0, 0, 0);
+        const colorsLen = colors.length;
+
+        if (colorsLen === 0) {
+            return averageColor;
+        }
+
+        colors.forEach((color: Color) => {
+            averageColor.red += color.red;
+            averageColor.green += color.green;
+            averageColor.blue += color.blue;
+            averageColor.alpha += color.alpha;
+        });
+
+        averageColor.red /= colorsLen;
+        averageColor.green /= colorsLen;
+        averageColor.blue /= colorsLen;
+        averageColor.alpha /= colorsLen;
+
+        return averageColor;
+    }
+
     static convertToDecimal(hex: string): number {
         return parseInt(hex, 16);
     }
