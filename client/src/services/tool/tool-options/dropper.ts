@@ -4,7 +4,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { svgToImage } from 'src/utils/element-parser';
 import { MyInjector } from 'src/utils/injector';
-import { getPixelData } from 'src/utils/misc';
+import { getPixelData } from 'src/utils/image-manipulations';
 import { ITool } from './i-tool';
 
 @Injectable({

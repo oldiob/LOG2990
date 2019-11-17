@@ -1,6 +1,6 @@
 import { Color } from './color';
-import { vectorPlus } from './math';
-import { getPixelData } from './misc';
+import { vectorPlus, vectorMultiply } from './math';
+import { getPixelData, getXYRange, getAverageColor } from './image-manipulations';
 import { Queue } from './queue';
 
 export class BreadthFirst {
@@ -10,7 +10,7 @@ export class BreadthFirst {
 
     private covered: boolean[][];
 
-    constructor(position: number[], private image: ImageData, private tolerance: number) {
+    constructor(position: number[], private image: ImageData, private tolerance: number, private approximationSize: number) {
         this.initEmptyCovered();
 
         this.positions = [];
@@ -56,24 +56,31 @@ export class BreadthFirst {
 
     private createPixel(pos: number[]): Pixel {
         const pixel: Pixel = { position: pos, children: [] };
-        this.positions.push(pos);
-        this.covered[pos[0]][pos[1]] = true;
+        this.addToPositions(pos);
         return pixel;
     }
 
-    private populatePixel(pixel: Pixel): void {
-        const xyRange = [];
-        for (let x = -1; x <= 1; x++) {
-            for (let y = -1; y <= 1; y++) {
-                if (x === 0 && y === 0) {
-                    continue;
-                }
+    private addToPositions(position: number[]) {
+        const xyRange = getXYRange(this.approximationSize);
 
-                xyRange.push([x, y]);
-            }
-        }
         xyRange.forEach((delta: number[]) => {
-            const childPosition = vectorPlus(pixel.position, delta);
+            const realPosition = vectorPlus(position, delta);
+            realPosition[0] = Math.round(realPosition[0]);
+            realPosition[1] = Math.round(realPosition[1]);
+            this.setPixelCovered(realPosition);
+            this.positions.push(realPosition);
+        });
+    }
+
+    private setPixelCovered(position: number[]) {
+        this.covered[position[0]][position[1]] = true;
+    }
+
+    private populatePixel(pixel: Pixel): void {
+        const xyRange = getXYRange(3);
+
+        xyRange.forEach((delta: number[]) => {
+            const childPosition = vectorPlus(pixel.position, vectorMultiply(delta, this.approximationSize));
             childPosition[0] = Math.round(childPosition[0]);
             childPosition[1] = Math.round(childPosition[1]);
             if (this.isPositionAcceptable(childPosition)) {
@@ -87,7 +94,7 @@ export class BreadthFirst {
     }
 
     private isRightColor(position: number[]) {
-        const positionColor: Color = getPixelData(this.image, position[0], position[1]);
+        const positionColor: Color = getAverageColor(this.image, position, this.approximationSize);
         const startingColor: Color = getPixelData(this.image, this.firstPixel.position[0], this.firstPixel.position[1]);
 
         const positionSum = positionColor.red + positionColor.blue + positionColor.green + positionColor.alpha;
