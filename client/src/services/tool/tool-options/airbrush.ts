@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGAirbrush } from 'src/services/svg/element/svg.airbrush';
 import { ITool } from './i-tool';
 @Injectable({
@@ -11,7 +12,7 @@ export class AirbrushTool implements ITool {
     width?: number | undefined;
 
     readonly DEFAULT_RATE = 15;
-    readonly DEFAULT_DIAMETER = 30;
+    readonly DEFAULT_DIAMETER = 5;
     readonly CALL_RATE = 15;
 
     currentX: number;
@@ -24,7 +25,7 @@ export class AirbrushTool implements ITool {
 
     fonction: any;
 
-    constructor() {
+    constructor(private paletteService: PaletteService) {
         this.width = this.DEFAULT_DIAMETER;
         this.rate = this.DEFAULT_RATE;
         this.diameter = this.DEFAULT_DIAMETER;
@@ -37,7 +38,7 @@ export class AirbrushTool implements ITool {
         }
         this.element = new SVGAirbrush(this.currentX, this.currentY);
         this.element.spray(this.rate, this.width, this.currentX, this.currentY);
-
+        this.element.setPrimary(this.paletteService.getPrimary());
         this.fonction = setInterval(() => {
             if (this.width === undefined) {
                 this.width = this.DEFAULT_DIAMETER;
