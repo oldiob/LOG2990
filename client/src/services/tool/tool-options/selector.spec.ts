@@ -1,3 +1,4 @@
+import { GridService } from 'src/services/grid/grid.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SelectorTool, State } from './selector';
 
@@ -5,12 +6,15 @@ describe('SelectorTool', () => {
 
     let tool: SelectorTool;
     let svg: any;
+    let grid: GridService;
 
     beforeEach(() => {
         const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
         DOMRenderer.renderer = renderer;
 
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
+
+        grid = jasmine.createSpyObj('GridService', ['snapOnGrid']);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
         const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
@@ -19,7 +23,7 @@ describe('SelectorTool', () => {
 
         svg.getInRect.and.returnValue(new Set<any>([]));
         svg.findAt.and.returnValue(new Set<any>([]));
-        tool = new SelectorTool(svg);
+        tool = new SelectorTool(svg, grid);
 
     });
 

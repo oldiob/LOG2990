@@ -1,3 +1,4 @@
+import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { StampTool } from './stamp';
@@ -9,6 +10,9 @@ describe('StampTool', () => {
     const iStamp = jasmine.createSpyObj('IStamp', ['create', 'addPoint']);
     let stamp: StampTool;
     let event: MouseEvent;
+    let svgService: SVGService;
+    let injector: any;
+    let domRect: DOMRect;
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
@@ -16,6 +20,15 @@ describe('StampTool', () => {
         stamp = new StampTool();
         stamp.stampTexture = iStamp;
         event = new MouseEvent('mousedown');
+
+        svgService = jasmine.createSpyObj('SVGService', ['getElementRect']);
+        domRect = jasmine.createSpyObj('DOMRect', ['children']);
+        spyOn(svgService, 'getElementRect').and.returnValue(domRect);
+
+        injector = jasmine.createSpyObj('MyInjector', ['init', 'get']);
+        MyInjector.injector = injector;
+        spyOn(injector, 'get').and.returnValue(svgService);
+
     });
 
     it('should create', () => {

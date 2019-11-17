@@ -25,7 +25,7 @@ describe('GridOptionComponent', () => {
 
   beforeEach(() => {
     ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
-    gridService = jasmine.createSpyObj('GridService', ['clear', 'draw', 'opacity', 'step', 'toggle']);
+    gridService = jasmine.createSpyObj('GridService', ['clear', 'draw', 'opacity', 'step', 'toggleGrid']);
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
     fixture = TestBed.createComponent(GridOptionComponent);

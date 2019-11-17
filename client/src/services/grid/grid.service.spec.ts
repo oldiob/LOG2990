@@ -25,6 +25,7 @@ describe('GridService', () => {
     });
 
     it('should set the step correctly and redraw the grid', () => {
+        service.isOn = true;
         const under = GridService.MIN_STEP - 1;
         const over = GridService.MAX_STEP + 1;
         const okay = GridService.MIN_STEP;
