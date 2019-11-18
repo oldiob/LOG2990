@@ -43,13 +43,13 @@ export class SVGAirbrush extends SVGAbstract {
         throw new Error('Method not implemented.');
     }
     getSecondary(): string {
-        throw new Error('Method not implemented.');
+        return '';
     }
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'fill', color);
     }
     setSecondary(color: string): void {
-        throw new Error('Method not implemented.');
+        //
     }
     protected isAtAdjusted(x: number, y: number): boolean {
         throw new Error('Method not implemented.');
