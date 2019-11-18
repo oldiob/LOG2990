@@ -1,6 +1,6 @@
 import { Color } from './color';
 import { vectorPlus } from './math';
-import { getPixelData, getXYRange } from './image-manipulations';
+import { getPixelData } from './image-manipulations';
 import { Queue } from './queue';
 
 export class BreadthFirst {
@@ -11,7 +11,7 @@ export class BreadthFirst {
     private startingColor: Color;
     private startingColorSum: number;
 
-    constructor(position: number[], private image: ImageData, private tolerance: number, private approximationSize: number) {
+    constructor(position: number[], private image: ImageData, private tolerance: number) {
         this.initEmptyCovered();
 
         this.positions = [];
@@ -19,11 +19,13 @@ export class BreadthFirst {
         position[0] = Math.round(position[0]);
         position[1] = Math.round(position[1]);
 
-        const firstPixel: Pixel = this.createPixel(position);
-        this.startingColor = getPixelData(image, firstPixel.position[0], firstPixel.position[1]);
+        this.covered[position[0]][position[1]] = true;
+        this.positions.push(position);
+
+        this.startingColor = getPixelData(image, position[0], position[1]);
         this.startingColorSum = this.startingColor.red + this.startingColor.green + this.startingColor.blue + this.startingColor.alpha;
 
-        this.fillPixels(firstPixel);
+        this.fillPixels(position);
     }
 
     private initEmptyCovered(): void {
@@ -36,62 +38,37 @@ export class BreadthFirst {
         }
     }
 
-    private fillPixels(firstPixel: Pixel): void {
+    private fillPixels(startingPosition: number[]): void {
 
-        const toFill: Queue<Pixel> = new Queue<Pixel>();
+        const toFill: Queue<number[]> = new Queue<number[]>();
 
-        toFill.push(firstPixel);
+        toFill.push(startingPosition);
 
         while (true) {
-            const pixelToFill: Pixel | null = toFill.next();
+            const positionToFill: number[] | null = toFill.next();
 
-            if (pixelToFill === null) {
+            if (positionToFill === null) {
                 return;
             }
 
-            this.populatePixel(pixelToFill);
-
-            pixelToFill.children.forEach((child: Pixel) => {
-                toFill.push(child);
-            });
+            this.populatePixel(toFill, positionToFill);
         }
     }
 
-    private createPixel(pos: number[]): Pixel {
-        const pixel: Pixel = { position: pos, children: [] };
-        this.addToPositions(pos);
-        return pixel;
-    }
+    private populatePixel(toFillQueue: Queue<number[]>, position: number[]): void {
+        for (let x = -1; x <= 1; x++) {
+            for (let y = -1; y <= 1; y++) {
+                if (x !== 0 || y !== 0) {
+                    const childPosition = vectorPlus(position, [x, y]);
 
-    private addToPositions(position: number[]) {
-        const xyRange = getXYRange(this.approximationSize);
+                    if (this.isPositionAcceptable(childPosition)) {
+                        this.covered[childPosition[0]][childPosition[1]] = true;
+                        this.positions.push(childPosition);
 
-        xyRange.forEach((delta: number[]) => {
-            const realPosition = vectorPlus(position, delta);
-            realPosition[0] = Math.round(realPosition[0]);
-            realPosition[1] = Math.round(realPosition[1]);
-            this.setPixelCovered(realPosition);
-            this.positions.push(realPosition);
-        });
-    }
-
-    private setPixelCovered(position: number[]) {
-        try {
-            this.covered[position[0]][position[1]] = true;
-        } catch (e) {
-            console.log(position, this.image.width, this.image.height);
-        }
-    }
-
-    private populatePixel(pixel: Pixel): void {
-
-        for (let x = -this.approximationSize; x <= this.approximationSize; x += this.approximationSize) {
-            for (let y = -this.approximationSize; y <= this.approximationSize; y += this.approximationSize) {
-                const childPosition = vectorPlus(pixel.position, [x, y]);
-                childPosition[0] = Math.round(childPosition[0]);
-                childPosition[1] = Math.round(childPosition[1]);
-                if (this.isPositionAcceptable(childPosition)) {
-                    pixel.children.push(this.createPixel(childPosition));
+                        if (x !== 0 && y !== 0) {
+                            toFillQueue.push(childPosition);
+                        }
+                    }
                 }
             }
         }
@@ -121,9 +98,4 @@ export class BreadthFirst {
     private isPositionCovered(position: number[]) {
         return this.covered[position[0]][position[1]];
     }
-}
-
-interface Pixel {
-    position: number[];
-    children: Pixel[];
 }

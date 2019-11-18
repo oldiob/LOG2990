@@ -15,8 +15,7 @@ export class SVGBucketFill extends SVGAbstract {
     constructor(position: number[], color: Color, image: ImageData, tolerance: number) {
         super();
 
-        const approximationSize = 1;
-        const filledBooleans = new BreadthFirst(position, image, tolerance, approximationSize);
+        const filledBooleans = new BreadthFirst(position, image, tolerance);
         const pixelPositions: number[][] = filledBooleans.positions;
         this.findDimensions(pixelPositions);
         this.normalizedPositions(pixelPositions);
