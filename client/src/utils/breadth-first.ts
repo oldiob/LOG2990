@@ -1,14 +1,15 @@
 import { Color } from './color';
-import { vectorPlus, vectorMultiply } from './math';
-import { getPixelData, getXYRange, getAverageColor } from './image-manipulations';
+import { vectorPlus } from './math';
+import { getPixelData, getXYRange } from './image-manipulations';
 import { Queue } from './queue';
 
 export class BreadthFirst {
 
     positions: number[][];
-    private firstPixel: Pixel;
 
     private covered: boolean[][];
+    private startingColor: Color;
+    private startingColorSum: number;
 
     constructor(position: number[], private image: ImageData, private tolerance: number, private approximationSize: number) {
         this.initEmptyCovered();
@@ -18,9 +19,11 @@ export class BreadthFirst {
         position[0] = Math.round(position[0]);
         position[1] = Math.round(position[1]);
 
-        this.firstPixel = this.createPixel(position);
+        const firstPixel: Pixel = this.createPixel(position);
+        this.startingColor = getPixelData(image, firstPixel.position[0], firstPixel.position[1]);
+        this.startingColorSum = this.startingColor.red + this.startingColor.green + this.startingColor.blue + this.startingColor.alpha;
 
-        this.fillPixels();
+        this.fillPixels(firstPixel);
     }
 
     private initEmptyCovered(): void {
@@ -33,11 +36,11 @@ export class BreadthFirst {
         }
     }
 
-    private fillPixels(): void {
+    private fillPixels(firstPixel: Pixel): void {
 
         const toFill: Queue<Pixel> = new Queue<Pixel>();
 
-        toFill.push(this.firstPixel);
+        toFill.push(firstPixel);
 
         while (true) {
             const pixelToFill: Pixel | null = toFill.next();
@@ -73,41 +76,46 @@ export class BreadthFirst {
     }
 
     private setPixelCovered(position: number[]) {
-        this.covered[position[0]][position[1]] = true;
+        try {
+            this.covered[position[0]][position[1]] = true;
+        } catch (e) {
+            console.log(position, this.image.width, this.image.height);
+        }
     }
 
     private populatePixel(pixel: Pixel): void {
-        const xyRange = getXYRange(3);
 
-        xyRange.forEach((delta: number[]) => {
-            const childPosition = vectorPlus(pixel.position, vectorMultiply(delta, this.approximationSize));
-            childPosition[0] = Math.round(childPosition[0]);
-            childPosition[1] = Math.round(childPosition[1]);
-            if (this.isPositionAcceptable(childPosition)) {
-                pixel.children.push(this.createPixel(childPosition));
+        for (let x = -this.approximationSize; x <= this.approximationSize; x += this.approximationSize) {
+            for (let y = -this.approximationSize; y <= this.approximationSize; y += this.approximationSize) {
+                const childPosition = vectorPlus(pixel.position, [x, y]);
+                childPosition[0] = Math.round(childPosition[0]);
+                childPosition[1] = Math.round(childPosition[1]);
+                if (this.isPositionAcceptable(childPosition)) {
+                    pixel.children.push(this.createPixel(childPosition));
+                }
             }
-        });
+        }
     }
 
     private isPositionAcceptable(position: number[]) {
-        return this.isRightColor(position) && this.isPositionInRange(position) && !this.isPositionCovered(position);
+        return this.isPositionInRange(position) && !this.isPositionCovered(position) && this.isRightColor(position);
     }
 
     private isRightColor(position: number[]) {
-        const positionColor: Color = getAverageColor(this.image, position, this.approximationSize);
-        const startingColor: Color = getPixelData(this.image, this.firstPixel.position[0], this.firstPixel.position[1]);
+        const positionColor: Color = getPixelData(this.image, position[0], position[1]);
 
-        const positionSum = positionColor.red + positionColor.blue + positionColor.green + positionColor.alpha;
-        const startingSum = startingColor.red + startingColor.blue + startingColor.green + startingColor.alpha;
+        const delta =
+            Math.abs(positionColor.red - this.startingColor.red) +
+            Math.abs(positionColor.green - this.startingColor.green) +
+            Math.abs(positionColor.blue - this.startingColor.blue) +
+            Math.abs(positionColor.alpha - this.startingColor.alpha);
 
-        const delta = Math.abs(positionSum - startingSum);
-
-        return startingSum * this.tolerance >= delta;
+        return this.startingColorSum * this.tolerance >= delta;
     }
 
     private isPositionInRange(position: number[]) {
-        return position[0] > 0 && position[0] < this.image.width &&
-            position[1] > 0 && position[1] < this.image.height;
+        return position[0] >= 0 && position[0] < this.image.width &&
+            position[1] >= 0 && position[1] < this.image.height;
     }
 
     private isPositionCovered(position: number[]) {

@@ -9,13 +9,13 @@ export class SVGBucketFill extends SVGAbstract {
 
     element: any;
 
-    position: number[];
+    imagePosition: number[];
     private size: number[];
 
     constructor(position: number[], color: Color, image: ImageData, tolerance: number) {
         super();
 
-        const approximationSize = 101;
+        const approximationSize = 1;
         const filledBooleans = new BreadthFirst(position, image, tolerance, approximationSize);
         const pixelPositions: number[][] = filledBooleans.positions;
         this.findDimensions(pixelPositions);
@@ -26,13 +26,13 @@ export class SVGBucketFill extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'href', canvasHref);
         DOMRenderer.setAttribute(this.element, 'width', this.size[0].toString());
         DOMRenderer.setAttribute(this.element, 'height', this.size[1].toString());
-        DOMRenderer.setAttribute(this.element, 'x', this.position[0].toString());
-        DOMRenderer.setAttribute(this.element, 'y', this.position[1].toString());
+        DOMRenderer.setAttribute(this.element, 'x', this.imagePosition[0].toString());
+        DOMRenderer.setAttribute(this.element, 'y', this.imagePosition[1].toString());
     }
 
     private normalizedPositions(positions: number[][]): void {
         for (let i = 0; i < positions.length; i++) {
-            positions[i] = vectorMinus(positions[i], this.position);
+            positions[i] = vectorMinus(positions[i], this.imagePosition);
         }
     }
 
@@ -55,7 +55,7 @@ export class SVGBucketFill extends SVGAbstract {
             }
         });
 
-        this.position = [xRange[0], yRange[0]];
+        this.imagePosition = [xRange[0], yRange[0]];
         this.size = [xRange[1] - xRange[0] + 1, yRange[1] - yRange[0] + 1];
     }
 
