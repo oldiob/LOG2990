@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { BucketTool } from 'src/services/tool/tool-options/bucket';
 import { ColorApplicatorTool } from 'src/services/tool/tool-options/color-applicator';
 import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
-import { BucketTool } from 'src/services/tool/tool-options/bucket';
 
 @Component({
     selector: 'app-bucket-option',

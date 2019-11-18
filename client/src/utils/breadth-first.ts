@@ -1,25 +1,24 @@
 import { Color } from './color';
-import { vectorPlus } from './math';
 import { getPixelData } from './image-manipulations';
+import { vectorPlus } from './math';
 import { Queue } from './queue';
 
 export class BreadthFirst {
 
     positions: number[][];
 
-    private covered: boolean[][];
+    private isPixelCovered: boolean[][];
     private startingColor: Color;
     private startingColorSum: number;
 
     constructor(position: number[], private image: ImageData, private tolerance: number) {
         this.initEmptyCovered();
-
         this.positions = [];
 
         position[0] = Math.round(position[0]);
         position[1] = Math.round(position[1]);
 
-        this.covered[position[0]][position[1]] = true;
+        this.isPixelCovered[position[0]][position[1]] = true;
         this.positions.push(position);
 
         this.startingColor = getPixelData(image, position[0], position[1]);
@@ -29,17 +28,16 @@ export class BreadthFirst {
     }
 
     private initEmptyCovered(): void {
-        this.covered = [];
+        this.isPixelCovered = [];
         for (let x = 0; x < this.image.width; x++) {
-            this.covered.push([]);
+            this.isPixelCovered.push([]);
             for (let y = 0; y < this.image.height; y++) {
-                this.covered[x].push(false);
+                this.isPixelCovered[x].push(false);
             }
         }
     }
 
     private fillPixels(startingPosition: number[]): void {
-
         const toFill: Queue<number[]> = new Queue<number[]>();
 
         toFill.push(startingPosition);
@@ -62,7 +60,7 @@ export class BreadthFirst {
                     const childPosition = vectorPlus(position, [x, y]);
 
                     if (this.isPositionAcceptable(childPosition)) {
-                        this.covered[childPosition[0]][childPosition[1]] = true;
+                        this.isPixelCovered[childPosition[0]][childPosition[1]] = true;
                         this.positions.push(childPosition);
 
                         if (x !== 0 && y !== 0) {
@@ -96,6 +94,6 @@ export class BreadthFirst {
     }
 
     private isPositionCovered(position: number[]) {
-        return this.covered[position[0]][position[1]];
+        return this.isPixelCovered[position[0]][position[1]];
     }
 }

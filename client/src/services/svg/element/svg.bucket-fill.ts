@@ -1,9 +1,9 @@
 import { BreadthFirst } from 'src/utils/breadth-first';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { generateImageData } from 'src/utils/image-manipulations';
 import { vectorMinus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
-import { generateImageData } from 'src/utils/image-manipulations';
 
 export class SVGBucketFill extends SVGAbstract {
 
