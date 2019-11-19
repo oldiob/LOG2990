@@ -3,8 +3,8 @@ import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { svgToImage } from 'src/utils/element-parser';
+import { getPixelData } from 'src/utils/image-manipulations';
 import { MyInjector } from 'src/utils/injector';
-import { getPixelData } from 'src/utils/misc';
 import { ITool } from './i-tool';
 
 @Injectable({

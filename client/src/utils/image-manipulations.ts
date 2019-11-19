@@ -1,5 +1,6 @@
 import { Color } from './color';
 import { DOMRenderer } from './dom-renderer';
+import { vectorPlus } from './math';
 
 export const getPixelData = (imageData: ImageData, x: number, y: number): Color => {
     const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
@@ -38,6 +39,42 @@ export const generateImageData = (positions: number[][], color: Color, width: nu
     const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
     ctx.putImageData(image, 0, 0);
     return canvas.toDataURL();
+};
+
+export const getAverageColor = (imageData: ImageData, center: number[], size: number): Color => {
+    const xyRange: number[][] = getXYRange(size);
+
+    const averageColor = new Color(0, 0, 0, 0);
+    const colorsLen = xyRange.length;
+
+    xyRange.forEach((position: number[]) => {
+        const realPosition = vectorPlus(center, position);
+        const color = getPixelData(imageData, realPosition[0], realPosition[1]);
+        averageColor.red += color.red;
+        averageColor.green += color.green;
+        averageColor.blue += color.blue;
+        averageColor.alpha += color.alpha;
+    });
+
+    averageColor.red /= colorsLen;
+    averageColor.green /= colorsLen;
+    averageColor.blue /= colorsLen;
+    averageColor.alpha /= colorsLen;
+
+    return averageColor;
+};
+
+export const getXYRange = (size: number): number[][] => {
+    const xyRange = [];
+
+    const sizeRange = Math.floor(size / 2.0);
+    for (let x = -sizeRange; x <= sizeRange; x++) {
+        for (let y = -sizeRange; y <= sizeRange; y++) {
+            xyRange.push([x, y]);
+        }
+    }
+
+    return xyRange;
 };
 
 const createArray = (width: number, height: number): number[] => {
