@@ -1,82 +1,71 @@
-import { SVGAbstract } from 'src/services/svg/element/svg.interface';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine } from 'src/utils/math';
+import { SVGAbstract } from './svg.interface';
 
 export class SVGCalligraphy extends SVGAbstract {
-
-    anchors: number[][] = [];
-    cursor: number[];
-    width: number;
     element: any;
-    color: string;
 
-    private latestPoint: number[];
+    points: number[][] = [];
 
-    constructor(x: number, y: number) {
+    lineWidth = 1;
+
+    constructor() {
         super();
-        this.cursor = [x, y];
-        // this.anchors.push([x, y]);
-        this.latestPoint = [x, y];
-        this.element = DOMRenderer.createElement('g', 'svg');
+
+        this.element = DOMRenderer.createElement('polyline', 'svg');
+
+        DOMRenderer.setAttribute(this.element, 'fill', 'none');
+        DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
+        DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
     }
 
-    private addLine(): void {
-        const calligraphy = DOMRenderer.createElement('polyline', 'svg');
-        DOMRenderer.setAttribute(calligraphy, 'fill', this.color);
-        DOMRenderer.setAttribute(calligraphy, 'stroke', this.color);
-        DOMRenderer.setAttribute(calligraphy, 'stroke-width', this.width.toString());
+    isAtAdjusted(x: number, y: number): boolean {
+        const WIDTH_MARGIN = 10.0;
+        const width: number = this.lineWidth + WIDTH_MARGIN;
+        for (let i = 0; i < this.points.length - 1; i++) {
+            if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
+                return true;
+            }
+        }
 
-        DOMRenderer.setAttribute(calligraphy, 'points', `${this.latestPoint[0]}, ${this.latestPoint[1]},
-                                                         ${this.cursor[0] + 10}, ${this.cursor[1] - 10}`);
-        DOMRenderer.appendChild(this.element, calligraphy);
-        this.latestPoint = this.cursor;
+        return false;
     }
+    isIn(x: number, y: number, r: number): boolean {
+        const tempWidth = this.lineWidth;
+        this.lineWidth += r;
+        const isInside = this.isAt(x, y);
+        this.lineWidth = tempWidth;
 
-    setWidth(width: number): void {
-        this.width = width;
+        return isInside;
     }
 
     getPrimary(): string {
-        const child = this.element.children[0];
-        return child.getAttribute('stroke');
+        return this.element.getAttribute('stroke');
     }
 
     getSecondary(): string {
         return '';
     }
 
-    setPrimary(color: string) {
-        for (const child of this.element.children) {
-            DOMRenderer.setAttribute(child, 'stroke', color);
-        }
-        this.color = color;
+    setPrimary(color: string): void {
+        DOMRenderer.setAttribute(this.element, 'stroke', color);
     }
 
-    setSecondary(color: string) {
+    setSecondary(color: string): void {
         // NO OP
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
-        for (let i = 0; i < this.anchors.length - 1; i++) {
-            if (isAtLine([x, y], this.anchors[i], this.anchors[i + 1], this.width)) {
-                return true;
-            }
-        }
-        return false;
+    setWidth(width: number): void {
+        this.lineWidth = width;
+        DOMRenderer.setAttribute(this.element, 'stroke-width', width.toString());
     }
 
-    isIn(x: number, y: number, r: number): boolean {
-        const tempWidth = this.width;
-        this.width += r;
-        const isInside = this.isAtAdjusted(x, y);
-        this.width = tempWidth;
-
-        return isInside;
+    addPoint(x: number, y: number): void {
+        this.points.push([x, y]);
+        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
     }
-
-    addAnchor(x: number, y: number): void {
-        this.cursor = [x, y ];
-        // this.anchors.push([x , y]);
-        this.addLine();
+    // [[1, 2], [3, 4]] -> 1,2 3,4
+    private pointsAttribute(): string {
+        return this.points.map((e) => `${e[0] - 5 },${e[1] - 5} ${e[0] + 5},${e[1] + 5}`).join(' ');
     }
 }
