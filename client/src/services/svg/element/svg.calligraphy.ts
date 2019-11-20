@@ -1,33 +1,33 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { isAtLine } from 'src/utils/math';
-import { SVGAbstract } from './svg.interface';
+import { vectorMinus, vectorPlus } from 'src/utils/math';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGCalligraphy extends SVGAbstract {
+
+    private pointsTop: number[][] = [];
+    private pointsBot: number[][] = [];
+    private offset = [5, 5];
     element: any;
-
-    points: number[][] = [];
-
     lineWidth = 1;
 
     constructor() {
         super();
 
-        this.element = DOMRenderer.createElement('polyline', 'svg');
-
-        DOMRenderer.setAttribute(this.element, 'fill', 'none');
+        this.element = DOMRenderer.createElement('path', 'svg');
+        DOMRenderer.setAttribute(this.element, 'fill-rule', 'nonzero');
+        DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'arcs');
         DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
-        DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
     }
 
     isAtAdjusted(x: number, y: number): boolean {
-        const WIDTH_MARGIN = 10.0;
+        /*const WIDTH_MARGIN = 10.0;
         const width: number = this.lineWidth + WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {
             if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                 return true;
             }
         }
-
+        */
         return false;
     }
     isIn(x: number, y: number, r: number): boolean {
@@ -40,7 +40,7 @@ export class SVGCalligraphy extends SVGAbstract {
     }
 
     getPrimary(): string {
-        return this.element.getAttribute('stroke');
+        return this.element.getAttribute('fill') && this.element.getAttribute('stroke');
     }
 
     getSecondary(): string {
@@ -48,6 +48,7 @@ export class SVGCalligraphy extends SVGAbstract {
     }
 
     setPrimary(color: string): void {
+        DOMRenderer.setAttribute(this.element, 'fill', color);
         DOMRenderer.setAttribute(this.element, 'stroke', color);
     }
 
@@ -57,15 +58,32 @@ export class SVGCalligraphy extends SVGAbstract {
 
     setWidth(width: number): void {
         this.lineWidth = width;
-        DOMRenderer.setAttribute(this.element, 'stroke-width', width.toString());
+        DOMRenderer.setAttribute(this.element, 'stroke-width', this.lineWidth.toString());
     }
 
     addPoint(x: number, y: number): void {
-        this.points.push([x, y]);
-        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
+        this.pointsTop.push(vectorPlus([x, y], this.offset));
+        this.pointsBot.push(vectorMinus([x, y], this.offset));
+        this.setPathPoints();
     }
-    // [[1, 2], [3, 4]] -> 1,2 3,4
-    private pointsAttribute(): string {
-        return this.points.map((e) => `${e[0] - 5 },${e[1] - 5} ${e[0] + 5},${e[1] + 5}`).join(' ');
+
+    private setPathPoints(): void {
+        let d: string = 'm' + this.pointsTop[0].join(' ');
+       //  let dlol: string = 'M' + this.pointsBot[this.pointsBot.length - 1].join(' ');
+
+        this.pointsTop.forEach((point: number[]) => {
+            d += ', L' + point.join(' ');
+        });
+
+        this.pointsBot.reverse();
+        this.pointsBot.forEach((point: number[]) => {
+            d += ', L' + point.join(' ');
+        });
+        this.pointsBot.reverse();
+
+        d += 'Z';
+
+        DOMRenderer.setAttribute(this.element, 'd', d);
     }
+
 }
