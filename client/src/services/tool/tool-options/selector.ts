@@ -21,6 +21,7 @@ export enum State {
     selecting,
     selected,
     moving,
+    resizing,
 }
 
 @Injectable({
@@ -85,6 +86,17 @@ export class SelectorTool implements ITool {
         return this.isSelectedSubject.asObservable();
     }
 
+    isSizePointSelected(event: MouseEvent): boolean {
+        if (event.target === this.points[Compass.N] || event.target === this.points[Compass.NE]
+            || event.target === this.points[Compass.NW] || event.target === this.points[Compass.S]
+            || event.target === this.points[Compass.SE] || event.target === this.points[Compass.SW]
+            || event.target === this.points[Compass.E] || event.target === this.points[Compass.W]) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
     private nextIsSelected(): void {
         this.isSelectedSubject.next(this.isSelected);
     }
@@ -110,6 +122,8 @@ export class SelectorTool implements ITool {
             case State.selected:
                 if (event.target === this.points[Compass.C]) {
                     this.state = State.moving;
+                } else if (this.isSizePointSelected(event)) {
+                    this.state = State.resizing;
                 } else {
                     this.state = State.maybe;
                 }
@@ -143,6 +157,52 @@ export class SelectorTool implements ITool {
                 composite.position = this.grid.snapOnGrid(event, distance);
 
                 break;
+            case State.resizing:
+                console.log('resizing');
+                const compositeTwo = new SVGComposite();
+                this.selected.forEach((svg: SVGAbstract) => {
+                    compositeTwo.addChild(svg);
+                });
+
+                const centerPosition = compositeTwo.position;
+
+                if (event.target === this.points[Compass.N] || event.target === this.points[Compass.S]) {
+
+                    const distanceBetweenCursorYAndCenter: number = Math.pow(Math.abs(centerPosition[1] - this.cursor.y), 2);
+                    const distanceBetweenHorizontalAndCenter: number = Math.pow(Math.abs(centerPosition[1] - event.svgY), 2);
+
+                    const sizeChangePourcentageY: number = distanceBetweenCursorYAndCenter / distanceBetweenHorizontalAndCenter;
+
+                    this.selected.forEach((svg: SVGAbstract) => {
+                        compositeTwo.scale(1, sizeChangePourcentageY);
+                    });
+
+                } else if (event.target === this.points[Compass.E] || event.target === this.points[Compass.W]) {
+
+                    const distanceBetweenCursorXAndCenter: number = Math.pow(Math.abs(centerPosition[0] - this.cursor.x), 2);
+                    const distanceBetweenVerticalAndCenter: number = Math.pow(Math.abs(centerPosition[0] - event.svgX), 2);
+
+                    const sizeChangePourcentageX: number = distanceBetweenCursorXAndCenter / distanceBetweenVerticalAndCenter;
+
+                    this.selected.forEach((svg: SVGAbstract) => {
+                        compositeTwo.scale(sizeChangePourcentageX, 1);
+                    });
+
+                } else if (event.target === this.points[Compass.NE] || event.target === this.points[Compass.NW]
+                    || event.target === this.points[Compass.SE] || event.target === this.points[Compass.SW]) {
+
+                        const distanceBetweenCursorAndCenter: number = Math.sqrt(Math.pow(Math.abs(centerPosition[0] - this.cursor.x), 2)
+                                                                + Math.pow(Math.abs(centerPosition[1] - this.cursor.y), 2));
+                        const distanceBetweenSideAndCenter: number = Math.sqrt(Math.pow(Math.abs(centerPosition[0] - event.svgX), 2)
+                                                                + Math.pow(Math.abs(centerPosition[1] - event.svgY), 2));
+
+                        const sizeChangePourcentage: number = distanceBetweenCursorAndCenter / distanceBetweenSideAndCenter;
+                        this.selected.forEach((svg: SVGAbstract) => {
+                            compositeTwo.scale(sizeChangePourcentage, sizeChangePourcentage);
+                        });
+                }
+                this.setCursor(event.svgX, event.svgY);
+                break;
             default:
             // NO OP
         }
@@ -159,6 +219,9 @@ export class SelectorTool implements ITool {
                 break;
             case State.moving:
                 DOMRenderer.setAttribute(this.previewElement, 'opacity', '1');
+                this.commit();
+                break;
+            case State.resizing:
                 this.commit();
                 break;
             default:

@@ -55,6 +55,10 @@ export abstract class SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'transform', `translate(${this.translation[0]} ${this.translation[1]})`);
     }
 
+    scale(resizeX: number, resizeY: number): void {
+        DOMRenderer.setAttribute(this.element, 'transform', `scale(${resizeX} ${resizeY})`);
+    }
+
     get domRect(): DOMRect {
         return MyInjector.get(SVGService).getElementRect(this.element);
     }
