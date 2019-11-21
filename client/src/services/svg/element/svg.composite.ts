@@ -14,6 +14,10 @@ export class SVGComposite extends SVGAbstract {
         this.children.push(child);
     }
 
+    clear() {
+        this.children = [];
+    }
+
     isAt(x: number, y: number): boolean {
         return false;
     }

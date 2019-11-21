@@ -46,34 +46,45 @@ export class SelectorTool implements ITool {
 
     selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
     selection: Set<SVGAbstract> = new Set<SVGAbstract>([]);
+    selectedComposite: SVGComposite;
 
     policy = false;
+
+    distanceToCenter: number[];
 
     private isSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
 
     constructor(private svg: SVGService, private grid: GridService) {
         this.tip = 'Selector (S)';
+        this.distanceToCenter = [];
+        this.selectedComposite = new SVGComposite();
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
-            fill: 'none',
-            stroke: 'black',
-            'stroke-width': '3',
+            fill: '#2188ff',
+            'fill-opacity': '0.1',
+            stroke: '#2188ff',
+            'stroke-width': '1',
             'stroke-dasharray': '4',
         });
 
         this.previewElement = DOMRenderer.createElement('g', 'svg');
         this.previewRect = DOMRenderer.createElement('rect', 'svg', {
-            fill: 'none',
-            stroke: '#00F0FF',
+            'fill-opacity': '0',
+            'stroke-opacity': '0.8',
+            stroke: '#2188ff',
             'stroke-width': '2',
+            'stroke-dasharray': '4',
         });
         DOMRenderer.appendChild(this.previewElement, this.previewRect);
 
         for (let i = 0; i < Compass.MAX; ++i) {
             const point: any = DOMRenderer.createElement('circle', 'svg', {
-                fill: '#00F0FF',
-                r: '10',
+                stroke: '#2188ff',
+                'stroke-width': '1',
+                fill: '#2188ff',
+                'fill-opacity': '0.8',
+                r: '5',
             });
             DOMRenderer.appendChild(this.previewElement, point);
             this.points[i] = point;
@@ -105,12 +116,17 @@ export class SelectorTool implements ITool {
         }
         switch (this.state) {
             case State.idle:
+                this.selectedComposite.clear();
                 this.state = State.maybe;
                 break;
             case State.selected:
-                if (event.target === this.points[Compass.C]) {
+                if (event.target === this.previewRect || event.target === this.points[Compass.C]) {
+                    this.distanceToCenter = [
+                        this.selectedComposite.position[0] - event.svgX, this.selectedComposite.position[1] - event.svgY,
+                    ];
                     this.state = State.moving;
                 } else {
+                    this.selectedComposite.clear();
                     this.state = State.maybe;
                 }
                 break;
@@ -131,17 +147,8 @@ export class SelectorTool implements ITool {
                 this.setCursor(event.svgX, event.svgY);
                 break;
             case State.moving:
-                DOMRenderer.setAttribute(this.previewElement, 'opacity', '0');
-                const composite = new SVGComposite();
-                this.selected.forEach((svg: SVGAbstract) => {
-                    composite.addChild(svg);
-                });
-                const distance = new Point(
-                    this.previewRect.width.baseVal.value / 2,
-                    this.previewRect.height.baseVal.value / 2,
-                );
-                composite.position = this.grid.snapOnGrid(event, distance);
-
+                this.svg.removeElement(this.previewElement);
+                this.updateCompositePosition(event);
                 break;
             default:
             // NO OP
@@ -158,8 +165,9 @@ export class SelectorTool implements ITool {
                 this.commit();
                 break;
             case State.moving:
-                DOMRenderer.setAttribute(this.previewElement, 'opacity', '1');
-                this.commit();
+                this.renderPreview(this.selected);
+                this.state = State.selected;
+                this.svg.addElement(this.previewElement);
                 break;
             default:
                 this.state = State.idle;
@@ -397,16 +405,37 @@ export class SelectorTool implements ITool {
 
     private commit() {
         this.selected = this.computeSelection();
+        this.updateCompositeSVGs();
+
         if (this.selected.size) {
             this.state = State.selected;
         } else {
             this.state = State.idle;
         }
+
         this.renderPreview(this.selected);
         this.svg.removeElement(this.boxElement);
 
         this.isSelected = Boolean(this.selected.size);
         this.nextIsSelected();
+    }
+
+    private updateCompositeSVGs() {
+        this.selectedComposite.clear();
+        this.selected.forEach((svg: SVGAbstract) => {
+            this.selectedComposite.addChild(svg);
+        });
+    }
+
+    private updateCompositePosition(event: MouseEvent) {
+        const distance = new Point(
+            this.previewRect.width.baseVal.value / 2, this.previewRect.height.baseVal.value / 2,
+        );
+        const mouse = new Point(
+            event.svgX + this.distanceToCenter[0],
+            event.svgY + this.distanceToCenter[1],
+        );
+        this.selectedComposite.position = this.grid.snapOnGrid(mouse, distance);
     }
 
     onUnSelect(): void {
