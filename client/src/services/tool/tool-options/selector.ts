@@ -61,24 +61,30 @@ export class SelectorTool implements ITool {
         this.selectedComposite = new SVGComposite();
 
         this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
-            fill: 'none',
-            stroke: 'black',
-            'stroke-width': '3',
+            fill: '#2188ff',
+            'fill-opacity': '0.1',
+            stroke: '#2188ff',
+            'stroke-width': '1',
             'stroke-dasharray': '4',
         });
 
         this.previewElement = DOMRenderer.createElement('g', 'svg');
         this.previewRect = DOMRenderer.createElement('rect', 'svg', {
             'fill-opacity': '0',
-            stroke: '#00F0FF',
+            'stroke-opacity': '0.8',
+            stroke: '#2188ff',
             'stroke-width': '2',
+            'stroke-dasharray': '4',
         });
         DOMRenderer.appendChild(this.previewElement, this.previewRect);
 
         for (let i = 0; i < Compass.MAX; ++i) {
             const point: any = DOMRenderer.createElement('circle', 'svg', {
-                fill: '#00F0FF',
-                r: '10',
+                stroke: '#2188ff',
+                'stroke-width': '1',
+                fill: '#2188ff',
+                'fill-opacity': '0.8',
+                r: '5',
             });
             DOMRenderer.appendChild(this.previewElement, point);
             this.points[i] = point;
@@ -114,7 +120,7 @@ export class SelectorTool implements ITool {
                 this.state = State.maybe;
                 break;
             case State.selected:
-                if (event.target === this.previewRect) {
+                if (event.target === this.previewRect || this.points[Compass.C]) {
                     this.distanceToCenter = [
                         this.selectedComposite.position[0] - event.svgX, this.selectedComposite.position[1] - event.svgY,
                     ];
