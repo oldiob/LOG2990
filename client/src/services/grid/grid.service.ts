@@ -127,7 +127,11 @@ export class GridService {
         }
     }
 
-    snapOnGrid(event: MouseEvent, distance: Point) {
+    snapOnGrid(mouse: Point, distance: Point) {
+        if (!this.isMagnetOn) {
+            return [mouse.x, mouse.y];
+        }
+
         const anchors: Point[] = new Array(Compass.MAX);
 
         const LEFT = -1;
@@ -147,13 +151,13 @@ export class GridService {
             direction.y = isNorth ? TOP : isSouth ? BOTTOM : CENTER;
 
             anchors[i] = new Point(
-                event.svgX + direction.x * distance.x,
-                event.svgY + direction.y * distance.y,
+                mouse.x + direction.x * distance.x,
+                mouse.y + direction.y * distance.y,
             );
         }
         const offset = this.getRectOffset(anchors);
 
-        return [event.svgX + offset.x, event.svgY + offset.y];
+        return [mouse.x + offset.x, mouse.y + offset.y];
     }
 
     private getRectOffset(anchors: Point[]) {

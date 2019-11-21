@@ -142,20 +142,7 @@ export class SelectorTool implements ITool {
                 break;
             case State.moving:
                 this.svg.removeElement(this.previewElement);
-                const distance = new Point(
-                    this.previewRect.width.baseVal.value / 2,
-                    this.previewRect.height.baseVal.value / 2,
-                );
-                if (!this.grid.isMagnetOn) {
-                    this.selectedComposite.position = [
-                        event.svgX + this.distanceToCenter[0],
-                        event.svgY + this.distanceToCenter[1],
-                    ];
-                } else {
-                    this.selectedComposite.position = this.grid.snapOnGrid(
-                        event, distance);
-                }
-
+                this.updateCompositePosition(event);
                 break;
             default:
             // NO OP
@@ -412,7 +399,7 @@ export class SelectorTool implements ITool {
 
     private commit() {
         this.selected = this.computeSelection();
-        this.updateComposite();
+        this.updateCompositeSVGs();
 
         if (this.selected.size) {
             this.state = State.selected;
@@ -427,11 +414,22 @@ export class SelectorTool implements ITool {
         this.nextIsSelected();
     }
 
-    private updateComposite() {
+    private updateCompositeSVGs() {
         this.selectedComposite.clear();
         this.selected.forEach((svg: SVGAbstract) => {
             this.selectedComposite.addChild(svg);
         });
+    }
+
+    private updateCompositePosition(event: MouseEvent) {
+        const distance = new Point(
+            this.previewRect.width.baseVal.value / 2, this.previewRect.height.baseVal.value / 2,
+        );
+        const mouse = new Point(
+            event.svgX + this.distanceToCenter[0],
+            event.svgY + this.distanceToCenter[1],
+        );
+        this.selectedComposite.position = this.grid.snapOnGrid(mouse, distance);
     }
 
     onUnSelect(): void {
