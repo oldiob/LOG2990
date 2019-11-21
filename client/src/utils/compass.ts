@@ -1,12 +1,12 @@
 export enum Compass {
-    C,
-    N,
-    E,
-    S,
-    W,
     NW,
+    N,
     NE,
+    W,
+    C,
+    E,
     SW,
+    S,
     SE,
     MAX,
 }

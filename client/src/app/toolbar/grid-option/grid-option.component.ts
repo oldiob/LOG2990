@@ -21,14 +21,14 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     ]);
 
     readonly directions = new Map<Compass, string>([
-        [Compass.C, 'Center'],
-        [Compass.N, 'North'],
-        [Compass.E, 'East'],
-        [Compass.S, 'South'],
-        [Compass.W, 'West'],
         [Compass.NW, 'North West'],
+        [Compass.N, 'North'],
         [Compass.NE, 'North East'],
+        [Compass.W, 'West'],
+        [Compass.C, 'Center'],
+        [Compass.E, 'East'],
         [Compass.SW, 'South West'],
+        [Compass.S, 'South'],
         [Compass.SE, 'South East'],
     ]);
 
@@ -52,7 +52,7 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
         this.currentTool = this.tools[0];
         this.opacity = 1;
         this.isMagnetOn = false;
-
+        this.anchor = Compass.C;
         this.subscribeGrid();
     }
 

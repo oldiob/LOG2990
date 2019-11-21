@@ -42,7 +42,7 @@
     </label>
 </div>
 
-<div *ngIf="isMagnetOn" class="wrapper magnet">
+<!-- <div *ngIf="isMagnetOn" class="wrapper magnet">
     <div class="label">Magnetism</div>
     <div class="label">{{ directions[anchor] }}</div>
 
@@ -53,6 +53,16 @@
                 {{direction.value}}
             </mat-option>
         </mat-select>
-
     </mat-form-field>
+</div> -->
+<div *ngIf="isMagnetOn" class="wrapper magnet">
+    <div class="label">Magnetism</div>
+    <div class="label">{{ directions[anchor] }}</div>
+
+    <div class="grid">
+        <div class="button-wrapper" *ngFor="let direction of directions | keyvalue">
+            <input type="radio" name="anchor" (change)="onAnchor()" [value]="direction.key" [(ngModel)]="anchor" matTooltip="{{direction.value}}"
+            matTooltipClass="tooltip" matTooltipPosition="below">
+        </div>
+    </div>
 </div>
