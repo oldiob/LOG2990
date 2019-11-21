@@ -4,19 +4,23 @@ import { SVGAbstract } from './svg.abstract';
 
 export class SVGCalligraphy extends SVGAbstract {
 
-    private pointsTop: number[][] = [];
-    private pointsBot: number[][] = [];
-    private offset = [5, 5];
+    private pointsTop: number[][];
+    private pointsBot: number[][];
+    private offset: number[];
     element: any;
-    lineWidth = 1;
+    width: number;
+    angle: number;
 
-    constructor() {
+    constructor(angle: number) {
         super();
-
         this.element = DOMRenderer.createElement('path', 'svg');
-        DOMRenderer.setAttribute(this.element, 'fill-rule', 'nonzero');
         DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'arcs');
-        DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
+        DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'square');
+        DOMRenderer.setAttribute(this.element, 'fill-rule', 'nonzero');
+        this.pointsBot = [];
+        this.pointsTop = [];
+        this.angle = angle;
+        this.offset = [5, 5];
     }
 
     isAtAdjusted(x: number, y: number): boolean {
@@ -31,10 +35,10 @@ export class SVGCalligraphy extends SVGAbstract {
         return false;
     }
     isIn(x: number, y: number, r: number): boolean {
-        const tempWidth = this.lineWidth;
-        this.lineWidth += r;
+        const tempWidth = this.width;
+        this.width += r;
         const isInside = this.isAt(x, y);
-        this.lineWidth = tempWidth;
+        this.width = tempWidth;
 
         return isInside;
     }
@@ -57,8 +61,8 @@ export class SVGCalligraphy extends SVGAbstract {
     }
 
     setWidth(width: number): void {
-        this.lineWidth = width;
-        DOMRenderer.setAttribute(this.element, 'stroke-width', this.lineWidth.toString());
+        this.width = width;
+        DOMRenderer.setAttribute(this.element, 'stroke-width', this.width.toString());
     }
 
     addPoint(x: number, y: number): void {
@@ -68,7 +72,7 @@ export class SVGCalligraphy extends SVGAbstract {
     }
 
     private setPathPoints(): void {
-        let d: string = 'm' + this.pointsTop[0].join(' ');
+        let d: string = 'M' + this.pointsTop[0].join(' ');
        //  let dlol: string = 'M' + this.pointsBot[this.pointsBot.length - 1].join(' ');
 
         this.pointsTop.forEach((point: number[]) => {
@@ -82,7 +86,6 @@ export class SVGCalligraphy extends SVGAbstract {
         this.pointsBot.reverse();
 
         d += 'Z';
-
         DOMRenderer.setAttribute(this.element, 'd', d);
     }
 
