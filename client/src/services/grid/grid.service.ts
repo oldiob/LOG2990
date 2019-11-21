@@ -128,10 +128,6 @@ export class GridService {
     }
 
     snapOnGrid(event: MouseEvent, distance: Point) {
-        if (!this.isMagnetOn) {
-            return [event.svgX, event.svgY];
-        }
-
         const anchors: Point[] = new Array(Compass.MAX);
 
         const LEFT = -1;
