@@ -120,7 +120,7 @@ export class SelectorTool implements ITool {
                 this.state = State.maybe;
                 break;
             case State.selected:
-                if (event.target === this.previewRect || this.points[Compass.C]) {
+                if (event.target === this.previewRect || event.target === this.points[Compass.C]) {
                     this.distanceToCenter = [
                         this.selectedComposite.position[0] - event.svgX, this.selectedComposite.position[1] - event.svgY,
                     ];
