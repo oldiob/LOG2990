@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { KeyService } from 'src/services/key/key.service';
 import { PaletteService } from 'src/services/palette/palette.service';
+import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
 import { SVGText } from 'src/services/svg/element/svg.text';
+import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
+import { MyInjector } from 'src/utils/injector';
+import { TraceType } from './abs-shape-tool';
 import { ITool } from './i-tool';
 declare type callback = () => void;
 @Injectable({
@@ -26,6 +30,8 @@ export class TextTool implements ITool {
 
     isEditing: boolean;
 
+    private rect: SVGRectangle | undefined;
+
     constructor(private keyService: KeyService, private paletteService: PaletteService) {
         this.tip = this.TEXTTIP;
         this.fontWeigth = this.UNSET;
@@ -47,6 +53,8 @@ export class TextTool implements ITool {
             this.startEdit();
             this.element = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
                 this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
+            this.rect = new SVGRectangle(event.svgX, event.svgY, TraceType.BorderOnly);
+            this.rect.setSecondary('#000000');
             this.paletteService.primaryObs$.subscribe((color: Color) => {
                 if (this.element !== null) {
                     this.element.setPrimary(color.toRGBA());
@@ -67,10 +75,39 @@ export class TextTool implements ITool {
         return;
     }
     onReleased(event: MouseEvent): void {
+        if (this.rect) {
+            const serv: SVGService = MyInjector.get(SVGService);
+            serv.addObject(this.rect);
+            this.setRect();
+        }
         return;
     }
 
+    private setRect() {
+        if (this.rect && this.element) {
+            const r: DOMRect = this.element.domRect;
+            this.rect.setCursor(r.right, r.bottom, false);
+        }
+    }
+
+    private removeRect() {
+        const serv: SVGService = MyInjector.get(SVGService);
+        if (this.rect) {
+            serv.removeObject(this.rect);
+            this.rect = undefined;
+        }
+    }
+
+    private removeNewText() {
+      const serv: SVGService = MyInjector.get(SVGService);
+      if (this.element && this.element.isNewElement) {
+          serv.removeObject(this.element);
+      }
+  }
+
     onUnSelect(): void {
+        this.removeRect();
+        this.removeNewText();
         this.element = null;
     }
 
@@ -109,6 +146,8 @@ export class TextTool implements ITool {
                 this.element.currentSubElement.innerHTML = current;
             }
         }
+
+        this.setRect();
         return true;
     }
 
@@ -116,6 +155,7 @@ export class TextTool implements ITool {
         this.isEditing = false;
         this.keyService.enableKeys();
         this.element = null;
+        this.removeRect();
     }
     startEdit(): void {
         this.isEditing = true;
