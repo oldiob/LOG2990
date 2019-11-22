@@ -34,4 +34,12 @@ export class CmdMatrix implements CmdInterface {
     translate(tx: number, ty: number): void {
         return;
     }
+
+    rotate(a: number, x: number, y: number) {
+        this.newMatrix
+            .translate(-x, -y)
+            .rotate(a)
+            .translate(x, y);
+        this.setMatrix(this.newMatrix);
+    }
 }
