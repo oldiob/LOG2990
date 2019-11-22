@@ -47,7 +47,15 @@ export class DataBaseService {
         this.db = (await this.connectDB()).db('Rebase08');
         this.db.collection('DrawingTest').findOneAndUpdate(
             { _id: new ObjectID(id) },
-            { $push: { tags: tag } },
+            { $push: { tags: tag }, },
+        );
+    }
+
+    async updateTime(id: string): Promise<void> {
+        this.db = (await this.connectDB()).db('Rebase08');
+        this.db.collection('DrawingTest').findOneAndUpdate(
+            { _id: new ObjectID(id) },
+            { $set: { createdAt: new ObjectID(id).getTimestamp() }, },
         );
     }
 
