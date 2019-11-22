@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CmdArray } from 'src/services/cmd/cmd.array';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { CmdMatrix } from 'src/services/cmd/cmd.matrix';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
@@ -9,6 +11,7 @@ import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
+import { MyInjector } from 'src/utils/injector';
 import { vectorMultiply, vectorPlus } from 'src/utils/math';
 import { Compass } from '../../../utils/compass';
 import { ITool } from './i-tool';
@@ -21,6 +24,7 @@ export enum State {
     selecting,
     selected,
     moving,
+    rotating,
 }
 
 @Injectable({
@@ -47,6 +51,8 @@ export class SelectorTool implements ITool {
     selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
     selection: Set<SVGAbstract> = new Set<SVGAbstract>([]);
     selectedComposite: SVGComposite;
+
+    transforms: CmdArray<CmdMatrix> | null;
 
     policy = false;
 
@@ -136,6 +142,45 @@ export class SelectorTool implements ITool {
         return cmd;
     }
 
+    onWheel(event: WheelEvent): boolean {
+        switch (this.state) {
+            case State.selected:
+                this.state = State.rotating;
+                if (this.transforms) {
+                    CmdService.execute(this.transforms);
+                }
+                const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+                this.selected.forEach((obj: SVGAbstract) => {
+                    transforms.cmds.push(new CmdMatrix(obj));
+                });
+                this.transforms = transforms;
+            // tslint:disable-next-line: no-switch-case-fall-through
+            case State.rotating:
+                break;
+            default:
+                return false;
+        }
+        if (!this.transforms) {
+            return false;
+        }
+        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+        if (event.shiftKey) {
+            this.transforms.cmds.forEach((cmd) => {
+                const rect = MyInjector.get(SVGService).getElementRect(cmd.element);
+                cmd.rotate(angle, rect.x + rect.width / 2, rect.y + rect.height / 2);
+                cmd.execute();
+            });
+        } else {
+            this.transforms.cmds.forEach((cmd) => {
+                cmd.rotate(angle,
+                    Number(this.points[Compass.C].getAttribute('cx')),
+                    Number(this.points[Compass.C].getAttribute('cy')));
+                cmd.execute();
+            });
+        }
+        return true;
+    }
+
     onMotion(event: MouseEvent): void {
         switch (this.state) {
             case State.maybe:
@@ -166,8 +211,10 @@ export class SelectorTool implements ITool {
                 break;
             case State.moving:
                 this.renderPreview(this.selected);
-                this.state = State.selected;
                 this.svg.addElement(this.previewElement);
+            // tslint:disable-next-line: no-switch-case-fall-through
+            case State.rotating:
+                this.state = State.selected;
                 break;
             default:
                 this.state = State.idle;
@@ -439,6 +486,10 @@ export class SelectorTool implements ITool {
     }
 
     onUnSelect(): void {
+        if (this.transforms) {
+            CmdService.execute(this.transforms);
+            this.transforms = null;
+        }
         this.reset();
     }
 
