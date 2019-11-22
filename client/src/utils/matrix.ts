@@ -51,14 +51,15 @@ export class MatrixSVG {
         return index;
     }
 
-    translate(x: number, y: number): void {
+    translate(x: number, y: number): MatrixSVG {
         const other: MatrixSVG = new MatrixSVG();
         other.arr[2] = x;
         other.arr[5] = y;
         this.mul(other);
+        return this;
     }
 
-    rotate(a: number): void {
+    rotate(a: number): MatrixSVG {
         const cos = Math.cos(a);
         const sin = Math.sin(a);
         const other: MatrixSVG = new MatrixSVG();
@@ -67,13 +68,15 @@ export class MatrixSVG {
         other.arr[3] = sin;
         other.arr[4] = cos;
         this.mul(other);
+        return this;
     }
 
-    scale(sx: number, sy: number) {
+    scale(sx: number, sy: number): MatrixSVG {
         const other: MatrixSVG = new MatrixSVG();
         other.arr[0] = sx;
         other.arr[4] = sy;
         this.mul(other);
+        return this;
     }
 
     mul(other: MatrixSVG) {
