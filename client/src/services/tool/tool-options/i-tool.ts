@@ -24,9 +24,10 @@ export interface ITool {
     onMotion(event: MouseEvent): void;
     onReleased(event: MouseEvent): void;
 
+    onWheel?(event: WheelEvent): boolean;
+
     onKeydown?(event: KeyboardEvent): boolean;
     onKeyup?(event: KeyboardEvent): boolean;
-    onWheel?(event: WheelEvent): boolean;
 
     onSelect?(): void;
     onUnSelect?(): void;
