@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridService } from 'src/services/grid/grid.service';
-import { GridTool } from 'src/services/tool/tool-options/grid';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
-import { ToolService } from 'src/services/tool/tool.service';
 import { Compass } from 'src/utils/compass';
 @Component({
     selector: 'app-grid-option',
@@ -12,13 +10,7 @@ import { Compass } from 'src/utils/compass';
 })
 export class GridOptionComponent implements OnInit, IOption<ITool> {
     Compass = Compass;
-    private readonly FILE_LOCATION = '../../../../assets/images/';
-
-    tip = 'Grid (G)';
-
-    images = new Map<ITool, string>([
-        [this.gridTool, 'grid.png'],
-    ]);
+    tip: string;
 
     readonly directions = new Map<Compass, string>([
         [Compass.NW, 'North West'],
@@ -42,17 +34,14 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     anchor: Compass;
 
     constructor(
-        private toolService: ToolService,
-        private gridService: GridService,
-        private gridTool: GridTool) {
+        private gridService: GridService) {
     }
 
     ngOnInit() {
-        this.tools = [this.gridTool];
-        this.currentTool = this.tools[0];
         this.opacity = 1;
         this.isMagnetOn = false;
         this.anchor = Compass.C;
+        this.tip = 'Grid (G)';
         this.subscribeGrid();
     }
 
@@ -66,16 +55,11 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     select() {
-        this.selectTool(this.currentTool);
+        //
     }
 
     getImage(): string {
-        return this.images.get(this.currentTool) as string;
-    }
-
-    selectTool(tool: ITool): void {
-        this.currentTool = tool;
-        this.toolService.currentTool = tool;
+        return 'grid.png';
     }
 
     toggleGrid(): void {
@@ -105,9 +89,5 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
 
     reduceStep(): void {
         this.gridService.reduceStep();
-    }
-
-    getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + this.images.get(tool) as string;
     }
 }
