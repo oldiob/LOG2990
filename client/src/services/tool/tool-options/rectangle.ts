@@ -15,7 +15,7 @@ export class RectangleTool extends AbsShapeTool {
     constructor(private paletteService: PaletteService) {
         super();
         this.width = 5;
-        this.traceType = TraceType.FillAndBorder;
+        this.traceType = TraceType.FillOnly;
         this.tip = 'Rectangle (1)';
     }
 

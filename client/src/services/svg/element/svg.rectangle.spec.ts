@@ -26,7 +26,7 @@ describe('SVGRectangle', () => {
 
         spyOn(renderer, 'createElement').and.returnValue(element);
 
-        rect = new SVGRectangle(0, 0, TraceType.FillAndBorder);
+        rect = new SVGRectangle(0, 0, TraceType.FillOnly);
     });
 
     it('should exits', () => {

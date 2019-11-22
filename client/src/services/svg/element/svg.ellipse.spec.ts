@@ -26,7 +26,7 @@ describe('SVGEllipse', () => {
         DOMRenderer.renderer = renderer;
         spyOn(renderer, 'createElement').and.returnValue(element);
 
-        ellipse = new SVGEllipse(0, 0, TraceType.FillAndBorder);
+        ellipse = new SVGEllipse(0, 0, TraceType.FillOnly);
     });
 
     it('should exits', () => {
