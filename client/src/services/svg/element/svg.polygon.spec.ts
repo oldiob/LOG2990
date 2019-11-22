@@ -29,7 +29,7 @@ describe('SVGPolygon', () => {
 
         spyOn(renderer, 'createElement').and.returnValue(element);
         nSides = 3;
-        polygon = new SVGPolygon(0, 0, nSides, TraceType.FillAndBorder);
+        polygon = new SVGPolygon(0, 0, nSides, TraceType.FillOnly);
     });
 
     it('should exits', () => {

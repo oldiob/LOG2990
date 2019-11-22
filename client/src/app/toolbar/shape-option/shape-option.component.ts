@@ -69,7 +69,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     }
 
     private createForm(): void {
-        const DEFAULT_TRACE_TYPE = TraceType.FillAndBorder;
+        const DEFAULT_TRACE_TYPE = TraceType.FillOnly;
         const validators = [Validators.min(0), Validators.required];
 
         this.shapeForm = this.formBuilder.group({

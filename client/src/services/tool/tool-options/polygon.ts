@@ -16,7 +16,7 @@ export class PolygonTool extends AbsShapeTool {
     constructor(private paletteService: PaletteService) {
         super();
         this.width = 5;
-        this.traceType = TraceType.FillAndBorder;
+        this.traceType = TraceType.FillOnly;
         this.nSides = 3;
         this.tip = 'Polygone (3)';
     }
