@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="wrapper magnet-wrapper">
+<div class="wrapper">
     <div class="label">Magnet Toggle</div>
     <label class="switch">
         <input type="checkbox" [(ngModel)]="isMagnetOn" (change)="toggleMagnet()">
@@ -42,27 +42,14 @@
     </label>
 </div>
 
-<!-- <div *ngIf="isMagnetOn" class="wrapper magnet">
-    <div class="label">Magnetism</div>
-    <div class="label">{{ directions[anchor] }}</div>
-
-    <mat-form-field color="accent">
-        <mat-label class="magnet-label">Anchor Point</mat-label>
-        <mat-select (selectionChange)="onAnchor()" panelClass="trace-panel" [(ngModel)]="anchor">
-            <mat-option *ngFor="let direction of directions | keyvalue" [value]="direction.key">
-                {{direction.value}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-</div> -->
 <div *ngIf="isMagnetOn" class="wrapper magnet">
-    <div class="label">Magnetism</div>
-    <div class="label">{{ directions[anchor] }}</div>
-
+    <div class="label anchor">Select an anchor.</div>
+    <div class="rectangle"></div>
     <div class="grid">
-        <div class="button-wrapper" *ngFor="let direction of directions | keyvalue">
-            <input type="radio" name="anchor" (change)="onAnchor()" [value]="direction.key" [(ngModel)]="anchor" matTooltip="{{direction.value}}"
-            matTooltipClass="tooltip" matTooltipPosition="below">
+        <div class="radio" *ngFor="let direction of directions | keyvalue">
+            <input class="radio-input" type="radio" name="anchor" (change)="onAnchor()" [value]="direction.key" [(ngModel)]="anchor"
+                matTooltip="{{direction.value}}" matTooltipClass="tooltip" matTooltipPosition="below">
+            <div class="color"></div>
         </div>
     </div>
 </div>
