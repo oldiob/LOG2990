@@ -98,7 +98,7 @@ describe('AbsSVGShape', () => {
 
         const fillAndBorderRenderer: Renderer2 = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
         DOMRenderer.renderer = fillAndBorderRenderer;
         shape.setPrimary(color);
         expect(fillAndBorderRenderer.setAttribute).toHaveBeenCalledTimes(1);
@@ -116,7 +116,7 @@ describe('AbsSVGShape', () => {
         shape.setPointSize(pointSize);
         expect(shape.mPointSize).toEqual(0);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
         shape.setPointSize(pointSize);
         expect(shape.mPointSize).toEqual(pointSize);
     });
@@ -136,7 +136,7 @@ describe('AbsSVGShape', () => {
         expect(shape.isAtBorder).toHaveBeenCalledTimes(0);
         expect(shape.isInside).toHaveBeenCalledTimes(1);
 
-        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillOnly);
+        shape = new TestShape(defaultStartingPoint[0], defaultStartingPoint[1], TraceType.FillAndBorder);
         spyOn(shape, 'isInside');
         spyOn(shape, 'isAtBorder');
         shape.isAt(0, 0);
