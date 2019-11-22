@@ -97,6 +97,11 @@
               "watch": false,
               "progress": false,
               "browsers": "ChromeHeadless"
+            },
+			"ciFirefox": {
+              "watch": false,
+              "progress": false,
+              "browsers": "FirefoxHeadless"
             }
           }
         },
