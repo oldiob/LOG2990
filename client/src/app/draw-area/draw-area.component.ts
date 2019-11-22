@@ -137,6 +137,17 @@ export class DrawAreaComponent implements OnInit {
         event.stopPropagation();
     }
 
+    @HostListener('window:wheel', ['$event'])
+    onMouseWheel(event: WheelEvent): void {
+        const rect = this.svg.nativeElement.getBoundingClientRect();
+        event.svgX = event.clientX - rect.left;
+        event.svgY = event.clientY - rect.top;
+        if (this.toolService.currentTool.onWheel) {
+            this.toolService.currentTool.onWheel(event);
+        }
+        event.stopPropagation();
+    }
+
     onMouseEnter(): void {
         //
     }
@@ -167,7 +178,9 @@ export class DrawAreaComponent implements OnInit {
 
     onWheel(event: WheelEvent): void {
         if (this.toolService.currentTool.onWheel) {
-            this.toolService.currentTool.onWheel(event);
+            if (this.toolService.currentTool.onWheel(event)) {
+                event.preventDefault();
+            }
         }
     }
 }
