@@ -54,6 +54,7 @@ export class ToolbarComponent implements OnInit {
     currentOption: IOption<any>;
     isDialogOpened: boolean;
     optionDisplayed: boolean;
+    optionOpened: boolean;
 
     isUndosEmpty: boolean;
     isRedosEmpty: boolean;
@@ -70,6 +71,7 @@ export class ToolbarComponent implements OnInit {
         this.bucketOption, this.selectorOption, this.gridOption, this.textOption, this.clipboardOption];
         this.selectOption(this.toolOption);
         this.optionDisplayed = false;
+        this.optionOpened = false;
 
         this.subscribeUndoRedo();
     }
@@ -86,8 +88,10 @@ export class ToolbarComponent implements OnInit {
     selectOption(option: IOption<any>): void {
         if (this.optionDisplayed) {
             this.optionDisplayed = this.currentOption !== option;
+            this.optionOpened = false;
         } else {
             this.optionDisplayed = true;
+            this.optionOpened = true;
         }
         this.currentOption = option;
         this.currentOption.select();
