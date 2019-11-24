@@ -13,7 +13,7 @@ import { MyInjector } from 'src/utils/injector';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { DrawAreaComponent } from './draw-area.component';
 
-fdescribe('DrawAreaComponent', () => {
+describe('DrawAreaComponent', () => {
     let component: DrawAreaComponent;
     let fixture: ComponentFixture<DrawAreaComponent>;
     let renderer: Renderer2;
@@ -46,7 +46,6 @@ fdescribe('DrawAreaComponent', () => {
 
         object = jasmine.createSpyObj('object', ['isNative']);
         spyOn(Object, 'getPrototypeOf').and.returnValue(object);
-        // spyOn(object, 'isNative').and.returnValue(true);
 
         workZoneService = jasmine.createSpyObj('WorkZoneService', ['setFromDrawing']);
         svgService = jasmine.createSpyObj('SVGService', ['findIn']);
@@ -82,9 +81,9 @@ fdescribe('DrawAreaComponent', () => {
     // });
 
     // it('should on mouseup return false when it is mousedown and released event tool  ', () => {
-    //     component.onMouseUp(new MouseEvent('mouseup'));
-    //     expect(component.onMouseDown).toBeFalsy();
-    //     expect(mockTool.onReleased).toHaveBeenCalled();
+    //    component.onMouseUp(new MouseEvent('mouseup'));
+    //    expect(component.onMouseDown).toBeFalsy();
+    //    expect(mockTool.onReleased).toHaveBeenCalled();
     // });
 
 });
