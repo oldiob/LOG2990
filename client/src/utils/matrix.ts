@@ -131,4 +131,15 @@ export class MatrixSVG {
         ret.arr = this.arr.slice(0);
         return ret;
     }
+
+    isIdentity(): boolean {
+        for (let i = 0; i < this.arr.length; ++i) {
+            const expect: number = Number(!Boolean(i % 4));
+            const err = Math.abs(this.arr[i] - expect);
+            if (err > 10E-4) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
