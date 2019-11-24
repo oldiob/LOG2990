@@ -54,7 +54,6 @@ export class DrawingController {
 
             if (this.id && this.isTagValid(this.tag)) {
                 await this.database.updateTags(this.id, this.tag);
-                await this.database.updateTime(this.id);
                 res.json(`"${this.tag}" tag added!`);
             } else {
                 res.json(`"${this.tag}" NOT tag added.`);
