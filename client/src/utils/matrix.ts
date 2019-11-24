@@ -1,7 +1,7 @@
 /*
-  | 0 | 1 | 2 |
-  | 3 | 4 | 5 |
-  |   |   |   |
+  | 0 (a) | 1 (c) | 2 (e) |
+  | 3 (b) | 4 (d) | 5 (f) |
+  | 6 (0) | 7 (0) | 8 (1) |
 */
 
 const re = /matrix\(\)/;
@@ -91,6 +91,35 @@ export class MatrixSVG {
             }
         }
         this.arr = newArr;
+    }
+
+    inverse(): MatrixSVG {
+        const ret: MatrixSVG = this.copy();
+
+        const a = ret.arr[0];
+        const c = ret.arr[1];
+        const e = ret.arr[2];
+        const b = ret.arr[3];
+        const d = ret.arr[4];
+        const f = ret.arr[5];
+
+        const det = a * d - b * c;
+
+        ret.arr[0] = d;
+        ret.arr[1] = -c;
+        ret.arr[2] = c * f - d * e;
+        ret.arr[3] = -b;
+        ret.arr[4] = a;
+        ret.arr[5] = e * b - a * f;
+        ret.arr[6] = 0;
+        ret.arr[7] = 0;
+        ret.arr[8] = det;
+
+        ret.arr = ret.arr.map((element) => {
+            return element / det;
+        });
+
+        return ret;
     }
 
     toString(): string {
