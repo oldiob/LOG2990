@@ -5,7 +5,6 @@ import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { Subject } from 'rxjs';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
-// import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
@@ -19,7 +18,6 @@ describe('DrawAreaComponent', () => {
     let renderer: Renderer2;
     let subjectSpy: Subject<null>;
     let object: object;
-    // let mockTool: ITool;
 
     let workZoneService: WorkZoneService;
     let svgService: SVGService;
@@ -42,7 +40,6 @@ describe('DrawAreaComponent', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
-        // mockTool = jasmine.createSpyObj('ITool', ['onReleased', 'onMotion', 'onPressed', 'CURSOR_FILENAME']);
 
         object = jasmine.createSpyObj('object', ['isNative']);
         spyOn(Object, 'getPrototypeOf').and.returnValue(object);
@@ -66,24 +63,5 @@ describe('DrawAreaComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    // it('should return the current style', () => {
-    //     component.height = 10;
-    //     component.width = 10;
-    //     component.backgroundColor = '#ffffffff';
-    //     component.currentStyles = {
-    //         height: `${component.height.toString()}px`,
-    //         width: `${component.width.toString()}px`,
-    //         'background-color': component.backgroundColor,
-    //         cursor: rectCursor,
-    //     };
-    //     expect(component.setCurrentStyles()).toEqual(component.currentStyles);
-    // });
-
-    // it('should on mouseup return false when it is mousedown and released event tool  ', () => {
-    //    component.onMouseUp(new MouseEvent('mouseup'));
-    //    expect(component.onMouseDown).toBeFalsy();
-    //    expect(mockTool.onReleased).toHaveBeenCalled();
-    // });
 
 });
