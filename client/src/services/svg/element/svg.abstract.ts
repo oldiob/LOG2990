@@ -1,8 +1,8 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
-import { SVGService } from '../svg.service';
+import { vectorMultiply, vectorPlus } from 'src/utils/math';
 import { MatrixSVG } from 'src/utils/matrix';
+import { SVGService } from '../svg.service';
 
 export abstract class SVGAbstract {
     matrix: MatrixSVG;
@@ -54,6 +54,8 @@ export abstract class SVGAbstract {
         const xyz: number[] = xy;
         xyz.push(1);
 
+        const inverse: MatrixSVG = this.matrix.inverse();
+
         const movedRelativePosition = [0, 0, 0];
 
         for (let i = 0; i < 3; i++) {
@@ -61,13 +63,12 @@ export abstract class SVGAbstract {
 
             let sum = 0;
             for (let j = 0; j < 3; j++) {
-                sum += this.matrix.arr[matrixIndexStart + j] * xyz[j];
+                sum += inverse.arr[matrixIndexStart + j] * xyz[j];
             }
 
             movedRelativePosition[i] = sum;
         }
 
-        console.log(xy, movedRelativePosition);
         return movedRelativePosition;
     }
 

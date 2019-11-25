@@ -42,14 +42,6 @@ export class SVGComposite extends SVGAbstract {
         return false;
     }
 
-    set position(newPosition: number[]) {
-        const center: number[] = this.position;
-        for (const child of this.children) {
-            const offset = vectorMinus(child.position, center);
-            child.position = vectorPlus(newPosition, offset);
-        }
-    }
-
     get position() {
         const rect = this.domRect;
 

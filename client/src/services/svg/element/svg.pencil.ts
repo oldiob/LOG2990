@@ -17,10 +17,6 @@ export class SVGPencil extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'fill', 'none');
         DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
         DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
-
-        this.translate(10, 0);
-        this.rotate(0.1);
-        //this.rescale(1.5, 1);
     }
 
     isAtAdjusted(x: number, y: number): boolean {
