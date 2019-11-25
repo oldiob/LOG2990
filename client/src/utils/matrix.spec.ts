@@ -16,15 +16,9 @@ describe('MatrixSVG', () => {
         // sy = Math.random();
     });
 
-    it('should letruct the identity matrix', () => {
+    it('should be the identity matrix', () => {
         expect(mat).toBeTruthy();
-        for (let i = 0; i < mat.arr.length; ++i) {
-            if (i % 4 === 0) {
-                expect(mat.arr[i]).toEqual(1);
-            } else {
-                expect(mat.arr[i]).toEqual(0);
-            }
-        }
+        expect(mat.isIdentity()).toBeTruthy();
     });
 
     it('should translate', () => {
@@ -40,5 +34,14 @@ describe('MatrixSVG', () => {
     it('should scale', () => {
         // TODO - Implements me
         expect(true).toBeTruthy();
+    });
+
+    it('should inverse', () => {
+        mat.translate(Math.random(), Math.random())
+            .rotate(Math.random())
+            .scale(Math.random(), Math.random());
+        const inv: MatrixSVG = mat.inverse();
+        inv.mul(mat);
+        expect(inv.isIdentity()).toBeTruthy();
     });
 });
