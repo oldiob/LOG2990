@@ -51,19 +51,8 @@ export abstract class SVGAbstract {
     }
 
     private adjustXY(xy: number[]): number[] {
-        const identity = new MatrixSVG();
-        const realMatrix = this.matrix;
-
-        this.matrix = identity;
-        this.refreshTransform();
-
-        const position: number[] = this.position;
-
-        this.matrix = realMatrix;
-        this.refreshTransform();
-
-        const relativeXY: number[] = vectorMinus(xy, position);
-        relativeXY.push(1);
+        const xyz: number[] = xy;
+        xyz.push(1);
 
         const movedRelativePosition = [0, 0, 0];
 
@@ -72,13 +61,14 @@ export abstract class SVGAbstract {
 
             let sum = 0;
             for (let j = 0; j < 3; j++) {
-                sum += this.matrix.arr[matrixIndexStart + j] * relativeXY[j];
+                sum += this.matrix.arr[matrixIndexStart + j] * xyz[j];
             }
 
             movedRelativePosition[i] = sum;
         }
 
-        return vectorPlus(position, movedRelativePosition);
+        console.log(xy, movedRelativePosition);
+        return movedRelativePosition;
     }
 
     get domRect(): DOMRect {
