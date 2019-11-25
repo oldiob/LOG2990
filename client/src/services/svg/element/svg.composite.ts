@@ -54,6 +54,18 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
+    rotate(angle: number): void {
+        for (const child of this.children) {
+            child.rotate(angle);
+        }
+    }
+
+    rescale(x: number, y: number): void {
+        for (const child of this.children) {
+            child.rescale(x, y);
+        }
+    }
+
     get domRect(): DOMRect {
         const xRange = [Infinity, -Infinity];
         const yRange = [Infinity, -Infinity];
