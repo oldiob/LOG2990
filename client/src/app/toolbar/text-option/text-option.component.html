@@ -2,20 +2,6 @@
 
 <app-showcase></app-showcase>
 
-<div class="separation">
-  <div class="tools">
-    <div class="button"
-      *ngFor="let tool of tools"
-      (click)="selectTool(tool)"
-      matTooltip="{{tool.tip}}"
-      matTooltipClass="tooltip"
-      matTooltipPosition="below"
-      [class.selected-tool]="tool === currentTool">
-      <img class="tool-icon" [src]="getFilesource(tool)">
-    </div>
-  </div>
-</div>
-
   <div class="separation">
       <app-width [title]="'Font Size'" [width]="currentTool.width" (widthEmmiter)="selectFontSize($event)"></app-width>
   </div>

@@ -1,15 +1,1 @@
 <app-color-selection></app-color-selection>
-
-<div class="separation">
-  <div class="tools">
-    <div class="button"
-      *ngFor="let tool of tools"
-      (click)="selectTool(tool)"
-      matTooltip="{{tool.tip}}"
-      matTooltipClass="tooltip"
-      matTooltipPosition="below"
-      [class.selected-tool]="tool === currentTool">
-      <img class="tool-icon" [src]="getFilesource(tool)">
-    </div>
-  </div>
-</div>
