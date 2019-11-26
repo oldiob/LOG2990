@@ -9,7 +9,7 @@ import { ShowcaseSignal } from 'src/utils/showcase-signal';
 @Component({
     selector: 'app-stamp',
     templateUrl: './stamp.component.html',
-    styleUrls: ['./stamp.component.scss'],
+    styleUrls: ['./stamp.component.scss', '../../toolbar-option.scss'],
 })
 export class StampComponent implements OnInit {
 

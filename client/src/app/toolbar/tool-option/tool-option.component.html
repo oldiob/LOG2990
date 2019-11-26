@@ -14,20 +14,20 @@
     </div>
 </div>
 
-<div *ngIf="currentTool !== pen">
+<div *ngIf="currentTool !== pen" class="separation">
     <app-width [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 </div>
 
-<div *ngIf="currentTool === pen">
+<div *ngIf="currentTool === pen" class="separation">
     <app-width [title]="'Min Width'" [width]="currentTool.minWidth" (widthEmmiter)="setMinWidth($event)"></app-width>
 </div>
 
-<div *ngIf="currentTool === pen">
+<div *ngIf="currentTool === pen" class="separation">
     <app-width [title]="'Max Width'" [width]="currentTool.maxWidth" (widthEmmiter)="setMaxWidth($event)"></app-width>
 </div>
 
 <div *ngIf="currentTool === brush" class="separation">
-    <div class="text">Textures</div>
+    <div class="section">Textures</div>
     <div class="tools">
         <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
             (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
@@ -36,13 +36,13 @@
     </div>
 </div>
 
-<div *ngIf="currentTool === airbrush">
+<div *ngIf="currentTool === airbrush" class="separation">
     <app-width [title]="'Spray Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
 </div>
 
-<div *ngIf="currentTool === stamp">
+<div *ngIf="currentTool === stamp" class="separation">
     <app-angle></app-angle>
-    <app-stamp class="separation"></app-stamp>
+    <app-stamp></app-stamp>
 </div>
 
 <app-line-tool *ngIf="currentTool === line"></app-line-tool>
