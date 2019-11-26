@@ -58,7 +58,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getImage(): string {
-        return 'text.png';
+        const FILENAME = 'text.png';
+        return FILENAME;
     }
 
     selectFontSize(fontSize: string): void {

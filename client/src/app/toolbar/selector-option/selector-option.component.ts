@@ -26,6 +26,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getImage(): string {
-        return 'selector.png';
+        const FILENAME = 'selector.png';
+        return FILENAME;
     }
 }

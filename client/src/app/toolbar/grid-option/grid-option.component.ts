@@ -59,7 +59,8 @@ export class GridOptionComponent implements OnInit, IOption<ITool> {
     }
 
     getImage(): string {
-        return 'grid.png';
+        const FILENAME = 'grid.png';
+        return FILENAME;
     }
 
     toggleGrid(): void {
