@@ -31,11 +31,11 @@
 <app-width *ngIf="shapeForm.controls.traceType.value !== TraceType.FillOnly" class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 
 <div *ngIf="isPolygon" class="container">
-    <div class="text"># Sides</div>
-    <input type="range" [(ngModel)]="polygonTool.nSides" [min]="3" 
-    [max]="12" step="1" class="slider" (change)="updateShowcase()">
     <mat-form-field class="input-text" color="accent">
+        <mat-label class="label"># Sides</mat-label>
         <input matInput type="number" [min]="3" [max]="12" 
         [(ngModel)]="polygonTool.nSides" (change)="updateShowcase()" autocomplete="off">
     </mat-form-field>
+    <input type="range" [(ngModel)]="polygonTool.nSides" [min]="3" 
+    [max]="12" step="1" class="slider" (change)="updateShowcase()">
 </div>
