@@ -368,10 +368,10 @@ export class SelectorTool implements ITool {
     }
 
     private renderPreview(toRender: Set<SVGAbstract>) {
-        let x1 = Infinity;
-        let y1 = Infinity;
-        let x2 = -Infinity;
-        let y2 = -Infinity;
+        let x1 = Number.MAX_SAFE_INTEGER;
+        let y1 = Number.MAX_SAFE_INTEGER;
+        let x2 = -Number.MAX_SAFE_INTEGER;
+        let y2 = -Number.MAX_SAFE_INTEGER;
         const entryPositions = this.svg.entry.nativeElement.getBoundingClientRect();
         toRender.forEach((obj) => {
             const rect: any = obj.element.getBoundingClientRect();
@@ -386,11 +386,13 @@ export class SelectorTool implements ITool {
         });
         this.svg.removeElement(this.previewElement);
 
+        const width = x2 - x1;
+        const height = y2 - y1;
         DOMRenderer.setAttributes(this.previewRect, {
             x: x1.toString(),
             y: y1.toString(),
-            width: (x2 - x1).toString(),
-            height: (y2 - y1).toString(),
+            width: (width > 0 ? width : 0).toString(),
+            height: (height > 0 ? height : 0).toString(),
         });
 
         DOMRenderer.setAttributes(this.points[Compass.NW], {
