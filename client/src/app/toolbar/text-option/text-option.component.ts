@@ -10,7 +10,7 @@ import { TextFormat } from './text-format';
 @Component({
     selector: 'app-text-option',
     templateUrl: './text-option.component.html',
-    styleUrls: ['./text-option.component.scss', '../toolbar-option.scss'],
+    styleUrls: ['../toolbar-option.scss', './text-option.component.scss'],
 })
 
 export class TextOptionComponent implements OnInit, IOption<ITool> {

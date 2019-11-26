@@ -2,60 +2,43 @@
 
 <app-showcase></app-showcase>
 
-  <div class="separation">
-      <app-width [title]="'Font Size'" [width]="currentTool.width" (widthEmmiter)="selectFontSize($event)"></app-width>
-  </div>
+<div class="section">Font</div>
 
-  <div class="separation">
-    <div class="text">Font Style</div>
-      <div class="tools">
-        <div class="button"
-          (click)="toggleBold()"
-          [class.selected-tool]="isBold">
-            <img class="tool-icon" src="../../../assets/images/bold.png">
-        </div>
-        <div class="button"
-          (click)="toggleItalic()"
-          [class.selected-tool]="isItalic">
-            <img class="tool-icon" src="../../../assets/images/italic.png">
-        </div>
-      </div>
-  </div>
-  
-  <div class="separation">
-    <div class="text">Text Align</div>
-      <div class="tools">
-        <div class="button"
-        (click)="selectTextAlign('start')"
-        [class.selected-tool]="isAlignLeft">
-          <img class="tool-icon" src="../../../assets/images/left.png">
-        </div>
-        <div class="button"
-        (click)="selectTextAlign('middle')"
-        [class.selected-tool]="isAlignCenter">
-          <img class="tool-icon" src="../../../assets/images/center.png">
-        </div>
-        <div class="button"
-        (click)="selectTextAlign('end')"
-        [class.selected-tool]="isAlignRight">
-          <img class="tool-icon" src="../../../assets/images/right.png">
-          </div>
-        </div>
-  </div>
+<form (ngSubmit)="onSubmit()" class="family">
+    <mat-form-field color="accent">
+        <mat-label class="label">Family</mat-label>
+        <mat-select [value]="fonts[0]" panelClass="trace-panel">
+            <mat-option *ngFor="let font of fonts" (click)="selectFontFamily(font)" [value]="font"
+                [class.selected-tool]="font ===currentFontFamily">
+                {{font}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
 
-  <div class="separation">
-      <div class="text">Font Family</div>
-      <div class="tools">
-        <form class="form" (ngSubmit)="onSubmit()">
-            <mat-form-field color="accent">
-                <mat-select [value]="fonts[0]" panelClass="trace-panel">
-                    <mat-option *ngFor="let font of fonts" 
-                      (click)="selectFontFamily(font)"
-                      [value]="font" [class.selected-tool]="font === currentFontFamily">
-                      {{font}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-      </div>
+<app-width [title]="'Size'" [width]="currentTool.width" (widthEmmiter)="selectFontSize($event)"></app-width>
+
+
+<div class="sub-section">Style</div>
+<div class="tools style">
+    <div class="button" (click)="toggleBold()" [class.selected-tool]="isBold">
+        <img class="tool-icon" src="../../../assets/images/bold.png">
+    </div>
+    <div class="button" (click)="toggleItalic()" [class.selected-tool]="isItalic">
+        <img class="tool-icon" src="../../../assets/images/italic.png">
+    </div>
+</div>
+
+
+<div class="sub-section">Text Align</div>
+<div class="tools">
+    <div class="button" (click)="selectTextAlign('start')" [class.selected-tool]="isAlignLeft">
+        <img class="tool-icon" src="../../../assets/images/left.png">
+    </div>
+    <div class="button" (click)="selectTextAlign('middle')" [class.selected-tool]="isAlignCenter">
+        <img class="tool-icon" src="../../../assets/images/center.png">
+    </div>
+    <div class="button" (click)="selectTextAlign('end')" [class.selected-tool]="isAlignRight">
+        <img class="tool-icon" src="../../../assets/images/right.png">
+    </div>
 </div>
