@@ -61,7 +61,11 @@ export class SelectorTool implements ITool {
     private isSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
 
+    private lastMousePosition: number[];
+
     constructor(private svg: SVGService, private grid: GridService) {
+
+        this.lastMousePosition = [0, 0];
         this.tip = 'Selector (S)';
         this.distanceToCenter = [];
         this.selectedComposite = new SVGComposite();

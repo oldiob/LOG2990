@@ -11,7 +11,7 @@ export class CmdMatrix implements CmdInterface {
 
     constructor(obj: SVGAbstract) {
         this.element = obj.element;
-        this.oldMatrix = MatrixSVG.fromString(this.element.getAttribute('transform'));
+        this.oldMatrix = this.element.matrix.copy();
         this.newMatrix = this.oldMatrix.copy();
     }
 
