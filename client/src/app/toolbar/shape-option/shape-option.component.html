@@ -11,10 +11,7 @@
     </div>
 </div>
 
-<form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
-    <app-width class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)">
-    </app-width>
-
+<form [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
     <mat-form-field color="accent">
         <mat-label class="trace-label">Trace Type</mat-label>
         <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="traceType">
@@ -28,15 +25,16 @@
                 Fill and Border
             </mat-option>
         </mat-select>
-
     </mat-form-field>
 </form>
+
+<app-width *ngIf="shapeForm.controls.traceType.value !== TraceType.FillOnly" class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 
 <div *ngIf="isPolygon" class="container">
     <div class="text"># Sides</div>
     <input type="range" [(ngModel)]="polygonTool.nSides" [min]="3" 
     [max]="12" step="1" class="slider" (change)="updateShowcase()">
-    <mat-form-field class="input-text">
+    <mat-form-field class="input-text" color="accent">
         <input matInput type="number" [min]="3" [max]="12" 
         [(ngModel)]="polygonTool.nSides" (change)="updateShowcase()" autocomplete="off">
     </mat-form-field>

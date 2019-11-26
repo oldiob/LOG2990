@@ -2,7 +2,7 @@
     <div class="text" [innerText]="title"> : </div>
     <input type="range" [(ngModel)]="width" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">
 
-    <mat-form-field class="input-text">
+    <mat-form-field class="input-text" color="accent">
         <input matInput type="number" [min]="MIN_WIDTH" [max]="MAX_WIDTH" [value]="width" [(ngModel)]="width" autocomplete=off>
     </mat-form-field>
 </div>
