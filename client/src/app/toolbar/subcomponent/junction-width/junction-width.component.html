@@ -1,7 +1,7 @@
 <div class="container">
-        <div class="text2 text">Junction width : </div>
-        <input class="text2 input-text" [value]="junctionWidth" [(ngModel)]="junctionWidth" autocomplete=off>
-    
-    </div>
-    
+    <div class="text">Size</div>
     <input type="range" [(ngModel)]="junctionWidth" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">
+    <mat-form-field class="input-text" color="accent">
+        <input matInput [value]="junctionWidth" [min]="MIN_WIDTH" [max]="MAX_WIDTH" [(ngModel)]="junctionWidth" autocomplete=off>
+    </mat-form-field>
+</div>

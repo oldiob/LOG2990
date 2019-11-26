@@ -11,18 +11,29 @@
   margin: 20px;
 }
 
-.input-text {
-  font-weight: bold;
-  width: 50px;
-  height: 70%;
-  border-radius: 5px;
-}
-
-
 .container {
   width: 100%;
-  height: 30px;
   display: flex;
   justify-content: space-evenly;
-  margin: 10px;
+  align-items: center;
+  color: whitesmoke;
 }
+
+.text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.input-text {
+  width: 70px;
+}
+
+.slider {
+  width: 140px;
+}
+
+.label {
+  font-size: 1.1rem;
+}
+

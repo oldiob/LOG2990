@@ -2,17 +2,15 @@
 
 <app-showcase></app-showcase>
 
-<div class="separation">
-    <div class="tools">
-        <div class="button"
-            *ngFor="let tool of tools"
-            (click)="selectTool(tool)"
-            matTooltip="{{tool.tip}}"
-            matTooltipClass="tooltip"
-            matTooltipPosition="below"
-            [class.selected-tool]="tool === currentTool">
-            <img class="tool-icon" [src]="getFilesource(tool)">
-        </div>
+<div class="tools">
+    <div class="button"
+        *ngFor="let tool of tools"
+        (click)="selectTool(tool)"
+        matTooltip="{{tool.tip}}"
+        matTooltipClass="tooltip"
+        matTooltipPosition="below"
+        [class.selected-tool]="tool === currentTool">
+        <img class="tool-icon" [src]="getFilesource(tool)">
     </div>
 </div>
 
@@ -29,7 +27,7 @@
 </div>
 
 <div *ngIf="currentTool === brush" class="separation">
-    <div class="text">Textures</div>
+    <div class="section">Textures</div>
     <div class="tools">
         <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
             (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
@@ -42,9 +40,9 @@
     <app-width [title]="'Spray Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
 </div>
 
-<div *ngIf="currentTool === stamp">
-    <app-angle class="separation"></app-angle>
-    <app-stamp class="separation"></app-stamp>
+<div *ngIf="currentTool === stamp" class="separation">
+    <app-angle></app-angle>
+    <app-stamp></app-stamp>
 </div>
 
 <app-line-tool *ngIf="currentTool === line"></app-line-tool>

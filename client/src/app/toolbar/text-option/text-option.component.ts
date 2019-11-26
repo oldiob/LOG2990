@@ -10,7 +10,7 @@ import { TextFormat } from './text-format';
 @Component({
     selector: 'app-text-option',
     templateUrl: './text-option.component.html',
-    styleUrls: ['./text-option.component.scss', '../toolbar-option.scss'],
+    styleUrls: ['../toolbar-option.scss', './text-option.component.scss'],
 })
 
 export class TextOptionComponent implements OnInit, IOption<ITool> {
@@ -27,19 +27,12 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         'Trebuchet MS',
         'Palatino Linotype',
     ];
-
-    private readonly FILE_LOCATION = '../../../../assets/images/';
     DEFAULT_SIZE = '15px';
 
     @ViewChild(WidthComponent, { static: true })
     widthComponent: WidthComponent;
 
     tip = 'Text (T)';
-    images = new Map<ITool, string>([
-        [this.text, 'text.png'],
-    ]);
-
-    tools: ITool[];
     currentTool: ITool;
 
     isBold = false;
@@ -52,33 +45,21 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     fontFamilies: any[];
 
-    constructor(private toolService: ToolService, private text: TextTool) {
-        this.tools = [text];
-        this.currentTool = this.tools[0];
-
-        const NO_FONT = '';
-        this.currentFontFamily = NO_FONT;
-    }
+    constructor(private toolService: ToolService, private text: TextTool) { }
 
     ngOnInit() {
+        const NO_FONT = '';
+        this.currentFontFamily = NO_FONT;
         this.currentTool = this.text;
     }
 
     select(): void {
-        this.selectTool(this.currentTool);
+        this.toolService.currentTool = this.text;
     }
 
     getImage(): string {
-        return this.images.get(this.currentTool) as string;
-    }
-
-    selectTool(tool: ITool): void {
-        this.currentTool = tool;
-        this.toolService.currentTool = tool;
-    }
-
-    getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + this.images.get(tool) as string;
+        const FILENAME = 'text.png';
+        return FILENAME;
     }
 
     selectFontSize(fontSize: string): void {

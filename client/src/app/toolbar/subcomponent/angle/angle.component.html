@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="text2 text">Angle : </div>
-    <input class="input-text" [value]="angle" [(ngModel)]="angle" autocomplete=off>
-
+    <mat-form-field class="input-text" color="accent">
+        <mat-label class="label">Angle</mat-label>
+        <input type="number" class="input-box" matInput [value]="angle" [min]="MIN_ANGLE" [max]="MAX_ANGLE" [(ngModel)]="angle" autocomplete=off>
+    </mat-form-field>
+    <input type="range" [(ngModel)]="angle" [min]="MIN_ANGLE" [max]="MAX_ANGLE" step="0.1" class="slider">
 </div>
-
-<input type="range" [(ngModel)]="angle" [min]="MIN_ANGLE" [max]="MAX_ANGLE" step="0.1" class="slider">

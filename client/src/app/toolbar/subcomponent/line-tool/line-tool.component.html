@@ -1,6 +1,7 @@
-<form class="form" [formGroup]="lineForm">
+<div class="section">Pattern</div>
+<form class="separation" [formGroup]="lineForm">
     <mat-form-field color="accent">
-        <mat-label class="trace-label">Pattern Type</mat-label>
+        <mat-label class="trace-label">Type</mat-label>
         <mat-select (selectionChange)="onLineTypeChange()" panelClass="trace-panel" formControlName="lineType">
             <mat-option [value]="LineType.FullLine">
                 Full Line
@@ -14,9 +15,11 @@
         </mat-select>
     </mat-form-field>
 </form>
-<form class="form" [formGroup]="junctionForm">
+
+<div class="section">Junction</div>
+<form class="separation" [formGroup]="junctionForm">
     <mat-form-field color="accent">
-        <mat-label class="trace-label">Junction Type</mat-label>
+        <mat-label class="trace-label">Type</mat-label>
         <mat-select (selectionChange)="onJunctionTypeChange()" panelClass="trace-panel" formControlName="junctionType">
             <mat-option [value]="JunctionType.Angle">
                 Angle
@@ -29,8 +32,8 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <div *ngIf="toolService.currentTool.junctionType === 2">
+        <app-width [title]="'Size'" [width]="toolService.currentTool.junctionWidth" (widthEmmiter)="setJunctionWidth($event)">
+        </app-width>
+    </div>
 </form>
-<div *ngIf="toolService.currentTool.junctionType === 2" class="separation">
-    <app-junction [junctionWidth]="toolService.currentTool.junctionWidth" (junctionEmmiter)="setJunctionWidth($event)">
-    </app-junction>
-</div>

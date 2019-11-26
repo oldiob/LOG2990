@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
     selector: 'app-width',
     templateUrl: './width.component.html',
-    styleUrls: ['./width.component.scss', '../../toolbar-option.scss'],
+    styleUrls: ['./width.component.scss'],
 })
 export class WidthComponent implements OnInit {
     readonly MAX_WIDTH: number = 25.0;

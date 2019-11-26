@@ -13,7 +13,6 @@ describe('TextOptionComponent', () => {
   let renderer: Renderer2;
   let element: SVGText | null;
   const BUTTON = 'text.png';
-  const PATH  = '../../../../assets/images/';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TextOptionComponent ],
@@ -30,7 +29,6 @@ describe('TextOptionComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     text = TestBed.get(TextTool);
-    component.currentTool = component.tools[0];
     text.element = element;
 });
 
@@ -50,16 +48,6 @@ describe('TextOptionComponent', () => {
   it('should select current tool', () => {
     component.select();
     expect(component.currentTool).toEqual(text);
-  });
-
-  it('should select selector tool', () => {
-      component.selectTool(component.currentTool);
-      expect(component.currentTool).toEqual(text);
-    });
-
-  it('should return string to get file source and button image', () => {
-    component.getFilesource(text);
-    expect(component.getFilesource(text)).toEqual(PATH + BUTTON);
   });
 
   it('should font size equal to 15px', () => {

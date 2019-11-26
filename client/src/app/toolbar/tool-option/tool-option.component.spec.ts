@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
-    MatMenuModule, MatOptionModule, MatSelectModule, MatSnackBarModule
+    MatInputModule, MatMenuModule, MatOptionModule, MatSelectModule, MatSnackBarModule
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +25,7 @@ describe('ToolOptionComponent', () => {
             imports: [HttpClientModule, MatMenuModule, MatSelectModule, MatDialogModule, FormsModule,
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
-                MatOptionModule, MatFormFieldModule, MatSnackBarModule],
+                MatOptionModule, MatFormFieldModule, MatSnackBarModule, MatInputModule],
             declarations: [ToolOptionComponent, ShowcaseComponent, WidthComponent, AngleComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })

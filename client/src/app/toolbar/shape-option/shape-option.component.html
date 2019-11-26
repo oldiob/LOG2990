@@ -4,21 +4,14 @@
 
 <div class="separation">
     <div class="tools">
-        <div class="button" 
-            *ngFor="let tool of tools"
-            (click)="selectTool(tool)"
-            matTooltip="{{tool.tip}}"
-            matTooltipClass="tooltip"
-            matTooltipPosition="below"
-            [class.selected-tool]="tool === currentTool">
+        <div class="button" *ngFor="let tool of tools" (click)="selectTool(tool)" matTooltip="{{tool.tip}}"
+            matTooltipClass="tooltip" matTooltipPosition="below" [class.selected-tool]="tool === currentTool">
             <img class="tool-icon" [src]="getFilesource(tool)">
         </div>
     </div>
 </div>
 
-<form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
-    <app-width class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
-
+<form [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
     <mat-form-field color="accent">
         <mat-label class="trace-label">Trace Type</mat-label>
         <mat-select (selectionChange)="onTraceTypeChange()" panelClass="trace-panel" formControlName="traceType">
@@ -32,15 +25,17 @@
                 Fill and Border
             </mat-option>
         </mat-select>
-
     </mat-form-field>
 </form>
 
+<app-width *ngIf="shapeForm.controls.traceType.value !== TraceType.FillOnly" class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
 
-<div class="container" *ngIf="isPolygon">
-    <div class="text"># Sides : </div>
-    <input class="text2 input-text" type="number" [min]="3" [max]="12" [(ngModel)]="polygonTool.nSides"
-        (change)="updateShowcase()" autocomplete="off">
+<div *ngIf="isPolygon" class="container">
+    <mat-form-field class="input-text" color="accent">
+        <mat-label class="label"># Sides</mat-label>
+        <input matInput type="number" [min]="3" [max]="12" 
+        [(ngModel)]="polygonTool.nSides" (change)="updateShowcase()" autocomplete="off">
+    </mat-form-field>
+    <input type="range" [(ngModel)]="polygonTool.nSides" [min]="3" 
+    [max]="12" step="1" class="slider" (change)="updateShowcase()">
 </div>
-<input type="range" *ngIf="isPolygon" [(ngModel)]="polygonTool.nSides" [min]="3" [max]="12" step="1" class="slider"
-    (change)="updateShowcase()">

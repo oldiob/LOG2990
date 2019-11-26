@@ -1,56 +1,38 @@
 <div class="toolbar">
   <div class="tools">
-    <div class="button"
-      *ngFor="let option of options"
-      (click)="selectOption(option)"
-      [class.selected-toolbar-button]="option === currentOption"
-      matTooltip="{{option.tip}}"
-      matTooltipClass="tooltip"
+    <div class="button" *ngFor="let option of options" (click)="selectOption(option)"
+      [class.selected-toolbar-button]="option === currentOption" matTooltip="{{option.tip}}" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" [src]="getImage(option)" alt="icon" (click)="disableCurrentText()">
     </div>
-    <div class="button" [ngClass]="{'disable': isUndosEmpty}" (click)="undo()"
-      matTooltip="Undo (Ctrl + Z)"
-      matTooltipClass="tooltip"
-      matTooltipPosition="right">
+    <div class="button" [ngClass]="{'disable': isUndosEmpty}" (click)="undo()" matTooltip="Undo (Ctrl + Z)"
+      matTooltipClass="tooltip" matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/undo.png" alt="icon" (click)="disableCurrentText()">
     </div>
-    <div class="button" [ngClass]="{'disable': isRedosEmpty}" (click)="redo()"
-      matTooltip="Redo (Ctrl + Shift + Z)"
-      matTooltipClass="tooltip"
-      matTooltipPosition="right">
+    <div class="button" [ngClass]="{'disable': isRedosEmpty}" (click)="redo()" matTooltip="Redo (Ctrl + Shift + Z)"
+      matTooltipClass="tooltip" matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/redo.png" alt="icon" (click)="disableCurrentText()">
     </div>
   </div>
 
   <div class="options">
-    <div class="button" (click)="newDrawingOption()"
-      matTooltip="New Drawing (Ctrl + O)"
-      matTooltipClass="tooltip"
+    <div class="button" (click)="newDrawingOption()" matTooltip="New Drawing (Ctrl + O)" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/new.png" alt="icon" (click)="disableCurrentText()">
-  </div>
-    <div class="button" (click)="saveImage()"
-      matTooltip="Save (Ctrl + S)"
-      matTooltipClass="tooltip"
+    </div>
+    <div class="button" (click)="saveImage()" matTooltip="Save (Ctrl + S)" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/save.png" alt="icon" (click)="disableCurrentText()">
-  </div>
-    <div class="button" (click)="openGalleryOption()"
-      matTooltip="Gallery (Ctrl + G)"
-      matTooltipClass="tooltip"
+    </div>
+    <div class="button" (click)="openGalleryOption()" matTooltip="Gallery (Ctrl + G)" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/gallery.png" (click)="disableCurrentText()">
-</div>
-    <div class="button" (click)="openImportOption()"
-      matTooltip="Import"
-      matTooltipClass="tooltip"
+    </div>
+    <div class="button" (click)="openImportOption()" matTooltip="Import" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/import.png" (click)="disableCurrentText()">
     </div>
-    <a class="button" (click)="openExportOption()"
-      matTooltip="Export (Ctrl + E)"
-      matTooltipClass="tooltip"
+    <a class="button" (click)="openExportOption()" matTooltip="Export (Ctrl + E)" matTooltipClass="tooltip"
       matTooltipPosition="right">
       <img class="toolbar-icon" src="../../../assets/images/export.png" (click)="disableCurrentText()">
     </a>
@@ -58,29 +40,43 @@
 </div>
 
 <app-tool-option [class.disappear]="!optionDisplayed || currentOption !== toolOption"
-  [class.appear]="optionDisplayed && currentOption === toolOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === toolOption"
+  [class.slide-out]="!optionDisplayed && currentOption === toolOption"
+  [class.slide-in]="optionOpened && currentOption === toolOption" class="toolbar-option selected-option disappear">
 </app-tool-option>
 
 <app-shape-option [class.disappear]="!optionDisplayed || currentOption !== shapeOption"
-  [class.appear]="optionDisplayed && currentOption === shapeOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === shapeOption"
+  [class.slide-out]="!optionDisplayed && currentOption === shapeOption"
+  [class.slide-in]="optionOpened && currentOption === shapeOption" class="toolbar-option selected-option disappear">
 </app-shape-option>
 
 <app-bucket-option [class.disappear]="!optionDisplayed || currentOption !== bucketOption"
-  [class.appear]="optionDisplayed && currentOption === bucketOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === bucketOption"
+  [class.slide-out]="!optionDisplayed && currentOption === bucketOption"
+  [class.slide-in]="optionOpened && currentOption === bucketOption" class="toolbar-option selected-option disappear">
 </app-bucket-option>
 
 <app-selector-option [class.disappear]="!optionDisplayed || currentOption !== selectorOption"
-  [class.appear]="optionDisplayed && currentOption === selectorOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === selectorOption"
+  [class.slide-out]="!optionDisplayed && currentOption === selectorOption"
+  [class.slide-in]="optionOpened && currentOption === selectorOption" class="toolbar-option selected-option disappear">
 </app-selector-option>
 
 <app-grid-option [class.disappear]="!optionDisplayed || currentOption !== gridOption"
-  [class.appear]="optionDisplayed && currentOption === gridOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === gridOption"
+  [class.slide-out]="!optionDisplayed && currentOption === gridOption"
+  [class.slide-in]="optionOpened && currentOption === gridOption" class="toolbar-option selected-option disappear">
 </app-grid-option>
 
 <app-text-option [class.disappear]="!optionDisplayed || currentOption !== textOption"
-  [class.appear]="optionDisplayed && currentOption === textOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === textOption"
+  [class.slide-out]="!optionDisplayed && currentOption === textOption"
+  [class.slide-in]="optionOpened && currentOption === textOption" class="toolbar-option selected-option disappear">
 </app-text-option>
 
 <app-clipboard-option [class.disappear]="!optionDisplayed || currentOption !== clipboardOption"
-  [class.appear]="optionDisplayed && currentOption === clipboardOption" class="toolbar-option selected-option disappear">
+  [class.appear]="optionDisplayed && currentOption === clipboardOption"
+  [class.slide-out]="!optionDisplayed && currentOption === clipboardOption"
+  [class.slide-in]="optionOpened && currentOption === clipboardOption" class="toolbar-option selected-option disappear">
 </app-clipboard-option>

@@ -10,43 +10,23 @@ import { ToolService } from 'src/services/tool/tool.service';
     styleUrls: ['./selector-option.component.scss', '../toolbar-option.scss'],
 })
 export class SelectorOptionComponent implements OnInit, IOption<ITool> {
-    private readonly FILE_LOCATION = '../../../../assets/images/';
-
     tip = 'Selector (S)';
-    images = new Map<ITool, string>([
-        [this.selector, 'selector.png'],
-    ]);
-
-    tools: ITool[];
-    currentTool: ITool;
 
     constructor(
         private toolService: ToolService,
         private selector: SelectorTool) {
-
-        this.tools = [selector];
-        this.currentTool = this.tools[0];
-        this.select();
     }
 
     ngOnInit() {
-        this.currentTool = this.selector;
+        //
     }
 
     select() {
-        this.selectTool(this.currentTool);
+        this.toolService.currentTool = this.selector;
     }
 
     getImage(): string {
-        return this.images.get(this.currentTool) as string;
-    }
-
-    selectTool(tool: ITool): void {
-        this.currentTool = tool;
-        this.toolService.currentTool = tool;
-    }
-
-    getFilesource(tool: ITool): string {
-        return this.FILE_LOCATION + this.images.get(tool) as string;
+        const FILENAME = 'selector.png';
+        return FILENAME;
     }
 }

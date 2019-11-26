@@ -8,7 +8,7 @@ import { ShowcaseSignal } from 'src/utils/showcase-signal';
 @Component({
     selector: 'app-line-tool',
     templateUrl: './line-tool.component.html',
-    styleUrls: ['./line-tool.component.scss'],
+    styleUrls: ['./line-tool.component.scss', '../../toolbar-option.scss'],
 })
 export class LineToolComponent implements OnInit {
 

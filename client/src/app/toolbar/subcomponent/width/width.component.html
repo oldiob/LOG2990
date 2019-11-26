@@ -1,7 +1,8 @@
 <div class="container">
-    <div class="text2 text" [innerText]="title"> : </div>
-    <input class="text2 input-text" [value]="width" [(ngModel)]="width" autocomplete=off>
+    <mat-form-field class="input-text" color="accent">
+        <mat-label class="label" [innerText]="title"></mat-label>
+        <input matInput type="number" [min]="MIN_WIDTH" [max]="MAX_WIDTH" [value]="width" [(ngModel)]="width" autocomplete=off>
+    </mat-form-field>
+    <input type="range" [(ngModel)]="width" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">
 
 </div>
-
-<input type="range" [(ngModel)]="width" [min]="MIN_WIDTH" [max]="MAX_WIDTH" step="0.1" class="slider">
