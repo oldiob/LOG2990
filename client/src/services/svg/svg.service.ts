@@ -84,7 +84,7 @@ export class SVGService {
             return;
         }
 
-        this.objects.push(obj);
+        //this.objects.push(obj);
         DOMRenderer.appendChild(this.entry.nativeElement, obj.element);
         if (this.drawAreaService) {
             this.drawAreaService.dirty();

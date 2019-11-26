@@ -12,7 +12,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point, Rect } from 'src/utils/geo-primitives';
 import { MyInjector } from 'src/utils/injector';
-import { vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
 import { Compass } from '../../../utils/compass';
 import { ITool } from './i-tool';
 
@@ -143,6 +143,8 @@ export class SelectorTool implements ITool {
             default:
                 this.state = State.idle;
         }
+
+        this.lastMousePosition = [event.svgX, event.svgY];
         return cmd;
     }
 
@@ -202,6 +204,8 @@ export class SelectorTool implements ITool {
             default:
             // NO OP
         }
+
+        this.lastMousePosition = [event.svgX, event.svgY];
     }
 
     onReleased(event: MouseEvent): void {
@@ -481,14 +485,17 @@ export class SelectorTool implements ITool {
     }
 
     private updateCompositePosition(event: MouseEvent) {
-        const distance = new Point(
+        const halfSize = new Point(
             this.previewRect.width.baseVal.value / 2, this.previewRect.height.baseVal.value / 2,
         );
         const mouse = new Point(
             event.svgX + this.distanceToCenter[0],
             event.svgY + this.distanceToCenter[1],
         );
-        this.selectedComposite.position = this.grid.snapOnGrid(mouse, distance);
+        const targetedPosition: number[] = this.grid.snapOnGrid(mouse, halfSize);
+
+        const toTranslate = vectorMinus(this.lastMousePosition, targetedPosition);
+        this.selectedComposite.translate(toTranslate[0], toTranslate[1]);
     }
 
     onUnSelect(): void {

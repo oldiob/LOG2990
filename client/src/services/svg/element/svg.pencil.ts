@@ -17,6 +17,7 @@ export class SVGPencil extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'fill', 'none');
         DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'round');
         DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'round');
+        DOMRenderer.setAttribute(this.element, 'points', '');
     }
 
     isAtAdjusted(x: number, y: number): boolean {
@@ -62,7 +63,9 @@ export class SVGPencil extends SVGAbstract {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-        DOMRenderer.setAttribute(this.element, 'points', this.pointsAttribute());
+
+        const currentPoints = this.element.attributes.points.nodeValue;
+        DOMRenderer.setAttribute(this.element, 'points', currentPoints + ` ${x},${y}`);
     }
 
     // [[1, 2], [3, 4]] -> 1,2 3,4
