@@ -4,20 +4,16 @@
 
 <div class="separation">
     <div class="tools">
-        <div class="button" 
-            *ngFor="let tool of tools"
-            (click)="selectTool(tool)"
-            matTooltip="{{tool.tip}}"
-            matTooltipClass="tooltip"
-            matTooltipPosition="below"
-            [class.selected-tool]="tool === currentTool">
+        <div class="button" *ngFor="let tool of tools" (click)="selectTool(tool)" matTooltip="{{tool.tip}}"
+            matTooltipClass="tooltip" matTooltipPosition="below" [class.selected-tool]="tool === currentTool">
             <img class="tool-icon" [src]="getFilesource(tool)">
         </div>
     </div>
 </div>
 
 <form class="form" [formGroup]="shapeForm" (ngSubmit)="onSubmit()">
-    <app-width class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+    <app-width class="separation" [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)">
+    </app-width>
 
     <mat-form-field color="accent">
         <mat-label class="trace-label">Trace Type</mat-label>
@@ -36,11 +32,12 @@
     </mat-form-field>
 </form>
 
-
-<div class="container" *ngIf="isPolygon">
-    <div class="text"># Sides : </div>
-    <input class="text2 input-text" type="number" [min]="3" [max]="12" [(ngModel)]="polygonTool.nSides"
-        (change)="updateShowcase()" autocomplete="off">
+<div *ngIf="isPolygon" class="container">
+    <div class="text"># Sides</div>
+    <input type="range" [(ngModel)]="polygonTool.nSides" [min]="3" 
+    [max]="12" step="1" class="slider" (change)="updateShowcase()">
+    <mat-form-field class="input-text">
+        <input matInput type="number" [min]="3" [max]="12" 
+        [(ngModel)]="polygonTool.nSides" (change)="updateShowcase()" autocomplete="off">
+    </mat-form-field>
 </div>
-<input type="range" *ngIf="isPolygon" [(ngModel)]="polygonTool.nSides" [min]="3" [max]="12" step="1" class="slider"
-    (change)="updateShowcase()">
