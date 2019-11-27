@@ -1,33 +1,32 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { isAtLine, vectorMinus, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGCalligraphy extends SVGAbstract {
 
-    private pointsTop: number[][];
-    private pointsBot: number[][];
+    private points: number[][] = [];
     private offset: number[];
     element: any;
-    width: number;
-    angle: number;
-    angles: number[];
-    radian: number;
 
-    constructor(angle: number) {
+    constructor(angle: number, private width: number) {
         super();
-        this.element = DOMRenderer.createElement('path', 'svg');
-        DOMRenderer.setAttribute(this.element, 'stroke-linejoin', 'arcs');
-        DOMRenderer.setAttribute(this.element, 'stroke-linecap', 'square');
-        this.pointsBot = [];
-        this.pointsTop = [];
-        this.angle = angle;
-        this.radian = ((this.angle) * 180) / Math.PI;
-        this.offset = [5, 5];
-        this.angles = [Math.cos(this.radian) * 2, Math.sin(this.radian) * 2];
+
+        this.element = DOMRenderer.createElement('g', 'svg');
+        this.setOffset(angle);
+    }
+
+    private setOffset(angle: number) {
+        const radian = (angle / 180) * Math.PI;
+        const angles = [Math.cos(radian), Math.sin(radian)];
+        this.offset = vectorMultiply(angles, this.width / 2);
+    }
+
+    getPrimary(): string {
+        return '';
     }
 
     isAtAdjusted(x: number, y: number): boolean {
-        const WIDTH_MARGIN = 10.0;
+        /*const WIDTH_MARGIN = 10.0;
         const width: number = this.width + WIDTH_MARGIN;
         for (let i = 0; i < this.pointsTop.length - 1; i++) {
             for (let j = 0; j < this.pointsBot.length - 1; j++) {
@@ -37,7 +36,7 @@ export class SVGCalligraphy extends SVGAbstract {
                 }
             }
         }
-
+        */
         return false;
     }
 
@@ -45,10 +44,6 @@ export class SVGCalligraphy extends SVGAbstract {
         const isInside = this.isAt(x, y);
 
         return isInside;
-    }
-
-    getPrimary(): string {
-        return this.element.getAttribute('fill') && this.element.getAttribute('stroke');
     }
 
     getSecondary(): string {
@@ -64,36 +59,39 @@ export class SVGCalligraphy extends SVGAbstract {
         // NO OP
     }
 
-    setWidth(width: number): void {
-        this.width = width;
-        DOMRenderer.setAttribute(this.element, 'stroke-width', this.width.toString());
+    setAngle(newAngle: number) {
+        const lastOffset: number[] = this.offset;
+        this.setOffset(newAngle);
+
+        if (this.points.length >= 1) {
+            const lastPoint: number[] = this.points[this.points.length - 1];
+            this.setPathPoints(lastPoint, lastOffset, lastPoint, this.offset);
+        }
     }
 
     addPoint(x: number, y: number): void {
-        this.pointsTop.push(vectorPlus([x, y], this.offset));
-        this.pointsBot.push(vectorMinus([x, y], this.offset));
-        this.setPathPoints();
+        this.points.push([x, y]);
+        if (this.points.length >= 2) {
+            this.setPathPoints([x, y], this.offset, this.points[this.points.length - 2], this.offset);
+        }
     }
 
-    private setPathPoints(): void {
-        let d: string = 'M' + vectorPlus(this.pointsTop[0], this.angles) + ' ';
-       //  let dlol: string = 'M' + this.pointsBot[this.pointsBot.length - 1].join(' ');
+    private setPathPoints(currentPoint: number[], currentOffset: number[], lastPoint: number[], lastOffset: number[]): void {
+        const newPoints = [];
+        newPoints.push(vectorPlus(currentPoint, currentOffset));
+        newPoints.push(vectorMinus(currentPoint, currentOffset));
+        newPoints.push(vectorMinus(lastPoint, lastOffset));
+        newPoints.push(vectorPlus(lastPoint, lastOffset));
 
-        this.pointsTop.forEach((point: number[]) => {
-            d += ', L' + (point[0] + this.angles[0]) + ','
-                       + (point[1] + this.angles[1]) + ' ';
+        let pp = '';
+        newPoints.forEach((p: number[]) => {
+            pp += ` ${p[0]},${p[1]} `;
         });
 
-        this.pointsBot.reverse();
-        this.pointsBot.forEach((point: number[]) => {
-            d += ', L' + (point[0] - this.angles[0]) + ','
-                       + (point[1] - this.angles[1]) + ' ';
-        });
-        this.pointsBot.reverse();
+        const rect = DOMRenderer.createElement('polygon', 'svg');
+        DOMRenderer.appendChild(this.element, rect);
 
-        d += 'Z';
-
-        DOMRenderer.setAttribute(this.element, 'd', d);
+        DOMRenderer.setAttribute(rect, 'points', pp);
     }
 
 }

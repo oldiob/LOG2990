@@ -28,8 +28,7 @@ export class CalligraphyTool implements ITool {
     onPressed(event: MouseEvent): CmdSVG | null {
         let cmd: CmdSVG | null = null;
         if (!this.element) {
-            this.element = new SVGCalligraphy(this.angle);
-            this.element.setWidth(this.width);
+            this.element = new SVGCalligraphy(this.angle, this.width);
             this.element.addPoint(event.svgX, event.svgY);
             this.element.addPoint(event.svgX, event.svgY);
             this.element.setPrimary(this.paletteService.getPrimary());
@@ -58,7 +57,12 @@ export class CalligraphyTool implements ITool {
             newAngle -= this.MAX_ANGLE;
         }
 
+        console.log(this.angle);
+
         this.angle = newAngle;
+        if (this.element) {
+            this.element.setAngle(this.angle);
+        }
         return true;
     }
 }
