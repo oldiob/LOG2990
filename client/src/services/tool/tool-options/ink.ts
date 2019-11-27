@@ -65,8 +65,6 @@ export class InkTool implements ITool {
             this.element.setAngle(this.angle);
         }
 
-        // ShowcaseSignal.emit();
-
         return true;
     }
 }

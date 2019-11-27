@@ -25,7 +25,6 @@ export class AngleComponent implements OnInit {
 
     get angle(): number {
         const currentTool: ITool = this.toolService.currentTool;
-        // if (currentTool instanceof StampTool || currentTool instanceof InkTool) {
         if (currentTool instanceof StampTool) {
             this.mAngle = currentTool.angle;
             ShowcaseSignal.emit();
@@ -40,7 +39,6 @@ export class AngleComponent implements OnInit {
         }
 
         const currentTool: ITool = this.toolService.currentTool;
-        // if (currentTool instanceof StampTool || currentTool instanceof InkTool) {
         if (currentTool instanceof StampTool) {
             currentTool.angle = angle;
             ShowcaseSignal.emit();
