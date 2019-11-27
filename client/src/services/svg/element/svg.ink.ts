@@ -3,7 +3,9 @@ import { isAtLine, vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/mat
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGInk extends SVGAbstract {
-
+    private readonly UNSET = '';
+    private readonly TWO = 2;
+    private readonly DEGREE_180 = 180;
     private points: number[][];
     private offset: number[];
     element: any;
@@ -16,7 +18,7 @@ export class SVGInk extends SVGAbstract {
     }
 
     private setOffset(angle: number) {
-        const radian = (angle / 180) * Math.PI;
+        const radian = (angle / this.DEGREE_180) * Math.PI;
         const angles = [Math.cos(radian), Math.sin(radian)];
         this.offset = vectorMultiply(angles, this.width / 2);
     }
@@ -44,7 +46,7 @@ export class SVGInk extends SVGAbstract {
     }
 
     getSecondary(): string {
-        return '';
+        return this.UNSET;
     }
 
     setPrimary(color: string): void {
@@ -68,8 +70,8 @@ export class SVGInk extends SVGAbstract {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-        if (this.points.length >= 2) {
-            this.setPathPoints([x, y], this.offset, this.points[this.points.length - 2], this.offset);
+        if (this.points.length >= this.TWO) {
+            this.setPathPoints([x, y], this.offset, this.points[this.points.length - this.TWO], this.offset);
         }
     }
 
@@ -80,7 +82,7 @@ export class SVGInk extends SVGAbstract {
         newPoints.push(vectorMinus(lastPoint, lastOffset));
         newPoints.push(vectorPlus(lastPoint, lastOffset));
 
-        let polygonPath = '';
+        let polygonPath = this.UNSET;
         newPoints.forEach((p: number[]) => {
             polygonPath += ` ${p[0]},${p[1]} `;
         });

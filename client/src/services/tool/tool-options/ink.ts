@@ -14,6 +14,7 @@ export class InkTool implements ITool {
     private readonly INITIAL_WIDTH = 25;
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
+    private readonly INK_TIP = 'Ink (P)';
     readonly tip: string;
 
     element: SVGInk | null = null;
@@ -21,7 +22,7 @@ export class InkTool implements ITool {
     angle: number;
 
     constructor(private paletteService: PaletteService) {
-        this.tip = 'Ink (P)';
+        this.tip = this.INK_TIP;
         this.angle = this.MIN_ANGLE;
         this.width = this.INITIAL_WIDTH;
      }

@@ -8,10 +8,10 @@ import { RandomRectTexture } from 'src/services/svg/element/texture/random-rect'
 import { TurbulenceTexture } from 'src/services/svg/element/texture/turbulence';
 import { AirbrushTool } from 'src/services/tool/tool-options/airbrush';
 import { BrushTool } from 'src/services/tool/tool-options/brush';
-import { InkTool } from 'src/services/tool/tool-options/ink';
 import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
+import { InkTool } from 'src/services/tool/tool-options/ink';
 import { LineTool } from 'src/services/tool/tool-options/line';
 import { PenTool } from 'src/services/tool/tool-options/pen';
 import { PencilTool } from 'src/services/tool/tool-options/pencil';
