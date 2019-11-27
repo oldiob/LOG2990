@@ -42,6 +42,8 @@ describe('GalleryOptionComponent', () => {
       backgroundColor: 'rgba(255, 255, 255, 1)',
       width: 200,
       height: 200,
+
+      createdAt: new Date(),
     }];
     component.drawings = filteredDrawings;
     component.filteredDrawings = filteredDrawings;
