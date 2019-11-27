@@ -1,16 +1,16 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { isAtLine, vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
-export class SVGCalligraphy extends SVGAbstract {
+export class SVGInk extends SVGAbstract {
 
-    private points: number[][] = [];
+    private points: number[][];
     private offset: number[];
     element: any;
 
     constructor(angle: number, private width: number) {
         super();
-
+        this.points = [];
         this.element = DOMRenderer.createElement('g', 'svg');
         this.setOffset(angle);
     }
@@ -26,17 +26,14 @@ export class SVGCalligraphy extends SVGAbstract {
     }
 
     isAtAdjusted(x: number, y: number): boolean {
-        /*const WIDTH_MARGIN = 10.0;
+        const WIDTH_MARGIN = 10.0;
         const width: number = this.width + WIDTH_MARGIN;
-        for (let i = 0; i < this.pointsTop.length - 1; i++) {
-            for (let j = 0; j < this.pointsBot.length - 1; j++) {
-                if (isAtLine([x, y], this.pointsTop[i], this.pointsTop[i + 1], width) ||
-                    isAtLine([x, y], this.pointsBot[j], this.pointsBot[j + 1], width)) {
+        for (let i = 0; i < this.points.length - 1; i++) {
+                if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                     return true;
                 }
-            }
         }
-        */
+
         return false;
     }
 
@@ -83,15 +80,15 @@ export class SVGCalligraphy extends SVGAbstract {
         newPoints.push(vectorMinus(lastPoint, lastOffset));
         newPoints.push(vectorPlus(lastPoint, lastOffset));
 
-        let pp = '';
+        let polygonPath = '';
         newPoints.forEach((p: number[]) => {
-            pp += ` ${p[0]},${p[1]} `;
+            polygonPath += ` ${p[0]},${p[1]} `;
         });
 
         const rect = DOMRenderer.createElement('polygon', 'svg');
         DOMRenderer.appendChild(this.element, rect);
 
-        DOMRenderer.setAttribute(rect, 'points', pp);
+        DOMRenderer.setAttribute(rect, 'points', polygonPath);
     }
 
 }

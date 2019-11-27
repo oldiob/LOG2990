@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
-import { SVGCalligraphy } from 'src/services/svg/element/svg.calligraphy';
+import { SVGInk } from 'src/services/svg/element/svg.ink';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { ITool } from './i-tool';
 
 @Injectable({
     providedIn: 'root',
 })
-export class CalligraphyTool implements ITool {
+export class InkTool implements ITool {
     private readonly MAX_ANGLE = 360;
     private readonly MIN_ANGLE = 0;
-    private readonly INITIAL_WIDTH = 0.5;
+    private readonly INITIAL_WIDTH = 25;
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
     readonly tip: string;
 
-    element: SVGCalligraphy | null = null;
+    element: SVGInk | null = null;
     width: number;
     angle: number;
 
     constructor(private paletteService: PaletteService) {
-        this.tip = 'Calligraphy (P)';
+        this.tip = 'Ink (P)';
         this.angle = this.MIN_ANGLE;
         this.width = this.INITIAL_WIDTH;
      }
@@ -28,7 +29,7 @@ export class CalligraphyTool implements ITool {
     onPressed(event: MouseEvent): CmdSVG | null {
         let cmd: CmdSVG | null = null;
         if (!this.element) {
-            this.element = new SVGCalligraphy(this.angle, this.width);
+            this.element = new SVGInk(this.angle, this.width);
             this.element.addPoint(event.svgX, event.svgY);
             this.element.addPoint(event.svgX, event.svgY);
             this.element.setPrimary(this.paletteService.getPrimary());
@@ -57,12 +58,13 @@ export class CalligraphyTool implements ITool {
             newAngle -= this.MAX_ANGLE;
         }
 
-        console.log(this.angle);
-
         this.angle = newAngle;
         if (this.element) {
             this.element.setAngle(this.angle);
         }
+
+        ShowcaseSignal.emit();
+
         return true;
     }
 }
