@@ -13,8 +13,8 @@ export class InkTool implements ITool {
     private readonly MAX_ANGLE = 360;
     private readonly MIN_ANGLE = 0;
     private readonly INITIAL_WIDTH = 25;
-    private readonly MULTI_15 = 15;
-    private readonly DEGREE = 1;
+    private readonly MAX_ANGLE_STEP = 15;
+    private readonly MIN_ANGLE_STEP = 1;
     private readonly INK_TIP = 'Ink (P)';
     readonly tip: string;
 
@@ -51,7 +51,7 @@ export class InkTool implements ITool {
     }
 
     onWheel(event: WheelEvent): boolean {
-        const changeAngle = event.altKey ? this.DEGREE : this.DEGREE * this.MULTI_15;
+        const changeAngle = event.altKey ? this.MIN_ANGLE_STEP : this.MIN_ANGLE_STEP * this.MAX_ANGLE_STEP;
         let newAngle = this.angle + Math.sign(event.deltaY) * changeAngle;
 
         if (newAngle < this.MIN_ANGLE) {
