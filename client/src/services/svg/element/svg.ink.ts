@@ -3,28 +3,20 @@ import { isAtLine, vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/mat
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGInk extends SVGAbstract {
-    private readonly UNSET = '';
-    private readonly TWO = 2;
-    private readonly DEGREE_180 = 180;
     private points: number[][];
     private offset: number[];
+    private angles: number[];
+    private radian: number;
     element: any;
 
     constructor(angle: number, private width: number) {
         super();
         this.points = [];
+        this.offset = [];
+        this.angles = [];
+        this.radian = 0;
         this.element = DOMRenderer.createElement('g', 'svg');
         this.setOffset(angle);
-    }
-
-    private setOffset(angle: number) {
-        const radian = (angle / this.DEGREE_180) * Math.PI;
-        const angles = [Math.cos(radian), Math.sin(radian)];
-        this.offset = vectorMultiply(angles, this.width / this.TWO);
-    }
-
-    getPrimary(): string {
-        return '';
     }
 
     isAtAdjusted(x: number, y: number): boolean {
@@ -45,8 +37,12 @@ export class SVGInk extends SVGAbstract {
         return isInside;
     }
 
+    getPrimary(): string {
+        return '';
+    }
+
     getSecondary(): string {
-        return this.UNSET;
+        return '';
     }
 
     setPrimary(color: string): void {
@@ -55,7 +51,7 @@ export class SVGInk extends SVGAbstract {
     }
 
     setSecondary(color: string): void {
-        // NO OP
+        return;
     }
 
     setAngle(newAngle: number) {
@@ -70,9 +66,15 @@ export class SVGInk extends SVGAbstract {
 
     addPoint(x: number, y: number): void {
         this.points.push([x, y]);
-        if (this.points.length >= this.TWO) {
-            this.setPathPoints([x, y], this.offset, this.points[this.points.length - this.TWO], this.offset);
+        if (this.points.length >= 2) {
+            this.setPathPoints([x, y], this.offset, this.points[this.points.length - 2], this.offset);
         }
+    }
+
+    private setOffset(angle: number) {
+        this.radian = (angle / 180) * Math.PI;
+        this.angles = [Math.cos(this.radian), Math.sin(this.radian)];
+        this.offset = vectorMultiply(this.angles, this.width / 2);
     }
 
     private setPathPoints(currentPoint: number[], currentOffset: number[], lastPoint: number[], lastOffset: number[]): void {
@@ -82,7 +84,7 @@ export class SVGInk extends SVGAbstract {
         newPoints.push(vectorMinus(lastPoint, lastOffset));
         newPoints.push(vectorPlus(lastPoint, lastOffset));
 
-        let polygonPath = this.UNSET;
+        let polygonPath = '';
         newPoints.forEach((p: number[]) => {
             polygonPath += ` ${p[0]},${p[1]} `;
         });
