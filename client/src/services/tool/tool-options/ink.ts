@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInk } from 'src/services/svg/element/svg.ink';
-import { ShowcaseSignal } from 'src/utils/showcase-signal';
+
+// import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { ITool } from './i-tool';
 
 @Injectable({
@@ -64,7 +65,7 @@ export class InkTool implements ITool {
             this.element.setAngle(this.angle);
         }
 
-        ShowcaseSignal.emit();
+        // ShowcaseSignal.emit();
 
         return true;
     }

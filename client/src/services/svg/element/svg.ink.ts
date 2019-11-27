@@ -20,7 +20,7 @@ export class SVGInk extends SVGAbstract {
     private setOffset(angle: number) {
         const radian = (angle / this.DEGREE_180) * Math.PI;
         const angles = [Math.cos(radian), Math.sin(radian)];
-        this.offset = vectorMultiply(angles, this.width / 2);
+        this.offset = vectorMultiply(angles, this.width / this.TWO);
     }
 
     getPrimary(): string {
