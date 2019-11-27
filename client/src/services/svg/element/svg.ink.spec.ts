@@ -1,3 +1,4 @@
+import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { isAtLine, vectorMultiply } from 'src/utils/math';
 import { SVGInk } from './svg.ink';
@@ -9,14 +10,18 @@ describe('SVGInk', () => {
     let angle: number;
     let X: number;
     let Y: number;
-    let C: string;
     let width: number;
     let points: number[][];
+    let color: Color;
+    const RED = 255;
+    const GREEN = 255;
+    const BLUE = 255;
+    const ALPHA = 1;
 
     beforeEach(() => {
         X = Math.random() * 1000;
         Y = Math.random() * 1000;
-        C = `#(Math.floor(Math.random() * 1000)).toString(16)`;
+        color = new Color(RED, GREEN, BLUE, ALPHA);
         angle = 0;
         width = 25;
         points = [[100, 200], [300, 400]];
@@ -60,13 +65,13 @@ describe('SVGInk', () => {
     });
 
     it('should set fill and stocke to primary color', () => {
-        ink.setPrimary(C);
+        ink.setPrimary(color.toRGBA());
         expect(renderer.setAttribute).toHaveBeenCalledTimes(2);
     });
 
     it('should not set the secondary color', () => {
-        ink.setSecondary(C);
-        expect(ink.setSecondary(C)).toBeUndefined();
+        ink.setSecondary(color.toRGBA());
+        expect(ink.setSecondary(color.toRGBA())).toBeUndefined();
     });
 
     it('should set angle in the drawing path', () => {
