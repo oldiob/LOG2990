@@ -4,7 +4,6 @@ import { SVGService } from '../../svg/svg.service';
 
 export enum SelectorState {
     NONE,
-    OFF,
 
     SELECTING,
     DESELECTING,
@@ -129,7 +128,7 @@ export class SelectorBox {
             return SelectorState.MOVING;
         }
 
-        return SelectorState.OFF;
+        return SelectorState.NONE;
     }
 
     getTargetedAnchorPosition(): number[] {

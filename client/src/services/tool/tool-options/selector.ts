@@ -78,7 +78,7 @@ export class SelectorTool implements ITool {
             case SelectorState.MOVING:
                 const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
                 this.compositeElement.translate(toMove[0], toMove[1]);
-                this.selectorBox.setPeview(this.compositeElement.domRect);
+                this.preview();
                 break;
             case SelectorState.SCALING:
                 const targetedAnchor: number[] = this.selectorBox.getTargetedAnchorPosition();
@@ -86,7 +86,7 @@ export class SelectorTool implements ITool {
                 const multiplier: number[] = this.selectorBox.getScalingMultiplier();
                 const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
                 this.compositeElement.rescaleOnPoint(oppositeAnchor, targetedAnchor, diff);
-                this.selectorBox.setPeview(this.compositeElement.domRect);
+                this.preview();
                 break;
             default:
                 break;
@@ -96,7 +96,7 @@ export class SelectorTool implements ITool {
     private onLeftClick(x: number, y: number) {
         const previewState: SelectorState = this.selectorBox.onPressed(x, y);
 
-        if (previewState !== SelectorState.OFF) {
+        if (previewState !== SelectorState.NONE) {
             this.state = previewState;
             return;
         }
@@ -124,7 +124,7 @@ export class SelectorTool implements ITool {
             this.compositeElement.addChild(element);
         });
 
-        this.selectorBox.setPeview(this.compositeElement.domRect);
+        this.preview();
     }
 
     private deselect() {
@@ -139,6 +139,16 @@ export class SelectorTool implements ITool {
         elementsInRect.forEach((element) => {
             this.compositeElement.removeChild(element);
         });
+
+        this.preview();
+    }
+
+    private preview(): void {
+        if (this.isEmpty()) {
+            this.selectorBox.hidePreview();
+        } else {
+            this.selectorBox.setPeview(this.compositeElement.domRect);
+        }
     }
 
     private isEmpty(): boolean {
