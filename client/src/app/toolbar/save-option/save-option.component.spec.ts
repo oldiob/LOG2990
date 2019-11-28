@@ -42,6 +42,7 @@ describe('SaveOptionComponent', () => {
             backgroundColor: color,
             width: 200,
             height: 200,
+            createdAt: new Date(),
         };
         spyOn(workZoneService, 'getAsDrawing').and.returnValue(validDrawing);
         component.ngOnInit();

@@ -192,27 +192,29 @@ export class ToolbarComponent implements OnInit {
             return;
         }
         const kbd: { [id: string]: callback } = {
+            a: () => this.selectToolFromOption(this.toolOption, 7),
             c: () => this.selectToolFromOption(this.toolOption, 0),
-            w: () => this.selectToolFromOption(this.toolOption, 1),
-            l: () => this.selectToolFromOption(this.toolOption, 2),
             b: () => this.selectToolFromOption(this.bucketOption, 0),
+            e: () => this.selectToolFromOption(this.toolOption, 6),
+            g: () => this.gridOption.toggleGrid(),
             i: () => this.selectToolFromOption(this.bucketOption, 1),
-            y: () => this.selectToolFromOption(this.toolOption, 4),
-            e: () => this.selectToolFromOption(this.toolOption, 5),
+            l: () => this.selectToolFromOption(this.toolOption, 4),
+            p: () => this.selectToolFromOption(this.toolOption, 3),
             s: () => this.selectToolFromOption(this.selectorOption, 0),
             t: () => this.selectToolFromOption(this.textOption, 0),
+            w: () => this.selectToolFromOption(this.toolOption, 1),
+            y: () => this.selectToolFromOption(this.toolOption, 2),
             1: () => this.selectToolFromOption(this.shapeOption, 0),
             2: () => this.selectToolFromOption(this.shapeOption, 1),
             3: () => this.selectToolFromOption(this.shapeOption, 2),
             'C-z': () => { CmdService.undo(); },
             'C-S-z': () => { CmdService.redo(); },
-            g: () => this.gridOption.toggleGrid(),
             '+': () => this.gridOption.addStep(),
             'S-+': () => this.gridOption.addStep(),
             '-': () => this.gridOption.reduceStep(),
-            'C-x': () => this.clipboard.cut(),
             'C-c': () => this.clipboard.copy(),
             'C-v': () => this.clipboard.paste(),
+            'C-x': () => this.clipboard.cut(),
         };
 
         const keys: string = this.getComposedKey(event);

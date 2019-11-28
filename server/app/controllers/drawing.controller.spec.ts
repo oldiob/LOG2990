@@ -21,6 +21,7 @@ describe('DrawingRoutes :', () => {
       backgroundColor: color,
       width: 200,
       height: 200,
+      createdAt: new Date(),
     };
     validDrawing = {
         _id: '17',
@@ -30,6 +31,7 @@ describe('DrawingRoutes :', () => {
         backgroundColor: color,
         width: 200,
         height: 200,
+        createdAt: new Date(),
         };
     invalidName = {
           _id: '17',
@@ -39,6 +41,7 @@ describe('DrawingRoutes :', () => {
           backgroundColor: color,
           width: 200,
           height: 200,
+          createdAt: new Date(),
     };
     invalidID = {
         _id: '17',
@@ -48,6 +51,7 @@ describe('DrawingRoutes :', () => {
         backgroundColor: color,
         width: 200,
         height: 200,
+        createdAt: new Date(),
       };
 
     describe ('DrawingController function : ', () => {

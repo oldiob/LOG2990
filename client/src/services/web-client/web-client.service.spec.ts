@@ -54,6 +54,8 @@ describe('WebClientService', () => {
             backgroundColor: 'rgba(255, 255, 255, 1)',
             width: 200,
             height: 200,
+
+            createdAt: new Date(),
         };
     });
 

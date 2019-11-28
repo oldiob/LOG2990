@@ -9,14 +9,12 @@ export class DrawingController {
 
     router: Router;
     drawings: Drawing[];
-    uniqueID: number;
     isValid: boolean;
     id: string;
     tag: string;
 
     constructor(@inject(Types.DataBaseService) private database: DataBaseService) {
         this.drawings = [];
-        this.uniqueID = 0;
         this.configureRouter();
     }
 
@@ -41,6 +39,9 @@ export class DrawingController {
             const drawing = req.body as Drawing;
             if (this.isDrawingValid(drawing)) {
                 await this.database.addDrawing(drawing);
+                if (drawing._id !== null) {
+                await this.database.updateTime(drawing._id.toString());
+                }
                 res.status(200).json({ RESPONSE: 'Drawing added to database!' });
             } else {
                 res.status(500).json({ RESPONSE: 'Invalid drawing.' });

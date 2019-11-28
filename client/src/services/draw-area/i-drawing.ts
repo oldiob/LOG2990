@@ -11,4 +11,6 @@ export class Drawing {
     backgroundColor: string;
     width: number;
     height: number;
+
+    createdAt: Date;
 }
