@@ -1,5 +1,5 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { AbsSVGShape } from './svg.abs-shape';
 
 export class SVGPolygon extends AbsSVGShape {
@@ -28,13 +28,13 @@ export class SVGPolygon extends AbsSVGShape {
 
         this.size = vectorPlus(ORIGINAL_SIZE, widthDelta);
         for (const circularPoint of this.circularPoints) {
-            this.actualPointsPosition.push(vectorPlus(vectorMultiply(circularPoint, this.size[1]), this.center));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiplyConst(circularPoint, this.size[1]), this.center));
         }
         const INSIDE_OUTER_ELLIPSE = this.isInside(x, y);
 
         this.size = vectorMinus(ORIGINAL_SIZE, widthDelta);
         for (const circularPoint of this.circularPoints) {
-            this.actualPointsPosition.push(vectorPlus(vectorMultiply(circularPoint, this.size[1]), this.center));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiplyConst(circularPoint, this.size[1]), this.center));
         }
         const INSIDE_INNER_ELLIPSE = this.isInside(x, y);
 
@@ -79,7 +79,7 @@ export class SVGPolygon extends AbsSVGShape {
 
         this.actualPointsPosition = [];
         for (const circularPoint of this.circularPoints) {
-            this.actualPointsPosition.push(vectorPlus(vectorMultiply(circularPoint, this.size[1]), this.center));
+            this.actualPointsPosition.push(vectorPlus(vectorMultiplyConst(circularPoint, this.size[1]), this.center));
         }
         this.setPositionAttributes();
     }

@@ -69,10 +69,30 @@ export const vectorDot = (v0: number[], v1: number[]): number => {
     return v0[0] * v1[0] + v0[1] * v1[1];
 };
 
-export const vectorMultiply = (v: number[], x: number): number[] => {
+export const vectorMultiplyConst = (v: number[], x: number): number[] => {
     validateLength(v, 2);
 
     return [v[0] * x, v[1] * x];
+};
+
+export const vectorMultiplyVector = (v: number[], v1: number[]): number[] => {
+    validateLength(v, 2);
+    validateLength(v1, 2);
+
+    return [v[0] * v1[0], v[1] * v1[1]];
+};
+
+export const vectorDivideVector = (v: number[], v1: number[]): number[] => {
+    validateLength(v, 2);
+    validateLength(v1, 2);
+
+    return [v[0] / v1[0], v[1] / v1[1]];
+};
+
+export const vectorGetAbsolute = (v: number[]): number[] => {
+    validateLength(v, 2);
+
+    return [Math.abs(v[0]), Math.abs(v[1])];
 };
 
 const validateLength = (list: any[], expectedLength: number): void => {

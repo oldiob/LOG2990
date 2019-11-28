@@ -16,7 +16,7 @@ export class ClipboardService {
 
     constructor(public selector: SelectorTool, public svg: SVGService) { }
 
-    copy(): void {
+    /*copy(): void {
         this.selectedObjects = Array.from(this.selector.selected).map((object) => {
             const tmp: SVGAbstract = Object.create(object);
             tmp.element = object.element.cloneNode(true);
@@ -42,4 +42,5 @@ export class ClipboardService {
         });
         CmdService.execute(new CmdSVG(toPaste));
     }
+    */
 }

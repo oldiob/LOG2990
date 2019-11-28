@@ -33,17 +33,17 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
         this.isSelectorActive = false;
         this.tip = 'Clipboard';
         this.setupActions();
-        this.subscribeSelector();
+        //this.subscribeSelector();
     }
 
-    private subscribeSelector() {
+    /*private subscribeSelector() {
         this.selector.isSelectedObservable.subscribe((isSelected: boolean) => {
             this.isSelectorActive = isSelected;
         });
-    }
+    }*/
 
     private setupActions() {
-        this.actions = [
+        /*this.actions = [
             {
                 tip: 'Copy (Ctrl + C)',
                 icon: this.FILE_LOCATION + 'clipboard/copy.png',
@@ -74,7 +74,7 @@ export class ClipboardOptionComponent implements OnInit, IOption<ITool> {
                 icon: this.FILE_LOCATION + 'clipboard/select-all.png',
                 action: () => { this.selector.selectAll(); },
             },
-        ];
+        ];*/
     }
 
     select() {

@@ -1,6 +1,6 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
-import { vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { MatrixSVG } from 'src/utils/matrix';
 import { SVGService } from '../svg.service';
 
@@ -26,7 +26,7 @@ export abstract class SVGAbstract {
     get position(): number[] {
         const rect: DOMRect = this.domRect;
 
-        return vectorPlus([rect.x, rect.y], vectorMultiply([rect.width, rect.height], 0.5));
+        return vectorPlus([rect.x, rect.y], vectorMultiplyConst([rect.width, rect.height], 0.5));
     }
 
     translate(x: number, y: number): void {

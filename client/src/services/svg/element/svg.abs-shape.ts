@@ -1,6 +1,6 @@
 import { TraceType } from 'src/services/tool/tool-options/abs-shape-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export abstract class AbsSVGShape extends SVGAbstract {
@@ -107,7 +107,7 @@ export abstract class AbsSVGShape extends SVGAbstract {
 
     protected updateCoordinates(x: number, y: number, isShift: boolean) {
         this.endingPoint = [x, y];
-        const VECTOR_TO_CENTER = vectorMultiply(vectorMinus(this.endingPoint, this.startingPoint), 0.5);
+        const VECTOR_TO_CENTER = vectorMultiplyConst(vectorMinus(this.endingPoint, this.startingPoint), 0.5);
 
         if (isShift) {
             const RADIUS = Math.min(Math.abs(VECTOR_TO_CENTER[0]), Math.abs(VECTOR_TO_CENTER[1]));

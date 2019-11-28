@@ -1,31 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CmdArray } from 'src/services/cmd/cmd.array';
-import { CmdDup } from 'src/services/cmd/cmd.dup';
-import { CmdEraser } from 'src/services/cmd/cmd.eraser';
-import { CmdMatrix } from 'src/services/cmd/cmd.matrix';
-import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
-import { GridService } from 'src/services/grid/grid.service';
+import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
+import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { SVGService } from 'src/services/svg/svg.service';
-import { DOMRenderer } from 'src/utils/dom-renderer';
-import { Point, Rect } from 'src/utils/geo-primitives';
-import { MyInjector } from 'src/utils/injector';
-import { vectorMultiply, vectorPlus, vectorMinus } from 'src/utils/math';
-import { Compass } from '../../../utils/compass';
+import { Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
+import { vectorMinus, vectorDivideVector, vectorPlus, vectorMultiplyVector, vectorMultiplyConst } from 'src/utils/math';
 
-declare type callback = () => void;
-
-export enum State {
-    idle = 0,
-    maybe,
-    selecting,
-    selected,
-    moving,
-    rotating,
-}
+//declare type callback = () => void;
 
 @Injectable({
     providedIn: 'root',
@@ -36,120 +19,149 @@ export class SelectorTool implements ITool {
 
     dupOffset: number[] = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
 
-    readonly tip: string;
+    readonly tip = 'Selector (S)';
 
-    state: State = State.idle;
-
-    anchor: Point = new Point();
-    cursor: Point = new Point();
-
-    boxElement: SVGPolylineElement;
-    previewElement: SVGGElement;
-    previewRect: SVGRectElement;
-    points: SVGCircleElement[] = new Array(Compass.MAX);
-
-    selected: Set<SVGAbstract> = new Set<SVGAbstract>([]);
-    selection: Set<SVGAbstract> = new Set<SVGAbstract>([]);
-    selectedComposite: SVGComposite;
-
-    transforms: CmdArray<CmdMatrix> | null;
-
-    policy = false;
+    state: SelectorState = SelectorState.NONE;
+    compositeElement: SVGComposite;
 
     distanceToCenter: number[];
 
-    private isSelected: boolean;
-    private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
-
+    private firstMousePosition: number[]
     private lastMousePosition: number[];
+    private selectorBox: SelectorBox;
 
-    constructor(private svg: SVGService, private grid: GridService) {
+    constructor(private svg: SVGService) {
 
+        this.firstMousePosition = [0, 0];
         this.lastMousePosition = [0, 0];
-        this.tip = 'Selector (S)';
         this.distanceToCenter = [];
-        this.selectedComposite = new SVGComposite();
+        this.compositeElement = new SVGComposite();
 
-        this.boxElement = DOMRenderer.createElement('polyline', 'svg', {
-            fill: '#2188ff',
-            'fill-opacity': '0.1',
-            stroke: '#2188ff',
-            'stroke-width': '1',
-            'stroke-dasharray': '4',
-        });
-
-        this.previewElement = DOMRenderer.createElement('g', 'svg');
-        this.previewRect = DOMRenderer.createElement('rect', 'svg', {
-            'fill-opacity': '0',
-            'stroke-opacity': '0.8',
-            stroke: '#2188ff',
-            'stroke-width': '2',
-            'stroke-dasharray': '4',
-        });
-        DOMRenderer.appendChild(this.previewElement, this.previewRect);
-
-        for (let i = 0; i < Compass.MAX; ++i) {
-            const point: any = DOMRenderer.createElement('circle', 'svg', {
-                stroke: '#2188ff',
-                'stroke-width': '1',
-                fill: '#2188ff',
-                'fill-opacity': '0.8',
-                r: '5',
-            });
-            DOMRenderer.appendChild(this.previewElement, point);
-            this.points[i] = point;
-        }
-
-    }
-
-    get isSelectedObservable(): Observable<boolean> {
-        return this.isSelectedSubject.asObservable();
-    }
-
-    private nextIsSelected(): void {
-        this.isSelectedSubject.next(this.isSelected);
+        this.selectorBox = new SelectorBox(svg);
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
-        const cmd: CmdInterface | null = null;
+        this.firstMousePosition = [event.svgX, event.svgY];
+        this.lastMousePosition = [event.svgX, event.svgY];
+
         switch (event.button) {
             case 0:
-                this.policy = false;
+                this.onLeftClick(event.svgX, event.svgY);
                 break;
 
             case 2:
-                this.policy = true;
+                this.state = SelectorState.DESELECTING;
                 break;
 
             default:
-                return null;
-        }
-        switch (this.state) {
-            case State.idle:
-                this.selectedComposite.clear();
-                this.state = State.maybe;
                 break;
-            case State.selected:
-                if (event.target === this.previewRect || event.target === this.points[Compass.C]) {
-                    this.distanceToCenter = [
-                        this.selectedComposite.position[0] - event.svgX, this.selectedComposite.position[1] - event.svgY,
-                    ];
-                    this.state = State.moving;
-                } else {
-                    this.selectedComposite.clear();
-                    this.state = State.maybe;
-                }
-                break;
-            default:
-                this.state = State.idle;
         }
 
+        return null;
+    }
+
+    onMotion(event: MouseEvent): void {
+        if (this.state === SelectorState.NONE) {
+            return;
+        }
+
+        const previousMousePosition = [this.lastMousePosition[0], this.lastMousePosition[1]];
         this.lastMousePosition = [event.svgX, event.svgY];
-        return cmd;
+
+        switch (this.state) {
+            case SelectorState.SELECTING:
+                this.select();
+                break;
+            case SelectorState.DESELECTING:
+                this.deselect();
+                break;
+            case SelectorState.MOVING:
+                const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
+                this.compositeElement.translate(toMove[0], toMove[1]);
+                this.selectorBox.setPeview(this.compositeElement.domRect);
+                break;
+            case SelectorState.SCALING:
+                const opposite: number[] = this.selectorBox.getOppositeAnchorPosition();
+                const multiplier: number[] = this.selectorBox.getScalingMultiplier();
+
+                const toMoveStable = vectorMultiplyConst(vectorMinus(this.lastMousePosition, previousMousePosition), -1);
+                this.compositeElement.translate(toMoveStable[0], toMoveStable[1]);
+
+                let toScale = [1, 1];
+                const lastDiff = vectorMinus(previousMousePosition, [0, 0]);
+                const currentDiff = vectorMinus(this.lastMousePosition, previousMousePosition);
+
+                const rescaling = vectorDivideVector(currentDiff, lastDiff);
+
+                toScale = vectorPlus(toScale, vectorMultiplyVector(rescaling, multiplier));
+                this.compositeElement.rescale(toScale[0], toScale[1]);
+                this.selectorBox.setPeview(this.compositeElement.domRect);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private onLeftClick(x: number, y: number) {
+        const previewState: SelectorState = this.selectorBox.onPressed(x, y);
+
+        if (previewState !== SelectorState.OFF) {
+            this.state = previewState;
+            return;
+        }
+
+        if (this.isEmpty()) {
+            this.select();
+        } else {
+            this.clearSelection();
+        }
+
+        this.state = SelectorState.SELECTING;
+    }
+
+    private select(): void {
+        const rect: Rect = new Rect(
+            Math.min(this.firstMousePosition[0], this.lastMousePosition[0]),
+            Math.min(this.firstMousePosition[1], this.lastMousePosition[1]),
+            Math.max(this.firstMousePosition[0], this.lastMousePosition[0]),
+            Math.max(this.firstMousePosition[1], this.lastMousePosition[1]));
+
+        this.compositeElement.clear();
+        const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
+
+        elementsInRect.forEach((element) => {
+            this.compositeElement.addChild(element);
+        });
+
+        this.selectorBox.setPeview(this.compositeElement.domRect);
+    }
+
+    private deselect() {
+        const rect: Rect = new Rect(
+            this.firstMousePosition[0],
+            this.firstMousePosition[1],
+            this.lastMousePosition[0],
+            this.lastMousePosition[1]);
+
+        const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
+
+        elementsInRect.forEach((element) => {
+            this.compositeElement.removeChild(element);
+        });
+    }
+
+
+    private isEmpty(): boolean {
+        return this.compositeElement.children.size === 0;
+    }
+
+    private clearSelection() {
+        this.compositeElement.clear();
+        this.selectorBox.hidePreview();
     }
 
     onWheel(event: WheelEvent): boolean {
-        switch (this.state) {
+        /*switch (this.state) {
             case State.selected:
                 this.state = State.rotating;
                 if (this.transforms) {
@@ -183,53 +195,15 @@ export class SelectorTool implements ITool {
                     Number(this.points[Compass.C].getAttribute('cy')));
                 cmd.execute();
             });
-        }
+        }*/
         return true;
     }
 
-    onMotion(event: MouseEvent): void {
-        switch (this.state) {
-            case State.maybe:
-                this.state = State.selecting;
-                this.setAnchor(event.svgX, event.svgY);
-            // Fallthrought!
-            // tslint:disable-next-line: no-switch-case-fall-through
-            case State.selecting:
-                this.setCursor(event.svgX, event.svgY);
-                break;
-            case State.moving:
-                this.svg.removeElement(this.previewElement);
-                this.updateCompositePosition(event);
-                break;
-            default:
-            // NO OP
-        }
-
-        this.lastMousePosition = [event.svgX, event.svgY];
-    }
-
     onReleased(event: MouseEvent): void {
-        switch (this.state) {
-            case State.maybe:
-                this.selectAt(event.svgX, event.svgY);
-            // Fallthrought !
-            // tslint:disable-next-line: no-switch-case-fall-through
-            case State.selecting:
-                this.commit();
-                break;
-            case State.moving:
-                this.renderPreview(this.selected);
-                this.svg.addElement(this.previewElement);
-            // tslint:disable-next-line: no-switch-case-fall-through
-            case State.rotating:
-                this.state = State.selected;
-                break;
-            default:
-                this.state = State.idle;
-        }
+        this.state = SelectorState.NONE;
     }
 
-    onKeydown(event: KeyboardEvent): boolean {
+    /*onKeydown(event: KeyboardEvent): boolean {
         const kbd: { [id: string]: callback } = {
             'C-a': () => this.selectAll(),
             'C-d': () => this.duplicate(),
@@ -263,62 +237,7 @@ export class SelectorTool implements ITool {
         this.reset();
     }
 
-    private setAnchor(x: number, y: number) {
-        this.anchor.x = x;
-        this.anchor.y = y;
-        DOMRenderer.setAttribute(this.boxElement, 'stroke-dasharray', '4');
-        this.svg.addElement(this.boxElement);
-    }
-
-    private setCursor(x: number, y: number) {
-        this.cursor.x = x;
-        this.cursor.y = y;
-        const points: number[][] = [
-            [this.anchor.x, this.anchor.y],
-            [this.cursor.x, this.anchor.y],
-            [this.cursor.x, this.cursor.y],
-            [this.anchor.x, this.cursor.y],
-            [this.anchor.x, this.anchor.y],
-        ];
-        DOMRenderer.setAttribute(this.boxElement, 'points', points.map((e) => {
-            return e.join(',');
-        }).join(' '));
-        this.doSelection();
-    }
-
-    private union(A: Set<SVGAbstract>, B: Set<SVGAbstract>): Set<SVGAbstract> {
-        const union: any = [];
-        A.forEach((v) => union.push(v));
-        B.forEach((v) => union.push(v));
-        return new Set<SVGAbstract>(union);
-    }
-
-    private diff(A: Set<SVGAbstract>, B: Set<SVGAbstract>): Set<SVGAbstract> {
-        const diff: any = [];
-        A.forEach((v) => {
-            if (!B.has(v)) {
-                diff.push(v);
-            }
-        });
-        return new Set<SVGAbstract>(diff);
-    }
-
-    private computeSelection(): Set<SVGAbstract> {
-        if (!this.policy) {
-            return this.selection;
-        }
-        return this.union(this.diff(this.selection, this.selected), this.diff(this.selected, this.selection));
-    }
-
-    private doSelection() {
-        const rect = new Rect(
-            this.anchor.x,
-            this.anchor.y,
-            this.cursor.x,
-            this.cursor.y);
-        this.selection = this.svg.getInRect(rect);
-        this.renderPreview(this.computeSelection());
-    }
+    
 
     nextOffset(currentOffset: number[]): number[] {
         const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]);
@@ -375,156 +294,9 @@ export class SelectorTool implements ITool {
         return currentState;
     }
 
-    private renderPreview(toRender: Set<SVGAbstract>) {
-        let x1 = Number.MAX_SAFE_INTEGER;
-        let y1 = Number.MAX_SAFE_INTEGER;
-        let x2 = -Number.MAX_SAFE_INTEGER;
-        let y2 = -Number.MAX_SAFE_INTEGER;
-        const entryPositions = this.svg.entry.nativeElement.getBoundingClientRect();
-        toRender.forEach((obj) => {
-            const rect: any = obj.element.getBoundingClientRect();
+    */
 
-            rect.x -= entryPositions.left;
-            rect.y -= entryPositions.top;
-
-            x1 = Math.min(x1, rect.x);
-            y1 = Math.min(y1, rect.y);
-            x2 = Math.max(x2, rect.x + rect.width);
-            y2 = Math.max(y2, rect.y + rect.height);
-        });
-        this.svg.removeElement(this.previewElement);
-
-        const width = x2 - x1;
-        const height = y2 - y1;
-        DOMRenderer.setAttributes(this.previewRect, {
-            x: x1.toString(),
-            y: y1.toString(),
-            width: (width > 0 ? width : 0).toString(),
-            height: (height > 0 ? height : 0).toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.NW], {
-            cx: x1.toString(),
-            cy: y1.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.SE], {
-            cx: x2.toString(),
-            cy: y2.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.SW], {
-            cx: x1.toString(),
-            cy: y2.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.NE], {
-            cx: x2.toString(),
-            cy: y1.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.N], {
-            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
-            cy: y1.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.E], {
-            cx: x1.toString(),
-            cy: ((Math.abs(y2) + Math.abs(y1)) / 2).toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.S], {
-            cx: ((Math.abs(x2) + Math.abs(x1)) / 2).toString(),
-            cy: y2.toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.W], {
-            cx: x2.toString(),
-            cy: ((Math.abs(y1) + Math.abs(y2)) / 2).toString(),
-        });
-
-        DOMRenderer.setAttributes(this.points[Compass.C], {
-            cx: ((x1 + x2) / 2).toString(),
-            cy: ((y1 + y2) / 2).toString(),
-        });
-
-        this.svg.addElement(this.previewElement);
-    }
-
-    private selectAt(x: number, y: number) {
-        const target: SVGAbstract | null = this.svg.findAt(x, y);
-        if (target) {
-            this.selection = new Set([target]);
-        } else {
-            this.selection.clear();
-        }
-    }
-
-    private commit() {
-        this.selected = this.computeSelection();
-        this.updateCompositeSVGs();
-
-        if (this.selected.size) {
-            this.state = State.selected;
-        } else {
-            this.state = State.idle;
-        }
-
-        this.renderPreview(this.selected);
-        this.svg.removeElement(this.boxElement);
-
-        this.isSelected = Boolean(this.selected.size);
-        this.nextIsSelected();
-    }
-
-    private updateCompositeSVGs() {
-        this.selectedComposite.clear();
-        this.selected.forEach((svg: SVGAbstract) => {
-            this.selectedComposite.addChild(svg);
-        });
-    }
-
-    private updateCompositePosition(event: MouseEvent) {
-        const halfSize = new Point(
-            this.previewRect.width.baseVal.value / 2, this.previewRect.height.baseVal.value / 2,
-        );
-        const mouse = new Point(
-            event.svgX + this.distanceToCenter[0],
-            event.svgY + this.distanceToCenter[1],
-        );
-        const targetedPosition: number[] = this.grid.snapOnGrid(mouse, halfSize);
-
-        const toTranslate = vectorMinus(this.lastMousePosition, targetedPosition);
-        this.selectedComposite.translate(toTranslate[0], toTranslate[1]);
-    }
-
-    onUnSelect(): void {
-        if (this.transforms) {
-            CmdService.execute(this.transforms);
-            this.transforms = null;
-        }
-        this.reset();
-    }
-
-    selectAll() {
-        this.selected = new Set<SVGAbstract>(this.svg.objects);
-        this.renderPreview(this.selected);
-        this.svg.removeElement(this.boxElement);
-        this.state = State.selected;
-
-        this.isSelected = true;
-        this.nextIsSelected();
-    }
-
-    reset() {
-        this.selected.clear();
-        this.selection.clear();
-        this.svg.removeElement(this.boxElement);
-        this.svg.removeElement(this.previewElement);
-        this.state = State.idle;
-        this.dupOffset = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
-
-        this.isSelected = false;
-        this.nextIsSelected();
+    onShowcase(): null {
+        return null;
     }
 }

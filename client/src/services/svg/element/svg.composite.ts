@@ -1,21 +1,25 @@
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGComposite extends SVGAbstract {
 
-    private children: SVGAbstract[];
+    children: Set<SVGAbstract>;
 
     constructor() {
         super();
-        this.children = [];
+        this.children = new Set<SVGAbstract>();
     }
 
     addChild(child: SVGAbstract) {
-        this.children.push(child);
+        this.children.add(child);
+    }
+
+    removeChild(child: SVGAbstract) {
+        this.children.delete(child);
     }
 
     clear() {
-        this.children = [];
+        this.children.clear();
     }
 
     isAt(x: number, y: number): boolean {
@@ -45,7 +49,7 @@ export class SVGComposite extends SVGAbstract {
     get position() {
         const rect = this.domRect;
 
-        return vectorPlus([rect.x, rect.y], vectorMultiply([rect.width, rect.height], 0.5));
+        return vectorPlus([rect.x, rect.y], vectorMultiplyConst([rect.width, rect.height], 0.5));
     }
 
     translate(x: number, y: number): void {
