@@ -42,4 +42,11 @@ export class CmdMatrix implements CmdInterface {
             .translate(x, y);
         this.setMatrix(this.newMatrix);
     }
+
+    resize(sx: number, sy: number, x: number, y: number): void {
+        this.newMatrix
+            .scale(sx, sy)
+            .translate(x, y);
+        this.setMatrix(this.newMatrix);
+    }
 }

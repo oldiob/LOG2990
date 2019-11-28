@@ -25,6 +25,15 @@ export enum State {
     selected,
     moving,
     rotating,
+    resizing,
+    resizeN,
+    resizeS,
+    resizeE,
+    resizeW,
+    resizeSE,
+    resizeSW,
+    resizeNE,
+    resizeNW,
 }
 
 @Injectable({
@@ -102,6 +111,37 @@ export class SelectorTool implements ITool {
         return this.isSelectedSubject.asObservable();
     }
 
+    isSizePointSelected(event: MouseEvent): boolean {
+        if (event.target === this.points[Compass.N] || event.target === this.points[Compass.NE]
+            || event.target === this.points[Compass.NW] || event.target === this.points[Compass.S]
+            || event.target === this.points[Compass.SE] || event.target === this.points[Compass.SW]
+            || event.target === this.points[Compass.E] || event.target === this.points[Compass.W]) {
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    whichResizeStateIsSelected(event: MouseEvent): State {
+        if (event.target === this.points[Compass.N]) {
+            return State.resizeN;
+        } else if (event.target === this.points[Compass.S]) {
+            return State.resizeS;
+        } else if (event.target === this.points[Compass.E]) {
+            return State.resizeE;
+        } else if (event.target === this.points[Compass.W]) {
+            return State.resizeW;
+        } else if (event.target === this.points[Compass.SE]) {
+            return State.resizeSE;
+        } else if (event.target === this.points[Compass.SW]) {
+            return State.resizeSW;
+        } else if (event.target === this.points[Compass.NE]) {
+            return State.resizeNE;
+        } else {
+            return State.resizeNW;
+        }
+    }
+
     private nextIsSelected(): void {
         this.isSelectedSubject.next(this.isSelected);
     }
@@ -131,6 +171,8 @@ export class SelectorTool implements ITool {
                         this.selectedComposite.position[0] - event.svgX, this.selectedComposite.position[1] - event.svgY,
                     ];
                     this.state = State.moving;
+                } else if (this.isSizePointSelected(event)) {
+                    this.state = this.whichResizeStateIsSelected(event);
                 } else {
                     this.selectedComposite.clear();
                     this.state = State.maybe;
@@ -182,6 +224,19 @@ export class SelectorTool implements ITool {
     }
 
     onMotion(event: MouseEvent): void {
+        if (this.transforms) {
+            CmdService.execute(this.transforms);
+        }
+        const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+        this.selected.forEach((obj: SVGAbstract) => {
+            transforms.cmds.push(new CmdMatrix(obj));
+        });
+        this.transforms = transforms;
+
+        if (!this.transforms) {
+            return;
+        }
+
         switch (this.state) {
             case State.maybe:
                 this.state = State.selecting;
@@ -191,6 +246,43 @@ export class SelectorTool implements ITool {
             case State.selecting:
                 this.setCursor(event.svgX, event.svgY);
                 break;
+            case State.resizeS:
+                console.log('resizing');
+
+                const distanceBetweenCenterAndSouth: number = Math.abs(Number(this.points[Compass.N].getAttribute('cy')) -
+                                                                                Number(this.points[Compass.S].getAttribute('cy')));
+                const distanceBetweenSouthAndCursor: number = Math.abs(Number(this.points[Compass.N].getAttribute('cy')) - event.svgY);
+
+                const sizeChangeForSouth: number = distanceBetweenSouthAndCursor / distanceBetweenCenterAndSouth;
+
+                this.transforms.cmds.forEach((cmd) => {
+                    // const rect = MyInjector.get(SVGService).getElementRect(cmd.element);
+                    const howMuchMoreY = - (1 / 2) * Math.abs(event.svgY - Number(this.points[Compass.N].getAttribute('cy')));
+                    cmd.resize(1, sizeChangeForSouth,
+                        1, howMuchMoreY);
+                    cmd.execute();
+                });
+
+                break;
+
+                case State.resizeW:
+                    console.log('resizing');
+
+                    const distanceBetweenEstAndWest: number = Math.abs(Number(this.points[Compass.E].getAttribute('cx')) -
+                                                                                    Number(this.points[Compass.W].getAttribute('cx')));
+                    const distanceBetweenWestAndCursor: number = Math.abs(Number(this.points[Compass.E].getAttribute('cx')) - event.svgX);
+
+                    const sizeChangeForWest: number = distanceBetweenWestAndCursor / distanceBetweenEstAndWest;
+
+                    this.transforms.cmds.forEach((cmd) => {
+                        // const rect = MyInjector.get(SVGService).getElementRect(cmd.element);
+                        const howMuchMoreY = event.svgY - Number(this.points[Compass.N].getAttribute('cy'));
+                        cmd.resize(sizeChangeForWest, 1,
+                            0, howMuchMoreY);
+                        cmd.execute();
+                    });
+                    this.setCursor(event.svgX, event.svgY);
+                    break;
             case State.moving:
                 this.svg.removeElement(this.previewElement);
                 this.updateCompositePosition(event);
