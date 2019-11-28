@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
-import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { SVGService } from 'src/services/svg/svg.service';
+import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { Rect } from 'src/utils/geo-primitives';
+import { vectorMinus, vectorMultiplyVector } from 'src/utils/math';
 import { ITool } from './i-tool';
-import { vectorMinus, vectorDivideVector, vectorPlus, vectorMultiplyVector, vectorMultiplyConst } from 'src/utils/math';
 
-//declare type callback = () => void;
+// declare type callback = () => void;
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +26,7 @@ export class SelectorTool implements ITool {
 
     distanceToCenter: number[];
 
-    private firstMousePosition: number[]
+    private firstMousePosition: number[];
     private lastMousePosition: number[];
     private selectorBox: SelectorBox;
 
@@ -81,20 +81,11 @@ export class SelectorTool implements ITool {
                 this.selectorBox.setPeview(this.compositeElement.domRect);
                 break;
             case SelectorState.SCALING:
-                const opposite: number[] = this.selectorBox.getOppositeAnchorPosition();
+                const targetedAnchor: number[] = this.selectorBox.getTargetedAnchorPosition();
+                const oppositeAnchor: number[] = this.selectorBox.getOppositeAnchorPosition();
                 const multiplier: number[] = this.selectorBox.getScalingMultiplier();
-
-                const toMoveStable = vectorMultiplyConst(vectorMinus(this.lastMousePosition, previousMousePosition), -1);
-                this.compositeElement.translate(toMoveStable[0], toMoveStable[1]);
-
-                let toScale = [1, 1];
-                const lastDiff = vectorMinus(previousMousePosition, [0, 0]);
-                const currentDiff = vectorMinus(this.lastMousePosition, previousMousePosition);
-
-                const rescaling = vectorDivideVector(currentDiff, lastDiff);
-
-                toScale = vectorPlus(toScale, vectorMultiplyVector(rescaling, multiplier));
-                this.compositeElement.rescale(toScale[0], toScale[1]);
+                const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
+                this.compositeElement.rescaleOnPoint(oppositeAnchor, targetedAnchor, diff);
                 this.selectorBox.setPeview(this.compositeElement.domRect);
                 break;
             default:
@@ -149,7 +140,6 @@ export class SelectorTool implements ITool {
             this.compositeElement.removeChild(element);
         });
     }
-
 
     private isEmpty(): boolean {
         return this.compositeElement.children.size === 0;
@@ -236,8 +226,6 @@ export class SelectorTool implements ITool {
         CmdService.execute(cmd);
         this.reset();
     }
-
-    
 
     nextOffset(currentOffset: number[]): number[] {
         const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]);

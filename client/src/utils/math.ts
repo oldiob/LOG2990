@@ -86,7 +86,16 @@ export const vectorDivideVector = (v: number[], v1: number[]): number[] => {
     validateLength(v, 2);
     validateLength(v1, 2);
 
-    return [v[0] / v1[0], v[1] / v1[1]];
+    const v2 = [v[0], v[1]];
+
+    if (v2[0] !== 0) {
+        v2[0] /= v1[0];
+    }
+    if (v2[1] !== 0) {
+        v2[1] /= v1[1];
+    }
+
+    return v2;
 };
 
 export const vectorGetAbsolute = (v: number[]): number[] => {

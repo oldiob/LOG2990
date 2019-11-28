@@ -1,4 +1,4 @@
-import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGComposite extends SVGAbstract {
@@ -68,6 +68,26 @@ export class SVGComposite extends SVGAbstract {
         for (const child of this.children) {
             child.rescale(x, y);
         }
+    }
+
+    rescaleOnPoint(fixedPoint: number[], movingPoint: number[], diff: number[]) {
+        const betweenPoints: number[] = vectorMinus(movingPoint, fixedPoint);
+
+        let toScale: number[] = [1, 1];
+        toScale = vectorPlus(toScale, vectorDivideVector(diff, betweenPoints));
+        if (toScale[0] === 0) {
+            toScale[0] += 0.01 * Math.sign(diff[0]);
+        }
+        if (toScale[1] === 0) {
+            toScale[1] += 0.01 * Math.sign(diff[1]);
+        }
+        const toTranslate = vectorMinus(fixedPoint, vectorMultiplyVector(fixedPoint, toScale));
+
+        console.log('SCALE', toScale);
+        console.log('TRANSLATE', toTranslate);
+
+        this.rescale(toScale[0], toScale[1]);
+        this.translate(toTranslate[0], toTranslate[1]);
     }
 
     get domRect(): DOMRect {

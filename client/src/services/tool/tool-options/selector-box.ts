@@ -26,7 +26,7 @@ export class SelectorBox {
 
     private anchorSquarePositions: number[][];
 
-    targetedAnchor: number;
+    private targetedAnchor: number;
 
     constructor(private svgService: SVGService) {
 
@@ -130,6 +130,15 @@ export class SelectorBox {
         }
 
         return SelectorState.OFF;
+    }
+
+    getTargetedAnchorPosition(): number[] {
+        if (this.targetedAnchor < 0) {
+            console.error('No anchor was targeted.');
+            return [-1, -1];
+        }
+
+        return [this.circles[this.targetedAnchor].cx.baseVal.value, this.circles[this.targetedAnchor].cy.baseVal.value];
     }
 
     getOppositeAnchorPosition(): number[] {
