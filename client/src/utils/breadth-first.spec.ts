@@ -30,7 +30,7 @@ describe('BreadFirst', () => {
 
     it('should fill up isPixelCoveredArray when initEmptyCovered is called', () => {
         const tempPosition: number[] = [1, 1];
-        const temp = (breadthFirst as any).isPixelCovered[tempPosition[0]][tempPosition[1]]
+        const temp = (breadthFirst as any).isPixelCovered[tempPosition[0]][tempPosition[1]];
         expect((breadthFirst as any).isPositionCovered(tempPosition)).toEqual(temp);
     });
 
