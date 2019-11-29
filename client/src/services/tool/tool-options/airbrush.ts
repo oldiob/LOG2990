@@ -8,7 +8,7 @@ import { ITool } from './i-tool';
 })
 
 export class AirbrushTool implements ITool {
-    tip: string;
+    readonly tip: string;
     width?: number | undefined;
 
     readonly DEFAULT_RATE = 15;
@@ -29,6 +29,7 @@ export class AirbrushTool implements ITool {
         this.width = this.DEFAULT_DIAMETER;
         this.rate = this.DEFAULT_RATE;
         this.diameter = this.DEFAULT_DIAMETER;
+        this.tip = 'Airbrush (A)';
     }
     onPressed(event: MouseEvent): CmdSVG | null {
         this.currentX = event.svgX;
