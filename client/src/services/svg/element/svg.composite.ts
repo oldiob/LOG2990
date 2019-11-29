@@ -72,27 +72,31 @@ export class SVGComposite extends SVGAbstract {
     }
 
     rescaleOnPoint(selectorBox: SelectorBox, diff: number[]): void {
+        const rect: DOMRect = this.domRect;
+        this.translate(-rect.x, -rect.y);
+
         const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
         const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+        const delta: number[] = vectorMinus(fixedPoint, movingPoint);
+        if (delta[0] === 0) {
+            delta[0] += 0.001 * Math.sign(diff[0]);
+        }
+        if (delta[1] === 0) {
+            delta[1] += 0.001 * Math.sign(diff[1]);
+        }
 
-        const betweenPoints: number[] = vectorMinus(movingPoint, fixedPoint);
+        const nextDelta: number[] = vectorMinus(delta, diff);
 
-        let toScale: number[] = [1, 1];
-        toScale = vectorPlus(toScale, vectorDivideVector(diff, betweenPoints));
-        if (toScale[0] === 0) {
-            toScale[0] += 0.01 * Math.sign(diff[0]);
-            console.log('flipped');
+        const toScale: number[] = vectorDivideVector(nextDelta, delta);
+        if (toScale[0] < 0) {
             selectorBox.flipHorizontally();
         }
-        if (toScale[1] === 0) {
-            toScale[1] += 0.01 * Math.sign(diff[1]);
-            console.log('flipped');
+        if (toScale[1] < 0) {
             selectorBox.flipVertically();
         }
-        const toTranslate = vectorMinus(fixedPoint, vectorMultiplyVector(fixedPoint, toScale));
 
         this.rescale(toScale[0], toScale[1]);
-        this.translate(toTranslate[0], toTranslate[1]);
+        this.translate(rect.x, rect.y);
     }
 
     get domRect(): DOMRect {
