@@ -1,5 +1,6 @@
 import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
+import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
 
 export class SVGComposite extends SVGAbstract {
 
@@ -70,21 +71,25 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
-    rescaleOnPoint(fixedPoint: number[], movingPoint: number[], diff: number[]) {
+    rescaleOnPoint(selectorBox: SelectorBox, diff: number[]): void {
+        const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
+        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+
         const betweenPoints: number[] = vectorMinus(movingPoint, fixedPoint);
 
         let toScale: number[] = [1, 1];
         toScale = vectorPlus(toScale, vectorDivideVector(diff, betweenPoints));
         if (toScale[0] === 0) {
             toScale[0] += 0.01 * Math.sign(diff[0]);
+            console.log('flipped');
+            selectorBox.flipHorizontally();
         }
         if (toScale[1] === 0) {
             toScale[1] += 0.01 * Math.sign(diff[1]);
+            console.log('flipped');
+            selectorBox.flipVertically();
         }
         const toTranslate = vectorMinus(fixedPoint, vectorMultiplyVector(fixedPoint, toScale));
-
-        console.log('SCALE', toScale);
-        console.log('TRANSLATE', toTranslate);
 
         this.rescale(toScale[0], toScale[1]);
         this.translate(toTranslate[0], toTranslate[1]);

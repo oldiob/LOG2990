@@ -180,4 +180,20 @@ export class SelectorBox {
     private removeFromDrawArea() {
         this.svgService.removeElement(this.element);
     }
+
+    flipHorizontally() {
+        const H_CENTER = 1;
+        const sumToCenter = this.targetedAnchor + H_CENTER;
+
+        // don't ask questions
+        this.targetedAnchor = (this.targetedAnchor + (sumToCenter * 2)) % this.circles.length;
+    }
+    flipVertically() {
+        const V_CENTER = 3;
+
+        const sumToCenter = this.targetedAnchor + V_CENTER;
+
+        // don't ask questions
+        this.targetedAnchor = (this.targetedAnchor + (sumToCenter * 2)) % this.circles.length;
+    }
 }

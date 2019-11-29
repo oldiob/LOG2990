@@ -96,11 +96,9 @@ export class SelectorTool implements ITool {
                 this.setSelectorBox();
                 break;
             case SelectorState.SCALING:
-                const targetedAnchor: number[] = this.selectorBox.getTargetedAnchorPosition();
-                const oppositeAnchor: number[] = this.selectorBox.getOppositeAnchorPosition();
                 const multiplier: number[] = this.selectorBox.getScalingMultiplier();
                 const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
-                this.compositeElement.rescaleOnPoint(oppositeAnchor, targetedAnchor, diff);
+                this.compositeElement.rescaleOnPoint(this.selectorBox, diff);
                 this.setSelectorBox();
                 break;
             default:
