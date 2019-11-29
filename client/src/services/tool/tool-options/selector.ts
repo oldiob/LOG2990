@@ -7,6 +7,7 @@ import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selec
 import { Rect } from 'src/utils/geo-primitives';
 import { vectorMinus, vectorMultiplyVector } from 'src/utils/math';
 import { ITool } from './i-tool';
+import { DOMRenderer } from 'src/utils/dom-renderer';
 
 // declare type callback = () => void;
 
@@ -30,6 +31,8 @@ export class SelectorTool implements ITool {
     private lastMousePosition: number[];
     private selectorBox: SelectorBox;
 
+    private preview: SVGRectElement;
+
     constructor(private svg: SVGService) {
 
         this.firstMousePosition = [0, 0];
@@ -38,11 +41,21 @@ export class SelectorTool implements ITool {
         this.compositeElement = new SVGComposite();
 
         this.selectorBox = new SelectorBox(svg);
+
+        this.preview = DOMRenderer.createElement('rect', 'svg', {
+            'fill-opacity': '0',
+            'stroke-opacity': '0.8',
+            stroke: '#2188ff',
+            'stroke-width': '1',
+            'stroke-dasharray': '4',
+        });
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
         this.firstMousePosition = [event.svgX, event.svgY];
         this.lastMousePosition = [event.svgX, event.svgY];
+
+        this.showPreview();
 
         switch (event.button) {
             case 0:
@@ -70,15 +83,17 @@ export class SelectorTool implements ITool {
 
         switch (this.state) {
             case SelectorState.SELECTING:
+                this.showPreview();
                 this.select();
                 break;
             case SelectorState.DESELECTING:
+                this.showPreview();
                 this.deselect();
                 break;
             case SelectorState.MOVING:
                 const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
                 this.compositeElement.translate(toMove[0], toMove[1]);
-                this.preview();
+                this.setSelectorBox();
                 break;
             case SelectorState.SCALING:
                 const targetedAnchor: number[] = this.selectorBox.getTargetedAnchorPosition();
@@ -86,11 +101,28 @@ export class SelectorTool implements ITool {
                 const multiplier: number[] = this.selectorBox.getScalingMultiplier();
                 const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
                 this.compositeElement.rescaleOnPoint(oppositeAnchor, targetedAnchor, diff);
-                this.preview();
+                this.setSelectorBox();
                 break;
             default:
                 break;
         }
+    }
+
+    private showPreview(): void {
+        this.hidePreview();
+
+        DOMRenderer.setAttributes(this.preview, {
+            x: Math.min(this.firstMousePosition[0], this.lastMousePosition[0]).toString(),
+            y: Math.min(this.firstMousePosition[1], this.lastMousePosition[1]).toString(),
+            width: Math.abs(this.firstMousePosition[0] - this.lastMousePosition[0]).toString(),
+            height: Math.abs(this.firstMousePosition[1] - this.lastMousePosition[1]).toString(),
+        });
+
+        this.svg.addElement(this.preview);
+    }
+
+    private hidePreview(): void {
+        this.svg.removeElement(this.preview);
     }
 
     private onLeftClick(x: number, y: number) {
@@ -102,12 +134,23 @@ export class SelectorTool implements ITool {
         }
 
         if (this.isEmpty()) {
-            this.select();
+            this.selectTargeted();
         } else {
             this.clearSelection();
         }
 
         this.state = SelectorState.SELECTING;
+    }
+
+    private selectTargeted() {
+        this.compositeElement.clear();
+        const elementAt: SVGAbstract | null = this.svg.findAt(this.firstMousePosition[0], this.firstMousePosition[1]);
+
+        if (elementAt) {
+            this.compositeElement.addChild(elementAt);
+        }
+
+        this.setSelectorBox();
     }
 
     private select(): void {
@@ -124,7 +167,7 @@ export class SelectorTool implements ITool {
             this.compositeElement.addChild(element);
         });
 
-        this.preview();
+        this.setSelectorBox();
     }
 
     private deselect() {
@@ -140,14 +183,14 @@ export class SelectorTool implements ITool {
             this.compositeElement.removeChild(element);
         });
 
-        this.preview();
+        this.setSelectorBox();
     }
 
-    private preview(): void {
+    private setSelectorBox(): void {
         if (this.isEmpty()) {
-            this.selectorBox.hidePreview();
+            this.selectorBox.hideBox();
         } else {
-            this.selectorBox.setPeview(this.compositeElement.domRect);
+            this.selectorBox.setBox(this.compositeElement.domRect);
         }
     }
 
@@ -157,7 +200,7 @@ export class SelectorTool implements ITool {
 
     private clearSelection() {
         this.compositeElement.clear();
-        this.selectorBox.hidePreview();
+        this.selectorBox.hideBox();
     }
 
     onWheel(event: WheelEvent): boolean {
@@ -201,6 +244,7 @@ export class SelectorTool implements ITool {
 
     onReleased(event: MouseEvent): void {
         this.state = SelectorState.NONE;
+        this.hidePreview();
     }
 
     /*onKeydown(event: KeyboardEvent): boolean {
@@ -293,6 +337,11 @@ export class SelectorTool implements ITool {
     }
 
     */
+
+    onUnSelect(): void {
+        this.hidePreview();
+        this.clearSelection();
+    }
 
     onShowcase(): null {
         return null;

@@ -61,7 +61,7 @@ export class SelectorBox {
         }
 
         this.rectangle = DOMRenderer.createElement('rect', 'svg', {
-            'fill-opacity': '0',
+            'fill-opacity': '0.1',
             'stroke-opacity': '0.8',
             stroke: this.COLOR,
             'stroke-width': '2',
@@ -74,7 +74,7 @@ export class SelectorBox {
         DOMRenderer.appendChild(this.element, this.rectangle);
     }
 
-    setPeview(domRect: DOMRect): void {
+    setBox(domRect: DOMRect): void {
 
         const x = domRect.x;
         const y = domRect.y;
@@ -100,7 +100,8 @@ export class SelectorBox {
         this.addToDrawArea();
     }
 
-    hidePreview(): void {
+    hideBox(): void {
+        this.setBox(new DOMRect(-this.CIRCLE_RADIUS, -this.CIRCLE_RADIUS, 0, 0));
         this.removeFromDrawArea();
     }
 
