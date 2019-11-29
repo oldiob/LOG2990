@@ -19,7 +19,7 @@ export class InkTool implements ITool {
 
     element: SVGInk | null = null;
     width: number;
-    angle: number;
+    private angle: number;
 
     constructor(private paletteService: PaletteService) {
         this.tip = this.INK_TIP;
