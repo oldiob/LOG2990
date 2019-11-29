@@ -7,6 +7,9 @@ export class SVGInk extends SVGAbstract {
     private offset: number[];
     private angles: number[];
     private radian: number;
+
+    private readonly WIDTH_MARGIN = 10.0;
+
     element: any;
 
     constructor(angle: number, private width: number) {
@@ -20,8 +23,7 @@ export class SVGInk extends SVGAbstract {
     }
 
     isAtAdjusted(x: number, y: number): boolean {
-        const WIDTH_MARGIN = 10.0;
-        const width: number = this.width + WIDTH_MARGIN;
+        const width: number = this.width + this.WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {
                 if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
                     return true;
@@ -54,7 +56,7 @@ export class SVGInk extends SVGAbstract {
         return;
     }
 
-    setAngle(newAngle: number) {
+    setAngle(newAngle: number): void {
         const lastOffset: number[] = this.offset;
         this.setOffset(newAngle);
 
@@ -71,7 +73,7 @@ export class SVGInk extends SVGAbstract {
         }
     }
 
-    private setOffset(angle: number) {
+    private setOffset(angle: number): void {
         this.radian = (angle / 180) * Math.PI;
         this.angles = [Math.cos(this.radian), Math.sin(this.radian)];
         this.offset = vectorMultiply(this.angles, this.width / 2);

@@ -30,13 +30,13 @@ describe('AngleComponent', () => {
     });
 
     it('should keep the valid angle', () => {
-        component.angle = component.MIN_ANGLE;
+        component.angle = (component as any).MIN_ANGLE;
 
-        expect(component.angle).toEqual(component.MIN_ANGLE);
+        expect(component.angle).toEqual((component as any).MIN_ANGLE);
 
-        component.angle = component.MAX_ANGLE;
+        component.angle = (component as any).MAX_ANGLE;
 
-        expect(component.angle).toEqual(component.MAX_ANGLE);
+        expect(component.angle).toEqual((component as any).MAX_ANGLE);
     });
 
     it('should not keep the valid angle', () => {

@@ -10,13 +10,14 @@ import { ShowcaseSignal } from 'src/utils/showcase-signal';
     styleUrls: ['./angle.component.scss'],
 })
 export class AngleComponent implements OnInit {
-    readonly MAX_ANGLE: number = 360.0;
-    readonly MIN_ANGLE: number = 0;
+    private readonly MAX_ANGLE: number = 360.0;
+    private readonly MIN_ANGLE: number = 0;
+    private readonly DEFAULT_ANGLE: number = 0.0;
 
-    private mAngle: number;
+    private currentAngle: number;
 
     constructor(private toolService: ToolService) {
-        this.mAngle = 0.0;
+        this.currentAngle = this.DEFAULT_ANGLE;
     }
 
     ngOnInit() {
@@ -26,16 +27,16 @@ export class AngleComponent implements OnInit {
     get angle(): number {
         const currentTool: ITool = this.toolService.currentTool;
         if (currentTool instanceof StampTool) {
-            this.mAngle = currentTool.angle;
+            this.currentAngle = currentTool.angle;
             ShowcaseSignal.emit();
         }
 
-        return this.mAngle;
+        return this.currentAngle;
     }
 
     set angle(angle: number) {
-        if (angle <= this.MAX_ANGLE && angle >= this.MIN_ANGLE ) {
-            this.mAngle = angle;
+        if (angle <= this.MAX_ANGLE && angle >= this.MIN_ANGLE) {
+            this.currentAngle = angle;
         }
 
         const currentTool: ITool = this.toolService.currentTool;
