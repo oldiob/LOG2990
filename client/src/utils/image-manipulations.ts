@@ -77,7 +77,7 @@ export const getXYRange = (size: number): number[][] => {
     return xyRange;
 };
 
-const createArray = (width: number, height: number): number[] => {
+export const createArray = (width: number, height: number): number[] => {
     const iterableNumberArray: number[] = [];
 
     const size: number = width * height * 4;
