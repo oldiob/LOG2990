@@ -72,7 +72,7 @@ describe('SVGText', () => {
 
     it('should create line break properly', () => {
         svgText.setLineBreak();
-        expect(renderer.setAttribute).toHaveBeenCalledTimes(13);
+        expect(renderer.setAttribute).toHaveBeenCalledTimes(15);
         expect(renderer.appendChild).toHaveBeenCalled();
     });
 

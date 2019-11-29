@@ -1,8 +1,8 @@
 import { KeyService } from 'src/services/key/key.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { SVGAbstract } from './svg.abstract';
-import { SVGService } from '../svg.service';
 import { MyInjector } from 'src/utils/injector';
+import { SVGService } from '../svg.service';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGText extends SVGAbstract {
     isNewElement = true;

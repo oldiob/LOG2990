@@ -22,7 +22,8 @@ describe('TextOptionComponent', () => {
   }));
 
   beforeEach(() => {
-    element = jasmine.createSpyObj('SVGText', ['setFontWeight', 'setFontStyle', 'setTextAlign', 'setFontSize', 'setFontFamily']);
+    element = jasmine.createSpyObj('SVGText', ['setFontWeight', 'setFontStyle', 'setTextAlign', 'setFontSize', 'setFontFamily',
+     'setRectangle', 'removeRectangle']);
     renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild']);
     DOMRenderer.renderer = renderer;
     fixture = TestBed.createComponent(TextOptionComponent);
