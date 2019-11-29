@@ -72,17 +72,17 @@ export class SVGComposite extends SVGAbstract {
     }
 
     rescaleOnPoint(selectorBox: SelectorBox, diff: number[]): void {
-        const rect: DOMRect = this.domRect;
-        this.translate(-rect.x, -rect.y);
+        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+
+        this.translate(-fixedPoint[0], -fixedPoint[1]);
 
         const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
-        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
         const delta: number[] = vectorMinus(fixedPoint, movingPoint);
         if (delta[0] === 0) {
-            delta[0] += 0.001 * Math.sign(diff[0]);
+            delta[0] += 0.01 * Math.sign(diff[0]);
         }
         if (delta[1] === 0) {
-            delta[1] += 0.001 * Math.sign(diff[1]);
+            delta[1] += 0.01 * Math.sign(diff[1]);
         }
 
         const nextDelta: number[] = vectorMinus(delta, diff);
@@ -96,7 +96,7 @@ export class SVGComposite extends SVGAbstract {
         }
 
         this.rescale(toScale[0], toScale[1]);
-        this.translate(rect.x, rect.y);
+        this.translate(fixedPoint[0], fixedPoint[1]);
     }
 
     get domRect(): DOMRect {
