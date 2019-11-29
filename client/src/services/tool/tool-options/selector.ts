@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CmdInterface } from 'src/services/cmd/cmd.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CmdArray } from 'src/services/cmd/cmd.array';
+import { CmdDup } from 'src/services/cmd/cmd.dup';
+import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { CmdMatrix } from 'src/services/cmd/cmd.matrix';
+import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
-import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyVector } from 'src/utils/math';
-import { ITool } from './i-tool';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { Rect } from 'src/utils/geo-primitives';
+import { MyInjector } from 'src/utils/injector';
+import { vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
+import { ITool } from './i-tool';
 
-// declare type callback = () => void;
+declare type callback = () => void;
 
 @Injectable({
     providedIn: 'root',
@@ -33,6 +39,11 @@ export class SelectorTool implements ITool {
 
     private preview: SVGRectElement;
 
+    transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+
+    private mIsSelected: boolean;
+    private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
+
     constructor(private svg: SVGService) {
 
         this.firstMousePosition = [0, 0];
@@ -49,6 +60,15 @@ export class SelectorTool implements ITool {
             'stroke-width': '1',
             'stroke-dasharray': '4',
         });
+    }
+
+    private set isSelected(isSelected: boolean) {
+        this.mIsSelected = isSelected;
+        this.isSelectedSubject.next(this.mIsSelected);
+    }
+
+    get isSelectedObservable(): Observable<boolean> {
+        return this.isSelectedSubject.asObservable();
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
@@ -148,6 +168,7 @@ export class SelectorTool implements ITool {
             this.compositeElement.addChild(elementAt);
         }
 
+        this.isSelected = !this.isEmpty();
         this.setSelectorBox();
     }
 
@@ -165,6 +186,7 @@ export class SelectorTool implements ITool {
             this.compositeElement.addChild(element);
         });
 
+        this.isSelected = !this.isEmpty();
         this.setSelectorBox();
     }
 
@@ -196,28 +218,23 @@ export class SelectorTool implements ITool {
         return this.compositeElement.children.size === 0;
     }
 
-    private clearSelection() {
+    clearSelection() {
         this.compositeElement.clear();
         this.selectorBox.hideBox();
+        this.isSelected = false;
     }
 
     onWheel(event: WheelEvent): boolean {
-        /*switch (this.state) {
-            case State.selected:
-                this.state = State.rotating;
-                if (this.transforms) {
-                    CmdService.execute(this.transforms);
-                }
-                const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
-                this.selected.forEach((obj: SVGAbstract) => {
-                    transforms.cmds.push(new CmdMatrix(obj));
-                });
-                this.transforms = transforms;
-            // tslint:disable-next-line: no-switch-case-fall-through
-            case State.rotating:
-                break;
-            default:
-                return false;
+        if (this.state === SelectorState.NONE) {
+            if (this.transforms) {
+                CmdService.execute(this.transforms);
+            }
+            const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+            this.compositeElement.children.forEach((obj: SVGAbstract) => {
+                transforms.cmds.push(new CmdMatrix(obj));
+            });
+            this.transforms = transforms;
+            this.state = SelectorState.ROTATING;
         }
         if (!this.transforms) {
             return false;
@@ -229,14 +246,7 @@ export class SelectorTool implements ITool {
                 cmd.rotate(angle, rect.x + rect.width / 2, rect.y + rect.height / 2);
                 cmd.execute();
             });
-        } else {
-            this.transforms.cmds.forEach((cmd) => {
-                cmd.rotate(angle,
-                    Number(this.points[Compass.C].getAttribute('cx')),
-                    Number(this.points[Compass.C].getAttribute('cy')));
-                cmd.execute();
-            });
-        }*/
+        }
         return true;
     }
 
@@ -245,7 +255,7 @@ export class SelectorTool implements ITool {
         this.hidePreview();
     }
 
-    /*onKeydown(event: KeyboardEvent): boolean {
+    onKeydown(event: KeyboardEvent): boolean {
         const kbd: { [id: string]: callback } = {
             'C-a': () => this.selectAll(),
             'C-d': () => this.duplicate(),
@@ -265,18 +275,31 @@ export class SelectorTool implements ITool {
         return false;
     }
 
+    selectAll(): void {
+        const tempFirst = this.firstMousePosition;
+        const tempLast = this.lastMousePosition;
+
+        this.firstMousePosition = [0, 0];
+        this.lastMousePosition = [Infinity, Infinity];
+
+        this.select();
+
+        this.firstMousePosition = tempFirst;
+        this.lastMousePosition = tempLast;
+    }
+
     duplicate(): void {
         this.dupOffset = this.nextOffset(this.dupOffset);
-        CmdService.execute(new CmdDup(Array.from(this.selected), this.dupOffset));
+        CmdService.execute(new CmdDup(Array.from(this.compositeElement.children), this.dupOffset));
     }
 
     erase(): void {
         const cmd: CmdEraser = new CmdEraser();
-        this.selected.forEach((obj) => {
+        this.compositeElement.children.forEach((obj) => {
             cmd.eraseObject(obj);
         });
         CmdService.execute(cmd);
-        this.reset();
+        this.clearSelection();
     }
 
     nextOffset(currentOffset: number[]): number[] {
@@ -293,22 +316,21 @@ export class SelectorTool implements ITool {
 
         const baseHorizontalSteps = currentXSteps - currentYSteps;
 
-        this.selected.forEach((object) => {
-            object.translate(newOffset[0], newOffset[1]);
-            const state = this.elementState(object);
-            if (outsideState !== 0) {
-                outsideState = Math.min(outsideState, state);
-            } else {
-                outsideState = state;
-            }
-            object.translate(-newOffset[0], -newOffset[1]);
-        });
+        this.compositeElement.translate(newOffset[0], newOffset[1]);
+        const state = this.elementState(this.compositeElement);
+        if (outsideState !== 0) {
+            outsideState = Math.min(outsideState, state);
+        } else {
+            outsideState = state;
+        }
+        this.compositeElement.translate(-newOffset[0], -newOffset[1]);
+
         switch (outsideState) {
             case 1:
-                finalOffset = vectorMultiply([-1, -1], SelectorTool.BASE_OFFSET);
+                finalOffset = vectorMultiplyConst([-1, -1], SelectorTool.BASE_OFFSET);
                 break;
             case 2:
-                finalOffset = vectorMultiply([baseHorizontalSteps + 1, 0], SelectorTool.BASE_OFFSET);
+                finalOffset = vectorMultiplyConst([baseHorizontalSteps + 1, 0], SelectorTool.BASE_OFFSET);
                 break;
             default:
                 finalOffset = newOffset;
@@ -333,8 +355,6 @@ export class SelectorTool implements ITool {
 
         return currentState;
     }
-
-    */
 
     onUnSelect(): void {
         this.hidePreview();

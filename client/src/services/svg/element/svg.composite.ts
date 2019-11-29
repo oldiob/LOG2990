@@ -1,6 +1,6 @@
-import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
-import { SVGAbstract } from './svg.abstract';
 import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
+import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGComposite extends SVGAbstract {
 

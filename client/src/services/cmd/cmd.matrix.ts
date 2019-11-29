@@ -5,18 +5,17 @@ import { MatrixSVG } from 'src/utils/matrix';
 
 export class CmdMatrix implements CmdInterface {
 
-    element: any;
     oldMatrix: MatrixSVG;
     newMatrix: MatrixSVG;
 
-    constructor(obj: SVGAbstract) {
-        this.element = obj.element;
-        this.oldMatrix = this.element.matrix.copy();
+    constructor(private obj: SVGAbstract) {
+        this.oldMatrix = obj.matrix.copy();
         this.newMatrix = this.oldMatrix.copy();
     }
 
     private setMatrix(matrix: MatrixSVG) {
-        DOMRenderer.setAttribute(this.element, 'transform', matrix.toString());
+        this.obj.matrix = matrix;
+        this.obj.refreshTransform();
     }
 
     execute(): void {

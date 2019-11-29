@@ -67,9 +67,4 @@ export class SVGPencil extends SVGAbstract {
         const currentPoints = this.element.attributes.points.nodeValue;
         DOMRenderer.setAttribute(this.element, 'points', currentPoints + ` ${x},${y}`);
     }
-
-    // [[1, 2], [3, 4]] -> 1,2 3,4
-    private pointsAttribute(): string {
-        return this.points.map((e) => `${e[0]},${e[1]}`).join(' ');
-    }
 }
