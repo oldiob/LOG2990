@@ -11,7 +11,6 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Rect } from 'src/utils/geo-primitives';
-import { MyInjector } from 'src/utils/injector';
 import { vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
@@ -239,14 +238,15 @@ export class SelectorTool implements ITool {
         if (!this.transforms) {
             return false;
         }
-        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+        /* const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
         if (event.shiftKey) {
             this.transforms.cmds.forEach((cmd) => {
-                const rect = MyInjector.get(SVGService).getElementRect(cmd.element);
+                const rect = cmd;
                 cmd.rotate(angle, rect.x + rect.width / 2, rect.y + rect.height / 2);
                 cmd.execute();
             });
         }
+        */
         return true;
     }
 

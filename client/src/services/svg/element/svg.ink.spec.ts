@@ -1,6 +1,6 @@
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { isAtLine, vectorMultiply } from 'src/utils/math';
+import { isAtLine, vectorMultiplyConst } from 'src/utils/math';
 import { SVGInk } from './svg.ink';
 
 describe('SVGInk', () => {
@@ -96,7 +96,7 @@ describe('SVGInk', () => {
         (ink as any).setOffset(angle);
         expect((ink as any).radian).toEqual(angle);
         expect((ink as any).angles).toEqual([Math.cos(0), Math.sin(0)]);
-        expect((ink as any).offset).toEqual(vectorMultiply((ink as any).angles, width / 2));
+        expect((ink as any).offset).toEqual(vectorMultiplyConst((ink as any).angles, width / 2));
     });
 
     it('should set path points', () => {

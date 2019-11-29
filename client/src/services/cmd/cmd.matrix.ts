@@ -1,6 +1,5 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
-import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MatrixSVG } from 'src/utils/matrix';
 
 export class CmdMatrix implements CmdInterface {

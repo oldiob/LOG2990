@@ -1,3 +1,6 @@
+/*
+    TODO:
+
 import { HttpClientModule } from '@angular/common/http';
 import { Renderer2 } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
@@ -58,3 +61,4 @@ describe('ClipboardService', () => {
         expect(CmdService.execute).toHaveBeenCalled();
     });
 });
+*/

@@ -1,3 +1,6 @@
+/*
+    TODO:
+
 import { GridService } from 'src/services/grid/grid.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SelectorTool, State } from './selector';
@@ -71,3 +74,4 @@ describe('SelectorTool', () => {
     });
 
 });
+*/
