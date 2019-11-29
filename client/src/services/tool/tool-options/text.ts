@@ -29,6 +29,7 @@ export class TextTool implements ITool {
     width: number;
 
     isEditing: boolean;
+    clickAlign = false;
 
     private rect: SVGRectangle | undefined;
 
@@ -62,12 +63,13 @@ export class TextTool implements ITool {
             });
 
             return new CmdSVG(this.element);
-        } else if (this.element) {
+        } else if (this.element && !this.clickAlign) {
             if (this.element.isNewElement) {
                 this.element.currentSubElement.innerHTML = this.UNSET;
             }
             this.finishEdit();
         }
+        this.clickAlign = false;
         return null;
     }
 
@@ -99,11 +101,11 @@ export class TextTool implements ITool {
     }
 
     private removeNewText() {
-      const serv: SVGService = MyInjector.get(SVGService);
-      if (this.element && this.element.isNewElement) {
-          serv.removeObject(this.element);
-      }
-  }
+        const serv: SVGService = MyInjector.get(SVGService);
+        if (this.element && this.element.isNewElement) {
+            serv.removeObject(this.element);
+        }
+    }
 
     onUnSelect(): void {
         this.removeRect();
@@ -136,6 +138,12 @@ export class TextTool implements ITool {
                     if (this.element) {
                         this.element.removeCharacter();
                     }
+                },
+                Alt: () => {
+                  //
+                },
+                Shift: () => {
+                  //
                 },
             };
             if (event.key in actions) {
@@ -183,5 +191,13 @@ export class TextTool implements ITool {
         this.onKeydown(textShowcase as KeyboardEvent);
         this.element = previousElement;
         return element;
+    }
+
+    setTextAlign(align: string) {
+        this.textAlign = align;
+        this.setRect();
+        this.keyService.enableTextEdit();
+        this.keyService.disableKeys();
+        this.clickAlign = true;
     }
 }

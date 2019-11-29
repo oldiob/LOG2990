@@ -16,6 +16,7 @@ export class SVGText extends SVGAbstract {
     isLastSubElement: true;
     subElements: any = [];
     currentX: string;
+    offsetX = 0;
 
     textAlign: string;
     fontFamily: string;
@@ -92,10 +93,50 @@ export class SVGText extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
     }
     setTextAlign(align: string): void {
+        this.resetX();
+        switch (align) {
+            case 'start':
+                //
+                break;
+            case 'middle':
+                this.setX(this.domRect.width / 2);
+                break;
+            case 'end':
+                this.setX(this.domRect.width);
+                break;
+            default:
+        }
         this.textAlign = align;
         for (const subElement of this.subElements) {
             DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
         }
+    }
+    computeOffset(align: string) {
+        switch (align) {
+            case 'start':
+                //
+                break;
+            case 'middle':
+                this.offsetX = this.domRect.width / 2;
+                break;
+            case 'end':
+                this.offsetX = this.domRect.width;
+                break;
+            default:
+        }
+        return this.offsetX;
+    }
+    setX(deltaX: number) {
+        DOMRenderer.setAttribute(this.element, 'x', (Number(this.currentX) + deltaX).toString());
+        for (const subElement of this.subElements) {
+            DOMRenderer.setAttribute(subElement, 'x', (Number(this.currentX) + deltaX).toString());
+        }
+        this.currentX = (Number(this.currentX) + deltaX).toString();
+        this.offsetX = deltaX;
+    }
+    resetX() {
+        this.setX(-this.offsetX);
+        this.offsetX = 0;
     }
     setCurrentPlaceholder(): void {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
