@@ -11,14 +11,14 @@ export class AirbrushTool implements ITool {
     readonly tip: string;
     width?: number | undefined;
 
-    readonly DEFAULT_RATE = 15;
-    readonly DEFAULT_DIAMETER = 5;
-    readonly CALL_RATE = 15;
+    private readonly DEFAULT_RATE = 15;
+    private readonly DEFAULT_DIAMETER = 5;
+    private readonly CALL_RATE = 15;
 
-    currentX: number;
-    currentY: number;
+    private currentX: number;
+    private currentY: number;
 
-    rate: number;
+    private rate: number;
     diameter: number;
 
     element: SVGAirbrush | null = null;

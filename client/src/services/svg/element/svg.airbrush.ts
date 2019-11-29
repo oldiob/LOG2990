@@ -4,8 +4,8 @@ import { SVGAbstract } from './svg.abstract';
 
 export class SVGAirbrush extends SVGAbstract {
     element: any;
-    readonly MAX_ANGLE = 360;
-    readonly POINT_RADIUS = 1;
+    private readonly MAX_ANGLE = 360;
+    private readonly POINT_RADIUS = 1;
 
     constructor(x: number, y: number) {
         super();
