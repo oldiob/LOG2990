@@ -86,8 +86,8 @@ export class ImportOptionComponent implements OnInit {
             const res: Drawing = JSON.parse(this.readFile.result as string);
             Object.setPrototypeOf(res, Drawing.prototype);
             this.workZoneService.setFromDrawing(res);
-        } catch (SyntaxError) {
-            console.error(SyntaxError.message);
+        } catch (err) {
+            console.error(err.message);
         }
     }
 }
