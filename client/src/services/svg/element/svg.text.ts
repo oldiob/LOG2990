@@ -1,6 +1,8 @@
 import { KeyService } from 'src/services/key/key.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SVGAbstract } from './svg.abstract';
+import { SVGService } from '../svg.service';
+import { MyInjector } from 'src/utils/injector';
 
 export class SVGText extends SVGAbstract {
     isNewElement = true;
@@ -25,10 +27,14 @@ export class SVGText extends SVGAbstract {
     fontWeight: string;
     content: string;
 
+    private rectangle: SVGRectElement;
+
     constructor(keyService: KeyService, x: number, y: number, fontFamily: string,
                 fontSize: string, textAlign: string, fontStyle: string, fontWeigth: string) {
 
         super();
+        this.initRectangle();
+
         this.textAlign = textAlign;
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
@@ -58,6 +64,32 @@ export class SVGText extends SVGAbstract {
         this.currentSubElement.innerHTML = this.SPOT_TEXT;
         this.isNewElement = true;
     }
+
+    private initRectangle(): void {
+        this.rectangle = DOMRenderer.createElement('rect', 'svg', {
+            fill: 'transparent',
+            stroke: 'black',
+        });
+    }
+
+    setRectangle(domRect: DOMRect): void {
+        const svgService: SVGService = MyInjector.get(SVGService);
+        svgService.removeElement(this.rectangle);
+        svgService.addElement(this.rectangle);
+
+        DOMRenderer.setAttributes(this.rectangle, {
+            x: domRect.x.toString(),
+            y: domRect.y.toString(),
+            width: domRect.width.toString(),
+            height: domRect.height.toString(),
+        });
+    }
+
+    removeRectangle(): void {
+        const svgService: SVGService = MyInjector.get(SVGService);
+        svgService.removeElement(this.rectangle);
+    }
+
     isAtAdjusted(x: number, y: number): boolean {
         return false;
     }
