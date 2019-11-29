@@ -36,8 +36,8 @@ describe('AirbrushTool', () => {
 
     it('should on motion', () => {
         airbrush.onMotion(event);
-        expect(airbrush.currentX).toEqual(event.svgX);
-        expect(airbrush.currentY).toEqual(event.svgY);
+        expect((airbrush as any).currentX).toEqual(event.svgX);
+        expect((airbrush as any).currentY).toEqual(event.svgY);
     });
 
     it('should on released', () => {
@@ -47,7 +47,7 @@ describe('AirbrushTool', () => {
 
     it('should set rate', () => {
         airbrush.setRate(1);
-        expect(airbrush.rate).toBe(1);
+        expect((airbrush as any).rate).toBe(1);
     });
 
 });

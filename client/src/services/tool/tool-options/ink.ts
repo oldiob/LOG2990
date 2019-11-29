@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGInk } from 'src/services/svg/element/svg.ink';
-
 // import { ShowcaseSignal } from 'src/utils/showcase-signal';
 import { ITool } from './i-tool';
 
@@ -20,13 +19,13 @@ export class InkTool implements ITool {
 
     element: SVGInk | null = null;
     width: number;
-    angle: number;
+    private angle: number;
 
     constructor(private paletteService: PaletteService) {
         this.tip = this.INK_TIP;
         this.angle = this.MIN_ANGLE;
         this.width = this.INITIAL_WIDTH;
-     }
+    }
 
     onPressed(event: MouseEvent): CmdSVG | null {
         let cmd: CmdSVG | null = null;
