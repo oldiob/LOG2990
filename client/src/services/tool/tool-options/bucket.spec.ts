@@ -1,8 +1,10 @@
-// import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { createArray } from 'src/utils/image-manipulations';
 import { MyInjector } from 'src/utils/injector';
 import { BucketTool } from './bucket';
-// import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
+import { PaletteService } from 'src/services/palette/palette.service';
 // import { ElementRef, Injectable } from '@angular/core';
 
 fdescribe('BucketTool', () => {
@@ -13,16 +15,17 @@ fdescribe('BucketTool', () => {
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
-        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
-        paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+        renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'getContext']);
+        // paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
+        paletteService = new PaletteService();
         event = jasmine.createSpyObj('MouseEvent', ['svgX', 'svgY']);
 
         DOMRenderer.renderer = renderer;
 
         bucket = new BucketTool(paletteService);
 
-        event.svgX = Math.floor(Math.random() * 1000);
-        event.svgY = Math.floor(Math.random() * 1000);
+        event.svgX = Math.floor(Math.random() * 10);
+        event.svgY = Math.floor(Math.random() * 10);
     });
 
     it('should exists', () => {
@@ -34,14 +37,20 @@ fdescribe('BucketTool', () => {
         expect(bucket.onPressed(event)).toEqual(null);
     });
 
-    /*it('should return null if isLoaded is false when OnPressed', () => {
+    it('should return null if isLoaded is false when OnPressed', () => {
         (bucket as any).isLoaded = true;
-        (bucket as any).imageData = new ImageData(20, 20);
-        const bucketFill = new SVGBucketFill([event.svgX, event.svgY], (bucket as any).palette.primary,
-                                             (bucket as any).imageData, (bucket as any).colorToleranceDelta);
+        (bucket as any).colorToleranceDelta = Math.floor(Math.random() * 1000);
+        const width = Math.floor(Math.random() * 1000);
+        const height = Math.floor(Math.random() * 1000);
+        const array: number[] = createArray(width, height);
+        const uint8Array = Uint8ClampedArray.from(array);
+        (bucket as any).imageData = new ImageData(uint8Array, width, height);
+        const position = [event.svgX, event.svgY];
+        const bucketFill = new SVGBucketFill(position, (bucket as any).palette.primary,
+                                                (bucket as any).imageData, (bucket as any).colorToleranceDelta);
         const tempCommand = new CmdSVG(bucketFill);
         expect(bucket.onPressed(event)).toEqual(tempCommand);
-    });*/
+    });
 
     it('should do nothing on showcase', () => {
         (bucket as any).isLoaded = true;
