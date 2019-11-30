@@ -1,16 +1,16 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { MatrixSVG } from 'src/utils/matrix';
 import { SVGService } from '../svg.service';
 
 export abstract class SVGAbstract {
-    private realPosition: number[] = [];
-    private translation: number[];
+    matrix: MatrixSVG;
 
     element: any;
 
     constructor() {
-        this.translation = [0, 0];
+        this.matrix = new MatrixSVG();
     }
 
     abstract isIn(x: number, y: number, r: number): boolean;
@@ -21,43 +21,62 @@ export abstract class SVGAbstract {
     abstract getSecondary(): string;
     abstract setPrimary(color: string): void;
     abstract setSecondary(color: string): void;
+    protected abstract isAtAdjusted(x: number, y: number): boolean;
 
-    set position(newPosition: number[]) {
-        this.setupRealPosition();
+    get position(): number[] {
+        const rect: DOMRect = this.domRect;
 
-        this.translation = [0, 0];
-        const toTranslate = vectorMinus(newPosition, this.realPosition);
-        this.translate(toTranslate[0], toTranslate[1]);
-    }
-
-    get position() {
-        this.setupRealPosition();
-
-        return vectorPlus(this.realPosition, this.translation);
-    }
-
-    private setupRealPosition() {
-        if (this.realPosition.length === 0) {
-            const svgService: SVGService = MyInjector.get(SVGService);
-            const rect: DOMRect = svgService.getElementRect(this.element);
-            this.realPosition = vectorPlus([rect.x, rect.y], vectorMultiply([rect.width, rect.height], 0.5));
-        }
-    }
-
-    isAt(x: number, y: number): boolean {
-        const adjustedXY = vectorMinus([x, y], this.translation);
-        return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
+        return vectorPlus([rect.x, rect.y], vectorMultiplyConst([rect.width, rect.height], 0.5));
     }
 
     translate(x: number, y: number): void {
-        this.translation = vectorPlus(this.translation, [x, y]);
+        this.matrix.translate(x, y);
+        this.refreshTransform();
+    }
 
-        DOMRenderer.setAttribute(this.element, 'transform', `translate(${this.translation[0]} ${this.translation[1]})`);
+    rotate(angle: number): void {
+        this.matrix.rotate(angle);
+        this.refreshTransform();
+    }
+
+    rescale(sx: number, sy: number): void {
+        this.matrix.scale(sx, sy);
+        this.refreshTransform();
+    }
+
+    isAt(x: number, y: number): boolean {
+
+        const adjustedXY: number[] = this.adjustXY([x, y]);
+        return this.isAtAdjusted(adjustedXY[0], adjustedXY[1]);
+    }
+
+    private adjustXY(xy: number[]): number[] {
+        const xyz: number[] = xy;
+        xyz.push(1);
+
+        const inverse: MatrixSVG = this.matrix.inverse();
+
+        const movedRelativePosition = [0, 0, 0];
+
+        for (let i = 0; i < 3; i++) {
+            const matrixIndexStart = i * 3;
+
+            let sum = 0;
+            for (let j = 0; j < 3; j++) {
+                sum += inverse.arr[matrixIndexStart + j] * xyz[j];
+            }
+
+            movedRelativePosition[i] = sum;
+        }
+
+        return movedRelativePosition;
     }
 
     get domRect(): DOMRect {
         return MyInjector.get(SVGService).getElementRect(this.element);
     }
 
-    protected abstract isAtAdjusted(x: number, y: number): boolean;
+    refreshTransform(): void {
+        DOMRenderer.setAttribute(this.element, 'transform', this.matrix.toString());
+    }
 }

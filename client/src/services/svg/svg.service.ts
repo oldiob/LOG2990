@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorModule, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorModule, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
 import { DrawAreaService } from '../draw-area/draw-area.service';
 
@@ -60,10 +60,10 @@ export class SVGService {
             const end = corners[(i + 1) % corners.length];
             let unitVector = vectorMinus(end, begin);
             const moduleLen = vectorModule(unitVector);
-            unitVector = vectorMultiply(unitVector, 1.0 / moduleLen);
+            unitVector = vectorMultiplyConst(unitVector, 1.0 / moduleLen);
 
             for (let count = 0; count < moduleLen; count += SPACING) {
-                const point = vectorPlus(begin, vectorMultiply(unitVector, count));
+                const point = vectorPlus(begin, vectorMultiplyConst(unitVector, count));
 
                 const elementFound = this.findAt(point[0], point[1]);
 

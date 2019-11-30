@@ -52,10 +52,8 @@ export class MatrixSVG {
     }
 
     translate(x: number, y: number): MatrixSVG {
-        const other: MatrixSVG = new MatrixSVG();
-        other.arr[2] = x;
-        other.arr[5] = y;
-        this.mul(other);
+        this.arr[2] += x;
+        this.arr[5] += y;
         return this;
     }
 

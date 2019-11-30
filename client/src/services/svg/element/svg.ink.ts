@@ -1,5 +1,5 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { isAtLine, vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { isAtLine, vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGInk extends SVGAbstract {
@@ -76,7 +76,7 @@ export class SVGInk extends SVGAbstract {
     private setOffset(angle: number): void {
         this.radian = (angle / 180) * Math.PI;
         this.angles = [Math.cos(this.radian), Math.sin(this.radian)];
-        this.offset = vectorMultiply(this.angles, this.width / 2);
+        this.offset = vectorMultiplyConst(this.angles, this.width / 2);
     }
 
     private setPathPoints(currentPoint: number[], currentOffset: number[], lastPoint: number[], lastOffset: number[]): void {

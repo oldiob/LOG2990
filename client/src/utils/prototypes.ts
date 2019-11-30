@@ -1,4 +1,6 @@
+import { SVGAirbrush } from 'src/services/svg/element/svg.airbrush';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
+import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
 import { SVGLine } from 'src/services/svg/element/svg.line';
 import { SVGPen } from 'src/services/svg/element/svg.pen';
@@ -39,4 +41,6 @@ const listOfPrototypes = [
     SVGPolygon.prototype,
     SVGText.prototype,
     SVGPen.prototype,
+    SVGAirbrush.prototype,
+    SVGBucketFill.prototype,
 ];

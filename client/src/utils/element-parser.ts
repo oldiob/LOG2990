@@ -3,17 +3,26 @@ import { DrawAreaHolder } from 'src/services/draw-area/draw-area-holder';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { MatrixSVG } from './matrix';
 import { Prototypes } from './prototypes';
 
-export const svgToImage = (entry: ElementRef, fn: CallableFunction): void => {
-    const canvas = DOMRenderer.createElement('canvas');
+export const svgToImage = (entry: ElementRef, fn: (
+        svgImage: HTMLImageElement,
+        ctx: CanvasRenderingContext2D,
+        canvas: HTMLCanvasElement) => void): void => {
+
+    const canvas: HTMLCanvasElement = DOMRenderer.createElement('canvas');
 
     DOMRenderer.setAttribute(canvas, 'width',
         entry.nativeElement.attributes.width.nodeValue);
     DOMRenderer.setAttribute(canvas, 'height',
         entry.nativeElement.attributes.height.nodeValue);
 
-    const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
+    const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
+
+    if (!ctx) {
+        return;
+    }
 
     const svgOuterHTML = entry.nativeElement.outerHTML;
 
@@ -53,7 +62,7 @@ const serializeSVG = (element: SVGAbstract): string => {
     return JSON.stringify(holder);
 };
 
-const deserializeSVG = (json: string): any => {
+const deserializeSVG = (json: string): SVGAbstract => {
     const element: any = JSON.parse(json);
 
     const svgElement: SVGAbstract = element.elementData;
@@ -62,8 +71,13 @@ const deserializeSVG = (json: string): any => {
     const fakeElement = new DOMParser().parseFromString(element.svgData, 'image/svg+xml').children[0];
 
     svgElement.element = recreateElement(fakeElement);
+    Object.setPrototypeOf(svgElement.matrix, MatrixSVG.prototype);
 
     return svgElement;
+};
+
+export const copySVG = (svg: SVGAbstract): SVGAbstract => {
+    return deserializeSVG(serializeSVG(svg));
 };
 
 /**

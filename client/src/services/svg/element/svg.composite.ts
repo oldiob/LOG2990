@@ -1,21 +1,26 @@
-import { vectorMinus, vectorMultiply, vectorPlus } from 'src/utils/math';
+import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
+import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGComposite extends SVGAbstract {
 
-    private children: SVGAbstract[];
+    children: Set<SVGAbstract>;
 
     constructor() {
         super();
-        this.children = [];
+        this.children = new Set<SVGAbstract>();
     }
 
     addChild(child: SVGAbstract) {
-        this.children.push(child);
+        this.children.add(child);
+    }
+
+    removeChild(child: SVGAbstract) {
+        this.children.delete(child);
     }
 
     clear() {
-        this.children = [];
+        this.children.clear();
     }
 
     isAt(x: number, y: number): boolean {
@@ -42,24 +47,56 @@ export class SVGComposite extends SVGAbstract {
         return false;
     }
 
-    set position(newPosition: number[]) {
-        const center: number[] = this.position;
-        for (const child of this.children) {
-            const offset = vectorMinus(child.position, center);
-            child.position = vectorPlus(newPosition, offset);
-        }
-    }
-
     get position() {
         const rect = this.domRect;
 
-        return vectorPlus([rect.x, rect.y], vectorMultiply([rect.width, rect.height], 0.5));
+        return vectorPlus([rect.x, rect.y], vectorMultiplyConst([rect.width, rect.height], 0.5));
     }
 
     translate(x: number, y: number): void {
         for (const child of this.children) {
             child.translate(x, y);
         }
+    }
+
+    rotate(angle: number): void {
+        for (const child of this.children) {
+            child.rotate(angle);
+        }
+    }
+
+    rescale(x: number, y: number): void {
+        for (const child of this.children) {
+            child.rescale(x, y);
+        }
+    }
+
+    rescaleOnPoint(selectorBox: SelectorBox, diff: number[]): void {
+        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+
+        this.translate(-fixedPoint[0], -fixedPoint[1]);
+
+        const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
+        const delta: number[] = vectorMinus(fixedPoint, movingPoint);
+        if (delta[0] === 0) {
+            delta[0] += 0.01 * Math.sign(diff[0]);
+        }
+        if (delta[1] === 0) {
+            delta[1] += 0.01 * Math.sign(diff[1]);
+        }
+
+        const nextDelta: number[] = vectorMinus(delta, diff);
+
+        const toScale: number[] = vectorDivideVector(nextDelta, delta);
+        if (toScale[0] < 0) {
+            selectorBox.flipHorizontally();
+        }
+        if (toScale[1] < 0) {
+            selectorBox.flipVertically();
+        }
+
+        this.rescale(toScale[0], toScale[1]);
+        this.translate(fixedPoint[0], fixedPoint[1]);
     }
 
     get domRect(): DOMRect {
