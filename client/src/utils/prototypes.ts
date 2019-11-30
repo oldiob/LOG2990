@@ -9,6 +9,7 @@ import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
 import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { SVGText } from 'src/services/svg/element/svg.text';
+import { SVGInk } from 'src/services/svg/element/svg.ink';
 
 export class Prototypes {
     private static mPrototypes: Map<string, object> | null = null;
@@ -43,4 +44,5 @@ const listOfPrototypes = [
     SVGPen.prototype,
     SVGAirbrush.prototype,
     SVGBucketFill.prototype,
+    SVGInk.prototype,
 ];
