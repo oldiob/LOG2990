@@ -20,7 +20,8 @@ describe('TextTool', () => {
         DOMRenderer.renderer = renderer;
         keyService = TestBed.get(KeyService);
         paletteService = TestBed.get(PaletteService);
-        element = jasmine.createSpyObj('SVGText', ['currentSubElement', 'setPrimary', 'setLineBreak', 'setCurrentPlaceholder']);
+        element = jasmine.createSpyObj('SVGText', ['currentSubElement', 'setPrimary', 'setLineBreak', 'setCurrentPlaceholder',
+        'setRectangle', 'removeRectangle']);
         text = new TextTool(keyService, paletteService);
         text.element = element;
         event = new MouseEvent('mousedown');

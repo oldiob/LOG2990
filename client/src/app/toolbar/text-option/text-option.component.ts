@@ -93,8 +93,8 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         if (this.text.element !== null) {
             this.text.element.setTextAlign(textAlign);
         }
+        this.text.setTextAlign(textAlign);
 
-        ShowcaseSignal.emit();
     }
 
     disableAlign(): void {
