@@ -2,6 +2,7 @@ import { SVGAirbrush } from 'src/services/svg/element/svg.airbrush';
 import { SVGBrush } from 'src/services/svg/element/svg.brush';
 import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { SVGEllipse } from 'src/services/svg/element/svg.ellipse';
+import { SVGInk } from 'src/services/svg/element/svg.ink';
 import { SVGLine } from 'src/services/svg/element/svg.line';
 import { SVGPen } from 'src/services/svg/element/svg.pen';
 import { SVGPencil } from 'src/services/svg/element/svg.pencil';
@@ -9,7 +10,6 @@ import { SVGPolygon } from 'src/services/svg/element/svg.polygon';
 import { SVGRectangle } from 'src/services/svg/element/svg.rectangle';
 import { SVGStamp } from 'src/services/svg/element/svg.stamp';
 import { SVGText } from 'src/services/svg/element/svg.text';
-import { SVGInk } from 'src/services/svg/element/svg.ink';
 
 export class Prototypes {
     private static mPrototypes: Map<string, object> | null = null;
