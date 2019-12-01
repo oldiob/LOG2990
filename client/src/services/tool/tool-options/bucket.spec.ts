@@ -1,10 +1,10 @@
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGBucketFill } from 'src/services/svg/element/svg.bucket-fill';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { createArray } from 'src/utils/image-manipulations';
 import { MyInjector } from 'src/utils/injector';
 import { BucketTool } from './bucket';
-import { PaletteService } from 'src/services/palette/palette.service';
 // import { ElementRef, Injectable } from '@angular/core';
 
 fdescribe('BucketTool', () => {
@@ -37,7 +37,7 @@ fdescribe('BucketTool', () => {
         expect(bucket.onPressed(event)).toEqual(null);
     });
 
-    it('should return null if isLoaded is false when OnPressed', () => {
+    it('should return cmdSVG if isLoaded is false when OnPressed', () => {
         (bucket as any).isLoaded = true;
         (bucket as any).colorToleranceDelta = Math.floor(Math.random() * 1000);
         const width = Math.floor(Math.random() * 1000);
