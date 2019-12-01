@@ -7,14 +7,12 @@ describe('BucketTool', () => {
     let paletteService: any;
     let event: any;
     let bucket: BucketTool;
-    let imageData: any;
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
         event = jasmine.createSpyObj('MouseEvent', ['svgX', 'svgY']);
-        imageData = jasmine.createSpyObj('ImageData', ['width']);
 
         DOMRenderer.renderer = renderer;
 
@@ -28,11 +26,9 @@ describe('BucketTool', () => {
         expect(bucket).toBeTruthy();
     });
 
-    it('should return a proper CmdSVG on mouse click', () => {
-        (bucket as any).imageData = imageData;
-        (bucket as any).isLoaded = true;
-        const command = bucket.onPressed(event);
-        expect(command).toBeTruthy();
+    it('should return null if isLoaded is false when OnPressed', () => {
+        (bucket as any).isLoaded = false;
+        expect(bucket.onPressed(event)).toEqual(null);
     });
 
     it('should return void on mouse motion', () => {
@@ -40,15 +36,10 @@ describe('BucketTool', () => {
     });
 
     it('should return void on mouse release', () => {
-      expect(bucket.onReleased(event)).toBeUndefined();
-    });
-
-    it('should set isLoaded to false when OnSelect is called', () => {
-      bucket.onSelect();
-      expect((bucket as any).isLoaded).toBeTruthy();
+        expect(bucket.onReleased(event)).toBeUndefined();
     });
 
     it('should return null when OnShowcase', () => {
-      expect(bucket.onShowcase()).toBeNull();
-  });
+        expect(bucket.onShowcase()).toBeNull();
+    });
 });
