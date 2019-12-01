@@ -105,4 +105,20 @@ describe('SVGText', () => {
         expect(svgText.subElements.pop).toHaveBeenCalled();
         expect(renderer.removeChild).toHaveBeenCalled();
     });
+
+    it('should reset offsetX to 0', () => {
+        svgText.resetX();
+        expect(svgText.offsetX).toBe(0);
+    });
+
+    it('should set offsetX to the given value', () => {
+        svgText.setX(50);
+        expect(svgText.offsetX).toBe(50);
+    });
+
+    it('should compute offset properly for start case', () => {
+        svgText.offsetX = 0;
+        svgText.computeOffset('start');
+        expect(svgText.offsetX).toBe(0);
+    });
 });
