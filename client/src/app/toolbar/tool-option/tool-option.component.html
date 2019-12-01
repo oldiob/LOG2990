@@ -1,52 +1,49 @@
 <app-color-selection></app-color-selection>
-
 <app-showcase></app-showcase>
-
-<div class="tools">
-    <div class="button"
-        *ngFor="let tool of tools"
-        (click)="selectTool(tool)"
-        matTooltip="{{tool.tip}}"
-        matTooltipClass="tooltip"
-        matTooltipPosition="below"
-        [class.selected-tool]="tool === currentTool">
-        <img class="tool-icon" [src]="getFilesource(tool)">
-    </div>
-</div>
-
-<div *ngIf="currentTool !== pen" class="separation">
-    <app-width [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
-</div>
-
-<div *ngIf="currentTool === pen" class="separation">
-    <app-width [title]="'Min Width'" [width]="currentTool.minWidth" (widthEmmiter)="setMinWidth($event)"></app-width>
-</div>
-
-<div *ngIf="currentTool === pen" class="separation">
-    <app-width [title]="'Max Width'" [width]="currentTool.maxWidth" (widthEmmiter)="setMaxWidth($event)"></app-width>
-</div>
-
-<div *ngIf="currentTool === brush" class="separation">
-    <div class="section">Textures</div>
+<div class="overflow-wrapper">
     <div class="tools">
-        <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
-            (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
-            {{i + 1}}
-        </a>
+        <div class="button" *ngFor="let tool of tools" (click)="selectTool(tool)" matTooltip="{{tool.tip}}"
+            matTooltipClass="tooltip" matTooltipPosition="below" [class.selected-tool]="tool === currentTool">
+            <img class="tool-icon" [src]="getFilesource(tool)">
+        </div>
     </div>
-</div>
 
-<div *ngIf="currentTool === airbrush" class="separation">
-    <app-width [title]="'Spray Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
-</div>
+    <div *ngIf="currentTool !== pen" class="separation">
+        <app-width [title]="'Width'" [width]="currentTool.width" (widthEmmiter)="setWidth($event)"></app-width>
+    </div>
 
-<div *ngIf="currentTool === stamp" class="separation">
-    <app-angle></app-angle>
-    <app-stamp></app-stamp>
-</div>
+    <div *ngIf="currentTool === pen" class="separation">
+        <app-width [title]="'Min Width'" [width]="currentTool.minWidth" (widthEmmiter)="setMinWidth($event)">
+        </app-width>
+    </div>
 
-<div *ngIf="currentTool === ink" class="separation">
-    <app-angle></app-angle>   
-</div>
+    <div *ngIf="currentTool === pen" class="separation">
+        <app-width [title]="'Max Width'" [width]="currentTool.maxWidth" (widthEmmiter)="setMaxWidth($event)">
+        </app-width>
+    </div>
 
-<app-line-tool *ngIf="currentTool === line"></app-line-tool>
+    <div *ngIf="currentTool === brush" class="separation">
+        <div class="section">Textures</div>
+        <div class="tools">
+            <a *ngFor="let texture of textures; let i = index" [attr.data-index]="i" class="btn-texture texture-number"
+                (click)="selectTexture(texture)" [class.selected-tool]="texture === currentTexture">
+                {{i + 1}}
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="currentTool === airbrush" class="separation">
+        <app-width [title]="'Spray Rate'" [width]="currentTool.rate" (widthEmmiter)="setRate($event)"></app-width>
+    </div>
+
+    <div *ngIf="currentTool === stamp" class="separation">
+        <app-angle></app-angle>
+        <app-stamp></app-stamp>
+    </div>
+
+    <div *ngIf="currentTool === ink" class="separation">
+        <app-angle></app-angle>
+    </div>
+
+    <app-line-tool *ngIf="currentTool === line"></app-line-tool>
+</div>

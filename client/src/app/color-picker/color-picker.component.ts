@@ -79,14 +79,11 @@ export class ColorPickerComponent implements OnInit {
     }
 
     private updatePickerStyle(event: MouseEvent) {
-        const rect = this.canvasElement.getBoundingClientRect();
-        const dotX = event.clientX - rect.left;
-        const dotY = event.clientY - rect.top;
-
+        const OFFSET = 10;
         DOMRenderer.setStyle(this.picker, 'opacity', '1');
         DOMRenderer.setStyle(this.picker, 'pointer-events', 'none');
-        DOMRenderer.setStyle(this.picker, 'left', dotX - 10 + 'px');
-        DOMRenderer.setStyle(this.picker, 'top', dotY + 10 + 'px');
+        DOMRenderer.setStyle(this.picker, 'left', this.mouseX - OFFSET + 'px');
+        DOMRenderer.setStyle(this.picker, 'top', this.mouseY - OFFSET + 'px');
         DOMRenderer.setStyle(this.picker, 'background-color', this.pickedColor);
     }
 
@@ -129,7 +126,16 @@ export class ColorPickerComponent implements OnInit {
     }
 
     private getColor() {
-        const pixel = this.context.getImageData(this.mouseX, this.mouseY, 1, 1);
+        const OFFSET = 1;
+        const width = this.canvasElement.width - OFFSET;
+        const height = this.canvasElement.height - OFFSET;
+
+        const x = this.mouseX < 0 ? 0
+            : this.mouseX > width ? width : this.mouseX;
+        const y = this.mouseY < 0 ? 0
+            : this.mouseY > height ? height : this.mouseY;
+
+        const pixel = this.context.getImageData(x, y, 1, 1);
 
         const color: Color = new Color(
             pixel.data[0],

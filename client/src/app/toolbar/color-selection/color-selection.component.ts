@@ -30,6 +30,7 @@ export class ColorSelectionComponent implements OnInit {
         this.dialogService.isClosedColorObservable.subscribe((isOpen: boolean) => {
             this.isPrimaryButtonOpened = isOpen;
             this.isSecondaryButtonOpened = isOpen;
+            this.isBackgroundButtonOpened = isOpen;
         });
     }
 
