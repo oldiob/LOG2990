@@ -1,6 +1,8 @@
 import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
 import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
+import { CmdComposite } from 'src/services/cmd/cmd.array';
+import { CmdTransform } from 'src/services/cmd/cmd.matrix';
 
 export class SVGComposite extends SVGAbstract {
 
@@ -59,10 +61,34 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
+    translateCommand(x: number, y: number): CmdComposite {
+        const composite = new CmdComposite();
+
+        this.children.forEach((child: SVGAbstract) => {
+            const cmd = new CmdTransform(child);
+            cmd.translate(x, y);
+            composite.addChild(cmd);
+        });
+
+        return composite;
+    }
+
     rotate(angle: number): void {
         for (const child of this.children) {
             child.rotate(angle);
         }
+    }
+
+    rotateCommand(angle: number): CmdComposite {
+        const composite = new CmdComposite();
+
+        this.children.forEach((child: SVGAbstract) => {
+            const cmd = new CmdTransform(child);
+            cmd.rotate(angle);
+            composite.addChild(cmd);
+        });
+
+        return composite;
     }
 
     rescale(x: number, y: number): void {
@@ -71,15 +97,29 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
-    rescaleOnPoint(selectorBox: SelectorBox, event: MouseEvent): void {
+    rescaleCommand(x: number, y: number): CmdComposite {
+        const composite = new CmdComposite();
+
+        this.children.forEach((child: SVGAbstract) => {
+            const cmd = new CmdTransform(child);
+            cmd.rescale(x, y);
+            composite.addChild(cmd);
+        });
+
+        return composite;
+    }
+
+    rescaleOnPoint(selectorBox: SelectorBox, event: MouseEvent): CmdComposite {
         const MIN_SIZE = 0.1;
+
+        const cmd = new CmdComposite();
 
         const mousePosition = [event.svgX, event.svgY];
         const isShift: boolean = event.shiftKey;
         const isAlt: boolean = event.altKey;
 
         const fixedPoint: number[] = isAlt ? this.position : selectorBox.getOppositeAnchorPosition();
-        this.translate(-fixedPoint[0], -fixedPoint[1]);
+        cmd.addChild(this.translateCommand(-fixedPoint[0], -fixedPoint[1]));
 
         const multiplier: number[] = selectorBox.getScalingMultiplier();
         const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
@@ -105,9 +145,9 @@ export class SVGComposite extends SVGAbstract {
             toScale = [Math.sign(toScale[0]) * maxToScale, Math.sign(toScale[1]) * maxToScale];
         }
 
-        this.rescale(
+        cmd.addChild(this.rescaleCommand(
             isHorizontal ? toScale[0] : 1,
-            isVertical ? toScale[1] : 1);
+            isVertical ? toScale[1] : 1));
 
         if (toScale[0] < 0) {
             selectorBox.flipHorizontally();
@@ -116,7 +156,9 @@ export class SVGComposite extends SVGAbstract {
             selectorBox.flipVertically();
         }
 
-        this.translate(fixedPoint[0], fixedPoint[1]);
+        cmd.addChild(this.translateCommand(fixedPoint[0], fixedPoint[1]));
+
+        return cmd;
     }
 
     get domRect(): DOMRect {

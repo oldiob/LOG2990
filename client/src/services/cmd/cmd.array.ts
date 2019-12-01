@@ -1,18 +1,26 @@
 import { CmdInterface } from 'src/services/cmd/cmd.service';
 
-export class CmdArray<T extends CmdInterface> implements CmdInterface {
+export class CmdComposite implements CmdInterface {
 
-    cmds: T[] = new Array<T>();
+    private commands: CmdInterface[];
+
+    constructor() {
+        this.commands = [];
+    }
+
+    addChild(command: CmdInterface) {
+        this.commands.push(command);
+    }
 
     execute(): void {
-        this.cmds.forEach((cmd) => cmd.execute());
+        this.commands.forEach((cmd) => cmd.execute());
     }
 
     undo(): void {
-        this.cmds.forEach((cmd) => cmd.undo());
+        this.commands.reduceRight((_, cmd) => cmd.undo(), null);
     }
 
     redo(): void {
-        this.cmds.forEach((cmd) => cmd.redo());
+        this.commands.forEach((cmd) => cmd.redo());
     }
 }

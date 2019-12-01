@@ -2,7 +2,7 @@ import { CmdInterface } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { MatrixSVG } from 'src/utils/matrix';
 
-export class CmdMatrix implements CmdInterface {
+export class CmdTransform implements CmdInterface {
 
     oldMatrix: MatrixSVG;
     newMatrix: MatrixSVG;
@@ -13,7 +13,7 @@ export class CmdMatrix implements CmdInterface {
     }
 
     private setMatrix(matrix: MatrixSVG) {
-        this.obj.matrix = matrix;
+        this.obj.matrix = matrix.copy();
         this.obj.refreshTransform();
     }
 
@@ -29,15 +29,18 @@ export class CmdMatrix implements CmdInterface {
         this.execute();
     }
 
-    translate(tx: number, ty: number): void {
-        return;
+    rescale(sx: number, sy: number) {
+        this.obj.rescale(sx, sy);
+        this.newMatrix = this.obj.matrix.copy();
     }
 
-    rotate(a: number, x: number, y: number) {
-        this.newMatrix
-            .translate(-x, -y)
-            .rotate(a)
-            .translate(x, y);
-        this.setMatrix(this.newMatrix);
+    translate(tx: number, ty: number): void {
+        this.obj.translate(tx, ty);
+        this.newMatrix = this.obj.matrix.copy();
+    }
+
+    rotate(a: number) {
+        this.obj.rotate(a);
+        this.newMatrix = this.obj.matrix.copy();
     }
 }

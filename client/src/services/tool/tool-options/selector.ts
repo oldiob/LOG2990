@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CmdArray } from 'src/services/cmd/cmd.array';
+import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
-import { CmdMatrix } from 'src/services/cmd/cmd.matrix';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
@@ -38,7 +37,7 @@ export class SelectorTool implements ITool {
 
     private preview: SVGRectElement;
 
-    transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+    transforms: CmdComposite | null;
 
     private mIsSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
@@ -89,7 +88,11 @@ export class SelectorTool implements ITool {
                 break;
         }
 
-        return null;
+        this.transforms = null;
+        if (this.state !== SelectorState.NONE) {
+            this.transforms = new CmdComposite();
+        }
+        return this.transforms;
     }
 
     onMotion(event: MouseEvent): void {
@@ -110,13 +113,19 @@ export class SelectorTool implements ITool {
                 this.deselect();
                 break;
             case SelectorState.MOVING:
-                const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
-                this.compositeElement.translate(toMove[0], toMove[1]);
-                this.setSelectorBox();
+                if (this.transforms) {
+                    const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
+                    this.transforms.addChild(
+                        this.compositeElement.translateCommand(toMove[0], toMove[1]));
+                    this.setSelectorBox();
+                }
                 break;
             case SelectorState.SCALING:
-                this.compositeElement.rescaleOnPoint(this.selectorBox, event);
-                this.setSelectorBox();
+                if (this.transforms) {
+                    this.transforms.addChild(
+                        this.compositeElement.rescaleOnPoint(this.selectorBox, event));
+                    this.setSelectorBox();
+                }
                 break;
             default:
                 break;
@@ -223,20 +232,20 @@ export class SelectorTool implements ITool {
     }
 
     onWheel(event: WheelEvent): boolean {
-        if (this.state === SelectorState.NONE) {
+        /*if (this.state === SelectorState.NONE) {
             if (this.transforms) {
                 CmdService.execute(this.transforms);
             }
-            const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+            const transforms: CmdComposite<CmdTransform> = new CmdComposite<CmdTransform>();
             this.compositeElement.children.forEach((obj: SVGAbstract) => {
-                transforms.cmds.push(new CmdMatrix(obj));
+                transforms.cmds.push(new CmdTransform(obj));
             });
             this.transforms = transforms;
             this.state = SelectorState.ROTATING;
         }
         if (!this.transforms) {
             return false;
-        }
+        }*/
         /* const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
         if (event.shiftKey) {
             this.transforms.cmds.forEach((cmd) => {
