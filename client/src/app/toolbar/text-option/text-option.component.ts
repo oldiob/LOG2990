@@ -62,7 +62,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         return FILENAME;
     }
 
-    selectFontSize(fontSize: string): void {
+    selectFontSize(fontSize: number): void {
         this.text.fontSize = fontSize;
         if (this.text.element !== null) {
             this.text.element.setFontSize(fontSize);
