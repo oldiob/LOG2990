@@ -24,7 +24,6 @@ describe('MatrixSVG', () => {
     });
 
     it('should translate', () => {
-        // TODO - Implements me
         const tempMatrix = new MatrixSVG();
         tempMatrix.arr[2] += tx;
         tempMatrix.arr[5] += ty;
@@ -32,7 +31,6 @@ describe('MatrixSVG', () => {
     });
 
     it('should rotate', () => {
-        // TODO - Implements me
         const tempMatrix = new MatrixSVG();
         const cos = Math.cos(a);
         const sin = Math.sin(a);
@@ -46,7 +44,6 @@ describe('MatrixSVG', () => {
     });
 
     it('should scale', () => {
-        // TODO - Implements me
         const tempMatrix = new MatrixSVG();
         const other: MatrixSVG = new MatrixSVG();
         other.arr[0] = sx;
