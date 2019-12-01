@@ -11,12 +11,13 @@
 }
 
 .form-wrapper {
+  border: #343e76 1px solid;
   display: block;
   position: absolute;
   background-color: #212749;
-  padding: 0 20px;
+  padding: 0px 5px 0px 20px;
   border-radius: 5px;
-  height: 245px;
+  height: 233px;
   width: 485px;
   z-index: 5;
 
@@ -92,7 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 85%;
+  width: 83%;
 }
 
 .hex-field {
@@ -103,7 +104,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
+  width: 95%;
   margin: 7px;
 }
 
@@ -166,7 +167,7 @@
 }
 
 .ok {
-  margin: 10px 0 10px auto;
+  margin: 10px 0 20px auto;
 }
 
 .preview {
