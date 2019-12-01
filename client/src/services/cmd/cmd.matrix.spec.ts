@@ -3,16 +3,16 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { MatrixSVG } from 'src/utils/matrix';
 import { SVGPencil } from '../svg/element/svg.pencil';
-import { CmdMatrix } from './cmd.matrix';
+import { CmdTransform } from './cmd.matrix';
 
 describe('cmdMatrix', () => {
-    let cmdMatrix: CmdMatrix;
+    let cmdMatrix: CmdTransform;
     let renderer: any;
     let obj: SVGPencil;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            providers: [CmdMatrix, SVGPencil],
+            providers: [CmdTransform, SVGPencil],
         }).compileComponents();
     }));
 
@@ -21,7 +21,7 @@ describe('cmdMatrix', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute']);
         DOMRenderer.renderer = renderer;
         obj = new SVGPencil();
-        cmdMatrix = new CmdMatrix(obj);
+        cmdMatrix = new CmdTransform(obj);
       });
 
     it('should be created', () => {
@@ -51,14 +51,27 @@ describe('cmdMatrix', () => {
 
     it('rotate should call setMatrix with the corresponding element', () => {
         const a = Math.floor(Math.random() * 1000);
+        const tempMatrix = cmdMatrix.newMatrix;
+        tempMatrix.rotate(a);
+        cmdMatrix.rotate(a);
+        expect((cmdMatrix as any).obj.matrix).toEqual(tempMatrix);
+    });
+
+    it('translate should call setMatrix with the corresponding element', () => {
         const x = Math.floor(Math.random() * 1000);
         const y = Math.floor(Math.random() * 1000);
         const tempMatrix = cmdMatrix.newMatrix;
-        tempMatrix
-            .translate(-x, -y)
-            .rotate(a)
-            .translate(x, y);
-        cmdMatrix.rotate(a, x, y);
+        tempMatrix.translate(x, y);
+        cmdMatrix.translate(x, y);
+        expect((cmdMatrix as any).obj.matrix).toEqual(tempMatrix);
+    });
+
+    it('rescale should call setMatrix with the corresponding element', () => {
+        const x = Math.floor(Math.random() * 1000);
+        const y = Math.floor(Math.random() * 1000);
+        const tempMatrix = cmdMatrix.newMatrix;
+        tempMatrix.scale(x, y);
+        cmdMatrix.rescale(x, y);
         expect((cmdMatrix as any).obj.matrix).toEqual(tempMatrix);
     });
 
