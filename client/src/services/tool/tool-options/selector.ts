@@ -115,7 +115,7 @@ export class SelectorTool implements ITool {
                 this.setSelectorBox();
                 break;
             case SelectorState.SCALING:
-                this.compositeElement.rescaleOnPoint(this.selectorBox, this.lastMousePosition);
+                this.compositeElement.rescaleOnPoint(this.selectorBox, event);
                 this.setSelectorBox();
                 break;
             default:

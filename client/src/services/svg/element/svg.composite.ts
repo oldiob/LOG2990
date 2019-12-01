@@ -71,10 +71,14 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
-    rescaleOnPoint(selectorBox: SelectorBox, mousePosition: number[]): void {
+    rescaleOnPoint(selectorBox: SelectorBox, event: MouseEvent): void {
         const MIN_SIZE = 0.1;
 
-        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+        const mousePosition = [event.svgX, event.svgY];
+        // const isShift: boolean = event.shiftKey;
+        const isAlt: boolean = event.altKey;
+
+        const fixedPoint: number[] = isAlt ? this.position : selectorBox.getOppositeAnchorPosition();
         this.translate(-fixedPoint[0], -fixedPoint[1]);
 
         const multiplier: number[] = selectorBox.getScalingMultiplier();
