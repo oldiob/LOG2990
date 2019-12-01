@@ -10,7 +10,6 @@ export enum SelectorState {
     SELECTED,
 
     MOVING,
-    ROTATING,
     SCALING,
 }
 
@@ -182,18 +181,16 @@ export class SelectorBox {
     }
 
     flipHorizontally() {
-        const H_CENTER = 1;
-        const sumToCenter = this.targetedAnchor + H_CENTER;
-
-        // don't ask questions
-        this.targetedAnchor = (this.targetedAnchor + (sumToCenter * 2)) % this.circles.length;
+        const H_CENTER = 5;
+        this.setReflexionFromCenter(H_CENTER);
     }
     flipVertically() {
-        const V_CENTER = 3;
+        const V_CENTER = 7;
+        this.setReflexionFromCenter(V_CENTER);
+    }
 
-        const sumToCenter = this.targetedAnchor + V_CENTER;
-
-        // don't ask questions
-        this.targetedAnchor = (this.targetedAnchor + (sumToCenter * 2)) % this.circles.length;
+    private setReflexionFromCenter(center: number): void {
+        const diffFromCenter = center - this.targetedAnchor;
+        this.targetedAnchor = (center + diffFromCenter) % this.circles.length;
     }
 }

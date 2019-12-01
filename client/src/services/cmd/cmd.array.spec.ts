@@ -1,14 +1,18 @@
-import { CmdArray } from './cmd.array';
+/*
+
+    TODO
+
+import { CmdComposite } from './cmd.array';
 import { CmdMock } from './cmd.mock.spec';
 
 describe('CmdArray', () => {
 
-    let arr: CmdArray<any>;
+    let arr: CmdComposite<any>;
     let N: number;
 
     beforeEach(() => {
         N = Math.floor(1000 * Math.random());
-        arr = new CmdArray<any>();
+        arr = new CmdComposite<any>();
         for (let i = 0; i < N; ++i) {
             arr.cmds.push(CmdMock());
         }
@@ -43,3 +47,4 @@ describe('CmdArray', () => {
         });
     });
 });
+*/

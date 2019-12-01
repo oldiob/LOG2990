@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CmdArray } from 'src/services/cmd/cmd.array';
+import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
-import { CmdMatrix } from 'src/services/cmd/cmd.matrix';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
@@ -11,7 +10,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
@@ -38,7 +37,7 @@ export class SelectorTool implements ITool {
 
     private preview: SVGRectElement;
 
-    transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
+    transforms: CmdComposite | null;
 
     private mIsSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
@@ -89,7 +88,8 @@ export class SelectorTool implements ITool {
                 break;
         }
 
-        return null;
+        this.transforms = new CmdComposite();
+        return this.transforms;
     }
 
     onMotion(event: MouseEvent): void {
@@ -110,15 +110,19 @@ export class SelectorTool implements ITool {
                 this.deselect();
                 break;
             case SelectorState.MOVING:
-                const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
-                this.compositeElement.translate(toMove[0], toMove[1]);
-                this.setSelectorBox();
+                if (this.transforms) {
+                    const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
+                    this.transforms.addChild(
+                        this.compositeElement.translateCommand(toMove[0], toMove[1]));
+                    this.setSelectorBox();
+                }
                 break;
             case SelectorState.SCALING:
-                const multiplier: number[] = this.selectorBox.getScalingMultiplier();
-                const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
-                this.compositeElement.rescaleOnPoint(this.selectorBox, diff);
-                this.setSelectorBox();
+                if (this.transforms) {
+                    this.transforms.addChild(
+                        this.compositeElement.rescaleOnPointCommand(this.selectorBox, event));
+                    this.setSelectorBox();
+                }
                 break;
             default:
                 break;
@@ -218,35 +222,34 @@ export class SelectorTool implements ITool {
     }
 
     clearSelection() {
+        this.state = SelectorState.NONE;
         this.compositeElement.clear();
         this.selectorBox.hideBox();
         this.isSelected = false;
     }
 
     onWheel(event: WheelEvent): boolean {
-        if (this.state === SelectorState.NONE) {
-            if (this.transforms) {
-                CmdService.execute(this.transforms);
+        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+
+        if (!this.isEmpty() && this.transforms) {
+            switch (this.state) {
+                case SelectorState.NONE:
+                    const center: number[] = this.compositeElement.position;
+                    this.transforms.addChild(
+                        this.compositeElement.rotateOnPointCommand(angle, center, event.shiftKey));
+                    this.setSelectorBox();
+                    break;
+                case SelectorState.SCALING:
+                case SelectorState.MOVING:
+                    this.transforms.addChild(
+                        this.compositeElement.rotateOnPointCommand(angle, this.lastMousePosition, event.shiftKey));
+                    this.setSelectorBox();
+                    break;
+                default:
+                    break;
             }
-            const transforms: CmdArray<CmdMatrix> = new CmdArray<CmdMatrix>();
-            this.compositeElement.children.forEach((obj: SVGAbstract) => {
-                transforms.cmds.push(new CmdMatrix(obj));
-            });
-            this.transforms = transforms;
-            this.state = SelectorState.ROTATING;
         }
-        if (!this.transforms) {
-            return false;
-        }
-        /* const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
-        if (event.shiftKey) {
-            this.transforms.cmds.forEach((cmd) => {
-                const rect = cmd;
-                cmd.rotate(angle, rect.x + rect.width / 2, rect.y + rect.height / 2);
-                cmd.execute();
-            });
-        }
-        */
+
         return true;
     }
 
@@ -286,6 +289,8 @@ export class SelectorTool implements ITool {
 
         this.firstMousePosition = tempFirst;
         this.lastMousePosition = tempLast;
+
+        this.state = SelectorState.NONE;
     }
 
     duplicate(): void {
@@ -357,6 +362,11 @@ export class SelectorTool implements ITool {
     }
 
     onUnSelect(): void {
+        this.hidePreview();
+        this.clearSelection();
+    }
+
+    onSelect(): void {
         this.hidePreview();
         this.clearSelection();
     }
