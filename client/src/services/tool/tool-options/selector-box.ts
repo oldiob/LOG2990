@@ -10,7 +10,6 @@ export enum SelectorState {
     SELECTED,
 
     MOVING,
-    ROTATING,
     SCALING,
 }
 

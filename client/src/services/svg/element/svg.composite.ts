@@ -109,7 +109,7 @@ export class SVGComposite extends SVGAbstract {
         return composite;
     }
 
-    rescaleOnPoint(selectorBox: SelectorBox, event: MouseEvent): CmdComposite {
+    rescaleOnPointCommand(selectorBox: SelectorBox, event: MouseEvent): CmdComposite {
         const MIN_SIZE = 0.1;
 
         const cmd = new CmdComposite();
@@ -158,6 +158,31 @@ export class SVGComposite extends SVGAbstract {
 
         cmd.addChild(this.translateCommand(fixedPoint[0], fixedPoint[1]));
 
+        return cmd;
+    }
+
+    rotateOnPointCommand(angle: number, point: number[], isShift: boolean): CmdComposite {
+        if (isShift) {
+            return this.rotateOnChildren(angle);
+        }
+
+        const cmd = new CmdComposite();
+        cmd.addChild(this.translateCommand(-point[0], -point[1]));
+        cmd.addChild(this.rotateCommand(angle));
+        cmd.addChild(this.translateCommand(point[0], point[1]));
+        return cmd;
+    }
+
+    private rotateOnChildren(angle: number): CmdComposite {
+        const cmd = new CmdComposite();
+        this.children.forEach((child: SVGAbstract) => {
+            const pos: number[] = child.position;
+            const transformCmd = new CmdTransform(child);
+            transformCmd.translate(-pos[0], -pos[1]);
+            transformCmd.rotate(angle);
+            transformCmd.translate(pos[0], pos[1]);
+            cmd.addChild(transformCmd);
+        });
         return cmd;
     }
 

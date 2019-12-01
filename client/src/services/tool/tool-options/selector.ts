@@ -88,10 +88,7 @@ export class SelectorTool implements ITool {
                 break;
         }
 
-        this.transforms = null;
-        if (this.state !== SelectorState.NONE) {
-            this.transforms = new CmdComposite();
-        }
+        this.transforms = new CmdComposite();
         return this.transforms;
     }
 
@@ -123,7 +120,7 @@ export class SelectorTool implements ITool {
             case SelectorState.SCALING:
                 if (this.transforms) {
                     this.transforms.addChild(
-                        this.compositeElement.rescaleOnPoint(this.selectorBox, event));
+                        this.compositeElement.rescaleOnPointCommand(this.selectorBox, event));
                     this.setSelectorBox();
                 }
                 break;
@@ -232,29 +229,27 @@ export class SelectorTool implements ITool {
     }
 
     onWheel(event: WheelEvent): boolean {
-        /*if (this.state === SelectorState.NONE) {
-            if (this.transforms) {
-                CmdService.execute(this.transforms);
+        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+
+        if (!this.isEmpty() && this.transforms) {
+            switch (this.state) {
+                case SelectorState.NONE:
+                    const center: number[] = this.compositeElement.position;
+                    this.transforms.addChild(
+                        this.compositeElement.rotateOnPointCommand(angle, center, event.shiftKey));
+                    this.setSelectorBox();
+                    break;
+                case SelectorState.SCALING:
+                case SelectorState.MOVING:
+                    this.transforms.addChild(
+                        this.compositeElement.rotateOnPointCommand(angle, this.lastMousePosition, event.shiftKey));
+                    this.setSelectorBox();
+                    break;
+                default:
+                    break;
             }
-            const transforms: CmdComposite<CmdTransform> = new CmdComposite<CmdTransform>();
-            this.compositeElement.children.forEach((obj: SVGAbstract) => {
-                transforms.cmds.push(new CmdTransform(obj));
-            });
-            this.transforms = transforms;
-            this.state = SelectorState.ROTATING;
         }
-        if (!this.transforms) {
-            return false;
-        }*/
-        /* const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
-        if (event.shiftKey) {
-            this.transforms.cmds.forEach((cmd) => {
-                const rect = cmd;
-                cmd.rotate(angle, rect.x + rect.width / 2, rect.y + rect.height / 2);
-                cmd.execute();
-            });
-        }
-        */
+
         return true;
     }
 
@@ -294,6 +289,8 @@ export class SelectorTool implements ITool {
 
         this.firstMousePosition = tempFirst;
         this.lastMousePosition = tempLast;
+
+        this.state = SelectorState.NONE;
     }
 
     duplicate(): void {
