@@ -66,10 +66,9 @@ describe('SVGAirbrush', () => {
         expect(renderer.setAttribute).not.toHaveBeenCalled();
     });
 
-    it('should return a random value less than the give max', () => {
+    it('should return a random value less or equal than the give max', () => {
         const value = airbrush.getRandom(50);
-        expect(value).toBeTruthy();
-        expect(value).toBeLessThan(50);
+        expect(value).toBeLessThanOrEqual(50);
     });
 
     it('should add spray pattern in an array of points', () => {
