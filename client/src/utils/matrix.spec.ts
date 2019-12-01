@@ -67,4 +67,5 @@ describe('MatrixSVG', () => {
     it('isIdentity should return true if Math.abs(this.arr[i] - expect) < 10E-4', () => {
         expect(mat.isIdentity()).toBeTruthy();
     });
+
 });
