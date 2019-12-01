@@ -1,21 +1,24 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point } from 'src/utils/geo-primitives';
 import { SVGAbstract } from './svg.abstract';
+import { isAtLine } from 'src/utils/math';
 
 export class SVGAirbrush extends SVGAbstract {
     element: any;
     private readonly MAX_ANGLE = 360;
     private readonly POINT_RADIUS = 1;
+    private readonly WIDTH_MARGIN = 10.0;
+    private points: number[][];
 
-    constructor(x: number, y: number) {
+    constructor(x: number, y: number, private width: number) {
         super();
-
+        this.points = [];
         this.element = DOMRenderer.createElement('g', 'svg');
         DOMRenderer.setAttribute(this.element, 'x', x.toString());
         DOMRenderer.setAttribute(this.element, 'y', y.toString());
     }
 
-    spray(rate: number, diameter: number, x: number, y: number): void {
+    private spray(rate: number, diameter: number, x: number, y: number): void {
         for (let i = 0; i < rate; i++) {
             const point = this.getRandomPointCercle(x, y, diameter);
             const singlePoint = DOMRenderer.createElement('circle', 'svg');
@@ -51,7 +54,20 @@ export class SVGAirbrush extends SVGAbstract {
     setSecondary(color: string): void {
         //
     }
+
+    addSpray(rate: number, diameter: number, x: number, y: number): void {
+        this.points.push([x, y]);
+        this.spray(rate, diameter, x, y);
+    }
+
     protected isAtAdjusted(x: number, y: number): boolean {
-        throw new Error('Method not implemented.');
+        const width: number = this.width + this.WIDTH_MARGIN;
+        for (let i = 0; i < this.points.length - 1; i++) {
+                if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
+                    return true;
+                }
+        }
+
+        return false;
     }
 }

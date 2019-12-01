@@ -9,7 +9,7 @@ import { ITool } from './i-tool';
 
 export class AirbrushTool implements ITool {
     readonly tip: string;
-    width?: number | undefined;
+    width: number;
 
     private readonly DEFAULT_RATE = 15;
     private readonly DEFAULT_DIAMETER = 5;
@@ -34,18 +34,11 @@ export class AirbrushTool implements ITool {
     onPressed(event: MouseEvent): CmdSVG | null {
         this.currentX = event.svgX;
         this.currentY = event.svgY;
-        if (this.width === undefined) {
-            this.width = this.DEFAULT_DIAMETER;
-        }
-        this.element = new SVGAirbrush(this.currentX, this.currentY);
-        this.element.spray(this.rate, this.width, this.currentX, this.currentY);
+        this.element = new SVGAirbrush(this.currentX, this.currentY, this.width);
         this.element.setPrimary(this.paletteService.getPrimary());
         this.fonction = setInterval(() => {
-            if (this.width === undefined) {
-                this.width = this.DEFAULT_DIAMETER;
-            }
             if (this.element) {
-                this.element.spray(this.rate, this.width, this.currentX, this.currentY);
+                this.element.addSpray(this.rate, this.width, this.currentX, this.currentY);
             }
         }, this.CALL_RATE);
 
@@ -54,12 +47,8 @@ export class AirbrushTool implements ITool {
     onMotion(event: MouseEvent): void {
         this.currentX = event.svgX;
         this.currentY = event.svgY;
-
-        if (this.width === undefined) {
-            this.width = this.DEFAULT_DIAMETER;
-        }
         if (this.element) {
-            this.element.spray(this.rate, this.width, event.svgX, event.svgY);
+            this.element.addSpray(this.rate, this.width, event.svgX, event.svgY);
         }
     }
     onReleased(event: MouseEvent): void {
