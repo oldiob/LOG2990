@@ -11,7 +11,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
@@ -115,9 +115,7 @@ export class SelectorTool implements ITool {
                 this.setSelectorBox();
                 break;
             case SelectorState.SCALING:
-                const multiplier: number[] = this.selectorBox.getScalingMultiplier();
-                const diff = vectorMultiplyVector(vectorMinus(this.lastMousePosition, previousMousePosition), multiplier);
-                this.compositeElement.rescaleOnPoint(this.selectorBox, diff);
+                this.compositeElement.rescaleOnPoint(this.selectorBox, this.lastMousePosition);
                 this.setSelectorBox();
                 break;
             default:

@@ -1,5 +1,5 @@
 import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
-import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGComposite extends SVGAbstract {
@@ -71,23 +71,35 @@ export class SVGComposite extends SVGAbstract {
         }
     }
 
-    rescaleOnPoint(selectorBox: SelectorBox, diff: number[]): void {
-        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
+    rescaleOnPoint(selectorBox: SelectorBox, mousePosition: number[]): void {
+        const MIN_SIZE = 0.1;
 
+        const fixedPoint: number[] = selectorBox.getOppositeAnchorPosition();
         this.translate(-fixedPoint[0], -fixedPoint[1]);
 
+        const multiplier: number[] = selectorBox.getScalingMultiplier();
         const movingPoint: number[] = selectorBox.getTargetedAnchorPosition();
-        const delta: number[] = vectorMinus(fixedPoint, movingPoint);
-        if (delta[0] === 0) {
-            delta[0] += 0.01 * Math.sign(diff[0]);
-        }
-        if (delta[1] === 0) {
-            delta[1] += 0.01 * Math.sign(diff[1]);
+
+        let diff = vectorMinus(mousePosition, movingPoint);
+        diff = vectorMultiplyVector(diff, multiplier);
+
+        const deltaNow: number[] = vectorMinus(fixedPoint, movingPoint);
+        let deltaToAchieve: number[] = vectorMinus(fixedPoint, vectorPlus(movingPoint, diff));
+
+        const isHorizontal = multiplier[0] !== 0;
+        const isVertical = multiplier[1] !== 0;
+
+        if ((isHorizontal && Math.abs(deltaToAchieve[0]) < MIN_SIZE) ||
+            (isVertical && Math.abs(deltaToAchieve[1]) < MIN_SIZE)) {
+            deltaToAchieve = deltaNow;
         }
 
-        const nextDelta: number[] = vectorMinus(delta, diff);
+        const toScale: number[] = vectorDivideVector(deltaToAchieve, deltaNow);
 
-        const toScale: number[] = vectorDivideVector(nextDelta, delta);
+        this.rescale(
+            isHorizontal ? toScale[0] : 1,
+            isVertical ? toScale[1] : 1);
+
         if (toScale[0] < 0) {
             selectorBox.flipHorizontally();
         }
@@ -95,7 +107,6 @@ export class SVGComposite extends SVGAbstract {
             selectorBox.flipVertically();
         }
 
-        this.rescale(toScale[0], toScale[1]);
         this.translate(fixedPoint[0], fixedPoint[1]);
     }
 
