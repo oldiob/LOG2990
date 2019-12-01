@@ -24,8 +24,8 @@ fdescribe('BucketTool', () => {
 
         bucket = new BucketTool(paletteService);
 
-        event.svgX = Math.floor(Math.random() * 10);
-        event.svgY = Math.floor(Math.random() * 10);
+        event.svgX = 1;
+        event.svgY = 1;
     });
 
     it('should exists', () => {
@@ -40,13 +40,13 @@ fdescribe('BucketTool', () => {
     it('should return cmdSVG if isLoaded is false when OnPressed', () => {
         (bucket as any).isLoaded = true;
         (bucket as any).colorToleranceDelta = Math.floor(Math.random() * 1000);
-        const width = Math.floor(Math.random() * 1000);
-        const height = Math.floor(Math.random() * 1000);
-        const array: number[] = createArray(width, height);
+        const width = 1;
+        const height = 1;
+        let array: number[] = createArray(width, height);
+        array = [4, 12, 16, 20];
         const uint8Array = Uint8ClampedArray.from(array);
         (bucket as any).imageData = new ImageData(uint8Array, width, height);
-        const position = [event.svgX, event.svgY];
-        const bucketFill = new SVGBucketFill(position, (bucket as any).palette.primary,
+        const bucketFill = new SVGBucketFill([event.svgX, event.svgY], (bucket as any).palette.primary,
                                                 (bucket as any).imageData, (bucket as any).colorToleranceDelta);
         const tempCommand = new CmdSVG(bucketFill);
         expect(bucket.onPressed(event)).toEqual(tempCommand);
