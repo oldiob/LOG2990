@@ -9,7 +9,7 @@ export class SVGBucketFill extends SVGAbstract {
 
     element: any;
 
-    imagePosition: number[];
+    private imagePosition: number[];
     private size: number[];
 
     constructor(position: number[], color: Color, image: ImageData, tolerance: number) {
@@ -35,7 +35,7 @@ export class SVGBucketFill extends SVGAbstract {
         }
     }
 
-    private findDimensions(positions: number[][]) {
+    private findDimensions(positions: number[][]): void {
         const xRange = [Infinity, -Infinity];
         const yRange = [Infinity, -Infinity];
 
