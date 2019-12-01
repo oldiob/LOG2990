@@ -12,12 +12,13 @@ describe('AirbrushTool', () => {
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         element = jasmine.createSpyObj('SVGAirbrush', ['setPrimary', 'setWidth', 'isAt', 'isIn', 'addAnchor',
-            'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor', 'spray']);
+            'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor', 'addSpray']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
 
         DOMRenderer.renderer = renderer;
         airbrush = new AirbrushTool(paletteService);
+        airbrush.element = element;
         event = new MouseEvent('mousedown');
         event.svgX = Math.floor(Math.random() * 1000);
         event.svgY = Math.floor(Math.random() * 1000);
@@ -42,7 +43,6 @@ describe('AirbrushTool', () => {
 
     it('should set width to default when undefined on mouse motion', () => {
         const DEFAULT_DIAMETER = 5;
-        airbrush.width = undefined;
         airbrush.onMotion(event);
         if (airbrush.width !== undefined) {
             expect(airbrush.width).toBe(DEFAULT_DIAMETER);
@@ -50,11 +50,9 @@ describe('AirbrushTool', () => {
     });
 
     it('should call spray on mouse motion', () => {
-        airbrush.element = element;
-        spyOn(element, 'spray');
         airbrush.onMotion(event);
         if (airbrush.element) {
-            expect(airbrush.element.spray).toHaveBeenCalled();
+            expect(element.addSpray).toHaveBeenCalled();
         }
     });
 

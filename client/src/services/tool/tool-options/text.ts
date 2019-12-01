@@ -16,10 +16,10 @@ export class TextTool implements ITool {
     readonly tip: string;
     private TEXTTIP = 'Text (T)';
     private UNSET = '';
-    private INITIALSIZE = '15px';
+    private INITIALSIZE = 15;
     private SHOWCASE_DEFAULT = 'Rebase';
     element: SVGText | null = null;
-    fontSize: string;
+    fontSize: number;
     fontStyle: string;
     fontWeigth: string;
     fontFamily: string;
