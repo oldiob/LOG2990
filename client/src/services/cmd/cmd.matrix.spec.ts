@@ -2,7 +2,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { MatrixSVG } from 'src/utils/matrix';
 import { SVGPencil } from '../svg/element/svg.pencil';
-import {CmdMatrix} from './cmd.matrix';
+import { CmdMatrix } from './cmd.matrix';
 
 describe('cmdMatrix', () => {
     let cmdMatrix: CmdMatrix;
