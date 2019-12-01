@@ -21,13 +21,13 @@ describe('SVGAirbrush', () => {
         expect(airbrush).toBeTruthy();
     });
 
-    it('should spray', () => {
+    it('should call appendChild with the given rate when spray', () => {
         spyOn(DOMRenderer, 'appendChild');
         airbrush.spray(DEFAULT_RATE, DEFAULT_DIAMETER, 0, 0);
         expect(DOMRenderer.appendChild).toHaveBeenCalledTimes(DEFAULT_RATE);
     });
 
-    it('should give a random point', () => {
+    it('should give a random point within the give diameter', () => {
         const point = airbrush.getRandomPointCercle(0, 0, DEFAULT_DIAMETER);
         expect(point).toBeTruthy();
     });
@@ -43,5 +43,11 @@ describe('SVGAirbrush', () => {
         spyOn(DOMRenderer, 'setAttribute');
         airbrush.setSecondary(COLOR);
         expect(renderer.setAttribute).not.toHaveBeenCalled();
+    });
+
+    it('should return a random value less than the give max', () => {
+        const value = airbrush.getRandom(50);
+        expect(value).toBeTruthy();
+        expect(value).toBeLessThan(50);
     });
 });
