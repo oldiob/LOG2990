@@ -36,21 +36,27 @@ export class SVGAirbrush extends SVGAbstract {
         const y = y0 + r * Math.sin(t);
         return new Point(x, y);
     }
-    getRandom(max: number) {
+
+    private getRandom(max: number): number {
         return Math.floor(Math.random() * Math.floor(max));
     }
+
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
+
     getPrimary(): string {
         return '';
     }
+
     getSecondary(): string {
         return '';
     }
+
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'fill', color);
     }
+
     setSecondary(color: string): void {
         //
     }

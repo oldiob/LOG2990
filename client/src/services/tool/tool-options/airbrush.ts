@@ -8,26 +8,24 @@ import { ITool } from './i-tool';
 })
 
 export class AirbrushTool implements ITool {
-    readonly tip: string;
-    width: number;
 
     private readonly DEFAULT_RATE = 15;
     private readonly DEFAULT_DIAMETER = 5;
     private readonly CALL_RATE = 15;
-
+    private readonly AIRBRUSH_TIP = 'Airbrush (A)';
     private currentX: number;
     private currentY: number;
-
     private rate: number;
 
+    readonly tip: string;
+    width: number;
     element: SVGAirbrush | null = null;
-
     fonction: any;
 
     constructor(private paletteService: PaletteService) {
         this.width = this.DEFAULT_DIAMETER;
         this.rate = this.DEFAULT_RATE;
-        this.tip = 'Airbrush (A)';
+        this.tip = this.AIRBRUSH_TIP;
     }
     onPressed(event: MouseEvent): CmdSVG | null {
         this.currentX = event.svgX;
@@ -54,7 +52,7 @@ export class AirbrushTool implements ITool {
         this.element = null;
     }
 
-    setRate(rate: number) {
+    setRate(rate: number): void {
         this.rate = rate;
     }
 }

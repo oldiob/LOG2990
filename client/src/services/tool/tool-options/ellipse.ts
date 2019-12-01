@@ -8,14 +8,16 @@ import { AbsShapeTool, TraceType } from './abs-shape-tool';
     providedIn: 'root',
 })
 export class EllipseTool extends AbsShapeTool {
+    private readonly DEFAULT_WIDTH = 5;
+    private readonly ELLIPSE_TIP = 'Ellipse (2)';
     width: number;
     traceType: TraceType;
 
     constructor(private paletteService: PaletteService) {
         super();
-        this.width = 5;
+        this.width = this.DEFAULT_WIDTH;
         this.traceType = TraceType.FillOnly;
-        this.tip = 'Ellipse (2)';
+        this.tip = this.ELLIPSE_TIP;
     }
 
     onPressed(event: MouseEvent): CmdSVG {

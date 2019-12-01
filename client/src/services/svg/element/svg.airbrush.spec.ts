@@ -67,7 +67,7 @@ describe('SVGAirbrush', () => {
     });
 
     it('should return a random value less or equal than the give max', () => {
-        const value = airbrush.getRandom(50);
+        const value = (airbrush as any).getRandom(50);
         expect(value).toBeLessThanOrEqual(50);
     });
 

@@ -21,7 +21,7 @@ describe('SVGBrush', () => {
         DOMRenderer.renderer = renderer;
 
         brush = new SVGBrush(width, texture);
-        brush.texture = texture;
+        (brush as any).texture = texture;
     });
 
     it('should exits', () => {
@@ -45,7 +45,7 @@ describe('SVGBrush', () => {
 
     it('should set width', () => {
         const width2 = Math.random() * 1000;
-        brush.setWidth(width2);
+        (brush as any).setWidth(width2);
         expect(brush.lineWidth).toEqual(width2);
         expect(renderer.setAttribute).toHaveBeenCalled();
     });

@@ -4,21 +4,26 @@ import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export abstract class AbsSVGShape extends SVGAbstract {
-    element: any;
 
-    startingPoint: number[];
+    private fillOpacity: number;
+    private strokeOpacity: number;
+
+    protected startingPoint: number[];
     protected endingPoint: number[];
-
     protected center: number[];
     protected size: number[];
-
     protected pointSize: number;
 
-    fillOpacity: number;
-    strokeOpacity: number;
     traceType: number;
     primary: string;
     secondary: string;
+    element: any;
+
+    protected abstract isInside(x: number, y: number): boolean;
+    protected abstract isAtBorder(x: number, y: number): boolean;
+    abstract setCursor(x: number, y: number, isShift: boolean): void;
+    protected abstract setPositionAttributes(): void;
+    abstract onShift(isShift: boolean): void;
 
     constructor(x: number, y: number, traceType: TraceType) {
         super();
@@ -41,9 +46,6 @@ export abstract class AbsSVGShape extends SVGAbstract {
 
         this.showPerimeter();
     }
-
-    protected abstract isInside(x: number, y: number): boolean;
-    protected abstract isAtBorder(x: number, y: number): boolean;
 
     isAtAdjusted(x: number, y: number): boolean {
         let inside = false;
@@ -88,6 +90,7 @@ export abstract class AbsSVGShape extends SVGAbstract {
             DOMRenderer.setAttribute(this.element.children[1], 'fill', color);
         }
     }
+
     setSecondary(color: string): void {
         this.secondary = color;
         if (this.strokeOpacity === 1) {
@@ -95,17 +98,16 @@ export abstract class AbsSVGShape extends SVGAbstract {
         }
     }
 
-    protected setOpacities() {
-        DOMRenderer.setAttribute(this.element.children[1], 'fill-opacity', `${this.fillOpacity}`);
-        DOMRenderer.setAttribute(this.element.children[1], 'stroke-opacity', `${this.strokeOpacity}`);
-    }
-
-    abstract setCursor(x: number, y: number, isShift: boolean): void;
     release(): void {
         this.removePerimeter();
     }
 
-    protected updateCoordinates(x: number, y: number, isShift: boolean) {
+    protected setOpacities(): void {
+        DOMRenderer.setAttribute(this.element.children[1], 'fill-opacity', `${this.fillOpacity}`);
+        DOMRenderer.setAttribute(this.element.children[1], 'stroke-opacity', `${this.strokeOpacity}`);
+    }
+
+    protected updateCoordinates(x: number, y: number, isShift: boolean): void {
         this.endingPoint = [x, y];
         const VECTOR_TO_CENTER = vectorMultiplyConst(vectorMinus(this.endingPoint, this.startingPoint), 0.5);
 
@@ -119,9 +121,7 @@ export abstract class AbsSVGShape extends SVGAbstract {
         this.center = vectorPlus(VECTOR_TO_CENTER, this.startingPoint);
     }
 
-    protected abstract setPositionAttributes(): void;
-
-    protected updatePerimeter() {
+    protected updatePerimeter(): void {
         DOMRenderer.setAttribute(this.element.children[0], 'x',
             `${Math.min(this.endingPoint[0], this.startingPoint[0]) - this.pointSize / 2}`);
         DOMRenderer.setAttribute(this.element.children[0], 'y',
@@ -132,21 +132,19 @@ export abstract class AbsSVGShape extends SVGAbstract {
             `${Math.abs(this.startingPoint[1] - this.endingPoint[1]) + this.pointSize}`);
     }
 
-    showPerimeter() {
+    protected showPerimeter(): void {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'gray');
     }
 
-    hidePerimeter() {
+    protected hidePerimeter(): void {
         DOMRenderer.setAttribute(this.element.children[0], 'stroke', 'transparent');
     }
 
-    removePerimeter() {
+    protected removePerimeter(): void {
         DOMRenderer.removeChild(this.element, this.element.children[0]);
     }
 
-    abstract onShift(isShift: boolean): void;
-
-    setTraceType(traceType: TraceType) {
+    protected setTraceType(traceType: TraceType): void {
         this.traceType = traceType;
 
         switch (traceType) {
