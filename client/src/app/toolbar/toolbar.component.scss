@@ -15,14 +15,23 @@
 
 .toolbar {
     height: 100%;
+    width: 60px;
     text-align: center;
     background-color: #212749;
     position: absolute;
+
     -webkit-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 5px 0px 7px 0px rgba(0, 0, 0, 0.2);
+
     overflow-y: auto;
     overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
 }
 
 .disappear {
@@ -43,8 +52,7 @@
     transition: all 0.2s ease;
 }
 
-.tools {
-    height: 65%;
+.group {
     width: 100%;
     display: flex;
 	flex-direction: column;
@@ -52,8 +60,12 @@
     justify-content: flex-start;
 }
 
+.tools {
+    height: 65%;
+}
+
 .button {
-    margin: 10px 10px 0 10px;
+    margin: 10px 10px 0;
     border-radius: 50%;
 
     width: 40px;
@@ -66,16 +78,12 @@
     transition: 0.3s;
 }
 
-.options {
-    width: 100%;
-}
-
 .button:hover {
-    background-color: darken($color: #414d8f, $amount: 4);
+    background-color: darken($color: #414d8f, $amount: 7);
 }
 
 .button:active {
-    background-color: darken($color: #414d8f, $amount: 8);
+    background-color: darken($color: #414d8f, $amount: 12);
 }
 
 .toolbar-icon {
