@@ -16,7 +16,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
 
     constructor(
         private toolService: ToolService,
-        private selector: SelectorTool) {
+        selector: SelectorTool) {
             this.tools = [selector];
     }
 
@@ -29,7 +29,7 @@ export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     }
 
     select() {
-        this.toolService.currentTool = this.selector;
+        this.toolService.currentTool = this.tools[0];
     }
 
     getImage(): string {
