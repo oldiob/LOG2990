@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'src/services/dialog/dialog.service';
+import { KeyService } from 'src/services/key/key.service';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 
 @Component({
@@ -9,11 +10,12 @@ import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component
 })
 export class PolyDessinComponent implements OnInit {
 
-    constructor(private dialogService: DialogService) { }
+    constructor(private dialogService: DialogService, private keyService: KeyService) { }
 
     isWelcomeShown: boolean;
 
-    ngOnInit() {
+    ngOnInit(): void {
+        this.keyService.isShortcutsEnabled = false;
         const IS_WELCOME_HIDDEN = 'false';
         const WELCOME_DIALOG_COOKIE = 'HideWelcomeDialog';
 
@@ -24,11 +26,15 @@ export class PolyDessinComponent implements OnInit {
 
             this.dialogService.isClosedWelcomeObservable.subscribe((isClosedWelcome: boolean) => {
                 if (isClosedWelcome) {
-                    this.dialogService.openDialog(NewDrawingComponent);
+                    this.dialogService.openDialog(NewDrawingComponent).afterClosed().subscribe(() =>
+                        this.keyService.isShortcutsEnabled = true,
+                    );
                 }
             });
         } else {
-            this.dialogService.openDialog(NewDrawingComponent);
+            this.dialogService.openDialog(NewDrawingComponent).afterClosed().subscribe(() =>
+                this.keyService.isShortcutsEnabled = true,
+            );
         }
     }
 }
