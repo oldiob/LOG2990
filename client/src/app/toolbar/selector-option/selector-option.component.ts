@@ -12,13 +12,20 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class SelectorOptionComponent implements OnInit, IOption<ITool> {
     tip = 'Selector (S)';
 
+    private tools: ITool[];
+
     constructor(
         private toolService: ToolService,
         private selector: SelectorTool) {
+            this.tools = [selector];
     }
 
     ngOnInit() {
         //
+    }
+
+    selectTool(tool: ITool): void {
+        this.select();
     }
 
     select() {

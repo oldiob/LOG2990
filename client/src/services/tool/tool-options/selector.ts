@@ -216,6 +216,7 @@ export class SelectorTool implements ITool {
     }
 
     clearSelection() {
+        this.state = SelectorState.NONE;
         this.compositeElement.clear();
         this.selectorBox.hideBox();
         this.isSelected = false;
@@ -355,6 +356,11 @@ export class SelectorTool implements ITool {
     }
 
     onUnSelect(): void {
+        this.hidePreview();
+        this.clearSelection();
+    }
+
+    onSelect(): void {
         this.hidePreview();
         this.clearSelection();
     }

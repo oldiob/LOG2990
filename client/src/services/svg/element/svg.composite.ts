@@ -75,7 +75,7 @@ export class SVGComposite extends SVGAbstract {
         const MIN_SIZE = 0.1;
 
         const mousePosition = [event.svgX, event.svgY];
-        // const isShift: boolean = event.shiftKey;
+        const isShift: boolean = event.shiftKey;
         const isAlt: boolean = event.altKey;
 
         const fixedPoint: number[] = isAlt ? this.position : selectorBox.getOppositeAnchorPosition();
@@ -98,7 +98,12 @@ export class SVGComposite extends SVGAbstract {
             deltaToAchieve = deltaNow;
         }
 
-        const toScale: number[] = vectorDivideVector(deltaToAchieve, deltaNow);
+        let toScale: number[] = vectorDivideVector(deltaToAchieve, deltaNow);
+
+        if (isShift) {
+            const maxToScale = Math.max(Math.abs(toScale[0]), Math.abs(toScale[1]));
+            toScale = [Math.sign(toScale[0]) * maxToScale, Math.sign(toScale[1]) * maxToScale];
+        }
 
         this.rescale(
             isHorizontal ? toScale[0] : 1,
