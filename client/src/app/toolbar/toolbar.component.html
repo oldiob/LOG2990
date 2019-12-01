@@ -39,49 +39,48 @@
     </div>
 </div>
 
-<app-tool-option class="toolbar-option selected-option disappear"
+
+<app-tool-option class="toolbar-option disappear" 
     [class.disappear]="!optionDisplayed || currentOption !== toolOption"
     [class.appear]="optionDisplayed && currentOption === toolOption"
     [class.slide-out]="!optionDisplayed && currentOption === toolOption"
     [class.slide-in]="optionOpened && currentOption === toolOption">
 </app-tool-option>
 
-<app-shape-option class="toolbar-option selected-option disappear"
+<app-shape-option class="toolbar-option disappear" 
     [class.disappear]="!optionDisplayed || currentOption !== shapeOption"
     [class.appear]="optionDisplayed && currentOption === shapeOption"
     [class.slide-out]="!optionDisplayed && currentOption === shapeOption"
     [class.slide-in]="optionOpened && currentOption === shapeOption">
 </app-shape-option>
 
-<app-bucket-option class="toolbar-option selected-option disappear"
+<app-bucket-option class="toolbar-option disappear"
     [class.disappear]="!optionDisplayed || currentOption !== bucketOption"
     [class.appear]="optionDisplayed && currentOption === bucketOption"
     [class.slide-out]="!optionDisplayed && currentOption === bucketOption"
     [class.slide-in]="optionOpened && currentOption === bucketOption">
 </app-bucket-option>
 
-<app-selector-option class="toolbar-option selected-option disappear"
+<app-selector-option class="toolbar-option disappear"
     [class.disappear]="!optionDisplayed || currentOption !== selectorOption"
     [class.appear]="optionDisplayed && currentOption === selectorOption"
     [class.slide-out]="!optionDisplayed && currentOption === selectorOption"
     [class.slide-in]="optionOpened && currentOption === selectorOption">
 </app-selector-option>
 
-<app-grid-option class="toolbar-option selected-option disappear"
-    [class.disappear]="!optionDisplayed || currentOption !== gridOption"
+<app-grid-option class="toolbar-option disappear" [class.disappear]="!optionDisplayed || currentOption !== gridOption"
     [class.appear]="optionDisplayed && currentOption === gridOption"
     [class.slide-out]="!optionDisplayed && currentOption === gridOption"
     [class.slide-in]="optionOpened && currentOption === gridOption">
 </app-grid-option>
 
-<app-text-option class="toolbar-option selected-option disappear"
-    [class.disappear]="!optionDisplayed || currentOption !== textOption"
+<app-text-option class="toolbar-option disappear" [class.disappear]="!optionDisplayed || currentOption !== textOption"
     [class.appear]="optionDisplayed && currentOption === textOption"
     [class.slide-out]="!optionDisplayed && currentOption === textOption"
     [class.slide-in]="optionOpened && currentOption === textOption">
 </app-text-option>
 
-<app-clipboard-option class="toolbar-option selected-option disappear"
+<app-clipboard-option class="toolbar-option disappear"
     [class.disappear]="!optionDisplayed || currentOption !== clipboardOption"
     [class.appear]="optionDisplayed && currentOption === clipboardOption"
     [class.slide-out]="!optionDisplayed && currentOption === clipboardOption"

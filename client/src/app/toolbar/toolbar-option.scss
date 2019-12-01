@@ -100,3 +100,12 @@ a:active {
   font-size: 1.2rem;
   font-weight: 900;
 }
+
+.overflow-wrapper {
+  overflow-y: auto;
+  width: 100%;
+  --color-selection-height: 100px;
+  --showcase-height: 200px;
+
+  height: calc(100vh - var(--color-selection-height) - var(--showcase-height) - 40px);
+}
