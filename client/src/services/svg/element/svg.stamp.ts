@@ -8,8 +8,6 @@ export class SVGStamp extends SVGAbstract {
     previousX = 0;
     previousY = 0;
 
-    position: number[];
-
     angles: number;
     lineWidth: number;
 
@@ -26,7 +24,6 @@ export class SVGStamp extends SVGAbstract {
         this.stampTexture.create(this);
         this.imagePaths = imagePath;
 
-        this.position = [x, y];
         this.stampTexture.addPoint(this, x, y);
     }
 
