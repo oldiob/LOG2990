@@ -1,65 +1,63 @@
 <div class="btn-color-wrapper">
 
-    
-    <button class="button"
-        mat-raised-button
-        matTooltip="{{tip}}"
-        matTooltipClass="tooltip" 
-        matTooltipPosition="right"
-        (click)="toggleForm()"
-        [ngStyle]="setColor()">
+
+    <button class="button" mat-raised-button matTooltip="{{tip}}" matTooltipClass="tooltip" matTooltipPosition="right"
+        (click)="toggleForm()" [ngStyle]="setColor()">
         <mat-icon class="icon">{{icon}}</mat-icon>
-        
+
     </button>
     <div class="color1-picker" *ngIf="isSettingsShown">
         <div class="form-wrapper">
             <div class="color-picker-wrapper">
-                <color-picker class="color-picker" (color)="onColorPick($event)" (mouseup)="onMouseUp()">
+                <color-picker (color)="onColorPick($event)" (mouseup)="onMouseUp()">
                 </color-picker>
+                <div class="history-wrapper">
+                    <div class="old-colors">
+                        <div class="old-color" *ngFor="let color of colorsHistory"
+                            [ngStyle]="{'background-color': color.toRGBA()}" (click)="onOldColor(color)"></div>
+                    </div>
+                </div>
             </div>
-    
+
             <form class="form" [formGroup]="colorsForm">
                 <div class="alpha-wrapper">
                     <label for="alpha" class="field-label">Alpha</label>
-                    <input name="alpha" type="range" formControlName="alpha" [min]="0" [max]="1" step="0.01" class="slider"
-                        (change)=onAlphaChange() > 
+                    <input name="alpha" type="range" formControlName="alpha" [min]="0" [max]="1" step="0.01"
+                        class="slider" (change)=onAlphaChange()>
                 </div>
-    
+
                 <div class="hex-wrapper">
                     <span class="field-label">HEX</span>
                     <mat-form-field color="accent" class="field hex-field">
-                        <input maxlength="7" matInput type="text" formControlName="colorHEX" (change)="onColorHEXChange()"
-                            value="{{this.colorsForm.controls.colorHEX.value}}" autocomplete=off>
+                        <input maxlength="7" matInput type="text" formControlName="colorHEX"
+                            (change)="onColorHEXChange()" value="{{this.colorsForm.controls.colorHEX.value}}"
+                            autocomplete=off>
                     </mat-form-field>
-                    <div class="preview" [ngStyle]="{'background-color': this.colorsForm.controls.colorHEX.value}"></div>
+                    <div class="preview" [ngStyle]="{'background-color': this.colorsForm.controls.colorHEX.value}">
+                    </div>
                 </div>
-    
+
                 <label class="rgba-wrapper">
                     <span class="field-label">RGB </span>
-    
+
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" (selectionChange)=validate($event); matInput type="number"
-                            formControlName="red" (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.red.value}}" class="field rgba-field">
+                            formControlName="red" (change)="onColorRGBAChange()"
+                            value="{{this.colorsForm.controls.red.value}}" class="field rgba-field">
                     </mat-form-field>
-    
+
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" matInput type="number" formControlName="green"
                             (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.green.value}}">
                     </mat-form-field>
-    
+
                     <mat-form-field color="accent" class="field rgba-field">
                         <input min="0" max="255" matInput type="number" formControlName="blue"
                             (change)="onColorRGBAChange()" value="{{this.colorsForm.controls.blue.value}}">
                     </mat-form-field>
                 </label>
 
-                <div class="history-wrapper">
-                    <span class="history-label">History</span>
-                    <div class="old-colors">
-                        <div class="old-color" *ngFor="let color of colorsHistory"
-                            [ngStyle]="{'background-color': color.toRGBA()}" (click)="onOldColor(color)"></div>
-                    </div>
-                </div>
+
                 <div class="ok-wrapper">
                     <button class="ok" mat-flat-button (click)="onMouseUp()" color="primary">OK</button>
                 </div>
