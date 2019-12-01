@@ -11,8 +11,8 @@ describe('AirbrushTool', () => {
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
-        element = jasmine.createSpyObj('SVGBrush', ['setPrimary', 'setWidth', 'isAt', 'isIn', 'addAnchor',
-            'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor']);
+        element = jasmine.createSpyObj('SVGAirbrush', ['setPrimary', 'setWidth', 'isAt', 'isIn', 'addAnchor',
+            'setCursor', 'lineLoop', 'finish', 'end', 'popAnchor', 'spray']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         paletteService = jasmine.createSpyObj('PaletteService', ['getPrimary', 'getSecondary']);
 
@@ -34,18 +34,36 @@ describe('AirbrushTool', () => {
         expect(cmd).toBeTruthy();
     });
 
-    it('should on motion', () => {
+    it('should set currentX and currentY on mouse motion', () => {
         airbrush.onMotion(event);
         expect((airbrush as any).currentX).toEqual(event.svgX);
         expect((airbrush as any).currentY).toEqual(event.svgY);
     });
 
-    it('should on released', () => {
+    it('should set width to default when undefined on mouse motion', () => {
+        const DEFAULT_DIAMETER = 5;
+        airbrush.width = undefined;
+        airbrush.onMotion(event);
+        if (airbrush.width !== undefined) {
+            expect(airbrush.width).toBe(DEFAULT_DIAMETER);
+        }
+    });
+
+    it('should call spray on mouse motion', () => {
+        airbrush.element = element;
+        spyOn(element, 'spray');
+        airbrush.onMotion(event);
+        if (airbrush.element) {
+            expect(airbrush.element.spray).toHaveBeenCalled();
+        }
+    });
+
+    it('should clear current element on mouse released', () => {
         airbrush.onReleased(event);
         expect(airbrush.element).toBeFalsy();
     });
 
-    it('should set rate', () => {
+    it('should set rate with the given value', () => {
         airbrush.setRate(1);
         expect((airbrush as any).rate).toBe(1);
     });
