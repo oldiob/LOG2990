@@ -1,7 +1,7 @@
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Point } from 'src/utils/geo-primitives';
-import { SVGAbstract } from './svg.abstract';
 import { isAtLine } from 'src/utils/math';
+import { SVGAbstract } from './svg.abstract';
 
 export class SVGAirbrush extends SVGAbstract {
     element: any;
@@ -28,7 +28,7 @@ export class SVGAirbrush extends SVGAbstract {
             DOMRenderer.appendChild(this.element, singlePoint);
         }
     }
-    getRandomPointCercle(x0: number, y0: number, diameter: number): Point {
+    private getRandomPointCercle(x0: number, y0: number, diameter: number): Point {
         const maxR = diameter / 2;
         const r = this.getRandom(maxR);
         const t = this.getRandom(this.MAX_ANGLE);

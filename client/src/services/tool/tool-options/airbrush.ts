@@ -19,7 +19,6 @@ export class AirbrushTool implements ITool {
     private currentY: number;
 
     private rate: number;
-    diameter: number;
 
     element: SVGAirbrush | null = null;
 
@@ -28,7 +27,6 @@ export class AirbrushTool implements ITool {
     constructor(private paletteService: PaletteService) {
         this.width = this.DEFAULT_DIAMETER;
         this.rate = this.DEFAULT_RATE;
-        this.diameter = this.DEFAULT_DIAMETER;
         this.tip = 'Airbrush (A)';
     }
     onPressed(event: MouseEvent): CmdSVG | null {
