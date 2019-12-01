@@ -52,7 +52,7 @@ describe('TextOptionComponent', () => {
   });
 
   it('should font size equal to 15px', () => {
-    const fontSize = '15px';
+    const fontSize = 15;
     component.selectFontSize(fontSize);
     expect(text.fontSize).toEqual(fontSize);
     if (text.element !== null) {

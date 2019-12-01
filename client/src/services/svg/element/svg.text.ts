@@ -6,13 +6,16 @@ import { SVGService } from '../svg.service';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGText extends SVGAbstract {
-    isNewElement = true;
+    private readonly VERTICAL_SPACE = '1em';
+    private readonly TEXTALIGN_CENTER = 'middle';
+    private readonly TEXTALIGN_LEFT = 'start';
+    private readonly TEXTALIGN_RIGHT = 'end';
     UNSET = '';
     ITALIC = 'italic';
     BOLD = 'bold';
     SPOT_TEXT = 'Enter text...';
     INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
-    VERTICAL_SPACE = '1em';
+    isNewElement: boolean;
     element: any;
     currentSubElement: any;
     previousSubElement: any;
@@ -130,13 +133,13 @@ export class SVGText extends SVGAbstract {
     setTextAlign(align: string): void {
         this.resetX();
         switch (align) {
-            case 'start':
+            case this.TEXTALIGN_LEFT:
                 //
                 break;
-            case 'middle':
+            case this.TEXTALIGN_CENTER:
                 this.setX(this.domRect.width / 2);
                 break;
-            case 'end':
+            case this.TEXTALIGN_RIGHT:
                 this.setX(this.domRect.width);
                 break;
             default:
@@ -148,13 +151,13 @@ export class SVGText extends SVGAbstract {
     }
     computeOffset(align: string): number {
         switch (align) {
-            case 'start':
+            case this.TEXTALIGN_LEFT:
                 //
                 break;
-            case 'middle':
+            case this.TEXTALIGN_CENTER:
                 this.offsetX = this.domRect.width / 2;
                 break;
-            case 'end':
+            case this.TEXTALIGN_RIGHT:
                 this.offsetX = this.domRect.width;
                 break;
             default:

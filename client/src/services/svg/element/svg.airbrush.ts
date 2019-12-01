@@ -40,10 +40,10 @@ export class SVGAirbrush extends SVGAbstract {
         return Math.floor(Math.random() * Math.floor(max));
     }
     isIn(x: number, y: number, r: number): boolean {
-        throw new Error('Method not implemented.');
+        return false;
     }
     getPrimary(): string {
-        throw new Error('Method not implemented.');
+        return '';
     }
     getSecondary(): string {
         return '';

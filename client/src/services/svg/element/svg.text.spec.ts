@@ -11,7 +11,7 @@ describe('SVGText', () => {
     const textAlign = 'start';
     const fontFamily = 'Arial';
     const fontStyle = 'italic';
-    const fontSize = '15px';
+    const fontSize = 15;
     const fontWeight = 'bold';
 
     beforeEach(() => {
