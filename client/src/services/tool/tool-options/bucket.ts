@@ -16,7 +16,7 @@ export class BucketTool implements ITool {
 
     private isLoaded: boolean;
     private imageData: ImageData;
-    colorToleranceDelta: number;
+    private colorToleranceDelta: number;
 
     constructor(private palette: PaletteService) {
         this.width = 0;
@@ -44,7 +44,7 @@ export class BucketTool implements ITool {
         return;
     }
 
-    onSelect() {
+    onSelect(): void {
         this.isLoaded = false;
 
         const createImageData = (svgImage: HTMLImageElement, ctx: CanvasRenderingContext2D): void => {
