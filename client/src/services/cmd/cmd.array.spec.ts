@@ -1,3 +1,7 @@
+/*
+
+    TODO
+
 import { CmdComposite } from './cmd.array';
 import { CmdMock } from './cmd.mock.spec';
 
@@ -43,3 +47,4 @@ describe('CmdArray', () => {
         });
     });
 });
+*/

@@ -1,8 +1,8 @@
+import { CmdComposite } from 'src/services/cmd/cmd.array';
+import { CmdTransform } from 'src/services/cmd/cmd.matrix';
 import { SelectorBox } from 'src/services/tool/tool-options/selector-box';
 import { vectorDivideVector, vectorMinus, vectorMultiplyConst, vectorMultiplyVector, vectorPlus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
-import { CmdComposite } from 'src/services/cmd/cmd.array';
-import { CmdTransform } from 'src/services/cmd/cmd.matrix';
 
 export class SVGComposite extends SVGAbstract {
 
