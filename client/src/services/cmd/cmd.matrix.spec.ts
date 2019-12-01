@@ -1,19 +1,13 @@
-import { async, TestBed } from '@angular/core/testing';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { MatrixSVG } from 'src/utils/matrix';
 import { SVGPencil } from '../svg/element/svg.pencil';
 import {CmdMatrix} from './cmd.matrix';
 
-describe('cmdEraser', () => {
+describe('cmdMatrix', () => {
     let cmdMatrix: CmdMatrix;
     let renderer: any;
     let obj: any;
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            providers: [CmdMatrix],
-        }).compileComponents();
-    }));
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
