@@ -32,9 +32,9 @@ describe('SVGPencil', () => {
 
     it('should return true only if (x,y) is at where the pencil drew', () => {
 
-        pencil.lineWidth = 16;
-        pencil.points.push([X, Y]);
-        pencil.points.push([X + 4, Y]);
+        (pencil as any).lineWidth = 16;
+        (pencil as any).points.push([X, Y]);
+        (pencil as any).points.push([X + 4, Y]);
         expect(pencil.isAt(X, Y)).toBeTruthy();
         expect(pencil.isAt(X - 40, Y - 80)).toBeFalsy();
 
@@ -63,18 +63,8 @@ describe('SVGPencil', () => {
     it('should set width', () => {
         const width = Math.random() * 1000;
         pencil.setWidth(width);
-        expect(pencil.lineWidth).toEqual(width);
+        expect((pencil as any).lineWidth).toEqual(width);
         expect(renderer.setAttribute).toHaveBeenCalled();
     });
-
-    // it('should add point to the points list', () => {
-    //     pencil.addPoint(X, Y);
-    //     /*
-    //     TODO:
-
-    //     expect(pencil.points).toContain([X, Y]);
-    //     expect(renderer.setAttribute).toHaveBeenCalled();
-    //     */
-    // });
 
 });

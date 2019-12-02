@@ -3,15 +3,16 @@ import { isAtLine } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGPencil extends SVGAbstract {
+
+    private points: number[][];
+    private lineWidth: number;
+
     element: any;
-
-    points: number[][] = [];
-
-    lineWidth = 1;
 
     constructor() {
         super();
-
+        this.lineWidth = 1;
+        this.points = [];
         this.element = DOMRenderer.createElement('polyline', 'svg');
 
         DOMRenderer.setAttribute(this.element, 'fill', 'none');
@@ -20,7 +21,7 @@ export class SVGPencil extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'points', '');
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
+    protected isAtAdjusted(x: number, y: number): boolean {
         const WIDTH_MARGIN = 10.0;
         const width: number = this.lineWidth + WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {
@@ -31,6 +32,7 @@ export class SVGPencil extends SVGAbstract {
 
         return false;
     }
+
     isIn(x: number, y: number, r: number): boolean {
         const tempWidth = this.lineWidth;
         this.lineWidth += r;
@@ -53,11 +55,10 @@ export class SVGPencil extends SVGAbstract {
     }
 
     setSecondary(color: string): void {
-        // NO OP
+        //
     }
 
     setWidth(width: number): void {
-        this.lineWidth = width;
         DOMRenderer.setAttribute(this.element, 'stroke-width', width.toString());
     }
 
