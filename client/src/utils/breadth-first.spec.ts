@@ -1,7 +1,7 @@
 import { BreadthFirst } from './breadth-first';
 import { createArray } from './image-manipulations';
 
-fdescribe('BreadFirst', () => {
+describe('BreadFirst', () => {
 
     let breadthFirst: BreadthFirst;
     let position: number[];
