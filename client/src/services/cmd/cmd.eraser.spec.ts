@@ -1,22 +1,22 @@
 import { async, TestBed } from '@angular/core/testing';
 // import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { MyInjector } from 'src/utils/injector';
-import {CmdEraser} from './cmd.eraser';
+import {CmdErase} from './cmd.eraser';
 
 describe('cmdEraser', () => {
-    let cmdEraser: CmdEraser;
+    let cmdEraser: CmdErase;
     let spyObj: any;
     let svgService: any;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            providers: [CmdEraser],
+            providers: [CmdErase],
         }).compileComponents();
     }));
 
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
-        cmdEraser = new CmdEraser();
+        cmdEraser = new CmdErase();
         spyObj = jasmine.createSpyObj('SVGAbstract', ['isAtAdjusted', 'isIn', 'getPrimary', 'getSecondary',
                                                         'setPrimary', 'setSecondary', 'setWidth', 'addPoint',
                                                         'pointsAttribute']);
@@ -30,7 +30,7 @@ describe('cmdEraser', () => {
 
     it ('should accomplish task correctly if parameter isnt null', () => {
         cmdEraser.eraseObject(spyObj);
-        expect(cmdEraser.objs).toBeTruthy();
+        expect(cmdEraser.object).toBeTruthy();
     });
 
     it('execute put areEqual to true if areEqual is false', () => {

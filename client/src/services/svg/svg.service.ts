@@ -44,36 +44,25 @@ export class SVGService {
         return elements;
     }
 
-    inRectangle(x: number, y: number, width: number, height: number): (SVGAbstract | null)[] {
-        const elements: (SVGAbstract | null)[] = [];
-        const SPACING = 2.0;
+    inRectangle(rect: Rect): SVGAbstract | null {
+        const MIN_WIDTH = 5.0;
 
-        const halfWidth = width / 2.0;
-        const halfHeight = height / 2.0;
+        for (let i = this.objects.length - 1; i >= 0; i--) {
+            const box: any = this.getElementRect(this.objects[i].element);
 
-        const corners = [
-            [x - halfWidth, y - halfHeight], [x + halfWidth, y - halfHeight],
-            [x + halfWidth, y + halfHeight], [x - halfWidth, y + halfHeight]];
+            if (box.width === 0 || box.height === 0) {
+                box.x -= MIN_WIDTH / 2;
+                box.y -= MIN_WIDTH / 2;
+                box.width = MIN_WIDTH;
+                box.height = MIN_WIDTH;
+            }
 
-        for (let i = 0; i < corners.length; i++) {
-            const begin = corners[i];
-            const end = corners[(i + 1) % corners.length];
-            let unitVector = vectorMinus(end, begin);
-            const moduleLen = vectorModule(unitVector);
-            unitVector = vectorMultiplyConst(unitVector, 1.0 / moduleLen);
-
-            for (let count = 0; count < moduleLen; count += SPACING) {
-                const point = vectorPlus(begin, vectorMultiplyConst(unitVector, count));
-
-                const elementFound = this.findAt(point[0], point[1]);
-
-                if (!elements.find((element: SVGAbstract | null) => element === elementFound)) {
-                    elements.push(elementFound);
-                }
+            if (rect.intersect(new Rect(box.x, box.y, box.x + box.width, box.y + box.height))) {
+                return this.objects[i];
             }
         }
 
-        return elements;
+        return null;
     }
 
     addObject(obj: SVGAbstract | null) {

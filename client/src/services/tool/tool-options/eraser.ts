@@ -2,57 +2,64 @@ import { Injectable } from '@angular/core';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 
-import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { CmdComposite } from 'src/services/cmd/cmd.array';
+import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { recreateElement } from 'src/utils/element-parser';
+import { Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
+import { recreateElement } from 'src/utils/element-parser';
 
 @Injectable({
     providedIn: 'root',
 })
 export class EraserTool implements ITool {
 
-    readonly tip: string;
+    readonly tip: string = 'Eraser (E)';
 
-    private isActivated: boolean;
+    private mIsActivated: boolean;
     private mWidth: number;
 
-    private container: any | null;
-    private objectsOnHold: (SVGAbstract | null)[] = [];
-
-    private cmd: CmdEraser;
-
-    private surroundingRectangle: any | null;
+    private cmd: CmdComposite;
+    private eraserRect: SVGRectElement;
+    private surrcoundingRect: SVGGElement;
 
     constructor(private svgService: SVGService) {
-        this.surroundingRectangle = null;
+        this.eraserRect = DOMRenderer.createElement('rect', 'svg', {
+            'stroke-width': '1',
+            stroke: 'black',
+        });
+        this.surrcoundingRect = DOMRenderer.createElement('g', 'svg', {
+            'stroke-width': '1',
+            filter: 'url(#erase)',
+        });
 
         this.isActivated = false;
-        this.width = 64;
-        this.tip = 'Eraser (E)';
+        this.width = 10;
+    }
 
-        this.container = DOMRenderer.createElement('g', 'svg');
+    set isActivated(isActivated: boolean) {
+        this.mIsActivated = isActivated;
+        DOMRenderer.setAttribute(this.eraserRect, 'fill', isActivated ? 'red' : 'white');
+    }
+
+    get isActivated(): boolean {
+        return this.mIsActivated;
     }
 
     set width(width: number) {
-        if (this.surroundingRectangle !== null) {
-            DOMRenderer.setAttribute(this.surroundingRectangle, 'width', width.toString());
-            DOMRenderer.setAttribute(this.surroundingRectangle, 'height', width.toString());
-        }
-
         this.mWidth = width;
+        DOMRenderer.setAttributes(this.eraserRect, { width: width.toString(), height: width.toString() });
     }
 
     get width(): number {
         return this.mWidth;
     }
 
-    onPressed(event: MouseEvent): CmdEraser {
-        this.cmd = new CmdEraser();
+    onPressed(event: MouseEvent): CmdComposite {
+        this.cmd = new CmdComposite();
 
         this.isActivated = true;
-        this.deleteAll();
-        this.flushContainer();
+        this.onMotion(event);
 
         return this.cmd;
     }
@@ -65,71 +72,69 @@ export class EraserTool implements ITool {
         const x: number = event.svgX;
         const y: number = event.svgY;
 
-        if (this.surroundingRectangle === null) {
-            this.createSurroundingRectangle(x, y);
-        }
         this.moveSurroundingRectangle(x, y);
+        this.hideSurroundingRect();
 
-        this.flushContainer();
-        this.objectsOnHold = this.svgService.inRectangle(x, y, this.width, this.width);
+        const rect: DOMRect = this.svgService.getElementRect(this.eraserRect);
 
-        if (this.isActivated) {
-            this.deleteAll();
-        } else {
-            for (const obj of this.objectsOnHold) {
-                if (obj !== null && obj.element) {
-                    DOMRenderer.appendChild(this.container, this.createFakeElement(obj.element));
-                }
+        const object: SVGAbstract | null = this.svgService.inRectangle(new Rect(rect.x, rect.y, rect.right, rect.bottom));
+
+        if (object !== null) {
+            if (this.isActivated) {
+                const erase: CmdErase = new CmdErase(object);
+                erase.execute();
+                this.cmd.addChild(erase);
+            } else {
+                this.showSurroundingRect(object);
             }
         }
-    }
 
-    private createFakeElement(fakeElement: any): any {
-        const filter = DOMRenderer.createElement('g', 'svg');
-        DOMRenderer.setAttribute(filter, 'filter', 'url(#erase)');
-        DOMRenderer.appendChild(filter, recreateElement(fakeElement));
-
-        return filter;
-    }
-
-    private flushContainer(): void {
-        DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.container);
-        for (const child of this.container.children) {
-            DOMRenderer.removeChild(this.container, child);
-        }
-        DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.container);
-    }
-
-    private deleteAll(): void {
-        this.objectsOnHold.forEach((obj) => {
-            this.cmd.eraseObject(obj);
-        });
+        this.showEraser();
     }
 
     onLeave(): void {
-        if (this.surroundingRectangle !== null) {
-            DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
-            this.surroundingRectangle = null;
-        }
+        this.hideEraser();
+        this.hideSurroundingRect();
     }
 
-    private createSurroundingRectangle(x: number, y: number): void {
+    onSelect(): void {
+        this.showEraser();
+    }
+
+    onUnSelect(): void {
         this.onLeave();
-
-        this.surroundingRectangle = DOMRenderer.createElement('rect', 'svg');
-        this.moveSurroundingRectangle(x, y);
-        this.width = this.mWidth;
-
-        DOMRenderer.setAttribute(this.surroundingRectangle, 'fill', 'white');
-        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke-width', '1');
-        DOMRenderer.setAttribute(this.surroundingRectangle, 'stroke', 'black');
-
-        DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.surroundingRectangle);
     }
 
     private moveSurroundingRectangle(x: number, y: number): void {
         const halfWidth = this.width / 2.0;
-        DOMRenderer.setAttribute(this.surroundingRectangle, 'x', (x - halfWidth).toString());
-        DOMRenderer.setAttribute(this.surroundingRectangle, 'y', (y - halfWidth).toString());
+        DOMRenderer.setAttribute(this.eraserRect, 'x', (x - halfWidth).toString());
+        DOMRenderer.setAttribute(this.eraserRect, 'y', (y - halfWidth).toString());
+    }
+
+    private hideEraser(): void {
+        DOMRenderer.removeChild(this.svgService.entry.nativeElement, this.eraserRect);
+    }
+
+    private showEraser(): void {
+        this.hideEraser();
+        DOMRenderer.appendChild(this.svgService.entry.nativeElement, this.eraserRect);
+    }
+
+    private hideSurroundingRect(): void {
+        this.svgService.removeElement(this.surrcoundingRect);
+
+        const children: HTMLCollection = this.surrcoundingRect.children;
+        for (let i = 0; i < children.length; i++) {
+            DOMRenderer.removeChild(this.surrcoundingRect, children.item(i));
+        }
+    }
+
+    private showSurroundingRect(element: SVGAbstract): void {
+        this.hideSurroundingRect();
+
+        const fakeElement = recreateElement(element.element);
+        DOMRenderer.appendChild(this.surrcoundingRect, fakeElement);
+
+        this.svgService.addElement(this.surrcoundingRect);
     }
 }

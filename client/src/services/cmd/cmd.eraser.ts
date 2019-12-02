@@ -3,38 +3,24 @@ import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGService } from 'src/services/svg/svg.service';
 import { MyInjector } from 'src/utils/injector';
 
-export class CmdEraser implements CmdInterface {
+export class CmdErase implements CmdInterface {
 
-    objs: SVGAbstract[];
+    object: SVGAbstract;
+    index: number;
+
     svg: SVGService;
-    areErased: boolean;
 
-    constructor() {
-        this.objs = [];
+    constructor(obj: SVGAbstract) {
+        this.object = obj;
         this.svg = MyInjector.get(SVGService);
-
-        this.areErased = true;
-    }
-
-    eraseObject(obj: SVGAbstract | null): void {
-        if (obj !== null) {
-            this.objs.push(obj);
-            this.svg.removeObject(obj);
-        }
     }
 
     execute(): void {
-        if (!this.areErased) {
-            this.objs.forEach((obj) => this.svg.removeObject(obj));
-            this.areErased = true;
-        }
+        this.svg.removeObject(this.object);
     }
 
     undo(): void {
-        if (this.areErased) {
-            this.objs.forEach((obj) => this.svg.addObject(obj));
-            this.areErased = false;
-        }
+        this.svg.addObject(this.object);
     }
 
     redo(): void {

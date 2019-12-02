@@ -1,4 +1,4 @@
-import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
@@ -41,7 +41,7 @@ describe('EraserTool', () => {
     });
 
     it('OnPressed should equal to a new CmdEraser', () => {
-        const tempCmd = new CmdEraser();
+        const tempCmd = new CmdErase();
         (eraser as any).isActivated = false;
         eraser.onPressed(event);
         expect(eraser.onPressed(event)).toEqual(tempCmd);
