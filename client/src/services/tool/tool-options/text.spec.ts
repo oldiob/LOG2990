@@ -64,7 +64,7 @@ describe('TextTool', () => {
 
     it('should finish editing', () => {
         spyOn(keyService, 'enableKeys');
-        text.finishEdit();
+        (text as any).finishEdit();
         expect(text.isEditing).toBeFalsy();
         expect(keyService.enableKeys).toHaveBeenCalled();
         expect(text.element).toBeNull();
@@ -72,19 +72,19 @@ describe('TextTool', () => {
 
     it('should start editing', () => {
         spyOn(keyService, 'disableKeys');
-        text.startEdit();
+        (text as any).startEdit();
         expect(text.isEditing).toBeTruthy();
         expect(keyService.disableKeys).toHaveBeenCalled();
     });
 
     it('should return true if the line is empty', () => {
         const emptyString = '';
-        expect(text.isLineEmpty(emptyString)).toBeTruthy();
+        expect((text as any).isLineEmpty(emptyString)).toBeTruthy();
     });
 
     it('should return false if the line is not empty', () => {
         const content = 'Test';
-        expect(text.isLineEmpty(content)).toBeFalsy();
+        expect((text as any).isLineEmpty(content)).toBeFalsy();
     });
 
     it('should show a preview of text', () => {

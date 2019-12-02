@@ -14,11 +14,13 @@ declare type callback = () => void;
 export class TextTool implements ITool {
 
     readonly tip: string;
-    private TEXTTIP = 'Text (T)';
-    private UNSET = '';
-    private INITIALSIZE = 15;
-    private SHOWCASE_DEFAULT = 'Rebase';
-    element: SVGText | null = null;
+    private readonly TEXT_TIP = 'Text (T)';
+    private readonly UNSET = '';
+    private readonly INITIAL_SIZE = 15;
+    private readonly SHOWCASE_DEFAULT = 'Rebase';
+    private readonly DEFAULT_WIDTH = 15;
+
+    element: SVGText | null;
     fontSize: number;
     fontStyle: string;
     fontWeigth: string;
@@ -27,18 +29,19 @@ export class TextTool implements ITool {
     width: number;
 
     isEditing: boolean;
-    clickAlign = false;
+    clickAlign: boolean;
 
     constructor(private keyService: KeyService, private paletteService: PaletteService) {
-        this.tip = this.TEXTTIP;
+        this.element = null;
+        this.tip = this.TEXT_TIP;
         this.fontWeigth = this.UNSET;
         this.fontStyle = this.UNSET;
         this.fontFamily = this.UNSET;
         this.textAlign = this.UNSET;
-        this.fontSize = this.INITIALSIZE;
+        this.fontSize = this.INITIAL_SIZE;
         this.isEditing = false;
-        const DEFAULT_WIDTH = 15;
-        this.width = DEFAULT_WIDTH;
+        this.clickAlign = false;
+        this.width = this.DEFAULT_WIDTH;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
@@ -70,6 +73,7 @@ export class TextTool implements ITool {
     onMotion(event: MouseEvent): void {
         return;
     }
+
     onReleased(event: MouseEvent): void {
         if (this.element) {
             this.element.removeRectangle();
@@ -77,7 +81,7 @@ export class TextTool implements ITool {
         return;
     }
 
-    private removeNewText() {
+    private removeNewText(): void {
         const serv: SVGService = MyInjector.get(SVGService);
         if (this.element && this.element.isNewElement) {
             serv.removeObject(this.element);
@@ -141,7 +145,7 @@ export class TextTool implements ITool {
         return true;
     }
 
-    finishEdit(): void {
+    private finishEdit(): void {
         this.isEditing = false;
         this.keyService.enableKeys();
         if (this.element) {
@@ -150,11 +154,13 @@ export class TextTool implements ITool {
 
         this.element = null;
     }
-    startEdit(): void {
+
+    private startEdit(): void {
         this.isEditing = true;
         this.keyService.disableKeys();
     }
-    isLineEmpty(content: string): boolean {
+
+    private isLineEmpty(content: string): boolean {
         if (content === this.UNSET) {
             return true;
         }
@@ -178,7 +184,7 @@ export class TextTool implements ITool {
         return element;
     }
 
-    setTextAlign(align: string) {
+    setTextAlign(align: string): void {
         this.textAlign = align;
         if (this.element) {
             this.element.setRectangle(this.element.domRect);

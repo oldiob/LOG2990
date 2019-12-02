@@ -77,17 +77,17 @@ describe('SVGText', () => {
     });
 
     it('should remove character if the character is i', () => {
-        spyOn(svgText, 'removeLine');
+        spyOn((svgText as any), 'removeLine');
         svgText.currentSubElement.innerHTML = svgText.INVISIBLE_LINE_VALUE;
         svgText.removeCharacter();
-        expect(svgText.removeLine).toHaveBeenCalled();
+        expect((svgText as any).removeLine).toHaveBeenCalled();
     });
 
     it('should remove character if the character is empty', () => {
-        spyOn(svgText, 'removeLine');
+        spyOn((svgText as any), 'removeLine');
         svgText.currentSubElement.innerHTML = svgText.UNSET;
         svgText.removeCharacter();
-        expect(svgText.removeLine).toHaveBeenCalled();
+        expect((svgText as any).removeLine).toHaveBeenCalled();
     });
 
     it('should remove character if the character is not empty', () => {
@@ -101,18 +101,18 @@ describe('SVGText', () => {
     it('should remove line', () => {
         svgText.subElements = [svgText.SPOT_TEXT, svgText.BOLD];
         spyOn(svgText.subElements, 'pop');
-        svgText.removeLine();
+        (svgText as any).removeLine();
         expect(svgText.subElements.pop).toHaveBeenCalled();
         expect(renderer.removeChild).toHaveBeenCalled();
     });
 
     it('should reset offsetX to 0', () => {
-        svgText.resetX();
+        (svgText as any).resetX();
         expect(svgText.offsetX).toBe(0);
     });
 
     it('should set offsetX to the given value', () => {
-        svgText.setX(50);
+        (svgText as any).setX(50);
         expect(svgText.offsetX).toBe(50);
     });
 

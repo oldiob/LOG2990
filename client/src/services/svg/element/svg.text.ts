@@ -6,23 +6,24 @@ import { SVGService } from '../svg.service';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGText extends SVGAbstract {
+
     private readonly VERTICAL_SPACE = '1em';
-    private readonly TEXTALIGN_CENTER = 'middle';
-    private readonly TEXTALIGN_LEFT = 'start';
-    private readonly TEXTALIGN_RIGHT = 'end';
-    UNSET = '';
-    ITALIC = 'italic';
-    BOLD = 'bold';
-    SPOT_TEXT = 'Enter text...';
-    INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
+    private readonly TEXT_ALIGN_CENTER = 'middle';
+    private readonly TEXT_ALIGN_LEFT = 'start';
+    private readonly TEXT_ALIGN_RIGHT = 'end';
+    readonly UNSET = '';
+    readonly ITALIC = 'italic';
+    readonly BOLD = 'bold';
+    readonly SPOT_TEXT = 'Enter text...';
+    readonly INVISIBLE_LINE_VALUE = 'INVISIBLE_LINE';
+
     isNewElement: boolean;
     element: any;
     currentSubElement: any;
     previousSubElement: any;
-    isLastSubElement: true;
     subElements: any = [];
     currentX: string;
-    offsetX = 0;
+    offsetX: number;
 
     textAlign: string;
     fontFamily: string;
@@ -39,6 +40,7 @@ export class SVGText extends SVGAbstract {
         super();
         this.initRectangle();
 
+        this.offsetX = 0;
         this.textAlign = textAlign;
         this.fontFamily = fontFamily;
         this.fontSize = fontSize;
@@ -94,7 +96,7 @@ export class SVGText extends SVGAbstract {
         svgService.removeElement(this.rectangle);
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
+    protected isAtAdjusted(x: number, y: number): boolean {
         const vectorTo: number[] = vectorMinus([x, y], this.position);
         return vectorModule(vectorTo) <= (this.domRect.width || this.domRect.height);
     }
@@ -102,44 +104,53 @@ export class SVGText extends SVGAbstract {
     isIn(x: number, y: number, r: number): boolean {
         return false;
     }
+
     getPrimary(): string {
         return '';
     }
+
     getSecondary(): string {
         return '';
     }
+
     setPrimary(color: string): void {
         DOMRenderer.setAttribute(this.element, 'fill', color);
     }
+
     setSecondary(color: string): void {
         //
     }
+
     setFontSize(size: number): void {
         this.fontSize = size;
         DOMRenderer.setAttribute(this.element, 'font-size', this.fontSize.toString());
     }
+
     setFontFamily(fontfamily: string): void {
         this.fontFamily = fontfamily;
         DOMRenderer.setAttribute(this.element, 'font-family', this.fontFamily);
     }
+
     setFontStyle(style: string): void {
         this.fontStyle = style;
         DOMRenderer.setAttribute(this.element, 'font-style', this.fontStyle);
     }
+
     setFontWeight(weight: string): void {
         this.fontWeight = weight;
         DOMRenderer.setAttribute(this.element, 'font-weight', this.fontWeight);
     }
+
     setTextAlign(align: string): void {
         this.resetX();
         switch (align) {
-            case this.TEXTALIGN_LEFT:
+            case this.TEXT_ALIGN_LEFT:
                 //
                 break;
-            case this.TEXTALIGN_CENTER:
+            case this.TEXT_ALIGN_CENTER:
                 this.setX(this.domRect.width / 2);
                 break;
-            case this.TEXTALIGN_RIGHT:
+            case this.TEXT_ALIGN_RIGHT:
                 this.setX(this.domRect.width);
                 break;
             default:
@@ -149,22 +160,23 @@ export class SVGText extends SVGAbstract {
             DOMRenderer.setAttribute(subElement, 'text-anchor', this.textAlign);
         }
     }
+
     computeOffset(align: string): number {
         switch (align) {
-            case this.TEXTALIGN_LEFT:
-                //
+            case this.TEXT_ALIGN_LEFT:
                 break;
-            case this.TEXTALIGN_CENTER:
+            case this.TEXT_ALIGN_CENTER:
                 this.offsetX = this.domRect.width / 2;
                 break;
-            case this.TEXTALIGN_RIGHT:
+            case this.TEXT_ALIGN_RIGHT:
                 this.offsetX = this.domRect.width;
                 break;
             default:
         }
         return this.offsetX;
     }
-    setX(deltaX: number): void {
+
+    private setX(deltaX: number): void {
         DOMRenderer.setAttribute(this.element, 'x', (Number(this.currentX) + deltaX).toString());
         for (const subElement of this.subElements) {
             DOMRenderer.setAttribute(subElement, 'x', (Number(this.currentX) + deltaX).toString());
@@ -172,10 +184,12 @@ export class SVGText extends SVGAbstract {
         this.currentX = (Number(this.currentX) + deltaX).toString();
         this.offsetX = deltaX;
     }
-    resetX(): void {
+
+    private resetX(): void {
         this.setX(-this.offsetX);
         this.offsetX = 0;
     }
+
     setCurrentPlaceholder(): void {
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
         this.currentSubElement.innerHTML = this.INVISIBLE_LINE_VALUE;
@@ -205,7 +219,7 @@ export class SVGText extends SVGAbstract {
                 this.currentSubElement.innerHTML = this.content;
         }
     }
-    removeLine(): void {
+    private removeLine(): void {
         if (this.subElements.length > 1) {
             DOMRenderer.removeChild(this.element, this.currentSubElement);
             this.subElements.pop();
