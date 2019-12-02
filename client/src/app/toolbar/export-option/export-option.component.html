@@ -2,15 +2,22 @@
 
 <div class="export-wrapper">
     <form [formGroup]="exportForm">
-        <mat-form-field class="name" color="accent">
-            <input matInput placeholder="Name" formControlName="name" required>
-            <mat-error *ngIf="exportForm.invalid">{{getNameErrorMessage()}}</mat-error>
-        </mat-form-field>
+        <div class="wrapper">
+            <mat-form-field class="name" color="accent">
+                <input matInput placeholder="Name" formControlName="name" required>
+                <mat-error *ngIf="exportForm.invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-        <div class="button-wrapper" *ngFor="let exportType of exportTypes">
-            <input type="radio" name="export" (click)="onClick(exportType)">
-            <label class="button-wrapper" for="exportType">{{exportType}}</label>
+            <mat-form-field class="extension" color="accent">
+                <mat-label class="trace-label">Type</mat-label>
+                <mat-select (selectionChange)="onClick()" panelClass="trace-panel" formControlName="export">
+                    <mat-option *ngFor="let exportType of exportTypes" [value]="exportType">
+                        {{exportType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
+
         <mat-error *ngIf="exportForm.invalid">{{getExportErrorMessage()}}</mat-error>
         <div class="button-wrapper">
             <button class="btn-close" color="secondary" mat-raised-button mat-dialog-close>Close</button>
