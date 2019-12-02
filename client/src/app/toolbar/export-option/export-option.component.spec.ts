@@ -87,6 +87,7 @@ describe('ExportOptionComponent', () => {
 
     it('should on click select png', () => {
         component.exportForm.controls.export.setValue(component.exportTypes[1]);
+        component.onClick();
         expect(component.exportTypes[1]).toEqual(selectExportTest[1]);
     });
 
