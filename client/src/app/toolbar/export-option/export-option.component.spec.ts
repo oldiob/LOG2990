@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { saveFile } from 'src/utils/filesystem';
 import { ExportOptionComponent } from './export-option.component';
 
-fdescribe('ExportOptionComponent', () => {
+describe('ExportOptionComponent', () => {
     let component: ExportOptionComponent;
     let fixture: ComponentFixture<ExportOptionComponent>;
     let selectExportTest: string[];
