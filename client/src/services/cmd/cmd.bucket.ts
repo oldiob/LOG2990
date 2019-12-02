@@ -3,10 +3,10 @@ import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 
 export class CmdBucket implements CmdInterface {
 
-    obj: SVGAbstract;
-    primary: boolean;
-    color: string;
-    prevColor: string;
+    private obj: SVGAbstract;
+    private primary: boolean;
+    private color: string;
+    private prevColor: string;
 
     constructor(obj: SVGAbstract, color: string, primary: boolean) {
         this.obj = obj;

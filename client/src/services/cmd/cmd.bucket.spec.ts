@@ -18,42 +18,42 @@ describe('CmdBucket', () => {
 
     it('should construct with an SVGAbstract array as a parameter', () => {
         expect(cmd).toBeTruthy();
-        expect(cmd.primary).toEqual(primary);
-        expect(cmd.color).toEqual(color);
+        expect((cmd as any).primary).toEqual(primary);
+        expect((cmd as any).color).toEqual(color);
     });
 
     it('should call setPrimary when executed when primary equals true', () => {
         cmd.execute();
-        expect(cmd.obj.setPrimary).toHaveBeenCalled();
+        expect((cmd as any).obj.setPrimary).toHaveBeenCalled();
     });
 
     it('should call setSecondary when executed when primary equals false', () => {
-        cmd.primary = false;
+        (cmd as any).primary = false;
         cmd.execute();
-        expect(cmd.obj.setSecondary).toHaveBeenCalled();
+        expect((cmd as any).obj.setSecondary).toHaveBeenCalled();
     });
 
     it('should call setPrimary when undo when primary equals true', () => {
-        cmd.prevColor = prevColor;
+        (cmd as any).prevColor = prevColor;
         cmd.undo();
-        expect(cmd.obj.setPrimary).toHaveBeenCalled();
+        expect((cmd as any).obj.setPrimary).toHaveBeenCalled();
     });
 
     it('should call setSecondary when undo when primary equals false', () => {
-        cmd.primary = false;
-        cmd.prevColor = prevColor;
+        (cmd as any).primary = false;
+        (cmd as any).prevColor = prevColor;
         cmd.undo();
-        expect(cmd.obj.setSecondary).toHaveBeenCalled();
+        expect((cmd as any).obj.setSecondary).toHaveBeenCalled();
     });
 
     it('should call setPrimary when redo when primary equals true', () => {
         cmd.redo();
-        expect(cmd.obj.setPrimary).toHaveBeenCalled();
+        expect((cmd as any).obj.setPrimary).toHaveBeenCalled();
     });
 
     it('should call setSecondary when redo when primary equals false', () => {
-        cmd.primary = false;
+        (cmd as any).primary = false;
         cmd.redo();
-        expect(cmd.obj.setSecondary).toHaveBeenCalled();
+        expect((cmd as any).obj.setSecondary).toHaveBeenCalled();
     });
 });

@@ -1,4 +1,4 @@
-/* TODO
+
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
@@ -19,7 +19,7 @@ describe('StampTool', () => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         DOMRenderer.renderer = renderer;
         stamp = new StampTool();
-        stamp.stampTexture = iStamp;
+        stamp.emoji = iStamp;
         event = new MouseEvent('mousedown');
 
         svgService = jasmine.createSpyObj('SVGService', ['getElementRect']);
@@ -35,15 +35,16 @@ describe('StampTool', () => {
     it('should create', () => {
         expect(stamp).toBeTruthy();
     });
-
-    it('should create new stamp when onPressed', () => {
-        expect(stamp.onPressed(event)).toBeTruthy();
+/* TODO
+    it('should not create new stamp when onPressed with empty currentPath', () => {
+        (stamp as any).currentPath = '';
+        expect(stamp.onPressed(event)).toBeNull();
     });
-
+*/
     it('should set element to null when OnReleased', () => {
-        stamp.element = element;
+        (stamp as any).element = element;
         stamp.onReleased(event);
-        expect(stamp.element).toBeNull();
+        expect((stamp as any).element).toBeNull();
     });
 
     it('should return true when it is on wheel', () => {
@@ -52,5 +53,3 @@ describe('StampTool', () => {
         expect(stamp.onWheel).toBeTruthy();
     });
 });
-
-*/

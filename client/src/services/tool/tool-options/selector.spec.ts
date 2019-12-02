@@ -1,15 +1,13 @@
-/*
-    TODO:
-
-import { GridService } from 'src/services/grid/grid.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { SelectorTool, State } from './selector';
+import { SelectorTool } from './selector';
+import { SelectorBox, SelectorState} from './selector-box';
 
 describe('SelectorTool', () => {
 
     let tool: SelectorTool;
     let svg: any;
-    let grid: GridService;
+    let selectorBox: SelectorBox;
+    let selectorState: SelectorState;
 
     beforeEach(() => {
         const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
@@ -17,7 +15,9 @@ describe('SelectorTool', () => {
 
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
 
-        grid = jasmine.createSpyObj('GridService', ['snapOnGrid']);
+        selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles']);
+
+        selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
         const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
@@ -26,7 +26,9 @@ describe('SelectorTool', () => {
 
         svg.getInRect.and.returnValue(new Set<any>([]));
         svg.findAt.and.returnValue(new Set<any>([]));
-        tool = new SelectorTool(svg, grid);
+        tool = new SelectorTool(svg);
+        (tool as any).selectorBox = selectorBox;
+        (tool as any).state = selectorState;
 
     });
 
@@ -34,35 +36,17 @@ describe('SelectorTool', () => {
         expect(tool).toBeTruthy();
     });
 
-    it('should to nothing on wheel event', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 1 }));
-        expect(tool.state).toEqual(State.idle);
+    it('should select when it is onPressed', () => {
+        spyOn((tool as any), 'onLeftClick');
+        const event = new MouseEvent('mousedown', { button: 0 });
+        tool.onPressed(event);
+        expect((tool as any).onLeftClick).toHaveBeenCalledWith(event.svgX, event.svgY);
     });
 
-    it('should set the correct policy', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        expect(tool.policy).toBeFalsy();
-        tool.onPressed(new MouseEvent('mousedown', { button: 2 }));
-        expect(tool.policy).toBeTruthy();
-    });
-
-    it('should change state to maybe if idle', () => {
-        expect(tool.state).toEqual(State.idle);
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        expect(tool.state).toEqual(State.maybe);
-    });
-
-    it('should set the anchor on the first motion', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        expect(tool.state).toEqual(State.selecting);
-    });
-
-    it('should set the cursor on continous motion', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        expect(tool.state).toEqual(State.selecting);
+    it('should deselect when it is onPressed', () => {
+        const event = new MouseEvent('mousedown', { button: 2 });
+        tool.onPressed(event);
+        expect((tool as any).state).toEqual(SelectorState.DESELECTING);
     });
 
     it('should reset to state idle when released', () => {
@@ -70,8 +54,7 @@ describe('SelectorTool', () => {
         tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
         tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
         tool.onReleased(new MouseEvent('mousedown', { button: 0 }));
-        expect(tool.state).toEqual(State.idle);
+        expect((tool as any).state).toEqual(SelectorState.NONE);
     });
 
 });
-*/
