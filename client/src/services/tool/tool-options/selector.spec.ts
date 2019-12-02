@@ -46,7 +46,7 @@ describe('SelectorTool', () => {
     it('should deselect when it is onPressed', () => {
         const event = new MouseEvent('mousedown', { button: 2 });
         tool.onPressed(event);
-        expect((tool as any).state).toEqual(SelectorState.DESELECTING);
+        expect((tool as any).state).toEqual(SelectorState.UNSELECTING);
     });
 
     it('should reset to state idle when released', () => {

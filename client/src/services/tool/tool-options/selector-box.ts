@@ -6,7 +6,7 @@ export enum SelectorState {
     NONE,
 
     SELECTING,
-    DESELECTING,
+    UNSELECTING,
     SELECTED,
 
     MOVING,
