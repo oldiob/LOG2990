@@ -1,7 +1,7 @@
 import { BreadthFirst } from './breadth-first';
 import { createArray } from './image-manipulations';
 
-describe('BreadFirst', () => {
+fdescribe('BreadFirst', () => {
 
     let breadthFirst: BreadthFirst;
     let position: number[];
@@ -51,7 +51,7 @@ describe('BreadFirst', () => {
         expect((breadthFirst as any).isPositionInRange(tempPosition)).toEqual(false);
     });
 
-    it('isPositionAcceptable should return true when isPositionInRange, isPositionCovered and isRightColor are all true', () => {
+    it('isPositionAcceptable should return false when isPositionInRange, and isRightColor are true but isPositionCovered is false', () => {
         const tempPosition: number[] = [1, 1];
         expect((breadthFirst as any).isPositionAcceptable(tempPosition)).toEqual(false);
     });
