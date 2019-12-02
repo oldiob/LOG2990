@@ -1,10 +1,10 @@
-/* TODO
- import { SVGPencil } from 'src/services/svg/element/svg.pencil';
+
+import { SVGPencil } from 'src/services/svg/element/svg.pencil';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { PencilTool } from './pencil';
 
-describe('PencilTool', () => {
+fdescribe('PencilTool', () => {
 
     let svgPencil: SVGPencil;
     let element: any;
@@ -36,6 +36,8 @@ describe('PencilTool', () => {
     });
 
     it('should keep track of a newly created SVGPencil', () => {
+        pencil.element = null;
+        svgPencil.element = element;
         expect(pencil.onPressed(event)).toBeTruthy();
         expect(pencil.element).toBeTruthy();
     });
@@ -57,5 +59,3 @@ describe('PencilTool', () => {
         expect(pencil.element).toBe(null);
     });
 });
-
-*/
