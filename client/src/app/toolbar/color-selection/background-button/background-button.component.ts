@@ -13,6 +13,8 @@ import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 export class BackgroundButtonComponent
     extends AbsColorButton implements OnInit {
 
+    private chosenColor: Color;
+
     constructor(
         protected paletteService: PaletteService,
         protected formBuilder: FormBuilder,
@@ -26,6 +28,7 @@ export class BackgroundButtonComponent
         this.createForm();
         this.updateForm();
         this.setupView();
+        this.chosenColor = this.currentColor;
     }
 
     protected setupView(): void {
@@ -54,6 +57,7 @@ export class BackgroundButtonComponent
         this.applyColor();
         this.hideForm();
         this.colorsHistory = this.paletteService.getHistory();
+        this.chosenColor = this.currentColor;
     }
 
     protected onAlphaChange(): void {
@@ -63,7 +67,7 @@ export class BackgroundButtonComponent
 
     protected setColor(): {} {
         return {
-            'background-color': `${this.currentColor.toRGBA()}`,
+            'background-color': `${this.chosenColor.toRGBA()}`,
         };
     }
 }
