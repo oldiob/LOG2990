@@ -32,7 +32,9 @@ export class SelectorTool implements ITool {
     private transforms: CmdComposite | null;
     readonly tip = 'Selector (S)';
 
-    compositeElement: SVGComposite;
+    selected: SVGComposite;
+    private unselected: SVGComposite;
+
     distanceToCenter: number[];
 
     constructor(private svg: SVGService) {
@@ -40,7 +42,8 @@ export class SelectorTool implements ITool {
         this.firstMousePosition = [0, 0];
         this.lastMousePosition = [0, 0];
         this.distanceToCenter = [];
-        this.compositeElement = new SVGComposite();
+        this.selected = new SVGComposite();
+        this.unselected = new SVGComposite();
 
         this.selectorBox = new SelectorBox(svg);
 
@@ -74,7 +77,7 @@ export class SelectorTool implements ITool {
                 break;
 
             case 2:
-                this.state = SelectorState.DESELECTING;
+                this.onRightClick(event.svgX, event.svgY);
                 break;
 
             default:
@@ -98,23 +101,23 @@ export class SelectorTool implements ITool {
                 this.showPreview();
                 this.select();
                 break;
-            case SelectorState.DESELECTING:
+            case SelectorState.UNSELECTING:
                 this.showPreview();
-                this.deselect();
+                this.unselect();
                 break;
             case SelectorState.MOVING:
                 if (this.transforms) {
                     const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
                     this.transforms.addChild(
-                        this.compositeElement.translateCommand(toMove[0], toMove[1]));
-                    this.setSelectorBox();
+                        this.selected.translateCommand(toMove[0], toMove[1]));
+                    this.updateSelect();
                 }
                 break;
             case SelectorState.SCALING:
                 if (this.transforms) {
                     this.transforms.addChild(
-                        this.compositeElement.rescaleOnPointCommand(this.selectorBox, event));
-                    this.setSelectorBox();
+                        this.selected.rescaleOnPointCommand(this.selectorBox, event));
+                    this.updateSelect();
                 }
                 break;
             default:
@@ -156,16 +159,29 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.SELECTING;
     }
 
+    private onRightClick(x: number, y: number) {
+        this.unselected.clear();
+        const elementAt: SVGAbstract | null = this.svg.findAt(x, y);
+
+        if (elementAt && this.selected.children.has(elementAt)) {
+            this.unselected.addChild(elementAt);
+            this.selected.children.delete(elementAt);
+            this.updateSelect();
+        }
+
+        this.state = SelectorState.UNSELECTING;
+    }
+
     private selectTargeted(): void {
-        this.compositeElement.clear();
+        this.selected.clear();
         const elementAt: SVGAbstract | null = this.svg.findAt(this.firstMousePosition[0], this.firstMousePosition[1]);
 
         if (elementAt) {
-            this.compositeElement.addChild(elementAt);
+            this.selected.addChild(elementAt);
         }
 
         this.isSelected = !this.isEmpty();
-        this.setSelectorBox();
+        this.updateSelect();
     }
 
     private select(): void {
@@ -175,18 +191,18 @@ export class SelectorTool implements ITool {
             Math.max(this.firstMousePosition[0], this.lastMousePosition[0]),
             Math.max(this.firstMousePosition[1], this.lastMousePosition[1]));
 
-        this.compositeElement.clear();
+        this.selected.clear();
         const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
 
         elementsInRect.forEach((element) => {
-            this.compositeElement.addChild(element);
+            this.selected.addChild(element);
         });
 
         this.isSelected = !this.isEmpty();
-        this.setSelectorBox();
+        this.updateSelect();
     }
 
-    private deselect(): void {
+    private unselect(): void {
         const rect: Rect = new Rect(
             this.firstMousePosition[0],
             this.firstMousePosition[1],
@@ -195,28 +211,36 @@ export class SelectorTool implements ITool {
 
         const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
 
-        elementsInRect.forEach((element) => {
-            this.compositeElement.removeChild(element);
+        elementsInRect.forEach((element: SVGAbstract) => {
+            this.unselected.addChild(element);
+            this.selected.children.delete(element);
         });
 
-        this.setSelectorBox();
+        this.unselected.children.forEach((element: SVGAbstract) => {
+            if (!elementsInRect.has(element)) {
+                this.unselected.children.delete(element);
+                this.selected.addChild(element);
+            }
+        });
+
+        this.updateSelect();
     }
 
-    private setSelectorBox(): void {
+    private updateSelect(): void {
         if (this.isEmpty()) {
             this.selectorBox.hideBox();
         } else {
-            this.selectorBox.setBox(this.compositeElement.domRect);
+            this.selectorBox.setBox(this.selected.domRect);
         }
     }
 
     private isEmpty(): boolean {
-        return this.compositeElement.children.size === 0;
+        return this.selected.children.size === 0;
     }
 
     clearSelection(): void {
         this.state = SelectorState.NONE;
-        this.compositeElement.clear();
+        this.selected.clear();
         this.selectorBox.hideBox();
         this.isSelected = false;
     }
@@ -225,10 +249,10 @@ export class SelectorTool implements ITool {
         const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
 
         if (!this.isEmpty() && this.transforms && this.state === SelectorState.NONE) {
-            const center: number[] = this.compositeElement.position;
+            const center: number[] = this.selected.position;
             this.transforms.addChild(
-                this.compositeElement.rotateOnPointCommand(angle, center, event.shiftKey));
-            this.setSelectorBox();
+                this.selected.rotateOnPointCommand(angle, center, event.shiftKey));
+            this.updateSelect();
         }
 
         return true;
@@ -276,12 +300,12 @@ export class SelectorTool implements ITool {
 
     duplicate(): void {
         this.dupOffset = this.nextOffset(this.dupOffset);
-        CmdService.execute(new CmdDup(Array.from(this.compositeElement.children), this.dupOffset));
+        CmdService.execute(new CmdDup(Array.from(this.selected.children), this.dupOffset));
     }
 
     erase(): void {
         const cmd: CmdEraser = new CmdEraser();
-        this.compositeElement.children.forEach((obj) => {
+        this.selected.children.forEach((obj) => {
             cmd.eraseObject(obj);
         });
         CmdService.execute(cmd);
@@ -299,14 +323,14 @@ export class SelectorTool implements ITool {
 
         const baseHorizontalSteps = currentXSteps - currentYSteps;
 
-        this.compositeElement.translate(newOffset[0], newOffset[1]);
-        const state = this.elementState(this.compositeElement);
+        this.selected.translate(newOffset[0], newOffset[1]);
+        const state = this.elementState(this.selected);
         if (outsideState !== 0) {
             outsideState = Math.min(outsideState, state);
         } else {
             outsideState = state;
         }
-        this.compositeElement.translate(-newOffset[0], -newOffset[1]);
+        this.selected.translate(-newOffset[0], -newOffset[1]);
 
         switch (outsideState) {
             case 1:
