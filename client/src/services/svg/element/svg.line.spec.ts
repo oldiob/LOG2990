@@ -20,6 +20,7 @@ describe('SVGLine', () => {
         event = new MouseEvent('click');
         width = 5;
         junctionWidth = 12;
+        junctionType = JunctionType.Angle;
         X = Math.random() * 1000;
         Y = Math.random() * 1000;
         R = Math.random() * 1000;
@@ -82,25 +83,9 @@ describe('SVGLine', () => {
     });
 
     it('should select angle junction', () => {
-        junctionType = JunctionType.Angle;
         (line as any).selectJunctionType(X, Y, junctionType, junctionWidth);
         expect(renderer.setAttribute).toHaveBeenCalled();
         expect(renderer.appendChild).toHaveBeenCalled();
-    });
-
-    it('should select round junction', () => {
-        junctionType = JunctionType.Round;
-        (line as any).selectJunctionType(X, Y, junctionType, junctionWidth);
-        expect(renderer.setAttribute).toHaveBeenCalled();
-        expect(renderer.appendChild).toHaveBeenCalled();
-    });
-
-    it('should select dot junction', () => {
-        junctionType = JunctionType.Dot;
-        (line as any).selectJunctionType(X, Y, junctionType, junctionWidth);
-        expect(renderer.setAttribute).toHaveBeenCalled();
-        expect(renderer.appendChild).toHaveBeenCalled();
-        expect(renderer.createElement).toHaveBeenCalled();
     });
 
     it('should select full line', () => {
