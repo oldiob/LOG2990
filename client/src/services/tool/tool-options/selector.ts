@@ -21,26 +21,19 @@ declare type callback = () => void;
 export class SelectorTool implements ITool {
 
     static BASE_OFFSET = 30;
-
-    dupOffset: number[] = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
-
-    readonly tip = 'Selector (S)';
-
-    state: SelectorState = SelectorState.NONE;
-    compositeElement: SVGComposite;
-
-    distanceToCenter: number[];
-
     private firstMousePosition: number[];
     private lastMousePosition: number[];
     private selectorBox: SelectorBox;
-
     private preview: SVGRectElement;
-
-    transforms: CmdComposite | null;
-
     private mIsSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
+    private dupOffset: number[] = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
+    private state: SelectorState = SelectorState.NONE;
+    private transforms: CmdComposite | null;
+    readonly tip = 'Selector (S)';
+
+    compositeElement: SVGComposite;
+    distanceToCenter: number[];
 
     constructor(private svg: SVGService) {
 
@@ -146,7 +139,7 @@ export class SelectorTool implements ITool {
         this.svg.removeElement(this.preview);
     }
 
-    private onLeftClick(x: number, y: number) {
+    private onLeftClick(x: number, y: number): void {
         const previewState: SelectorState = this.selectorBox.onPressed(x, y);
 
         if (previewState !== SelectorState.NONE) {
@@ -163,7 +156,7 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.SELECTING;
     }
 
-    private selectTargeted() {
+    private selectTargeted(): void {
         this.compositeElement.clear();
         const elementAt: SVGAbstract | null = this.svg.findAt(this.firstMousePosition[0], this.firstMousePosition[1]);
 
@@ -193,7 +186,7 @@ export class SelectorTool implements ITool {
         this.setSelectorBox();
     }
 
-    private deselect() {
+    private deselect(): void {
         const rect: Rect = new Rect(
             this.firstMousePosition[0],
             this.firstMousePosition[1],
@@ -221,7 +214,7 @@ export class SelectorTool implements ITool {
         return this.compositeElement.children.size === 0;
     }
 
-    clearSelection() {
+    clearSelection(): void {
         this.state = SelectorState.NONE;
         this.compositeElement.clear();
         this.selectorBox.hideBox();
@@ -311,9 +304,6 @@ export class SelectorTool implements ITool {
         const newOffset: number[] = vectorPlus(currentOffset, [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET]);
         let finalOffset: number[];
 
-        // 0: correct
-        // +1: outside on the right
-        // +2: outside on the bottom
         let outsideState = 0;
 
         const currentXSteps = newOffset[0] / SelectorTool.BASE_OFFSET;
