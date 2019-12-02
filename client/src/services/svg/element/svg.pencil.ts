@@ -11,7 +11,6 @@ export class SVGPencil extends SVGAbstract {
 
     constructor() {
         super();
-        this.lineWidth = 1;
         this.points = [];
         this.element = DOMRenderer.createElement('polyline', 'svg');
 
@@ -59,7 +58,8 @@ export class SVGPencil extends SVGAbstract {
     }
 
     setWidth(width: number): void {
-        DOMRenderer.setAttribute(this.element, 'stroke-width', width.toString());
+        this.lineWidth = width;
+        DOMRenderer.setAttribute(this.element, 'stroke-width', this.lineWidth.toString());
     }
 
     addPoint(x: number, y: number): void {
