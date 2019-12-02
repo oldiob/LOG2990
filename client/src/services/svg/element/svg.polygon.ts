@@ -3,8 +3,16 @@ import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { AbsSVGShape } from './svg.abs-shape';
 
 export class SVGPolygon extends AbsSVGShape {
+
+    private circularPoints: number[][];
+    private actualPointsPosition: number[][];
+    private nSides: number;
+
     constructor(x: number, y: number, nSides: number, traceType: number) {
         super(x, y, traceType);
+
+        this.circularPoints = [];
+        this.actualPointsPosition = [];
 
         const shapeElement = DOMRenderer.createElement('polygon', 'svg');
         DOMRenderer.appendChild(this.element, shapeElement);
@@ -12,17 +20,13 @@ export class SVGPolygon extends AbsSVGShape {
         this.setOpacities();
         this.setCursor(x, y);
 
-        const angleBetweenCorners = 2 * Math.PI / nSides;
-        for (let i = 0; i < nSides; i++) {
+        const angleBetweenCorners = 2 * Math.PI / this.nSides;
+        for (let i = 0; i < this.nSides; i++) {
             this.circularPoints.push([Math.sin(i * angleBetweenCorners), -Math.cos(i * angleBetweenCorners)]);
         }
     }
 
-    private circularPoints: number[][] = [];
-    private actualPointsPosition: number[][] = [];
-    nSides: number;
-
-    protected isAtBorder(x: number, y: number) {
+    protected isAtBorder(x: number, y: number): boolean {
         const ORIGINAL_SIZE = this.size;
         const widthDelta = [this.pointSize / 2.0, this.pointSize / 2.0];
 
@@ -43,7 +47,7 @@ export class SVGPolygon extends AbsSVGShape {
 
     }
 
-    protected isInside(x: number, y: number) {
+    protected isInside(x: number, y: number): boolean {
 
         let inside = false;
         let i = 0;
@@ -61,19 +65,19 @@ export class SVGPolygon extends AbsSVGShape {
         return inside;
     }
 
-    release() {
+    release(): void {
         super.release();
     }
 
-    onShift(isShift: boolean) {
-        // nothing happens
+    onShift(isShift: boolean): void {
+        //
     }
 
     protected setPositionAttributes(): void {
         DOMRenderer.setAttribute(this.element.children[1], 'points', this.pointsAttribute());
     }
 
-    setCursor(x: number, y: number) {
+    setCursor(x: number, y: number): void {
         this.updateCoordinates(x, y, true);
         this.updatePerimeter();
 
@@ -84,7 +88,6 @@ export class SVGPolygon extends AbsSVGShape {
         this.setPositionAttributes();
     }
 
-    // [[1, 2], [3, 4]] -> 1,2 3,4
     private pointsAttribute(): string {
         return this.actualPointsPosition.map((e) => `${e[0]},${e[1]}`).join(' ');
     }

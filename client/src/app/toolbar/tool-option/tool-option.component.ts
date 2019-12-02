@@ -59,7 +59,7 @@ export class ToolOptionComponent implements OnInit, IOption<ITool> {
         public ink: InkTool) {
         this.textures = [new BlurTexture(), new OpacityTexture(), new CircleTexture(), new TurbulenceTexture(), new RandomRectTexture()];
 
-        stamp.stampTexture = new EmojiStamp();
+        stamp.emoji = new EmojiStamp();
 
         this.currentTexture = this.textures[0];
         this.brush.texture = this.currentTexture;

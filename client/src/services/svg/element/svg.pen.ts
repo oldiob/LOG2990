@@ -4,19 +4,19 @@ import { isAtLine } from 'src/utils/math';
 
 export class SVGPen extends SVGAbstract {
 
-    anchors: number[][] = [];
-    cursor: number[];
-    width: number;
-    element: any;
-    minWidth: number;
-    maxWidth: number;
-    color: string;
+    private readonly THRESHOLD = 2;
+    private readonly WIDTH_RATIO_NUMBER = 3;
+    private readonly EXTRA_WIDTH_VALUE = 10.0;
 
-    private THRESHOLD = 2;
-    private WIDTH_RATIO_NUMBER = 3;
-    private EXTRA_WIDTH_VALUE = 10.0;
-
+    private anchors: number[][] = [];
+    private cursor: number[];
+    private width: number;
+    private minWidth: number;
+    private maxWidth: number;
+    private color: string;
     private latestPoint: number[];
+
+    element: any;
 
     constructor(x: number, y: number) {
         super();
@@ -78,18 +78,18 @@ export class SVGPen extends SVGAbstract {
         return '';
     }
 
-    setPrimary(color: string) {
+    setPrimary(color: string): void {
         for (const child of this.element.children) {
             DOMRenderer.setAttribute(child, 'stroke', color);
         }
         this.color = color;
     }
 
-    setSecondary(color: string) {
-        // NO OP
+    setSecondary(color: string): void {
+        //
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
+    protected isAtAdjusted(x: number, y: number): boolean {
         const additionnalWidth = this.EXTRA_WIDTH_VALUE;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {

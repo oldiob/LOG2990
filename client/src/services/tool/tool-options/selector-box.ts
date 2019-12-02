@@ -17,14 +17,12 @@ export class SelectorBox {
 
     private readonly CIRCLE_RADIUS = 5;
     private readonly COLOR = '#2188ff';
-
-    element: SVGGElement;
     private circles: SVGCircleElement[];
     private rectangle: SVGRectElement;
-
     private anchorSquarePositions: number[][];
-
     private targetedAnchor: number;
+
+    element: SVGGElement;
 
     constructor(private svgService: SVGService) {
 
@@ -166,25 +164,25 @@ export class SelectorBox {
             ));
     }
 
-    private getOppositeIndex(i: number) {
+    private getOppositeIndex(i: number): number {
         return (i + (this.circles.length / 2)) % this.circles.length;
     }
 
-    private addToDrawArea() {
+    private addToDrawArea(): void {
         // avoid duplicate
         this.removeFromDrawArea();
         this.svgService.addElement(this.element);
     }
 
-    private removeFromDrawArea() {
+    private removeFromDrawArea(): void {
         this.svgService.removeElement(this.element);
     }
 
-    flipHorizontally() {
+    flipHorizontally(): void {
         const H_CENTER = 5;
         this.setReflexionFromCenter(H_CENTER);
     }
-    flipVertically() {
+    flipVertically(): void {
         const V_CENTER = 7;
         this.setReflexionFromCenter(V_CENTER);
     }

@@ -3,40 +3,37 @@ import { IStamp } from './stamp/i-stamp';
 import { SVGAbstract } from './svg.abstract';
 
 export class SVGStamp extends SVGAbstract {
-    IMAGESIZE = 10;
+
+    private readonly IMAGE_SIZE = 10;
+    private emoji: IStamp;
+
     element: any;
-    previousX = 0;
-    previousY = 0;
-
-    angles: number;
-    lineWidth: number;
-
-    stampTexture: IStamp;
-
+    angle: number;
+    width: number;
     imagePaths: string;
 
-    constructor(x: number, y: number, width: number, stamp: IStamp, angle: number, imagePath: string) {
+    constructor(x: number, y: number, width: number, emoji: IStamp, angle: number, imagePath: string) {
         super();
 
-        this.lineWidth = width * this.IMAGESIZE;
-        this.angles = angle;
-        this.stampTexture = stamp;
-        this.stampTexture.create(this);
+        this.width = width * this.IMAGE_SIZE;
+        this.angle = angle;
+        this.emoji = emoji;
+        this.emoji.create(this);
         this.imagePaths = imagePath;
 
-        this.stampTexture.addPoint(this, x, y);
+        this.emoji.addPoint(this, x, y);
     }
 
     isAtAdjusted(x: number, y: number): boolean {
         const vectorTo: number[] = vectorMinus([x, y], this.position);
-        return vectorModule(vectorTo) <= this.lineWidth;
+        return vectorModule(vectorTo) <= this.width;
     }
 
     isIn(x: number, y: number, r: number): boolean {
-        const tempWidth = this.lineWidth;
-        this.lineWidth += r;
+        const tempWidth = this.width;
+        this.width += r;
         const isInside = this.isAt(x, y);
-        this.lineWidth = tempWidth;
+        this.width = tempWidth;
 
         return isInside;
     }

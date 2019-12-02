@@ -5,6 +5,9 @@ import { AbsSVGShape } from './svg.abs-shape';
 
 export class SVGRectangle extends AbsSVGShape {
 
+    private readonly BORDERS = 4;
+    private readonly EXTRA_WIDTH_VALUE = 10.0;
+
     constructor(x: number, y: number, traceType: TraceType) {
         super(x, y, traceType);
         this.hidePerimeter();
@@ -16,9 +19,8 @@ export class SVGRectangle extends AbsSVGShape {
         this.setCursor(x, y, false);
     }
 
-    protected isAtBorder(x: number, y: number) {
-        const additionnalWidth = 10.0;
-        const width = this.pointSize + additionnalWidth;
+    protected isAtBorder(x: number, y: number): boolean {
+        const width = this.pointSize + this.EXTRA_WIDTH_VALUE;
         const points = [
             [this.center[0] - this.size[0], this.center[1] - this.size[1]],
             [this.center[0] + this.size[0], this.center[1] - this.size[1]],
@@ -26,7 +28,7 @@ export class SVGRectangle extends AbsSVGShape {
             [this.center[0] - this.size[0], this.center[1] + this.size[1]],
             [this.center[0] - this.size[0], this.center[1] - this.size[1]]];
 
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < this.BORDERS; i++) {
             if (isAtLine([x, y], points[i], points[i + 1], width)) {
                 return true;
             }
@@ -35,7 +37,7 @@ export class SVGRectangle extends AbsSVGShape {
         return false;
     }
 
-    protected isInside(x: number, y: number) {
+    protected isInside(x: number, y: number): boolean {
         return (
             this.center[0] - this.size[0] <= x &&
             this.center[0] + this.size[0] >= x &&
@@ -43,7 +45,7 @@ export class SVGRectangle extends AbsSVGShape {
             this.center[1] + this.size[1] >= y);
     }
 
-    setCursor(x: number, y: number, isShift: boolean) {
+    setCursor(x: number, y: number, isShift: boolean): void {
         this.updateCoordinates(x, y, isShift);
 
         if (isShift) {
@@ -56,11 +58,11 @@ export class SVGRectangle extends AbsSVGShape {
         this.setPositionAttributes();
     }
 
-    release() {
+    release(): void {
         super.release();
     }
 
-    onShift(isShift: boolean) {
+    onShift(isShift: boolean): void {
         this.setCursor(this.endingPoint[0], this.endingPoint[1], isShift);
     }
 
