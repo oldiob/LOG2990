@@ -8,17 +8,24 @@ import { AbsShapeTool, TraceType } from './abs-shape-tool';
     providedIn: 'root',
 })
 export class PolygonTool extends AbsShapeTool {
+
+    private readonly POLYGON_TIP = 'Polygone (3)';
+    private readonly DEFAULT_WIDTH = 5;
+    private readonly DEFAULT_SIDES = 3;
+    private readonly POLYGON_OFFSET = 70;
+
+    nSides: number;
     width: number;
     traceType: TraceType;
-    nSides: number;
     element: SVGPolygon | null;
 
     constructor(private paletteService: PaletteService) {
         super();
-        this.width = 5;
+
+        this.width = this.DEFAULT_WIDTH;
         this.traceType = TraceType.FillOnly;
-        this.nSides = 3;
-        this.tip = 'Polygone (3)';
+        this.nSides = this.DEFAULT_SIDES;
+        this.tip = this.POLYGON_TIP;
     }
 
     onPressed(event: MouseEvent): CmdSVG {
@@ -31,7 +38,7 @@ export class PolygonTool extends AbsShapeTool {
         const previousElement = this.element;
 
         const center = [x / 2.0, y / 2.0];
-        const offset = 70;
+        const offset = this.POLYGON_OFFSET;
 
         const mouseEvent: MouseEvent = new MouseEvent('', undefined);
         mouseEvent.svgX = center[0] - offset;
