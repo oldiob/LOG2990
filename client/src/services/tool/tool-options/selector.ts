@@ -224,23 +224,11 @@ export class SelectorTool implements ITool {
     onWheel(event: WheelEvent): boolean {
         const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
 
-        if (!this.isEmpty() && this.transforms) {
-            switch (this.state) {
-                case SelectorState.NONE:
-                    const center: number[] = this.compositeElement.position;
-                    this.transforms.addChild(
-                        this.compositeElement.rotateOnPointCommand(angle, center, event.shiftKey));
-                    this.setSelectorBox();
-                    break;
-                case SelectorState.SCALING:
-                case SelectorState.MOVING:
-                    this.transforms.addChild(
-                        this.compositeElement.rotateOnPointCommand(angle, this.lastMousePosition, event.shiftKey));
-                    this.setSelectorBox();
-                    break;
-                default:
-                    break;
-            }
+        if (!this.isEmpty() && this.transforms && this.state === SelectorState.NONE) {
+            const center: number[] = this.compositeElement.position;
+            this.transforms.addChild(
+                this.compositeElement.rotateOnPointCommand(angle, center, event.shiftKey));
+            this.setSelectorBox();
         }
 
         return true;
