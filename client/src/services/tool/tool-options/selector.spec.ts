@@ -17,7 +17,7 @@ describe('SelectorTool', () => {
 
         selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles']);
 
-        selectorState = SelectorState.NONE;
+        selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
         const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
@@ -36,28 +36,17 @@ describe('SelectorTool', () => {
         expect(tool).toBeTruthy();
     });
 
-    it('should to nothing on wheel event', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 1 }));
-        expect((tool as any).state).toEqual(SelectorState.NONE);
+    it('should select when it is onPressed', () => {
+        spyOn((tool as any), 'onLeftClick');
+        const event = new MouseEvent('mousedown', { button: 0 });
+        tool.onPressed(event);
+        expect((tool as any).onLeftClick).toHaveBeenCalledWith(event.svgX, event.svgY);
     });
 
-    it('should change state to maybe if idle', () => {
-        expect((tool as any).state).toEqual(SelectorState.NONE);
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        expect((tool as any).state).toEqual(SelectorState.SELECTING);
-    });
-
-    it('should set the anchor on the first motion', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        expect((tool as any).state).toEqual(SelectorState.SELECTING);
-    });
-
-    it('should set the cursor on continous motion', () => {
-        tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        tool.onMotion(new MouseEvent('mousedown', { button: 0 }));
-        expect((tool as any).state).toEqual(SelectorState.SELECTING);
+    it('should deselect when it is onPressed', () => {
+        const event = new MouseEvent('mousedown', { button: 2 });
+        tool.onPressed(event);
+        expect((tool as any).state).toEqual(SelectorState.DESELECTING);
     });
 
     it('should reset to state idle when released', () => {
