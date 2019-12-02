@@ -56,8 +56,4 @@ describe('BreadFirst', () => {
         expect((breadthFirst as any).isPositionAcceptable(tempPosition)).toEqual(false);
     });
 
-    it('isPositionAcceptable should return false when isPositionInRange, isPositionCovered and/or isRightColor are false', () => {
-        const tempPosition: number[] = [10000, 10000];
-        expect((breadthFirst as any).isPositionAcceptable(tempPosition)).toEqual(false);
-    });
 });
