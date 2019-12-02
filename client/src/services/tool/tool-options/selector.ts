@@ -159,9 +159,9 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.SELECTING;
     }
 
-    private onRightClick(svgX: number, svgY: number) {
+    private onRightClick(x: number, y: number) {
         this.unselected.clear();
-        const elementAt: SVGAbstract | null = this.svg.findAt(this.firstMousePosition[0], this.firstMousePosition[1]);
+        const elementAt: SVGAbstract | null = this.svg.findAt(x, y);
 
         if (elementAt && this.selected.children.has(elementAt)) {
             this.unselected.addChild(elementAt);
