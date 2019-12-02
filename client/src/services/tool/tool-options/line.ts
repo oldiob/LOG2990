@@ -13,15 +13,21 @@ declare type callback = () => void;
 })
 export class LineTool implements ITool {
 
-    element: SVGLine | null = null;
+    private readonly DEFAULT_WIDTH = 5;
+    private readonly LINE_TIP = 'Line (L)';
     readonly tip: string;
-    width = 2;
+
+    element: SVGLine | null = null;
+    width: number;
     cmd: CmdSVG;
-    junctionWidth = 5;
+    junctionWidth: number;
     lineType: LineType;
     junctionType: JunctionType;
+
     constructor(private paletteService: PaletteService, private svgService: SVGService) {
-        this.tip = 'Line (L)';
+        this.tip = this.LINE_TIP;
+        this.width = this.DEFAULT_WIDTH;
+        this.junctionWidth = this.DEFAULT_WIDTH;
     }
 
     onPressed(event: MouseEvent): null {
@@ -29,8 +35,7 @@ export class LineTool implements ITool {
             this.element.addAnchor(event.svgX, event.svgY, this.junctionType);
             return null;
         }
-        const line = new SVGLine(event.svgX, event.svgY, this.junctionWidth, this.lineType,
-            this.junctionType);
+        const line = new SVGLine(event.svgX, event.svgY, this.width, this.junctionWidth, this.lineType, this.junctionType);
         line.setWidth(this.width);
         line.setPrimary(this.paletteService.getPrimary());
         this.element = line;

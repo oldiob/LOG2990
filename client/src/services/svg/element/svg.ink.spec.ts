@@ -44,16 +44,16 @@ describe('SVGInk', () => {
     });
 
     it('should return false if (x,y) is at adjusted nowwhere the ink drew', () => {
-        expect(ink.isAtAdjusted(X, Y)).toBeFalsy();
+        expect( (ink as any).isAtAdjusted(X, Y)).toBeFalsy();
     });
 
     it('should return true if (x,y) is at adjusted nowwhere the ink drew', () => {
         const pointX = 100;
         const pointY = 200;
         (ink as any).points = points;
-        ink.isAtAdjusted(pointX, pointY);
+        (ink as any).isAtAdjusted(pointX, pointY);
         isAtLine([pointX, pointY], points[0], points[1], width + 100);
-        expect(ink.isAtAdjusted(pointX, pointY)).toBeTruthy();
+        expect( (ink as any).isAtAdjusted(pointX, pointY)).toBeTruthy();
     });
 
     it('should return empty string to get primary color', () => {

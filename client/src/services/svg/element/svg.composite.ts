@@ -13,15 +13,15 @@ export class SVGComposite extends SVGAbstract {
         this.children = new Set<SVGAbstract>();
     }
 
-    addChild(child: SVGAbstract) {
+    addChild(child: SVGAbstract): void {
         this.children.add(child);
     }
 
-    removeChild(child: SVGAbstract) {
+    removeChild(child: SVGAbstract): void {
         this.children.delete(child);
     }
 
-    clear() {
+    clear(): void {
         this.children.clear();
     }
 
@@ -49,7 +49,7 @@ export class SVGComposite extends SVGAbstract {
         return false;
     }
 
-    get position() {
+    get position(): number[] {
         const rect = this.domRect;
 
         return vectorPlus([rect.x, rect.y], vectorMultiplyConst([rect.width, rect.height], 0.5));

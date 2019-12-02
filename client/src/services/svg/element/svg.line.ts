@@ -5,21 +5,31 @@ import { isAtLine } from 'src/utils/math';
 
 export class SVGLine extends SVGAbstract {
 
-    anchors: number[][] = [];
-    cursor: number[];
-    width = 5;
-    junctionWidth = 5;
+    private cursor: number[];
+    private circle: any;
+    private polyline: any;
+    private junctionWidth: number;
+    private width: number;
+
+    anchors: number[][];
     element: any;
-    polyline: any;
-    circle: any;
-    constructor(x: number, y: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
+
+    constructor(x: number, y: number, width: number, junctionWidth: number, lineType: LineType, junctionType: JunctionType) {
         super();
 
+        this.anchors = [];
         this.cursor = [x, y];
         this.anchors.push(this.cursor);
         this.polyline = DOMRenderer.createElement('polyline', 'svg');
         DOMRenderer.setAttribute(this.polyline, 'fill', 'none');
         this.element = DOMRenderer.createElement('g', 'svg');
+        this.selectLineType(lineType, width);
+        DOMRenderer.appendChild(this.element, this.polyline);
+        this.selectJunctionType(x, y, junctionType, junctionWidth);
+        this.fullRender();
+    }
+
+    private selectLineType(lineType: LineType, width: number): void {
         switch (lineType) {
             case LineType.FullLine:
                 DOMRenderer.setAttribute(this.polyline, 'stroke', '4');
@@ -28,11 +38,15 @@ export class SVGLine extends SVGAbstract {
                 DOMRenderer.setAttribute(this.polyline, 'stroke-dasharray', '4');
                 break;
             case LineType.DotLine:
-                DOMRenderer.setAttribute(this.polyline, 'stroke-dasharray', `0.1 ${5 * this.width}`);
+                DOMRenderer.setAttribute(this.polyline, 'stroke-dasharray', `0.1 ${width}`);
                 DOMRenderer.setAttribute(this.polyline, 'stroke-linecap', 'round');
                 break;
+            default:
+                break;
         }
-        DOMRenderer.appendChild(this.element, this.polyline);
+    }
+
+    private selectJunctionType(x: number, y: number, junctionType: JunctionType, junctionWidth: number ): void {
         switch (junctionType) {
             case JunctionType.Angle:
                 DOMRenderer.setAttribute(this.polyline, 'stroke-linejoin', 'miter');
@@ -52,11 +66,10 @@ export class SVGLine extends SVGAbstract {
                 DOMRenderer.setAttribute(this.circle, 'fill', 'black');
                 DOMRenderer.appendChild(this.element, this.polyline);
                 DOMRenderer.appendChild(this.element, this.circle);
-
+                break;
+            default:
                 break;
         }
-
-        this.fullRender();
     }
 
     private fullRender(): void {
@@ -87,7 +100,7 @@ export class SVGLine extends SVGAbstract {
         return '';
     }
 
-    setPrimary(color: string) {
+    setPrimary(color: string): void {
         for (const child of this.element.children) {
             if (child.nodeName === 'circle') {
                 DOMRenderer.setAttribute(child, 'fill', color);
@@ -97,11 +110,11 @@ export class SVGLine extends SVGAbstract {
         }
     }
 
-    setSecondary(color: string) {
-        // NO OP
+    setSecondary(color: string): void {
+        //
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
+    protected isAtAdjusted(x: number, y: number): boolean {
         const additionnalWidth = 10.0;
         const width: number = this.width + additionnalWidth;
         for (let i = 0; i < this.anchors.length - 1; i++) {

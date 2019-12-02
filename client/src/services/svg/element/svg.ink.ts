@@ -22,7 +22,7 @@ export class SVGInk extends SVGAbstract {
         this.setOffset(angle);
     }
 
-    isAtAdjusted(x: number, y: number): boolean {
+    protected isAtAdjusted(x: number, y: number): boolean {
         const width: number = this.width + this.WIDTH_MARGIN;
         for (let i = 0; i < this.points.length - 1; i++) {
                 if (isAtLine([x, y], this.points[i], this.points[i + 1], width)) {
