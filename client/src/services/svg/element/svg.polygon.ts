@@ -26,7 +26,7 @@ export class SVGPolygon extends AbsSVGShape {
         }
     }
 
-    protected isAtBorder(x: number, y: number) {
+    protected isAtBorder(x: number, y: number): boolean {
         const ORIGINAL_SIZE = this.size;
         const widthDelta = [this.pointSize / 2.0, this.pointSize / 2.0];
 
@@ -69,7 +69,7 @@ export class SVGPolygon extends AbsSVGShape {
         super.release();
     }
 
-    onShift(isShift: boolean) {
+    onShift(isShift: boolean): void {
         //
     }
 
