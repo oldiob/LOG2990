@@ -4,7 +4,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { PencilTool } from './pencil';
 
-fdescribe('PencilTool', () => {
+describe('PencilTool', () => {
 
     let svgPencil: SVGPencil;
     let element: any;
