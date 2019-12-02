@@ -35,10 +35,8 @@ fdescribe('PencilTool', () => {
         expect(pencil).toBeTruthy();
     });
 
-    it('should keep track of a newly created SVGPencil', () => {
-        pencil.element = null;
-        svgPencil.element = element;
-        expect(pencil.onPressed(event)).toBeTruthy();
+    it('should return false if OnPressed is called when element exist', () => {
+        expect(pencil.onPressed(event)).toEqual(null);
         expect(pencil.element).toBeTruthy();
     });
 
