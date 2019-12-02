@@ -65,14 +65,14 @@ describe('SVGPen', () => {
         renderer.setAttribute.calls.reset();
         const width = Math.random() * 1000;
         pen.setMaxWidth(width);
-        expect(pen.maxWidth).toEqual(width);
+        expect((pen as any).maxWidth).toEqual(width);
     });
 
     it('should change the min width', () => {
         renderer.setAttribute.calls.reset();
         const width = Math.random() * 1000;
         pen.setMinWidth(width);
-        expect(pen.minWidth).toEqual(width);
+        expect((pen as any).minWidth).toEqual(width);
     });
 
     it('should change the cursor and add an anchor point when addAnchor is called', () => {
@@ -81,8 +81,8 @@ describe('SVGPen', () => {
         const y = Math.random() * 1000;
         const temp: number[] = [x, y];
         pen.addAnchor(x, y);
-        expect(pen.cursor).toEqual(temp);
-        expect(pen.anchors[pen.anchors.length - 1]).toEqual(temp);
+        expect((pen as any).cursor).toEqual(temp);
+        expect((pen as any).anchors[(pen as any).anchors.length - 1]).toEqual(temp);
     });
 
     it('width should be set at maxWidth if width is greater then maxWidth', () => {
@@ -95,7 +95,7 @@ describe('SVGPen', () => {
         const y2 = y;
         pen.addAnchor(x, y);
         pen.addAnchor(x2, y2);
-        expect(pen.width).toEqual(pen.maxWidth);
+        expect((pen as any).width).toEqual((pen as any).maxWidth);
     });
 
 });
