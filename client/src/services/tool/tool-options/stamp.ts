@@ -8,30 +8,34 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class StampTool implements ITool {
+
     private readonly MAX_ANGLE = 360;
     private readonly MIN_ANGLE = 0;
     private readonly MULTI_15 = 15;
     private readonly DEGREE = 1;
     private readonly IMAGESIZE = 12.5;
-
+    private readonly STAMP_TIP = 'Stamp';
+    private element: SVGStamp | null;
     readonly tip: string;
 
-    element: SVGStamp | null = null;
     currentPath: string;
     width: number;
     angle: number;
+    emoji: IStamp;
 
-    stampTexture: IStamp;
     constructor() {
+        this.element = null;
         this.width = this.IMAGESIZE;
         this.angle = this.MIN_ANGLE;
         this.currentPath = '';
-        this.tip = 'Stamp';
-        this.angle = 0;
+        this.tip = this.STAMP_TIP;
     }
 
     onPressed(event: MouseEvent): CmdSVG | null {
-        this.element = new SVGStamp(event.svgX, event.svgY, this.width, this.stampTexture, this.angle, this.currentPath);
+        if (this.currentPath === '') {
+            return null;
+        }
+        this.element = new SVGStamp(event.svgX, event.svgY, this.width, this.emoji, this.angle, this.currentPath);
         return new CmdSVG(this.element);
     }
 

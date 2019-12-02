@@ -41,7 +41,7 @@ export class StampComponent implements OnInit {
         const currentTool: ITool = this.toolService.currentTool;
         if (currentTool instanceof StampTool) {
             currentTool.currentPath = image;
-            currentTool.stampTexture = this.currentStamp;
+            currentTool.emoji = this.currentStamp;
             ShowcaseSignal.emit();
         }
     }

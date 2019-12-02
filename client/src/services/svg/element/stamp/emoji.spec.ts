@@ -10,7 +10,7 @@ describe('EmojiStamp', () => {
     let element: any;
 
     beforeEach(() => {
-        stamp = jasmine.createSpyObj('SVGStamp', ['lineWidth', 'pointsAttribute']);
+        stamp = jasmine.createSpyObj('SVGStamp', ['width', 'pointsAttribute']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         element = jasmine.createSpyObj('any', ['']);
 
