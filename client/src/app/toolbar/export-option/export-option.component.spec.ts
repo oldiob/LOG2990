@@ -2,13 +2,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import {
+    MatChipsModule, MatDialogModule, MatFormFieldModule,
+    MatIconModule, MatInputModule, MatSelectModule, MatSnackBarModule
+} from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { saveFile } from 'src/utils/filesystem';
 import { ExportOptionComponent } from './export-option.component';
 
-describe('ExportOptionComponent', () => {
+fdescribe('ExportOptionComponent', () => {
     let component: ExportOptionComponent;
     let fixture: ComponentFixture<ExportOptionComponent>;
     let selectExportTest: string[];
@@ -20,7 +23,7 @@ describe('ExportOptionComponent', () => {
             imports: [
                 MatFormFieldModule, MatDialogModule, MatSnackBarModule, MatChipsModule, FormsModule,
                 BrowserDynamicTestingModule, BrowserAnimationsModule,
-                MatIconModule, MatInputModule, ReactiveFormsModule, HttpClientModule],
+                MatIconModule, MatInputModule, ReactiveFormsModule, HttpClientModule, MatSelectModule],
             declarations: [ExportOptionComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         })
@@ -38,10 +41,13 @@ describe('ExportOptionComponent', () => {
 
         const DEFAULT_NAME = 'Untitled';
         const validators = [Validators.required];
+        const DEFAULT_EXPORT = selectExportTest[0];
         component.exportForm = (component as any).formBuilder.group({
             name: [DEFAULT_NAME, validators],
+            export: [DEFAULT_EXPORT, validators],
         });
         component.exportForm.controls.name.setValue(DEFAULT_NAME);
+        component.exportForm.controls.export.setValue(DEFAULT_EXPORT);
     });
 
     it('should create', () => {
@@ -74,22 +80,25 @@ describe('ExportOptionComponent', () => {
     });
 
     it('should on click select svg', () => {
-        component.onClick(component.exportTypes[0]);
+        component.exportForm.controls.export.setValue(component.exportTypes[0]);
+        component.onClick();
         expect(component.exportTypes[0]).toEqual(selectExportTest[0]);
     });
 
     it('should on click select png', () => {
-        component.onClick(component.exportTypes[1]);
+        component.exportForm.controls.export.setValue(component.exportTypes[1]);
         expect(component.exportTypes[1]).toEqual(selectExportTest[1]);
     });
 
     it('should on click select jpg', () => {
-        component.onClick(component.exportTypes[2]);
+        component.exportForm.controls.export.setValue(component.exportTypes[2]);
+        component.onClick();
         expect(component.exportTypes[2]).toEqual(selectExportTest[2]);
     });
 
     it('should on click select bmp', () => {
-        component.onClick(component.exportTypes[3]);
+        component.exportForm.controls.export.setValue(component.exportTypes[3]);
+        component.onClick();
         expect(component.exportTypes[3]).toEqual(selectExportTest[3]);
     });
 

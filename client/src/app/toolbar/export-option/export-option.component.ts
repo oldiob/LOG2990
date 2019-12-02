@@ -48,9 +48,9 @@ export class ExportOptionComponent implements OnInit {
         this.isEnabled = this.exportForm.valid;
     }
 
-    onClick(exportType: string) {
+    onClick() {
         this.checkButton();
-        this.selectedExport = exportType;
+        this.selectedExport = this.exportForm.controls.export.value;
     }
 
     submit(): void {
@@ -73,11 +73,14 @@ export class ExportOptionComponent implements OnInit {
 
     private createExportForm(): void {
         const DEFAULT_NAME = 'Untitled';
+        const DEFAULT_EXPORT = this.selectedExport[0];
         const validators = [Validators.required];
 
         this.exportForm = this.formBuilder.group({
             name: [DEFAULT_NAME, validators],
+            export: [DEFAULT_EXPORT, validators],
         });
         this.exportForm.controls.name.setValue(DEFAULT_NAME);
+        this.exportForm.controls.export.setValue(DEFAULT_EXPORT);
     }
 }
