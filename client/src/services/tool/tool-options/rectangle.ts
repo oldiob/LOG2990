@@ -8,15 +8,20 @@ import { AbsShapeTool, TraceType } from './abs-shape-tool';
     providedIn: 'root',
 })
 export class RectangleTool extends AbsShapeTool {
+
+    private readonly DEFAULT_WIDTH = 5;
+    private readonly RECT_TIP = 'Rectangle (1)';
+
     width: number;
     traceType: TraceType;
     element: SVGRectangle | null;
 
     constructor(private paletteService: PaletteService) {
         super();
-        this.width = 5;
+        this.width = this.DEFAULT_WIDTH;
         this.traceType = TraceType.FillOnly;
-        this.tip = 'Rectangle (1)';
+        this.tip = this.RECT_TIP;
+        this.element = null;
     }
 
     onPressed(event: MouseEvent): CmdSVG {
