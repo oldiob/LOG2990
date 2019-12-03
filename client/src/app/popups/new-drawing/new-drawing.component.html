@@ -31,7 +31,7 @@
           <input maxlength="7" matInput type="text" formControlName="hex" (change)="onColorHEXChange()"
             value="{{DEFAULT_HEX}}" autocomplete=off>
         </mat-form-field>
-        <div class="color bgc-color" [ngStyle]="{'background-color': this.backgroundColor.toRGBA()}"></div>
+        <div class="bgc-color" [ngStyle]="{'background-color': this.backgroundColor.toRGBA()}"></div>
       </label>
 
       <label class="rgba-wrapper">
@@ -59,13 +59,15 @@
       </label>
 
 
-      <color-picker class="color-picker-wrapper" *ngIf="isColorPickerShown" (color)="onColorPick($event)"></color-picker>
+      <color-picker class="color-picker-wrapper" *ngIf="isColorPickerShown" (color)="onColorPick($event)">
+      </color-picker>
 
 
       <div class="color-palette">
 
         <div class="color-wrapper" *ngFor="let color of colorChoices">
-          <input class="color-toggler" type="radio" name="radio" [checked]="false" (click)="chooseBackgroundColor(color)">
+          <input class="color-toggler" type="radio" name="radio" [checked]="false"
+            (click)="chooseBackgroundColor(color)">
           <div class="color" [ngStyle]="{'background-color': color.toRGBA()}">
           </div>
         </div>

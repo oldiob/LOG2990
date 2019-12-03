@@ -1,6 +1,8 @@
 .modal-wrapper {
   padding: 31px 38px 38px 38px;
-  height: 100%;
+  overflow-y: auto;
+  min-height: 397px;
+  max-height: 80vh;
   width: 414px;
   display: flex;
   align-items: center;
@@ -10,7 +12,7 @@
 }
 
 .title {
-  padding: 5% 0 5% 0 ;
+  padding: 5% 0 5% 0;
   padding: 38px;
   font-size: 2rem;
   font-weight: 900;
@@ -44,7 +46,7 @@
 .field-label {
   white-space: nowrap;
   align-self: center;
-  color:#ececec;
+  color: #ececec;
 }
 
 .field {
@@ -65,6 +67,8 @@
 
 .bgc-color {
   display: inline-block;
+  height: 40px;
+  width: 40px;
 }
 
 .rgba-wrapper {
@@ -83,7 +87,12 @@
 }
 
 .bgc-color {
-  align-self: center;
+  height: 40px;
+  width: 40px;
+  border-radius: var(--radius);
+  transform: translate(0, 12px);
+  margin-left: 30px;
+  border: #343e76 1px solid;
 }
 
 .color-picker-wrapper {
@@ -101,10 +110,13 @@
 }
 
 .color {
-  // border: 1px solid whitesmoke;
   height: var(--length);
   width: var(--length);
   border-radius: var(--radius);
+}
+
+.color-wrapper {
+  position: relative;
 }
 
 .color-toggler {
@@ -115,7 +127,7 @@
   cursor: pointer;
 }
 
-.color-toggler:checked ~ .color {
+.color-toggler:checked~.color {
   -webkit-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 7px 5px 0px rgba(0, 0, 0, 0.1);
@@ -203,10 +215,16 @@
   padding: 0;
 }
 
-.mat-radio-button ~ .mat-radio-button {
+.mat-radio-button~.mat-radio-button {
   margin-left: 16px;
 }
 
 .override-drawing {
   margin-left: 15px;
+}
+
+.mat-error {
+  color: #ff6363;
+  font-size: 0.77rem;
+  margin: 20px 0px 0px;
 }

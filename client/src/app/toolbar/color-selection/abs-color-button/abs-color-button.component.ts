@@ -59,7 +59,7 @@ export abstract class AbsColorButton {
         this.updateForm();
     }
 
-    onMouseUp() {
+    onClose() {
         this.applyColor();
         this.hideForm();
         this.colorsHistory = this.paletteService.getHistory();
@@ -67,8 +67,6 @@ export abstract class AbsColorButton {
 
     onOldColor(color: Color) {
         this.onColorPick(color);
-        this.applyColor();
-        this.hideForm();
     }
 
     onColorHEXChange(): void {

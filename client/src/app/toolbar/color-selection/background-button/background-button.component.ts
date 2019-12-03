@@ -13,6 +13,8 @@ import { AbsColorButton } from '../abs-color-button/abs-color-button.component';
 export class BackgroundButtonComponent
     extends AbsColorButton implements OnInit {
 
+    private chosenColor: Color;
+
     constructor(
         protected paletteService: PaletteService,
         protected formBuilder: FormBuilder,
@@ -26,6 +28,7 @@ export class BackgroundButtonComponent
         this.createForm();
         this.updateForm();
         this.setupView();
+        this.chosenColor = this.currentColor;
     }
 
     protected setupView(): void {
@@ -36,7 +39,18 @@ export class BackgroundButtonComponent
     protected setupColors(): void {
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: Color) => {
-                this.currentColor = backgroundColor;
+                this.currentColor = new Color(
+                    backgroundColor.red,
+                    backgroundColor.green,
+                    backgroundColor.blue,
+                    backgroundColor.alpha,
+                );
+                this.chosenColor = new Color(
+                    backgroundColor.red,
+                    backgroundColor.green,
+                    backgroundColor.blue,
+                    backgroundColor.alpha,
+                );
                 if (this.colorsForm) {
                     this.updateForm();
                 }
@@ -49,21 +63,26 @@ export class BackgroundButtonComponent
         );
     }
 
-    onMouseUp() {
+    onClose() {
         this.paletteService.previous.add(this.currentColor);
         this.applyColor();
         this.hideForm();
         this.colorsHistory = this.paletteService.getHistory();
+        this.chosenColor = new Color(
+            this.currentColor.red,
+            this.currentColor.green,
+            this.currentColor.blue,
+            this.currentColor.alpha,
+        );
     }
 
     protected onAlphaChange(): void {
         this.currentColor.alpha = this.colorsForm.controls.alpha.value;
-        this.applyColor();
     }
 
     protected setColor(): {} {
         return {
-            'background-color': `${this.currentColor.toRGBA()}`,
+            'background-color': `${this.chosenColor.toRGBA()}`,
         };
     }
 }

@@ -63,13 +63,13 @@ describe('PaletteButtonComponent', () => {
     });
 
     it('#onColorHEXChange should update RGBA color', () => {
-        const primary = new Color(30, 30, 30, 1);
+        const primary = new Color(0, 0, 0, 1);
         (component as any).isPrimaryColor = true;
         (component as any).isSecondaryColor = false;
         component.onColorHEXChange();
         expect(service.primary).toEqual(primary);
 
-        const secondary = new Color(170, 170, 170, 1);
+        const secondary = new Color(255, 255, 255, 1);
         (component as any).isPrimaryColor = false;
         (component as any).isSecondaryColor = true;
         component.onColorHEXChange();
@@ -77,13 +77,13 @@ describe('PaletteButtonComponent', () => {
     });
 
     it('#onColorRGBAChange should update HEX color', () => {
-        const primary = new Color(30, 30, 30, 1);
+        const primary = new Color(0, 0, 0, 1);
         (component as any).isPrimaryColor = true;
         (component as any).isSecondaryColor = false;
         component.onColorRGBAChange();
         expect(service.primary).toEqual(primary);
 
-        const secondary = new Color(170, 170, 170, 1);
+        const secondary = new Color(255, 255, 255, 1);
         (component as any).isPrimaryColor = false;
         (component as any).isSecondaryColor = true;
         component.onColorRGBAChange();
@@ -135,7 +135,7 @@ describe('PaletteButtonComponent', () => {
     it('#onMouseUp should update palette, hide Form and update color history', () => {
         spyOn(component, 'hideForm');
 
-        component.onMouseUp();
+        component.onClose();
 
         expect(component.hideForm).toHaveBeenCalled();
         expect(component.colorsHistory).toEqual(service.getHistory());
@@ -143,12 +143,11 @@ describe('PaletteButtonComponent', () => {
 
     it('#onOldColor should pick color, update palette and hide form', () => {
         spyOn(component, 'onColorPick');
-        spyOn(component, 'hideForm');
+
         const color = new Color(255, 255, 255, 1);
         component.onOldColor(color);
 
         expect(component.onColorPick).toHaveBeenCalled();
-        expect(component.hideForm).toHaveBeenCalled();
     });
 
     it('#toggleForm should toggle form, emit isShowForm and update color history', () => {
