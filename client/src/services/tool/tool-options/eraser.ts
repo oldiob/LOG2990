@@ -4,11 +4,11 @@ import { SVGService } from 'src/services/svg/svg.service';
 
 import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { CmdErase } from 'src/services/cmd/cmd.eraser';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { recreateElement } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
-import { CmdService } from 'src/services/cmd/cmd.service';
 
 @Injectable({
     providedIn: 'root',
