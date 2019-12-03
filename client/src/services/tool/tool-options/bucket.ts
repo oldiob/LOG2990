@@ -11,7 +11,7 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class BucketTool implements ITool {
-    readonly tip: string = 'Bucket';
+    readonly tip: string = 'Bucket (B)';
     width: number;
 
     private isLoaded: boolean;

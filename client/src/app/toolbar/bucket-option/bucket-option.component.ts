@@ -14,7 +14,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 export class BucketOptionComponent implements OnInit, IOption<ITool> {
     private readonly FILE_LOCATION = '../../../../assets/images/';
 
-    tip = 'Bucket (B)';
+    tip = 'Fill';
     images = new Map<ITool, string>([
         [this.colorApplicator, 'color-applicator.png'],
         [this.bucket, 'bucket.png'],

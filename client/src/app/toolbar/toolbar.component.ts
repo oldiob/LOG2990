@@ -193,13 +193,14 @@ export class ToolbarComponent implements OnInit {
         }
         const kbd: { [id: string]: callback } = {
             a: () => this.selectToolFromOption(this.toolOption, 7),
+            b: () => this.selectToolFromOption(this.bucketOption, 1),
             c: () => this.selectToolFromOption(this.toolOption, 0),
-            b: () => this.selectToolFromOption(this.bucketOption, 0),
             e: () => this.selectToolFromOption(this.toolOption, 6),
             g: () => this.gridOption.toggleGrid(),
-            i: () => this.selectToolFromOption(this.bucketOption, 1),
+            i: () => this.selectToolFromOption(this.bucketOption, 2),
             l: () => this.selectToolFromOption(this.toolOption, 4),
             p: () => this.selectToolFromOption(this.toolOption, 3),
+            r: () => this.selectToolFromOption(this.bucketOption, 0),
             s: () => this.selectToolFromOption(this.selectorOption, 0),
             t: () => this.selectToolFromOption(this.textOption, 0),
             w: () => this.selectToolFromOption(this.toolOption, 1),

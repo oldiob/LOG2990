@@ -10,8 +10,9 @@
                 matTooltip={{action.tip}}
                 matTooltipClass="tooltip"
                 matTooltipPosition="below"
-                (click)="action.action()">
-                <img class="icon" src="{{action.icon}}" alt="clipboard icon">
+                (click)="action.action()"
+                [disabled]="!isSelectorActive">
+                <img class="icon" src="{{action.icon}}" alt="clipboard icon" draggable="false">
             </button>
         </div>
     </div>

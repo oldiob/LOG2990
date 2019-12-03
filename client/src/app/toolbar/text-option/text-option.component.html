@@ -22,10 +22,10 @@
     <div class="sub-section">Style</div>
     <div class="tools style">
         <div class="button" (click)="toggleBold()" [class.selected-tool]="isBold">
-            <img class="tool-icon" src="../../../assets/images/bold.png">
+            <img class="icon" src="../../../assets/images/bold.png" draggable="false">
         </div>
         <div class="button" (click)="toggleItalic()" [class.selected-tool]="isItalic">
-            <img class="tool-icon" src="../../../assets/images/italic.png">
+            <img class="icon" src="../../../assets/images/italic.png" draggable="false">
         </div>
     </div>
     
@@ -33,13 +33,13 @@
     <div class="sub-section">Text Align</div>
     <div class="tools">
         <div class="button" (click)="selectTextAlign('start')" [class.selected-tool]="isAlignLeft">
-            <img class="tool-icon" src="../../../assets/images/left.png">
+            <img class="icon" src="../../../assets/images/left.png" draggable="false">
         </div>
         <div class="button" (click)="selectTextAlign('middle')" [class.selected-tool]="isAlignCenter">
-            <img class="tool-icon" src="../../../assets/images/center.png">
+            <img class="icon" src="../../../assets/images/center.png" draggable="false">
         </div>
         <div class="button" (click)="selectTextAlign('end')" [class.selected-tool]="isAlignRight">
-            <img class="tool-icon" src="../../../assets/images/right.png">
+            <img class="icon" src="../../../assets/images/right.png" draggable="false">
         </div>
     </div>
 </div>
