@@ -2,16 +2,16 @@ import { injectable } from 'inversify';
 import { Db, MongoClient, MongoError, ObjectID } from 'mongodb';
 import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-const DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
 @injectable()
-export class DataBaseService {
+export class DatabaseService {
 
+    private readonly DB_URL = 'mongodb+srv://dapak:rebase8@rebase-67b9x.mongodb.net/test';
     private mongo: MongoClient;
     private db: Db;
 
-    async connectDB(): Promise<MongoClient> {
+    private async connectDB(): Promise<MongoClient> {
         if (this.mongo !== undefined) { return this.mongo; }
-        this.mongo = await MongoClient.connect(DB_URL, {
+        this.mongo = await MongoClient.connect(this.DB_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
