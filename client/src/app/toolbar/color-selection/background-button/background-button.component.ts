@@ -39,7 +39,18 @@ export class BackgroundButtonComponent
     protected setupColors(): void {
         this.workZoneService.currentBackgroundColor.subscribe(
             (backgroundColor: Color) => {
-                this.currentColor = backgroundColor;
+                this.currentColor = new Color(
+                    backgroundColor.red,
+                    backgroundColor.green,
+                    backgroundColor.blue,
+                    backgroundColor.alpha,
+                );
+                this.chosenColor = new Color(
+                    backgroundColor.red,
+                    backgroundColor.green,
+                    backgroundColor.blue,
+                    backgroundColor.alpha,
+                );
                 if (this.colorsForm) {
                     this.updateForm();
                 }
@@ -57,12 +68,16 @@ export class BackgroundButtonComponent
         this.applyColor();
         this.hideForm();
         this.colorsHistory = this.paletteService.getHistory();
-        this.chosenColor = this.currentColor;
+        this.chosenColor = new Color(
+            this.currentColor.red,
+            this.currentColor.green,
+            this.currentColor.blue,
+            this.currentColor.alpha,
+        );
     }
 
     protected onAlphaChange(): void {
         this.currentColor.alpha = this.colorsForm.controls.alpha.value;
-        this.applyColor();
     }
 
     protected setColor(): {} {

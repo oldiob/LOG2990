@@ -40,14 +40,23 @@ export class PaletteButtonComponent
 
     protected setupColors(): void {
         if (this.isPrimaryColor) {
-            this.currentColor = this.paletteService.primary;
+            this.currentColor = new Color(
+                this.paletteService.primary.red,
+                this.paletteService.primary.green,
+                this.paletteService.primary.blue,
+                this.paletteService.primary.alpha,
+            );;
         } else if (this.isSecondaryColor) {
-            this.currentColor = this.paletteService.secondary;
+            this.currentColor = new Color(
+                this.paletteService.secondary.red,
+                this.paletteService.secondary.green,
+                this.paletteService.secondary.blue,
+                this.paletteService.secondary.alpha,
+            );
         }
     }
 
     protected applyColor(): void {
-        Color.getColorFromHex(this.colorsForm.controls.colorHEX.value);
         if (this.isPrimaryColor) {
             this.paletteService.selectPrimary(
                 this.currentColor.red,
@@ -67,7 +76,6 @@ export class PaletteButtonComponent
 
     onAlphaChange(): void {
         this.currentColor.alpha = this.colorsForm.controls.alpha.value;
-        this.applyColor();
     }
 
     setColor(): {} {

@@ -33,7 +33,7 @@
                             (change)="onColorHEXChange()" value="{{this.colorsForm.controls.colorHEX.value}}"
                             autocomplete=off>
                     </mat-form-field>
-                    <div class="preview" [ngStyle]="{'background-color': this.colorsForm.controls.colorHEX.value}">
+                    <div class="preview" [ngStyle]="{'background-color': this.currentColor.toRGBA()}">
                     </div>
                 </div>
 
