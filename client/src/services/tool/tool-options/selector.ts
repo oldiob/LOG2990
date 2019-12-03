@@ -10,7 +10,7 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus, vectorModule } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
@@ -22,7 +22,7 @@ export class SelectorTool implements ITool {
 
     static BASE_OFFSET = 30;
     private firstMousePosition: number[];
-    private lastMousePosition: number[];
+    private currentMousePosition: number[];
     private selectorBox: SelectorBox;
     private preview: SVGRectElement;
     private mIsSelected: boolean;
@@ -32,16 +32,26 @@ export class SelectorTool implements ITool {
     private transforms: CmdComposite | null;
     readonly tip = 'Selector (S)';
 
+    private selectedBeforeUnselect: Set<SVGAbstract>;
     selected: SVGComposite;
     private unselected: SVGComposite;
 
     distanceToCenter: number[];
 
+    private readonly MAX_DISTANCE_FOR_CLICK = 5;
+    private isSingleClick: boolean;
+    private distanceMoved: number;
+
     constructor(private svg: SVGService) {
 
+        this.isSingleClick = false;
+        this.distanceMoved = 0;
+
         this.firstMousePosition = [0, 0];
-        this.lastMousePosition = [0, 0];
+        this.currentMousePosition = [0, 0];
         this.distanceToCenter = [];
+
+        this.selectedBeforeUnselect = new Set<SVGAbstract>();
         this.selected = new SVGComposite();
         this.unselected = new SVGComposite();
 
@@ -66,8 +76,11 @@ export class SelectorTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
+        this.isSingleClick = true;
+        this.distanceMoved = 0;
+
         this.firstMousePosition = [event.svgX, event.svgY];
-        this.lastMousePosition = [event.svgX, event.svgY];
+        this.currentMousePosition = [event.svgX, event.svgY];
 
         this.showPreview();
 
@@ -77,7 +90,11 @@ export class SelectorTool implements ITool {
                 break;
 
             case 2:
-                this.onRightClick();
+                this.selectedBeforeUnselect.clear();
+                this.selected.children.forEach((child) => {
+                    this.selectedBeforeUnselect.add(child);
+                });
+                this.state = SelectorState.UNSELECTING;
                 break;
 
             default:
@@ -93,8 +110,15 @@ export class SelectorTool implements ITool {
             return;
         }
 
-        const previousMousePosition = [this.lastMousePosition[0], this.lastMousePosition[1]];
-        this.lastMousePosition = [event.svgX, event.svgY];
+        const previousMousePosition = [this.currentMousePosition[0], this.currentMousePosition[1]];
+        this.currentMousePosition = [event.svgX, event.svgY];
+
+        if (this.isSingleClick) {
+            this.distanceMoved += vectorModule(vectorMinus(previousMousePosition, this.currentMousePosition));
+            if (this.distanceMoved > this.MAX_DISTANCE_FOR_CLICK) {
+                this.isSingleClick = false;
+            }
+        }
 
         switch (this.state) {
             case SelectorState.SELECTING:
@@ -107,7 +131,7 @@ export class SelectorTool implements ITool {
                 break;
             case SelectorState.MOVING:
                 if (this.transforms) {
-                    const toMove = vectorMinus(this.lastMousePosition, previousMousePosition);
+                    const toMove = vectorMinus(this.currentMousePosition, previousMousePosition);
                     this.transforms.addChild(
                         this.selected.translateCommand(toMove[0], toMove[1]));
                     this.updateSelect();
@@ -129,10 +153,10 @@ export class SelectorTool implements ITool {
         this.hidePreview();
 
         DOMRenderer.setAttributes(this.preview, {
-            x: Math.min(this.firstMousePosition[0], this.lastMousePosition[0]).toString(),
-            y: Math.min(this.firstMousePosition[1], this.lastMousePosition[1]).toString(),
-            width: Math.abs(this.firstMousePosition[0] - this.lastMousePosition[0]).toString(),
-            height: Math.abs(this.firstMousePosition[1] - this.lastMousePosition[1]).toString(),
+            x: Math.min(this.firstMousePosition[0], this.currentMousePosition[0]).toString(),
+            y: Math.min(this.firstMousePosition[1], this.currentMousePosition[1]).toString(),
+            width: Math.abs(this.firstMousePosition[0] - this.currentMousePosition[0]).toString(),
+            height: Math.abs(this.firstMousePosition[1] - this.currentMousePosition[1]).toString(),
         });
 
         this.svg.addElement(this.preview);
@@ -170,8 +194,6 @@ export class SelectorTool implements ITool {
             this.selected.children.delete(child);
         }
         this.updateSelect();
-
-        this.state = SelectorState.UNSELECTING;
     }
 
     private selectTargeted(): void {
@@ -188,10 +210,10 @@ export class SelectorTool implements ITool {
 
     private select(): void {
         const rect: Rect = new Rect(
-            Math.min(this.firstMousePosition[0], this.lastMousePosition[0]),
-            Math.min(this.firstMousePosition[1], this.lastMousePosition[1]),
-            Math.max(this.firstMousePosition[0], this.lastMousePosition[0]),
-            Math.max(this.firstMousePosition[1], this.lastMousePosition[1]));
+            Math.min(this.firstMousePosition[0], this.currentMousePosition[0]),
+            Math.min(this.firstMousePosition[1], this.currentMousePosition[1]),
+            Math.max(this.firstMousePosition[0], this.currentMousePosition[0]),
+            Math.max(this.firstMousePosition[1], this.currentMousePosition[1]));
 
         this.selected.clear();
         const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
@@ -208,8 +230,8 @@ export class SelectorTool implements ITool {
         const rect: Rect = new Rect(
             this.firstMousePosition[0],
             this.firstMousePosition[1],
-            this.lastMousePosition[0],
-            this.lastMousePosition[1]);
+            this.currentMousePosition[0],
+            this.currentMousePosition[1]);
 
         const elementsInRect: Set<SVGAbstract> = this.svg.getInRect(rect);
 
@@ -219,7 +241,7 @@ export class SelectorTool implements ITool {
         });
 
         this.unselected.children.forEach((element: SVGAbstract) => {
-            if (!elementsInRect.has(element)) {
+            if (!elementsInRect.has(element) && this.selectedBeforeUnselect.has(element)) {
                 this.unselected.children.delete(element);
                 this.selected.addChild(element);
             }
@@ -262,6 +284,11 @@ export class SelectorTool implements ITool {
     }
 
     onReleased(event: MouseEvent): void {
+
+        if (this.state === SelectorState.UNSELECTING && this.isSingleClick) {
+            this.onRightClick();
+        }
+
         this.state = SelectorState.NONE;
         this.hidePreview();
     }
@@ -288,15 +315,15 @@ export class SelectorTool implements ITool {
 
     selectAll(): void {
         const tempFirst = this.firstMousePosition;
-        const tempLast = this.lastMousePosition;
+        const tempLast = this.currentMousePosition;
 
         this.firstMousePosition = [0, 0];
-        this.lastMousePosition = [Infinity, Infinity];
+        this.currentMousePosition = [Infinity, Infinity];
 
         this.select();
 
         this.firstMousePosition = tempFirst;
-        this.lastMousePosition = tempLast;
+        this.currentMousePosition = tempLast;
 
         this.state = SelectorState.NONE;
     }
