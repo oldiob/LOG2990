@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CmdComposite } from 'src/services/cmd/cmd.array';
-import { CmdDup } from 'src/services/cmd/cmd.dup';
 import { CmdEraser } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
+import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { SVGService } from 'src/services/svg/svg.service';
 import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selector-box';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { copySVG } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorPlus, vectorModule } from 'src/utils/math';
+import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
@@ -27,7 +28,7 @@ export class SelectorTool implements ITool {
     private preview: SVGRectElement;
     private mIsSelected: boolean;
     private isSelectedSubject = new BehaviorSubject<boolean>(this.isSelected);
-    private dupOffset: number[] = [SelectorTool.BASE_OFFSET, SelectorTool.BASE_OFFSET];
+    private dupOffset: number[];
     private state: SelectorState = SelectorState.NONE;
     private transforms: CmdComposite | null;
     readonly tip = 'Selector (S)';
@@ -38,15 +39,9 @@ export class SelectorTool implements ITool {
 
     distanceToCenter: number[];
 
-    private readonly MAX_DISTANCE_FOR_CLICK = 5;
-    private isSingleClick: boolean;
-    private distanceMoved: number;
-
     constructor(private svg: SVGService) {
 
-        this.isSingleClick = false;
-        this.distanceMoved = 0;
-
+        this.dupOffset = [0, 0];
         this.firstMousePosition = [0, 0];
         this.currentMousePosition = [0, 0];
         this.distanceToCenter = [];
@@ -76,8 +71,6 @@ export class SelectorTool implements ITool {
     }
 
     onPressed(event: MouseEvent): CmdInterface | null {
-        this.isSingleClick = true;
-        this.distanceMoved = 0;
 
         this.firstMousePosition = [event.svgX, event.svgY];
         this.currentMousePosition = [event.svgX, event.svgY];
@@ -90,11 +83,7 @@ export class SelectorTool implements ITool {
                 break;
 
             case 2:
-                this.selectedBeforeUnselect.clear();
-                this.selected.children.forEach((child) => {
-                    this.selectedBeforeUnselect.add(child);
-                });
-                this.state = SelectorState.UNSELECTING;
+                this.onRightClick(event.svgX, event.svgY);
                 break;
 
             default:
@@ -112,13 +101,6 @@ export class SelectorTool implements ITool {
 
         const previousMousePosition = [this.currentMousePosition[0], this.currentMousePosition[1]];
         this.currentMousePosition = [event.svgX, event.svgY];
-
-        if (this.isSingleClick) {
-            this.distanceMoved += vectorModule(vectorMinus(previousMousePosition, this.currentMousePosition));
-            if (this.distanceMoved > this.MAX_DISTANCE_FOR_CLICK) {
-                this.isSingleClick = false;
-            }
-        }
 
         switch (this.state) {
             case SelectorState.SELECTING:
@@ -149,21 +131,43 @@ export class SelectorTool implements ITool {
         }
     }
 
-    private showPreview(): void {
+    onReleased(event: MouseEvent): void {
+        this.state = SelectorState.NONE;
+        this.dupOffset = [0, 0];
         this.hidePreview();
-
-        DOMRenderer.setAttributes(this.preview, {
-            x: Math.min(this.firstMousePosition[0], this.currentMousePosition[0]).toString(),
-            y: Math.min(this.firstMousePosition[1], this.currentMousePosition[1]).toString(),
-            width: Math.abs(this.firstMousePosition[0] - this.currentMousePosition[0]).toString(),
-            height: Math.abs(this.firstMousePosition[1] - this.currentMousePosition[1]).toString(),
-        });
-
-        this.svg.addElement(this.preview);
     }
 
-    private hidePreview(): void {
-        this.svg.removeElement(this.preview);
+    onWheel(event: WheelEvent): boolean {
+        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+
+        if (!this.isEmpty() && this.transforms && this.state === SelectorState.NONE) {
+            const center: number[] = this.selected.position;
+            this.transforms.addChild(
+                this.selected.rotateOnPointCommand(angle, center, event.shiftKey));
+            this.updateSelect();
+        }
+
+        return true;
+    }
+
+    onKeydown(event: KeyboardEvent): boolean {
+        const kbd: { [id: string]: callback } = {
+            'C-d': () => this.duplicate(),
+            'C-a': () => this.selectAll(),
+            delete: () => this.erase(),
+
+        };
+        let keys = '';
+        if (event.ctrlKey) {
+            keys += 'C-';
+        }
+        keys += event.key.toLowerCase();
+        if (kbd[keys]) {
+            const func: callback = kbd[keys];
+            func();
+            return true;
+        }
+        return false;
     }
 
     private onLeftClick(x: number, y: number): void {
@@ -183,17 +187,39 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.SELECTING;
     }
 
-    private onRightClick() {
+    private onRightClick(x: number, y: number) {
         this.unselected.clear();
+        this.selectedBeforeUnselect.clear();
         this.selected.children.forEach((child) => {
-            this.unselected.addChild(child);
+            this.selectedBeforeUnselect.add(child);
         });
-        this.selectAll();
 
-        for (const child of this.unselected.children) {
-            this.selected.children.delete(child);
+        const targeted: SVGAbstract | null = this.svg.findAt(x, y);
+
+        if (targeted) {
+            this.unselected.addChild(targeted);
+            this.selected.children.delete(targeted);
         }
+
         this.updateSelect();
+        this.state = SelectorState.UNSELECTING;
+    }
+
+    private showPreview(): void {
+        this.hidePreview();
+
+        DOMRenderer.setAttributes(this.preview, {
+            x: Math.min(this.firstMousePosition[0], this.currentMousePosition[0]).toString(),
+            y: Math.min(this.firstMousePosition[1], this.currentMousePosition[1]).toString(),
+            width: Math.abs(this.firstMousePosition[0] - this.currentMousePosition[0]).toString(),
+            height: Math.abs(this.firstMousePosition[1] - this.currentMousePosition[1]).toString(),
+        });
+
+        this.svg.addElement(this.preview);
+    }
+
+    private hidePreview(): void {
+        this.svg.removeElement(this.preview);
     }
 
     private selectTargeted(): void {
@@ -269,50 +295,6 @@ export class SelectorTool implements ITool {
         this.isSelected = false;
     }
 
-    onWheel(event: WheelEvent): boolean {
-        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
-
-        if (!this.isEmpty() && this.transforms && this.state === SelectorState.NONE) {
-            const center: number[] = this.selected.position;
-            this.transforms.addChild(
-                this.selected.rotateOnPointCommand(angle, center, event.shiftKey));
-            this.updateSelect();
-            return true;
-        }
-
-        return false;
-    }
-
-    onReleased(event: MouseEvent): void {
-
-        if (this.state === SelectorState.UNSELECTING && this.isSingleClick) {
-            this.onRightClick();
-        }
-
-        this.state = SelectorState.NONE;
-        this.hidePreview();
-    }
-
-    onKeydown(event: KeyboardEvent): boolean {
-        const kbd: { [id: string]: callback } = {
-            'C-a': () => this.selectAll(),
-            'C-d': () => this.duplicate(),
-            delete: () => this.erase(),
-
-        };
-        let keys = '';
-        if (event.ctrlKey) {
-            keys += 'C-';
-        }
-        keys += event.key.toLowerCase();
-        if (kbd[keys]) {
-            const func: callback = kbd[keys];
-            func();
-            return true;
-        }
-        return false;
-    }
-
     selectAll(): void {
         const tempFirst = this.firstMousePosition;
         const tempLast = this.currentMousePosition;
@@ -329,8 +311,15 @@ export class SelectorTool implements ITool {
     }
 
     duplicate(): void {
-        this.dupOffset = this.nextOffset(this.dupOffset);
-        CmdService.execute(new CmdDup(Array.from(this.selected.children), this.dupOffset));
+        const toPaste: SVGAbstract[] = [];
+
+        this.selected.children.forEach((object) => {
+            const tmp: SVGAbstract = copySVG(object);
+            this.dupOffset = this.nextOffset(this.dupOffset);
+            tmp.translate(this.dupOffset[0], this.dupOffset[1]);
+            toPaste.push(tmp);
+        });
+        CmdService.execute(new CmdSVG(toPaste));
     }
 
     erase(): void {

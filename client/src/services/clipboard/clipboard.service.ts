@@ -12,24 +12,31 @@ import { copySVG } from 'src/utils/element-parser';
 })
 export class ClipboardService {
 
-    selectedObjects: SVGAbstract[] = [];
+    copied: SVGAbstract[] = [];
     offset: number[] = [0, 0];
 
     constructor(public selector: SelectorTool, public svg: SVGService) { }
 
     copy(): void {
-        this.selectedObjects = Array.from(this.selector.selected.children);
+        this.copied = Array.from(this.selector.selected.children);
         this.offset = [0, 0];
     }
 
     cut(): void {
         this.copy();
         this.selector.clearSelection();
-        CmdService.execute(new CmdCut(this.selectedObjects));
+        CmdService.execute(new CmdCut(this.copied));
+    }
+
+    duplicate(): void {
+        const copiedBefore = Array.from(this.copied);
+        this.copy();
+        this.paste();
+        this.copied = copiedBefore;
     }
 
     paste(): void {
-        const toPaste: SVGAbstract[] = this.selectedObjects.map((object) => {
+        const toPaste: SVGAbstract[] = this.copied.map((object) => {
             const tmp: SVGAbstract = copySVG(object);
             this.offset = this.selector.nextOffset(this.offset);
             tmp.translate(this.offset[0], this.offset[1]);
