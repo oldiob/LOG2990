@@ -1,5 +1,6 @@
 import { BreadthFirst } from './breadth-first';
 import { createArray } from './image-manipulations';
+import { Queue } from './queue';
 
 describe('BreadthFirst', () => {
 
@@ -14,9 +15,9 @@ describe('BreadthFirst', () => {
     beforeEach(() => {
         x = Math.floor(Math.random() * 10);
         y = Math.floor(Math.random() * 10);
-        width = Math.floor(Math.random() * 1000);
-        height = Math.floor(Math.random() * 1000);
-        tolerance = Math.floor(Math.random() * 1000);
+        width = 1000;
+        height = 1000;
+        tolerance = 100;
         const array: number[] = createArray(width, height);
         const uint8Array = Uint8ClampedArray.from(array);
         position = [x, y];
@@ -54,6 +55,19 @@ describe('BreadthFirst', () => {
     it('isPositionAcceptable should return false when isPositionInRange, and isRightColor are true but isPositionCovered is false', () => {
         const tempPosition: number[] = [1, 1];
         expect((breadthFirst as any).isPositionAcceptable(tempPosition)).toEqual(false);
+    });
+
+    it('populatePixel is called', () => {
+        const tempPosition: number[] = [x, y];
+        const toFillQueue: Queue<number[]> = new Queue<number[]>();
+
+        spyOn((breadthFirst as any), 'isPositionAcceptable').and.returnValue(true);
+        spyOn(breadthFirst.positions, 'push');
+        spyOn(toFillQueue, 'push');
+        (breadthFirst as any).populatePixel(toFillQueue, tempPosition);
+        expect(breadthFirst.positions.push).toHaveBeenCalled();
+        expect(toFillQueue.push).toHaveBeenCalled();
+
     });
 
 });
