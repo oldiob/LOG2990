@@ -77,7 +77,7 @@ export class SelectorTool implements ITool {
                 break;
 
             case 2:
-                this.onRightClick(event.svgX, event.svgY);
+                this.onRightClick();
                 break;
 
             default:
@@ -159,15 +159,17 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.SELECTING;
     }
 
-    private onRightClick(x: number, y: number) {
+    private onRightClick() {
         this.unselected.clear();
-        const elementAt: SVGAbstract | null = this.svg.findAt(x, y);
+        this.selected.children.forEach((child) => {
+            this.unselected.addChild(child);
+        });
+        this.selectAll();
 
-        if (elementAt && this.selected.children.has(elementAt)) {
-            this.unselected.addChild(elementAt);
-            this.selected.children.delete(elementAt);
-            this.updateSelect();
+        for (const child of this.unselected.children) {
+            this.selected.children.delete(child);
         }
+        this.updateSelect();
 
         this.state = SelectorState.UNSELECTING;
     }
