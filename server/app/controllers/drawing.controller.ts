@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-import { DataBaseService } from '../services/database.service';
+import { DatabaseService } from '../services/database.service';
 import Types from '../types';
 @injectable()
 export class DrawingController {
@@ -13,7 +13,7 @@ export class DrawingController {
     id: string;
     tag: string;
 
-    constructor(@inject(Types.DataBaseService) private database: DataBaseService) {
+    constructor(@inject(Types.DatabaseService) private database: DatabaseService) {
         this.drawings = [];
         this.configureRouter();
     }
@@ -32,7 +32,7 @@ export class DrawingController {
         return /^[a-zA-Z]+$/.test(tag);
     }
 
-    configureRouter() {
+    private configureRouter() {
         this.router = Router();
 
         this.router.post('/add', async (req, res) => {

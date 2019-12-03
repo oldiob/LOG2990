@@ -1,11 +1,11 @@
 import { assert, expect } from 'chai';
 import { Router } from 'express';
 import { Drawing } from '../../../client/src/services/draw-area/i-drawing';
-import { DataBaseService } from '../services/database.service';
+import { DatabaseService } from '../services/database.service';
 import { DrawingController } from './drawing.controller';
 
 describe('DrawingRoutes :', () => {
-    const database: DataBaseService = new DataBaseService();
+    const database: DatabaseService = new DatabaseService();
     const drawingController: DrawingController = new DrawingController(database);
     const router: Router = Router();
     let validDrawing: Drawing;
@@ -55,6 +55,12 @@ describe('DrawingRoutes :', () => {
       };
 
     describe ('DrawingController function : ', () => {
+
+        it('should be an object', () => {
+            expect(drawingController).to.be.an('object');
+            expect(database).to.be.an('object');
+        });
+
         it('should complete this test', (done) => {
             assert.ok(true);
             done();
@@ -64,7 +70,7 @@ describe('DrawingRoutes :', () => {
 
             it('should return false if the drawing name is not valid', () => {
                     const invalidDrawingName = (drawingController as any).isDrawingValid(invalidName);
-                    expect( invalidDrawingName).to.equal(false);
+                    expect(invalidDrawingName).to.equal(false);
             });
 
             it('should return false if the drawing id is not valid', () => {

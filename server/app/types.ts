@@ -1,6 +1,6 @@
 export default {
     Server: Symbol('Server'),
     Application: Symbol('Application'),
-    DataBaseService: Symbol('DataBaseService'),
+    DatabaseService: Symbol('DataBaseService'),
     DrawingController: Symbol('DrawingController'),
 };
