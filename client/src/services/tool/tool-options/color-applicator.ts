@@ -15,7 +15,7 @@ export class ColorApplicatorTool implements ITool {
 
     constructor(private svgService: SVGService,
                 private paletteService: PaletteService) {
-        this.tip = 'Color Applicator (R)';
+        this.tip = 'Vector Fill (R)';
     }
 
     onPressed(event: MouseEvent): CmdBucket | null {
