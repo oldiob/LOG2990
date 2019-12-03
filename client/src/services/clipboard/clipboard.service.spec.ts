@@ -1,6 +1,3 @@
-/*
-    TODO:
-
 import { HttpClientModule } from '@angular/common/http';
 import { Renderer2 } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
@@ -48,17 +45,9 @@ describe('ClipboardService', () => {
         expect(service.offset).toEqual([0, 0]);
     });
 
-    it('should cut correctly', () => {
-        spyOn(service.selector, 'reset');
-        service.cut();
-        expect(service.selector.reset).toHaveBeenCalled();
-        expect(service.offset).toEqual([0, 0]);
-    });
-
     it('should paste correctly', () => {
         spyOn(CmdService, 'execute');
         service.paste();
         expect(CmdService.execute).toHaveBeenCalled();
     });
 });
-*/
