@@ -32,7 +32,7 @@ export class DrawingController {
         return /^[a-zA-Z]+$/.test(tag);
     }
 
-    configureRouter() {
+    private configureRouter() {
         this.router = Router();
 
         this.router.post('/add', async (req, res) => {
