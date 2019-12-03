@@ -62,11 +62,11 @@ describe('AbsColorButton', () => {
         expect(component.currentColor).toEqual(color);
     });
 
-    it('#onMouseUp should update palette, hide Form and update color history', () => {
+    it('#onClose should update palette, hide Form and update color history', () => {
         spyOn(component, 'hideForm');
         spyOn(component as any, 'applyColor');
 
-        component.onMouseUp();
+        component.onClose();
 
         expect(component.hideForm).toHaveBeenCalled();
         expect((component as any).applyColor).toHaveBeenCalled();
@@ -75,12 +75,11 @@ describe('AbsColorButton', () => {
 
     it('#onOldColor should pick color, update palette and hide form', () => {
         spyOn(component, 'onColorPick');
-        spyOn(component, 'hideForm');
+
         const color = new Color(255, 255, 255, 1);
         component.onOldColor(color);
 
         expect(component.onColorPick).toHaveBeenCalled();
-        expect(component.hideForm).toHaveBeenCalled();
     });
 
     it('#toggleForm should toggle form, emit isSettingsShown and update color history', () => {

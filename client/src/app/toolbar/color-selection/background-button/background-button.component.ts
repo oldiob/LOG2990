@@ -63,7 +63,7 @@ export class BackgroundButtonComponent
         );
     }
 
-    onMouseUp() {
+    onClose() {
         this.paletteService.previous.add(this.currentColor);
         this.applyColor();
         this.hideForm();
