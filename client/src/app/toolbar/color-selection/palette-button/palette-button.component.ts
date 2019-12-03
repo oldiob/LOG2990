@@ -45,7 +45,7 @@ export class PaletteButtonComponent
                 this.paletteService.primary.green,
                 this.paletteService.primary.blue,
                 this.paletteService.primary.alpha,
-            );;
+            );
         } else if (this.isSecondaryColor) {
             this.currentColor = new Color(
                 this.paletteService.secondary.red,
