@@ -35,12 +35,12 @@ describe('StampTool', () => {
     it('should create', () => {
         expect(stamp).toBeTruthy();
     });
-/* TODO
+
     it('should not create new stamp when onPressed with empty currentPath', () => {
         (stamp as any).currentPath = '';
         expect(stamp.onPressed(event)).toBeNull();
     });
-*/
+
     it('should set element to null when OnReleased', () => {
         (stamp as any).element = element;
         stamp.onReleased(event);
