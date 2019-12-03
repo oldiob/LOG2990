@@ -4,37 +4,12 @@
   | 6 (0) | 7 (0) | 8 (1) |
 */
 
-const re = /matrix\(\)/;
-
 export class MatrixSVG {
 
     static N_ROWS = 3;
     static M_ROWS = 3;
 
     arr: number[];
-
-    static fromString(str: string): MatrixSVG {
-        const arr: RegExpExecArray | null = re.exec(str);
-        const ret: MatrixSVG = new MatrixSVG();
-        if (arr) {
-            ret.arr = arr[1].split(',').map((n) => {
-                let N = Number(n);
-                if (isNaN(N)) {
-                    N = 0;
-                }
-                return N;
-            });
-            const b = arr[1];
-            const c = arr[2];
-            const d = arr[3];
-            const e = arr[4];
-            arr[1] = c;
-            arr[2] = e;
-            arr[3] = b;
-            arr[4] = d;
-        }
-        return ret;
-    }
 
     constructor() {
         this.arr = new Array<number>(MatrixSVG.N_ROWS * MatrixSVG.M_ROWS).fill(0);
