@@ -35,6 +35,13 @@ describe('AirbrushTool', () => {
         expect(cmd).toBeTruthy();
     });
 
+    it('should create a SVGAirbrush with given parameter onPressed', () => {
+        airbrush.onPressed(event);
+        expect(airbrush.element).toBeTruthy();
+        expect((airbrush as any).currentX).toEqual(event.svgX);
+        expect((airbrush as any).currentY).toEqual(event.svgY);
+    });
+
     it('should set currentX and currentY on mouse motion', () => {
         airbrush.onMotion(event);
         expect((airbrush as any).currentX).toEqual(event.svgX);
