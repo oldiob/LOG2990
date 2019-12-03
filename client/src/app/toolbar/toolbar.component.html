@@ -3,38 +3,38 @@
         <div class="button" *ngFor="let option of options" (click)="selectOption(option)"
             [class.selected-toolbar-button]="option === currentOption" matTooltip="{{option.tip}}"
             matTooltipClass="tooltip" matTooltipPosition="right">
-            <img class="toolbar-icon" [src]="getImage(option)" alt="icon" (click)="disableCurrentText()">
+            <img class="toolbar-icon" [src]="getImage(option)" alt="icon" (click)="disableCurrentText()" draggable="false">
         </div>
         <div class="button" [ngClass]="{'disable': isUndosEmpty}" (click)="undo()" matTooltip="Undo (Ctrl + Z)"
             matTooltipClass="tooltip" matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/undo.png" alt="icon" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/undo.png" alt="icon" (click)="disableCurrentText()" draggable="false">
         </div>
         <div class="button" [ngClass]="{'disable': isRedosEmpty}" (click)="redo()" matTooltip="Redo (Ctrl + Shift + Z)"
             matTooltipClass="tooltip" matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/redo.png" alt="icon" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/redo.png" alt="icon" (click)="disableCurrentText()" draggable="false">
         </div>
     </div>
 
     <div class="group">
         <div class="button" (click)="newDrawingOption()" matTooltip="New Drawing (Ctrl + O)" matTooltipClass="tooltip"
             matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/new.png" alt="icon" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/new.png" alt="icon" (click)="disableCurrentText()" draggable="false">
         </div>
         <div class="button" (click)="saveImage()" matTooltip="Save (Ctrl + S)" matTooltipClass="tooltip"
             matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/save.png" alt="icon" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/save.png" alt="icon" (click)="disableCurrentText()" draggable="false">
         </div>
         <div class="button" (click)="openGalleryOption()" matTooltip="Gallery (Ctrl + G)" matTooltipClass="tooltip"
             matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/gallery.png" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/gallery.png" (click)="disableCurrentText()" draggable="false">
         </div>
         <div class="button" (click)="openImportOption()" matTooltip="Import" matTooltipClass="tooltip"
             matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/import.png" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/import.png" (click)="disableCurrentText()" draggable="false">
         </div>
         <a class="button" (click)="openExportOption()" matTooltip="Export (Ctrl + E)" matTooltipClass="tooltip"
             matTooltipPosition="right">
-            <img class="toolbar-icon" src="../../../assets/images/export.png" (click)="disableCurrentText()">
+            <img class="toolbar-icon" src="../../../assets/images/export.png" (click)="disableCurrentText()" draggable="false">
         </a>
     </div>
 </div>
