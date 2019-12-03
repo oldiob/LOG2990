@@ -1,0 +1,20 @@
+.output {
+  mix-blend-mode: difference;
+  font-size: 1.1rem;
+  color: whitesmoke;
+  font-weight: 600;
+  word-spacing: 5px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.box {
+  width: 100%;
+  height: 100px;
+  margin: 20px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: #343e76 1px solid;
+  transition: all 0.2s;
+}
