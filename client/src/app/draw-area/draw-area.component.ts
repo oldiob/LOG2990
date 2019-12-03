@@ -143,9 +143,10 @@ export class DrawAreaComponent implements OnInit {
         event.svgX = event.clientX - rect.left;
         event.svgY = event.clientY - rect.top;
         if (this.toolService.currentTool.onWheel) {
-            this.toolService.currentTool.onWheel(event);
+            if (this.toolService.currentTool.onWheel(event)) {
+                event.preventDefault();
+            }
         }
-        event.stopPropagation();
     }
 
     onMouseEnter(): void {

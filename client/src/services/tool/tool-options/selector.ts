@@ -253,9 +253,10 @@ export class SelectorTool implements ITool {
             this.transforms.addChild(
                 this.selected.rotateOnPointCommand(angle, center, event.shiftKey));
             this.updateSelect();
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     onReleased(event: MouseEvent): void {
