@@ -9,7 +9,7 @@ import { SVGAbstract } from './svg.abstract';
 import { SVGComposite } from './svg.composite';
 import { SVGPencil } from './svg.pencil';
 
-ddescribe('SVGComposite', () => {
+fdescribe('SVGComposite', () => {
     jasmine.getEnv().allowRespy(true);
 
     let renderer: Renderer2;

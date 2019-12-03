@@ -22,14 +22,14 @@ export class EraserTool implements ITool {
 
     private cmd: CmdComposite;
     private eraserRect: SVGRectElement;
-    private surrcoundingRect: SVGGElement;
+    private surroundingRect: SVGGElement;
 
     constructor(private svgService: SVGService) {
         this.eraserRect = DOMRenderer.createElement('rect', 'svg', {
             'stroke-width': '1',
             stroke: 'black',
         });
-        this.surrcoundingRect = DOMRenderer.createElement('g', 'svg', {
+        this.surroundingRect = DOMRenderer.createElement('g', 'svg', {
             'stroke-width': '1',
             filter: 'url(#erase)',
         });
@@ -124,11 +124,11 @@ export class EraserTool implements ITool {
     }
 
     private hideSurroundingRect(): void {
-        this.svgService.removeElement(this.surrcoundingRect);
+        this.svgService.removeElement(this.surroundingRect);
 
-        const children: HTMLCollection = this.surrcoundingRect.children;
+        const children: HTMLCollection = this.surroundingRect.children;
         for (let i = 0; i < children.length; i++) {
-            DOMRenderer.removeChild(this.surrcoundingRect, children.item(i));
+            DOMRenderer.removeChild(this.surroundingRect, children.item(i));
         }
     }
 
@@ -136,8 +136,8 @@ export class EraserTool implements ITool {
         this.hideSurroundingRect();
 
         const fakeElement = recreateElement(element.element);
-        DOMRenderer.appendChild(this.surrcoundingRect, fakeElement);
+        DOMRenderer.appendChild(this.surroundingRect, fakeElement);
 
-        this.svgService.addElement(this.surrcoundingRect);
+        this.svgService.addElement(this.surroundingRect);
     }
 }

@@ -1,4 +1,3 @@
-import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
@@ -17,7 +16,9 @@ describe('EraserTool', () => {
     beforeEach(() => {
         MyInjector.injector = jasmine.createSpyObj('Injector', ['get']);
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'removeChild', 'appendChild']);
-        svgService = jasmine.createSpyObj('SVGService', ['findIn', 'getPrimary', 'getSecondary', 'entry', 'addObject', 'inRectangle']);
+        svgService = jasmine.createSpyObj('SVGService', ['findIn', 'getPrimary', 'getSecondary', 'entry', 'getElementRect',
+            'removeElement', 'addObject', 'inRectangle', 'objects', 'removeObject']);
+
         container = jasmine.createSpyObj('any | null', ['children']);
         spySVGAbstract = jasmine.createSpyObj('SVGAbstract', ['forEach']);
         spyOn(svgService, 'inRectangle').and.returnValue(spySVGAbstract);
@@ -40,13 +41,6 @@ describe('EraserTool', () => {
         expect(eraser).toBeTruthy();
     });
 
-    it('OnPressed should equal to a new CmdEraser', () => {
-        const tempCmd = new CmdErase();
-        (eraser as any).isActivated = false;
-        eraser.onPressed(event);
-        expect(eraser.onPressed(event)).toEqual(tempCmd);
-    });
-
     it('On release should turn isActivated to false', () => {
         (eraser as any).isActivated = true;
         eraser.onReleased(event);
@@ -55,8 +49,15 @@ describe('EraserTool', () => {
 
     it('On motion should call deleteAll if isActivated is equal to true', () => {
         (eraser as any).isActivated = true;
-        eraser.onMotion(event);
-        expect((eraser as any).objectsOnHold.length).toBeUndefined();
+        (eraser as any).surroundingRect = jasmine.createSpyObj('any', ['children']);
+        (eraser as any).surroundingRect.children = jasmine.createSpyObj('any', ['length']);
+        (eraser as any).surroundingRect.children.length = 0;
+        spyOn(MyInjector.injector, 'get').withArgs(SVGService).and.returnValue(svgService);
+        svgService.objects = [];
+
+        spyOn(svgService, 'getElementRect').and.returnValue(new DOMRect(0, 0, 10, 10));
+        eraser.onPressed(event);
+        expect((eraser as any).objectsOnHold.length).toBe(0);
     });
 
 });
