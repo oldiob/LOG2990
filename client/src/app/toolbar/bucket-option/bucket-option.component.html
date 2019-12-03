@@ -20,8 +20,8 @@
             <div>Targeted Color</div>
         </div>
     </div>
-    <div class="separation text"
-        [ngStyle]="{'background-color': dropper.currentColor.toRGBA(), 'height' : '100px', 'border': '2px solid #aaaaaa'}">
-        {{ dropper.currentColor.toRGBA() }}
+    <div class="box"
+        [ngStyle]="{'background-color': dropper.currentColor.toRGBA()}">
+        <div class="output">{{ dropper.currentColor.toRGBA() }}</div> 
     </div>
 </div>
