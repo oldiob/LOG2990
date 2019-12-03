@@ -12,15 +12,17 @@ export class CmdErase implements CmdInterface {
 
     constructor(obj: SVGAbstract) {
         this.object = obj;
+        this.index = -1;
         this.svg = MyInjector.get(SVGService);
     }
 
     execute(): void {
+        this.index = this.svg.objects.indexOf(this.object);
         this.svg.removeObject(this.object);
     }
 
     undo(): void {
-        this.svg.addObject(this.object);
+        this.svg.addObjectToPosition(this.object, this.index);
     }
 
     redo(): void {

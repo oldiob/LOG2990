@@ -5,9 +5,10 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { recreateElement } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
-import { recreateElement } from 'src/utils/element-parser';
+import { CmdService } from 'src/services/cmd/cmd.service';
 
 @Injectable({
     providedIn: 'root',
@@ -55,17 +56,19 @@ export class EraserTool implements ITool {
         return this.mWidth;
     }
 
-    onPressed(event: MouseEvent): CmdComposite {
+    onPressed(event: MouseEvent): null {
         this.cmd = new CmdComposite();
 
         this.isActivated = true;
         this.onMotion(event);
 
-        return this.cmd;
+        return null;
     }
 
     onReleased(event: MouseEvent): void {
         this.isActivated = false;
+
+        CmdService.undos.push(this.cmd);
     }
 
     onMotion(event: MouseEvent): void {

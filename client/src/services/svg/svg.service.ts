@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorModule, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
 import { DrawAreaService } from '../draw-area/draw-area.service';
 
@@ -78,6 +78,20 @@ export class SVGService {
         if (this.drawAreaService) {
             this.drawAreaService.dirty();
         }
+    }
+
+    addObjectToPosition(obj: SVGAbstract, index: number) {
+        const deleted: SVGAbstract[] = this.objects.slice(index, this.objects.length);
+
+        deleted.forEach((element) => {
+            this.removeObject(element);
+        });
+
+        this.addObject(obj);
+
+        deleted.forEach((element) => {
+            this.addObject(element);
+        });
     }
 
     removeObject(obj: SVGAbstract | null) {
