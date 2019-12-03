@@ -11,7 +11,7 @@ import { ITool } from './i-tool';
     providedIn: 'root',
 })
 export class BucketTool implements ITool {
-    readonly tip: string = 'Bucket (B)';
+    readonly tip: string = 'Pixel Fill (B)';
     width: number;
 
     private isLoaded: boolean;
@@ -30,7 +30,7 @@ export class BucketTool implements ITool {
         }
 
         const x = event.svgX;
-        const y = event. svgY;
+        const y = event.svgY;
         const bucketFill = new SVGBucketFill([x, y], this.palette.primary, this.imageData, this.colorToleranceDelta);
         const command = new CmdSVG(bucketFill);
         return command;
