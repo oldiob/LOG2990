@@ -19,3 +19,10 @@
 .style {
   width: 120px;
 }
+
+.icon {
+  --length: 13px;
+  display: block;
+  height: var(--length);
+  width: var(--length);
+}
