@@ -191,6 +191,7 @@ export class SVGText extends SVGAbstract {
     }
 
     setCurrentPlaceholder(): void {
+        DOMRenderer.setAttribute(this.currentSubElement, 'visibility', 'hidden');
         DOMRenderer.setAttribute(this.currentSubElement, 'opacity', '0');
         this.currentSubElement.innerHTML = this.INVISIBLE_LINE_VALUE;
     }
