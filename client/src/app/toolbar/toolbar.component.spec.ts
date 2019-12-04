@@ -41,6 +41,9 @@ describe('ToolbarComponent', () => {
     let option: IOption<any>;
     let options: IOption<any>[];
     let renderer: Renderer2;
+    let element: any;
+    let attributes: any;
+    let points: any;
 
     dialogService = jasmine.createSpyObj('DialogService', ['openDialog', 'closeColorForms']);
     drawareaService = jasmine.createSpyObj('DrawAreaService', ['save', 'key']);
@@ -88,6 +91,13 @@ describe('ToolbarComponent', () => {
     beforeEach(() => {
         renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild']);
         DOMRenderer.renderer = renderer;
+        element = jasmine.createSpyObj('any', ['addPoint', 'attributes']);
+        attributes = jasmine.createSpyObj('any', ['points']);
+        element.attributes = attributes;
+        points = jasmine.createSpyObj('any', ['addPoint', 'attributes']);
+        attributes.points = points;
+        spyOn(DOMRenderer, 'createElement').and.returnValue(element);
+
         textOption = jasmine.createSpyObj('TextOptionComponent', ['selectTool', 'tools']);
         gridOption = jasmine.createSpyObj('GridOptionComponent', ['selectTool', 'tools']);
         toolOption = jasmine.createSpyObj('ToolOptionComponent', ['selectTool', 'tools']);
@@ -105,7 +115,9 @@ describe('ToolbarComponent', () => {
         component.currentOption = option;
         component.gridOption = gridOption;
         component.currentOption.select = option.select;
+
         component.toolOption = toolOption;
+
         component.bucketOption = bucketOption;
         component.shapeOption = shapeOption;
         component.bucketOption.currentTool = bucketOption.currentTool;
