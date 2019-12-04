@@ -18,7 +18,8 @@ describe('SVGLine', () => {
     let width: number;
     beforeEach(() => {
         event = new MouseEvent('click');
-        width = 5;
+        anchors = [[100, 200], [300, 400]];
+        width = 25;
         junctionWidth = 12;
         junctionType = JunctionType.Angle;
         X = Math.random() * 1000;
@@ -31,7 +32,7 @@ describe('SVGLine', () => {
         line = new SVGLine(event.svgX, event.svgY, width, junctionWidth, lineType, junctionType);
     });
 
-    it('should exits', () => {
+    it('should create', () => {
         expect(line).toBeTruthy();
         expect(renderer.createElement).toHaveBeenCalled();
         expect(renderer.setAttribute).toHaveBeenCalled();
@@ -78,8 +79,27 @@ describe('SVGLine', () => {
     });
 
     it('should popAnchor last element', () => {
+        spyOn((line as any), 'fullRender');
+        spyOn(line.anchors, 'pop');
         line.popAnchor();
-        expect(line.anchors.pop()).toBeUndefined();
+        expect(line.anchors.pop).toHaveBeenCalled();
+        expect((line as any).fullRender).toHaveBeenCalled();
+    });
+
+    it('should select dot junction', () => {
+        junctionType = JunctionType.Dot;
+        (line as any).junctionWidth = junctionWidth;
+        (line as any).selectJunctionType(X, Y, junctionType, junctionWidth);
+        expect((line as any).junctionWidth).toEqual(junctionWidth);
+        expect(renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.appendChild).toHaveBeenCalled();
+    });
+
+    it('should select round junction', () => {
+        junctionType = JunctionType.Round;
+        (line as any).selectJunctionType(X, Y, junctionType, junctionWidth);
+        expect(renderer.setAttribute).toHaveBeenCalled();
+        expect(renderer.appendChild).toHaveBeenCalled();
     });
 
     it('should select angle junction', () => {
@@ -111,11 +131,70 @@ describe('SVGLine', () => {
     });
 
     it('should return true if (x,y) is at line in the airbrush drew', () => {
-        const pointX = 300;
-        const pointY = 400;
-        anchors = [[300, 400], [10, 100], [200, 500]];
+        const pointX = 100;
+        const pointY = 200;
         line.anchors = anchors;
-        expect(isAtLine([pointX, pointY], anchors[0], anchors[1], width)).toBeTruthy();
+        (line as any).isAtAdjusted(pointX, pointY);
+        isAtLine([pointX, pointY], anchors[0], anchors[1], width + 100);
+        expect(isAtLine([pointX, pointY], anchors[0], anchors[1], width + 100)).toBeTruthy();
+    });
+
+    it('should full render line', () => {
+        spyOn((line as any), 'renderAnchors');
+        line.anchors = anchors;
+        (line as any).fullRender();
+        expect((line as any).renderAnchors).toHaveBeenCalled();
+    });
+
+    it('should render anchors of line', () => {
+        line.anchors = anchors;
+        (line as any).renderAnchors();
+        expect(renderer.setAttribute).toHaveBeenCalled();
+    });
+
+    it('should add anchor if junctiontype is round or angle', () => {
+        spyOn((line as any), 'renderAnchors');
+        const currentX = 100;
+        const currentY = 100;
+        line.anchors = anchors;
+        line.addAnchor(currentX, currentY, junctionType);
+        expect((line as any).renderAnchors).toHaveBeenCalled();
+        expect(line.anchors).toContain([currentX, currentY]);
+    });
+
+    it('should set cursor', () => {
+        spyOn((line as any), 'renderAnchors');
+        const currentX = 100;
+        const currentY = 100;
+        line.setCursor(currentX, currentY);
+        expect((line as any).cursor).toEqual([currentX, currentY]);
+        expect((line as any).renderAnchors).toHaveBeenCalled();
+    });
+
+    it('should finish line', () => {
+        const currentX = 100;
+        const currentY = 100;
+        (line as any).cursor = [currentX, currentY];
+        line.anchors = anchors;
+        line.anchors.push((line as any).cursor[0], (line as any).cursor[1]);
+        line.finish();
+        expect(line.anchors).toContain([currentX, currentY]);
+    });
+
+    it('should end line', () => {
+        spyOn((line as any), 'renderAnchors');
+        renderer.setAttribute.calls.reset();
+        const circleChild = jasmine.createSpyObj('any', ['nodeName', 'nodeValue']);
+        const nonCircleChild = jasmine.createSpyObj('any', ['nodeName', 'nodeValue']);
+
+        const children = [circleChild, nonCircleChild];
+        const element = jasmine.createSpyObj('any', ['children']);
+
+        element.children = children;
+        line.element = element;
+        line.end();
+        expect(renderer.removeChild).toHaveBeenCalled();
+        expect((line as any).renderAnchors).toHaveBeenCalled();
     });
 
 });

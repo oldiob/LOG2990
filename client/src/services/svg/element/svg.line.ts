@@ -5,6 +5,7 @@ import { isAtLine } from 'src/utils/math';
 
 export class SVGLine extends SVGAbstract {
 
+    private readonly WIDTH_MARGIN = 10.0;
     private cursor: number[];
     private circle: any;
     private polyline: any;
@@ -115,8 +116,7 @@ export class SVGLine extends SVGAbstract {
     }
 
     protected isAtAdjusted(x: number, y: number): boolean {
-        const additionnalWidth = 10.0;
-        const width: number = this.width + additionnalWidth;
+        const width: number = this.width + this.WIDTH_MARGIN;
         for (let i = 0; i < this.anchors.length - 1; i++) {
             if (isAtLine([x, y], this.anchors[i], this.anchors[i + 1], width)) {
                 return true;
