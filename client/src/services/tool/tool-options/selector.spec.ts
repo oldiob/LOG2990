@@ -210,6 +210,18 @@ fdescribe('SelectorTool', () => {
         expect(tool.onShowcase()).toBeNull();
     });
 
+    it('should set cursor to MOVING', () => {
+        (tool as any).state = SelectorState.MOVING;
+        (tool as any).setCursor();
+        expect((tool as any).svg.cursor).toEqual('grabbing');
+    });
+
+    it('should set cursor to SCALING', () => {
+        (tool as any).state = SelectorState.SCALING;
+        (tool as any).setCursor();
+        expect((tool as any).svg.cursor).toEqual('pointer');
+    });
+
     // onMotion
     // elementState
     // nextOffset
