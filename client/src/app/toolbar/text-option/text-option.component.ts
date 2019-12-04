@@ -94,7 +94,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
             this.text.element.setTextAlign(textAlign);
         }
         this.text.setTextAlign(textAlign);
-
+        ShowcaseSignal.emit();
     }
 
     disableAlign(): void {
@@ -116,6 +116,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
             }
             this.text.setTextWeigth(TextFormat.NORMAL);
         }
+        ShowcaseSignal.emit();
     }
 
     toggleItalic(): void {
@@ -131,5 +132,6 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
             }
             this.text.setTextStyle(TextFormat.NORMAL);
         }
+        ShowcaseSignal.emit();
     }
 }

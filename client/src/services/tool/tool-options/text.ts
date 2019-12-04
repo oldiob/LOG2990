@@ -172,8 +172,9 @@ export class TextTool implements ITool {
         const textShowcase: object = {
             key: this.SHOWCASE_DEFAULT,
         };
-        this.finishEdit();
+        this.startEdit();
         this.onKeydown(textShowcase as KeyboardEvent);
+        this.finishEdit();
         this.element = previousElement;
         return element;
     }
