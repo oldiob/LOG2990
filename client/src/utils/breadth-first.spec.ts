@@ -1,6 +1,5 @@
 import { BreadthFirst } from './breadth-first';
-import { createArray } from './image-manipulations';
-import { Queue } from './queue';
+import { ImageManipulations } from './image-manipulations';
 
 describe('BreadthFirst', () => {
 
@@ -18,7 +17,7 @@ describe('BreadthFirst', () => {
         width = 1000;
         height = 1000;
         tolerance = 100;
-        const array: number[] = createArray(width, height);
+        const array: number[] = ImageManipulations.createArray(width, height);
         const uint8Array = Uint8ClampedArray.from(array);
         position = [x, y];
         image = new ImageData(uint8Array, width, height);
@@ -60,7 +59,7 @@ describe('BreadthFirst', () => {
     // tslint:disable-next-line:max-line-length
     it(' when populatePixel is called, there should be a push on breathfirst.positions and toFillQueue when isPositionAcceptable is true', () => {
         const tempPosition: number[] = [x, y];
-        const toFillQueue: Queue<number[]> = new Queue<number[]>();
+        const toFillQueue: [] = [];
 
         spyOn((breadthFirst as any), 'isPositionAcceptable').and.returnValue(true);
         spyOn(breadthFirst.positions, 'push');

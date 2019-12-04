@@ -1,7 +1,6 @@
 import { Color } from './color';
-import { getPixelData } from './image-manipulations';
+import { ImageManipulations } from './image-manipulations';
 import { vectorPlus } from './math';
-import { Queue } from './queue';
 
 export class BreadthFirst {
 
@@ -21,7 +20,7 @@ export class BreadthFirst {
         this.isPixelCovered[position[0]][position[1]] = true;
         this.positions.push(position);
 
-        this.startingColor = getPixelData(image, position[0], position[1]);
+        this.startingColor = ImageManipulations.getPixelData(image, position[0], position[1]);
         this.startingColorSum = this.startingColor.red + this.startingColor.green + this.startingColor.blue + this.startingColor.alpha;
 
         this.fillPixels(position);
@@ -49,7 +48,7 @@ export class BreadthFirst {
         }
     }
 
-    private populatePixel(toFillQueue: Queue<number[]>, position: number[]): void {
+    private populatePixel(toFillQueue: number[][], position: number[]): void {
         for (let x = -1; x <= 1; x++) {
             for (let y = -1; y <= 1; y++) {
                 if (x !== 0 || y !== 0) {
@@ -73,7 +72,7 @@ export class BreadthFirst {
     }
 
     private isRightColor(position: number[]) {
-        const positionColor: Color = getPixelData(this.image, position[0], position[1]);
+        const positionColor: Color = ImageManipulations.getPixelData(this.image, position[0], position[1]);
 
         const delta =
             Math.abs(positionColor.red - this.startingColor.red) +
