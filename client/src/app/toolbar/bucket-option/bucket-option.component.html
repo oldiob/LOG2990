@@ -25,3 +25,5 @@
         <div class="output">{{ dropper.currentColor.toRGBA() }}</div> 
     </div>
 </div>
+
+<app-width *ngIf="currentTool === bucket" class="separation" [title]="'Tolerance'" [width]="currentTool.colorToleranceDelta" [MIN_WIDTH]="0" [MAX_WIDTH]="100" (widthEmmiter)="setTolerance($event)"></app-width>

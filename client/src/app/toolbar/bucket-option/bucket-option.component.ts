@@ -54,4 +54,10 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
     }
+
+    setTolerance(tolerance: number): void {
+        if ((this.currentTool as BucketTool).colorToleranceDelta !== null) {
+            this.currentTool.width = tolerance;
+        }
+    }
 }
