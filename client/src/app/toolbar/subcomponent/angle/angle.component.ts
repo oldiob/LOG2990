@@ -3,6 +3,7 @@ import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { StampTool } from 'src/services/tool/tool-options/stamp';
 import { ToolService } from 'src/services/tool/tool.service';
 import { ShowcaseSignal } from 'src/utils/showcase-signal';
+import { InkTool } from 'src/services/tool/tool-options/ink';
 
 @Component({
     selector: 'app-angle',
@@ -26,7 +27,7 @@ export class AngleComponent implements OnInit {
 
     get angle(): number {
         const currentTool: ITool = this.toolService.currentTool;
-        if (currentTool instanceof StampTool) {
+        if (currentTool instanceof StampTool || currentTool instanceof InkTool) {
             this.currentAngle = currentTool.angle;
             ShowcaseSignal.emit();
         }
@@ -40,7 +41,7 @@ export class AngleComponent implements OnInit {
         }
 
         const currentTool: ITool = this.toolService.currentTool;
-        if (currentTool instanceof StampTool) {
+        if (currentTool instanceof StampTool || currentTool instanceof InkTool) {
             currentTool.angle = angle;
             ShowcaseSignal.emit();
         }

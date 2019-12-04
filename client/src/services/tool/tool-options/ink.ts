@@ -14,9 +14,9 @@ export class InkTool implements ITool {
     private readonly MAX_ANGLE_STEP = 15;
     private readonly MIN_ANGLE_STEP = 1;
     private readonly INK_TIP = 'Ink (P)';
-    private angle: number;
     readonly tip: string;
 
+    angle: number;
     element: SVGInk | null = null;
     width: number;
 
