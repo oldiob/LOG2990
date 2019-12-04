@@ -63,9 +63,10 @@ export class SVGPencil extends SVGAbstract {
     }
 
     addPoint(x: number, y: number): void {
-        this.points.push([x, y]);
-
-        const currentPoints = this.element.attributes.points.nodeValue;
-        DOMRenderer.setAttribute(this.element, 'points', currentPoints + ` ${x},${y}`);
+        if (this.element) {
+            this.points.push([x, y]);
+            const currentPoints = this.element.attributes.points.nodeValue;
+            DOMRenderer.setAttribute(this.element, 'points', currentPoints + ` ${x},${y}`);
+        }
     }
 }

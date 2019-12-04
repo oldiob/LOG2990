@@ -15,7 +15,7 @@ export abstract class AbsShapeTool implements ITool {
     element: AbsSVGShape | null = null;
 
     protected setElementAttributes(primaryColor: string, secondaryColor: string, width: number) {
-        if (this.element !== null) {
+        if (this.element) {
             this.element.setPrimary(primaryColor);
             this.element.setSecondary(secondaryColor);
             this.element.setPointSize(width);
@@ -25,13 +25,13 @@ export abstract class AbsShapeTool implements ITool {
     abstract onPressed(event: MouseEvent): CmdSVG;
 
     onMotion(event: MouseEvent): void {
-        if (this.element !== null) {
+        if (this.element) {
             this.element.setCursor(event.svgX, event.svgY, event.shiftKey);
         }
     }
 
     onReleased(event: MouseEvent): void {
-        if (this.element !== null) {
+        if (this.element) {
             this.element.release();
         }
 
@@ -52,7 +52,7 @@ export abstract class AbsShapeTool implements ITool {
     }
 
     private onShift(isShift: boolean): boolean {
-        if (this.element !== null) {
+        if (this.element) {
             this.element.onShift(isShift);
             return true;
         }
