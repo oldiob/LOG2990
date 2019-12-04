@@ -12,14 +12,12 @@ import { ITool } from './i-tool';
 })
 export class BucketTool implements ITool {
     readonly tip: string = 'Pixel Fill (B)';
-    width: number;
 
     private isLoaded: boolean;
     private imageData: ImageData;
     colorToleranceDelta: number;
 
     constructor(private palette: PaletteService) {
-        this.width = 0;
         this.isLoaded = false;
         this.colorToleranceDelta = 0;
     }
