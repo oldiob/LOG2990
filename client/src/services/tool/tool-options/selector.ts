@@ -4,6 +4,7 @@ import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
+import { GridService } from 'src/services/grid/grid.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { SVGService } from 'src/services/svg/svg.service';
@@ -11,7 +12,7 @@ import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selec
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { copySVG } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
@@ -39,7 +40,7 @@ export class SelectorTool implements ITool {
 
     distanceToCenter: number[];
 
-    constructor(private svg: SVGService) {
+    constructor(private svg: SVGService, private grid: GridService) {
 
         this.dupOffset = [0, 0];
         this.firstMousePosition = [0, 0];
@@ -113,9 +114,9 @@ export class SelectorTool implements ITool {
                 break;
             case SelectorState.MOVING:
                 if (this.transforms) {
-                    const toMove = vectorMinus(this.currentMousePosition, previousMousePosition);
+                    const distanceToSnap = this.grid.realDistanceToMove(this.selectorBox, this.currentMousePosition, previousMousePosition);
                     this.transforms.addChild(
-                        this.selected.translateCommand(toMove[0], toMove[1]));
+                        this.selected.translateCommand(distanceToSnap[0], distanceToSnap[1]));
                     this.updateSelect();
                 }
                 break;

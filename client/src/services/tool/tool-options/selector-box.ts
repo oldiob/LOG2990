@@ -17,12 +17,14 @@ export class SelectorBox {
 
     private readonly CIRCLE_RADIUS = 5;
     private readonly COLOR = '#2188ff';
-    private circles: SVGCircleElement[];
+    circles: SVGCircleElement[];
+    private middleCircle: SVGCircleElement;
     private rectangle: SVGRectElement;
     private anchorSquarePositions: number[][];
     private targetedAnchor: number;
 
     element: SVGGElement;
+    mouseOffsetFromCenter: number[];
 
     constructor(private svgService: SVGService) {
 
@@ -56,6 +58,17 @@ export class SelectorBox {
             this.circles.push(circle);
             DOMRenderer.appendChild(this.element, circle);
         }
+
+        this.middleCircle = DOMRenderer.createElement('circle', 'svg', {
+            stroke: this.COLOR,
+            'stroke-width': '1',
+            fill: this.COLOR,
+            'fill-opacity': '0.8',
+            r: this.CIRCLE_RADIUS.toString(),
+            cx: (-this.CIRCLE_RADIUS).toString(),
+            cy: (-this.CIRCLE_RADIUS).toString(),
+        });
+        DOMRenderer.appendChild(this.element, this.middleCircle);
 
         this.rectangle = DOMRenderer.createElement('rect', 'svg', {
             'fill-opacity': '0.1',
@@ -94,6 +107,11 @@ export class SelectorBox {
             });
         }
 
+        DOMRenderer.setAttributes(this.middleCircle, {
+            cx: (x + width / 2).toString(),
+            cy: (y + height / 2).toString(),
+        });
+
         this.addToDrawArea();
     }
 
@@ -123,6 +141,8 @@ export class SelectorBox {
         const rectH: number = this.rectangle.height.baseVal.value;
 
         if (x >= rectX && y >= rectY && x <= rectX + rectW && y <= rectY + rectH) {
+            this.mouseOffsetFromCenter = vectorMinus([x, y], this.center);
+
             return SelectorState.MOVING;
         }
 
@@ -190,5 +210,9 @@ export class SelectorBox {
     private setReflexionFromCenter(center: number): void {
         const diffFromCenter = center - this.targetedAnchor;
         this.targetedAnchor = (center + diffFromCenter) % this.circles.length;
+    }
+
+    get center(): number[] {
+        return [this.middleCircle.cx.baseVal.value, this.middleCircle.cy.baseVal.value];
     }
 }
