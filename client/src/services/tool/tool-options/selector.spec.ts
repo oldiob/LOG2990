@@ -1,6 +1,9 @@
+import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { SelectorTool } from './selector';
 import { SelectorBox, SelectorState} from './selector-box';
+// import { CmdComposite } from 'src/services/cmd/cmd.array';
+// import { CmdMock } from 'src/services/cmd/cmd.mock.spec';
 
 fdescribe('SelectorTool', () => {
 
@@ -8,7 +11,8 @@ fdescribe('SelectorTool', () => {
     let svg: any;
     let selectorBox: SelectorBox;
     let selectorState: SelectorState;
-    // let rect: Rect;
+    let svgAbstract: SVGAbstract;
+    // let cmdlenght: number;
 
     beforeEach(() => {
         const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
@@ -20,6 +24,8 @@ fdescribe('SelectorTool', () => {
         selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
         const gridService = jasmine.createSpyObj('any', ['realDistanceToMove']);
         spyOn(gridService, 'realDistanceToMove').and.returnValue([0, 0]);
+
+        svgAbstract = jasmine.createSpyObj('SVGAbstract', ['createElement']);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
         const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
@@ -84,23 +90,21 @@ fdescribe('SelectorTool', () => {
         expect(tool.onWheel(event)).toEqual(true);
     });
 
-    /*('should onWheel rotate the selected object', () => {
-        spyOn((tool as any), 'updateSelect');
-        const event = new WheelEvent('altKey', {deltaY: 1});
-        const mockAngle = Math.sign(event.deltaY) * (Math.PI / 180) * 15;
-        (tool as any).state = SelectorState.NONE;
-        rect = new Rect(2 , 2, 8, 8 );
-        const elementsInRect: Set<SVGAbstract> = (tool as any).svg.getInRect(rect);
-        elementsInRect.forEach((element) => {
-            tool.selected.addChild(element);
-            console.log(tool.selected.children.size);
-        });
-        tool.onPressed(new MouseEvent('click'));
-        tool.onWheel(event);
-        expect((tool as any).updateSelect).toHaveBeenCalled();
-        expect((tool as any).angle).toEqual(mockAngle);
-        expect(tool.onWheel(event)).toEqual(true);
-    });*/
+    // it('should onWheel rotate the selected object', () => {
+    //     spyOn((tool as any), 'updateSelect');
+    //     const event = new WheelEvent('altKey', {deltaY: 1});
+    //     // const mockAngle = Math.sign(event.deltaY) * (Math.PI / 180) * 15;
+    //     (tool as any).state = SelectorState.NONE;
+    //     tool.selected.addChild(svgAbstract);
+    //     (tool as any).transforms = new CmdComposite();
+    //     cmdlenght = Math.floor(1000 * Math.random());
+    //     for (let i = 0; i < cmdlenght; ++i) {
+    //         (tool as any).commands.push(CmdMock());
+    //     }
+    //     // (tool as any).transforms.addChild(tool.selected.rotateOnPointCommand(mockAngle, [3, 4], event.shiftKey));
+    //     tool.onWheel(event);
+    //     expect((tool as any).updateSelect).toHaveBeenCalled();
+    // });
 
     it('should reset to state idle when released', () => {
         tool.onPressed(new MouseEvent('mousedown', { button: 0 }));
@@ -110,15 +114,55 @@ fdescribe('SelectorTool', () => {
         expect((tool as any).state).toEqual(SelectorState.NONE);
     });
 
-    it('should update selected object hidebox', () => {
+    it('should hide preview', () => {
+        spyOn((tool as any), 'hidePreview');
+        spyOn((tool as any).svg, 'addElement');
+        (tool as any).preview = {
+            x: '0',
+            y: '0',
+            width: '10',
+            height: '10',
+        };
+        (tool as any).svg.addElement((tool as any).preview);
+        (tool as any).showPreview();
+        expect((tool as any).svg.addElement).toHaveBeenCalled();
+        expect((tool as any).hidePreview).toHaveBeenCalled();
+    });
+
+    it('should hide preview', () => {
+        spyOn((tool as any).svg, 'removeElement');
+        (tool as any).preview = {
+            x: '0',
+            y: '0',
+            width: '10',
+            height: '10',
+        };
+        (tool as any).svg.addElement((tool as any).preview);
+        (tool as any).hidePreview();
+        expect((tool as any).svg.removeElement).toHaveBeenCalledWith((tool as any).preview);
+    });
+
+    it('should update selected object hidebox if the selected rect is empty', () => {
         spyOn((tool as any).selectorBox, 'hideBox');
         (tool as any).updateSelect();
         expect((tool as any).selectorBox.hideBox).toHaveBeenCalled();
     });
 
-    it('should return selected children to 0', () => {
+    // it('should update selected object setbox if the selected rect is not empty', () => {
+    //     spyOn((tool as any).selectorBox, 'setBox');
+    //     tool.selected.addChild(svgAbstract);
+    //     (tool as any).updateSelect();
+    //     expect((tool as any).selectorBox.setBox).toHaveBeenCalled();
+    // });
+
+    it('should return true if the selected rect is empty', () => {
         (tool as any).isEmpty();
         expect((tool as any).isEmpty()).toBeTruthy();
+    });
+
+    it('should return false if selected children is not empty', () => {
+        tool.selected.addChild(svgAbstract);
+        expect((tool as any).isEmpty()).toBeFalsy();
     });
 
     it('should clear selection', () => {
