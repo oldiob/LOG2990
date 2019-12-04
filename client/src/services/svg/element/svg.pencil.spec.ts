@@ -21,7 +21,6 @@ describe('SVGPencil', () => {
         element = jasmine.createSpyObj('any', ['addPoint', 'attributes']);
         pencil = new SVGPencil();
         pencil.element = element;
-        spyOn(pencil.element, 'attributes').and.returnValue(element.attributes);
     });
 
     it('should exits', () => {
