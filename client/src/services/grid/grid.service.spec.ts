@@ -1,11 +1,14 @@
 import { DOMRenderer } from '../../utils/dom-renderer';
 import { GridService } from './grid.service';
+import { Compass } from 'src/utils/compass';
+import { SelectorBox } from '../tool/tool-options/selector-box';
 
-describe('GridService', () => {
+fdescribe('GridService', () => {
 
     let renderer: any;
     let ref: any;
     let service: GridService;
+    let svg: any;
 
     const WIDTH = Math.random() * 1000;
     const HEIGHT = Math.random() * 1000;
@@ -14,6 +17,7 @@ describe('GridService', () => {
         renderer = jasmine.createSpyObj('Renderer2', ['appendChild', 'removeChild', 'setAttribute', 'createElement']);
         DOMRenderer.renderer = renderer;
         ref = jasmine.createSpyObj('ElementRef', ['nativeElement']);
+        svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement']);
         service = new GridService();
         service.width = WIDTH;
         service.height = HEIGHT;
@@ -54,6 +58,19 @@ describe('GridService', () => {
         service.draw();
         expect(renderer.setAttribute).toHaveBeenCalled();
         expect(renderer.appendChild).toHaveBeenCalled();
+    });
+
+    it('should calculate the real distance to move', () => {
+        const pos: number[] = [27, 4];
+        const prevPos: number[] = [4, 4];
+        const box: SelectorBox = new SelectorBox(svg);
+        box.setBox(new DOMRect(0, 0, 8, 8));
+        service.anchor = Compass.E
+        service.step = GridService.MIN_STEP;
+        const move: number[] = service.realDistanceToMove(box, pos, prevPos);
+        console.log(move);
+        expect(move[0] % GridService.MIN_STEP).toEqual(0);
+        expect(move[1] % GridService.MIN_STEP).toEqual(0);
     });
 
 });
