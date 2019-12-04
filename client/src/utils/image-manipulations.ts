@@ -3,6 +3,10 @@ import { DOMRenderer } from './dom-renderer';
 import { vectorPlus } from './math';
 
 export const getPixelData = (imageData: ImageData, x: number, y: number): Color => {
+    if (x >= imageData.width || y >= imageData.height) {
+        return new Color(0, 0, 0, 0);
+    }
+
     const pixelIndex: number = Math.round((y * imageData.width + x) * 4);
     return new Color(
         imageData.data[pixelIndex + 0],

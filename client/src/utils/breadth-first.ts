@@ -38,17 +38,13 @@ export class BreadthFirst {
     }
 
     private fillPixels(startingPosition: number[]): void {
-        const toFill: Queue<number[]> = new Queue<number[]>();
+        const toFill: number[][] = [];
 
         toFill.push(startingPosition);
 
-        while (true) {
-            const positionToFill: number[] | null = toFill.next();
-
-            if (positionToFill === null) {
-                return;
-            }
-
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < toFill.length; i++) {
+            const positionToFill: number[] = toFill[i];
             this.populatePixel(toFill, positionToFill);
         }
     }
