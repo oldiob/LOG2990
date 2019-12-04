@@ -1,4 +1,6 @@
+import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
+import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { SelectorTool } from './selector';
@@ -11,6 +13,7 @@ fdescribe('SelectorTool', () => {
     let selectorBox: SelectorBox;
     let selectorState: SelectorState;
     let svgAbstract: SVGAbstract;
+    let selected: SVGComposite;
     let injector: any;
 
     beforeEach(() => {
@@ -19,6 +22,7 @@ fdescribe('SelectorTool', () => {
 
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry', 'resetCursor', 'cursor']);
 
+        selected = jasmine.createSpyObj('SVGComposite', ['rescaleOnPointCommand']);
         selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles', 'hideBox', 'setBox']);
         selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
         const gridService = jasmine.createSpyObj('any', ['realDistanceToMove']);
@@ -222,7 +226,46 @@ fdescribe('SelectorTool', () => {
         expect((tool as any).svg.cursor).toEqual('pointer');
     });
 
-    // onMotion
+    it('should on right click be unselected', () => {
+        (tool as any).onRightClick(10, 10);
+        expect((tool as any).state).toEqual(SelectorState.UNSELECTING);
+    });
+
+    it('should onMotion be SELECTING state', () => {
+        spyOn((tool as any), 'showPreview');
+        spyOn((tool as any), 'select');
+        (tool as any).state = SelectorState.SELECTING;
+        tool.onMotion(new MouseEvent('click'));
+        expect((tool as any).showPreview).toHaveBeenCalled();
+        expect((tool as any).select).toHaveBeenCalled();
+    });
+
+    it('should onMotion be UNSELECTING state', () => {
+        spyOn((tool as any), 'showPreview');
+        spyOn((tool as any), 'unselect');
+        (tool as any).state = SelectorState.UNSELECTING;
+        tool.onMotion(new MouseEvent('click'));
+        expect((tool as any).showPreview).toHaveBeenCalled();
+        expect((tool as any).unselect).toHaveBeenCalled();
+    });
+
+    it('should onMotion be MOVING state ', () => {
+        spyOn((tool as any), 'updateSelect');
+        (tool as any).transforms = new CmdComposite();
+        (tool as any).state = SelectorState.MOVING;
+        tool.onMotion(new MouseEvent('click'));
+        expect((tool as any).updateSelect).toHaveBeenCalled();
+    });
+
+    it('should onMotion be MOVING state ', () => {
+        spyOn((tool as any), 'updateSelect');
+        (tool as any).transforms = new CmdComposite();
+        tool.selected = selected;
+        (tool as any).state = SelectorState.SCALING;
+        tool.onMotion(new MouseEvent('click'));
+        expect((tool as any).updateSelect).toHaveBeenCalled();
+    });
+
     // elementState
     // nextOffset
     // erase
@@ -231,7 +274,6 @@ fdescribe('SelectorTool', () => {
     // unselect
     // select
     // selectTargeted
-    // onRightClick
     // onLeftClick
 
 });
