@@ -187,6 +187,29 @@ fdescribe('SelectorTool', () => {
         expect((tool as any).selected.clear).toHaveBeenCalled();
     });
 
+    it('should onUnselect hide, clear and reset cursor', () => {
+        spyOn((tool as any), 'hidePreview');
+        spyOn((tool as any), 'clearSelection');
+        spyOn((tool as any).svg, 'resetCursor');
+        tool.onUnSelect();
+        expect((tool as any).hidePreview).toHaveBeenCalled();
+        expect((tool as any).clearSelection).toHaveBeenCalled();
+        expect((tool as any).svg.resetCursor).toHaveBeenCalled();
+    });
+
+    it('should onSelect hidepreview and clear it', () => {
+        spyOn((tool as any), 'hidePreview');
+        spyOn((tool as any), 'clearSelection');
+        tool.onSelect();
+        expect((tool as any).hidePreview).toHaveBeenCalled();
+        expect((tool as any).clearSelection).toHaveBeenCalled();
+    });
+
+    it('should onShowcase show nothing', () => {
+        tool.onShowcase();
+        expect(tool.onShowcase()).toBeNull();
+    });
+
     // onMotion
     // elementState
     // nextOffset
