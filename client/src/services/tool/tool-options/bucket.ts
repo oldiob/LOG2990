@@ -29,10 +29,14 @@ export class BucketTool implements ITool {
             return null;
         }
 
+        MyInjector.get(SVGService).cursor = 'none';
+
         const x = event.svgX;
         const y = event.svgY;
         const bucketFill = new SVGBucketFill([x, y], this.palette.primary, this.imageData, this.colorToleranceDelta);
         const command = new CmdSVG(bucketFill);
+
+        MyInjector.get(SVGService).resetCursor();
         return command;
     }
 

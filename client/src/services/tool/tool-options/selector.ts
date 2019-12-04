@@ -136,6 +136,7 @@ export class SelectorTool implements ITool {
         this.state = SelectorState.NONE;
         this.dupOffset = [0, 0];
         this.hidePreview();
+        this.setCursor();
     }
 
     onWheel(event: WheelEvent): boolean {
@@ -176,6 +177,7 @@ export class SelectorTool implements ITool {
 
         if (previewState !== SelectorState.NONE) {
             this.state = previewState;
+            this.setCursor();
             return;
         }
 
@@ -386,6 +388,7 @@ export class SelectorTool implements ITool {
     onUnSelect(): void {
         this.hidePreview();
         this.clearSelection();
+        this.svg.resetCursor();
     }
 
     onSelect(): void {
@@ -395,5 +398,20 @@ export class SelectorTool implements ITool {
 
     onShowcase(): null {
         return null;
+    }
+
+    private setCursor(): void {
+        switch (this.state) {
+            case SelectorState.MOVING:
+                this.svg.cursor = 'grabbing';
+                DOMRenderer.setAttribute(this.selectorBox.rectangle, 'cursor', 'grabbing');
+                break;
+            case SelectorState.SCALING:
+                this.svg.cursor = 'pointer';
+                break;
+            default:
+                DOMRenderer.setAttribute(this.selectorBox.rectangle, 'cursor', 'grab');
+                this.svg.resetCursor();
+        }
     }
 }

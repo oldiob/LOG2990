@@ -10,10 +10,25 @@ import { DrawAreaService } from '../draw-area/draw-area.service';
 })
 export class SVGService {
     entry: ElementRef;
+    private mCursor: string;
 
     objects: SVGAbstract[] = [];
 
-    constructor(private drawAreaService?: DrawAreaService) { }
+    constructor(private drawAreaService?: DrawAreaService) {
+        this.mCursor = 'crosshair';
+    }
+
+    set cursor(cursor: string) {
+        this.mCursor = cursor;
+    }
+
+    get cursor(): string {
+        return this.mCursor;
+    }
+
+    resetCursor(): void {
+        this.cursor = 'crosshair';
+    }
 
     findAt(x: number, y: number): SVGAbstract | null {
         for (let i = this.objects.length - 1; i >= 0; --i) {
@@ -121,8 +136,7 @@ export class SVGService {
 
     removeElement(element: any) {
         if (this.entry) {
-            DOMRenderer.removeChild(this.entry.nativeElement, element);
-        }
+            DOMRenderer.removeChild(this.entry.nativeElement, element);        }
     }
 
     getElementRect(element: any): DOMRect {
@@ -264,4 +278,5 @@ export class SVGService {
         });
         return matches;
     }
+
 }

@@ -68,7 +68,9 @@ export class EraserTool implements ITool {
     onReleased(event: MouseEvent): void {
         this.isActivated = false;
 
-        CmdService.undos.push(this.cmd);
+        if (this.cmd.commands.length !== 0) {
+            CmdService.undos.push(this.cmd);
+        }
     }
 
     onMotion(event: MouseEvent): void {
@@ -102,10 +104,12 @@ export class EraserTool implements ITool {
 
     onSelect(): void {
         this.showEraser();
+        this.svgService.cursor = 'none';
     }
 
     onUnSelect(): void {
         this.onLeave();
+        this.svgService.resetCursor();
     }
 
     private moveSurroundingRectangle(x: number, y: number): void {
@@ -139,5 +143,9 @@ export class EraserTool implements ITool {
         DOMRenderer.appendChild(this.surroundingRect, fakeElement);
 
         this.svgService.addElement(this.surroundingRect);
+    }
+
+    onShowcase(): null {
+        return null;
     }
 }

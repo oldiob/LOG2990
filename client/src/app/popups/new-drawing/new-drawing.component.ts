@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { SVGService } from 'src/services/svg/svg.service';
+import { ToolService } from 'src/services/tool/tool.service';
 import { Color } from 'src/utils/color';
+import { MyInjector } from 'src/utils/injector';
 import { DrawAreaService } from '../../../services/draw-area/draw-area.service';
 import { WorkZoneService } from '../../../services/work-zone/work-zone.service';
 
@@ -162,6 +164,9 @@ export class NewDrawingComponent implements OnInit {
         this.drawAreaService.dirty();
         this.svgService.clearObjects();
         CmdService.reset();
+
+        // for the tool to refresh
+        MyInjector.get(ToolService).currentTool = MyInjector.get(ToolService).currentTool;
     }
 
     onColorRGBAChange() {

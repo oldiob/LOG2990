@@ -7,9 +7,9 @@ import { MatrixSVG } from './matrix';
 import { Prototypes } from './prototypes';
 
 export const svgToImage = (entry: ElementRef, fn: (
-        svgImage: HTMLImageElement,
-        ctx: CanvasRenderingContext2D,
-        canvas: HTMLCanvasElement) => void): void => {
+    svgImage: HTMLImageElement,
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement) => void): void => {
 
     const canvas: HTMLCanvasElement = DOMRenderer.createElement('canvas');
 
@@ -24,12 +24,14 @@ export const svgToImage = (entry: ElementRef, fn: (
         return;
     }
 
-    const svgOuterHTML = entry.nativeElement.outerHTML;
+    // wait for html to get updated
+    setTimeout(() => {
+        const svgOuterHTML = entry.nativeElement.outerHTML;
+        const svgImage: HTMLImageElement = new Image();
 
-    const svgImage: HTMLImageElement = new Image();
-
-    svgImage.onload = () => fn(svgImage, ctx, canvas);
-    svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
+        svgImage.onload = () => fn(svgImage, ctx, canvas);
+        svgImage.src = 'data:image/svg+xml;base64,' + window.btoa(svgOuterHTML);
+    }, 0);
 };
 
 export const serializeDrawArea = (svgService: SVGService): DrawAreaHolder => {
