@@ -26,8 +26,7 @@
                     <div class="open">Open</div>
                 </div>
 
-
-                <div class="drawing-section">
+                <div class="drawing-section drawing-title">
                     <div class="name" [innerText]="drawing.name"></div>
                     <button class="overflow" mat-icon-button [matMenuTriggerFor]="menu" aria-label="more options"
                         (click)="stopEventPropagation($event)">
@@ -53,7 +52,9 @@
                         </div>
                     </mat-menu>
                 </div>
-
+                <div class="date-section">
+                    <div class="date">{{getDate(drawing)}}</div>
+                </div>
                 <div class="thumbnail">
                     <app-thumbnail [thumbnailSVG]="drawing.holder.entry" [svgWidth]="drawing.width"
                         [svgHeight]="drawing.height">
