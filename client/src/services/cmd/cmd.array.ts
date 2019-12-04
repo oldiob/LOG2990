@@ -2,7 +2,7 @@ import { CmdInterface } from 'src/services/cmd/cmd.service';
 
 export class CmdComposite implements CmdInterface {
 
-    private commands: CmdInterface[];
+    commands: CmdInterface[];
 
     constructor() {
         this.commands = [];

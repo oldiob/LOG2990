@@ -9,6 +9,9 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { recreateElement } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
 import { ITool } from './i-tool';
+import { MyInjector } from 'src/utils/injector';
+import { WorkZoneComponent } from 'src/app/work-zone/work-zone.component';
+import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 
 @Injectable({
     providedIn: 'root',
@@ -68,7 +71,9 @@ export class EraserTool implements ITool {
     onReleased(event: MouseEvent): void {
         this.isActivated = false;
 
-        CmdService.undos.push(this.cmd);
+        if (this.cmd.commands.length !== 0) {
+            CmdService.undos.push(this.cmd);
+        }
     }
 
     onMotion(event: MouseEvent): void {
@@ -102,10 +107,13 @@ export class EraserTool implements ITool {
 
     onSelect(): void {
         this.showEraser();
+
+        MyInjector.get(WorkZoneService).cursor = 'none';
     }
 
     onUnSelect(): void {
         this.onLeave();
+        MyInjector.get(WorkZoneService).resetCursor();
     }
 
     private moveSurroundingRectangle(x: number, y: number): void {
@@ -139,5 +147,9 @@ export class EraserTool implements ITool {
         DOMRenderer.appendChild(this.surroundingRect, fakeElement);
 
         this.svgService.addElement(this.surroundingRect);
+    }
+
+    onShowcase(): null {
+        return null;
     }
 }

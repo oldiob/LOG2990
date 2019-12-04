@@ -25,16 +25,11 @@ export class DrawAreaComponent implements OnInit {
     private width: number;
     private backgroundColor: Color;
 
-    private currentCursor: string;
-    private oldTool: object;
-
     constructor(
         private workZoneService: WorkZoneService,
         private svgService: SVGService,
         private toolService: ToolService,
         private gridService: GridService) {
-        this.currentCursor = 'crosshair';
-        this.oldTool = Object.getPrototypeOf(this.toolService.currentTool);
     }
 
     ngOnInit() {
@@ -74,26 +69,11 @@ export class DrawAreaComponent implements OnInit {
         DOMRenderer.setAttribute(this.svg.nativeElement, 'height', currentHeigth);
         DOMRenderer.setAttribute(this.svg.nativeElement, 'width', currentWidth);
 
-        const newTool = Object.getPrototypeOf(this.toolService.currentTool);
-
-        if (this.oldTool !== newTool) {
-            if (newTool === EraserTool.prototype) {
-                const radius = this.toolService.currentTool.width;
-                if (radius) {
-                    this.currentCursor = 'none';
-                }
-            } else {
-                this.currentCursor = 'crosshair';
-            }
-        }
-
-        this.oldTool = newTool;
-
         return {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor.toRGBA()}`,
-            cursor: this.currentCursor,
+            cursor: this.workZoneService.cursor,
         };
     }
 
