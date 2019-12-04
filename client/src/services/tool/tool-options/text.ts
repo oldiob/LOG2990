@@ -29,7 +29,7 @@ export class TextTool implements ITool {
     width: number;
 
     isEditing: boolean;
-    clickAlign: boolean;
+    isClicked: boolean;
 
     constructor(private keyService: KeyService, private paletteService: PaletteService) {
         this.element = null;
@@ -40,7 +40,7 @@ export class TextTool implements ITool {
         this.textAlign = this.UNSET;
         this.fontSize = this.INITIAL_SIZE;
         this.isEditing = false;
-        this.clickAlign = false;
+        this.isClicked = false;
         this.width = this.DEFAULT_WIDTH;
     }
 
@@ -60,13 +60,13 @@ export class TextTool implements ITool {
             });
 
             return new CmdSVG(this.element);
-        } else if (this.element && !this.clickAlign) {
+        } else if (this.element && !this.isClicked) {
             if (this.element.isNewElement) {
                 this.element.currentSubElement.innerHTML = this.UNSET;
             }
             this.finishEdit();
         }
-        this.clickAlign = false;
+        this.isClicked = false;
         return null;
     }
 
@@ -191,6 +191,26 @@ export class TextTool implements ITool {
         }
         this.keyService.enableTextEdit();
         this.keyService.disableKeys();
-        this.clickAlign = true;
+        this.isClicked = true;
+    }
+
+    setTextStyle(fontStyle: string): void {
+        this.fontStyle = fontStyle;
+        if (this.element) {
+            this.element.setRectangle(this.element.domRect);
+        }
+        this.keyService.enableTextEdit();
+        this.keyService.disableKeys();
+        this.isClicked = true;
+    }
+
+    setTextWeigth(fontWeigth: string): void {
+        this.fontWeigth = fontWeigth;
+        if (this.element) {
+            this.element.setRectangle(this.element.domRect);
+        }
+        this.keyService.enableTextEdit();
+        this.keyService.disableKeys();
+        this.isClicked = true;
     }
 }

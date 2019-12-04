@@ -105,29 +105,31 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     toggleBold(): void {
         this.isBold = !this.isBold;
-        if (this.text.element !== null) {
-            if (this.isBold) {
+        if (this.isBold) {
+            if (this.text.element !== null) {
                 this.text.element.setFontWeight(TextFormat.BOLD);
-                this.text.fontWeigth = TextFormat.BOLD;
-            } else {
-                this.text.element.setFontWeight(TextFormat.NORMAL);
-                this.text.fontWeigth = TextFormat.NORMAL;
             }
-            ShowcaseSignal.emit();
+            this.text.setTextWeigth(TextFormat.BOLD);
+        } else {
+            if (this.text.element !== null) {
+                this.text.element.setFontWeight(TextFormat.NORMAL);
+            }
+            this.text.setTextWeigth(TextFormat.NORMAL);
         }
     }
 
     toggleItalic(): void {
         this.isItalic = !this.isItalic;
-        if (this.text.element !== null) {
-            if (this.isItalic) {
+        if (this.isItalic) {
+            if (this.text.element !== null) {
                 this.text.element.setFontStyle(TextFormat.ITALIC);
-                this.text.fontStyle = TextFormat.ITALIC;
-            } else {
-                this.text.element.setFontStyle(TextFormat.NORMAL);
-                this.text.fontStyle = TextFormat.NORMAL;
             }
-            ShowcaseSignal.emit();
+            this.text.setTextStyle(TextFormat.ITALIC);
+        } else {
+            if (this.text.element !== null) {
+                this.text.element.setFontStyle(TextFormat.NORMAL);
+            }
+            this.text.setTextStyle(TextFormat.NORMAL);
         }
     }
 }
