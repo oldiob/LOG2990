@@ -7,6 +7,7 @@ import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-draw-area',
@@ -145,6 +146,7 @@ export class DrawAreaComponent implements OnInit {
         if (this.toolService.currentTool.onWheel) {
             if (this.toolService.currentTool.onWheel(event)) {
                 event.preventDefault();
+                ShowcaseSignal.emit();
             }
         }
     }

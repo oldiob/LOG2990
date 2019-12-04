@@ -65,4 +65,16 @@ export class InkTool implements ITool {
 
         return true;
     }
+
+    onShowcase(width: number, height: number): CmdSVG {
+        const startingPosition = [width / 5, 4 * height / 5];
+        const endingPosition = [4 * width / 5, height / 5];
+
+        const object: SVGInk = new SVGInk(this.angle, this.width);
+
+        object.addPoint(startingPosition[0], startingPosition[1]);
+        object.addPoint(endingPosition[0], endingPosition[1]);
+
+        return new CmdSVG(object);
+    }
 }
