@@ -23,6 +23,12 @@ describe('MatrixSVG', () => {
         expect(mat.isIdentity()).toBeTruthy();
     });
 
+    it('should throw error if index out of range', () => {
+        expect(() => {
+            MatrixSVG.at(100, 100);
+        }).toThrow();
+    });
+
     it('should translate', () => {
         const tempMatrix = new MatrixSVG();
         tempMatrix.arr[2] += tx;
@@ -63,6 +69,11 @@ describe('MatrixSVG', () => {
 
     it('isIdentity should return true if Math.abs(this.arr[i] - expect) < 10E-4', () => {
         expect(mat.isIdentity()).toBeTruthy();
+    });
+
+    it('isIdentity should return false if the matrix is not the identity matrix', () => {
+        mat.arr[0] = 2;
+        expect(mat.isIdentity()).toBeFalsy();
     });
 
 });
