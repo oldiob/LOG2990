@@ -56,6 +56,7 @@ export class ShapeOptionComponent implements OnInit, IOption<ITool> {
     selectTool(tool: AbsShapeTool): void {
         this.currentTool = tool;
         this.toolService.currentTool = tool;
+        this.shapeForm.controls.traceType.setValue(this.currentTool.traceType);
 
         if (this.currentTool instanceof PolygonTool) {
             this.isPolygon = true;
