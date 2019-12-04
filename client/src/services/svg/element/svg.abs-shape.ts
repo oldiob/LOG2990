@@ -77,24 +77,34 @@ export abstract class AbsSVGShape extends SVGAbstract {
     }
 
     getPrimary(): string {
-        return this.element.children[1].getAttribute('fill');
+        return !this.element.children[1]
+            ? this.element.children[0].getAttribute('fill') as string
+            : this.element.children[1].getAttribute('fill') as string;
     }
 
     getSecondary(): string {
-        return this.element.children[1].getAttribute('stroke');
+        return !this.element.children[1]
+            ? this.element.children[0].getAttribute('stroke') as string
+            : this.element.children[1].getAttribute('stroke') as string;
     }
 
     setPrimary(color: string): void {
         this.primary = color;
         if (this.fillOpacity === 1) {
-            DOMRenderer.setAttribute(this.element.children[1], 'fill', color);
+            const shape = !this.element.children[1]
+                ? this.element.children[0]
+                : this.element.children[1];
+            DOMRenderer.setAttribute(shape, 'fill', color);
         }
     }
 
     setSecondary(color: string): void {
         this.secondary = color;
         if (this.strokeOpacity === 1) {
-            DOMRenderer.setAttribute(this.element.children[1], 'stroke', color);
+            const shape = !this.element.children[1]
+                ? this.element.children[0]
+                : this.element.children[1];
+            DOMRenderer.setAttribute(shape, 'stroke', color);
         }
     }
 
