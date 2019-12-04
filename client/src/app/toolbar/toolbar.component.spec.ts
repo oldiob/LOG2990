@@ -1,5 +1,3 @@
-/* TODO
-
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -220,5 +218,3 @@ describe('ToolbarComponent', () => {
         expect(CmdService.redo).toHaveBeenCalled();
     });
 });
-
-*/
