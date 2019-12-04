@@ -5,6 +5,7 @@ import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { SelectorTool } from './selector';
 import { SelectorBox, SelectorState} from './selector-box';
+import { CmdService } from 'src/services/cmd/cmd.service';
 
 fdescribe('SelectorTool', () => {
 
@@ -22,7 +23,7 @@ fdescribe('SelectorTool', () => {
 
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry', 'resetCursor', 'cursor']);
 
-        selected = jasmine.createSpyObj('SVGComposite', ['rescaleOnPointCommand']);
+        selected = jasmine.createSpyObj('SVGComposite', ['rescaleOnPointCommand', 'translateCommand', 'translate', 'children']);
         selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles', 'hideBox', 'setBox']);
         selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
         const gridService = jasmine.createSpyObj('any', ['realDistanceToMove']);
@@ -266,14 +267,47 @@ fdescribe('SelectorTool', () => {
         expect((tool as any).updateSelect).toHaveBeenCalled();
     });
 
-    // elementState
-    // nextOffset
-    // erase
-    // duplicate
-    // selectAll
-    // unselect
-    // select
-    // selectTargeted
-    // onLeftClick
+    it('should erase ', () => {
+        spyOn((tool as any), 'clearSelection');
+        tool.erase();
+        expect((tool as any).clearSelection).toHaveBeenCalled();
+    });
+
+    it('should erase ', () => {
+        spyOn((tool as any), 'clearSelection');
+        tool.erase();
+        expect((tool as any).clearSelection).toHaveBeenCalled();
+    });
+
+    it('should duplicate ', () => {
+        spyOn(CmdService, 'execute');
+        tool.duplicate();
+        expect(CmdService.execute).toHaveBeenCalled();
+    });
+
+    it('should select all ', () => {
+        spyOn((tool as any), 'select');
+        tool.selectAll();
+        expect((tool as any).select).toHaveBeenCalled();
+        expect((tool as any).state).toEqual(SelectorState.NONE);
+    });
+
+    it('should select ', () => {
+        spyOn((tool as any), 'updateSelect');
+        (tool as any).select();
+        expect((tool as any).updateSelect).toHaveBeenCalled();
+    });
+
+    it('should unselect ', () => {
+        spyOn((tool as any), 'updateSelect');
+        (tool as any).unselect();
+        expect((tool as any).updateSelect).toHaveBeenCalled();
+    });
+
+    it('should select targeted ', () => {
+        spyOn((tool as any), 'updateSelect');
+        (tool as any).selectTargeted();
+        expect((tool as any).updateSelect).toHaveBeenCalled();
+    });
 
 });
