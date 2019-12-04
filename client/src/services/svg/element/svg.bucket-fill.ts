@@ -1,7 +1,7 @@
 import { BreadthFirst } from 'src/utils/breadth-first';
 import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
-import { generateImageData } from 'src/utils/image-manipulations';
+import { ImageManipulations } from 'src/utils/image-manipulations';
 import { vectorMinus } from 'src/utils/math';
 import { SVGAbstract } from './svg.abstract';
 
@@ -18,8 +18,8 @@ export class SVGBucketFill extends SVGAbstract {
         const filledBooleans = new BreadthFirst(position, image, tolerance);
         const pixelPositions: number[][] = filledBooleans.positions;
         this.findDimensions(pixelPositions);
-        this.normalizedPositions(pixelPositions);
-        const canvasHref = generateImageData(pixelPositions, color, this.size[0], this.size[1]);
+        this.normalizePositions(pixelPositions);
+        const canvasHref = ImageManipulations.generateImageData(pixelPositions, color, this.size[0], this.size[1]);
 
         this.element = DOMRenderer.createElement('image', 'svg');
         DOMRenderer.setAttribute(this.element, 'href', canvasHref);
@@ -29,7 +29,7 @@ export class SVGBucketFill extends SVGAbstract {
         DOMRenderer.setAttribute(this.element, 'y', this.imagePosition[1].toString());
     }
 
-    private normalizedPositions(positions: number[][]): void {
+    private normalizePositions(positions: number[][]): void {
         for (let i = 0; i < positions.length; i++) {
             positions[i] = vectorMinus(positions[i], this.imagePosition);
         }
