@@ -6,7 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
     styleUrls: ['./width.component.scss'],
 })
 export class WidthComponent implements OnInit {
+    @Input()
     readonly MAX_WIDTH: number = 25.0;
+    @Input()
     readonly MIN_WIDTH: number = 0.5;
 
     private mWidth: number;

@@ -16,7 +16,7 @@ export class BucketTool implements ITool {
 
     private isLoaded: boolean;
     private imageData: ImageData;
-    private colorToleranceDelta: number;
+    colorToleranceDelta: number;
 
     constructor(private palette: PaletteService) {
         this.width = 0;

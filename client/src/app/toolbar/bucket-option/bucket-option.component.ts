@@ -5,6 +5,7 @@ import { DropperTool } from 'src/services/tool/tool-options/dropper';
 import { IOption } from 'src/services/tool/tool-options/i-option';
 import { ITool } from 'src/services/tool/tool-options/i-tool';
 import { ToolService } from 'src/services/tool/tool.service';
+import { ShowcaseSignal } from 'src/utils/showcase-signal';
 
 @Component({
     selector: 'app-bucket-option',
@@ -53,5 +54,11 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
 
     getFilesource(tool: ITool): string {
         return this.FILE_LOCATION + this.images.get(tool) as string;
+    }
+
+    setTolerance(tolerance: number): void {
+        if ((this.currentTool as BucketTool).colorToleranceDelta !== null) {
+            this.currentTool.width = tolerance;
+        }
     }
 }
