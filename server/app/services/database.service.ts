@@ -55,7 +55,7 @@ export class DatabaseService {
         this.db = (await this.connectDB()).db('Rebase08');
         this.db.collection('Drawing').findOneAndUpdate(
             { _id: new ObjectID(id) },
-            { $set: { createdAt: new ObjectID(id).getTimestamp().toUTCString() }, },
+            { $set: { createdAt: new Date() }, },
         );
     }
 

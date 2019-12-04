@@ -210,4 +210,37 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
         this.drawingsOnPage = this.filteredDrawings.slice(this.beginPage, this.endPage);
     }
+
+    getDate(drawing: Drawing): string {
+        const drawingDate = new Date(drawing.createdAt);
+        const currentDate = new Date();
+        const elapsedTime = currentDate.getTime() - drawingDate.getTime();
+
+        const N_MILLISECONDS = 1000;
+        const N_SECONDS = 3600;
+        const N_HOURS = 24;
+        const nHours = elapsedTime / (N_MILLISECONDS * N_SECONDS) % N_HOURS;
+        const nDays = elapsedTime / (N_MILLISECONDS * N_SECONDS * N_HOURS);
+
+        const ROUND_UP = 10;
+        const roundedNHours = (Math.round(nHours * ROUND_UP) / ROUND_UP);
+        const roundedNDays = Math.round(nDays);
+
+        const N_DAYS_IN_WEEK = 7;
+        const aWeekHasPassed = nDays < N_DAYS_IN_WEEK;
+        console.log(nDays);
+
+        return (aWeekHasPassed && !roundedNHours) ?
+            `${roundedNDays} day(s) ago`
+            : (aWeekHasPassed && !roundedNDays) ?
+                `${roundedNHours} hour(s) ago`
+                : aWeekHasPassed ?
+                    `${roundedNDays} day(s) and ${roundedNHours} hour(s) ago`
+                    : drawingDate.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                    });
+    }
 }
