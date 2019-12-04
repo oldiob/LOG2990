@@ -69,8 +69,6 @@ describe('GridService', () => {
         service.anchor = Compass.E;
         (service as any).mStep = 5;
         const move: number[] = service.realDistanceToMove(box, pos, prevPos);
-        console.log(move);
-        console.log((service as any).mStep);
         const result = vectorMinus(pos, prevPos);
         expect(result[0]).toEqual(move[0]);
         expect(result[1]).toEqual(move[1]);
