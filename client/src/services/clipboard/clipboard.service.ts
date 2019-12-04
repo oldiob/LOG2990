@@ -18,7 +18,10 @@ export class ClipboardService {
     constructor(public selector: SelectorTool, public svg: SVGService) { }
 
     copy(): void {
-        this.copied = Array.from(this.selector.selected.children);
+        this.copied = [];
+        this.selector.selected.children.forEach((child) => {
+            this.copied.push(copySVG(child));
+        });
         this.offset = [0, 0];
     }
 
