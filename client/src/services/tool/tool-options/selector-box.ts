@@ -18,6 +18,7 @@ export class SelectorBox {
     private readonly CIRCLE_RADIUS = 5;
     private readonly COLOR = '#2188ff';
     circles: SVGCircleElement[];
+    private middleCircle: SVGCircleElement;
     private rectangle: SVGRectElement;
     private anchorSquarePositions: number[][];
     private targetedAnchor: number;
@@ -39,8 +40,7 @@ export class SelectorBox {
             [1, 1],
             [0.5, 1],
             [0, 1],
-            [0, 0.5],
-            [0.5, 0.5]);
+            [0, 0.5]);
 
         this.element = DOMRenderer.createElement('g', 'svg');
 
@@ -58,6 +58,17 @@ export class SelectorBox {
             this.circles.push(circle);
             DOMRenderer.appendChild(this.element, circle);
         }
+
+        this.middleCircle = DOMRenderer.createElement('circle', 'svg', {
+            stroke: this.COLOR,
+            'stroke-width': '1',
+            fill: this.COLOR,
+            'fill-opacity': '0.8',
+            r: this.CIRCLE_RADIUS.toString(),
+            cx: (-this.CIRCLE_RADIUS).toString(),
+            cy: (-this.CIRCLE_RADIUS).toString(),
+        });
+        DOMRenderer.appendChild(this.element, this.middleCircle);
 
         this.rectangle = DOMRenderer.createElement('rect', 'svg', {
             'fill-opacity': '0.1',
@@ -96,6 +107,11 @@ export class SelectorBox {
             });
         }
 
+        DOMRenderer.setAttributes(this.middleCircle, {
+            cx: (x + width / 2).toString(),
+            cy: (y + height / 2).toString(),
+        });
+
         this.addToDrawArea();
     }
 
@@ -106,7 +122,7 @@ export class SelectorBox {
 
     onPressed(x: number, y: number): SelectorState {
 
-        for (let i = 0; i < this.circles.length - 1; i++) {
+        for (let i = 0; i < this.circles.length; i++) {
             const circleX: number = this.circles[i].cx.baseVal.value;
             const circleY: number = this.circles[i].cy.baseVal.value;
 
@@ -197,6 +213,6 @@ export class SelectorBox {
     }
 
     get center(): number[] {
-        return [this.circles[8].cx.baseVal.value, this.circles[8].cy.baseVal.value];
+        return [this.middleCircle.cx.baseVal.value, this.middleCircle.cy.baseVal.value];
     }
 }

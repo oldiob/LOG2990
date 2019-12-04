@@ -35,7 +35,7 @@ export class GridService {
         [Compass.S, 5],
         [Compass.SW, 6],
         [Compass.W, 7],
-        [Compass.C, 8],
+        [Compass.C, -1],
     ]);
 
     constructor() {
@@ -147,14 +147,19 @@ export class GridService {
         }
 
         const anchorIndex: number | undefined = this.compassAnchorMap.get(this.anchor);
-        if (!anchorIndex) {
+        if (anchorIndex === undefined) {
             return mouseDelta;
         }
 
-        const boxOffset = vectorMinus(box.mouseOffsetFromCenter, vectorMinus(mousePosition, box.center));
+        let position: number[];
+        if (anchorIndex < 0) {
+            position = box.center;
+        } else {
+            const circleToSnap: SVGCircleElement = box.circles[anchorIndex];
+            position = [circleToSnap.cx.baseVal.value, circleToSnap.cy.baseVal.value];
+        }
 
-        const circleToSnap: SVGCircleElement = box.circles[anchorIndex];
-        const position = [circleToSnap.cx.baseVal.value, circleToSnap.cy.baseVal.value];
+        const boxOffset = vectorMinus(box.mouseOffsetFromCenter, vectorMinus(mousePosition, box.center));
 
         const circleVirtualPosition = vectorPlus(vectorMinus(position, boxOffset), mouseDelta);
         const snappedPosition = [
