@@ -6,6 +6,8 @@ import { SVGService } from 'src/services/svg/svg.service';
 import { Color } from 'src/utils/color';
 import { DrawAreaService } from '../../../services/draw-area/draw-area.service';
 import { WorkZoneService } from '../../../services/work-zone/work-zone.service';
+import { MyInjector } from 'src/utils/injector';
+import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
     selector: 'app-new-drawing',
@@ -162,6 +164,9 @@ export class NewDrawingComponent implements OnInit {
         this.drawAreaService.dirty();
         this.svgService.clearObjects();
         CmdService.reset();
+
+        // for the tool to refresh
+        MyInjector.get(ToolService).currentTool = MyInjector.get(ToolService).currentTool;
     }
 
     onColorRGBAChange() {

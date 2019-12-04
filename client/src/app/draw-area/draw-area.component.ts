@@ -2,7 +2,6 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { GridService } from 'src/services/grid/grid.service';
 import { SVGService } from 'src/services/svg/svg.service';
-import { EraserTool } from 'src/services/tool/tool-options/eraser';
 import { ToolService } from 'src/services/tool/tool.service';
 import { WorkZoneService } from 'src/services/work-zone/work-zone.service';
 import { Color } from 'src/utils/color';
@@ -73,7 +72,7 @@ export class DrawAreaComponent implements OnInit {
             height: currentHeigth + 'px',
             width: currentWidth + 'px',
             'background-color': `${this.backgroundColor.toRGBA()}`,
-            cursor: this.workZoneService.cursor,
+            cursor: this.svgService.cursor,
         };
     }
 

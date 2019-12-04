@@ -22,8 +22,6 @@ export class WorkZoneService {
     private maxWidthSubject: BehaviorSubject<number>;
     private maxHeightSubject: BehaviorSubject<number>;
 
-    cursor: string;
-
     constructor() {
         this.widthValue = 0;
         this.heightValue = 0;
@@ -40,8 +38,6 @@ export class WorkZoneService {
 
         this.maxWidthSubject = new BehaviorSubject<number>(this.widthValue);
         this.maxHeightSubject = new BehaviorSubject<number>(this.heightValue);
-
-        this.cursor = 'crosshair';
     }
 
     get currentWidth(): Observable<number> {
@@ -102,9 +98,5 @@ export class WorkZoneService {
     updateBackgroundColor(color: Color): void {
         this.backgroundColorValue = color;
         this.backgroundColorSubject.next(color);
-    }
-
-    resetCursor(): void {
-        this.cursor = 'crosshair';
     }
 }
