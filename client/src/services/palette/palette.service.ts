@@ -55,10 +55,11 @@ export class PaletteService {
         return this.mSecondary;
     }
 
-    swap() {
+    swap(): void {
         const tmp: Color = this.primary;
         this.primary = this.secondary;
         this.secondary = tmp;
+        ShowcaseSignal.emit();
     }
 
     selectPrimary(r: number, g: number, b: number, a: number) {
