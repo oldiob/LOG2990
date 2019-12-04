@@ -32,6 +32,7 @@ export class SelectorTool implements ITool {
     private dupOffset: number[];
     private state: SelectorState = SelectorState.NONE;
     private transforms: CmdComposite | null;
+    private angle: number;
     readonly tip = 'Selector (S)';
 
     private selectedBeforeUnselect: Set<SVGAbstract>;
@@ -42,6 +43,7 @@ export class SelectorTool implements ITool {
 
     constructor(private svg: SVGService, private grid: GridService) {
 
+        this.angle = 0;
         this.dupOffset = [0, 0];
         this.firstMousePosition = [0, 0];
         this.currentMousePosition = [0, 0];
@@ -140,12 +142,12 @@ export class SelectorTool implements ITool {
     }
 
     onWheel(event: WheelEvent): boolean {
-        const angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
+        this.angle = Math.sign(event.deltaY) * (Math.PI / 180) * (event.altKey ? 1 : 15);
 
         if (!this.isEmpty() && this.transforms && this.state === SelectorState.NONE) {
             const center: number[] = this.selected.position;
             this.transforms.addChild(
-                this.selected.rotateOnPointCommand(angle, center, event.shiftKey));
+                this.selected.rotateOnPointCommand(this.angle, center, event.shiftKey));
             this.updateSelect();
         }
 
