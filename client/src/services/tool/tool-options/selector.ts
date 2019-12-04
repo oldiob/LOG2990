@@ -12,7 +12,7 @@ import { SelectorBox, SelectorState } from 'src/services/tool/tool-options/selec
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { copySVG } from 'src/utils/element-parser';
 import { Rect } from 'src/utils/geo-primitives';
-import { vectorMinus, vectorMultiplyConst, vectorPlus } from 'src/utils/math';
+import { vectorMultiplyConst, vectorPlus } from 'src/utils/math';
 import { ITool } from './i-tool';
 
 declare type callback = () => void;
