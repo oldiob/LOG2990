@@ -18,6 +18,8 @@ describe('SelectorTool', () => {
         selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles', 'hideBox']);
 
         selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
+        const gridService = jasmine.createSpyObj('any', ['realDistanceToMove']);
+        spyOn(gridService, 'realDistanceToMove').and.returnValue([0, 0]);
 
         const entry = jasmine.createSpyObj('any', ['nativeElement']);
         const nativeElement = jasmine.createSpyObj('any', ['getBoundingClientRect']);
@@ -26,7 +28,7 @@ describe('SelectorTool', () => {
 
         svg.getInRect.and.returnValue(new Set<any>([]));
         svg.findAt.and.returnValue(new Set<any>([]));
-        tool = new SelectorTool(svg);
+        tool = new SelectorTool(svg, gridService);
         (tool as any).selectorBox = selectorBox;
         (tool as any).state = selectorState;
 
