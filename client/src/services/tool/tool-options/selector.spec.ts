@@ -1,13 +1,13 @@
 import { CmdComposite } from 'src/services/cmd/cmd.array';
+import { CmdService } from 'src/services/cmd/cmd.service';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
 import { SVGComposite } from 'src/services/svg/element/svg.composite';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
 import { SelectorTool } from './selector';
 import { SelectorBox, SelectorState} from './selector-box';
-import { CmdService } from 'src/services/cmd/cmd.service';
 
-fdescribe('SelectorTool', () => {
+describe('SelectorTool', () => {
 
     let tool: SelectorTool;
     let svg: any;
