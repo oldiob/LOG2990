@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { SVGService } from 'src/services/svg/svg.service';
+import { ToolService } from 'src/services/tool/tool.service';
 import { Color } from 'src/utils/color';
+import { MyInjector } from 'src/utils/injector';
 import { DrawAreaService } from '../../../services/draw-area/draw-area.service';
 import { WorkZoneService } from '../../../services/work-zone/work-zone.service';
-import { MyInjector } from 'src/utils/injector';
-import { ToolService } from 'src/services/tool/tool.service';
 
 @Component({
     selector: 'app-new-drawing',
