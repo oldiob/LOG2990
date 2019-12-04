@@ -56,8 +56,8 @@ export class BucketOptionComponent implements OnInit, IOption<ITool> {
     }
 
     setTolerance(tolerance: number): void {
-        if ((this.currentTool as BucketTool).colorToleranceDelta !== null) {
-            this.currentTool.width = tolerance;
+        if (this.currentTool instanceof BucketTool) {
+            this.currentTool.colorToleranceDelta = tolerance;
         }
     }
 }
