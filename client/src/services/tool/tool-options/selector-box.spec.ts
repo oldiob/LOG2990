@@ -23,8 +23,8 @@ describe('SelectorBox', () => {
         circle.cy = jasmine.createSpyObj('any', ['baseVal']);
         circle.cx.baseVal = jasmine.createSpyObj('any', ['value']);
         circle.cy.baseVal = jasmine.createSpyObj('any', ['value']);
-        circle.cx.baseVal.value = circlePos[0].toString();
-        circle.cy.baseVal.value = circlePos[1].toString();
+        circle.cx.baseVal.value = circlePos[0];
+        circle.cy.baseVal.value = circlePos[1];
         (tool as any).circles = [circle];
 
         const rect = jasmine.createSpyObj('any', ['x', 'y', 'width', 'height']);
@@ -54,24 +54,25 @@ describe('SelectorBox', () => {
         const circleRadius = (tool as any).CIRCLE_RADIUS;
         const cursorOffset = [Math.random() * circleRadius - 1, Math.random() * circleRadius - 1];
 
-        expect(tool.onPressed(circlePos[0] + cursorOffset[0], circlePos[1] + cursorOffset[1])).toBe(SelectorState.SCALING);
+        expect(tool.onPressed(circlePos[0] + cursorOffset[0], circlePos[1] + cursorOffset[1])).toEqual(SelectorState.SCALING);
     });
 
     it('should return moving state', () => {
+
         const cursorOffset = [Math.random() * 10, Math.random() * 10];
 
-        expect(tool.onPressed(cursorOffset[0], cursorOffset[1])).toBe(SelectorState.MOVING);
+        expect(tool.onPressed(cursorOffset[0], cursorOffset[1])).toEqual(SelectorState.MOVING);
     });
 
     it('should return a none state', () => {
-        expect(tool.onPressed(11, 11)).toBe(SelectorState.NONE);
+        expect(tool.onPressed(11, 11)).toEqual(SelectorState.NONE);
     });
 
     it('should return correct opposite index', () => {
         (tool as any).circles = new Array(8);
-        expect((tool as any).getOppositeIndex(0)).toBe(4);
-        expect((tool as any).getOppositeIndex(3)).toBe(7);
-        expect((tool as any).getOppositeIndex(5)).toBe(1);
+        expect((tool as any).getOppositeIndex(0)).toEqual(4);
+        expect((tool as any).getOppositeIndex(3)).toEqual(7);
+        expect((tool as any).getOppositeIndex(5)).toEqual(1);
     });
 
     it('should return correct scaling multiplier', () => {
