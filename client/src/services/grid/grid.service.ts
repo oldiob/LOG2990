@@ -1,8 +1,9 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Compass } from 'src/utils/compass';
-import { Point } from 'src/utils/geo-primitives';
+import { vectorMinus, vectorPlus } from 'src/utils/math';
 import { DOMRenderer } from '../../utils/dom-renderer';
+import { SelectorBox } from '../tool/tool-options/selector-box';
 
 @Injectable({
     providedIn: 'root',
@@ -24,6 +25,18 @@ export class GridService {
     isOn: boolean;
     isOnSubject: BehaviorSubject<boolean>;
     stepSubject: BehaviorSubject<number>;
+
+    private readonly compassAnchorMap = new Map<Compass, number>([
+        [Compass.NW, 0],
+        [Compass.N, 1],
+        [Compass.NE, 2],
+        [Compass.E, 3],
+        [Compass.SE, 4],
+        [Compass.S, 5],
+        [Compass.SW, 6],
+        [Compass.W, 7],
+        [Compass.C, 8],
+    ]);
 
     constructor() {
         this.isOn = false;
@@ -127,42 +140,27 @@ export class GridService {
         }
     }
 
-    snapOnGrid(mouse: Point, distance: Point) {
+    realDistanceToMove(box: SelectorBox, mousePosition: number[], previousMousePosition: number[]): number[] {
+        const mouseDelta = vectorMinus(mousePosition, previousMousePosition);
         if (!this.isMagnetOn) {
-            return [mouse.x, mouse.y];
+            return mouseDelta;
         }
 
-        const anchors: Point[] = new Array(Compass.MAX);
-
-        const LEFT = -1;
-        const RIGHT = 1;
-        const CENTER = 0;
-        const TOP = -1;
-        const BOTTOM = 1;
-        const direction = new Point(LEFT, BOTTOM);
-
-        for (let i = 0; i < Compass.MAX; ++i) {
-            const isWest = (i === Compass.NW) || (i === Compass.W) || (i === Compass.SW);
-            const isEast = (i === Compass.NE) || (i === Compass.E) || (i === Compass.SE);
-            const isNorth = (i === Compass.NW) || (i === Compass.N) || (i === Compass.NE);
-            const isSouth = (i === Compass.SW) || (i === Compass.S) || (i === Compass.SE);
-
-            direction.x = isWest ? LEFT : isEast ? RIGHT : CENTER;
-            direction.y = isNorth ? TOP : isSouth ? BOTTOM : CENTER;
-
-            anchors[i] = new Point(
-                mouse.x + direction.x * distance.x,
-                mouse.y + direction.y * distance.y,
-            );
+        const anchorIndex: number | undefined = this.compassAnchorMap.get(this.anchor);
+        if (!anchorIndex) {
+            return mouseDelta;
         }
-        const offset = this.getRectOffset(anchors);
 
-        return [mouse.x + offset.x, mouse.y + offset.y];
-    }
+        const boxOffset = vectorMinus(box.mouseOffsetFromCenter, vectorMinus(mousePosition, box.center));
 
-    private getRectOffset(anchors: Point[]) {
-        return new Point(
-            Math.round(anchors[this.anchor].x / this.mStep) * this.mStep - anchors[this.anchor].x,
-            Math.round(anchors[this.anchor].y / this.mStep) * this.mStep - anchors[this.anchor].y);
+        const circleToSnap: SVGCircleElement = box.circles[anchorIndex];
+        const position = [circleToSnap.cx.baseVal.value, circleToSnap.cy.baseVal.value];
+
+        const circleVirtualPosition = vectorPlus(vectorMinus(position, boxOffset), mouseDelta);
+        const snappedPosition = [
+            Math.round(circleVirtualPosition[0] / this.mStep) * this.mStep,
+            Math.round(circleVirtualPosition[1] / this.mStep) * this.mStep];
+
+        return vectorMinus(snappedPosition, position);
     }
 }

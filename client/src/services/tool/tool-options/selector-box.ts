@@ -17,12 +17,13 @@ export class SelectorBox {
 
     private readonly CIRCLE_RADIUS = 5;
     private readonly COLOR = '#2188ff';
-    private circles: SVGCircleElement[];
+    circles: SVGCircleElement[];
     private rectangle: SVGRectElement;
     private anchorSquarePositions: number[][];
     private targetedAnchor: number;
 
     element: SVGGElement;
+    mouseOffsetFromCenter: number[];
 
     constructor(private svgService: SVGService) {
 
@@ -38,7 +39,8 @@ export class SelectorBox {
             [1, 1],
             [0.5, 1],
             [0, 1],
-            [0, 0.5]);
+            [0, 0.5],
+            [0.5, 0.5]);
 
         this.element = DOMRenderer.createElement('g', 'svg');
 
@@ -104,7 +106,7 @@ export class SelectorBox {
 
     onPressed(x: number, y: number): SelectorState {
 
-        for (let i = 0; i < this.circles.length; i++) {
+        for (let i = 0; i < this.circles.length - 1; i++) {
             const circleX: number = this.circles[i].cx.baseVal.value;
             const circleY: number = this.circles[i].cy.baseVal.value;
 
@@ -123,6 +125,8 @@ export class SelectorBox {
         const rectH: number = this.rectangle.height.baseVal.value;
 
         if (x >= rectX && y >= rectY && x <= rectX + rectW && y <= rectY + rectH) {
+            this.mouseOffsetFromCenter = vectorMinus([x, y], this.center);
+
             return SelectorState.MOVING;
         }
 
@@ -190,5 +194,9 @@ export class SelectorBox {
     private setReflexionFromCenter(center: number): void {
         const diffFromCenter = center - this.targetedAnchor;
         this.targetedAnchor = (center + diffFromCenter) % this.circles.length;
+    }
+
+    get center(): number[] {
+        return [this.circles[8].cx.baseVal.value, this.circles[8].cy.baseVal.value];
     }
 }
