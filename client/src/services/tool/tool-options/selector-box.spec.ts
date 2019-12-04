@@ -57,23 +57,14 @@
 //         expect(tool.onPressed(circlePos[0] + cursorOffset[0], circlePos[1] + cursorOffset[1])).toEqual(SelectorState.SCALING);
 //     });
 
-<<<<<<< HEAD
     /* TODO
     it('should return moving state', () => {
-=======
-//     it('should return moving state', () => {
->>>>>>> Test out comment selected-box
 
 //         const cursorOffset = [Math.random() * 10, Math.random() * 10];
 
-<<<<<<< HEAD
         expect(tool.onPressed(cursorOffset[0], cursorOffset[1])).toEqual(SelectorState.MOVING);
     });
     */
-=======
-//         expect(tool.onPressed(cursorOffset[0], cursorOffset[1])).toEqual(SelectorState.MOVING);
-//     });
->>>>>>> Test out comment selected-box
 
 //     it('should return a none state', () => {
 //         expect(tool.onPressed(11, 11)).toEqual(SelectorState.NONE);
