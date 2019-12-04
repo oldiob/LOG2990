@@ -79,10 +79,3 @@
     [class.slide-out]="!optionDisplayed && currentOption === textOption"
     [class.slide-in]="optionOpened && currentOption === textOption">
 </app-text-option>
-
-<app-clipboard-option class="toolbar-option disappear"
-    [class.disappear]="!optionDisplayed || currentOption !== clipboardOption"
-    [class.appear]="optionDisplayed && currentOption === clipboardOption"
-    [class.slide-out]="!optionDisplayed && currentOption === clipboardOption"
-    [class.slide-in]="optionOpened && currentOption === clipboardOption">
-</app-clipboard-option>

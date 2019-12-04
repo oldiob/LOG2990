@@ -86,7 +86,6 @@ describe('ToolbarComponent', () => {
         bucketOption = jasmine.createSpyObj('BucketOptionComponent', ['selectTool', 'tools']);
         shapeOption = jasmine.createSpyObj('ShapeOptionComponent', ['selectTool', 'tools']);
         selectorOption = jasmine.createSpyObj('SelectorOptionComponent', ['selectTool', 'tools']);
-        clipboardOption = jasmine.createSpyObj('ClipboardOptionComponent', ['select', 'getImage']);
         option = jasmine.createSpyObj('IOption<any>', ['images', 'select', 'getImage']);
         options = jasmine.createSpyObj('IOption<any>[]', ['images', 'select', 'getImage']);
         fixture = TestBed.createComponent(ToolbarComponent);
@@ -104,7 +103,6 @@ describe('ToolbarComponent', () => {
         component.bucketOption.currentTool = bucketOption.currentTool;
         component.selectorOption = selectorOption;
         component.textOption = textOption;
-        component.clipboardOption = clipboardOption;
         component.ngOnInit();
     });
 
