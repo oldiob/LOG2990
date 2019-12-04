@@ -1,3 +1,4 @@
+import { CmdComposite } from 'src/services/cmd/cmd.array';
 import { SVGService } from 'src/services/svg/svg.service';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { MyInjector } from 'src/utils/injector';
@@ -43,6 +44,7 @@ describe('EraserTool', () => {
 
     it('On release should turn isActivated to false', () => {
         (eraser as any).isActivated = true;
+        (eraser as any).cmd = new CmdComposite();
         eraser.onReleased(event);
         expect((eraser as any).isActivated).toEqual(false);
     });

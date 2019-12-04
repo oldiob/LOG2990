@@ -13,7 +13,7 @@ describe('SelectorTool', () => {
         const renderer = jasmine.createSpyObj('Renderer2', ['createElement', 'setAttribute', 'appendChild', 'removeChild', 'setStyle']);
         DOMRenderer.renderer = renderer;
 
-        svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
+        svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry', 'resetCursor', 'cursor']);
 
         selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles', 'hideBox']);
 
