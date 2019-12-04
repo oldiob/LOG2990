@@ -64,7 +64,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     selectFontSize(fontSize: number): void {
         this.text.fontSize = fontSize;
-        if (this.text.element !== null) {
+        if (this.text.element) {
             this.text.element.setFontSize(fontSize);
         }
 
@@ -74,7 +74,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
     selectFontFamily(fontFamily: string): void {
         this.currentFontFamily = fontFamily;
         this.text.fontFamily = this.currentFontFamily;
-        if (this.text.element !== null) {
+        if (this.text.element) {
             this.text.element.setFontFamily(fontFamily);
         }
 
@@ -90,7 +90,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
         } else if (textAlign === TextFormat.ALIGNRIGHT) {
             this.isAlignRight = true;
         }
-        if (this.text.element !== null) {
+        if (this.text.element) {
             this.text.element.setTextAlign(textAlign);
         }
         this.text.setTextAlign(textAlign);
@@ -105,7 +105,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     toggleBold(): void {
         this.isBold = !this.isBold;
-        if (this.text.element !== null) {
+        if (this.text.element) {
             if (this.isBold) {
                 this.text.element.setFontWeight(TextFormat.BOLD);
                 this.text.fontWeigth = TextFormat.BOLD;
@@ -119,7 +119,7 @@ export class TextOptionComponent implements OnInit, IOption<ITool> {
 
     toggleItalic(): void {
         this.isItalic = !this.isItalic;
-        if (this.text.element !== null) {
+        if (this.text.element) {
             if (this.isItalic) {
                 this.text.element.setFontStyle(TextFormat.ITALIC);
                 this.text.fontStyle = TextFormat.ITALIC;

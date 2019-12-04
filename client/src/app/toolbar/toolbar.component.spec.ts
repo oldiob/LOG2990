@@ -7,6 +7,7 @@ import {
 } from '@angular/material';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 import { ClipboardService } from 'src/services/clipboard/clipboard.service';
 import { CmdService } from 'src/services/cmd/cmd.service';
 import { DialogService } from 'src/services/dialog/dialog.service';
@@ -60,9 +61,20 @@ describe('ToolbarComponent', () => {
                 BrowserAnimationsModule, BrowserDynamicTestingModule,
                 ReactiveFormsModule, MatButtonModule, MatCheckboxModule,
                 MatOptionModule, MatFormFieldModule, MatSnackBarModule],
-            declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
-                ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
-                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
+            declarations: [
+                BucketOptionComponent,
+                GalleryOptionComponent,
+                GridOptionComponent,
+                NewDrawingComponent,
+                SaveOptionComponent,
+                SelectorOptionComponent,
+                ShapeOptionComponent,
+                ShowcaseComponent,
+                ThumbnailComponent,
+                ToolOptionComponent,
+                TextOptionComponent,
+                ToolbarComponent,
+            ],
             providers: [
                 { provide: DrawAreaService, useValue: drawareaService },
                 { provide: DialogService, useValue: dialogService },

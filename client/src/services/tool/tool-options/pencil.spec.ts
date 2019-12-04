@@ -27,7 +27,6 @@ describe('PencilTool', () => {
         event.svgY = Math.floor(Math.random() * 1000);
         pencil = new PencilTool(paletteService);
         svgPencil.element = element;
-        spyOn(svgPencil.element, 'attributes').and.returnValue(element.attributes);
         pencil.element = svgPencil;
     });
 
