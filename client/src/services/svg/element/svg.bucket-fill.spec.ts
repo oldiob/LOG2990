@@ -1,12 +1,12 @@
 // import { Color } from 'src/utils/color';
+import { Color } from 'src/utils/color';
 import { DOMRenderer } from 'src/utils/dom-renderer';
+import { ImageManipulations } from 'src/utils/image-manipulations';
 import { MyInjector } from 'src/utils/injector';
 import { SVGBucketFill } from './svg.bucket-fill';
-import { Color } from 'src/utils/color';
-import { ImageManipulations } from 'src/utils/image-manipulations';
 // import { SVGBucketFill } from './svg.bucket-fill';
 
-fdescribe('SVGBucketFill', () => {
+describe('SVGBucketFill', () => {
 
     let bucketFill: SVGBucketFill;
 
@@ -28,4 +28,14 @@ fdescribe('SVGBucketFill', () => {
         expect(bucketFill).toBeTruthy();
     });
 
+    it('should set correct dimansions', () => {
+        const positions = [[10, 20], [12, 25], [15, 32]];
+
+        (bucketFill as any).findDimensions(positions);
+        expect((bucketFill as any).imagePosition).toEqual([10, 20]);
+        expect((bucketFill as any).size).toEqual([6, 13]);
+
+        (bucketFill as any).normalizePositions(positions);
+        expect(positions).toEqual([[0, 0], [2, 5], [5, 12]]);
+    });
 });
