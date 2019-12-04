@@ -19,7 +19,7 @@ export class SelectorBox {
     private readonly COLOR = '#2188ff';
     circles: SVGCircleElement[];
     private middleCircle: SVGCircleElement;
-    private rectangle: SVGRectElement;
+    rectangle: SVGRectElement;
     private anchorSquarePositions: number[][];
     private targetedAnchor: number;
 
@@ -44,21 +44,6 @@ export class SelectorBox {
 
         this.element = DOMRenderer.createElement('g', 'svg');
 
-        for (const _ of this.anchorSquarePositions) {
-            const circle = DOMRenderer.createElement('circle', 'svg', {
-                stroke: this.COLOR,
-                'stroke-width': '1',
-                fill: this.COLOR,
-                'fill-opacity': '0.8',
-                r: this.CIRCLE_RADIUS.toString(),
-                cx: (-this.CIRCLE_RADIUS).toString(),
-                cy: (-this.CIRCLE_RADIUS).toString(),
-            });
-
-            this.circles.push(circle);
-            DOMRenderer.appendChild(this.element, circle);
-        }
-
         this.middleCircle = DOMRenderer.createElement('circle', 'svg', {
             stroke: this.COLOR,
             'stroke-width': '1',
@@ -80,8 +65,25 @@ export class SelectorBox {
             y: (-this.CIRCLE_RADIUS).toString(),
             width: '0',
             height: '0',
+            cursor: 'grab',
         });
         DOMRenderer.appendChild(this.element, this.rectangle);
+
+        for (const _ of this.anchorSquarePositions) {
+            const circle = DOMRenderer.createElement('circle', 'svg', {
+                stroke: this.COLOR,
+                'stroke-width': '1',
+                fill: this.COLOR,
+                'fill-opacity': '0.8',
+                r: this.CIRCLE_RADIUS.toString(),
+                cx: (-this.CIRCLE_RADIUS).toString(),
+                cy: (-this.CIRCLE_RADIUS).toString(),
+                cursor: 'pointer',
+            });
+
+            this.circles.push(circle);
+            DOMRenderer.appendChild(this.element, circle);
+        }
     }
 
     setBox(domRect: DOMRect): void {
