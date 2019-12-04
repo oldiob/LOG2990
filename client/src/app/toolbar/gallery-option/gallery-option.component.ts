@@ -228,7 +228,6 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
 
         const N_DAYS_IN_WEEK = 7;
         const aWeekHasPassed = nDays < N_DAYS_IN_WEEK;
-        console.log(nDays);
 
         return (aWeekHasPassed && !roundedNHours) ?
             `${roundedNDays} day(s) ago`
@@ -237,10 +236,11 @@ export class GalleryOptionComponent implements OnInit, IOption<string> {
                 : aWeekHasPassed ?
                     `${roundedNDays} day(s) and ${roundedNHours} hour(s) ago`
                     : drawingDate.toLocaleDateString('en-US', {
-                        weekday: 'long',
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
                     });
     }
 }
