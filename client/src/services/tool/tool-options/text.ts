@@ -4,7 +4,6 @@ import { KeyService } from 'src/services/key/key.service';
 import { PaletteService } from 'src/services/palette/palette.service';
 import { SVGText } from 'src/services/svg/element/svg.text';
 import { SVGService } from 'src/services/svg/svg.service';
-import { Color } from 'src/utils/color';
 import { MyInjector } from 'src/utils/injector';
 import { ITool } from './i-tool';
 declare type callback = () => void;
@@ -53,12 +52,7 @@ export class TextTool implements ITool {
             this.startEdit();
             this.element = new SVGText(this.keyService, event.svgX, event.svgY, this.fontFamily,
                 this.fontSize, this.textAlign, this.fontStyle, this.fontWeigth);
-            this.paletteService.primaryObs$.subscribe((color: Color) => {
-                if (this.element !== null) {
-                    this.element.setPrimary(color.toRGBA());
-                }
-            });
-
+            this.element.setPrimary(this.paletteService.getPrimary());
             return new CmdSVG(this.element);
         } else if (this.element && !this.clickAlign) {
             if (this.element.isNewElement) {
@@ -175,10 +169,10 @@ export class TextTool implements ITool {
         mouseEvent.svgY = y / 2.0;
 
         const element = this.onPressed(mouseEvent);
-
         const textShowcase: object = {
             key: this.SHOWCASE_DEFAULT,
         };
+        this.finishEdit();
         this.onKeydown(textShowcase as KeyboardEvent);
         this.element = previousElement;
         return element;
