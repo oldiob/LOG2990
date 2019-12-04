@@ -23,8 +23,8 @@ describe('SelectorBox', () => {
         circle.cy = jasmine.createSpyObj('any', ['baseVal']);
         circle.cx.baseVal = jasmine.createSpyObj('any', ['value']);
         circle.cy.baseVal = jasmine.createSpyObj('any', ['value']);
-        circle.cx.baseVal.value = circlePos[0];
-        circle.cy.baseVal.value = circlePos[1];
+        circle.cx.baseVal.value = circlePos[0].toString();
+        circle.cy.baseVal.value = circlePos[1].toString();
         (tool as any).circles = [circle];
 
         const rect = jasmine.createSpyObj('any', ['x', 'y', 'width', 'height']);
