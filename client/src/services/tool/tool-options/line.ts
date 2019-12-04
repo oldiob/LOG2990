@@ -15,11 +15,11 @@ export class LineTool implements ITool {
 
     private readonly DEFAULT_WIDTH = 5;
     private readonly LINE_TIP = 'Line (L)';
+    private cmd: CmdSVG;
+    private element: SVGLine | null;
     readonly tip: string;
 
-    element: SVGLine | null = null;
     width: number;
-    cmd: CmdSVG;
     junctionWidth: number;
     lineType: LineType;
     junctionType: JunctionType;
@@ -28,6 +28,7 @@ export class LineTool implements ITool {
         this.tip = this.LINE_TIP;
         this.width = this.DEFAULT_WIDTH;
         this.junctionWidth = this.DEFAULT_WIDTH;
+        this.element = null;
     }
 
     onPressed(event: MouseEvent): null {
