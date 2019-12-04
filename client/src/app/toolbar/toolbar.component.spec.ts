@@ -15,7 +15,6 @@ import { IOption } from 'src/services/tool/tool-options/i-option';
 import { DOMRenderer } from 'src/utils/dom-renderer';
 import { NewDrawingComponent } from '../popups/new-drawing/new-drawing.component';
 import { BucketOptionComponent } from './bucket-option/bucket-option.component';
-import { ClipboardOptionComponent } from './clipboard-option/clipboard-option.component';
 import { GalleryOptionComponent } from './gallery-option/gallery-option.component';
 import { GridOptionComponent } from './grid-option/grid-option.component';
 import { SaveOptionComponent } from './save-option/save-option.component';
@@ -37,7 +36,6 @@ describe('ToolbarComponent', () => {
     let selectorOption: SelectorOptionComponent;
     let textOption: TextOptionComponent;
     let gridOption: GridOptionComponent;
-    let clipboardOption: ClipboardOptionComponent;
     let clipboardService: ClipboardService;
     let option: IOption<any>;
     let options: IOption<any>[];
@@ -64,7 +62,7 @@ describe('ToolbarComponent', () => {
                 MatOptionModule, MatFormFieldModule, MatSnackBarModule],
             declarations: [ToolbarComponent, ToolOptionComponent, BucketOptionComponent,
                 ShapeOptionComponent, ShowcaseComponent, NewDrawingComponent, SaveOptionComponent,
-                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent, ClipboardOptionComponent],
+                GalleryOptionComponent, SelectorOptionComponent, GridOptionComponent, TextOptionComponent],
             providers: [
                 { provide: DrawAreaService, useValue: drawareaService },
                 { provide: DialogService, useValue: dialogService },
