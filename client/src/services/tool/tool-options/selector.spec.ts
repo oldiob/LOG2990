@@ -15,7 +15,7 @@ describe('SelectorTool', () => {
 
         svg = jasmine.createSpyObj('SVGService', ['addElement', 'removeElement', 'getInRect', 'findAt', 'entry']);
 
-        selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles']);
+        selectorBox = jasmine.createSpyObj('SelectorBox', ['onPressed', 'circles', 'hideBox']);
 
         selectorState = jasmine.createSpyObj('SelectorState', ['NONE', 'SELECTING', 'DESELECTING', 'SELECTED', 'MOVING', 'SCALING']);
 
