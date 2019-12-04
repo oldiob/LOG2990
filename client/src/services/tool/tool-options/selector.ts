@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CmdComposite } from 'src/services/cmd/cmd.array';
-import { CmdEraser } from 'src/services/cmd/cmd.eraser';
+import { CmdErase } from 'src/services/cmd/cmd.eraser';
 import { CmdInterface, CmdService } from 'src/services/cmd/cmd.service';
 import { CmdSVG } from 'src/services/cmd/cmd.svg';
 import { SVGAbstract } from 'src/services/svg/element/svg.abstract';
@@ -323,9 +323,9 @@ export class SelectorTool implements ITool {
     }
 
     erase(): void {
-        const cmd: CmdEraser = new CmdEraser();
+        const cmd: CmdComposite = new CmdComposite();
         this.selected.children.forEach((obj) => {
-            cmd.eraseObject(obj);
+            cmd.addChild(new CmdErase(obj));
         });
         CmdService.execute(cmd);
         this.clearSelection();
